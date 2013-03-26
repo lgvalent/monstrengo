@@ -6,14 +6,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class ApplicationBasicTest {
+	
+	public static String APPLICATION_CONTEXT_PATH = "applicationContext.xml";
 
 	protected ApplicationContext ctx;
 
 	@Before
 	public void setUp() throws Exception {
-		System.out.println("setup ApplicationBasic");
-		ctx = new FileSystemXmlApplicationContext("applicationContext.xml");
-
+		System.out.println("setup ApplicationBasic using file: " + APPLICATION_CONTEXT_PATH);
+		ctx = new FileSystemXmlApplicationContext(APPLICATION_CONTEXT_PATH);
 	}
 
 	@After
