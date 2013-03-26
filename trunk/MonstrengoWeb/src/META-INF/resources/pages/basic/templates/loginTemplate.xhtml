@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <title><ui:insert name="title"></ui:insert></title>
+    </h:head>
+
+    <h:body>
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="top" height="100">
+                <div id="superior">
+                    <h:outputText value="ManuLab" /><br />
+                    <h:outputText value="Sistema de Solicitações de Manutenção e Auxílio da COGET" />
+                </div>
+            </p:layoutUnit>
+            <p:layoutUnit position="bottom" height="50">
+                <div class="text-bottom">
+                    <h:outputFormat value="Universidade Tecnológica Federal do Paraná - Campus Campo Mourão" /><br />
+                    <h:outputText value="BR 369 - km 0,5 87301-006 - Caixa Postal: 271 - Campo Mourão - PR - Brasil" /><br />
+                    <h:outputText value="Telefone Geral +55 (44) 3518-1400 - "/>
+                    <h:outputLink value="http://www.utfpr.edu.br/campomourao" target="blank">http://www.utfpr.edu.br/campomourao</h:outputLink>
+                </div>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <ui:insert name="content"></ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

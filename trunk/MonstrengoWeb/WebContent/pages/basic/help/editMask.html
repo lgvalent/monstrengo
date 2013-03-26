@@ -1,0 +1,292 @@
+<h4>Ajuda</h4>
+
+<p align="justify">
+Preecha os dados conforme indica o formato que se encontra abaixo
+dos campos do cadastro, digitando inclusive, os caracteres '.' e '-'
+para que as informações a serem cadastradas sejam corretamente validadas.</p>
+
+<h4>Exemplos</h4>
+
+ <table border="1" cellpadding="2" cellspacing="3" bordercolor="#ccccff" style="border-collapse: collapse">
+     <tbody><tr bgcolor="#ccccff">
+         <th align="left">Formato indicado
+         </th><th align="left">Dados preenchidos
+     </th></tr><tr>
+         <td>Campo para datas: "dd/MM/yyyy"
+
+         </td><td> 01/01/2000
+     </td></tr><tr bgcolor="#eeeeff">
+         <td>Campo para CPF: "###.###.###-##"
+         </td><td> 123.123.123-12
+     </td></tr><tr>
+         <td>Campo para CEP: "#####-###"
+         </td><td> 12345-123
+     </td></tr></tbody></table>
+
+<!--  
+<h4>Date and Time Patterns</h4>
+
+ <p>
+ Date and time formats are specified by <em>date and time pattern</em>
+ strings.
+ Within date and time pattern strings, unquoted letters from
+ <code>'A'</code> to <code>'Z'</code> and from <code>'a'</code> to
+ <code>'z'</code> are interpreted as pattern letters representing the
+ components of a date or time string.
+ Text can be quoted using single quotes (<code>'</code>) to avoid
+ interpretation.
+ <code>"''"</code> represents a single quote.
+ All other characters are not interpreted; they're simply copied into the
+ output string during formatting or matched against the input string
+ during parsing.
+ </p><p>
+
+ The following pattern letters are defined (all other characters from
+ <code>'A'</code> to <code>'Z'</code> and from <code>'a'</code> to
+ <code>'z'</code> are reserved):
+ </p><blockquote>
+ <table summary="Chart shows pattern letters, date/time component, presentation, and examples." border="0" cellpadding="0" cellspacing="3">
+
+     <tbody><tr bgcolor="#ccccff">
+         <th align="left">Letter
+         </th><th align="left">Date or Time Component
+         </th><th align="left">Presentation
+         </th><th align="left">Examples
+     </th></tr><tr>
+         <td><code>G</code>
+         </td><td>Era designator
+         </td><td><a href="#text">Text</a>
+         </td><td><code>AD</code>
+
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>y</code>
+         </td><td>Year
+         </td><td><a href="#year">Year</a>
+         </td><td><code>1996</code>; <code>96</code>
+     </td></tr><tr>
+         <td><code>M</code>
+
+         </td><td>Month in year
+         </td><td><a href="#month">Month</a>
+         </td><td><code>July</code>; <code>Jul</code>; <code>07</code>
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>w</code>
+         </td><td>Week in year
+         </td><td><a href="#number">Number</a>
+
+         </td><td><code>27</code>
+     </td></tr><tr>
+         <td><code>W</code>
+         </td><td>Week in month
+         </td><td><a href="#number">Number</a>
+         </td><td><code>2</code>
+     </td></tr><tr bgcolor="#eeeeff">
+
+         <td><code>D</code>
+         </td><td>Day in year
+         </td><td><a href="#number">Number</a>
+         </td><td><code>189</code>
+     </td></tr><tr>
+         <td><code>d</code>
+         </td><td>Day in month
+         </td><td><a href="#number">Number</a>
+
+         </td><td><code>10</code>
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>F</code>
+         </td><td>Day of week in month
+         </td><td><a href="#number">Number</a>
+         </td><td><code>2</code>
+     </td></tr><tr>
+
+         <td><code>E</code>
+         </td><td>Day in week
+         </td><td><a href="#text">Text</a>
+         </td><td><code>Tuesday</code>; <code>Tue</code>
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>a</code>
+
+         </td><td>Am/pm marker
+         </td><td><a href="#text">Text</a>
+         </td><td><code>PM</code>
+     </td></tr><tr>
+         <td><code>H</code>
+         </td><td>Hour in day (0-23)
+         </td><td><a href="#number">Number</a>
+         </td><td><code>0</code>
+
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>k</code>
+         </td><td>Hour in day (1-24)
+         </td><td><a href="#number">Number</a>
+         </td><td><code>24</code>
+     </td></tr><tr>
+         <td><code>K</code>
+
+         </td><td>Hour in am/pm (0-11)
+         </td><td><a href="#number">Number</a>
+         </td><td><code>0</code>
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>h</code>
+         </td><td>Hour in am/pm (1-12)
+         </td><td><a href="#number">Number</a>
+         </td><td><code>12</code>
+
+     </td></tr><tr>
+         <td><code>m</code>
+         </td><td>Minute in hour
+         </td><td><a href="#number">Number</a>
+         </td><td><code>30</code>
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>s</code>
+
+         </td><td>Second in minute
+         </td><td><a href="#number">Number</a>
+         </td><td><code>55</code>
+     </td></tr><tr>
+         <td><code>S</code>
+         </td><td>Millisecond
+         </td><td><a href="#number">Number</a>
+         </td><td><code>978</code>
+
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>z</code>
+         </td><td>Time zone
+         </td><td><a href="#timezone">General time zone</a>
+         </td><td><code>Pacific Standard Time</code>; <code>PST</code>; <code>GMT-08:00</code>
+     </td></tr><tr>
+
+         <td><code>Z</code>
+         </td><td>Time zone
+         </td><td><a href="#rfc822timezone">RFC 822 time zone</a>
+         </td><td><code>-0800</code>
+ </td></tr></tbody></table>
+ </blockquote>
+ Pattern letters are usually repeated, as their number determines the
+ exact presentation:
+ <ul>
+
+ <li><strong><a name="text">Text:</a></strong>
+     For formatting, if the number of pattern letters is 4 or more,
+     the full form is used; otherwise a short or abbreviated form
+     is used if available.
+     For parsing, both forms are accepted, independent of the number
+     of pattern letters.
+ </li><li><strong><a name="number">Number:</a></strong>
+     For formatting, the number of pattern letters is the minimum
+     number of digits, and shorter numbers are zero-padded to this amount.
+     For parsing, the number of pattern letters is ignored unless
+     it's needed to separate two adjacent fields.
+ </li><li><strong><a name="year">Year:</a></strong>
+     For formatting, if the number of pattern letters is 2, the year
+     is truncated to 2 digits; otherwise it is interpreted as a
+     <a href="#number">number</a>.
+     <p>For parsing, if the number of pattern letters is more than 2,
+     the year is interpreted literally, regardless of the number of
+     digits. So using the pattern "MM/dd/yyyy", "01/11/12" parses to
+     Jan 11, 12 A.D.
+     </p><p>For parsing with the abbreviated year pattern ("y" or "yy"),
+     <code>SimpleDateFormat</code> must interpret the abbreviated year
+     relative to some century.  It does this by adjusting dates to be
+     within 80 years before and 20 years after the time the <code>SimpleDateFormat</code>
+
+     instance is created. For example, using a pattern of "MM/dd/yy" and a
+     <code>SimpleDateFormat</code> instance created on Jan 1, 1997,  the string
+     "01/11/12" would be interpreted as Jan 11, 2012 while the string "05/04/64"
+     would be interpreted as May 4, 1964.
+     During parsing, only strings consisting of exactly two digits, as defined by
+     <a href="../../java/lang/Character.html#isDigit%28char%29"><code>Character.isDigit(char)</code></a>, will be parsed into the default century.
+     Any other numeric string, such as a one digit string, a three or more digit
+     string, or a two digit string that isn't all digits (for example, "-1"), is
+     interpreted literally.  So "01/02/3" or "01/02/003" are parsed, using the
+     same pattern, as Jan 2, 3 AD.  Likewise, "01/02/-3" is parsed as Jan 2, 4 BC.
+ </p></li><li><strong><a name="month">Month:</a></strong>
+     If the number of pattern letters is 3 or more, the month is
+     interpreted as <a href="#text">text</a>; otherwise,
+     it is interpreted as a <a href="#number">number</a>.
+ </li><li><strong><a name="timezone">General time zone:</a></strong>
+
+     Time zones are interpreted as <a href="#text">text</a> if they have
+     names. For time zones representing a GMT offset value, the
+     following syntax is used:
+     <pre>     <a name="GMTOffsetTimeZone"><i>GMTOffsetTimeZone:</i></a>
+             <code>GMT</code> <i>Sign</i> <i>Hours</i> <code>:</code> <i>Minutes</i>
+
+     <i>Sign:</i> one of
+             <code>+ -</code>
+     <i>Hours:</i>
+             <i>Digit</i>
+             <i>Digit</i> <i>Digit</i>
+
+     <i>Minutes:</i>
+             <i>Digit</i> <i>Digit</i>
+     <i>Digit:</i> one of
+             <code>0 1 2 3 4 5 6 7 8 9</code></pre>
+     <i>Hours</i> must be between 0 and 23, and <i>Minutes</i> must be between
+     00 and 59. The format is locale independent and digits must be taken
+     from the Basic Latin block of the Unicode standard.
+     <p>For parsing, <a href="#rfc822timezone">RFC 822 time zones</a> are also
+     accepted.
+ </p></li><li><strong><a name="rfc822timezone">RFC 822 time zone:</a></strong>
+
+     For formatting, the RFC 822 4-digit time zone format is used:
+     <pre>     <i>RFC822TimeZone:</i>
+             <i>Sign</i> <i>TwoDigitHours</i> <i>Minutes</i>
+     <i>TwoDigitHours:</i>
+             <i>Digit Digit</i></pre>
+
+     <i>TwoDigitHours</i> must be between 00 and 23. Other definitions
+     are as for <a href="#timezone">general time zones</a>.
+     <p>For parsing, <a href="#timezone">general time zones</a> are also
+     accepted.
+ </p></li></ul>
+ <code>SimpleDateFormat</code> also supports <em>localized date and time
+ pattern</em> strings. In these strings, the pattern letters described above
+ may be replaced with other, locale dependent, pattern letters.
+ <code>SimpleDateFormat</code> does not deal with the localization of text
+ other than the pattern letters; that's up to the client of the class.
+ <p>
+
+ </p><h4>Examples</h4>
+
+ The following examples show how date and time patterns are interpreted in
+ the U.S. locale. The given date and time are 2001-07-04 12:08:56 local time
+ in the U.S. Pacific Time time zone.
+ <blockquote>
+ <table summary="Examples of date and time patterns interpreted in the U.S. locale" border="0" cellpadding="0" cellspacing="3">
+     <tbody><tr bgcolor="#ccccff">
+         <th align="left">Date and Time Pattern
+         </th><th align="left">Result
+     </th></tr><tr>
+         <td><code>"yyyy.MM.dd G 'at' HH:mm:ss z"</code>
+
+         </td><td><code>2001.07.04 AD at 12:08:56 PDT</code>
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>"EEE, MMM d, ''yy"</code>
+         </td><td><code>Wed, Jul 4, '01</code>
+     </td></tr><tr>
+         <td><code>"h:mm a"</code>
+         </td><td><code>12:08 PM</code>
+
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>"hh 'o''clock' a, zzzz"</code>
+         </td><td><code>12 o'clock PM, Pacific Daylight Time</code>
+     </td></tr><tr>
+         <td><code>"K:mm a, z"</code>
+         </td><td><code>0:08 PM, PDT</code>
+     </td></tr><tr bgcolor="#eeeeff">
+
+         <td><code>"yyyyy.MMMMM.dd GGG hh:mm aaa"</code>
+         </td><td><code>02001.July.04 AD 12:08 PM</code>
+     </td></tr><tr>
+         <td><code>"EEE, d MMM yyyy HH:mm:ss Z"</code>
+         </td><td><code>Wed, 4 Jul 2001 12:08:56 -0700</code>
+     </td></tr><tr bgcolor="#eeeeff">
+         <td><code>"yyMMddHHmmssZ"</code>
+
+         </td><td><code>010704120856-0700</code>
+ </td></tr></tbody></table>
+ </blockquote>
+
+ <h4>
+ -->

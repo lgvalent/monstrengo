@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- Uma variável 'paramEntity' (ProcessParamEntity) deve ser fornecida para esta visão -->
+<!-- USO
+	<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+           <ui:param name="paramEntity" value="#{currentProperty}"/>
+	</ui:include>
+ -->
+<p:autoComplete id="findParamEntity#{paramEntity.info.type.simpleName}"
+	required="#{paramEntity.required}"
+	dropdown="false" 
+	completeMethod="#{paramEntity.getList}" var="item1234"
+	size="40" maxResults="10" minQueryLength="3"
+	queryDelay="300"
+	value="#{paramEntity.value}"
+	itemValue="#{item1234}"
+	itemLabel="#{item1234}" converter="EntityConverter"
+	title="Comece a digitar para buscar um valor"
+	onfocus="setActiveComponent(this)">
+</p:autoComplete>
+	<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+          <ui:param name="entityMetadata" value="#{paramEntity.info}"/>
+          <ui:param name="noShowLabel" value="true"/>
+	</ui:include>
+
+	<p:watermark for="findParamEntity#{paramEntity.info.type.simpleName}" value="Busque qualquer conteúdo para #{paramEntity.info.label}"/>
+</html>

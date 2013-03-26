@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+		<ui:param name="title" value="Últimos cadastros visualizados" />
+		<ui:param name="icon" value="../basic/img/lastEntityViews.png" />
+		<ui:param name="description" value="Abaixo são listados os últimos cadastros visualizados por você.&lt;br/>Use esta lista para evitar a busca sucessiva por um mesmo cadastro e agilize o seu trabalho." />
+		
+		<ui:define name="content">
+			<h:dataTable  id="lastViewsTable"
+				value="#{retrieveBean.lastViews}" var="item"
+				rowClasses="tableListRowEven,tableListRowOdd"
+				columnClasses="tableListColumn"
+				style="border-collapse: collapse; white-space: nowrap; width:100%;"
+				>
+				<h:column>
+					<h:outputLink value="javascript:linkRetrieve('#{item.info.type.name}', '#{item.id}')">
+						<h:graphicImage value="../basic/img/retrieve.png"
+							title="Visualiza os detalhes do registro" style="border:0" />
+						<h:outputText value="#{item.info.label}: #{item}" />
+					</h:outputLink>
+				</h:column>
+			</h:dataTable>
+		</ui:define>
+	
+		<ui:define name="actions">
+		</ui:define>
+	
+		<ui:define name="result">
+		</ui:define>
+	</ui:composition>
+</html>

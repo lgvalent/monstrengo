@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<title>Pesquisa avançada</title>
+	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+		media="screen" />
+	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+		type="text/css" media="print" />
+	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+		type="text/css" />
+
+	<script language="javaScript" src="../basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../basic/js/interface.js"></script>
+	<script language="javaScript" src="../basic/js/utils.js"></script>
+	<script language="javaScript">
+			var borderCreator = new BorderCreator('');
+			var gridCreator = new GridCreator();
+	</script>
+
+</h:head>
+<h:body>
+	<h:form id="formQuery">
+		<!-- Sincroniza a atual entidade manipulada pela view -->
+		<h:inputHidden immediate="true" id="currentEntityKey"
+			value="#{queryBean.currentEntityKey}"
+			validator="#{queryBean.validateCurrentEntityKey}" />
+		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forçe a reconstrução quando necessário -->
+		<h:inputHidden immediate="true"
+			binding="#{queryBean.inputCurrentEntityKey}" />
+		<!--/h:form-->
+		<!-- Lucio 20090819: Retirado até achar uma solução de personalização por usuário para que ele escolha usar ou não os popups
+		f:verbatim>
+   		<div class="floatMenu noprint">
+			ir para 
+            <img width="16" height="16" src="../basic/img/close.png" style="border: 0pt none ;" title="Fechar" onmousedown="this.parentNode.style.display='none'"> 
+   			<a href="#" >topo</a>
+   			<a href="#hqlWhere" >expressão</a>
+   			<a href="#condiction" >filtro</a>
+   			<a href="#order" >ordenação</a>
+   			<a href="#body" >resultado</a>
+   			<a href="#labels" >etiquetas</a>
+   		</div>
+	</f:verbatim-->
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr valign="top">
+				<td><h:panelGroup styleClass="parentGroupHeader"
+						rendered="#{queryBean.currentProcess.userReport.parentParam.hasParent}">
+						<script>
+							borderCreator.initDarkBorder('100%', '', 'center',
+									'top')
+						</script>
+						<ui:include src="/pages/basic/tiles/query/queryParent.xhtml" />
+						<script>
+							borderCreator.endDarkBorder()
+						</script>
+					</h:panelGroup>
+				</td>
+			</tr>
+			<tr>
+				<td><a name="filter" /> <script>
+					borderCreator.initDarkBorder('100%', '', 'left', 'top')
+				</script> <ui:include src="/pages/basic/tiles/query/queryFilter.xhtml" /> <script>
+					borderCreator.endDarkBorder()
+				</script></td>
+			</tr>
+			<tr>
+				<td><h:panelGroup
+						rendered="#{queryBean.currentParams.advancedUserReport == true}">
+						<script>
+							borderCreator.initDarkBorder('100%', '', 'left',
+									'top')
+						</script>
+						<ui:include src="/pages/basic/tiles/query/queryUserReport.xhtml" />
+						<script>
+							borderCreator.endDarkBorder()
+						</script>
+					</h:panelGroup>
+				</td>
+			</tr>
+			<tr>
+				<td><a name="hqlWhere" /> <h:panelGroup id="advancedHqlWhere"
+						rendered="#{queryBean.currentParams.advancedHqlWhere == true}">
+						<script>
+							borderCreator.initDarkBorder('100%', '', 'left',
+									'top')
+						</script>
+						<ui:include src="/pages/basic/tiles/query/queryHqlWhere.xhtml" />
+						<script>
+							borderCreator.endDarkBorder()
+						</script>
+					</h:panelGroup>
+				</td>
+			</tr>
+			<tr>
+				<td><h:panelGroup id="advancedQuery"
+						rendered="#{queryBean.currentParams.advancedQuery == true}">
+						<script>
+							borderCreator.initDarkBorder('100%', '', 'left',
+									'top')
+						</script>
+						<ui:include src="/pages/basic/tiles/query/queryCondiction.xhtml" />
+						<script>
+							borderCreator.endDarkBorder()
+						</script>
+					</h:panelGroup>
+				</td>
+			</tr>
+			<tr>
+				<td><a name="order" /> <h:panelGroup id="advancedOrder"
+						rendered="#{queryBean.currentParams.advancedOrder == true}">
+						<script>
+							borderCreator.initDarkBorder('100%', '', 'left',
+									'top')
+						</script>
+						<ui:include
+							src="/pages/basic/tiles/query/queryOrderCondiction.xhtml" />
+						<script>
+							borderCreator.endDarkBorder()
+						</script>
+					</h:panelGroup>
+				</td>
+			</tr>
+			<tr>
+				<td><h:panelGroup id="advancedResult"
+						rendered="#{queryBean.currentParams.advancedResult == true}">
+						<script>
+							borderCreator.initDarkBorder('100%', '', 'left',
+									'top')
+						</script>
+						<ui:include
+							src="/pages/basic/tiles/query/queryResultCondiction.xhtml" />
+						<script>
+							borderCreator.endDarkBorder()
+						</script>
+					</h:panelGroup>
+				</td>
+			</tr>
+			<tr>
+				<td><f:subview id="UpperPagination">
+						<script>
+							borderCreator.initDarkBorder('100%', '', 'left',
+									'top')
+						</script>
+						<ui:include src="/pages/basic/tiles/query/queryPage.xhtml" />
+						<script>
+							borderCreator.endDarkBorder()
+						</script>
+					</f:subview>
+				</td>
+			</tr>
+			<tr>
+				<td align="center"><br/> 
+				<a  name="body" />
+				<ui:include	src="/pages/basic/tiles/query/queryBody.xhtml" /> <br/>
+				</td>
+			</tr>
+			<!-- tr>
+			<td>
+				<script>borderCreator.initDarkBorder('100%', '', 'center', 'top')</script>
+				<tiles:insert attribute="command" ignore="false"/>
+				<script>borderCreator.endDarkBorder()</script>
+			</td>
+		</tr -->
+			<tr>
+				<td><a name="labels" /> <h:panelGroup
+						rendered="#{menuBean.crudMap.AddressLabel.canCreate and queryBean.hasModelsLabelEntity}">
+						<script>
+							borderCreator.initDarkBorder('100%', '', 'left',
+									'top')
+						</script>
+						<ui:include src="/pages/basic/tiles/query/queryLabel.xhtml" />
+						<script>
+							borderCreator.endDarkBorder()
+						</script>
+					</h:panelGroup>
+				</td>
+			</tr>
+		</table>
+		<!--/h:form-->
+	</h:form>
+</h:body>
+</html>

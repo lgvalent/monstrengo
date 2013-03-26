@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:include src="/pages/basic/tiles/head.xhtml">
+     <ui:param name="pageTitle" value="Visualização"/>
+</ui:include>
+<h:body>
+	<h:form>
+		<!-- Sincroniza a atual entidade manipulada pela view -->
+		<h:inputHidden immediate="true" id="currentEntityKey"
+			value="#{retrieveBean.currentEntityKey}"
+			validator="#{retrieveBean.validateCurrentEntityKey}" />
+		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forçe a reconstrução quando necessário -->
+		<h:inputHidden immediate="true"
+			binding="#{retrieveBean.inputCurrentEntityKey}" />
+	<script>
+		document.title = "#{retrieveBean.currentEntity.info.label}: #{retrieveBean.currentEntity}";
+	</script>
+	
+	<p:panel>
+		<span style="color: #{retrieveBean.currentEntity.info.colorName}" class="noprint">
+		    <i>#{retrieveBean.currentEntity.info.label}</i>:
+		    <b>#{retrieveBean.currentEntity}</b>
+	    	<br/>
+		</span>
+		<span class="description, noprint">
+			<h:outputText value="#{retrieveBean.currentEntity.info.description}" escape="false"/> 
+		</span>
+
+		<ui:include src="/pages/basic/tiles/showEntity.xhtml">
+			<ui:param name="entity" value="#{retrieveBean.currentEntity}" />
+		</ui:include>
+		<f:facet name="header">
+				<p:commandButton image="ui-icon ui-icon-clock" styleClass="noprint"
+					disabled="!#{menuBean.crudMap.AuditCrudRegister.canRetrieve}"
+					title="Verifica quem criou ou alterou esta entidade"
+					onclick="javascript:linkCheckAuditCrud('#{retrieveBean.currentEntity.info.type.name}', #{retrieveBean.currentEntity.id})" />
+				<p:commandButton image="ui-icon ui-icon-pencil"  styleClass="noprint"
+					disabled="!#{retrieveBean.canUpdate}"
+					title="Altera os dados do registro"
+					ajax="true"
+					onclick="javascript:linkUpdate('#{retrieveBean.currentEntity.info.type.name}', #{retrieveBean.currentEntity.id});" />
+				<p:commandButton image="ui-icon ui-icon-trash"  styleClass="noprint"
+					disabled="!#{retrieveBean.canDelete}" title="Apaga o registro"
+					ajax="true"
+					onclick="javascript:linkDelete('#{retrieveBean.currentEntity.info.type.name}', #{retrieveBean.currentEntity.id});" />
+				<p:commandButton image="ui-icon ui-icon-document"  styleClass="noprint"
+					disabled="!#{retrieveBean.canCreate}" title="Cria um novo registro"
+					ajax="true"
+					onclick="javascript:linkCreateCopy('#{retrieveBean.currentEntity.info.type.name}', #{retrieveBean.currentEntity.id});" />
+					
+				<p:commandButton id="btnProcess" value="Processos" styleClass="noprint"/>
+				<p:commandButton id="btnLabel" value="Etiquetas" styleClass="noprint"/>
+				<p:commandButton id="btnDocument" value="Documentos" styleClass="noprint" />
+
+				<p:overlayPanel for="btnProcess" >
+					<ui:include src="/pages/basic/tiles/runRunnableProcessFromEntity.xhtml">
+						<ui:param name="entity" value="#{retrieveBean.currentEntity}" />
+					</ui:include>
+				</p:overlayPanel>
+				
+				<p:overlayPanel for="btnLabel">
+					<ui:include src="/pages/basic/tiles/createLabelFromEntity.xhtml">
+						<ui:param name="entity" value="#{retrieveBean.currentEntity}" />
+					</ui:include>
+				</p:overlayPanel>
+
+				<p:overlayPanel for="btnDocument">
+					<ui:include src="/pages/basic/tiles/createDocumentFromEntity.xhtml">
+						<ui:param name="entity" value="#{retrieveBean.currentEntity}" />
+					</ui:include>
+				</p:overlayPanel>
+		</f:facet>
+	</p:panel>
+	</h:form>
+</h:body>
+</html>

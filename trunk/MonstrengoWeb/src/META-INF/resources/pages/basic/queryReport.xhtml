@@ -1,0 +1,452 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<title>Relatório da pesquisa</title>
+	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+		media="screen" />
+	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+		type="text/css" media="print" />
+	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+		type="text/css" />
+
+	<script language="javaScript" src="../basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../basic/js/interface.js"></script>
+	<script language="javaScript" src="../basic/js/utils.js"></script>
+</h:head>
+<h:body>
+	<h:panelGrid columns="2">
+		<h:panelGrid>
+			<h:graphicImage value="../basic/img/header.gif" title="Logomarca"
+				style="border:0" />
+		</h:panelGrid>
+
+		<h:panelGroup style="text-align: center;">
+			<h:panelGrid style="font-size:small" width="100%">
+				<h:form>
+					<!-- Sincroniza a atual entidade manipulada pela view -->
+					<h:inputHidden id="currentEntityKey" immediate="true"
+						value="#{queryBean.currentEntityKey}"
+						validator="#{queryBean.validateCurrentEntityKey}" />
+					<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forçe a reconstrução quando necessário -->
+					<h:inputHidden immediate="true"
+						binding="#{queryBean.inputCurrentEntityKey}" />
+
+					<h:commandLink action="#{queryBean.actionExport}">
+						<h:outputText value="Salvar" style="text-align: center;"
+							title="Clique aqui para realizar o download do relatório" />
+					</h:commandLink>
+				</h:form>
+			</h:panelGrid>
+
+			<h:panelGrid>
+				<h:outputText
+					value="Usuário: #{userSessionBean.userSession.user.object}"
+					style="text-align: center;" />
+			</h:panelGrid>
+		</h:panelGroup>
+	</h:panelGrid>
+
+	<h:panelGrid columns="2" styleClass="reportTitle">
+		<h:outputText value="Relatório de #{queryBean.info.label}:" />
+		<h:outputText
+			value="Foram selecionados #{queryBean.currentProcess.userReport.pageParam.itemsCount} registros." />
+
+	</h:panelGrid>
+
+	<h:panelGrid style="text-align:left; font-size: smaller;">
+		<h:outputText value="Filtro: #{queryBean.currentParams.filter}"
+			rendered="#{queryBean.currentProcess.userReport.filterParam.hasFilter}" />
+		<h:dataTable
+			value="#{queryBean.currentProcess.userReport.condictionParam.condictions}"
+			var="item"
+			rendered="#{queryBean.currentProcess.userReport.condictionParam.hasCondictions}"
+			style="text-align:left; font-size: smaller;">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Condições:" style="font-size: smaller;" />
+				</f:facet>
+				<h:outputText value="#{item}" rendered="#{item.active}" />
+			</h:column>
+		</h:dataTable>
+		<h:dataTable
+			value="#{queryBean.currentProcess.userReport.orderParam.condictions}"
+			var="item"
+			rendered="#{queryBean.currentProcess.userReport.orderParam.hasCondictions}"
+			style="text-align:left; font-size: smaller;">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Ordenação:" style="font-size: smaller;" />
+				</f:facet>
+				<h:outputText value="#{item}" rendered="#{item.active}" />
+			</h:column>
+		</h:dataTable>
+	</h:panelGrid>
+
+
+	<h:panelGrid>
+		<h:dataTable
+			value="#{queryBean.currentProcess.userReport.buildResult}" var='row'
+			headerClass="tableListHeader" styleClass="tableList"
+			footerClass="tableListFooter"
+			rowClasses="tableListRowEven,tableListRowOdd"
+			columnClasses="tableListColumn"
+			style="border-collapse: collapse; font-weight: normal">
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[0]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[0].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[0]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[0]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[1]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[1].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[1]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[1]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[2]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[2].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[2]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[2]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[3]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[3].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[3]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[3]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[4]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[4].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[4]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[4]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[5]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[5].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[5]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[5]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[6]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[6].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[6]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[6]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[7]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[7].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[7]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[7]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[8]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[8].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[8]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[8]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[9]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[9].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[9]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[9]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[10]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[10].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[10]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[10]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[11]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[11].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[11]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[11]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[12]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[12].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[12]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[12]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[13]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[13].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[13]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[13]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[14]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[14].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[14]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[14]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[15]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[15].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[15]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[15]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[16]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[16].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[16]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[16]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[17]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[17].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[17]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[17]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[18]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[18].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[18]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[18]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[19]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[19].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[19]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[19]}" />
+
+			</h:column>
+
+			<h:column
+				rendered="#{queryBean.currentProcess.userReport.selectedResult[20]!=null}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResult[20].propertyLabel} " />
+				</f:facet>
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{queryBean.currentProcess.userReport.selectedResultTotal[20]} " />
+				</f:facet>
+
+				<h:outputText value="#{row[20]}" />
+
+			</h:column>
+
+			<!-- h:column rendered="#{queryBean.propertiesSize > 1}" >
+						<f:facet name="header">
+			<h:outputText value="#{queryBean.properties[1].label} " />
+		</f:facet>
+		<h:outputLabel
+			value="#{item.properties[queryBean.properties[1].index].value.asString}"
+			rendered="#{(not queryBean.properties[1].boolean) and queryBean.properties[1].visible}" />
+		<h:selectBooleanCheckbox disabled="true"
+			value="#{item.properties[queryBean.properties[1].index].value.asBoolean}"
+			rendered="#{queryBean.properties[1].boolean and queryBean.properties[1].visible}" />
+		</h:column-->
+
+		</h:dataTable>
+	</h:panelGrid>
+</h:body>
+</html>

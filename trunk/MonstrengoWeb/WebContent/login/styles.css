@@ -1,0 +1,98 @@
+body {
+   background: #E9E9E9;
+   color: #000000;
+   font-family: verdana, helvetica, sans-serif;
+}
+
+.errorMessage{
+	color: red;
+}
+	
+.title {
+   color: #39508C;
+   font-family: serif;
+	
+}
+.tableList {
+	color: #00008B;
+	border: thin solid #cfd8e2;
+	text-align: left;
+}
+.tableListHeader {
+	color: #FFFFFF;
+   	text-align: left;
+	background: #39508C;
+}
+.tableListHeaderImageBorder {
+	border-color: #39508C;
+}
+
+.tableListRowEven{
+	color:  #00008B;
+    }
+
+.tableListRowOdd{
+	color: #00008B;
+	background: #e8f2fe;
+    }
+.tableListColumn {
+	color: #00008B;
+	border-left: thin solid #cfd8e2
+}
+.parentGroupHeader{
+	color: #00008B;
+   text-align: left;
+	background: #87CEEB;
+}
+.parentGroupDetail{
+	color: #00008B;
+	font: bold medium serif;
+}
+.tableView {
+	color: #00008B;
+	border: thin solid #cfd8e2;
+	text-align: left;
+}
+.tableViewHeader {
+   color: White;
+   text-align: center;
+/*	background: #87CEEB; */
+	background: #39508C;
+}
+.tableViewRowEven{
+	color:  #00008B;
+    }
+
+.tableViewRowOdd{
+	color: #00008B;
+	background: #e8f2fe;
+    }
+.tableViewColumnEven {
+	text-align: right;
+	font-weight: bold;
+}
+.tableViewColumnOdd {
+	color: #00008B;
+	border-left: thin solid #cfd8e2
+}
+
+
+a:link, a:visited{
+text-decoration: underline;
+color: #0000FF;
+}
+
+a:active, a:hover{
+background:#ffc; 
+color: #FF0000;
+}
+
+/* Menu */
+ul {
+   width: 100%;
+	padding: 0;
+	border: 0 none;
+	background: #ffff;
+	text-align: left;
+}
+

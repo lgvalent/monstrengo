@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- Uma variável 'property' (IProperty) deve ser fornecida para esta visão -->
+<!-- USO
+	<ui:include src="/pages/basic/tiles/updatePropertyRoot.xhtml">
+           <ui:param name="property" value="#{currentProperty}"/>
+           <ui:param name="deepLevel" value="#{0}"/>
+	</ui:include>
+ -->
+<h:panelGroup rendered="#{!property.info.collection}">
+	<h:panelGroup rendered="#{property.info.primitive}">
+		<ui:include src="/pages/basic/tiles/updatePropertyPrimitive.xhtml">
+			<ui:param name="propertyPrimitive" value="#{property}" />
+		</ui:include>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{property.info.entity}">
+		<ui:include src="/pages/basic/tiles/updatePropertyEntity.xhtml">
+			<ui:param name="propertyEntity" value="#{property}" />
+		</ui:include>
+	</h:panelGroup>
+</h:panelGroup>
+<h:panelGroup rendered="#{property.info.collection}">
+	<h:panelGroup rendered="#{property.info.primitive}">
+		<ui:include src="/pages/basic/tiles/updatePropertyPrimitiveCollection.xhtml">
+			<ui:param name="propertyPrimitiveCollection" value="#{property}" />
+		</ui:include>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{property.info.entity}">
+		<ui:include src="/pages/basic/tiles/updatePropertyEntityCollection.xhtml">
+			<ui:param name="propertyEntityCollection" value="#{property}" />
+		</ui:include>
+	</h:panelGroup>
+</h:panelGroup>
+<br />
+<h:outputText id="help" value="#{property.info.description}" escape="false" />
+</html>
