@@ -4,19 +4,13 @@
 package br.com.orionsoft.monstrengo.view.jsf.bean;
 
 
-import java.io.File;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.ServletContext;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.javaIdentifierType;
 
 import br.com.orionsoft.monstrengo.core.process.IProcessManager;
 import br.com.orionsoft.monstrengo.core.process.ProcessManager;
