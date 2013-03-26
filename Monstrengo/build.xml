@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     22/11//2005 09:16
+
+     Framework
+     Projeto das classes básicas do framework utilizado pela OrionSoft
+                   
+     Marcia                                                                
+     ====================================================================== -->
+<project name="Montrengo" default="make jar">
+
+	<property name="src" value="${basedir}/src" />
+	<property name="bin" value="${basedir}/bin" />
+	<property name="lib.home" value="../Library" />
+	<property name="test" value="${basedir}/test" />
+	<property name="jar.dir" value="${basedir}"/>
+	<property name="jar.name" value="monstrengo"/>
+
+	<!-- ================================= 
+          Bibliotecas utilizadas. Utiliza busca recursiva.
+         ================================= -->
+	<path id="lib.classpath">
+		<fileset dir="${lib.home}">
+			<include name="Commons/*.jar" />
+			<include name="Log4j/*.jar" />
+			<include name="Hibernate2/*.jar" />
+			<include name="JUnit/*.jar" />
+			<include name="MySql/*.jar" />
+			<include name="Spring3/*.jar" />
+			<include name="XDoclet/*.jar" />
+			<exclude name="OrionSoft/${jar.name}.jar"/>
+		</fileset>
+
+	</path>
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+	<target name="compile" description="--> Compila os arquivos fonte">
+		<javac srcdir="${src}" destdir="${bin}" debug="off">
+			<classpath refid="lib.classpath" />
+		</javac>
+	</target>
+
+	<!-- ================================= 
+          target: spring   
+          
+          Montando um único XML com vários projetos:
+          Com a utilização de vários 'fileset' é possível fazer com o Spring
+          analise os diretórios de projetos relacionados e construa um único
+          arquivo .xml de toda a aplicação.
+         ================================= -->
+	<target name="spring" depends="compile">
+		<description>Os Simpsons</description>
+		<taskdef name="springdoclet" classname="xdoclet.modules.spring.SpringDocletTask">
+			<classpath refid="lib.classpath" />
+			<classpath location="${bin}" />
+		</taskdef>
+
+		<springdoclet destdir="${basedir}"  excludedtags="@version,@author,@todo" verbose="true" force="true" mergedir="${basedir}">
+			<configparam name="default-autowire" value="byType"/>
+			<fileset dir="${src}">
+				<include name="**/*.java" />
+			</fileset>
+			<springxml destinationFile="applicationContext.xml" />
+		</springdoclet>
+	</target>
+
+
+	<!-- ================================= 
+          target: javadoc              
+         ================================= -->
+	<target name="javadoc" depends="compile" description="--> Gera a documentação automatica dos codigos do projeto">
+		<mkdir dir="${basedir}/javadoc" />
+		<javadoc destdir="${basedir}/javadoc" classpathref="lib.classpath">
+			<fileset dir="${src}">
+				<include name="**/*.java" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<!-- ================================= 
+          target: junit              
+         ================================= -->
+	<target name="junit" depends="compile" description="--> Roda todos os testes do sistema">
+		<junit printsummary="yes" fork="yes">
+			<formatter type="brief" usefile="false" />
+			<classpath refid="lib.classpath" />
+			<classpath>
+				<pathelement path="${bin}" />
+				<pathelement path="${test}" />
+			</classpath>
+			<test name="${test}"></test>
+			<batchtest>
+				<fileset dir="${test}">
+					<include name="**/*TestCase.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+    <!-- ================================= 
+          target: Jar       
+          Cria o jar do componente e envia para o projeto Library/OrionSoft, que contém
+          todas as bibliotecas centralizadas.
+         ================================= -->
+    <target name="make jar" depends="compile" description="--> Gera arquivo jar do Framework">
+    	
+		<jar destfile="${lib.home}/OrionSoft/${jar.name}.jar" >
+			<fileset dir="${bin}">
+				<include name="**/*"/>
+			</fileset>
+		</jar>
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clear                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="clear" description="Apaga arquivos e diretorios automaticamente gerados">
+		<delete file="*.sql" />
+		<delete dir="${basedir}/javadoc"/>
+		<delete dir="${basedir}/war"/>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="depends" description="Gera diretórios necessários para entrega de arquivos automaticamente criados">
+		<mkdir dir="${bin}" />
+	</target>
+
+</project>
+

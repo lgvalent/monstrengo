@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://orionsoft.net.br/entityMetadata" xmlns:local="http://orionsoft.net.br/entityMetadata"
+	elementFormDefault="qualified">
+	<!-- Define um conjunto comum de metadados de textos aplicáveis a Entity, 
+		Group e Property -->
+	<xsd:attributeGroup name="commonMetadataAttributes">
+		<xsd:attribute name="name" type="xsd:ID" use="required" />
+		<xsd:attribute name="label" type="xsd:string" default=""/>
+		<xsd:attribute name="hint" type="xsd:string" default=""/>
+		<xsd:attribute name="description" type="xsd:string" default=""/>
+		<xsd:attribute name="colorName" type="local:colorNameType">
+			<xsd:annotation><xsd:documentation> 
+			Permite definir a cor pelo nome CSS ou pelo valor
+			hexadecimal correspondente.
+			</xsd:documentation></xsd:annotation>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+
+	<!-- Define o tipo que valida o nome de uma classe -->
+	<xsd:simpleType name="classNameType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(([a-z]|[0-9])+.)*[A-Z][a-z]*([A-Z]|[a-z]|[0-9_])*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Permite definir a cor pelo nome ou pelo código Hexadecimal -->
+	<xsd:simpleType name="colorNameType">
+		<xsd:union>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>
+							Fontes:http://www.kylirhorton.com/2008/a-regular-expression-that-matches-css-colors/
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:pattern
+						value="(#[0-9a-fA-F]{3,6})|(aqua)|(black)|(blue)|(fuchsia)|(gray)|(green)|(lime)|(maroon)|(navy)|(olive)|(orange)|(purple)|(red)|(silver)|(teal)|(white)|(yellow)" />
+					<!-- xsd:pattern value="#([0-9A-Fa-f]{3,6})\b)|(aqua)|(black)|(blue)|(fuchsia)|(gray)|(green)|(lime)|(maroon)|(navy)|(olive)|(orange)|(purple)|(red)|(silver)|(teal)|(white)|(yellow)" 
+						/> -->
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="aqua" />
+					<xsd:enumeration value="black" />
+					<xsd:enumeration value="blue" />
+					<xsd:enumeration value="fuchsia" />
+					<xsd:enumeration value="gray" />
+					<xsd:enumeration value="green" />
+					<xsd:enumeration value="lime" />
+					<xsd:enumeration value="maroon" />
+					<xsd:enumeration value="navy" />
+					<xsd:enumeration value="olive" />
+					<xsd:enumeration value="orange" />
+					<xsd:enumeration value="purple" />
+					<xsd:enumeration value="red" />
+					<xsd:enumeration value="silver" />
+					<xsd:enumeration value="teal" />
+					<xsd:enumeration value="white" />
+					<xsd:enumeration value="yellow" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:union>
+	</xsd:simpleType>
+
+	<!-- Define as operações CRUD que pode ser definidas em uma entidade -->
+	<xsd:simpleType name="crudOperationType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CREATE" />
+			<xsd:enumeration value="RETRIEVE" />
+			<xsd:enumeration value="UPDATE" />
+			<xsd:enumeration value="DELETE" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="crudOperationListType">
+		<xsd:list itemType="local:crudOperationType" />
+	</xsd:simpleType>
+
+	<xsd:complexType name="PropertiesGroup">
+		<xsd:sequence>
+			<xsd:element name="property" type="local:PropertyType"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="ptBr">Utilize este item
+						para
+						definir os metadados de uma propriedade da entidade
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="local:commonMetadataAttributes" />
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertyType" abstract="true">
+		<xsd:attributeGroup ref="local:commonMetadataAttributes" />
+		<xsd:attribute name="displayFormat" type="xsd:string" />
+		<xsd:attribute name="defaultValue" type="xsd:string" />
+		<xsd:attribute name="editMask" type="xsd:string" />
+		<xsd:attribute name="visible" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="required" type="xsd:boolean"
+			default="true" />
+		<xsd:attribute name="readOnly" type="xsd:boolean"
+			default="true" />
+		<xsd:attribute name="calculated" type="xsd:boolean"
+			default="true" />
+		<xsd:attribute name="valuesList" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation xml:lang="ptBr">Permite definir uma
+					lista de
+					valores separados por vírgula que poderão ser usados na
+					tela de edição.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertyNumericType">
+		<xsd:complexContent>
+			<xsd:extension base="local:PropertyType">
+				<xsd:attribute name="minimum" type="xsd:integer" />
+				<xsd:attribute name="maximum" type="xsd:integer" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertyStringType">
+		<xsd:complexContent>
+			<xsd:extension base="local:PropertyType">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertyBooleanType">
+		<xsd:complexContent>
+			<xsd:extension base="local:PropertyType">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertyCalendarType">
+		<xsd:complexContent>
+			<xsd:extension base="local:PropertyType">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertyEntityType">
+		<xsd:complexContent>
+			<xsd:extension base="local:PropertyType">
+				<xsd:attribute name="editShowEmbedded" type="xsd:boolean"
+					default="true">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="ptBr">Define se na tela de
+							edição da entidade, esta propriedade será mostrada em 
+							uma subseção para preenchimento in loco dos dados.
+							É útil quando a entidade possui uma propriedade que é do tipo IEntity,
+							mas que deve estar relacionada somente com esta entidade.
+							Como se fosse um relacionamento OneToOne, mas somente em tela.
+							Isto é valido para coleções também. Neste caso, os itens da coleção
+							estarão ligados somente a entidade atual. 
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="editShowList" type="xsd:boolean"
+					default="true">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="ptBr">Define se na tela de
+							edição da entidade, esta propriedade será mostrada em uma lista
+							(ComboBox) ou se uma tela de pesquisa deverá ser aberta para a
+							escolha do valor desta propriedade.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="allowSubQuery" type="xsd:boolean"
+					default="true">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="ptBr">Durante uma
+							pesquisa,
+							o termo solicitado é
+							procurado em todas propriedades de
+							tipo primitivo da entidade atual. Esta
+							opção, indica para que o
+							termo também seja procurado nas propriedades
+							primitivas deste
+							relacionamento. 
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="overrideType" type="local:classNameType">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="ptBr"> Permite especificar o tipo de entidade
+						que deve ser armazenado por esta propriedade. Este tipo, sobrescreverá o tipo
+						encontrato na classe e é útil para utilizar uma classe mais especialista do que
+						o tipo definido pela propriedade. No entanto, a classe aqui definida deverá
+						ser filha da classe definda na propriedade para evitar possíveis CastClassException.  
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="EntityType">
+		<xsd:sequence>
+			<xsd:element name="group" type="local:PropertiesGroup"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="ptBr">Utilize um grupo para
+						organizar propriedades da entidade que possuam algum
+						relacionamento. Os grupos oferecem um recurso visual para
+						montagem
+						de telas de entidades que possuam muitas propriedades.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="local:commonMetadataAttributes" />
+		<xsd:attribute name="className" type="local:classNameType"
+			use="optional" />
+		<xsd:attribute name="runQueryOnOpen" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation xml:lang="ptBr">Permite definir se
+					quando a
+					tela de pesquisa for invocada para a entidade atual, a
+					pesquisa já
+					deverá ser aberta com, pelo menos, uma página
+					preenchida. É muito
+					útil quando a entidade possui poucas instâncias
+					e evitar que o
+					operador digite algo para depois realizar a busca.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="crudOperations" type="local:crudOperationListType">
+			<xsd:annotation>
+				<xsd:documentation xml:lang="ptBr">Define as operações
+					CRUD que
+					podem ser aplicadas à entidade.
+					Esta restrição somente é
+					aplicada às
+					telas CRUD. A entidade poderá ser
+					Criada, Obtida,
+					Alterada e
+					Excluida, mas somente
+					por serviços CRUD e nunca por telas
+					CRUD.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="propertiesInQueryGrid" type="xsd:IDREFS">
+			<xsd:annotation>
+				<xsd:documentation xml:lang="ptBr">Permite definir a
+					lista com o
+					nome das propriedades que aparecerão na tela de grid. A
+					ordem na
+					lista é respeitada na geração da tela. Somente nomes de
+					propriedades já declaradas são aceitas aqui.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+	<xsd:element name="entity" type="local:EntityType">
+	</xsd:element>
+</xsd:schema>
