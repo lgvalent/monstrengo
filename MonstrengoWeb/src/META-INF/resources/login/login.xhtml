@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<title>Autenticação de Operador</title>
+	<link href="styles.css" rel="stylesheet" type="text/css" />
+</h:head>
+
+<h:body onload="javascript:placeFocus()">
+	<p:layout >
+		<p:layoutUnit position="top">
+			<div id="superior">
+				<h:graphicImage value="login/img/logo.png"/>
+			</div>
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<table align="center" border="0" width="256" >
+				<tr><td>
+					<h:graphicImage value="/login/img/logo.png"/>
+				</td></tr>
+				<tr valign="top" align="center">
+					<td colspan="3"><h:outputText
+							value="&lt;b&gt;Autenticação de operador&lt;/b&gt;"
+							escape="false" /></td>
+				</tr>
+				<tr valign="top" align="center">
+					<td colspan="3">
+					      <h:form id="form"
+							onsubmit="alert_('O Sistema se encontra em manutenção e está liberado somente para consultas. Não altere dados, pois as alterações serão descartadas quando o sistema voltar à produção.')">
+							<p:focus context="form"/>
+							<h:panelGrid columns="3" cellpadding="5"
+								style="text-align:center">
+								<h:outputText value="&lt;b&gt;Login&lt;/b&gt;" escape="false" />
+								<p:inputText value="#{userSessionBean.login}" id="login"
+									size="15" required="true" />
+								<p:message styleClass="errorMessage" for="login" />
+
+								<h:outputText value="&lt;b&gt;Senha&lt;/b&gt;" escape="false" />
+								<p:password value="#{userSessionBean.password}" id="password"
+									size="15" minLength="3" feedback="false" required="true" />
+								<p:message styleClass="errorMessage" for="password" />
+							</h:panelGrid>
+							<h:panelGrid cellpadding="5" style="text-align:center">
+								<p:commandButton value="Entrar"
+									action="#{userSessionBean.doLogin()}" ajax="false" />
+							</h:panelGrid>
+							<h:panelGroup rendered="#{userSessionBean.logged}">
+								<h:outputLabel
+									value="O login #{userSessionBean.userSession.userLogin} já está autenticado no sistema. " />
+								<h:commandLink action="#{userSessionBean.doLogoff}"
+									immediate="true" accesskey="s"
+									onmouseup="javascript:closeAllWindows()">
+									<h:outputText value="Fechar seção." />
+								</h:commandLink>
+							</h:panelGroup>
+						<h:outputText styleClass="errorMessage"
+							value="#{messagesBean.firstMessageSummary}" escape="false" />
+						</h:form>
+					</td>
+				</tr>
+			</table>
+		</p:layoutUnit>
+		<p:layoutUnit position="bottom" >
+			<div class="text-bottom">
+				<h:outputFormat
+					value="Universidade Tecnológica Federal do Paraná - Campus Campo Mourão" />
+				<br />
+				<h:outputText
+					value="BR 369 - km 0,5 87301-006 - Caixa Postal: 271 - Campo Mourão - PR - Brasil" />
+				<br />
+				<h:outputText value="Telefone Geral +55 (44) 3518-1400 - " />
+				
+				<a href="http://www.utfpr.edu.br/campomourao"
+					target="blank">http://www.utfpr.edu.br/campomourao</a>
+			</div>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

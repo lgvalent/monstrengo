@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- USO
+<ui:composition template="/pages/basic/templates/mainMenu.xhtml">
+	<ui:param name="title" value="Your appliction title" />
+	<ui:param name="logo" value="url image" />
+	<ui:define name="menu">
+	   Put your menu items here
+	</ui:define>
+</ui:composition>
+ -->
+<ui:include src="/pages/basic/tiles/head.xhtml">
+	<ui:param name="pageTitle" value="#{title}" />
+</ui:include>
+<f:verbatim>
+	<script>
+	/* Redimensiona o IFrame ao ler e sempre a página */
+	function resizeW() {
+		var f = document.getElementById('frame');
+		var h = window.innerHeight;
+		f.height = h - 98;
+
+		window.onresize = resizeW;
+	}
+	</script>
+</f:verbatim>
+<h:body onload="resizeW();">
+	<h:outputLabel
+		title="Força a crição das estruturas de segurança para agilizar o acesso ao sistema e demorar somente na abertura da tela"
+		rendered="#{menuBean.infoMap!=null and menuBean.crudMap!=null and menuBean.processMap!=null}" />
+	<h:form id="formLogin">
+		<div style="float: left;">
+			<img src="#{logo}" alt="#{logo}" width="273" height="73" />
+		</div>
+		<div style="float: right; text-align: right; white-space: nowrap;">
+			<ui:include src="/pages/basic/tiles/findEntity.xhtml" />
+			<ui:include src="/pages/basic/tiles/findProcess.xhtml" />
+			<p:menubar style="text-align: right;">
+				<ui:insert name="menu" />
+				<p:submenu label="Relatórios" icon="ui-icon-print">
+					<p:menuitem value="Relatórios personalizados"
+						url="../basic/listUserReport.xhtml" target="ALVO" />
+					<p:menuitem value="Etiquetas" url="../basic/labelView.jsp"
+						target="ALVO" />
+					<p:menuitem value="Documentos" url="../basic/documentList.xhtml"
+						target="ALVO" />
+				</p:submenu>
+				<p:submenu label="Administração" icon="ui-icon-locked">
+					<p:menuitem value="Auditorias"
+						url="../administracao/auditoriaMenu.jsp" target="ALVO" />
+					<p:menuitem value="Usuários"
+						url="../administracao/segurancaMenu.jsp" target="ALVO" />
+				</p:submenu>
+				<p:menuitem value="Suporte" onclick="dialogSupport.show();"
+					icon="ui-icon-help" />
+
+			</p:menubar>
+
+			<p:focus context="formLogin" />
+			<h:panelGroup rendered="#{!userSessionBean.logged}">
+			Login
+			<p:inputText value="#{userSessionBean.login}" id="login" size="15"
+					required="true" />
+			Senha
+			<p:password value="#{userSessionBean.password}" id="password"
+					size="15" minLength="3" feedback="false" required="true" />
+				<p:commandButton value="Entrar"
+					action="#{userSessionBean.doLogin}" ajax="false" />
+			</h:panelGroup>
+			<h:panelGroup rendered="#{userSessionBean.logged}">
+				<h:outputLabel
+					value="Olá &lt;b&gt;#{userSessionBean.userSession.user.object.name}&lt;/b&gt;."
+					escape="false" />
+				<a href="#" onclick="dialogChangePassword.show();">[alterar
+					senha]</a>
+				<h:commandLink action="#{userSessionBean.doLogoff}" immediate="true"
+					accesskey="s" onmouseup="javascript:closeAllWindows()">
+					<h:outputText value="Sair" />
+				</h:commandLink>
+
+			</h:panelGroup>
+		</div>
+	</h:form>
+
+	<p:dialog widgetVar="dialogChangePassword" modal="true" height="400"
+		width="550" header="Alteração da senha de acesso">
+		<iframe src="../basic/securityChangePassword.jsp" frameborder="1"
+			style="width: 100%; height: 100%;" />
+
+	</p:dialog>
+
+	<p:dialog widgetVar="dialogSupport" modal="true" height="400"
+		width="700" header="Suporte">
+		<iframe
+			src="https://docs.google.com/spreadsheet/viewform?formkey=dEpZN19vdXFkX2NvZ2pWYXBhN0ZrYVE6MQ&amp;entry_0=#{userSessionBean.userSession.user}&amp;entry_4=SIGS 2.0"
+			frameborder="1" style="width: 100%; height: 100%;" />
+
+	</p:dialog>
+
+
+	<iframe name="ALVO" src="../basic/tiles/emptyFrame.xhtml"
+		frameborder="1" id="frame" width="100%" height="100%" />
+
+</h:body>
+</html>

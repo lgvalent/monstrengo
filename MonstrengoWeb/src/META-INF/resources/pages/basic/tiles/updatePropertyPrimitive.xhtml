@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- Uma variável 'propertyPrimitive' (IProperty) deve ser fornecida para esta visão -->
+<!-- USO
+	<ui:include src="/pages/basic/tiles/updatePropertyPrimitive.xhtml">
+           <ui:param name="propertyPrimitive" value="#{currentProperty}"/>
+	</ui:include>
+ -->
+<!-- Exibe lista de escolha para campos primitivos  -->
+<h:panelGroup
+	rendered="#{propertyPrimitive.info.editShowList and !propertyPrimitive.info.enum}">
+	<h:selectOneMenu id="selectPrimitiveInput" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.asString}"
+		required="#{propertyPrimitive.info.required}">
+		<f:selectItems value="#{propertyPrimitive.valuesList}" />
+	</h:selectOneMenu>
+	<h:message for="selectPrimitiveInput" styleClass="errorMessage" />
+</h:panelGroup>
+
+<!-- Exibe lista de escolha para ENUMS  -->
+<h:panelGroup
+	rendered="#{propertyPrimitive.info.enum}">
+	<h:selectOneMenu id="selectEnumInput" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.id}"
+		required="#{propertyPrimitive.info.required}">
+		<f:selectItems value="#{propertyPrimitive.valuesList}" />
+	</h:selectOneMenu>
+	<h:message for="selectEnumInput" styleClass="errorMessage" />
+</h:panelGroup>
+
+<!-- Exibe caixa de entrada de texto para campos primitivos  -->
+<h:panelGroup
+	rendered="#{!propertyPrimitive.info.editShowList and !propertyPrimitive.info.enum}">
+	<h:inputTextarea id="txtInput" style="width:100%" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.asString}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.size gt 255  and !propertyPrimitive.info.hasEditMask}"
+		disabled="#{propertyPrimitive.info.readOnly}" rows="2" />
+
+	<p:inputText id="strInput" style="width:100%" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.asString}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.size lt 256  and !propertyPrimitive.info.hasEditMask}"
+		disabled="#{propertyPrimitive.info.readOnly}"
+		maxlength="#{propertyPrimitive.info.size}" />
+
+	<p:inputText id="strMaskInput" style="width:100%" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.asString}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.hasEditMask}"
+		disabled="#{propertyPrimitive.info.readOnly}"
+		maxlength="#{propertyPrimitive.info.editMaskSize}"
+		onkeypress="return keyPressMask(this,'#{propertyPrimitive.info.editMask}')" />
+
+	<p:inputText id="intInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.integer}"
+		disabled="#{propertyPrimitive.info.readOnly}" size="10"
+		onkeypress="return keyPressInt(this,event)">
+		<f:validateLongRange minimum="-999999999" maximum="999999999" />
+	</p:inputText>
+
+	<p:inputText id="longInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.long}"
+		disabled="#{propertyPrimitive.info.readOnly}" size="10"
+		onkeypress="return keyPressInt(this,event)">
+		<f:validateLongRange minimum="-999999999" maximum="999999999" />
+	</p:inputText>
+
+	<p:inputText id="bigInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.bigDecimal}"
+		disabled="#{propertyPrimitive.info.readOnly}" size="10"
+		onkeypress="return keyPressFloat(this,event)" />
+
+	<p:inputText id="floatInput" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.asString}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.float}"
+		disabled="#{propertyPrimitive.info.readOnly}" size="10"
+		onkeypress="return keyPressFloat(this,event)" />
+
+	<p:inputText id="doubleInput" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.asString}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.double}"
+		disabled="#{propertyPrimitive.info.readOnly}" size="10"
+		onkeypress="return keyPressFloat(this,event)" />
+
+	<p:inputText id="dateInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.calendar}"
+		disabled="#{propertyPrimitive.info.readOnly}" size="14"
+		onblur="return onblurCalendar(this,'#{propertyPrimitive.info.editMask}')" />
+
+	<h:selectBooleanCheckbox id="bolInput" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.asBoolean}"
+		title="#{propertyPrimitive.info.hint}"
+		required="#{propertyPrimitive.info.required}"
+		rendered="#{propertyPrimitive.info.boolean}"
+		disabled="#{propertyPrimitive.info.readOnly}">
+	</h:selectBooleanCheckbox>
+</h:panelGroup>
+
+<!-- Exibe informações sobre a máscara do campo -->
+<h:panelGroup
+	rendered="#{propertyPrimitive.info.hasEditMask and !propertyPrimitive.info.boolean}">
+	<h:outputLabel value="#{propertyPrimitive.info.editMask}"
+		title="Utilize este formato para preencher o campo corretamente."
+		style="color:orange;" />
+</h:panelGroup>
+
+<!-- h:outputText id="help" value="#{propertyPrimitive.info.description}" /-->
+</html>

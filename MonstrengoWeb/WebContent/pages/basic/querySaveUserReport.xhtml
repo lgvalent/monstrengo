@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<title>Salvar relatório personalizado</title>
+	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+		media="screen" />
+	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+		type="text/css" media="print" />
+	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+		type="text/css" />
+
+	<script language="javaScript" src="../basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../basic/js/interface.js"></script>
+	<script language="javaScript" src="../basic/js/utils.js"></script>
+</h:head>
+<h:body>
+	<h:form id="formSaveUserReport">
+		<!-- Sincroniza a atual entidade manipulada pela view -->
+		<h:inputHidden immediate="true" id="currentEntityKey"
+			value="#{queryBean.currentEntityKey}"
+			validator="#{queryBean.validateCurrentEntityKey}" />
+		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forçe a reconstrução quando necessário -->
+		<h:inputHidden immediate="true"
+			binding="#{queryBean.inputCurrentEntityKey}" />
+
+		<h:panelGrid width="100%" style="text-align:center">
+			<h:outputLabel value="Nome do relatório:" />
+			<h:inputText value="#{queryBean.currentProcess.userReport.name}"
+				size="50" />
+			<h:outputLabel value="Descrição do relatório:" />
+			<h:inputTextarea cols="50" rows="5"
+				value="#{queryBean.currentProcess.userReport.description}"
+				title="Digite uma descrição sobre este relatório" />
+			<h:panelGrid columns="2" width="100%" style="text-align:center">
+				<h:commandButton value="Salvar"
+					action="#{queryBean.actionSaveUserReport}"
+					onclick="this.value='Salvando...'" />
+				<h:commandButton value="Fechar" onclick="window.close()" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

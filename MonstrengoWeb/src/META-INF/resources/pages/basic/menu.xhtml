@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:include src="/pages/basic/tiles/head.xhtml">
+     <ui:param name="pageTitle" value="Cadastro"/>
+</ui:include>
+<h:body onload="javascript:placeFocus()">
+	<h:form id="suggest">
+		<p:focus context="suggest" />
+		<ui:include src="/pages/basic/tiles/findProcess.xhtml"></ui:include>
+		<br />
+		<ui:include src="/pages/basic/tiles/findEntity.xhtml"></ui:include>
+		<!--  <br /> <ui:include src="/pages/basic/tiles/findProcessAndEntity.xhtml"></ui:include> -->
+		<hr />
+	</h:form>
+	<h:form id="formList">
+		<h:messages />
+		<p:dataTable value="#{menuBean.infoList}" var="item"
+			styleClass="tableView" rowClasses="tableViewRowEven,tableViewRowOdd"
+			style="widht:100%">
+			<p:column>
+				<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+					<ui:param name="entityMetadata" value="#{item}" />
+				</ui:include>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

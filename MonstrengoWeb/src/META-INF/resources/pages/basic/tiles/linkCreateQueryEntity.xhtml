@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- Uma variável 'entityMetadata' (IEntityMetadata) deve ser fornecida para esta visão -->
+<!-- USO
+	<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ApplicationUser}"/>
+           <ui:param name="noShowLabel" value="false"/>
+	</ui:include>
+ -->
+	<h:outputText value=" " />
+	<h:outputLink tabindex="-1"
+		value="javascript:linkCreatePopup('#{entityMetadata.type.name}')"
+		rendered="#{menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate}">
+		<h:graphicImage value="../basic/img/create.png"
+			title="Criar novo registro de #{entityMetadata.label}" style="border:0" />
+	</h:outputLink>
+	<h:graphicImage value="../basic/img/create_d.png"
+		title="Você não possui direitos para criar um novo registro de #{entityMetadata.label}"
+		style="border:0"
+		rendered="#{!menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate}" />
+
+	<h:outputText value=" " />
+	<h:outputLink  tabindex="-1"
+		value="javascript:linkQuery('#{entityMetadata.type.name}')"
+		rendered="#{menuBean.crudMap.get(entityMetadata.type.simpleName).canRetrieve}">
+		<h:graphicImage value="../basic/img/query.png" title="Pesquisar"
+			style="border:0" />
+	</h:outputLink>
+	<h:graphicImage value="../basic/img/query_d.png"
+		title="Você não possui direitos para visualizar esta entidade"
+		style="border:0"
+		rendered="#{!menuBean.crudMap.get(entityMetadata.type.simpleName).canRetrieve}" />
+		
+	<h:outputText value=" #{entityMetadata.label}" title="#{entityMetadata.hint}" rendered="#{!noShowLabel}"/>
+</html>

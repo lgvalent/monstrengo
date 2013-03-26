@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Uma variável 'entity' (IEntity) deve ser fornecida para esta visão -->
+<!-- USO
+		<ui:include src="/pages/basic/tiles/createLabelFromEntity.xhtml">
+            <ui:param name="entity" value="#{backBean.currentEntity}"/>
+		</ui:include>
+ -->
+<h:outputText styleClass="noprint"
+	value="Nenhum modelo de etiqueta foi criado para #{entity.info.label}"
+	rendered="#{!labelEntityBean.hasModelsLabelEntity(entity)}"/>
+<h:outputText styleClass="noprint"
+	value="Você não possui privilégios para criar etiquetas"
+	rendered="#{!menuBean.crudMap.AddressLabel.canCreate}"/>
+
+	<p:growl id="growl" escape="false"/>
+	<h:panelGrid columns="2" rendered="#{menuBean.crudMap.AddressLabel.canCreate and labelEntityBean.hasModelsLabelEntity(entity)}">
+		<h:graphicImage value="../basic/img/label.png" style="border:0" />
+		<h:panelGroup>
+			Para gerar uma etiqueta de <i>#{entity.info.label}</i>, defina um grupo
+			<br/>
+			<h:selectOneMenu id="addressLabelGroupId"
+				value="#{labelEntityBean.addressLabelGroupId}"
+				title="Selecione o grupo desejado para a etiqueta gerada">
+				<f:selectItems value="#{labelEntityBean.addressLabelGroupList}" />
+			</h:selectOneMenu>
+			e selecione o modelo:
+			<h:dataTable id="modelLabelEntity"
+				value="#{labelEntityBean.getModelsLabelEntity(entity)}"
+				var="itemModel">
+				<h:column>
+					<h:commandLink actionListener="#{labelEntityBean.doCreate(retrieveBean.currentEntity.info.type.name, retrieveBean.entityParam.id, itemModel.value)}">
+					<h:graphicImage value="../basic/img/run_task.png" style="border:0" />
+					#{itemModel.label}
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+			<br/>
+			<h:outputText value="Uma etiqueta será inserida em sua " />
+			<h:outputLink
+				onclick="javascript:popupPage('../basic/labelView.jsp',800,600, VIEW_LABEL_LIST)"
+				rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
+				<h:outputText value="Lista de Etiquetas" />
+			</h:outputLink>
+		</h:panelGroup>
+	</h:panelGrid>
+</html>
