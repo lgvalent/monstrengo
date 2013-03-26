@@ -34,7 +34,7 @@ public class GerarTabelas extends DaoBasicTest{
 	/**
 	 * Este método é utilizado pelas classes filhas para executar uma geração personalizada.
 	 */
-	protected void createSchema(boolean generateScript,
+	public void createSchema(boolean generateScript,
 							  boolean export,
 							  boolean justDrop) {
 		AnnotationConfiguration cfg = new AnnotationConfiguration();
