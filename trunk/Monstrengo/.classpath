@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Commons"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySql"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/XDoclet"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSF2"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Log4J"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jasper"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Terceiros"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Ajax"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JUnit"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/OrionSoft"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
