@@ -13,8 +13,8 @@ import br.com.orionsoft.monstrengo.core.test.ServiceBasicTest;
  */
 public class InicializarSistema extends ServiceBasicTest{
 	
-	private GerarTabelas gerarTabelas = new  GerarTabelas();
-	private PopularTabelas popularTabelas = new  PopularTabelas();
+	protected GerarTabelas gerarTabelas = new  GerarTabelas();
+	protected PopularTabelas popularTabelas = new  PopularTabelas();
 	
 	/**
 	 * Permite que outros módulos implementem um popular tabelas personalizado
