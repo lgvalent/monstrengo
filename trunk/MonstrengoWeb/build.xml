@@ -136,7 +136,7 @@
     <!-- ================================= 
           target: War              
          ================================= -->
-    <target name="make-war" description="--> Gera arquivo war">
+    <target name="make-war" depends="updateMETA-INF/Resources" description="--> Gera arquivo war">
     	<delete file="${war.dir}/${war.name}.war"/>
 		<war destfile="${war.dir}/${war.name}.war">
 			<fileset dir="${web.dir}" id="id">
