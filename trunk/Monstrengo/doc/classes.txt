@@ -1,0 +1,298 @@
+
+br.com.orionsoft.monstrengo:
+    GerarTabelas
+    InicializarSistema
+    ManterBasic
+    PopularTabelas
+    RewriteConstraintExportSchema
+
+br.com.orionsoft.monstrengo.auditorship.entities:
+    AuditCrudRegister
+    AuditProcessRegister
+    AuditRegister
+    AuditServiceRegister
+
+br.com.orionsoft.monstrengo.auditorship.services:
+    AuditorCrudService
+    AuditorProcessService
+    AuditorServiceService
+    CheckAuditCrudService
+    UtilsAuditorship
+
+br.com.orionsoft.monstrengo.auditorship.support:
+    AuditorshipSupportException
+    EntityAuditValue
+    PropertyAuditValue
+
+br.com.orionsoft.monstrengo.core:
+    Application
+    IApplication
+    IManager
+
+br.com.orionsoft.monstrengo.core.annotations:
+    ProcessMetadata
+
+br.com.orionsoft.monstrengo.core.exception:
+    BusinessException
+    BusinessMessage
+    GeneralException
+    MessageList
+
+br.com.orionsoft.monstrengo.core.process:
+    IProcess
+    IProcessInfo
+    IProcessManager
+    IProcessParam
+    IRunnableEntityProcess
+    IRunnableEntityProcessController
+    ProcessBasic
+    ProcessException
+    ProcessInfo
+    ProcessManager
+    ProcessParamBasic
+    ProcessParamEntity
+    ProcessParamEntityList
+    RunnableEntityProcessControllerBasic
+    RunnableProcessEntry
+
+br.com.orionsoft.monstrengo.core.process.metadata:
+    MyProcess
+
+br.com.orionsoft.monstrengo.core.service:
+    IService
+    IServiceManager
+    ServiceBasic
+    ServiceData
+    ServiceException
+    ServiceManager
+    ServiceResultBean
+    Status
+    ValueObject
+
+br.com.orionsoft.monstrengo.core.test:
+    ApplicationBasicTest
+    BasicStructureRight
+    DaoBasicTest
+    EntityBasicTest
+    ProcessBasicTest
+    ServiceBasicTest
+    UtilsTest
+
+br.com.orionsoft.monstrengo.core.util:
+    AnnotationUtils
+    ArrayUtils
+    CalendarUtils
+    ClassUtils
+    CollectionUtils
+    DecimalUtils
+    EnumUtils
+    ExtensiveMoneyBr
+    ExtensiveNumberBr
+    HqlInputTest
+    MathUtils
+    NativeSQL
+    PrintUtils
+    PropertyUtils
+    StringUtils
+    TypeList
+    UploadUtils
+    ValidatorUtils
+
+br.com.orionsoft.monstrengo.crud.documents.entities:
+    ModelDocumentEntity
+
+br.com.orionsoft.monstrengo.crud.documents.processes:
+    CompileDocumentProcess
+
+br.com.orionsoft.monstrengo.crud.documents.services:
+    CompileCrudDocumentService
+    CompileFieldsDocumentService
+    ListModelDocumentEntityService
+    ListModelDocumentService
+
+br.com.orionsoft.monstrengo.crud.entity:
+    BusinessEntity
+    EntityCollection
+    EntityException
+    EntityList
+    EntityManager
+    EntitySet
+    GroupProperty
+    IEntity
+    IEntityCollection
+    IEntityList
+    IEntityManager
+    IEntitySet
+    IGroupProperties
+    IProperty
+    IPropertyValue
+    Property
+    PropertyException
+    PropertyValue
+    PropertyValueException
+    PropertyValueFormat
+
+br.com.orionsoft.monstrengo.crud.entity.dao:
+    DAOException
+    DaoBasic
+    DaoManager
+    IDAO
+    IDaoManager
+
+br.com.orionsoft.monstrengo.crud.entity.dvo:
+    DvoBasic
+    DvoException
+    DvoManager
+    IDvo
+    IDvoManager
+
+br.com.orionsoft.monstrengo.crud.entity.metadata:
+    EntityMetadata
+    GroupMetadata
+    IEntityMetadata
+    IGroupMetadata
+    IMetadataHandle
+    IPropertyMetadata
+    MetadataException
+    MetadataHandle
+    MetadataHandleDispacher
+    MetadataUtils
+    PropertyMetadata
+
+br.com.orionsoft.monstrengo.crud.entity.metadata.xml:
+    MetadataHandleXmlImpl
+
+br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates:
+    CrudOperationType
+    EntityType
+    ObjectFactory
+    PropertiesGroup
+    PropertyBooleanType
+    PropertyCalendarType
+    PropertyEntityType
+    PropertyNumericType
+    PropertyStringType
+    PropertyType
+
+br.com.orionsoft.monstrengo.crud.entity.validator:
+    IPropertyValidator
+    ValidationException
+
+br.com.orionsoft.monstrengo.crud.labels.entities:
+    AddressLabel
+    AddressLabelGroup
+    ModelLabel
+    ModelLabelEntity
+
+br.com.orionsoft.monstrengo.crud.labels.processes:
+    CreateLabelFromEntityProcess
+
+br.com.orionsoft.monstrengo.crud.labels.services:
+    CreateLabelFromEntityService
+    InsertAddressLabelService
+    ListModelLabelEntityService
+
+br.com.orionsoft.monstrengo.crud.labels.support:
+    JasperPrintLabel
+    MatrixLabel
+    PrintLabelJavaApi
+
+br.com.orionsoft.monstrengo.crud.processes:
+    CreateProcess
+    DeleteProcess
+    QueryProcess
+    RetrieveProcess
+    SelectParam
+    SqlQueryProcess
+    SqlQueryProcessController
+    UpdateProcess
+
+br.com.orionsoft.monstrengo.crud.report.entities:
+    FilterParam
+    HqlWhereParam
+    OrderCondictionBean
+    OrderParam
+    PageCondictionBean
+    PageParam
+    ParentCondictionBean
+    ParentParam
+    QueryCondictionBean
+    QueryParam
+    ReportParam
+    ResultCondictionBean
+    ResultParam
+    UserReport
+    UserReportBean
+
+br.com.orionsoft.monstrengo.crud.report.services:
+    ListUserReportService
+
+br.com.orionsoft.monstrengo.crud.services:
+    CheckDependencesEntityService
+    CreateService
+    DeleteService
+    GetCrudEntitiesService
+    ListService
+    Operator
+    OrderCondiction
+    QueryCondiction
+    QueryService
+    ResultCondiction
+    RetrieveService
+    UpdateService
+    UtilsCrud
+
+br.com.orionsoft.monstrengo.crud.support:
+    CrudExpression
+    DocumentParserCrudExpression
+    DocumentParserFields
+    HqlExpressionParserFields
+
+br.com.orionsoft.monstrengo.mail.entities:
+    EmailAccount
+    EmailAccountDvo
+
+br.com.orionsoft.monstrengo.mail.services:
+    SendMailService
+
+br.com.orionsoft.monstrengo.security.entities:
+    ApplicationEntity
+    ApplicationEntityProperty
+    ApplicationEntityPropertyGroup
+    ApplicationModule
+    ApplicationProcess
+    ApplicationUser
+    ApplicationUserDvo
+    RightCrud
+    RightProcess
+    SecurityGroup
+    UserSession
+
+br.com.orionsoft.monstrengo.security.processes:
+    AuthenticateProcess
+    ChangePasswordProcess
+    CreateSecurityStructureProcess
+    OverwritePasswordProcess
+    OverwritePasswordProcessController
+
+br.com.orionsoft.monstrengo.security.services:
+    AuthenticateService
+    AuthenticationException
+    ChangePasswordService
+    CheckAllRightCrudService
+    CheckAllRightProcessService
+    CheckRightCrudService
+    CheckRightProcessService
+    CreateSecurityStructureService
+    DefineRightCrudService
+    DefineRightProcessService
+    ManageSecurityStructureService
+    UserSessionManager
+    UtilsSecurity
+    UtilsSecurityException
+
+br.com.orionsoft.monstrengo.security.web:
+    AuthenticationFilter
+
+br.com.orionsoft.monstrengo.ws:
+    WebServiceBasic
