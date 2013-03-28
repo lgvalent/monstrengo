@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: orion-metadata;singleton:=true
-Bundle-Version: 1.1.4
+Bundle-Version: 1.1.5
 Bundle-Activator: br.com.orionsoft.Activator
 Bundle-Vendor: %Bundle-Vendor
 Require-Bundle: org.eclipse.ui,
