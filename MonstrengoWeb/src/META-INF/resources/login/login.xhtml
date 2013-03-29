@@ -12,17 +12,12 @@
 </h:head>
 
 <h:body onload="javascript:placeFocus()">
-	<p:layout >
-		<p:layoutUnit position="top">
-			<div id="superior">
-				<h:graphicImage value="login/img/logo.png"/>
-			</div>
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="100" style="text-align: center;">
+			<h:graphicImage value="/login/img/logo.png"/>
 		</p:layoutUnit>
 		<p:layoutUnit position="center">
 			<table align="center" border="0" width="256" >
-				<tr><td>
-					<h:graphicImage value="/login/img/logo.png"/>
-				</td></tr>
 				<tr valign="top" align="center">
 					<td colspan="3"><h:outputText
 							value="&lt;b&gt;Autenticação de operador&lt;/b&gt;"
@@ -47,7 +42,7 @@
 							</h:panelGrid>
 							<h:panelGrid cellpadding="5" style="text-align:center">
 								<p:commandButton value="Entrar"
-									action="#{userSessionBean.doLogin()}" ajax="false" />
+									action="#{userSessionBean.doLogin}" ajax="false" />
 							</h:panelGrid>
 							<h:panelGroup rendered="#{userSessionBean.logged}">
 								<h:outputLabel
@@ -65,8 +60,7 @@
 				</tr>
 			</table>
 		</p:layoutUnit>
-		<p:layoutUnit position="bottom" >
-			<div class="text-bottom">
+		<p:layoutUnit position="south" >
 				<h:outputFormat
 					value="Universidade Tecnológica Federal do Paraná - Campus Campo Mourão" />
 				<br />
@@ -77,7 +71,6 @@
 				
 				<a href="http://www.utfpr.edu.br/campomourao"
 					target="blank">http://www.utfpr.edu.br/campomourao</a>
-			</div>
 		</p:layoutUnit>
 	</p:layout>
 </h:body>
