@@ -5,20 +5,24 @@
 // Generated on: 2011.06.21 at 03:01:29 AM BRT 
 //
 
-
 package br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates;
+
+import java.math.BigInteger;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.PropertyType;
 
-
 /**
- * <p>Java class for PropertyStringType complex type.
+ * <p>
+ * Java class for PropertyStringType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="PropertyStringType">
@@ -33,9 +37,21 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.PropertyTy
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PropertyStringType")
-public class PropertyStringType
-    extends PropertyType
-{
+public class PropertyStringType extends PropertyType {
 
+	@XmlAttribute(name = "html")
+	protected Boolean html;
+
+	public boolean isHtml() {
+		if (html == null) {
+			return true;
+		} else {
+			return html;
+		}
+	}
+
+	public void setHtml(Boolean html) {
+		this.html = html;
+	}
 
 }

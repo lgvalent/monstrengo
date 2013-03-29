@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -55,6 +56,7 @@ public class PropertyMetadata implements IPropertyMetadata
     private boolean isSet;
     private boolean allowSubQuery;
     private boolean embedded;
+    private boolean html;
 
 
     /* IMPLEMENTAÇÃO DA INTERFACE IPropertyMetada */
@@ -70,12 +72,14 @@ public class PropertyMetadata implements IPropertyMetadata
     		isInteger();}
 
     public boolean isCalendar(){return (type == Calendar.class);}
+    public boolean isDate(){return (type == Date.class);}
     public boolean isBigDecimal(){return (type == BigDecimal.class);}
     public boolean isDouble(){return ((type == Double.class) || (type == double.class));}
     public boolean isFloat(){return ((type == Float.class) || (type == float.class));}
     public boolean isLong(){return ((type == Long.class)|| (type == long.class));}
     public boolean isInteger(){return ((type == Integer.class) || (type == int.class));}
     public boolean isString(){return (type == String.class);}
+    public boolean isHtml(){return html;}
     public boolean isBoolean(){return ((type == Boolean.class) || (type == boolean.class));}
     public boolean isEnum(){return type.isEnum();}
 
@@ -163,6 +167,7 @@ public class PropertyMetadata implements IPropertyMetadata
         this.defaultValue = metadataHandle.getPropertyDefaultValue(propertyName);
 
         this.visible = metadataHandle.getPropertyVisible(propertyName);
+        this.html = metadataHandle.getPropertyHtml(propertyName);
         this.calculated = metadataHandle.getPropertyCalculated(propertyName);
 
         /* Verifica se a classe implementa o método set, ou seja, a propriedade

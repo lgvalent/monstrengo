@@ -39,8 +39,7 @@ public class MetadataHandleDispacher implements IMetadataHandle
     	
     	return this.metadataHandleTxt;
     }
-    @SuppressWarnings("unchecked")
-	public void setEntityClass(Class entityClass, boolean defaultMode) 
+	public void setEntityClass(Class<?> entityClass, boolean defaultMode) 
     {
     	/* Verifica se existe um .properties ou um .info.xml para determinar qual Handle usar */
     	if(entityClass.getResourceAsStream(entityClass.getSimpleName() + MetadataHandleXmlImpl.INFO_XML_FILE_EXTENSION)!=null){
@@ -53,12 +52,12 @@ public class MetadataHandleDispacher implements IMetadataHandle
     }
     
 	
-    public Class getEntityClass() {
+    public Class<?> getEntityClass() {
     	return getHandle().getEntityClass();
     }
     
 	
-    public void setEntityClass(Class entityClass){
+    public void setEntityClass(Class<?> entityClass){
     	setEntityClass(entityClass, false);
     }
 	
@@ -141,7 +140,7 @@ public class MetadataHandleDispacher implements IMetadataHandle
 	}
 
 	
-	public Class getPropertyType(String propertyName) throws MetadataException {
+	public Class<?> getPropertyType(String propertyName) throws MetadataException {
 		return getHandle().getPropertyType(propertyName);
 	}
 
@@ -167,6 +166,12 @@ public class MetadataHandleDispacher implements IMetadataHandle
 	public boolean getPropertyVisible(String propertyName)
 			throws MetadataException {
 		return getHandle().getPropertyVisible(propertyName);
+	}
+
+	
+	public boolean getPropertyHtml(String propertyName)
+			throws MetadataException {
+		return getHandle().getPropertyHtml(propertyName);
 	}
 
 	

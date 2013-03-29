@@ -22,7 +22,7 @@ public class MetadataUtils
      * 
      * @deprecated Não é aconselhado usar Fields para beans, mas PropertyDescriptors
      */
-    public static final Field[] getFields(Class klazz)
+    public static final Field[] getFields(Class<?> klazz)
     {
         Field[] result=null;
         
