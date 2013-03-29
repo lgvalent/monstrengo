@@ -33,6 +33,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import br.com.orionsoft.monstrengo.crud.documents.entities.ModelDocumentEntity;
 import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.MetadataHandleXmlImpl;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
@@ -134,13 +135,13 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 	
 	public static void main(String[] args) {
 		try {
-			EntityType entityType = new MetadataHandleXmlImpl().prepareEntityMetadataXml(ApplicationUser.class);
+			EntityType entityType = new MetadataHandleXmlImpl().prepareEntityMetadataXml(ModelDocumentEntity.class);
 			
 //			showEntityType(entityType);
 
 			MetadataHandleXmlImpl m = new MetadataHandleXmlImpl();
-			m.setEntityClass(ApplicationUser.class);
-			System.out.println(m.getPropertyType(ApplicationUser.SECURITY_GROUPS));
+			m.setEntityClass(ModelDocumentEntity.class);
+			System.out.println(m.getPropertyHtml(ModelDocumentEntity.SOURCE));
 		} catch (MetadataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,6 +192,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 						
 				if(p instanceof PropertyStringType){
 					PropertyStringType ps = (PropertyStringType) p;
+					System.out.println("        html:" + ps.isHtml());
 				}
 						
 				if(p instanceof PropertyEntityType){
@@ -318,6 +320,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 	private static final String RUN_QUERY_ON_OPEN = "runQueryOnOpen";
 
 	private static final String VISIBLE = "visible";
+	private static final String HTML = "html";
 	private static final String REQUIRED = "required";
 	private static final String READONLY = "readOnly";
 	private static final String CALCULATED = "calculated";
@@ -754,6 +757,17 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			throws MetadataException {
 		try {
 			String value = getStrProperty(propertyName, VISIBLE);
+			return value.equals("true");
+		} catch (MissingResourceException e) {
+			// Se não encontrou a propriedade declarada retorna a padrão
+			return true;
+		}
+	}
+	
+	public boolean getPropertyHtml(String propertyName)
+			throws MetadataException {
+		try {
+			String value = getStrProperty(propertyName, HTML);
 			return value.equals("true");
 		} catch (MissingResourceException e) {
 			// Se não encontrou a propriedade declarada retorna a padrão

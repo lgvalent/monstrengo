@@ -79,6 +79,7 @@ public class MetadataHandle implements IMetadataHandle
     private static final String SUB_ENTITIES = "subEntities";
 
     private static final String VISIBLE = "visible";
+    private static final String HTML = "html";
     private static final String REQUIRED = "required";
     private static final String READONLY = "readOnly";  
     private static final String CALCULATED = "calculated";
@@ -95,7 +96,7 @@ public class MetadataHandle implements IMetadataHandle
     @Deprecated
     private static final String IS_ONE_TO_MANY = "oneToMany";
     
-    private Class entityClass;
+    private Class<?> entityClass;
     private String entityName;
     private ApplicationEntity oApplicationEntity;
     private boolean defaultMode=false;
@@ -119,16 +120,15 @@ public class MetadataHandle implements IMetadataHandle
         return ready;
     }
     
-    public Class getEntityClass() {
+    public Class<?> getEntityClass() {
     	return this.entityClass;
     }
     
-    public void setEntityClass(Class entityClass){
+    public void setEntityClass(Class<?> entityClass){
     	setEntityClass(entityClass, false);
     }
 
-    @SuppressWarnings("unchecked")
-	public void setEntityClass(Class entityClass, boolean defaultMode) 
+	public void setEntityClass(Class<?> entityClass, boolean defaultMode) 
     {
     	/* Limpa o mapa que armazena os metadados que foram encontrados persistidos no
     	 * banco de dados */
@@ -315,7 +315,7 @@ public class MetadataHandle implements IMetadataHandle
         throw new MissingResourceException("","","");
     }
 
-    private Class propertyType(String propertyName){
+    private Class<?> propertyType(String propertyName){
         try
         {
             return PropertyUtils.getPropertyType(entityClass, propertyName);
@@ -398,7 +398,7 @@ public class MetadataHandle implements IMetadataHandle
         }
     }
     
-    public Class getPropertyType(String propertyName) throws MetadataException
+    public Class<?> getPropertyType(String propertyName) throws MetadataException
     {
         try
         {
@@ -470,6 +470,20 @@ public class MetadataHandle implements IMetadataHandle
         {
             // Se não encontrou a propriedade declarada retorna a padrão
             return true;
+        }
+    }    
+    
+    public boolean getPropertyHtml(String propertyName) throws MetadataException
+    {
+        try
+        {
+            String value = getStrProperty(propertyName , HTML);
+            return value.equals("true");
+        }
+        catch (MissingResourceException e)
+        {
+            // Se não encontrou a propriedade declarada retorna a padrão
+            return false;
         }
     }    
     
@@ -923,7 +937,6 @@ public class MetadataHandle implements IMetadataHandle
         }
     }
 
-	@SuppressWarnings("unchecked")
 	public List<IGroupMetadata> getEntityGroups() throws MetadataException {
 		List<IGroupMetadata> groups = new ArrayList<IGroupMetadata>();
 

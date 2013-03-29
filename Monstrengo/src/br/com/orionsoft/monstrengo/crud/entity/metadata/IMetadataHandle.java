@@ -41,7 +41,7 @@ public interface IMetadataHandle {
 
     public String getPropertyDescription(String propertyName) throws MetadataException;
 
-    public Class getPropertyType(String propertyName) throws MetadataException;
+    public Class<?> getPropertyType(String propertyName) throws MetadataException;
 
     public boolean getPropertyRequired(String propertyName) throws MetadataException;
 
@@ -50,6 +50,8 @@ public interface IMetadataHandle {
     public boolean getPropertyCalculated(String propertyName) throws MetadataException;
 
     public boolean getPropertyVisible(String propertyName) throws MetadataException;
+
+    public boolean getPropertyHtml(String propertyName) throws MetadataException;
 
     public int getPropertySize(String propertyName) throws MetadataException;
 
@@ -109,7 +111,7 @@ public interface IMetadataHandle {
      * @param entityClass
      * @throws MetadataException
      */
-    public void setEntityClass(Class entityClass) throws MetadataException;
+    public void setEntityClass(Class<?> entityClass) throws MetadataException;
     
     /**
      * Define para o gerenciador de metadados preparar os metadados de uma determinada entidade e possibilita
@@ -118,8 +120,8 @@ public interface IMetadataHandle {
      * @param entityClass
      * @throws MetadataException
      */
-    public void setEntityClass(Class entityClass, boolean defaultMode) throws MetadataException;
-    public Class getEntityClass();
+    public void setEntityClass(Class<?> entityClass, boolean defaultMode) throws MetadataException;
+    public Class<?> getEntityClass();
     
     
 
