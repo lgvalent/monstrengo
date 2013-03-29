@@ -5,6 +5,12 @@ import org.junit.Test;
 
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.core.test.ApplicationBasicTest;
+import br.com.orionsoft.monstrengo.crud.documents.entities.ModelDocumentEntity;
+import br.com.orionsoft.monstrengo.crud.entity.EntityException;
+import br.com.orionsoft.monstrengo.crud.entity.metadata.MetadataException;
+import br.com.orionsoft.monstrengo.crud.entity.metadata.MetadataHandleDispacher;
+import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.MetadataHandleXmlImpl;
+import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.EntityType;
 
 /**
  * Esta classe é útil para a primeira execução do sistema. Ela gera o Banco e
@@ -25,6 +31,18 @@ public class InicializarSistema extends
 
 	@Test
 	public void inicializar() {
+		try {
+			System.out.println(this.serviceManager.getEntityManager().getEntityMetadata(ModelDocumentEntity.class).getPropertyMetadata(ModelDocumentEntity.SOURCE).isHtml());
+		} catch (MetadataException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (EntityException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(true)return;
+
 
 		super.gerarTabelas.createSchema(false, true, false);
 		try {
@@ -33,4 +51,5 @@ public class InicializarSistema extends
 			e.printStackTrace();
 		}
 	}
+	
 }

@@ -10,6 +10,7 @@
 <ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
 	<ui:param name="title" value="Alterando os dados de &lt;i&gt;Modelo de Documento de Entidade&lt;/i&gt;" />
 	<ui:param name="description" value="Esta entidade permite definir modelos de documentos para outras entidades. &lt;br/&gt;É possível definir quais propriedades de uma entidade serão impressas em cada linha do documento. Para isto, o usuário utiliza expressões que serão interpretadas pelo gerador de documentos." />
+	<ui:param name="hasFileUpload" value="false" />
 	<ui:param name="icon" value="../basic/img/document.png" />
 	<ui:define name="content">
 		<fieldset>
@@ -54,8 +55,8 @@
 		<h:outputLabel value="* Campos requeridos " styleClass="errorMessage" />
 	</ui:define>
 	<ui:define name="actions">
-		<h:commandButton value="Gravar" onclick="javascript:return confirm('Confirma gravar as alterações?')" action="#{documentEntityBean.actionSave}"/>
-		<h:commandButton value="Cancelar" onclick="javascript:return confirm('Confirma abandonar as alterações?')" action="#{documentEntityBean.actionCancel}"/>
+		<p:commandButton value="Gravar" onclick="javascript:return confirm('Confirma gravar as alterações?')" action="#{documentEntityBean.actionSave}" ajax="false"/>
+		<p:commandButton value="Cancelar" onclick="javascript:return confirm('Confirma abandonar as alterações?')" action="#{documentEntityBean.actionCancel}" ajax="false"/>
 	</ui:define>
 </ui:composition>
 </html>
