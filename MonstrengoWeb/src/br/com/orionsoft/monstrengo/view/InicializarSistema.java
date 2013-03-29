@@ -20,30 +20,17 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.EntityType
  */
 public class InicializarSistema extends
 		br.com.orionsoft.monstrengo.InicializarSistema {
-	
+
 	@Before
 	public void setUp() throws Exception {
 		// Definindo o arquivo SPRING do atual projeto para o teste
 		ApplicationBasicTest.APPLICATION_CONTEXT_PATH = "./WebContent/WEB-INF/applicationContext.xml";
-		
+
 		super.setUp();
 	}
 
 	@Test
 	public void inicializar() {
-		try {
-			System.out.println(this.serviceManager.getEntityManager().getEntityMetadata(ModelDocumentEntity.class).getPropertyMetadata(ModelDocumentEntity.SOURCE).isHtml());
-		} catch (MetadataException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (EntityException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		if(true)return;
-
-
 		super.gerarTabelas.createSchema(false, true, false);
 		try {
 			super.popularTabelas.popular();
@@ -51,5 +38,5 @@ public class InicializarSistema extends
 			e.printStackTrace();
 		}
 	}
-	
+
 }
