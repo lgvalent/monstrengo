@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+		<ui:param name="title" value="#{menuBean.processInfoMap.RelatorioCobrancaProcess.label}" />
+		<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
+		<ui:param name="description" value="#{menuBean.processInfoMap.RelatorioCobrancaProcess.description}" />
+		<ui:define name="content">
+		
+			<h:panelGrid
+				width="100%"
+				columns="2"
+				styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
+
+	   			<h:outputText value="Pessoa"/>
+	   			<h:panelGroup>
+				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+   	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramPessoa}"/>
+				</ui:include>
+	   			</h:panelGroup>
+
+	   			<h:outputText value="Itens de custos"/>
+	   			<h:panelGroup>
+				<ui:include src="/pages/basic/tiles/processParamEntityListSuggest.xhtml">
+   	    		   <ui:param name="paramEntityList" value="#{relatorioCobrancaBean.process.paramItemCusto}"/>
+				</ui:include>
+	   			</h:panelGroup>
+
+	   			<h:outputText value="Escritórios contábeis"/>
+	   			<h:panelGroup>
+				<ui:include src="/pages/basic/tiles/processParamEntityListSuggest.xhtml">
+   	    		   <ui:param name="paramEntityList" value="#{relatorioCobrancaBean.process.paramEscritorioContabil}"/>
+				</ui:include>
+	   			</h:panelGroup>
+
+	   			<h:outputText value="CNAE"/>
+	   			<h:panelGroup>
+				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+   	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramCnae}"/>
+				</ui:include>
+	   			</h:panelGroup>
+
+				<h:outputLabel value="CNAE descrições"/>
+				<h:inputText id="cnaeDescricao"
+						value="#{relatorioCobrancaBean.process.cnaeDescricao}"
+						size="25" rendered="true"
+						styleClass="queryInputSelectOne"
+						title="Entre com mais de uma descrição separada por vírgula. Exemplo: Comércio,Varejo,Ferramentas"/>
+
+	   			<h:outputText value="Categoria contrato"/>
+				<h:selectOneMenu id="categoriaContrato" value="#{relatorioCobrancaBean.process.categoriaContratoId}" >
+					<f:selectItems value="#{relatorioCobrancaBean.process.listCategoriaContrato}"/>
+				</h:selectOneMenu>
+
+	   			<h:outputText value="Município"/>
+	   			<h:panelGroup>
+				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+   	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramMunicipio}"/>
+				</ui:include>
+	   			</h:panelGroup>
+
+	   			<h:outputText value="Representante do contrato"/>
+				<h:selectOneMenu id="contratoRepresentante" value="#{relatorioCobrancaBean.process.contratoRepresentanteId}" >
+					<f:selectItems value="#{relatorioCobrancaBean.process.listContratoRepresentante}"/>
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Contratos:"/>
+				<h:selectOneRadio id="tipoContrato" value="#{relatorioCobrancaBean.process.tipoContrato}" style="font-size: small" >
+					<f:selectItems value="#{relatorioCobrancaBean.process.listTipoContrato}"/>
+				</h:selectOneRadio>
+
+				<h:outputLabel value="Data de lançamento:"/>
+				<h:panelGroup>
+					<ui:include src="/pages/basic/tiles/calendars.xhtml">
+			           <ui:param name="timeFieldFrom" value="#{relatorioCobrancaBean.process.dataLancamentoInicial.time}"/>
+    			       <ui:param name="timeFieldTo" value="#{relatorioCobrancaBean.process.dataLancamentoFinal.time}"/>
+					</ui:include>
+				</h:panelGroup>
+
+				<h:outputLabel value="Data de vencimento:"/>
+				<h:panelGroup>
+					<ui:include src="/pages/basic/tiles/calendars.xhtml">
+			           <ui:param name="timeFieldFrom" value="#{relatorioCobrancaBean.process.dataVencimentoInicial.time}"/>
+    			       <ui:param name="timeFieldTo" value="#{relatorioCobrancaBean.process.dataVencimentoFinal.time}"/>
+					</ui:include>
+				</h:panelGroup>
+
+				<h:outputLabel value="Calcular multa e juros até:"/>
+				<h:panelGroup>
+					<ui:include src="/pages/basic/tiles/calendar.xhtml">
+			           <ui:param name="timeField" value="#{relatorioCobrancaBean.process.dataPagamento.time}"/>
+					</ui:include>
+				</h:panelGroup>
+
+				<h:outputLabel value="Quantidade de itens:"/>
+				<h:panelGroup>
+			 		<h:inputText id="quantidadeItensInicial" value="#{relatorioCobrancaBean.process.quantidadeItensInicial}" size="4" maxlength="5" onkeypress="return keyPressInt(this, event)"/>
+					<h:outputLabel value=" até "/>
+		 			<h:inputText id="quantidadeItensFinal" value="#{relatorioCobrancaBean.process.quantidadeItensFinal}" size="4" maxlength="5" onkeypress="return keyPressInt(this, event)"/>
+				</h:panelGroup>
+
+				<h:outputLabel value="Não mostrar valores:"/>
+				<h:selectBooleanCheckbox id="omitirValores" value="#{relatorioCobrancaBean.process.omitirValores}" />
+			</h:panelGrid>
+		</ui:define>
+
+		<ui:define name="actions">
+		
+			<p:commandButton id="gerarRelatorio" value="Gerar relatório de cobrança" />
+		    <p:overlayPanel for="gerarRelatorio" hideEffect="fade">  
+				<h:outputLabel value="Modelo do relatório:"/>
+		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.relatorioCobrancaModelo}" id="relatorioCobrancaModelo">
+		   			<f:selectItems value="#{relatorioCobrancaBean.process.listRelatorioCobrancaModelo}"/>
+		   		</h:selectOneMenu>
+				<p:commandButton ajax="false" value="Download PDF" action="#{relatorioCobrancaBean.doVisualizar}"  onclick="this.value='Aguarde...'" title="Gera um PDF com os documentos selecionados"/>
+			</p:overlayPanel>  		
+
+			<p:commandButton id="gerarCarta" value="Gerar cartas de cobrança" />
+		    <p:overlayPanel for="gerarCarta" hideEffect="fade">  
+				<h:outputLabel value="Modelo da carta de cobrança:"/>
+		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.cartaCobrancaModelo}" id="cartaCobrancaModelo">
+		   			<f:selectItems value="#{relatorioCobrancaBean.process.listCartaCobrancaModelo}"/>
+		   		</h:selectOneMenu>
+				<p:commandButton ajax="false" value="Download PDF" action="#{relatorioCobrancaBean.doImprimirCartaCobranca}"/>
+		    </p:overlayPanel>  
+			<p:commandButton ajax="false" value="Gerar etiquetas" action="#{relatorioCobrancaBean.doGerarEtiqueta}" title="Gera as etiquetas para as empresas que aparecem no relatório de cobrança"/>
+		</ui:define>
+	</ui:composition>
+</html>		

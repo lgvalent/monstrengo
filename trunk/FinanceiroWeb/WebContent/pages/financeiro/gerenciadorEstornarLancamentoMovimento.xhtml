@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.EstornarLancamentoMovimentoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/estornar.png" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.EstornarLancamentoMovimentoProcess.description}" />
+	<ui:define name="content">
+	<h:panelGrid width="100%" columns="2" cellpadding="3" styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.conta.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.conta.nome}" />
+ 
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.data.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.data.time}" />
+		
+ 		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.lancamento.contrato}" />
+
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.descricao.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.descricao}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.documentoPagamento.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.documentoPagamento}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.valor.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.valor}">
+			<f:convertNumber type="currency"/>
+		</h:outputText>
+		
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.multa.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.multa}">
+			<f:convertNumber type="currency"/>
+		</h:outputText>
+		
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.juros.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.juros}">
+			<f:convertNumber type="currency"/>
+		</h:outputText>
+				
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.valorTotal.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.valorTotal}">
+			<f:convertNumber type="currency"/>
+		</h:outputText>
+		
+		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.lancamentoMovimentoCategoria.label}:"/>
+		<h:outputText value="#{estornarLancamentoMovimentoBean.process.lancamentoMovimento.object.lancamentoMovimentoCategoria.nome}"/>
+	</h:panelGrid>
+
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Data de estorno"/>
+		<h:panelGroup>
+			<ui:include src="/pages/basic/tiles/calendar.xhtml">
+	    	    <ui:param name="timeField" value="#{estornarLancamentoMovimentoBean.process.data.time}"/>
+			</ui:include>
+		</h:panelGroup>
+		<h:outputLabel value="Motivo do estorno"/>
+		<p:inputTextarea id="descricao" value="#{estornarLancamentoMovimentoBean.descricao}" rows="3" required="true"/>
+	</h:panelGrid>
+
+	
+	</ui:define>
+	<ui:define name="actions">
+			<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+			<h:commandButton value="Confirmar" action="#{estornarLancamentoMovimentoBean.doEstornar}"/>
+	</ui:define>
+</ui:composition>
+</html>
+	

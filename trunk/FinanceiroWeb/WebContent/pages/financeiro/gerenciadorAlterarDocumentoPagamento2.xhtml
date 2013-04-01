@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.AlterarDocumentoPagamentoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/documentoPagamento.png" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.AlterarDocumentoPagamentoProcess.description}" />
+	<ui:define name="content">
+		<h:outputLabel value="Alterar o atual documento de pagamento:"/>
+		<b><h:outputText value="#{alterarDocumentoPagamentoBean.process.categoriaAntigaAsString}" /></b>
+		<br/>
+	
+		<h:outputLabel value="para o novo documento de pagamento selecionado:"/>
+		<b><h:outputText value="#{alterarDocumentoPagamentoBean.process.categoriaAsString}" /></b>
+		<br/>
+	
+		<h:outputLabel value="Deseja confirmar esta alteração?"/>
+		
+	</ui:define>
+	<ui:define name="actions">
+		<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+		<h:commandButton value="Confirmar" action="#{alterarDocumentoPagamentoBean.doConfirmar}" onclick="this.value='Aguarde'"/>
+	</ui:define>
+</ui:composition>
+</html>
+	

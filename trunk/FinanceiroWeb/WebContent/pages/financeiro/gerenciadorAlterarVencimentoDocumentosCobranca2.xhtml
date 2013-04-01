@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
+	<ui:param name="title" value="#{menuBean.processInfoMap.AlterarVencimentoDocumentosCobrancaProcess.label}" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.AlterarVencimentoDocumentosCobrancaProcess.description}" />
+	<ui:define name="content">
+		
+		<h:dataTable 
+			border="1" 
+			value="#{alterarVencimentoDocumentosCobrancaBean.process.documentos.array}"
+			var='item'
+			headerClass="tableListHeader"
+			footerClass="tableListFooter"
+			styleClass="tableList"
+			rowClasses="tableListRowEven,tableListRowOdd"
+			columnClasses="tableListColumn"
+			style="border-collapse: collapse"
+			width="100%">
+		  <h:column>
+			<h:selectBooleanCheckbox value="#{item.selected}"/>
+		  </h:column>
+		  <h:column>
+		  	<f:facet name="header">
+				<h:outputLabel value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.dataVencimento.label}:"/>
+		  	</f:facet>	
+			<h:outputText value="#{item.propertiesMap.dataVencimento.value.asString}" />
+		  </h:column>
+		  <h:column>
+		  	<f:facet name="header">
+				<h:outputText value="Descrição" />
+		  	</f:facet>	
+			<h:outputLabel value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.contrato.label}:"/>
+			<h:outputText value="#{item.object.contrato}" />
+			<br/> 
+			<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.documentoCobrancaCategoria.label}:"  escape="false" />
+			<h:outputText value="#{item.object.documentoCobrancaCategoria}"/>
+		
+			<h:outputLabel value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.valor.label}:"/>
+			<h:outputText value="#{item.object.valor}">
+				<f:convertNumber type="currency"/>
+			</h:outputText>
+		  </h:column>
+		</h:dataTable>
+
+	</ui:define>
+	<ui:define name="actions">
+
+		<p:commandButton ajax="false" value="Imprimir" title="Abre a tela para impressão dos documentos" action="#{alterarVencimentoDocumentosCobrancaBean.actionImprimir}"/>
+
+	</ui:define>
+</ui:composition>
+</html>
+

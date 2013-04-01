@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC
+    "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-autowire="no" default-lazy-init="false"
+	default-dependency-check="none">
+
+	<bean id="MetadataHandle"
+		class="br.com.orionsoft.monstrengo.crud.entity.metadata.MetadataHandleDispacher">
+
+		<property name="metadataHandleTxt">
+			<ref bean="MetadataHandleTxt" />
+		</property>
+		<property name="metadataHandleXml">
+			<ref bean="MetadataHandleXml" />
+		</property>
+	</bean>
+
+	<bean id="MetadataHandleXml"
+		class="br.com.orionsoft.monstrengo.crud.entity.metadata.xml.MetadataHandleXmlImpl">
+
+		<property name="daoManager">
+			<ref bean="DaoManager" />
+		</property>
+	</bean>
+
+	<bean id="MetadataHandleTxt"
+		class="br.com.orionsoft.monstrengo.crud.entity.metadata.MetadataHandle">
+
+		<property name="daoManager">
+			<ref bean="DaoManager" />
+		</property>
+	</bean>
+
+	<bean id="ServiceManager" class="br.com.orionsoft.monstrengo.core.service.ServiceManager"
+	    init-method="init">
+
+		<property name="entityManager">
+			<ref bean="EntityManager" />
+		</property>
+		<property name="application">
+			<ref bean="Application" />
+		</property>
+	</bean>
+
+	<bean id="EntityManager" class="br.com.orionsoft.monstrengo.crud.entity.EntityManager">
+
+		<property name="serviceManager">
+			<ref bean="ServiceManager" />
+		</property>
+		<property name="metadataHandle">
+			<ref bean="MetadataHandle" />
+		</property>
+		<property name="daoManager">
+			<ref bean="DaoManager" />
+		</property>
+		<property name="dvoManager">
+			<ref bean="DvoManager" />
+		</property>
+	</bean>
+
+	<bean id="DvoManager" class="br.com.orionsoft.monstrengo.crud.entity.dvo.DvoManager"
+	      init-method="init"  >
+		<property name="entityManager">
+			<ref bean="EntityManager" />
+		</property>
+		<property name="application">
+			<ref bean="Application" />
+		</property>
+	</bean>
+
+	<bean id="ProcessManager" class="br.com.orionsoft.monstrengo.core.process.ProcessManager"
+	    init-method="init">
+		<property name="serviceManager">
+			<ref bean="ServiceManager" />
+		</property>
+		<property name="application">
+			<ref bean="Application" />
+		</property>
+	</bean>
+
+	<!-- DataSource Definition -->
+	<bean id="DataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/financeiro</value>
+		</property>
+		<property name="username">
+			<value>user</value>
+		</property>
+		<property name="password">
+			<value>user</value>
+		</property>
+	</bean>
+
+	<!--Hibernate Session Definition -->
+	<bean id="SessionFactoryBuilder"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBuilder">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+			</props>
+		</property>
+		<property name="dataSource">
+			<ref bean="DataSource" />
+		</property>
+	</bean>
+
+	<!-- Bean utilizado pelo ServiceManager para criar as transações -->
+	<bean id="TransactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager">
+			<ref bean="TransactionManager" />
+		</property>
+	</bean>
+
+	<!-- Bean utilizado pelo TransactionTemplate para manipular as transações -->
+	<bean id="TransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="DataSource" />
+		</property>
+	</bean>
+
+	<bean id="DaoManager" class="br.com.orionsoft.monstrengo.crud.entity.dao.DaoManager"
+	    init-method="init">
+		<property name="sessionFactoryBuilder">
+			<ref bean="SessionFactoryBuilder" />
+		</property>
+		<property name="application">
+			<ref bean="Application" />
+		</property>
+	</bean>
+
+	<bean id="Application" class="br.com.orionsoft.monstrengo.core.Application">
+		<property name="modulesPackages">
+			<list>
+				<value>br.com.orionsoft.monstrengo</value>
+				<value>br.com.orionsoft.monstrengoWeb</value>
+				<value>br.com.orionsoft.basic</value>
+				<value>br.com.orionsoft.financeiro</value>
+			</list>
+		</property>
+	</bean>
+</beans>
