@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.QuitarLancamentoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/quitar.png" />
+	<ui:param name="description" value="Confira as contas, valores e o documento de pagamento que será usado para quitar os movimentos listados. &lt;br/&gt;Para cada contrato será criado um documento individual baseado no documento de pagamento escolhido." />
+	<ui:define name="content">
+	<h:outputLabel value="Conta para quitação: "/>
+	<h:selectOneMenu id="conta" value="#{quitarLancamentoBean.process.contaId}" onfocus="setActiveComponent(this);" disabled="true">
+		<f:selectItems value="#{quitarLancamentoBean.process.listConta}"/>
+	</h:selectOneMenu>
+	
+	<h:outputLabel value="Data de quitação: "/>
+	<h:outputText id="dataQuitacao" value="#{quitarLancamentoBean.process.dataQuitacao.time}">
+			<f:convertDateTime locale="Locale.BRAZIL" pattern="dd/MM/yyyy"/>
+	</h:outputText>	
+	
+		<h:dataTable id="tableContratos"
+		  			 border="1" 
+		             value="#{quitarLancamentoBean.process.contratos}" 
+		             var='contratoBean'
+		             headerClass="tableListHeader"
+		             footerClass="tableListFooter"
+		             styleClass="tableList"
+		             rowClasses="tableListRowEven,tableListRowOdd"
+		             columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight"
+		             style="border-collapse: collapse"
+		             width="100%">
+		             
+		             <h:column>
+						<h:outputText escape="false" value="Contrato: #{contratoBean.contrato}" /> 
+
+	
+	<h:dataTable id="tableMovimentos"
+		  			 border="1" 
+		             value="#{contratoBean.movimentos.array}" 
+		             var='item'
+		             headerClass="tableListHeader"
+		             footerClass="tableListFooter"
+		             styleClass="tableList"
+		             rowClasses="tableListRowEven,tableListRowOdd"
+		             columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight"
+		             style="border-collapse: collapse"
+		             width="100%">
+
+				<h:column >
+					<h:selectBooleanCheckbox id="myCheck" value="#{item.selected}" disabled="true"/> 
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="Lançamento"/>
+   	                </f:facet>
+					<h:outputText value="#{item.object.lancamento}"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.valor.label}"/>
+   	                </f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.valor}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{item.propertiesMap.valor.value.asString}"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.multa.label}"/>
+					</f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.multa}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{item.propertiesMap.multa.value.asString}"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.juros.label}"/>
+					</f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.juros}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{item.propertiesMap.juros.value.asString}"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.desconto.label}"/>
+					</f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.desconto}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{item.propertiesMap.desconto.value.asString}"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="Total"/>
+					</f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.total}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText id="total" value="#{item.propertiesMap.valorTotal.value.asString}"/>
+					<h:message styleClass="errorMessage" for="total"/>
+				</h:column>
+
+		</h:dataTable>
+		</h:column>
+	</h:dataTable>
+	<br/>
+
+	<h:panelGrid width="100%" columns="2" cellpadding="3" style="font: 12px" styleClass="tableList" columnClasses="tableListColumn,tableListColumn,tableListColumnRight" rowClasses="tableListRowEven,tableListRowOdd">
+		<h:outputLabel value="#{menuBean.infoMap.DocumentoPagamento.label}(#{quitarLancamentoBean.process.documentoPagamento.object.documentoPagamentoCategoria})" />
+		<h:outputText value="#{quitarLancamentoBean.process.documentoPagamento}" />
+	</h:panelGrid>
+	</ui:define>
+	<ui:define name="actions">
+		<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+		<h:commandButton value="Finalizar" action="#{quitarLancamentoBean.actionPasso4}"/>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Esta página (imprimir1.jsp) obtem os parametros necessarios para o processo imprimirGrcsProcess -->
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="icon" value="../financeiro/img/imprimirDocumento_b.png" />
+	<ui:param name="title" value="#{menuBean.processInfoMap.ImprimirDocumentosCobrancaProcess.label}" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.ImprimirDocumentosCobrancaProcess.description}" />
+	<ui:define name="content">
+		<h:panelGrid columns="3" cellpadding="3">
+			<h:outputText value="Documento de cobrança:" title="Escolha a categoria de documento de cobrança que gerou os documentos" />
+			<h:selectOneMenu id="documentoCobranca"
+				value="#{imprimirDocumentosCobrancaBean.currentProcess.documentoCobrancaCategoriaId}">
+				<f:selectItems value="#{imprimirDocumentosCobrancaBean.currentProcess.documentoCobrancaCategoriaList}" />
+			</h:selectOneMenu>
+			<h:message styleClass="errorMessage" for="documentoCobranca" />
+
+			<h:panelGrid columns="5">
+				<h:outputText value="CPF"/>
+		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Fisica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
+					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+			    </h:outputLink>
+
+      			<h:outputText value="/CNPJ" />
+		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Juridica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
+					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+			    </h:outputLink>
+      			<h:outputText value=":" />
+			</h:panelGrid>
+			<h:inputText value="#{imprimirDocumentosCobrancaBean.currentProcess.cpfCnpj}" id="cpfCnpj" size="14" maxlength="14" onkeypress="return keyPressInt(this, event)"/>
+			<h:message  styleClass="errorMessage" for="cpfCnpj" />
+
+			<h:outputText value="Data do documento:" title="Informe a data de emissão dos documentos a serem selecionados"/>
+			<h:panelGrid columns="5">
+	 			<h:inputText id="dataDocumentoDe" required="true" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataDocumentoDe.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
+					<f:convertDateTime locale="Locale.BRAZIL" pattern="dd/MM/yyyy"/>
+				</h:inputText>
+			    <h:message  styleClass="errorMessage" for="dataDocumentoDe"/>
+				<h:outputText value=" ate "/>
+	 			<h:inputText id="dataDocumentoAte" required="true" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataDocumentoAte.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
+					<f:convertDateTime locale="Locale.BRAZIL" pattern="dd/MM/yyyy"/>
+				</h:inputText>
+				<h:message  styleClass="errorMessage" for="dataDocumentoAte"/>
+			  </h:panelGrid>
+			  <h:outputText value=""/>
+		  
+     	  	<h:outputText value="Data de vencimento:" title="Informe a data de vencimento dos documentos a serem selecionados"/>
+			<h:panelGrid columns="5">
+		 		<h:inputText id="dataVencimentoDe" required="true" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataVencimentoDe.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
+					<f:convertDateTime locale="Locale.BRAZIL" pattern="dd/MM/yyyy"/>
+				</h:inputText>
+			    <h:message  styleClass="errorMessage" for="dataVencimentoDe"/>
+				<h:outputText value=" até "/>
+	 			<h:inputText id="dataVencimentoAte" required="true" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataVencimentoAte.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
+					<f:convertDateTime locale="Locale.BRAZIL" pattern="dd/MM/yyyy"/>
+				</h:inputText>
+				<h:message  styleClass="errorMessage" for="dataVencimentoAte"/>
+			</h:panelGrid>
+			<h:outputText value=""/>
+		  
+			<h:outputText value="Escritório Contábil:" title="Informe o identificador de um Escritório Contábil."/>
+			<h:panelGroup id="escritorioContabil">
+				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+   		    	   <ui:param name="paramEntity" value="#{imprimirDocumentosCobrancaBean.currentProcess.paramEscritorioContabil}"/>
+				</ui:include>
+			</h:panelGroup>
+			<h:message  styleClass="errorMessage" for="escritorioContabil" />
+
+			<h:outputText value="Município:" title="Informe o identificador de um Município."/>
+			<h:panelGroup id="municipio">
+				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+   		    	   <ui:param name="paramEntity" value="#{imprimirDocumentosCobrancaBean.currentProcess.paramMunicipio}"/>
+				</ui:include>
+			</h:panelGroup>
+			<h:message   styleClass="errorMessage" for="municipio" />
+		</h:panelGrid>
+		<h:selectBooleanCheckbox value="#{imprimirDocumentosCobrancaBean.currentProcess.excluirMunicipio}" title="Marque esta opção para que os documentos de pessoas residentes no município informada não sejam listados"/>
+		<h:outputText value="Omitir os documentos do município acima" />
+
+	</ui:define>
+	<ui:define name="actions">
+		<p:commandButton ajax="false" value="Limpar" type="reset" title="Limpa os dados preenchidos"/>
+		<p:commandButton ajax="false" value="Visualizar" action="#{imprimirDocumentosCobrancaBean.doVisualizar}" onclick="this.value='Aguarde...'" title="Mostra a lista de documentos de cobrança selecionados de acordo com os filtros preenchidos"/>
+	</ui:define>
+</ui:composition>
+</html>

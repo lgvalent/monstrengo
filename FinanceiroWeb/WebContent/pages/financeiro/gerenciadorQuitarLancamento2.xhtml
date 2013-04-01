@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.QuitarLancamentoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/quitar.png" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.QuitarLancamentoProcess.description}&lt;br/>Os valores de multa e juros s&atilde;o calculados de acordo com os par&acirc;metro definidos na categoria do documento de cobran&ccedil;a deste lançamento." />
+	<ui:define name="content">
+		<h:outputLabel value="" styleClass="infoMessage"/>
+
+		<h:outputLabel value="Conta para quitação: "/>
+		<h:selectOneMenu id="conta" value="#{quitarLancamentoBean.process.contaId}" onfocus="setActiveComponent(this);">
+			<f:selectItems value="#{quitarLancamentoBean.process.listConta}"/>
+		</h:selectOneMenu>
+		<h:message styleClass="errorMessage" for="dataQuitacao"/>
+
+		<h:outputLabel value="Data de quitação: "/>
+		<p:calendar value="#{quitarLancamentoBean.process.dataQuitacao.time}" size="10" maxlength="10" showOtherMonths="true" pattern="dd/MM/yyyy" onblur="return onblurCalendar(this, 'dd/MM/yyyy')" onfocus="setActiveComponent(this)" showButtonPanel="true">
+			<p:ajax event="keyup" update="tableContratos" listener="#{quitarLancamentoBean.doCalcularMultaJuros}"/>
+		</p:calendar>
+
+		<h:dataTable id="tableContratos"
+		  			 border="1" 
+		             value="#{quitarLancamentoBean.process.contratos}" 
+		             var='contratoBean'
+		             headerClass="tableListHeader"
+		             footerClass="tableListFooter"
+		             styleClass="tableList"
+		             rowClasses="tableListRowEven,tableListRowOdd"
+		             columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight"
+		             style="border-collapse: collapse"
+		             width="100%">
+		             
+		             <h:column>
+						<h:outputText escape="false" value="Contrato: #{contratoBean.contrato}" /> 
+
+	
+		<h:dataTable id="tableMovimentos"
+		  			 border="1" 
+		             value="#{contratoBean.movimentos.array}" 
+		             var='item'
+		             headerClass="tableListHeader"
+		             footerClass="tableListFooter"
+		             styleClass="tableList"
+		             rowClasses="tableListRowEven,tableListRowOdd"
+		             columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight"
+		             style="border-collapse: collapse"
+		             width="100%">
+				<h:column >
+					<p:selectBooleanCheckbox id="myCheck" value="#{item.selected}" onfocus="setActiveComponent(this);"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="Lançamento"/>
+   	                </f:facet>
+					<f:facet name="footer">
+						<h:outputText value="Totais dos lançamentos selecionados:"/>
+					</f:facet>
+					<h:outputText value="#{item.object.lancamento}"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.valor.label}"/>
+   	                </f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contrato.valor}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="Máx:#{item.propertiesMap.lancamento.value.asEntity.propertiesMap.saldo.value.asString}"/>
+					<p:inputText id="valor" value="#{item.propertiesMap.valor.value.asString}" size="10" onkeypress="return keyPressFloat(this,event)" onfocus="setActiveComponent(this);">
+						<!--  -->
+					</p:inputText>
+					<h:message styleClass="errorMessage" for="valor"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.multa.label}"/>
+					</f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.multa}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{item.object.lancamento.documentoCobranca.documentoCobrancaCategoria.multaAtraso}%"/>
+					<p:inputText id="multa" value="#{item.propertiesMap.multa.value.asString}" size="10" onkeypress="return keyPressFloat(this,event)" onfocus="setActiveComponent(this);">
+						<!--  -->
+					</p:inputText>
+					<h:message styleClass="errorMessage" for="multa"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.juros.label}"/>
+					</f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.juros}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{item.object.lancamento.documentoCobranca.documentoCobrancaCategoria.jurosMora}%/mês"/>
+					<p:inputText id="juros" value="#{item.propertiesMap.juros.value.asString}" size="10" onkeypress="return keyPressFloat(this,event)" onfocus="setActiveComponent(this);">
+						<!--  -->
+					</p:inputText>
+					<h:message styleClass="errorMessage" for="juros"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.desconto.label}"/>
+					</f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.desconto}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<p:inputText id="desconto" value="#{item.propertiesMap.desconto.value.asString}" size="10" onkeypress="return keyPressFloat(this,event)" onfocus="setActiveComponent(this);">
+						<!--  -->
+					</p:inputText>
+					<h:message styleClass="errorMessage" for="desconto"/>
+				</h:column>
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="Total"/>
+					</f:facet>
+					<f:facet name="footer">
+						<h:outputText value="#{contratoBean.total}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					<h:outputText id="total" value="#{item.propertiesMap.valorTotal.value.asBigDecimal}">
+							<f:convertNumber type="currency"/>
+					</h:outputText>
+					<h:message styleClass="errorMessage" for="total"/>
+				</h:column>
+			</h:dataTable>
+			</h:column>
+		</h:dataTable>
+		<h:panelGrid styleClass="infoMessage">
+			<h:commandButton value="Atualizar valores" onfocus="setActiveComponent(this);" action="#{quitarLancamentoBean.doCalcularMultaJuros()}"/>
+			<h:outputText value="Instruções:"/>
+			<h:outputText value="#{quitarLancamentoBean.process.lancamentos.first.object.documentoCobranca.documentoCobrancaCategoria.instrucoes0}"/>
+			<h:outputText value="#{quitarLancamentoBean.process.lancamentos.first.object.documentoCobranca.documentoCobrancaCategoria.instrucoes1}"/>
+			<h:outputText value="#{quitarLancamentoBean.process.lancamentos.first.object.documentoCobranca.documentoCobrancaCategoria.instrucoes2}"/>
+		</h:panelGrid>
+	</ui:define>
+	<ui:define name="actions">
+			<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();" onfocus="setActiveComponent(this);"/>
+			<h:commandButton value="Reiniciar" action="#{quitarLancamentoBean.doReiniciarValores}" onfocus="setActiveComponent(this);" title="Reinicia os valores descartando as alterações realizadas até o momento"/>
+			<h:commandButton value="Avançar >>" action="#{quitarLancamentoBean.actionPasso2}" onfocus="setActiveComponent(this);"/>
+			<h:commandButton value="Finalizar" action="#{quitarLancamentoBean.actionPasso4}" onfocus="setActiveComponent(this);"/>
+	</ui:define>
+</ui:composition>
+</html>	

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+		<ui:param name="title" value="#{menuBean.processInfoMap.ListarLancamentoProcess.label}" />
+		<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
+		<ui:param name="description" value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess.description}" />
+		<ui:define name="content">
+			<h:panelGrid columns="3" cellpadding="3">
+				<h:outputLabel value="Conta"/>
+				<h:selectOneMenu id="conta" value="#{lancamentoBean.conta}">
+					<f:selectItems value="#{lancamentoBean.process.listConta}"/>
+				</h:selectOneMenu>
+				<h:message styleClass="errorMessage" for="conta"/>
+		
+				<h:outputLabel value="Data"/>
+				<h:inputText id="data" value="#{lancamentoBean.data}" size="10" maxlength="10" onblur="return onblurCalendar('dd/MM/yyyy')"/>
+				<h:message styleClass="errorMessage" for="data"/>
+		<!--
+				<h:outputLabel value="Valor"/>
+				<h:inputText id="valor" value="#{lancamentoBean.valor}"/>
+				<h:message styleClass="errorMessage" for="valor"/>
+		-->
+			</h:panelGrid>
+		</ui:define>
+		
+		<ui:define name="actions">
+			<h:panelGrid columns="3" cellpadding="3">
+				<h:commandButton value="Cancelar" action="#{lancamentoBean.doCancelar}" immediate="true"/>
+				<h:commandButton value="Quitar" action="#{lancamentoBean.doQuitar}"/>
+				<h:outputLabel value=""/>
+			</h:panelGrid>
+		</ui:define>
+	</ui:composition>
+</html>

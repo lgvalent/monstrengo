@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.InserirLancamentoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.InserirLancamentoProcess.description}" />
+	<ui:define name="content">
+		<h:panelGrid columns="2" cellpadding="3" 
+			styleClass="tableList noprint" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
+			<h:outputLabel value="Frequência"/>
+			<h:panelGroup>
+				<p:selectOneMenu id="frequencia" value="#{inserirLancamentoBean.process.frequencia}" styleClass="input" widgetVar="frequencia">
+					<p:ajax event="change" update="quantidade"/>
+					<f:selectItems value="#{inserirLancamentoBean.process.listFrequencia}"/>
+				</p:selectOneMenu>
+				<p:selectOneMenu id="quantidade" value="#{inserirLancamentoBean.process.quantidade}" styleClass="input" widgetVar="quantidade" disabled="#{inserirLancamentoBean.process.frequencia==0}">
+					<f:selectItem itemLabel="1 vez" itemValue="1"/>
+					<f:selectItem itemLabel="2 vezes" itemValue="2"/>
+					<f:selectItem itemLabel="3 vezes" itemValue="3"/>
+					<f:selectItem itemLabel="4 vezes" itemValue="4"/>
+					<f:selectItem itemLabel="5 vezes" itemValue="5"/>
+					<f:selectItem itemLabel="6 vezes" itemValue="6"/>
+					<f:selectItem itemLabel="7 vezes" itemValue="7"/>
+					<f:selectItem itemLabel="8 vezes" itemValue="8"/>
+					<f:selectItem itemLabel="9 vezes" itemValue="9"/>
+					<f:selectItem itemLabel="10 vezes" itemValue="10"/>
+					<f:selectItem itemLabel="11 vezes" itemValue="11"/>
+					<f:selectItem itemLabel="12 vezes" itemValue="12"/>
+				</p:selectOneMenu>
+			</h:panelGroup>
+
+			<h:outputLabel value="Transação"/>
+			<h:selectOneMenu id="transacao" value="#{inserirLancamentoBean.process.transacao}" styleClass="input">
+				<f:selectItems value="#{inserirLancamentoBean.process.listTransacao}"/>
+			</h:selectOneMenu>
+	
+			<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contaPrevista.label}"/>
+			<h:panelGroup id="contaPrevista">
+				<ui:include src="/pages/basic/tiles/processParamEntityComboBox.xhtml">
+   		    	   <ui:param name="paramEntity" value="#{inserirLancamentoBean.process.paramContaPrevista}"/>
+				</ui:include>
+			</h:panelGroup>
+	
+			<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.data.label}"/>
+			<h:panelGroup id="dataLancamento">
+				<ui:include src="/pages/basic/tiles/calendar.xhtml">
+         			<ui:param name="timeField" value="#{inserirLancamentoBean.process.data.time}" />
+				</ui:include>
+			</h:panelGroup>
+			
+			<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.dataVencimento.label}"/>
+			<h:panelGroup id="dataVencimento">
+				<ui:include src="/pages/basic/tiles/calendar.xhtml">
+         			<ui:param name="timeField" value="#{inserirLancamentoBean.process.dataVencimento.time}" />
+				</ui:include>
+			</h:panelGroup>
+	
+	 		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}"/>
+			<h:panelGroup id="contrato">
+				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+   		    	   <ui:param name="paramEntity" value="#{inserirLancamentoBean.process.paramContrato}"/>
+				</ui:include>
+			</h:panelGroup>
+			
+			<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.descricao.label}"/>
+			<p:inputTextarea id="descricao" label="Descrição" value="#{inserirLancamentoBean.process.descricao}" rows="3" cols="40" required="true"/>
+	
+		</h:panelGrid>
+		
+			<h:dataTable id="itemTable" 
+						 value="#{inserirLancamentoBean.process.lancamentoItemBeanList}" 
+						 var='item'
+						 cellpadding='2'
+						 headerClass="tableListHeader"
+						 styleClass="tableList"
+						 rowClasses="tableListRowEven,tableListRowOdd"
+						 columnClasses="tableListColumn"
+						 style="border-collapse: collapse; white-space: nowrap;" 
+						 >
+		
+				<h:column>
+					<f:facet name="header">
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.CentroCusto}"/>
+						</ui:include>
+					</f:facet>
+
+<p:autoComplete id="centroCusto"
+	label="Centro de custo"
+	required="true"
+	completeMethod="#{inserirLancamentoBean.process.getListCentroCusto}" var="item1234"
+	size="40" maxResults="10" minQueryLength="1"
+	value="#{item.centroCustoItem}"
+	itemLabel="#{item1234.label}"
+	itemValue="#{item1234}"
+	converter="SelectItemConverter"
+	title="Comece a digitar para buscar um valor"
+	onfocus="setActiveComponent(this)">
+</p:autoComplete>
+				</h:column>
+	 			
+				<h:column>
+					<f:facet name="header">
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ItemCusto}"/>
+						</ui:include>
+					</f:facet>
+<p:autoComplete id="itemCusto"
+	label="Item de custo"
+	required="true"
+	completeMethod="#{inserirLancamentoBean.process.getListItemCusto}" var="item1234"
+	size="40" maxResults="10" minQueryLength="1"
+	value="#{item.itemCustoItem}"
+	itemLabel="#{item1234.label}"
+	itemValue="#{item1234}"
+	converter="SelectItemConverter"
+	title="Comece a digitar para buscar um valor"
+	onfocus="setActiveComponent(this)">
+</p:autoComplete>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Valor"/>
+					</f:facet>
+					<p:inputText id="valor" value="#{item.valor}" style="text-align: right">
+						<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+					</p:inputText>
+					<h:message styleClass="errorMessage" for="valor"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Descrição"/>
+					</f:facet>
+					<p:inputText id="descricao" value="#{item.descricao}" />
+					<h:message styleClass="errorMessage" for="descricao"/>
+				</h:column>
+				
+				<h:column>
+					<p:commandLink tabindex="-1" ajax="false" rendered="#{inserirLancamentoBean.process.lancamentoItemBeanList.size()>1}" immediate="true">
+						<h:graphicImage value="../basic/img/delete.png" title="Remover item da lista" style="border:0"/>
+						<p:collector value="#{item}" removeFrom="#{inserirLancamentoBean.process.lancamentoItemBeanList}"/>
+					</p:commandLink>
+				</h:column> 
+				
+			</h:dataTable> 
+
+			<h:panelGroup>
+				<p:commandLink action="#{inserirLancamentoBean.doAdicionarItem}" update="itemTable">
+					<h:graphicImage value="../basic/img/add.png" title="Adicionar item à lista" style="border:0"/>
+					<h:outputText value="Adicionar item" />
+				</p:commandLink>
+			</h:panelGroup>
+	</ui:define>
+	<ui:define name="actions">
+			<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+			<h:commandButton value="Limpar" action="#{inserirLancamentoBean.doLimpar}" title="Limpa os dados do formulário"/>
+			<h:commandButton value="Avançar >>" action="#{inserirLancamentoBean.actionInicio}"/>
+	</ui:define>
+</ui:composition>
+</html>
+	

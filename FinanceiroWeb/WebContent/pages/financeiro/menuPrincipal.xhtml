@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/mainMenu.xhtml">
+	<ui:param name="title" value="Monstrengo Framework" />
+	<ui:param name="logo" value="./img/header.jpg" />
+	<ui:define name="menu">
+		<p:submenu label="Cadastros" icon="ui-icon-contact">
+			<p:menuitem>
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ContratoFinanceiro}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.CentroCusto}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.Conta}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ItemCusto}"/>
+						</ui:include><br/>
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.Lancamento}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+							<ui:param name="entityMetadata" value="#{menuBean.infoMap.Fisica}" />
+						</ui:include><br />
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+							<ui:param name="entityMetadata"	value="#{menuBean.infoMap.Juridica}" />
+						</ui:include>
+			</p:menuitem>
+			<p:menuitem value="(Todos)" icon="ui-icon-newwin"
+				url="../basic/menu.jsp" target="ALVO" />
+			<p:menuitem value="Últimas visualizações"
+				url="../basic/lastEntityViews.xhtml" target="ALVO"  />
+
+		</p:submenu>
+		<p:submenu label="Financeiro" icon="ui-icon-cart">
+			<p:menuitem
+				value="#{menuBean.processInfoMap.InserirLancamentoProcess.label}"
+				url="../financeiro/gerenciadorInserirLancamento1.xhtml"
+				target="ALVO"
+				rendered="#{menuBean.processMap.InserirLancamentoProcess}" />
+			<p:menuitem
+				value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess.label}"
+				url="../financeiro/gerenciadorListarPosicaoContrato.xhtml"
+				target="ALVO"
+				rendered="#{menuBean.processMap.ListarPosicaoContratoProcess}" />
+			<p:menuitem
+				value="#{menuBean.processInfoMap.ListarLancamentoProcess.label}"
+				url="../financeiro/gerenciadorListarLancamento.xhtml"
+				target="_blank"
+				rendered="#{menuBean.processMap.ListarLancamentoProcess}" />
+			<p:menuitem
+				value="#{menuBean.processInfoMap.ListarLancamentoMovimentoProcess.label}"
+				url="../financeiro/gerenciadorListarLancamentoMovimento.xhtml"
+				target="_blank"
+				rendered="#{menuBean.processMap.ListarLancamentoMovimentoProcess}" />
+			<p:menuitem value="(Todos)" icon="ui-icon-newwin"
+				url="../financeiro/menu.xhtml" target="ALVO" />
+		</p:submenu>
+		<p:submenu label="Cobrança" icon="ui-icon-mail-closed">
+			<p:menuitem value="Imprimir GRCS"
+				url="../sindicato/grcs_imprimir1.jsp" target="ALVO"
+				rendered="#{menuBean.processMap.ImprimirGrcsProcess}" />
+			<p:menuitem value="Imp. mensalidades e reversão"
+				url="../financeiro/documentoCobrancaImprimir1.xhtml" target="ALVO"
+				rendered="#{menuBean.processMap.ImprimirDocumentosProcess}" />
+			<p:menuitem value="Processar arquivo de Retorno"
+				url="../financeiro/documentoCobrancaReceberRetorno1.xhtml"
+				target="_blank"
+				rendered="#{menuBean.processMap.ReceberDocumentoRetornoProcess}" />
+			<p:menuitem value="Gerar arquivo de Remessa"
+				url="../financeiro/documentoCobrancaGerarRemessa1.xhtml"
+				target="_blank"
+				rendered="#{menuBean.processMap.GerarDocumentoCobrancaRemessaProcess}" />
+			<p:menuitem value="(Todos)" icon="ui-icon-newwin"
+				url="../sindicato/menuCobranca.jsp" target="ALVO" />
+		</p:submenu>
+	</ui:define>
+</ui:composition>
+</html>

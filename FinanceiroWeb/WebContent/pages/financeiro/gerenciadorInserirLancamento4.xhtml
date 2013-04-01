@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.InserirLancamentoProcess.label}" />
+	<ui:param name="icon" value="./img/documentoPagamento.png" />
+	<ui:param name="description" value="O documento de pagamento &lt;b&gt;previsto&lt;/b&gt; define o documento que será utilizado durante a quitação deste lançamento, seja ele de entrada ou de saída.&lt;br/&gt;Com isto, é possível emitir os documentos de pagamento mesmo antes da quitação efetiva do lançamento, pois este documento de pagamento será utilizado para a quitação no momento em que o operador registrar esta ação." />
+	<ui:define name="content">
+	<h:panelGrid width="100%" columns="2" cellpadding="3" styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
+		<p:selectOneMenu id="frequencia" value="#{inserirLancamentoBean.process.frequencia}" styleClass="input" disabled="true">
+			<f:selectItems value="#{inserirLancamentoBean.process.listFrequencia}"/>
+		</p:selectOneMenu>
+		<p:selectOneMenu id="quantidade" value="#{inserirLancamentoBean.process.quantidade}" styleClass="input" widgetVar="quantidade" rendered="#{inserirLancamentoBean.process.frequencia>0}" disabled="true">
+			<f:selectItem itemLabel="1 vez" itemValue="1"/>
+			<f:selectItem itemLabel="2 vezes" itemValue="2"/>
+			<f:selectItem itemLabel="3 vezes" itemValue="3"/>
+			<f:selectItem itemLabel="4 vezes" itemValue="4"/>
+			<f:selectItem itemLabel="5 vezes" itemValue="5"/>
+			<f:selectItem itemLabel="6 vezes" itemValue="6"/>
+			<f:selectItem itemLabel="7 vezes" itemValue="7"/>
+			<f:selectItem itemLabel="8 vezes" itemValue="8"/>
+			<f:selectItem itemLabel="9 vezes" itemValue="9"/>
+			<f:selectItem itemLabel="10 vezes" itemValue="10"/>
+			<f:selectItem itemLabel="11 vezes" itemValue="11"/>
+			<f:selectItem itemLabel="12 vezes" itemValue="12"/>
+		</p:selectOneMenu>
+		<h:outputLabel rendered="#{inserirLancamentoBean.process.frequencia==0}"/>
+
+		<h:outputLabel value="Transação:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.transacaoNome}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contaPrevista.label}:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.paramContaPrevista.value}" />
+ 
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.dataVencimento.label}:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.dataVencimento.time}">
+			<f:convertDateTime locale="pt_BR"/>
+		</h:outputText>
+		
+ 		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.paramContrato.value}" />
+
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.operacao.label}:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.paramOperacao.value}" />
+
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.descricao.label}:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.descricao}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.documentoCobranca.label}:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.documentoCobranca.object.documentoCobrancaCategoria} - #{inserirLancamentoBean.process.documentoCobranca}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.documentoPagamento.label}:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.documentoPagamento.object.documentoPagamentoCategoria} - #{inserirLancamentoBean.process.documentoPagamento}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.valor.label}:"/>
+		<h:outputText value="#{inserirLancamentoBean.process.valor}"/>
+	</h:panelGrid>
+	
+	<h:dataTable id="itemTable" 
+				 value="#{inserirLancamentoBean.process.lancamentoItemBeanList}" 
+				 var='item'
+				 cellpadding='2'
+				 headerClass="tableListHeader"
+				 styleClass="tableList"
+				 rowClasses="tableListRowEven,tableListRowOdd"
+				 columnClasses="tableListColumn"
+				 style="border-collapse: collapse; white-space: nowrap;" 
+				 >
+	
+		<h:column>
+			<f:facet name="header">
+				<h:outputLabel value="Nº" styleClass="tableListHeader"/>
+			</f:facet>
+			<h:outputText id="numero" value="#{item.id}" />
+			<h:message styleClass="errorMessage" for="numero"/>
+		</h:column>
+			
+		<h:column>
+			<f:facet name="header">
+				<h:outputLabel value="Centro de custo" styleClass="tableListHeader"/>
+			</f:facet>
+			<h:outputText value="#{item.centroCusto}"/>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputLabel value="Item de custo"/>
+			</f:facet>
+			<h:outputText value="#{item.itemCusto}"/>
+		</h:column>
+			
+		<h:column>
+			<f:facet name="header">
+				<h:outputLabel value="Valor"/>
+			</f:facet>
+			<h:outputText value="#{item.valor}" style="text-align: right">
+				<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+			</h:outputText>
+		</h:column>
+			
+		<h:column>
+			<f:facet name="header">
+				<h:outputLabel value="Descrição"/>
+			</f:facet>
+			<h:outputText value="#{item.descricao}" />
+		</h:column>
+	</h:dataTable>
+	 
+	</ui:define>
+
+	<ui:define name="actions">
+		<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+		<h:commandButton value="Confirmar" action="#{inserirLancamentoBean.actionInserir}"/>
+	</ui:define>
+
+</ui:composition>
+</html>	

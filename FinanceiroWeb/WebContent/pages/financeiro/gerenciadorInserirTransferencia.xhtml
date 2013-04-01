@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<title></title>
+	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+		media="screen" />
+	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+		type="text/css" media="print" />
+	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+		type="text/css" />
+
+	<script language="javaScript" src="../basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../basic/js/interface.js"></script>
+	<script language="javaScript" src="../basic/js/utils.js"></script>
+</h:head>
+<h:panelGrid cellpadding="3" rendered="#{inserirTransferenciaBean.process == null}">
+	<h:messages/>
+</h:panelGrid>
+
+<h:form id="form" rendered="#{inserirTransferenciaBean.process != null}">
+	<h:panelGrid columns="3" cellpadding="3">
+
+		<h:outputLabel value="De"/>
+		<h:selectOneMenu id="contaDe" value="#{inserirTransferenciaBean.process.contaDe}" disabled="#{inserirTransferenciaBean.process.transferenciaDe}">
+			<f:selectItems value="#{inserirTransferenciaBean.process.listConta}"/>
+		</h:selectOneMenu>
+		<h:message styleClass="errorMessage" for="contaDe"/>
+
+		<h:outputLabel value="Para"/>
+		<h:selectOneMenu id="contaPara" value="#{inserirTransferenciaBean.process.contaPara}" disabled="#{inserirTransferenciaBean.process.transferenciaPara}">
+			<f:selectItems value="#{inserirTransferenciaBean.process.listConta}"/>
+		</h:selectOneMenu>
+		<h:message styleClass="errorMessage" for="contaPara"/>
+
+ 		<h:outputLabel value="#{menuBean.infoMap.Grupo.propertiesMetadata.contrato.label}"/>
+ 		<h:panelGrid columns="2">
+ 			<h:graphicImage value="../basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+			<h:inputText id="contrato"
+				disabled="#{inserirTransferenciaBean.transferenciaMovimento}"
+				value="#{inserirTransferenciaBean.process.contrato}"
+				size="5" maxlength="5" rendered="true"
+				title="Dê um clique na caixa de texto para abrir a pesquisa"
+				styleClass="queryInputSelectOne"
+				onblur="javascript: if(this.value=='')this.value='0';"
+				onclick="javascript:openSelectOneId('br.com.orionsoft.basic.entities.Contrato','',this)" />
+		</h:panelGrid>
+		<h:message styleClass="errorMessage" for="contrato"/>
+
+		<h:outputLabel value="Data da transferência"/>
+		<h:inputText id="dataLancamento" value="#{inserirTransferenciaBean.process.dataLancamento}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')"/>
+		<h:message styleClass="errorMessage" for="dataLancamento"/>
+
+		<h:outputLabel value="#{menuBean.infoMap.Grupo.propertiesMetadata.descricao.label}"/>
+		<h:inputTextarea id="descricao" value="#{inserirTransferenciaBean.process.descricao}" rows="3" disabled="#{inserirTransferenciaBean.transferenciaMovimento}"/>
+		<h:message styleClass="errorMessage" for="descricao"/>
+
+		<h:outputLabel value="#{menuBean.infoMap.Movimento.propertiesMetadata.valor.label}"/>
+		<h:inputText id="valor" value="#{inserirTransferenciaBean.process.valor}" onkeypress="return keyPressFloat(this, event)" disabled="#{inserirTransferenciaBean.transferenciaMovimento}"/>
+		<h:message styleClass="errorMessage" for="valor"/>
+
+		<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+		<h:commandButton value="Inserir" action="#{inserirTransferenciaBean.actionInserir}"/>
+		<h:outputLabel value=""/>
+	</h:panelGrid>
+	<h:outputText styleClass="errorMessage" value="#{messagesBean.firstMessageSummary}" escape="false" />
+</h:form>

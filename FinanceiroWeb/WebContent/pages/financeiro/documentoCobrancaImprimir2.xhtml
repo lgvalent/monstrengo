@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Esta página (imprimir1.jsp) obtem os parametros necessarios para o processo imprimirGrcsProcess -->
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="icon" value="../financeiro/img/imprimirDocumento_b.png" />
+	<ui:param name="title" value="#{menuBean.processInfoMap.ImprimirDocumentosCobrancaProcess.label}" />
+	<ui:param name="description" value="Foram &lt;b> selecionados #{imprimirDocumentosCobrancaBean.currentProcess.size} documentos &lt;/b> para a impressão.&lt;br/>
+	                                    Agora você pode definir a ordem de impressão, atribuir algumas instruções adicionais para serem impressas nos documentos, e ainda, redefinir a data de vencimento para os títulos em atraso.&lt;br/>
+	                                    As instruções e o novo vencimento não serão gravados, servirá apenas para o devedor pagar os documentos atrasados em qualquer banco." />
+	<ui:define name="content">	  	
+
+	<h:panelGrid columns="3" cellpadding="3">
+		<h:outputText value="Ordenar por: " title="Escolha o tipo ordenação para imprimir os documentos."/>
+      	<h:selectOneRadio id="ordem" value="#{imprimirDocumentosCobrancaBean.currentProcess.tipoOrdem}">
+               <f:selectItems value="#{imprimirDocumentosCobrancaBean.currentProcess.tiposOrdem}"/>
+	  	</h:selectOneRadio>
+      	<h:message  styleClass="errorMessage" for="ordem" />
+
+		<h:outputText value="Instruções adicionais:" title="Insira alguma instrução adicional que será impressa nos documentos"/>
+		<h:inputText value="#{imprimirDocumentosCobrancaBean.currentProcess.instrucoesAdicionais}" id="instrucoesAdicionais" size="50" maxlength="100" required="false"/>
+	    <h:message styleClass="errorMessage" for="instrucoesAdicionais" />
+		
+		
+	    <h:message styleClass="errorMessage" for="instrucoesAdicionais" />
+	</h:panelGrid>
+	
+
+	<hr/>
+
+		<p:commandButton ajax="false" value="Atualizar lista" action="#{imprimirDocumentosCobrancaBean.doVisualizar}" onclick="this.value='Aguarde...'" title="Atualiza a lista de acordo com o tipo de ordenação escolhido e instruções adicionais"/>
+
+	<hr/>
+		<h:outputText value="Calcular multa e juros para um novo vencimento:" title="Imprime o documento de cobrança com uma nova data de vencimento, calculando os juros e multa, sem alterar o vencimento original do documento."/>
+		<h:selectBooleanCheckbox value="#{imprimirDocumentosCobrancaBean.currentProcess.recalcularDataVencimento}" title="Imprime o documento de cobrança com uma nova data de vencimento, calculando os juros e multa, sem alterar o vencimento original do documento."/>
+		<ui:include src="/pages/basic/tiles/calendar.xhtml">
+       	   <ui:param name="timeField" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataPagamento.time}"/>
+		</ui:include>
+		<br/>
+		<h:outputText value="Imprimir os documentos com seus valores em branco:" />
+		<h:selectBooleanCheckbox value="#{imprimirDocumentosCobrancaBean.currentProcess.zerarValor}" title="Marque esta opção para que os documentos sejam impressos com valor em branco"/>
+
+	<hr/>
+
+		<h:dataTable border="1" value="#{imprimirDocumentosCobrancaBean.currentProcess.beanList}"
+			var='item' rendered="#{imprimirDocumentosCobrancaBean.currentProcess.size>0}"
+			style="border-collapse: collapse;" >
+			<f:facet name="header">
+				<h:commandButton value="Marcar" title="Marca todos os documentos da lista atual" onclick="return checkAll(this.form, 'myCheck')"/>
+				<h:commandButton value="Intervalo" title="Marca todos os documentos entre um intervalo definido" onclick="return checkRange(this.form, 'myCheck')"/>
+				<h:commandButton value="Desmarcar" title="Desmarca todos os documentos da lista atual"  onclick="return clearAll(this.form, 'myCheck')"/>
+				<h:commandButton value="Inverter" title="Inverte a seleção todos os documentos da lista atual" onclick="return inverseAll(this.form, 'myCheck')"/>
+				<h:outputText value="Observação: Selecione somente os documentos de uma mesma categoria para impressão!"/>
+			</f:facet>
+
+			<h:column>
+				<h:selectBooleanCheckbox id="myCheck" value="#{item.checked}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Contrato" />
+				</f:facet>
+				<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.DocumentoCobranca.type.name}', '#{item.id}')"  rendered="#{menuBean.crudMap.Documento.canRetrieve}">
+					<h:outputLabel value="#{item.pessoa} (#{item.documento})" />
+				</h:outputLink>
+				<h:panelGroup rendered="#{!menuBean.crudMap.Documento.canRetrieve}">
+					<h:outputLabel value="#{item.pessoa} (#{item.documento})" />
+				</h:panelGroup>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Documento de cobrança" />
+				</f:facet>
+				<h:outputLabel value="#{item.documentoCobrancaCategoria}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Data Documento" />
+				</f:facet>
+				<h:outputText value="#{item.dataDocumento.time}" >
+					<f:convertDateTime locale="Locale.BRAZIL" pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Data Vencimento" />
+				</f:facet>
+				<h:outputText value="#{item.dataVencimento.time}">
+						<f:convertDateTime locale="Locale.BRAZIL" pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Valor" />
+				</f:facet>
+				<h:outputText value="#{item.valorDocumento}" />
+			</h:column>
+
+		</h:dataTable>
+
+	</ui:define>
+	<ui:define name="actions">
+		<h:panelGroup>
+			<p:commandButton ajax="false" value="Download PDF" action="#{imprimirDocumentosCobrancaBean.doDownload}"  disabled="#{imprimirDocumentosCobrancaBean.currentProcess.size==0}" onclick="this.value='Aguarde...'" title="Gera um PDF com os documentos selecionados"/>
+			<p:selectOneMenu value="#{imprimirDocumentosCobrancaBean.currentProcess.printerIndex}" id="impressora">
+				<f:selectItems 	value="#{imprimirDocumentosCobrancaBean.currentProcess.printerIndexList}" />
+			</p:selectOneMenu>
+			<h:message styleClass="errorMessage" for="impressora" />
+			<p:commandButton ajax="true" value="Imprimir documentos" action="#{imprimirDocumentosCobrancaBean.doImprimir}"  disabled="#{imprimirDocumentosCobrancaBean.currentProcess.size==0}" title="Imprime os documentos marcados na impressora selecionada " update="growl" widgetVar="commandButtonImprimir" onstart="commandButtonImprimir.disable()" oncomplete="commandButtonImprimir.enable()" />
+   			<p:commandButton ajax="true" value="Gerar etiquetas da lista" action="#{imprimirDocumentosCobrancaBean.doGerarEtiquetas}"  disabled="#{imprimirDocumentosCobrancaBean.currentProcess.size==0}" title="Gera as etiquetas para os documentos selecionados" update="growl" widgetVar="commandButtonEtiqueta" onstart="commandButtonEtiqueta.disable()" oncomplete="commandButtonEtiqueta.enable()" />
+			<p:commandButton type="button" value="Visualizar etiquetas" title="Abre a tela de listagem de todas as suas etiquetas."
+				onclick="javascript:popupPageName('../basic/labelView.jsp',0,0, VIEW_LABEL_LIST)" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}"/>
+		</h:panelGroup>
+	</ui:define>
+	<ui:define name="result">
+
+	</ui:define>
+</ui:composition>
+</html>
+

@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<title></title>
+	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+		media="screen" />
+	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+		type="text/css" media="print" />
+	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+		type="text/css" />
+
+	<script language="javaScript" src="../basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../basic/js/interface.js"></script>
+	<script language="javaScript" src="../basic/js/utils.js"></script>
+</h:head>
+	<h:form id="form">
+		<h:panelGrid
+			columns="2"
+			cellpadding="3"
+			border="1"
+			styleClass="tableList"
+			style="border-collapse: collapse; font: 12px">
+			
+   			<h:outputText value="CPF/CNPJ:"/>
+	   		<h:outputText value="#{relatorioCadastroBean.process.cpfCnpj}"></h:outputText>
+
+			<h:outputText value="Incluir inativos" />
+			<h:outputText value="#{relatorioCadastroBean.process.incluirInativos}"/>
+			
+			<h:outputLabel value="Data de cadastro:"/>
+			<h:panelGroup>
+				<h:outputLabel value="de "/>
+		 		<h:outputText value="#{relatorioCadastroBean.process.dataInicial.time}" />
+				<h:outputLabel value=" até "/>
+				<h:outputText value="#{relatorioCadastroBean.process.dataFinal.time}" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputLabel value="Escritório contábil:"/>
+				<h:outputText value="#{relatorioCadastroBean.process.escritorioContabilId}" />
+				<h:outputText value="Exceto selecionado: "/>
+				<h:outputText value="#{relatorioCadastroBean.process.notEscritorioContabilId}"/>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputLabel value="Ramo de atividade:"/>
+				<h:outputText value="#{relatorioCadastroBean.process.cnaeId}"/>
+				<h:outputText value="Exceto selecionado: "/>
+				<h:outputText value="#{relatorioCadastroBean.process.notCnaeId}"/>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputLabel value="Representante:"/>
+				<h:outputText value="#{relatorioCadastroBean.process.representanteId}"/>
+				<h:outputText value="Exceto selecionado: "/>
+				<h:outputText value="#{relatorioCadastroBean.process.notRepresentanteId}"/>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputLabel value="Cidade:"/>
+				<h:outputText value="#{relatorioCadastroBean.process.municipioId}"/>
+				<h:outputText value="Exceto selecionado: "/>
+				<h:outputText value="#{relatorioCadastroBean.process.notMunicipioId}"/>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputLabel value="Tipo de estabelecimento:"/>
+				<h:outputText value="#{relatorioCadastroBean.process.tipoEstabelecimento}" />
+				<h:outputText value="Exceto selecionado: "/>
+				<h:outputText value="#{relatorioCadastroBean.process.notTipoEstabelecimentoId}"/>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputLabel value="Contrato categoria"/>
+				<h:outputText  value="#{relatorioCadastroBean.process.contratoCategoriaId}"/>
+				<h:outputText value="Exceto selecionado: "/>
+				<h:outputText value="#{relatorioCadastroBean.process.notContratoCategoriaId}"/>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Ordenar por"/>
+			<h:outputText value="#{relatorioCadastroBean.process.ordenacao}"/>
+
+			<h:outputLabel value="Agrupar por"/>
+			<h:outputText value="#{relatorioCadastroBean.process.agrupamento}"/>
+
+			<h:outputLabel value="Tipo de relatório"/>
+			<h:outputText  value="#{relatorioCadastroBean.process.tipoRelatorio}"/>
+
+			<h:outputText value="Filtrar por movimentações " />
+			<h:outputText value="#{relatorioCadastroBean.process.incluirMovimentacoes}"/>
+
+			<h:outputLabel value="Incluir movimentações retroativas:"/>
+			<h:panelGroup>
+				<h:outputLabel value="de "/>
+		 		<h:outputText id="retroativoInicial" value="#{relatorioCadastroBean.process.retroativoInicial.time}" />
+				<h:outputLabel value=" até "/>
+				<h:outputText value="#{relatorioCadastroBean.process.retroativoFinal.time}" />
+			</h:panelGroup>
+
+			<h:outputLabel value="Itens de custo"/>
+			<h:dataTable width="100%"
+				border="1" value="#{relatorioCadastroBean.process.itemCustoList}"
+			    var='itemCusto'
+			    headerClass="tableListHeader"
+			    styleClass="tableList"
+			    rowClasses="tableListRowEven"
+			    columnClasses="tableListColumn"
+			    style="border-collapse:collapse: font: 12px">
+			
+				<h:column >
+					<f:facet name="header">
+						<h:outputLabel value="Item" styleClass="tableListHeader"/>
+					</f:facet>
+					<h:outputLabel value="#{itemCusto}"/>
+				</h:column>
+			</h:dataTable>
+
+			<h:outputLabel value="Mostrar campos"/>
+			<h:dataTable width="100%"
+				border="1" value="#{relatorioCadastroBean.process.campoList}"
+			    var='campo'
+			    headerClass="tableListHeader"
+			    styleClass="tableList"
+			    rowClasses="tableListRowEven"
+			    columnClasses="tableListColumn"
+			    style="border-collapse:collapse: font: 12px">
+			
+				<h:column >
+					<f:facet name="header">
+						<h:outputLabel value="Campo" styleClass="tableListHeader"/>
+					</f:facet>
+					<h:outputLabel value="#{campo}"/>
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+	
+	</h:form>

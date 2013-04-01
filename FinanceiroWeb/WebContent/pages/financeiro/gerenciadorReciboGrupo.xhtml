@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<title></title>
+	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+		media="screen" />
+	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+		type="text/css" media="print" />
+	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+		type="text/css" />
+
+	<script language="javaScript" src="../basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../basic/js/interface.js"></script>
+	<script language="javaScript" src="../basic/js/utils.js"></script>
+</h:head>
+<!-- RECIBO DE RECEBIMENTO -->
+<h:panelGrid rendered="#{reciboBean.grupoRecebimento}">
+	<h:panelGrid style="text-align:right;" width="100%">
+		<h:outputLabel value="1a. Via"/>
+	</h:panelGrid>
+	<h:panelGrid columns="2" style="border: thin solid;" width="100%">
+		<h:panelGrid style="text-align:center">
+<!--  
+			<h:outputText value="Operador: #{userSessionBean.userSession.user.object}" style="font-size:small"/>
+ -->
+			<h:graphicImage value="../basic/img/header.gif" title="Recibo"
+				style="border:0" />
+				<h:outputLabel value="www.sivamar.com.br"/>
+		</h:panelGrid>
+
+		<h:panelGrid styleClass="reportHeader">
+			<f:verbatim>
+					Sivamar - Sind. dos Loj. do Com. e do Com. Varej. de Maringá<br>
+					CNPJ: 77.266.146/0001-08      I.E.: Isento<br>
+					Rua Néo Alves Martins, 2789 - sobreloja<br>
+					CEP 87013-914 Maringá - PR - Fone/Fax: (44) 3026-4444<br>
+			</f:verbatim>
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<h:panelGrid style="border: thin solid; text-align:center;" width="100%">
+		<h:panelGrid style="text-align:right;background: #E9E9E9;" width="100%">
+			<h:outputText value="Recibo: R$ #{reciboBean.valorGrupoAsString}" style="font-size: 20pt;"/>
+		</h:panelGrid>
+
+		<h:panelGrid style="font-size: large;">
+			<h:outputText value="Recebemos de <u>#{reciboBean.grupo.contrato.pessoa.nome}</u>," escape="false"/>
+			<h:outputText value="a quantia de <u>#{reciboBean.valorGrupoExtenso}</u>." escape="false"/>
+			<h:outputText value="Referente a <u>#{reciboBean.grupo.descricao.nome}</u>." escape="false"/>
+			<h:outputText value="________________________________________________________" escape="false"/>
+<!--			<h:outputText 
+				value="Conforme o documento <u>#{reciboBean.grupo.documento.formaPagamento.nome}
+				</u> com o número <u>#{reciboBean.grupo.documento.numeroDocumento}
+				</u>, com vencimento em <u>#{reciboBean.grupo.dataVencimentoAsString}</u>." 
+				escape="false"/>
+-->				
+		</h:panelGrid>
+		
+		<h:panelGrid styleClass="reportTitle" style="text-align:center" width="100%">
+			<h:outputText />
+			<h:outputText value="Maringá, ____ de __________________ de ________"/>
+			<h:outputText />
+			<h:outputText value="______________________________________"/>
+			<h:outputText value="Sivamar"/>
+		</h:panelGrid>
+	</h:panelGrid>
+		
+	<f:verbatim>
+		<br>
+		<br>
+		Corte aqui
+		<hr>
+		<br>
+	</f:verbatim>
+	
+	<h:panelGrid style="text-align:right;" width="100%">
+		<h:outputLabel value="2a. Via"/>
+	</h:panelGrid>
+	<h:panelGrid columns="2" style="border: thin solid;" width="100%">
+		<h:panelGrid style="text-align:center">
+<!--
+			<h:outputText value="Operador: #{userSessionBean.userSession.user.object}" style="font-size:small"/>
+ -->
+			<h:graphicImage value="../basic/img/header.gif" title="Recibo"
+				style="border:0" />
+				<h:outputLabel value="www.sivamar.com.br"/>
+		</h:panelGrid>
+	
+		<h:panelGrid styleClass="reportHeader">
+			<f:verbatim>
+					Sivamar - Sind. dos Loj. do Com. e do Com. Varej. de Maringá<br>
+					CNPJ: 77.266.146/0001-08      I.E.: Isento<br>
+					Rua Néo Alves Martins, 2789 - sobreloja<br>
+					CEP 87013-914 Maringá - PR - Fone/Fax: (44) 3026-4444<br>
+			</f:verbatim>
+		</h:panelGrid>
+	</h:panelGrid>
+	
+	<h:panelGrid style="border: thin solid; text-align:center;" width="100%">
+		<h:panelGrid style="text-align:right;background: #E9E9E9;" width="100%">
+			<h:outputText value="Recibo: R$ #{reciboBean.valorGrupoAsString}" style="font-size: 20pt;"/>
+		</h:panelGrid>
+		
+		<h:panelGrid style="font-size: large;">
+			<h:outputText value="Recebemos de <u>#{reciboBean.grupo.contrato.pessoa.nome}</u>," escape="false"/>
+			<h:outputText value="a quantia de <u>#{reciboBean.valorGrupoExtenso}</u>." escape="false"/>
+			<h:outputText value="Referente a <u>#{reciboBean.grupo.descricao.nome}</u>." escape="false"/>
+			<h:outputText value="________________________________________________________" escape="false"/>
+<!--			<h:outputText 
+				value="Conforme o documento <u>#{reciboBean.grupo.documento.formaPagamento.nome}
+				</u> com o número <u>#{reciboBean.grupo.documento.numeroDocumento}
+				</u>, com vencimento em <u>#{reciboBean.grupo.dataVencimentoAsString}</u>." 
+				escape="false"/>
+-->				
+		</h:panelGrid>
+		
+		<h:panelGrid styleClass="reportTitle" style="text-align:center" width="100%">
+			<h:outputText />
+			<h:outputText value="Maringá, ____ de __________________ de ________"/>
+			<h:outputText />
+			<h:outputText value="______________________________________"/>
+			<h:outputText value="Sivamar"/>
+		</h:panelGrid>
+	</h:panelGrid>
+</h:panelGrid>
+
+<!-- RECIBO DE PAGAMENTO -->
+<h:panelGrid rendered="#{reciboBean.grupoPagamento}">
+	<h:panelGrid style="text-align:right;" width="100%">
+		<h:outputLabel value="1a. Via"/>
+	</h:panelGrid>
+	<h:panelGrid columns="2" style="border: thin solid;" width="100%">
+		<h:panelGrid style="text-align:center">
+<!--
+			<h:outputText value="Operador: #{userSessionBean.userSession.user.object}" style="font-size:small"/>
+-->
+			<h:graphicImage value="../basic/img/header.gif" title="Recibo"
+				style="border:0" />
+				<h:outputLabel value="www.sivamar.com.br"/>
+		</h:panelGrid>
+
+		<h:panelGrid styleClass="reportHeader">
+			<f:verbatim>
+					Sivamar - Sind. dos Loj. do Com. e do Com. Varej. de Maringá<br>
+					CNPJ: 77.266.146/0001-08      I.E.: Isento<br>
+					Rua Néo Alves Martins, 2789 - sobreloja<br>
+					CEP 87013-914 Maringá - PR - Fone/Fax: (44) 3026-4444<br>
+			</f:verbatim>
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<h:panelGrid style="border: thin solid; text-align:center;" width="100%">
+		<h:panelGrid style="text-align:right;background: #E9E9E9;" width="100%">
+			<h:outputText value="Recibo: R$ #{reciboBean.valorGrupoAsString}" style="font-size: 20pt;"/>
+		</h:panelGrid>
+
+		<h:panelGrid style="font-size: large;">
+			<h:outputText value="Eu, <u>#{reciboBean.grupo.contrato.pessoa.nome}</u>," escape="false"/>
+			<h:outputText value="recebi de <u>Sivamar - Sind. dos Loj. do Com. e do Com. Varej. de Maringá</u>" escape="false"/>
+			<h:outputText value="a quantia de <u>#{reciboBean.valorGrupoExtenso}</u>." escape="false"/>
+			<h:outputText value="Referente a <u>#{reciboBean.grupo.descricao.nome}</u>." escape="false"/>
+			<h:outputText value="________________________________________________________" escape="false"/>
+<!--			<h:outputText 
+				value="Conforme o documento <u>#{reciboBean.grupo.documento.formaPagamento.nome}
+				</u> com o número <u>#{reciboBean.grupo.documento.numeroDocumento}
+				</u>, com vencimento em <u>#{reciboBean.grupo.dataVencimentoAsString}</u>." 
+				escape="false" />
+-->				
+		</h:panelGrid>
+		
+		<h:panelGrid styleClass="reportTitle" style="text-align:center" width="100%">
+			<h:outputText />
+			<h:outputText value="Maringá, ____ de __________________ de ________"/>
+			<h:outputText />
+			<h:outputText value="____________________________________________________"/>
+			<h:outputText value="#{reciboBean.grupo.contrato.pessoa.nome}"/>
+		</h:panelGrid>
+	</h:panelGrid>
+		
+	<f:verbatim>
+		<br>
+		<br>
+		Corte aqui
+		<hr>
+		<br>
+	</f:verbatim>
+	
+	<h:panelGrid style="text-align:right;" width="100%">
+		<h:outputLabel value="2a. Via"/>
+	</h:panelGrid>
+	<h:panelGrid columns="2" style="border: thin solid;" width="100%">
+		<h:panelGrid style="text-align:center">
+<!-- 
+			<h:outputText value="Operador: #{userSessionBean.userSession.user.object}" style="font-size:small"/>
+-->
+			<h:graphicImage value="../basic/img/header.gif" title="Recibo"
+				style="border:0" />
+				<h:outputLabel value="www.sivamar.com.br"/>
+		</h:panelGrid>
+	
+		<h:panelGrid styleClass="reportHeader">
+			<f:verbatim>
+					Sivamar - Sind. dos Loj. do Com. e do Com. Varej. de Maringá<br>
+					CNPJ: 77.266.146/0001-08      I.E.: Isento<br>
+					Rua Néo Alves Martins, 2789 - sobreloja<br>
+					CEP 87013-914 Maringá - PR - Fone/Fax: (44) 3026-4444<br>
+			</f:verbatim>
+		</h:panelGrid>
+	</h:panelGrid>
+	
+	<h:panelGrid style="border: thin solid; text-align:center;" width="100%">
+		<h:panelGrid style="text-align:right;background: #E9E9E9;" width="100%">
+			<h:outputText value="Recibo: R$ #{reciboBean.valorGrupoAsString}" style="font-size: 20pt;"/>
+		</h:panelGrid>
+		
+		<h:panelGrid style="font-size: large;">
+			<h:outputText value="Eu, <u>#{reciboBean.grupo.contrato.pessoa.nome}</u>," escape="false"/>
+			<h:outputText value="recebi de <u>Sivamar - Sind. dos Loj. do Com. e do Com. Varej. de Maringá</u>" escape="false"/>
+			<h:outputText value="a quantia de <u>#{reciboBean.valorGrupoExtenso}</u>." escape="false"/>
+			<h:outputText value="Referente a <u>#{reciboBean.grupo.descricao.nome}</u>." escape="false"/>
+			<h:outputText value="________________________________________________________" escape="false"/>
+<!--			<h:outputText 
+				value="Conforme o documento <u>#{reciboBean.grupo.documento.formaPagamento.nome}
+				</u> com o número <u>#{reciboBean.grupo.documento.numeroDocumento}
+				</u>, com vencimento em <u>#{reciboBean.grupo.dataVencimentoAsString}</u>." 
+				escape="false" />
+-->				
+		</h:panelGrid>
+		
+		<h:panelGrid styleClass="reportTitle" style="text-align:center" width="100%">
+			<h:outputText />
+			<h:outputText value="Maringá, ____ de __________________ de ________"/>
+			<h:outputText />
+			<h:outputText value="____________________________________________________"/>
+			<h:outputText value="#{reciboBean.grupo.contrato.pessoa.nome}"/>
+		</h:panelGrid>
+	</h:panelGrid>
+</h:panelGrid>

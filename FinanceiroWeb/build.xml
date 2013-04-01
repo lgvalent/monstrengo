@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     15/02/2005 17:39:14                                                        
+
+     OrionSoft    
+     description
+                   
+     Marcia                                                                
+     ====================================================================== -->
+<project name="FinanceiroWeb" default="updateJARs">
+
+	<property name="web.dir" value="${basedir}/WebContent" />
+	<property name="web-inf.dir" value="${web.dir}/WEB-INF" />
+	<property name="bin" value="${basedir}/build/classes" />
+	<property name="lib.web" value="${web-inf.dir}/lib"/>
+	<property name="lib.home" value="../Library" />
+	<property name="lib.orionsoft" value="${lib.home}/OrionSoft"/>
+	<property name="test" value="${basedir}/teste" />
+	<property name="src" value="${basedir}/src" />
+	<property name="war.dir" value="${basedir}"/>
+	<property name="war.name" value="financeiroWeb"/>
+	<property name="jar.dir" value="${basedir}"/>
+	<property name="jar.name" value="financeiroWeb"/>
+
+	<!-- ================================= 
+          Junta os diretórios de Lib utilizados                 
+         ================================= -->
+	<path id="lib.classpath">
+		<fileset dir="${lib.web}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- ================================= 
+          target: compile  
+         ================================= -->
+	<target name="compile" description="--> Compila os arquivos fonte">
+		<javac srcdir="${src}" destdir="${bin}" debug="off">
+			<classpath refid="lib.classpath" />
+		</javac>
+	</target>
+
+	<!-- ================================= 
+          target: update META-INF/resources
+          
+          Copia as bibliotecas dos componentes para o lib do web-inf.
+         ================================= -->
+	<target name="updateMETA-INF/Resources" description="update xhtml files for JAR deployment">
+		<copy todir="${src}/META-INF/resources">
+			<fileset dir="${web.dir}">
+				<include name="**/*"/>
+				<exclude name="**/lib/*"/>
+			</fileset>
+		</copy>
+	</target>	
+	
+	<!-- ================================= 
+          target: update JARs depends
+          
+          Copia as bibliotecas dos componentes para o lib do web-inf.
+         ================================= -->
+	<target name="updateJARs" description="> Atualiza os JARs dos projetos dependentes">
+		<copy todir="${lib.web}">
+			<fileset dir="${lib.orionsoft}">
+				<include name="**/*.jar"/>
+				<exclude name="${jar.name}.jar"/>
+			</fileset>
+		</copy>
+
+<!--
+		<copy todir="/home/antonio/workspace/Web/WebContent/WEB-INF/lib">
+			<fileset dir="${lib.orionsoft}">
+				<include name="**/*.jar"/>
+				<exclude name="${jar.name}.jar"/>
+			</fileset>
+		</copy>
+-->
+	</target>
+
+	<!-- ================================= 
+          target: javadoc              
+         ================================= -->
+	<target name="javadoc" depends="compile" description="--> Gera a documentação automatica dos codigos do projeto">
+		<javadoc destdir="${basedir}/javadoc" classpathref="lib.classpath">
+			<fileset dir="${src}">
+				<include name="**/*.java" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<!-- ================================= 
+          target: junit              
+         ================================= -->
+	<target name="junit" depends="compile" description="--> Roda todos os testes do sistema">
+		<junit printsummary="yes" fork="yes">
+			<formatter type="brief" usefile="false" />
+			<classpath refid="lib.classpath" />
+			<!--classpath>
+				<pathelement path="${bin}" />
+				<pathelement path="${test}" />
+			</classpath-->
+			<!--test name="${test}"></test-->
+			<batchtest>
+				<fileset dir="${test}">
+					<include name="**/testes/*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<!-- ================================= 
+	          target: web              
+	         ================================= >
+	<target name="web" depends="compile" description="Gera arquivos web.xml e facesconfig.xml. 
+	Falta incluir alguns itens, por isso está inativo por enquanto.">
+		<taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
+			<classpath refid="lib.classpath" />
+		</taskdef>
+
+		<taskdef name="facesconfigxml" classname="xdoclet.modules.jsf.FacesConfigXmlSubTask">
+	    		<classpath refid="compile.classpath"/>
+	    	</taskdef>
+
+		<webdoclet destdir="${basedir}/WebContent/WEB-INF" force="true" mergedir="${basedir}" verbose="true">
+			<fileset dir="${basedir}/src">
+				<include name="**/*.java" />
+			</fileset>
+			<facesconfigxml destdir="${basedir}/WebContent/WEB-INF" mergedir="${basedir}/merge"/>
+
+			<configparam name="javax.faces.STATE_SAVING_METHOD" value="client"/>
+	    		<configparam name="javax.faces.CONFIG_FILES" value="/WEB-INF/faces-config.xml"/>
+	    		<deploymentdescriptor/>
+		</webdoclet>
+	</target-->
+
+    <!-- ================================= 
+          target: War              
+         ================================= -->
+    <target name="make-war" depends="compile" description="--> Gera arquivo war">
+    	<delete file="${war.dir}/${war.name}.war"/>
+		<war destfile="${war.dir}/${war.name}.war">
+			<fileset dir="${web.dir}" id="id">
+    			<include name="**/*"/>
+    			<exclude name="Tomcat/**"/>
+			</fileset>
+		</war>
+    </target>
+
+
+    <!-- ================================= 
+          target: Jar       
+          Cria o jar do componente e envia para o projeto Library/OrionSoft, que contém
+          todas as bibliotecas centralizadas.
+         ================================= -->
+    <target name="make jar" depends="updateMETA-INF/Resources, compile" description="--> Gera arquivo jar do Framework">
+    	
+		<jar destfile="${lib.orionsoft}/${jar.name}.jar" >
+			<fileset dir="${bin}">
+				<include name="**/*"/>
+			</fileset>
+		</jar>
+    </target>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clear                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="clear" description="Apaga arquivos e diretorios automaticamente gerados">
+		<delete dir="${bin}" />
+		<delete file="*.sql" />
+		<delete dir="${basedir}/javadoc"/>
+		<delete dir="${basedir}/war"/>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: updateLib                      
+          Esta tarefa usa a opção flatten="true" para não obedecer
+          a estrutura de diretórios
+         - - - - - - - - - - - - - - - - - -->
+	<target name="updateWebLib" description="Atualiza as bibliotecas da Web com o projeto Library">
+		<mkdir dir="${lib.web}"/>
+		
+		<copy todir="${lib.web}" flatten="true">
+			<fileset dir="${lib.home}" >
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		
+	</target>
+
+</project>

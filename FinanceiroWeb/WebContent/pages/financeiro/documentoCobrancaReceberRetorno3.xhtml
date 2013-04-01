@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.ReceberDocumentoCobrancaRetornoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/retorno.png" />
+	<ui:param name="description" value="Abaixo está um relatório de como o conteúdo do arquivo foi processado:&lt;br/>
+	Convênio:&lt;b>#{receberDocumentoCobrancaRetornoBean.process.convenioCobrancaNome}&lt;/b>  Arquivo: &lt;b>#{receberDocumentoCobrancaRetornoBean.process.nomeRetorno}&lt;/b>
+	&lt;br/>Confira os dados e os valores. O arquivo poderá ser reprocessado sem que haja alterações nos títulos já liquidados com sucesso." />
+	<ui:define name="content">
+
+		<h:dataTable
+			value="#{receberDocumentoCobrancaRetornoBean.process.messageList}"
+			border="0"
+			var="msg">
+			<h:column>
+				<h:outputText value="#{msg}" escape="false" styleClass="infoMessage"/>
+			</h:column>
+		</h:dataTable>
+			
+	</ui:define>
+	<ui:define name="actions">
+		<h:commandButton value="Imprimir" onclick="javascript:print();" />
+		<h:commandButton value="Receber outro arquivo" action="#{receberDocumentoCobrancaRetornoBean.actionStart}" />
+	</ui:define>
+</ui:composition>
+
+</html>		
+

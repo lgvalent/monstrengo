@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess.description}" />
+	<ui:define name="content">
+		<h:panelGrid
+			width="100%"
+			columns="2"
+			styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
+
+   			<h:outputText value="Pessoa"/>
+			<h:panelGroup id="pessoa">
+				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+    	    	   <ui:param name="paramEntity" value="#{listarPosicaoContratoBean.process.paramPessoa}"/>
+				</ui:include>
+				<br/>
+				<h:selectBooleanCheckbox value="#{listarPosicaoContratoBean.process.incluirFiliais}"/>
+				<h:outputLabel value="Incluir todas as filiais do CNPJ acima" style="font-size: small" />
+			</h:panelGroup>
+			
+			<h:outputLabel value="Data:"/>
+			<h:panelGroup>
+				<h:outputLabel value="de "/>
+				<ui:include src="/pages/basic/tiles/calendar.xhtml">
+           			<ui:param name="timeField" value="#{listarPosicaoContratoBean.process.dataInicial.time}" />
+				</ui:include>
+				<h:outputLabel value=" até "/>
+				<ui:include src="/pages/basic/tiles/calendar.xhtml">
+           			<ui:param name="timeField" value="#{listarPosicaoContratoBean.process.dataFinal.time}" />
+				</ui:include>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Situação:"/>
+			<h:selectOneMenu id="situacao" value="#{listarPosicaoContratoBean.process.situacao}" styleClass="input">
+				<f:selectItems value="#{listarPosicaoContratoBean.process.listSituacao}"/>
+			</h:selectOneMenu>
+	
+   			<h:outputText value="Itens de Custos"/>
+			<h:panelGroup id="itemsCustoss">
+				<ui:include src="/pages/basic/tiles/processParamEntityListSuggest.xhtml">
+    	    	   <ui:param name="paramEntityList" value="#{listarPosicaoContratoBean.process.paramItemCusto}"/>
+				</ui:include>
+				<h:selectBooleanCheckbox value="#{listarPosicaoContratoBean.process.itemCustoListNot}"/>
+				<h:outputLabel value="Exceto os itens de custos selecionados acima" for="" style="font-size: small" />
+			</h:panelGroup>
+
+			<h:outputLabel value="Contas:"/>
+			<h:panelGroup id="conta">
+				<ui:include src="/pages/basic/tiles/entityListSelect.xhtml">
+           			<ui:param name="entityList" value="#{listarPosicaoContratoBean.process.contas}"/>
+				</ui:include>
+			</h:panelGroup>
+			
+		</h:panelGrid>
+	</ui:define>
+	<ui:define name="actions">
+		<h:commandButton value="Listar" action="#{listarPosicaoContratoBean.doVisualizar}" onclick="this.value='Aguarde...'"/>
+	</ui:define>
+
+	<ui:define name="result">
+
+<!-- Informações cadastrais do cliente que está sendo consultado -->
+<p:panel rendered="#{listarPosicaoContratoBean.visualizando}" style="background: rgba(0,0,255,0.4); text-align: left;">
+	Visualizando <b>#{listarPosicaoContratoBean.size}</b> lançamentos para
+		<b>
+		<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.Pessoa.type.name}', '#{listarPosicaoContratoBean.process.paramPessoa.value.id}')">
+			<h:outputText value="#{listarPosicaoContratoBean.process.paramPessoa.value.toString()} "/>
+		</h:outputLink>
+		</b> 
+	, endereço:
+	<h:outputText value="#{listarPosicaoContratoBean.process.paramPessoa.value.object.enderecoCorrespondencia.toString()}"/>
+</p:panel>
+	
+<!-- Listagem -->
+	<h:panelGroup
+	    rendered="#{listarPosicaoContratoBean.visualizando}">
+		<h:panelGroup rendered="#{listarPosicaoContratoBean.size lt 1}">
+			<h:outputLabel value="Nenhum lançamento encontrado para as condições acima definidas." />
+		</h:panelGroup>
+
+		<h:outputText styleClass="errorMessage" value="#{messagesBean.firstMessageSummary}" escape="false" />
+
+		<h:panelGrid width="100%">
+			<h:dataTable
+				width="100%"
+				border="0" value="#{listarPosicaoContratoBean.array}"
+			    var='lancamento'
+			    headerClass="tableListHeader"
+			    footerClass="tableListFooter"
+			    styleClass="tableList"
+			    rowClasses="tableListRowEven"
+			    columnClasses="tableListColumn"
+			    style="border-collapse:collapse">
+			    
+				<h:column>
+			<f:facet name="header">
+				<h:panelGroup rendered="#{listarPosicaoContratoBean.size>0}">
+					<h:outputLabel value="Seleção dos lançamentos: " />
+					<h:commandButton value="Marcar" title="Marca todos os contratos da lista atual" onclick="return checkAll(this.form, 'myCheck')"/>
+					<h:commandButton value="Intervalo" title="Marca todas as propriedades entre um intervalo definido" onclick="return checkRange(this.form, 'myCheck')"/>
+					<h:commandButton value="Desmarcar" title="Desmarca todos os contratos da lista atual" onclick="return clearAll(this.form, 'myCheck')"/>
+					<h:commandButton value="Inverter" title="Inverte a seleção dos os contratos da lista atual" onclick="return inverseAll(this.form, 'myCheck')"/>
+					<h:commandButton value="Desfazer" title="Volta a seleção anterior às alterações recentemente efetuadas" type="reset"/>
+						<br/>
+					<h:outputLabel value="Ações selecionados: " />
+					<h:commandButton value="Quitar" action="#{listarPosicaoContratoBean.actionQuitarSelecionados}"/>
+					<h:commandButton value="Cancelar" action="#{listarPosicaoContratoBean.actionCancelarSelecionados}" />
+					<h:commandButton value="Alterar vencimento" action="#{listarPosicaoContratoBean.actionAlterarVencimentoDocumentosCobrancaSelecionados}" />
+					<h:commandButton value="Imprimir Doc. Cobrança" action="#{listarPosicaoContratoBean.actionImprimirDocumentosCobrancaSelecionados}" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="footer">
+				<h:panelGroup rendered="#{listarPosicaoContratoBean.size>0}">
+					<h:outputLabel value="Seleção dos lançamentos: " />
+					<h:commandButton value="Marcar" title="Marca todos os contratos da lista atual" onclick="return checkAll(this.form, 'myCheck')"/>
+					<h:commandButton value="Intervalo" title="Marca todas as propriedades entre um intervalo definido" onclick="return checkRange(this.form, 'myCheck')"/>
+					<h:commandButton value="Desmarcar" title="Desmarca todos os contratos da lista atual" onclick="return clearAll(this.form, 'myCheck')"/>
+					<h:commandButton value="Inverter" title="Inverte a seleção dos os contratos da lista atual" onclick="return inverseAll(this.form, 'myCheck')"/>
+					<h:commandButton value="Desfazer" title="Volta a seleção anterior às alterações recentemente efetuadas" type="reset"/>
+					<br/>
+					<h:outputLabel value="Ações selecionados: " />
+					<h:commandButton value="Quitar" action="#{listarPosicaoContratoBean.actionQuitarSelecionados}"/>
+					<h:commandButton value="Cancelar" action="#{listarPosicaoContratoBean.actionCancelarSelecionados}" />
+					<h:commandButton value="Alterar vencimento" action="#{listarPosicaoContratoBean.actionAlterarVencimentoDocumentosCobrancaSelecionados}" />
+					<h:commandButton value="Imprimir Doc. Cobrança" action="#{listarPosicaoContratoBean.actionImprimirDocumentosCobrancaSelecionados}" />
+				</h:panelGroup>
+			</f:facet>
+<!-- lançamento quitado -->
+ 					<h:panelGrid columns="2" width="100%" styleClass="tableListRow" rendered="#{lancamento.object.lancamentoSituacao=='QUITADO'}">
+						<f:facet name="header">
+							<h:outputLabel value="#{lancamento.object.contrato.pessoa}" style="font-weight:bold" rendered="#{listarPosicaoContratoBean.process.incluirFiliais or listarPosicaoContratoBean.process.paramPessoa.isNull()}"/>
+						</f:facet>
+						<h:panelGroup>
+							<h:graphicImage value="../financeiro/img/quitar_d.png" title="Quita o lançamento" style="border:0 noprint"/>
+	
+							<h:graphicImage value="../financeiro/img/baixar_d.png" title="Baixa o lançamento" style="border:0 noprint"/>
+	
+							<h:outputLabel value="Valor "/>
+							<h:outputLabel value="#{lancamento.object.valor}" style="font-weight:bold">
+								<f:convertNumber type="currency"/>
+							</h:outputLabel>
+							<h:outputLabel value=" lançado em " />
+							<h:outputLabel value="#{lancamento.propertiesMap.data.value.asString}" style="font-weight:bold"/>
+							<h:outputLabel value=" com vencimento para " />
+							<h:outputLabel value="#{lancamento.propertiesMap.dataVencimento.value.asString}" style="font-weight:bold"/>
+							<br/>
+							<h:outputLink value="javascript:linkRetrieve('br.com.orionsoft.financeiro.gerenciador.entities.Lancamento', '#{lancamento.object.id}')" >
+								<h:outputText value=" #{lancamento.object.descricao} "/>
+							</h:outputLink>
+						</h:panelGroup>
+						<h:panelGrid width="100%" style="text-align:right" styleClass="tableListRow">
+							<h:panelGroup>
+								<h:outputLabel value="Saldo em aberto: " />
+								<h:outputLabel value="#{lancamento.object.saldo}">
+									<f:convertNumber type="currency"/>
+								</h:outputLabel>
+							</h:panelGroup>
+						</h:panelGrid>
+					</h:panelGrid>
+<!-- lançamento cancelado -->
+ 					<h:panelGrid columns="2" width="100%" style="background:#C0C0C0" styleClass="tableListRow" rendered="#{lancamento.object.lancamentoSituacao=='CANCELADO'}">
+						<f:facet name="header">
+							<h:outputLabel value="#{lancamento.object.contrato.pessoa}" style="font-weight:bold" rendered="#{listarPosicaoContratoBean.process.incluirFiliais or listarPosicaoContratoBean.process.paramPessoa.isNull() or listarPosicaoContratoBean.process.paramPessoa.isNull()}"/>
+						</f:facet>
+						<h:panelGroup>
+							<h:graphicImage value="../financeiro/img/quitar_d.png" title="Quita o lançamento" style="border:0 noprint"/>
+	
+							<h:graphicImage value="../financeiro/img/baixar_d.png" title="Baixa o lançamento" style="border:0 noprint"/>
+	
+							<h:outputLabel value="Valor "/>
+							<h:outputLabel value="#{lancamento.object.valor}" style="font-weight:bold">
+								<f:convertNumber type="currency"/>
+							</h:outputLabel>
+							<h:outputLabel value=" lançado em " />
+							<h:outputLabel value="#{lancamento.propertiesMap.data.value.asString}" style="font-weight:bold"/>
+							<h:outputLabel value=" com vencimento para " />
+							<h:outputLabel value="#{lancamento.propertiesMap.dataVencimento.value.asString}" style="font-weight:bold"/>
+							<br/>
+							<h:outputLink value="javascript:linkRetrieve('br.com.orionsoft.financeiro.gerenciador.entities.Lancamento', '#{lancamento.object.id}')" >
+								<h:outputText value=" #{lancamento.object.descricao} "/>
+							</h:outputLink>
+						</h:panelGroup>
+						<h:panelGrid width="100%" style="text-align:right" styleClass="tableListRow">
+							<h:panelGroup>
+								<h:outputLabel value="Saldo em aberto: " />
+								<h:outputLabel value="#{lancamento.object.saldo}">
+									<f:convertNumber type="currency"/>
+								</h:outputLabel>
+							</h:panelGroup>
+						</h:panelGrid>
+					</h:panelGrid>
+<!-- lançamento pendente --> 
+					<h:panelGrid columns="2" width="100%" style="background:#FFFFCC" styleClass="tableListRow" rendered="#{(lancamento.object.lancamentoSituacao=='PENDENTE') and (lancamento.propertiesMap.dataVencimento.value.asCalendar.time ge listarPosicaoContratoBean.dataAtual.time)}">
+						<f:facet name="header">
+							<h:outputLabel value="#{lancamento.object.contrato.pessoa}" style="font-weight:bold" rendered="#{listarPosicaoContratoBean.process.incluirFiliais or listarPosicaoContratoBean.process.paramPessoa.isNull()}"/>
+						</f:facet>
+						<h:panelGroup>
+							<h:selectBooleanCheckbox id="myCheck1" value="#{lancamento.selected}"/>
+			  				<h:commandButton title="Quita o lançamento" image="../financeiro/img/quitar.png" action="#{quitarLancamentoBean.actionQuitarLancamento(lancamento.object.id,lancamento.object.saldo)}" />
+			  				<h:commandButton title="Altera documento de pagamento previsto" image="../financeiro/img/alterar.png" action="#{alterarDocumentoPagamentoBean.actionAlterarDocumento(lancamento.object.id)}" />
+			  				<h:commandLink action="#{imprimirDocumentoPagamentoBean.actionPrepararDocumento}" rendered="#{lancamento.object.documentoPagamento != null}" >
+								<h:graphicImage value="../financeiro/img/imprimirDocumento.png" title="Imprimir documento de pagamento previsto" style="border:0"  />
+						     	<f:param name="documentoId" value="#{lancamento.object.documentoPagamento.id}"/>
+							</h:commandLink>
+
+			  				<h:commandLink action="#{cancelarLancamentoBean.actionCancelar}" >
+								<h:graphicImage value="../financeiro/img/baixar.png" title="Cancela o lançamento" style="border:0" />
+						     	<f:param name="lancamentoId" value="#{lancamento.object.id}"/>
+						     	<f:param name="lancamentoSaldo" value="#{lancamento.object.saldo}"/>
+							</h:commandLink>
+
+							<h:outputLabel value="Valor "/>
+							<h:outputLabel value="#{lancamento.object.valor}" style="font-weight:bold">
+								<f:convertNumber type="currency"/>
+							</h:outputLabel>
+							<h:outputLabel value=" lançado em " />
+							<h:outputLabel value="#{lancamento.propertiesMap.data.value.asString}" style="font-weight:bold"/>
+							<h:outputLabel value=" com vencimento para " />
+							<h:outputLabel value="#{lancamento.propertiesMap.dataVencimento.value.asString}" style="font-weight:bold"/>
+							<br/>
+							<h:outputLink value="javascript:linkRetrieve('br.com.orionsoft.financeiro.gerenciador.entities.Lancamento', '#{lancamento.object.id}')" >
+								<h:outputText value=" #{lancamento.object.descricao} "/>
+							</h:outputLink>
+							<h:outputLink value="javascript:linkRetrieve('br.com.orionsoft.financeiro.documento.pagamento.DocumentoPagamento', '#{lancamento.object.documentoPagamento.id}')"  rendered="#{lancamento.object.documentoPagamento != null}" >
+								<h:outputText value="(#{lancamento.object.documentoPagamento})" title="Documento de pagamento previsto com categoria: #{lancamento.object.documentoPagamento.documentoPagamentoCategoria}"/>
+							</h:outputLink>
+						</h:panelGroup>
+						<h:panelGrid width="100%" style="text-align:right" styleClass="tableListRow">
+							<h:panelGroup>
+								<h:outputLabel value="Saldo em aberto: " />
+								<h:outputLabel value="#{lancamento.object.saldo}" rendered="#{lancamento.object.saldo gt 0}" style="font-weight:bold">
+									<f:convertNumber type="currency"/>
+								</h:outputLabel>
+								<h:outputLabel value="#{lancamento.object.saldo}" rendered="#{lancamento.object.saldo lt 0}" style="color:red font-weight:bold">
+									<f:convertNumber type="currency"/>
+								</h:outputLabel>
+							</h:panelGroup>
+						</h:panelGrid>
+					</h:panelGrid>
+				
+<!-- lançamento vencido -->
+					<h:panelGrid columns="2" width="100%" style="background:#FFC0CB" styleClass="tableListRow" rendered="#{(lancamento.object.lancamentoSituacao=='PENDENTE') and (lancamento.propertiesMap.dataVencimento.value.asCalendar.time lt listarPosicaoContratoBean.dataAtual.time)}">
+						<f:facet name="header">
+							<h:outputLabel value="#{lancamento.object.contrato.pessoa}" style="font-weight:bold" rendered="#{listarPosicaoContratoBean.process.incluirFiliais or listarPosicaoContratoBean.process.paramPessoa.isNull()}"/>
+						</f:facet>
+						<h:panelGroup>
+							<h:selectBooleanCheckbox id="myCheck2" value="#{lancamento.selected}"/>
+			  				<h:commandButton title="Quita o lançamento" image="../financeiro/img/quitar.png" action="#{quitarLancamentoBean.actionQuitarLancamento(lancamento.object.id,lancamento.object.saldo)}" />
+			  				<h:commandButton title="Altera documento de pagamento previsto" image="../financeiro/img/alterar.png" action="#{alterarDocumentoPagamentoBean.actionAlterarDocumento(lancamento.object.id)}" />
+			  				<h:commandLink action="#{imprimirDocumentoPagamentoBean.actionPrepararDocumento}" rendered="#{lancamento.object.documentoPagamento != null}" >
+								<h:graphicImage value="../financeiro/img/imprimirDocumento.png" title="Imprimir documento de pagamento previsto" style="border:0"  />
+						     	<f:param name="documentoId" value="#{lancamento.object.documentoPagamento.id}"/>
+							</h:commandLink>
+
+			  				<h:commandLink action="#{cancelarLancamentoBean.actionCancelar}" >
+								<h:graphicImage value="../financeiro/img/baixar.png" title="Cancela o lançamento" style="border:0" />
+						     	<f:param name="lancamentoId" value="#{lancamento.object.id}"/>
+						     	<f:param name="lancamentoSaldo" value="#{lancamento.object.saldo}"/>
+							</h:commandLink>
+
+							<h:outputLabel value="Valor "/>
+							<h:outputLabel value="#{lancamento.object.valor}" style="font-weight:bold">
+								<f:convertNumber type="currency"/>
+							</h:outputLabel>
+							<h:outputLabel value=" lançado em " />
+							<h:outputLabel value="#{lancamento.propertiesMap.data.value.asString}" style="font-weight:bold"/>
+							<h:outputLabel value=" com vencimento para " />
+							<h:outputLabel value="#{lancamento.propertiesMap.dataVencimento.value.asString}" style="font-weight:bold"/>
+							<br/>
+							<h:outputLink value="javascript:linkRetrieve('br.com.orionsoft.financeiro.gerenciador.entities.Lancamento', '#{lancamento.object.id}')" >
+								<h:outputText value=" #{lancamento.object.descricao} "/>
+							</h:outputLink>
+							<h:outputLink value="javascript:linkRetrieve('br.com.orionsoft.financeiro.documento.pagamento.DocumentoPagamento', '#{lancamento.object.documentoPagamento.id}')"  rendered="#{lancamento.object.documentoPagamento != null}" >
+								<h:outputText value="(#{lancamento.object.documentoPagamento})" title="Documento de pagamento previsto com categoria: #{lancamento.object.documentoPagamento.documentoPagamentoCategoria}"/>
+							</h:outputLink>
+						</h:panelGroup>
+						<h:panelGrid width="100%" style="text-align:right" styleClass="tableListRow">
+							<h:panelGroup>
+								<h:outputLabel value="Saldo em aberto: " />
+								<h:outputLabel value="#{lancamento.object.saldo}" rendered="#{lancamento.object.saldo gt 0}" style="font-weight:bold">
+									<f:convertNumber type="currency"/>
+								</h:outputLabel>
+								<h:outputLabel value="#{lancamento.object.saldo}" rendered="#{lancamento.object.saldo lt 0}" style="color:red font-weight:bold">
+									<f:convertNumber type="currency"/>
+								</h:outputLabel>
+							</h:panelGroup>
+						</h:panelGrid>
+					</h:panelGrid>
+<!-- Movimento do lançamento -->
+					<h:dataTable
+						width="100%"
+						border="0" value="#{lancamento.object.lancamentoMovimentos}"
+					    var='lancamentoMovimento'
+					    rendered="#{listarPosicaoContratoBean.size>0}"
+					    headerClass="tableListHeader"
+					    styleClass="tableList"
+					    rowClasses="tableListRowOdd"
+					    columnClasses="tableListColumn,tableListColumnRight"
+					    style="border-collapse: collapse">
+						<h:column >
+							<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.LancamentoMovimento.type.name}', '#{lancamentoMovimento.id}')"  rendered="#{menuBean.crudMap.LancamentoMovimento.canRetrieve}">
+								<h:outputLabel value="#{lancamentoMovimento.lancamentoMovimentoCategoria.nome} em " />
+								<h:outputLabel value="#{lancamentoMovimento.data.time}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputLabel>
+								<h:outputLabel value=" na conta #{lancamentoMovimento.conta}"/>
+							</h:outputLink>
+						</h:column>
+						<h:column >
+							<h:outputLabel value="#{lancamentoMovimento.valor}" rendered="#{lancamentoMovimento.valor ge 0}" >
+								<f:convertNumber type="currency"/>
+							</h:outputLabel>
+							<h:outputLabel value="#{lancamentoMovimento.valor}" rendered="#{lancamentoMovimento.valor lt 0}" style="color:red" >
+								<f:convertNumber type="currency"/>
+							</h:outputLabel>
+						</h:column>
+					</h:dataTable>
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+	</h:panelGroup>	
+	</ui:define>
+</ui:composition>
+</html>
