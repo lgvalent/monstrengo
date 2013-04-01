@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -36,18 +37,27 @@
 <!-- Exibe caixa de entrada de texto para campos primitivos  -->
 <h:panelGroup
 	rendered="#{!propertyPrimitive.info.editShowList and !propertyPrimitive.info.enum}">
+
+	<pe:ckEditor  id="editor" label="#{propertyPrimitive.info.label}"
+		value="#{propertyPrimitive.value.asString}" 
+		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.html and !propertyPrimitive.info.hasEditMask}"
+		width="100%" height="350px"
+		skin="v2"
+		widgetVar="editor" 
+		toolbar=" [['Undo','Redo','-','Bold','Italic','Underline','StrikeThrough','-','TextColor','BGColor','-','Format','Font','FontSize','-','Cut', 'Copy','Paste','PasteText','PasteFromWord','Find','Replace','-', 'Outdent','Indent','NumberedList','BulletedList'],    ['-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],    ['Image','Table','-','Link','Flash'],  ['Source'], ]"/>
+	
 	<h:inputTextarea id="txtInput" style="width:100%" label="#{propertyPrimitive.info.label}"
 		value="#{propertyPrimitive.value.asString}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.size gt 255  and !propertyPrimitive.info.hasEditMask}"
+		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.size gt 255 and !propertyPrimitive.info.html  and !propertyPrimitive.info.hasEditMask}"
 		disabled="#{propertyPrimitive.info.readOnly}" rows="2" />
 
 	<p:inputText id="strInput" style="width:100%" label="#{propertyPrimitive.info.label}"
 		value="#{propertyPrimitive.value.asString}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.size lt 256  and !propertyPrimitive.info.hasEditMask}"
+		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.size lt 256  and !propertyPrimitive.info.html and !propertyPrimitive.info.hasEditMask}"
 		disabled="#{propertyPrimitive.info.readOnly}"
 		maxlength="#{propertyPrimitive.info.size}" />
 

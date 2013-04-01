@@ -10,12 +10,20 @@
 	<ui:param name="logo" value="../../login/img/logo.png" />
 	<ui:define name="menu">
 		<p:submenu label="Cadastros" icon="ui-icon-contact">
-			<p:menuitem value="(Todos)" icon="ui-icon-newwin"
-				url="../basic/menu.jsp" target="ALVO" />
-			<p:menuitem value="Últimas visualizações"
-				url="../basic/lastEntityViews.xhtml" target="ALVO" />
+			<p:menuitem>
+				<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+					<ui:param name="entityMetadata"
+						value="#{menuBean.infoMap.ApplicationUser}" />
+				</ui:include>
+				<br />
+				<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+					<ui:param name="entityMetadata"
+						value="#{menuBean.infoMap.SecurityGroup}" />
+				</ui:include>
+			</p:menuitem>
+			<p:menuitem value="(Todos)" icon="ui-icon-newwin" url="../basic/menu.jsp" target="ALVO" />
+			<p:menuitem value="Últimas visualizações" url="../basic/lastEntityViews.xhtml" target="ALVO" />
 		</p:submenu>
 	</ui:define>
 </ui:composition>
 </html>
-	
