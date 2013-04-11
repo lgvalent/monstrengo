@@ -66,6 +66,7 @@
 				<exclude name="${jar.name}.jar"/>
 			</fileset>
 		</copy>
+		<eclipse.refreshLocal resource="${ant.project.name}/" depth="intinite"/>
 
 <!--
 		<copy todir="/home/antonio/workspace/Web/WebContent/WEB-INF/lib">

@@ -9,10 +9,13 @@
 	<ui:param name="title" value="Monstrengo Framework" />
 	<ui:param name="logo" value="./img/header.jpg" />
 	<ui:define name="menu">
-		<p:submenu label="Cadastros" icon="ui-icon-contact">
+		<p:submenu label="Cadastros" icon="ui-icon-contact"  >
 			<p:menuitem>
 					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ContratoFinanceiro}"/>
+						</ui:include><br/>
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ContratoFinanceiroCategoria}"/>
 						</ui:include><br/>
 						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.CentroCusto}"/>
