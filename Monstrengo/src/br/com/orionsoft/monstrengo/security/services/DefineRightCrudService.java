@@ -42,6 +42,7 @@ public class DefineRightCrudService extends ServiceBasic
     public static String RETRIEVE_ALLOWED = "retrieveAllowed";
     public static String UPDATE_ALLOWED = "updateAllowed";
     public static String DELETE_ALLOWED = "deleteAllowed";
+    public static String QUERY_ALLOWED = "queryAllowed";
 
     public String getServiceName() {
         return SERVICE_NAME;
@@ -60,6 +61,7 @@ public class DefineRightCrudService extends ServiceBasic
             Boolean retrieveAllowed = null;
             Boolean updateAllowed = null;
             Boolean deleteAllowed = null;
+            Boolean queryAllowed = null;
 
             if (serviceData.getArgumentList().containsProperty(CREATE_ALLOWED)) 
                 createAllowed = (Boolean) serviceData.getArgumentList().getProperty(CREATE_ALLOWED);
@@ -69,6 +71,8 @@ public class DefineRightCrudService extends ServiceBasic
                 updateAllowed = (Boolean) serviceData.getArgumentList().getProperty(UPDATE_ALLOWED);
             if (serviceData.getArgumentList().containsProperty(DELETE_ALLOWED)) 
                 deleteAllowed = (Boolean) serviceData.getArgumentList().getProperty(DELETE_ALLOWED);
+            if (serviceData.getArgumentList().containsProperty(QUERY_ALLOWED)) 
+                queryAllowed = (Boolean) serviceData.getArgumentList().getProperty(QUERY_ALLOWED);
 
             // TODO IMPLEMENTAR Usar um biblioteca mais eficiente para pesquisas de múltiplas condições
             // Obtem o Direito que se relaciona com o GrupoId e ProcessId indicados
@@ -105,6 +109,9 @@ public class DefineRightCrudService extends ServiceBasic
                 right.getProperty(RightCrud.UPDATE_ALLOWED).getValue().setAsBoolean(updateAllowed);
             if (deleteAllowed != null)
                 right.getProperty(RightCrud.DELETE_ALLOWED).getValue().setAsBoolean(deleteAllowed);
+            
+            if (queryAllowed != null)
+                right.getProperty(RightCrud.QUERY_ALLOWED).getValue().setAsBoolean(queryAllowed);
             
             log.debug("Atualizando o direito");
             UtilsCrud.update(this.getServiceManager(), right, serviceData);

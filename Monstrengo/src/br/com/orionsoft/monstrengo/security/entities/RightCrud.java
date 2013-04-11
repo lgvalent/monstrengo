@@ -27,6 +27,7 @@ public class RightCrud
     public static final String RETRIEVE_ALLOWED = "retrieveAllowed";
     public static final String UPDATE_ALLOWED = "updateAllowed";
     public static final String DELETE_ALLOWED = "deleteAllowed";
+    public static final String QUERY_ALLOWED = "deleteAllowed";
 
     public static final String APPLICATION_ENTITY = "applicationEntity";
     public static final String SECURITY_GROUP = "securityGroup";
@@ -36,6 +37,7 @@ public class RightCrud
     private boolean retrieveAllowed = false;
     private boolean updateAllowed = false;
     private boolean deleteAllowed = false;
+    private boolean queryAllowed = false;
 
     private ApplicationEntity applicationEntity = null;
     private SecurityGroup securityGroup;
@@ -76,6 +78,10 @@ public class RightCrud
     public boolean isDeleteAllowed(){return deleteAllowed;}
     public void setDeleteAllowed(boolean allowed){this.deleteAllowed = allowed;}
 
+    @Column
+    public boolean isQueryAllowed(){return queryAllowed;}
+    public void setQueryAllowed(boolean allowed){this.queryAllowed = allowed;}
+
     /**
      * Relacionamento UNIDIRECIONAL com a Entidade. 
      * A Entidade não conhece todos os direitos Crud sobre ela.
@@ -111,6 +117,7 @@ public class RightCrud
         result += this.retrieveAllowed?"R":"_";
         result += this.updateAllowed?"U":"_";
         result += this.deleteAllowed?"D":"_";
+        result += this.queryAllowed?"Q":"_";
 
         if (this.applicationEntity != null)
             result += this.applicationEntity.toString();

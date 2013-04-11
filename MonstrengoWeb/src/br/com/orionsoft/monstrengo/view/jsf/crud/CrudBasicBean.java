@@ -236,6 +236,7 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
     private boolean canRetrieve = false;
     private boolean canUpdate = false;
     private boolean canDelete = false;
+    private boolean canQuery = false;
 	
     /** 
      * Verifica se o user tem permissão de acionar os comandos CRUD
@@ -259,6 +260,7 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
    	 	this.canRetrieve = right.get(CheckRightCrudService.CAN_RETRIEVE);
    	 	this.canUpdate = right.get(CheckRightCrudService.CAN_UPDATE);
    	 	this.canDelete = right.get(CheckRightCrudService.CAN_DELETE);
+   	 	this.canQuery = right.get(CheckRightCrudService.CAN_QUERY);
     }
     
     public boolean isCanCreate(){return canCreate;}
@@ -272,6 +274,9 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 	
 	public boolean isCanDelete(){return canDelete;}
 	public void setCanDelete(boolean canDelete){this.canDelete = canDelete;}
+	
+	public boolean isCanQuery(){return canQuery;}
+	public void setCanQuery(boolean canQuery){this.canQuery = canQuery;}
 	
     /** Armazena os parâmetros relacionados a atual visão e as entidades que estão atualmente ativas */
     protected Map<String, Map<String, String>> params = new HashMap<String, Map<String, String>>();

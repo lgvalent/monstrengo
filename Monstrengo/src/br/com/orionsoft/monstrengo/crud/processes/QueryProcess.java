@@ -6,6 +6,7 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.report.entities.UserReport;
+import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
  * Este processo controla a visualização de uma entidade do sistema.
@@ -44,8 +45,14 @@ public class QueryProcess extends ProcessBasic
 				/* Verifica se existe uma entityType definida */
 				if (entityType == null)
 			        throw new ProcessException(MessageList.create(UserReport.class, "ENTITY_NOT_DEFINED", this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel()));
-				
-				userReport = new UserReport(this.getProcessManager().getServiceManager().getEntityManager(), this.entityType, this.getUserSession().getUser());
+
+				if(this.mayQuery()){
+					userReport = new UserReport(this.getProcessManager().getServiceManager().getEntityManager(), this.entityType, this.getUserSession().getUser());
+				}else{
+			        // Não possui direitos de QUERY para este de entidade
+			        throw new ProcessException(MessageList.create(QueryProcess.class, "QUERY_DENIED", getUserSession().getUserLogin(), this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel()));
+
+				}
 			} catch (BusinessException e) {
 				throw new ProcessException(e.getErrorList());
 			}
@@ -60,19 +67,23 @@ public class QueryProcess extends ProcessBasic
 		this.userReport = null;
 	}
 	
-	public boolean runQuery(){
-		super.beforeRun();
+	
+    /** Verifica se o user tem permissão de visualização */
+    public boolean mayQuery() throws BusinessException
+    {
+        return UtilsSecurity.checkRightQuery(this.getProcessManager().getServiceManager(), this.entityType, this.getUserSession(), null);
+    }
 
-		try
-		{
-			this.getUserReport().runQuery();
+    public boolean runQuery(){
+    	super.beforeRun();
 
-			return true;
-		} catch (ProcessException e)
-		{
-			this.getMessageList().addAll(e.getErrorList());
-			return false;
-		}
-	}
+    	try{
+    		this.getUserReport().runQuery();
+    		return true;
+    	} catch (BusinessException e){
+    		this.getMessageList().addAll(e.getErrorList());
+    		return false;
+    	}
+    }
 
 }

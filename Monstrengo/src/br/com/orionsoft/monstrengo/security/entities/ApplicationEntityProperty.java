@@ -8,11 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.ForeignKey;
-
-import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
 
 
 /**

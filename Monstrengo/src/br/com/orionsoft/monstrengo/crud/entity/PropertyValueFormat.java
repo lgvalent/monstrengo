@@ -23,6 +23,8 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
  */
 public class PropertyValueFormat
 {
+	
+	public static final String HTML_EDIT_MASK = "HTML";
     /**
      * <p>Seta uma String como um Objeto.
      * 
@@ -34,12 +36,12 @@ public class PropertyValueFormat
         String mask = prop.getPropetyOwner().getInfo().getEditMask();
         try
         {
-            if(StringUtils.isEmpty(mask)){
-                prop.setAsObject(value);
-            }else{
+            if(prop.getPropetyOwner().getInfo().isHasEditMask() && !mask.equals(HTML_EDIT_MASK)){
                 MaskFormatter mf = new MaskFormatter(mask);
                 mf.setValueContainsLiteralCharacters(false);
                 prop.setAsObject(mf.stringToValue(value));
+            }else{
+            	prop.setAsObject(value);
             }
                 
         } catch (ParseException e)
@@ -242,14 +244,15 @@ public class PropertyValueFormat
      */
     private static String stringValueToString(IPropertyValue prop) throws PropertyValueException{
         String mask = prop.getPropetyOwner().getInfo().getEditMask();
-        try{
-            if(StringUtils.isEmpty(mask)){
-                return prop.getAsObject().toString();
+    	try{
+            if(prop.getPropetyOwner().getInfo().isHasEditMask() && !mask.equals(HTML_EDIT_MASK)){
+            	
+            	MaskFormatter mf = new MaskFormatter(mask);
+            	mf.setValueContainsLiteralCharacters(false);
+            	return mf.valueToString(prop.getAsObject().toString());
             }
-                
-            MaskFormatter mf = new MaskFormatter(mask);
-            mf.setValueContainsLiteralCharacters(false);
-            return mf.valueToString(prop.getAsObject().toString());
+
+            return prop.getAsObject().toString();
             
         } catch (ParseException e)
         {

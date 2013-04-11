@@ -71,6 +71,7 @@
 			<xsd:enumeration value="RETRIEVE" />
 			<xsd:enumeration value="UPDATE" />
 			<xsd:enumeration value="DELETE" />
+			<xsd:enumeration value="QUERY" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="crudOperationListType">
@@ -96,7 +97,13 @@
 		<xsd:attributeGroup ref="local:commonMetadataAttributes" />
 		<xsd:attribute name="displayFormat" type="xsd:string" />
 		<xsd:attribute name="defaultValue" type="xsd:string" />
-		<xsd:attribute name="editMask" type="xsd:string" />
+		<xsd:attribute name="editMask" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation xml:lang="ptBr">Definindo HTML para propriedades String, o sistema usará 
+				editor de HTML para editar o campo.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
 		<xsd:attribute name="visible" type="xsd:boolean"
 			default="false" />
 		<xsd:attribute name="required" type="xsd:boolean"
@@ -128,13 +135,6 @@
 	<xsd:complexType name="PropertyStringType">
 		<xsd:complexContent>
 			<xsd:extension base="local:PropertyType">
-				<xsd:attribute name="html" type="xsd:boolean" default="false">
-					<xsd:annotation>
-						<xsd:documentation xml:lang="ptBr">Define se o texto armazenado na 
-						propriedade está formatado usando um HTML. 
-						</xsd:documentation>
-					</xsd:annotation>
-				</xsd:attribute>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -201,7 +201,12 @@
 						que deve ser armazenado por esta propriedade. Este tipo, sobrescreverá o tipo
 						encontrato na classe e é útil para utilizar uma classe mais especialista do que
 						o tipo definido pela propriedade. No entanto, a classe aqui definida deverá
-						ser filha da classe definda na propriedade para evitar possíveis CastClassException.  
+						ser filha da classe definda na propriedade para evitar possíveis CastClassException.
+						Exemplo: Um objeto que possui atributo do tipo Pessoa, mas que, neste atributo, 
+						somente PessoaFisica deve ser utilizado. Assim, nos metadados, especializamos o tipo.
+						É útil, quando uma classe extende uma super classe, mas que na subClasse, deseja-se 
+						restringir o tipo herdado.
+						Exemplo: basic.entities.AdesaoContrato  
 						</xsd:documentation>
 					</xsd:annotation>
 				</xsd:attribute>

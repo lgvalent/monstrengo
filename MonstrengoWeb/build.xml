@@ -46,6 +46,7 @@
           Copia as bibliotecas dos componentes para o lib do web-inf.
          ================================= -->
 	<target name="updateMETA-INF/Resources" description="update xhtml files for JAR deployment">
+		<delete dir="${src}/META-INF/resources"/>
 		<copy todir="${src}/META-INF/resources">
 			<fileset dir="${web.dir}">
 				<include name="**/*"/>
@@ -66,6 +67,7 @@
 				<exclude name="${jar.name}.jar"/>
 			</fileset>
 		</copy>
+		<eclipse.refreshLocal resource="${ant.project.name}/" depth="intinite"/>
 
 <!--
 		<copy todir="/home/antonio/workspace/Web/WebContent/WEB-INF/lib">

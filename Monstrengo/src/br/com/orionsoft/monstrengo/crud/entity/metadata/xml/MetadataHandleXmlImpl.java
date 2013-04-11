@@ -33,12 +33,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import br.com.orionsoft.monstrengo.crud.documents.entities.ModelDocumentEntity;
-import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.MetadataHandleXmlImpl;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.util.AnnotationUtils;
 import br.com.orionsoft.monstrengo.core.util.PropertyUtils;
+import br.com.orionsoft.monstrengo.crud.documents.entities.ModelDocumentEntity;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
@@ -141,7 +140,6 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 			MetadataHandleXmlImpl m = new MetadataHandleXmlImpl();
 			m.setEntityClass(ModelDocumentEntity.class);
-			System.out.println(m.getPropertyHtml(ModelDocumentEntity.SOURCE));
 		} catch (MetadataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,7 +190,6 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 						
 				if(p instanceof PropertyStringType){
 					PropertyStringType ps = (PropertyStringType) p;
-					System.out.println("        html:" + ps.isHtml());
 				}
 						
 				if(p instanceof PropertyEntityType){
@@ -320,7 +317,6 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 	private static final String RUN_QUERY_ON_OPEN = "runQueryOnOpen";
 
 	private static final String VISIBLE = "visible";
-	private static final String HTML = "html";
 	private static final String REQUIRED = "required";
 	private static final String READONLY = "readOnly";
 	private static final String CALCULATED = "calculated";
@@ -621,7 +617,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		throw new MissingResourceException("", "", "");
 	}
 
-	private Class propertyType(String propertyName) {
+	private Class<?> propertyType(String propertyName) {
 		try {
 			return PropertyUtils.getPropertyType(entityClass, propertyName);
 
@@ -763,17 +759,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			return true;
 		}
 	}
-	
-	public boolean getPropertyHtml(String propertyName)
-			throws MetadataException {
-		try {
-			String value = getStrProperty(propertyName, HTML);
-			return value.equals("true");
-		} catch (MissingResourceException e) {
-			// Se não encontrou a propriedade declarada retorna a padrão
-			return true;
-		}
-	}
+
 	
 	public int getPropertySize(String propertyName) throws MetadataException {
 		Column col = AnnotationUtils.findAnnotation(Column.class, this.entityClass, propertyName);
@@ -1131,6 +1117,21 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 	public boolean getEntityCanDelete() throws MetadataException {
 		try {
 			return getStrEntity(CRUD_OPERATIONS).contains(CrudOperationType.DELETE.name());
+		} catch (MissingResourceException e) {
+			// Se não encontrou a propriedade declarada retorna a padrão
+			return false;
+		}
+	}
+
+	/**
+	 * Indica se a entidade é do tipo canQuery
+	 * 
+	 * @return true se a entidade for canQuery, false caso contrário
+	 * @throws MetadataException
+	 */
+	public boolean getEntityCanQuery() throws MetadataException {
+		try {
+			return getStrEntity(CRUD_OPERATIONS).contains(CrudOperationType.QUERY.name());
 		} catch (MissingResourceException e) {
 			// Se não encontrou a propriedade declarada retorna a padrão
 			return false;

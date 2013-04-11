@@ -38,7 +38,6 @@ public interface IPropertyMetadata
     public boolean isLong();
     public boolean isInteger();
     public boolean isString();
-    public boolean isHtml();
     public boolean isCollection();
     public boolean isList();
     public boolean isSet();

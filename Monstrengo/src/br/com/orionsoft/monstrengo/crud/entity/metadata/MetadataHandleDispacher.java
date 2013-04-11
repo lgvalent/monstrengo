@@ -108,6 +108,10 @@ public class MetadataHandleDispacher implements IMetadataHandle
 		return getHandle().getEntityCanDelete();
 	}
 
+	public boolean getEntityCanQuery() throws MetadataException {
+		return getHandle().getEntityCanQuery();
+	}
+
 	
 	public boolean getEntityRunQueryOnOpen() throws MetadataException {
 		return getHandle().getEntityRunQueryOnOpen();
@@ -166,12 +170,6 @@ public class MetadataHandleDispacher implements IMetadataHandle
 	public boolean getPropertyVisible(String propertyName)
 			throws MetadataException {
 		return getHandle().getPropertyVisible(propertyName);
-	}
-
-	
-	public boolean getPropertyHtml(String propertyName)
-			throws MetadataException {
-		return getHandle().getPropertyHtml(propertyName);
 	}
 
 	

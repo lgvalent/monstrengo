@@ -51,16 +51,16 @@
 		<h:column >
 			<h:panelGroup>
 	        	<%-- Acesso por POPUP_LINK --%>
-				<h:outputLink value="javascript:linkCreatePopup('#{item.type.name}')" rendered="#{item.canCreate}">
+				<h:outputLink value="javascript:linkCreatePopup('#{item.type.name}')" rendered="#{menuBean.crudMap.get(item.type.simpleName).canCreate}">
 					<h:graphicImage value="../basic/img/create.png" title="Criar novo registro" style="border:0" />
 			 	</h:outputLink>
-			 	<h:graphicImage value="../basic/img/create_d.png" title="Você não possui direitos para criar um novo registro" style="border:0" rendered="#{!item.canCreate}" />
+			 	<h:graphicImage value="../basic/img/create_d.png" title="Você não possui direitos para criar um novo registro" style="border:0" rendered="#{!menuBean.crudMap.get(item.type.simpleName).canCreate}" />
 
 			 	<h:outputText value=" " />
-			 	<h:outputLink value="javascript:linkQuery('#{item.type.name}')" rendered="#{item.canRetrieve}">
+			 	<h:outputLink value="javascript:linkQuery('#{item.type.name}')" rendered="#{menuBean.crudMap.get(item.type.simpleName).canQuery}">
 				 	<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0" />
 				</h:outputLink>
-	 			<h:graphicImage value="../basic/img/query_d.png" title="Você não possui direitos para visualizar esta entidade" style="border:0" rendered="#{!item.canRetrieve}" />
+	 			<h:graphicImage value="../basic/img/query_d.png" title="Você não possui direitos para visualizar esta entidade" style="border:0" rendered="#{!menuBean.crudMap.get(item.type.simpleName).canQuery}" />
 				<h:outputText value=" " />
 
 	        	<%-- Acesso por ACTION

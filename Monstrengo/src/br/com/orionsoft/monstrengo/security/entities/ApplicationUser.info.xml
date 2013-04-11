@@ -2,12 +2,12 @@
 <entity
     xmlns="http://orionsoft.net.br/entityMetadata" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://orionsoft.net.br/entityMetadata /home/lucio/workspace/Framework/src/br/com/orionsoft/framework/crud/entity/metadata/xml/templates/entityMetadata.xsd"
+	xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd"
 	name="ApplicationUser"
 	label="Operador do sistema"
 	description="Ao cadastrar um novo operador será atribuida uma senha inicial igual ao login do operador. O operador poderá alterar sua senha pelo atalho 'Alterar Senha' na tela inicial."
 	colorName="red" 
-	crudOperations="CREATE RETRIEVE UPDATE DELETE"
+	crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY"
 	propertiesInQueryGrid="id inactive name login"
 	runQueryOnOpen="true"
 	>

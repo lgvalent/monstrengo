@@ -35,9 +35,10 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 @SessionScoped
 public class DocumentEntityBean extends CrudBasicBean
 {
-    /** Define a view JSF que é ativada  */
+	private static final long serialVersionUID = 1L;
+
+	/** Define a view JSF que é ativada  */
 	public static final String FACES_VIEW_DOCUMENT_VIEW = "/pages/basic/documentView?faces-redirect=true";
-	public static final String FACES_VIEW_DOCUMENT_UPDATE = "/pages/basic/documentUpdate?faces-redirect=true";
 	public static final String FACES_VIEW_DOCUMENT_LIST = "/pages/basic/documentList?faces-redirect=true";
 	public static final String FACES_VIEW_DOCUMENT_PRINT = "/pages/basic/documentPrint?faces-redirect=true";
     
@@ -82,13 +83,13 @@ public class DocumentEntityBean extends CrudBasicBean
      * consiste em analisar os FieldsEntry e gerar o documento final. 
      * @return
      */
-    public String actionPrepareEntitiesToPrint(List<IEntity> entities, long modelDocumentId) throws Exception{
+    public String actionPrepareEntitiesToPrint(List<IEntity<?>> entities, long modelDocumentId) throws Exception{
 		/* Buffer dos documentos compilados */
     	StringBuffer compiledDocumentsBuffer = new StringBuffer();
     	boolean firstTime = true;
     	
     	getCompileDocumentProcess().setModelDocumentEntityId(modelDocumentId);
-    	for(IEntity entity: entities){
+    	for(IEntity<?> entity: entities){
     		getCompileDocumentProcess().setEntity(entity);
 
     		/* A visão FACES_VIEW_DOCUMENT_VIEW pegará o documento compilado diretamente do processo.
@@ -100,7 +101,7 @@ public class DocumentEntityBean extends CrudBasicBean
     			if(firstTime){
     				this.resultDocumentEntityName = getCompileDocumentProcess().getModelDocumentEntity().getProperty(ModelDocumentEntity.NAME).getValue().getAsString();
     				this.documentFieldsEntry.clear();
-    				for(Entry entry: getCompileDocumentProcess().getDocumentFieldsMap().entrySet())
+    				for(Entry<String,String> entry: getCompileDocumentProcess().getDocumentFieldsMap().entrySet())
     					this.documentFieldsEntry.add(new FieldEntry(entry.getKey().toString(), entry.getValue().toString()));
     				
     				firstTime = false;
@@ -255,7 +256,7 @@ public class DocumentEntityBean extends CrudBasicBean
         try{
             this.loadPreviewParams();
             
-        	IEntity modelDocumentEntity = UtilsCrud.retrieve(this.getApplicationBean().getProcessManager().getServiceManager(),
+        	IEntity<ModelDocumentEntity> modelDocumentEntity = UtilsCrud.retrieve(this.getApplicationBean().getProcessManager().getServiceManager(),
         			                                         ModelDocumentEntity.class,
         			                                         this.modelDocumentEntityId,
         			                                         null);
@@ -271,80 +272,6 @@ public class DocumentEntityBean extends CrudBasicBean
         	this.documentFieldsEntry.clear();
 
         	return FACES_VIEW_DOCUMENT_VIEW;
-        }catch(BusinessException e){
-        	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* Visualização REJEITADA */
-            return FacesUtils.FACES_VIEW_FAILURE;
-        }
-    }
-	
-	/**
-     * Action que pré-visualiza
-     * um modelo de documento de entidade. 
-     * @return
-     */
-    public String actionUpdate() throws Exception
-    {
-        log.debug("::Iniciando actionUpdate");
-        
-        try{
-            this.loadPreviewParams();
-            
-        	this.modelDocumentEntityEdit = UtilsCrud.retrieve(this.getApplicationBean().getProcessManager().getServiceManager(),
-        			                                         ModelDocumentEntity.class,
-        			                                         this.modelDocumentEntityId,
-        			                                         null);
-        	
-            return FACES_VIEW_DOCUMENT_UPDATE;
-        }catch(BusinessException e){
-        	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* Visualização REJEITADA */
-            return FacesUtils.FACES_VIEW_FAILURE;
-        }
-    }
-	
-	/**
-     * Action que cria
-     * um modelo de documento de entidade. 
-     * @return
-     */
-    public String actionCreate() throws Exception
-    {
-        log.debug("::Iniciando actionCreate");
-        
-        try{
-            
-        	this.modelDocumentEntityEdit = UtilsCrud.create(this.getApplicationBean().getProcessManager().getServiceManager(),
-        			                                         ModelDocumentEntity.class,
-        			                                         null);
-        	
-            return FACES_VIEW_DOCUMENT_UPDATE;
-        }catch(BusinessException e){
-        	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* Visualização REJEITADA */
-            return FacesUtils.FACES_VIEW_FAILURE;
-        }
-    }
-	
-    IEntity modelDocumentEntityEdit = null;
-    public IEntity getModelDocumentEntityEdit(){return modelDocumentEntityEdit;}
-
-    /**
-     * Action que pré-visualiza
-     * um modelo de documento de entidade. 
-     * @return
-     */
-    public String actionSave() throws Exception
-    {
-        log.debug("::Iniciando actionSave");
-        
-        try{
-            
-        	UtilsCrud.update(this.getApplicationBean().getProcessManager().getServiceManager(),
-        			                                         this.modelDocumentEntityEdit,
-        			                                         null);
-        	
-            return FacesUtils.FACES_VIEW_CLOSE;
         }catch(BusinessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
         	/* Visualização REJEITADA */
@@ -404,15 +331,6 @@ public class DocumentEntityBean extends CrudBasicBean
     	return this.getEntityParam().getTypeName() + this.getEntityParam().getId();
 	}
 	
-//	public String getResultDocumentEntity()
-//	{
-//		return resultDocumentEntity;
-//	}
-//	public void setResultDocumentEntity(String resultDocumentEntity)
-//	{
-//		this.resultDocumentEntity = resultDocumentEntity;
-//	}
-
 	public CompileDocumentProcess getCompileDocumentProcess()
 	{
 		if(this.compileDocumentProcess == null)
