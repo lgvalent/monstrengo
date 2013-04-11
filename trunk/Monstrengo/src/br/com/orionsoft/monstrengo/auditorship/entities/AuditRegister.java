@@ -65,7 +65,7 @@ public abstract class AuditRegister
     /**
      * @hibernate.property 
      */
-    @Column(length=255)
+    @Column(length=1000)
     public String getDescription()
     {
         return description;

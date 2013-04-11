@@ -27,14 +27,14 @@
 	<h:outputText value=" " />
 	<h:outputLink  tabindex="-1"
 		value="javascript:linkQuery('#{entityMetadata.type.name}')"
-		rendered="#{menuBean.crudMap.get(entityMetadata.type.simpleName).canRetrieve}">
+		rendered="#{menuBean.crudMap.get(entityMetadata.type.simpleName).canQuery}">
 		<h:graphicImage value="../basic/img/query.png" title="Pesquisar"
 			style="border:0" />
 	</h:outputLink>
 	<h:graphicImage value="../basic/img/query_d.png"
 		title="Você não possui direitos para visualizar esta entidade"
 		style="border:0"
-		rendered="#{!menuBean.crudMap.get(entityMetadata.type.simpleName).canRetrieve}" />
+		rendered="#{!menuBean.crudMap.get(entityMetadata.type.simpleName).canQuery}" />
 		
 	<h:outputText value=" #{entityMetadata.label}" title="#{entityMetadata.hint}" rendered="#{!noShowLabel}"/>
 </html>

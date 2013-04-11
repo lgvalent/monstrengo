@@ -1,3 +1,17 @@
+-- Lucio 08/04/2013: Novo CRUD_RIGHT QUERY
+ALTER TABLE `security_right_crud` 
+ADD queryAllowed bit;
+UPDATE `security_right_crud` 
+set queryAllowed = retrieveAllowed;
+
+ALTER TABLE `auditorship_crud` 
+  CHANGE description `description` varchar(1000) DEFAULT NULL;
+ALTER TABLE `auditorship_process` 
+  CHANGE description `description` varchar(1000) DEFAULT NULL;
+ALTER TABLE `auditorship_service` 
+  CHANGE description `description` varchar(1000) DEFAULT NULL;
+
+
 -- Lucio 21/05/2012: Tabela auditoria de serviços
 CREATE TABLE  `auditorship_service` (
 		  `id` bigint(20) NOT NULL AUTO_INCREMENT,

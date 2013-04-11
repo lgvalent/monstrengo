@@ -57,6 +57,7 @@ public class CheckAllRightCrudService extends ServiceBasic
     	result.put(CheckRightCrudService.CAN_RETRIEVE, false);
     	result.put(CheckRightCrudService.CAN_UPDATE, false);
     	result.put(CheckRightCrudService.CAN_DELETE, false);
+    	result.put(CheckRightCrudService.CAN_QUERY, false);
     	return result;
     }; 
     
@@ -118,6 +119,9 @@ public class CheckAllRightCrudService extends ServiceBasic
 
                 	allowed = rightMap.get(CheckRightCrudService.CAN_DELETE);
                 	rightMap.put(CheckRightCrudService.CAN_DELETE, allowed || right.isDeleteAllowed());
+
+                	allowed = rightMap.get(CheckRightCrudService.CAN_QUERY);
+                	rightMap.put(CheckRightCrudService.CAN_QUERY, allowed || right.isQueryAllowed());
                 }
             }
             // Adiciona o resulta na lista de resultado do serviço

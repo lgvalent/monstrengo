@@ -74,12 +74,12 @@ public class MetadataHandle implements IMetadataHandle
     private static final String CANRETRIEVE = "canRetrieve";
     private static final String CANUPDATE = "canUpdate";
     private static final String CANDELETE = "canDelete";
+    private static final String CANQUERY = "canQuery";
     private static final String RUN_QUERY_ON_OPEN = "runQueryOnOpen";
     @Deprecated
     private static final String SUB_ENTITIES = "subEntities";
 
     private static final String VISIBLE = "visible";
-    private static final String HTML = "html";
     private static final String REQUIRED = "required";
     private static final String READONLY = "readOnly";  
     private static final String CALCULATED = "calculated";
@@ -470,20 +470,6 @@ public class MetadataHandle implements IMetadataHandle
         {
             // Se não encontrou a propriedade declarada retorna a padrão
             return true;
-        }
-    }    
-    
-    public boolean getPropertyHtml(String propertyName) throws MetadataException
-    {
-        try
-        {
-            String value = getStrProperty(propertyName , HTML);
-            return value.equals("true");
-        }
-        catch (MissingResourceException e)
-        {
-            // Se não encontrou a propriedade declarada retorna a padrão
-            return false;
         }
     }    
     
@@ -934,6 +920,25 @@ public class MetadataHandle implements IMetadataHandle
         {
             // Se não encontrou a propriedade declarada retorna a padrão
             return false;
+        }
+    }
+
+    /**
+     * Indica se a entidade é do tipo canQuery
+     * @return true se a entidade for canQuery, false caso contrário
+     * @throws MetadataException
+     */
+    public boolean getEntityCanQuery() throws MetadataException
+    {
+        try
+        {
+            String value = getStrEntity(CANQUERY);
+            return Boolean.parseBoolean(value);
+        }
+        catch (MissingResourceException e)
+        {
+            // Se não encontrou a propriedade declarada retorna a padrão
+            return getEntityCanRetrieve();
         }
     }
 

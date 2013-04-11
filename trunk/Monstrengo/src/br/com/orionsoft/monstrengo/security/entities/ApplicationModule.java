@@ -34,7 +34,7 @@ public class ApplicationModule
     private long id = -1;
     private String name;
     public Set<ApplicationProcess> processes = new HashSet<ApplicationProcess>();
-    public Set<ApplicationProcess> entities = new HashSet<ApplicationProcess>();
+    public Set<ApplicationEntity> entities = new HashSet<ApplicationEntity>();
 
     /**
      * @hibernate.id generator-class="native" unsaved-value="-1"
@@ -80,8 +80,8 @@ public class ApplicationModule
     @OneToMany(cascade=CascadeType.ALL) @LazyCollection(LazyCollectionOption.FALSE)
     @ForeignKey(name="applicationModule")
     @JoinColumn(name="applicationModule")
-    public Set<ApplicationProcess> getEntities() {return entities;}
-    public void setEntities(Set<ApplicationProcess> entities) {this.entities = entities;}
+    public Set<ApplicationEntity> getEntities() {return entities;}
+    public void setEntities(Set<ApplicationEntity> entities) {this.entities = entities;}
     
     public String toString()
     {

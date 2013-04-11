@@ -29,7 +29,7 @@
 	<ui:define name="actions">
 
 		<h:commandButton value="Recarregar" action="#{listDocumentBean.doReload}" title="Atualiza a lista atual"/>
-		<h:commandButton value="Criar novo modelo" action="#{documentEntityBean.actionCreate}" title="Cria um novo modelo de documento"/>
+		<h:commandButton value="Criar novo modelo" onclick="javascript:linkCreatePopup('#{menuBean.infoMap.ModelDocumentEntity.type.name}')" title="Cria um novo modelo de documento"/>
 
 	</ui:define>
 	<ui:define name="result">
@@ -51,13 +51,12 @@
 			    	<f:param name="documentId"   value="#{item.id}"/>
 				</h:commandLink>
 
-				<h:commandLink action="#{documentEntityBean.actionUpdate}" rendered="#{menuBean.crudMap[item.info.type.simpleName].canUpdate}">
+				<h:outputLink onclick="javascript:linkUpdatePopup('#{menuBean.infoMap.ModelDocumentEntity.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canUpdate}">
 					<h:graphicImage value="../basic/img/update.png" title="Altera os dados do registro" style="border:0"/>
-			    	<f:param name="documentId"   value="#{item.id}"/>
-				</h:commandLink>
+				</h:outputLink>
 				<h:graphicImage value="../basic/img/update_d.png" title="Você não possui direitos para alterar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canUpdate}"/>
 
-				<h:outputLink value="javascript:linkDelete('#{item.info.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canDelete}">
+				<h:outputLink value="javascript:linkDeletePopup('#{item.info.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canDelete}">
 					<h:graphicImage value="../basic/img/delete.png" title="Apaga o registro" style="border:0"/>
 				</h:outputLink>
 				<h:graphicImage value="../basic/img/delete_d.png" title="Você não possui direitos para apagar o registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canDelete}"/>

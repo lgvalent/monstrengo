@@ -41,6 +41,7 @@ public class EntityMetadata implements IEntityMetadata
     private boolean canRetrieve;
     private boolean canUpdate;
     private boolean canDelete;
+    private boolean canQuery;
     private boolean runQueryOnOpen;
     private List<Class<?>> subEntities;
     private List<String> propertiesInQueryGrid;
@@ -91,6 +92,7 @@ public class EntityMetadata implements IEntityMetadata
 		this.canRetrieve = metadataHandle.getEntityCanRetrieve();
 		this.canUpdate = metadataHandle.getEntityCanUpdate();
 		this.canDelete = metadataHandle.getEntityCanDelete();
+		this.canQuery = metadataHandle.getEntityCanQuery();
 		this.runQueryOnOpen = metadataHandle.getEntityRunQueryOnOpen();
 		this.propertiesInQueryGrid = metadataHandle.getPropertiesInQueryGrid();
 
@@ -303,6 +305,11 @@ public class EntityMetadata implements IEntityMetadata
     public boolean getCanDelete()
     {
         return this.canDelete;
+    }
+
+    public boolean getCanQuery()
+    {
+        return this.canQuery;
     }
 
     public boolean getRunQueryOnOpen()

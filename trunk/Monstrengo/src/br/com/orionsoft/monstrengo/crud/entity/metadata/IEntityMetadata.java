@@ -40,6 +40,7 @@ public interface IEntityMetadata
     public boolean getCanRetrieve();
     public boolean getCanUpdate();
     public boolean getCanDelete();
+    public boolean getCanQuery();
     
     /** Permite definir se as telas de pesquisa exibem TODAS as entidades cadastradas ao serem acessadas */
     public boolean getRunQueryOnOpen();

@@ -25,6 +25,8 @@ public interface IMetadataHandle {
     
     public boolean getEntityCanDelete() throws MetadataException;
 
+    public boolean getEntityCanQuery() throws MetadataException;
+
     public boolean getEntityRunQueryOnOpen() throws MetadataException;
 
     public List<String> getPropertiesInQueryGrid() throws MetadataException;
@@ -50,8 +52,6 @@ public interface IMetadataHandle {
     public boolean getPropertyCalculated(String propertyName) throws MetadataException;
 
     public boolean getPropertyVisible(String propertyName) throws MetadataException;
-
-    public boolean getPropertyHtml(String propertyName) throws MetadataException;
 
     public int getPropertySize(String propertyName) throws MetadataException;
 

@@ -7,14 +7,9 @@
 
 package br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates;
 
-import java.math.BigInteger;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
-
-import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.PropertyType;
 
 /**
  * <p>
@@ -38,20 +33,5 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.PropertyTy
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PropertyStringType")
 public class PropertyStringType extends PropertyType {
-
-	@XmlAttribute(name = "html")
-	protected Boolean html;
-
-	public boolean isHtml() {
-		if (html == null) {
-			return true;
-		} else {
-			return html;
-		}
-	}
-
-	public void setHtml(Boolean html) {
-		this.html = html;
-	}
 
 }

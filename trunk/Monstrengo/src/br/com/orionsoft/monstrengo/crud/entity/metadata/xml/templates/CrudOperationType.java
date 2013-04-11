@@ -26,6 +26,7 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.CrudOperat
  *     &lt;enumeration value="RETRIEVE"/>
  *     &lt;enumeration value="UPDATE"/>
  *     &lt;enumeration value="DELETE"/>
+ *     &lt;enumeration value="QUERY"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -38,7 +39,8 @@ public enum CrudOperationType {
     CREATE,
     RETRIEVE,
     UPDATE,
-    DELETE;
+    DELETE,
+    QUERY;
 
     public String value() {
         return name();

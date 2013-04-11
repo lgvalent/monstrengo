@@ -2,9 +2,7 @@ package br.com.orionsoft.monstrengo.security.services;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import br.com.orionsoft.monstrengo.security.services.ManageSecurityStructureService;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
-import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.process.IProcessManager;
 import br.com.orionsoft.monstrengo.core.service.ServiceBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
@@ -220,6 +218,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
         		rightCrud.setPropertyValue(RightCrud.DELETE_ALLOWED, allAllowed && entityMetadata.getCanDelete());
         		rightCrud.setPropertyValue(RightCrud.RETRIEVE_ALLOWED, allAllowed && entityMetadata.getCanRetrieve());
         		rightCrud.setPropertyValue(RightCrud.UPDATE_ALLOWED, allAllowed && entityMetadata.getCanUpdate());
+        		rightCrud.setPropertyValue(RightCrud.QUERY_ALLOWED, allAllowed && entityMetadata.getCanQuery());
         	} catch (Exception e) {
         		// TODO Lucio 20120515: Se deu ClassNotFound, a classe já não existe mais. Acho que o ManageSecurityStructureService
         		// deveria remover entidades não mais usadas. Contudo, o sistema pode estar sendo executado com um banco mais completo :(

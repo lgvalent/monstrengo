@@ -54,6 +54,7 @@ public class CheckRightCrudService extends ServiceBasic
     public static int OUT_RETRIEVE = 1;
     public static int OUT_UPDATE = 2;
     public static int OUT_DELETE = 3;
+    public static int OUT_QUERY = 4;
 
 	/**
 	 * Estas constantes definem o nome das chaves de mapas de direitos
@@ -64,12 +65,12 @@ public class CheckRightCrudService extends ServiceBasic
     public static String CAN_RETRIEVE = "canRetrieve";
     public static String CAN_UPDATE = "canUpdate";
     public static String CAN_DELETE = "canDelete";
+    public static String CAN_QUERY = "canQuery";
 
     public String getServiceName() {
         return SERVICE_NAME;
     }
 
-    @SuppressWarnings("unchecked")
 	public void execute(ServiceData serviceData) throws ServiceException 
     {
         try
@@ -95,6 +96,7 @@ public class CheckRightCrudService extends ServiceBasic
             boolean retrieveAllowed = false;
             boolean updateAllowed = false;
             boolean deleteAllowed = false;
+            boolean queryAllowed = false;
             
             // Obtendo todos os grupos relacionados ao usuario
             for (SecurityGroup group: (Set<SecurityGroup>) user.getSecurityGroups())
@@ -127,6 +129,9 @@ public class CheckRightCrudService extends ServiceBasic
                             
                             if (right.isDeleteAllowed())
                                 deleteAllowed = true;
+
+                            if (right.isQueryAllowed())
+                                queryAllowed = true;
                 		}else{
                             /* Bloco que leva em consideração os metadados*/
                             if (right.isCreateAllowed() && metadata.getCanCreate())
@@ -140,6 +145,9 @@ public class CheckRightCrudService extends ServiceBasic
                             
                             if (right.isDeleteAllowed() && metadata.getCanDelete())
                                 deleteAllowed = true;
+
+                            if (right.isQueryAllowed() && metadata.getCanQuery())
+                                queryAllowed = true;
                 		}
                         
 
@@ -149,7 +157,7 @@ public class CheckRightCrudService extends ServiceBasic
                 	
             		/* Verifica se TODOS direitos TRUE já foram encontrados
             		 * para não pesquisa em outros grupos do usuário */
-                	if(createAllowed && retrieveAllowed && updateAllowed && deleteAllowed)
+                	if(createAllowed && retrieveAllowed && updateAllowed && deleteAllowed && queryAllowed)
                 		break;
                 }
             }
@@ -159,6 +167,7 @@ public class CheckRightCrudService extends ServiceBasic
             serviceData.getOutputData().add(OUT_RETRIEVE, retrieveAllowed);
             serviceData.getOutputData().add(OUT_UPDATE, updateAllowed);
             serviceData.getOutputData().add(OUT_DELETE, deleteAllowed);
+            serviceData.getOutputData().add(OUT_QUERY, queryAllowed);
 
         } 
         catch (BusinessException e)

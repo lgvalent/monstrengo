@@ -174,6 +174,7 @@ public class UtilsSecurity
         result.put(CheckRightCrudService.CAN_RETRIEVE, (Boolean)sv.getOutputData(CheckRightCrudService.OUT_RETRIEVE));
         result.put(CheckRightCrudService.CAN_UPDATE, (Boolean)sv.getOutputData(CheckRightCrudService.OUT_UPDATE));
         result.put(CheckRightCrudService.CAN_DELETE, (Boolean)sv.getOutputData(CheckRightCrudService.OUT_DELETE));
+        result.put(CheckRightCrudService.CAN_QUERY, (Boolean)sv.getOutputData(CheckRightCrudService.OUT_QUERY));
         
         return result;
     }
@@ -249,5 +250,23 @@ public class UtilsSecurity
     public static final boolean checkRightDelete(IServiceManager svcMgr, Class<?> entityType, UserSession userSession, ServiceData serviceDataOwner) throws BusinessException
     {
         return UtilsSecurity.checkRightCrud(svcMgr, entityType, userSession, serviceDataOwner).get(CheckRightCrudService.CAN_DELETE);
+    }
+    
+    /**
+     * Esse método é um atalho para o serviço de checagem de direitos crud sobre entidades
+     * Checa apenas a permissão de pesquisa de uma entidade
+     * 
+     * @param svcMgr Define a instância do gerenciador de serviços disponível
+     * @param entityType Define o tipo da entidade à ser verificada
+     * @param userSession Define a sessão do usuário para verificação se este possui ou não direitos  
+     *          excluir uma instância do tipo de entidade especificado através do parametro entityId
+     * @param serviceDataOwner Define os dados do serviço pai que solicitou a execução deste serviço
+     * @return Retorna "true" se o usuário possui direito de pesquisar da entidade e "false" caso contrário
+     * @throws BusinessException
+     * @since 2005/11/04
+     */
+    public static final boolean checkRightQuery(IServiceManager svcMgr, Class<?> entityType, UserSession userSession, ServiceData serviceDataOwner) throws BusinessException
+    {
+        return UtilsSecurity.checkRightCrud(svcMgr, entityType, userSession, serviceDataOwner).get(CheckRightCrudService.CAN_QUERY);
     }
 }
