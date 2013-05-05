@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.test.ServiceBasicTest;
@@ -23,6 +24,7 @@ public class CheckRightAllCrudServiceTestCase extends ServiceBasicTest
         junit.textui.TestRunner.run(CheckRightAllCrudServiceTestCase.class);
     }
 
+    @Test
     public void testUserId()
     {
     	try{

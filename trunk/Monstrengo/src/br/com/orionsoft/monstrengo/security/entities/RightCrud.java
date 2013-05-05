@@ -27,7 +27,7 @@ public class RightCrud
     public static final String RETRIEVE_ALLOWED = "retrieveAllowed";
     public static final String UPDATE_ALLOWED = "updateAllowed";
     public static final String DELETE_ALLOWED = "deleteAllowed";
-    public static final String QUERY_ALLOWED = "deleteAllowed";
+    public static final String QUERY_ALLOWED = "queryAllowed";
 
     public static final String APPLICATION_ENTITY = "applicationEntity";
     public static final String SECURITY_GROUP = "securityGroup";
