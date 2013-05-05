@@ -136,7 +136,7 @@ public class DeleteProcess <T> extends ProcessBasic
         }
 
         // Não possui direitos de editar este tipo de entidade
-        throw new ProcessException(MessageList.create(DeleteProcess.class, "DELETE_DENIED", getUserSession().getUserLogin(), this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel() + ":" + this.entity.toString()));
+        throw new ProcessException(MessageList.create(DeleteProcess.class, "DELETE_DENIED", getUserSession().getUserLogin(), this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel() + ":" + this.entityId));
     }
     
     /**
