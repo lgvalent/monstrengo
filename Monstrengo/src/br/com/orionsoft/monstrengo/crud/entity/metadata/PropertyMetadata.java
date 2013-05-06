@@ -84,7 +84,7 @@ public class PropertyMetadata implements IPropertyMetadata
     /**
      * Tipos primitivos como int, long e etc não possuem pacotes definidos.
      */
-    public boolean isEntity(){return (this.type.getPackage()!=null)&&(!type.getPackage().getName().startsWith("java")&&!isEnum());}
+    public boolean isEntity(){return (!this.type.isPrimitive()&&this.type.getPackage()!=null)&&(!type.getPackage().getName().startsWith("java")&&!isEnum());}
     public boolean isPrimitive(){return !isEntity();}
     public boolean isList(){return isList;}
     public boolean isSet(){return isSet;}
