@@ -11,6 +11,7 @@
            <ui:param name="propertyEntity" value="#{currentProperty}"/>
 	</ui:include>
  -->
+ 
 <h:panelGroup
 	rendered="#{!propertyEntity.info.editShowList and !propertyEntity.info.editShowEmbedded}">
 	<ui:include src="/pages/basic/tiles/updatePropertyEntitySuggest.xhtml">
@@ -44,10 +45,9 @@
 	</h:outputLink>
 	<h:message for="selectSubClassInput" styleClass="errorMessage" />
 </h:panelGroup>
-
 <h:panelGroup rendered="#{propertyEntity.info.editShowEmbedded}">
 	<h:dataTable value="#{propertyEntity.value.asEntity.properties}"
-		var='propertyEmbedded' width="100%" styleClass="tableView"
+		var="propertyEmbedded" width="100%" styleClass="tableView"
 		rowClasses="tableViewRowEven,tableViewRowOdd"
 		columnClasses="tableViewColumnEven_OneToOne, tableViewColumnOdd_OneToOne, description"
 		style="border: 1px solid #E9EDF5;">

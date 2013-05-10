@@ -18,4 +18,9 @@
 					itemLabel="#{item1234}" 
 	/>
 </h:selectOneMenu>
+<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+	<ui:param name="entityMetadata" value="#{paramEntity.info}"/>
+	<ui:param name="noShowLabel" value="true"/>
+</ui:include>
+
 </html>
