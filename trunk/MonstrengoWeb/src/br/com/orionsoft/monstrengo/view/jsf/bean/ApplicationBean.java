@@ -4,6 +4,8 @@
 package br.com.orionsoft.monstrengo.view.jsf.bean;
 
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.ServletContext;
@@ -27,10 +29,11 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
  */
 @ManagedBean(name="applicationBean")
 @SessionScoped
-public class ApplicationBean
+public class ApplicationBean implements Serializable
 {
-    
-    private IProcessManager processManager;
+	private static final long serialVersionUID = 1L;
+
+	private IProcessManager processManager;
     private ApplicationContext appContext;
     
     private final Logger log = Logger.getLogger(this.getClass());
