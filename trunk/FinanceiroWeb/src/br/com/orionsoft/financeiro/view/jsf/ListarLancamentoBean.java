@@ -93,7 +93,7 @@ public class ListarLancamentoBean extends BeanSessionBasic implements IRunnableP
 	}
 
 	public String getRunnableEntityProcessName() {
-		return ListarPosicaoContratoProcess.PROCESS_NAME;
+		return ListarLancamentoProcess.PROCESS_NAME;
 	}
 
 	public String runWithEntity(IEntity<?> entity) {

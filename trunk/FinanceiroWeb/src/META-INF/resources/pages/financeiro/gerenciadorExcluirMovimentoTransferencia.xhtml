@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.ExcluirMovimentoTransferenciaProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/estornar.png" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.ExcluirMovimentoTransferenciaProcess.description}" />
+	<ui:define name="content">
+		<h:panelGrid columns="2" cellpadding="3" styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
+			<h:outputLabel value="Da conta:"/>
+			<h:outputText value="#{excluirMovimentoTransferenciaBean.process.lancamentoMovimento.object.conta.nome}" />
+	 
+			<h:outputLabel value="Para conta:"/>
+			<h:outputText value="#{excluirMovimentoTransferenciaBean.process.lancamentoMovimento.object.transferencia.conta.nome}" />
+	
+			<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.data.label}:"/>
+			<h:outputText value="#{excluirMovimentoTransferenciaBean.process.lancamentoMovimento.object.data.time}" />
+			
+			<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.descricao.label}:"/>
+			<h:outputText value="#{excluirMovimentoTransferenciaBean.process.lancamentoMovimento.object.descricao}" />
+			
+			<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.valorTotal.label}:"/>
+			<h:outputText value="#{excluirMovimentoTransferenciaBean.process.lancamentoMovimento.object.valorTotal}">
+				<f:convertNumber type="currency"/>
+			</h:outputText>
+			
+		</h:panelGrid>
+	
+		<h:panelGrid columns="3" cellpadding="1" style="font: 12px">
+			<h:outputLabel value="Motivo da exclusão:"/>
+			<h:inputTextarea id="justificativa" value="#{excluirMovimentoTransferenciaBean.justificativa}" rows="3" required="true"/>
+			<h:message styleClass="errorMessage" for="justificativa"/>
+	
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+		</h:panelGrid>
+	</ui:define>
+	<ui:define name="actions">
+		<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+		<h:commandButton value="Confirmar" action="#{excluirMovimentoTransferenciaBean.doExcluir}"/>
+	</ui:define>
+</ui:composition>
+</html>

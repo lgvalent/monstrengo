@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.GerarDocumentoCobrancaRemessaProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/remessa.png" />
+	<ui:param name="description" value="Confira os dados abaixos antes de confirmar. &lt;br> Após a confirmação, todos os títulos com última ocorrência definida como 'Registrar título no banco' serão incluídos no arquivo de remessa. &lt;br> Esta operação não poderá ser revertida." />
+	<ui:define name="content">
+
+	<h:panelGrid width="100%" columns="2" cellpadding="3" styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
+		<h:outputLabel value="#{menuBean.infoMap.ConvenioCobranca.label}"/>		
+		<h:outputText value="#{gerarDocumentoCobrancaRemessaBean.process.convenioNome}" />
+		
+		<h:outputLabel value="Início Período"/>
+		<h:outputText value="#{gerarDocumentoCobrancaRemessaBean.process.inicioPeriodo.time}">
+			<f:convertDateTime pattern="dd/MM/yyyy"/>
+		</h:outputText>
+ 
+		<h:outputLabel value="Final Período"/>
+		<h:outputText value="#{gerarDocumentoCobrancaRemessaBean.process.finalPeriodo.time}">
+			<f:convertDateTime locale="pt_BR"/>
+		</h:outputText>
+	</h:panelGrid>
+	
+	</ui:define>
+	<ui:define name="actions">
+			<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+			<h:commandButton value="Confirmar" action="#{gerarDocumentoCobrancaRemessaBean.actionGerarRemessa}" onclick="this.value='Aguarde, Processando o Arquivo'"/>
+	</ui:define>
+</ui:composition>
+</html>		

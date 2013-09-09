@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="icon" value="../financeiro/img/baixar.png" />
+	<ui:param name="title" value="#{menuBean.processInfoMap.CancelarLancamentoProcess.label}" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.CancelarLancamentoProcess.description}" />
+	<ui:define name="content">
+	<h:panelGrid 
+	  width="100%" 
+	  columns="2" 
+	  cellpadding="3" 
+	  styleClass="tableList" 
+	  columnClasses="tableListColumn" 
+	  rowClasses="tableListRowEven,tableListRowOdd"
+	  rendered="#{cancelarLancamentoBean.process.lancamento != null}">
+		<h:outputLabel value="Selecionar:"/>
+		<h:selectBooleanCheckbox value="#{cancelarLancamentoBean.process.lancamento.selected}"/>
+	  
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contaPrevista.label}:"/>
+		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.contaPrevista.nome}" />
+ 
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.data.label}:"/>
+		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.data.time}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.dataVencimento.label}:"/>
+		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.dataVencimento.time}" />
+		
+ 		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}:"/>
+		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.contrato}" />
+
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.descricao.label}:"/>
+		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.descricao}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.documentoCobranca.label}:"/>
+		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.documentoCobranca}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.valor.label}:"/>
+		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.valor}">
+			<f:convertNumber type="currency"/>
+		</h:outputText>
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.saldo.label}:"/>
+		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.saldo}">
+			<f:convertNumber type="currency"/>
+		</h:outputText>
+	</h:panelGrid>
+
+	<h:dataTable 
+		value="#{cancelarLancamentoBean.process.lancamentos}"
+		var="item"
+		width="100%" 
+		cellpadding="3" 
+		styleClass="tableList" 
+		columnClasses="tableListColumn" 
+		rowClasses="tableListRowEven,tableListRowOdd"
+		>
+	  <h:column>
+		<h:selectBooleanCheckbox value="#{item.selected}"/>
+	  </h:column>
+	  <h:column>
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contaPrevista.label}:"/>
+		<h:outputText value="#{item.object.contaPrevista.nome}" />
+ 
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.data.label}:"/>
+		<h:outputText value="#{item.object.data.time}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.dataVencimento.label}:"/>
+		<h:outputText value="#{item.object.dataVencimento.time}" />
+		
+ 		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}:"/>
+		<h:outputText value="#{item.object.contrato}" />
+
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.descricao.label}:"/>
+		<h:outputText value="#{item.object.descricao}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.documentoCobranca.label}:"/>
+		<h:outputText value="#{item.object.documentoCobranca}" />
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.valor.label}:"/>
+		<h:outputText value="#{item.object.valor}">
+			<f:convertNumber type="currency"/>
+		</h:outputText>
+		
+		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.saldo.label}:"/>
+		<h:outputText value="#{item.object.saldo}">
+			<f:convertNumber type="currency"/>
+		</h:outputText>
+	  </h:column>
+	</h:dataTable>
+
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Data de cancelamento"/>
+		<h:panelGroup>
+			<ui:include src="/pages/basic/tiles/calendar.xhtml">
+	    	    <ui:param name="timeField" value="#{estornarLancamentoMovimentoBean.process.data.time}"/>
+			</ui:include>
+		</h:panelGroup>
+		<h:outputLabel value="Motivo do cancelamento"/>
+		<p:inputTextarea id="descricao" value="#{cancelarLancamentoBean.descricao}" rows="3" required="true"/>
+	</h:panelGrid>
+
+	
+	</ui:define>
+	<ui:define name="actions">
+			<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+			<h:commandButton value="Confirmar" action="#{cancelarLancamentoBean.doCancelar}"/>
+	</ui:define>
+</ui:composition>
+</html>

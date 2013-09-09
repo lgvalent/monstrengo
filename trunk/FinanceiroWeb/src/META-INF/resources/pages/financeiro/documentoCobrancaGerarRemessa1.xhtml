@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.GerarDocumentoCobrancaRemessaProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/remessa.png" />
+	<ui:param name="description" value="Indique um convênio de cobrança e um período referente às datas de vencimento dos títulos bancários.&lt;br/>Todos os documentos de cobrança encontrados no período indicado serão inseridos no arquivo de remessa." />
+	<ui:define name="content">
+
+	<h:panelGrid columns="3" cellpadding="3">
+		<h:outputLabel value="#{menuBean.infoMap.ConvenioCobranca.label}"/>		
+		<h:selectOneMenu id="convenioId" value="#{gerarDocumentoCobrancaRemessaBean.process.convenioId}">
+			<f:selectItems value="#{gerarDocumentoCobrancaRemessaBean.process.cedentes}"/>
+		</h:selectOneMenu>
+		<h:message styleClass="errorMessage" for="convenioId"/>
+		
+		<h:outputLabel value="Início Período"/>
+		<h:panelGroup id="inicioPeriodo">
+			<ui:include src="/pages/basic/tiles/calendar.xhtml">
+       			<ui:param name="timeField" value="#{gerarDocumentoCobrancaRemessaBean.process.inicioPeriodo.time}" />
+			</ui:include>
+		</h:panelGroup>
+		<h:outputLabel value=""/>
+				
+		<h:outputLabel value="Final Período"/>
+		<h:panelGroup id="finalPeriodo">
+			<ui:include src="/pages/basic/tiles/calendar.xhtml">
+       			<ui:param name="timeField" value="#{gerarDocumentoCobrancaRemessaBean.process.finalPeriodo.time}" />
+			</ui:include>
+		</h:panelGroup>
+	</h:panelGrid>
+	
+	</ui:define>
+	<ui:define name="actions">
+			<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+			<h:commandButton value="Avançar >>" action="#{gerarDocumentoCobrancaRemessaBean.actionVisualizar}"/>
+	</ui:define>
+</ui:composition>
+</html>	

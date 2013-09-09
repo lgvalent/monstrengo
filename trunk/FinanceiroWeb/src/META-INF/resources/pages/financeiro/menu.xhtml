@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+		<ui:param name="title" value="Financeiro" />
+		<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
+		<ui:param name="description" value="Abaixo são disponibilizados todos os processos e cadastros importantes para o setor financeiro da empresa." />
+		
+		<ui:define name="content">
+			<table width="100%">
+				<tr>
+					<td valign="top">
+						<h2>Processos</h2>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.ExportarMovimentoContabilProcess}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.InserirLancamentoProcess}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.GerarDocumentoCobrancaRemessaProcess}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.ListarLancamentoProcess}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess}"/>
+						</ui:include><br/>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.ListarLancamentoMovimentoProcess}"/>
+						</ui:include><br/>
+						<a target="_blank" href="../financeiro/gerenciadorListarItemCusto.jsp" ><img src="../basic/img/run_task.png" style="border:0"/>Movimentação por item de custo</a><br/>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.ReceberDocumentoCobrancaRetornoProcess}"/>
+						</ui:include><br/>
+						<a target="_blank" href="../financeiro/relatorioCadastro1.xhtml" ><img src="../basic/img/run_task.png" style="border:0"/>Relatório de cadastro</a><br/>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.RelatorioCobrancaProcess}"/>
+						</ui:include><br/>
+						<a target="_blank" href="../financeiro/gerenciadorRelatorioRecebimento.jsp" ><img src="../basic/img/run_task.png" style="border:0"/>Relatório de recebimento</a><br/>
+						<ui:include src="/pages/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.TransferirProcess}"/>
+						</ui:include><br/>
+					</td>
+					<td valign="top">
+						<h2>Cadastros</h2>
+						
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.Agendamento}"/>
+						</ui:include><br/>
+						
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ContratoFinanceiro}"/>
+						</ui:include><br/>
+						
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ContratoFinanceiroCategoria}"/>
+						</ui:include><br/>
+						
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.CentroCusto}"/>
+						</ui:include><br/>
+					
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.Conta}"/>
+						</ui:include><br/>
+				
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.DocumentoCobranca}"/>
+						</ui:include><br/>
+						
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.DocumentoCobrancaCategoria}"/>
+						</ui:include><br/>
+						
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.DocumentoPagamento}"/>
+						</ui:include><br/>
+						
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.DocumentoPagamentoCategoria}"/>
+						</ui:include><br/>
+						
+						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ItemCusto}"/>
+						</ui:include><br/>
+						
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.Lancamento}"/>
+						</ui:include><br/>
+						
+					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.LancamentoMovimento}"/>
+						</ui:include>
+
+					</td>
+				</tr>
+			</table>
+			
+		</ui:define>
+	
+		<ui:define name="actions">
+		</ui:define>
+	
+		<ui:define name="result">
+		</ui:define>
+	</ui:composition>
+</html>

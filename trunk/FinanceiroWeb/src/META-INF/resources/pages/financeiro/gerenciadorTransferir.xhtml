@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+		<ui:param name="title" value="#{menuBean.processInfoMap.TransferirProcess.label}" />
+		<ui:param name="icon" value="../financeiro/img/transfer.png" />
+		<ui:param name="description" value="#{menuBean.processInfoMap.TransferirProcess.description}" />
+		<ui:define name="content">
+			<h:panelGrid columns="3" cellpadding="3" styleClass="tableList">
+				<h:outputLabel value="Conta origem (-débito)"/>
+				<h:selectOneMenu id="contaOrigem" value="#{transferirBean.process.contaOrigem.id}">
+					<f:selectItems value="#{transferirBean.process.listConta}"/>
+				</h:selectOneMenu>
+				<h:message styleClass="errorMessage" for="contaOrigem"/>
+		
+				<h:outputLabel value="Conta destino (+crédito)"/>
+				<h:selectOneMenu id="contaDestino" value="#{transferirBean.process.contaDestino.id}">
+					<f:selectItems value="#{transferirBean.process.listConta}"/>
+				</h:selectOneMenu>
+				<h:message styleClass="errorMessage" for="contaDestino"/>
+		
+				<h:outputLabel value="Data"/>
+				<h:panelGroup>
+					<ui:include src="/pages/basic/tiles/calendar.xhtml">
+			           <ui:param name="timeField" value="#{transferirBean.process.data.time}"/>
+					</ui:include>
+				</h:panelGroup>
+				<h:message styleClass="errorMessage" for="data"/>
+		
+				<h:outputLabel value="Valor"/>
+				<p:inputText id="valor" value="#{transferirBean.process.valor}" style="text-align: right">
+					<f:convertNumber pattern="###,###,##0.00" type="number"/>
+				</p:inputText>
+				<h:message styleClass="errorMessage" for="valor"/>
+		
+				<h:outputLabel value="Descrição"/>
+				<h:inputTextarea id="descricao" value="#{transferirBean.process.descricao}" rows="3"/>
+				<h:message styleClass="errorMessage" for="descricao"/>
+			</h:panelGrid>
+		</ui:define>
+	
+		<ui:define name="actions">
+				<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+				<h:commandButton value="Transferir" action="#{transferirBean.actionTransferir}"/>
+		</ui:define>
+
+		<ui:define name="result">
+		</ui:define>
+	</ui:composition>
+</html>
+	

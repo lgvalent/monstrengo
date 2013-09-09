@@ -7,11 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
-import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
-import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
-import br.com.orionsoft.financeiro.gerenciador.process.CancelarLancamentoProcess;
 import br.com.orionsoft.financeiro.gerenciador.process.InserirLancamentoProcess;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
@@ -22,6 +18,9 @@ import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
+import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
+import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
+import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
  * Bean que controla a view de inserção de um novo lancamento
@@ -269,7 +268,7 @@ public class InserirLancamentoBean extends BeanSessionBasic implements IRunnable
 	
 	@Override
 	public String getRunnableEntityProcessName() {
-		return CancelarLancamentoProcess.PROCESS_NAME;
+		return InserirLancamentoProcess.PROCESS_NAME;
 	}
 
 	@Override

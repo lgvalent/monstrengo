@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+		<ui:param name="title" value="#{menuBean.processInfoMap.ListarLancamentoMovimentoProcess.label}" />
+		<ui:param name="icon" value="../financeiro/img/relatorio.png" />
+		<ui:param name="description" value="#{menuBean.processInfoMap.ListarLancamentoMovimentoProcess.description}" />
+		<ui:define name="content">
+			<h:panelGrid
+				columns="2"
+				styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
+	
+				<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.conta.label}"/>
+				<h:selectOneMenu id="conta" value="#{listarLancamentoMovimentoBean.process.conta}" label="Conta">
+					<f:selectItems value="#{listarLancamentoMovimentoBean.process.listConta}"/>
+				</h:selectOneMenu>
+		
+				<h:outputLabel value="Tipo de transação:"/>
+				<h:selectManyCheckbox id="transacao" value="#{listarLancamentoMovimentoBean.process.transacaoList}" style="font-size: small" label="Tipo de transação">
+					<f:selectItems value="#{listarLancamentoMovimentoBean.process.listTransacao}" />
+				</h:selectManyCheckbox>
+		
+				<h:outputLabel value="Tipo de listagem:"/>
+				<h:selectOneMenu id="listagem" value="#{listarLancamentoMovimentoBean.process.listagem}" label="Tipo de listagem">
+					<f:selectItems value="#{listarLancamentoMovimentoBean.process.listListagem}"/>
+				</h:selectOneMenu>
+		
+				<h:outputLabel value="Ordem:"/>
+				<h:selectOneRadio id="ordem" value="#{listarLancamentoMovimentoBean.process.ordem}" style="font-size: small" label="Ordenação">
+					<f:selectItems value="#{listarLancamentoMovimentoBean.process.listOrdem}"/>
+				</h:selectOneRadio>
+	
+				<h:outputLabel value="Data de lançamento:"/>
+				<h:panelGroup>
+					<ui:include src="/pages/basic/tiles/calendars.xhtml">
+			           <ui:param name="timeFieldFrom" value="#{listarLancamentoMovimentoBean.process.dataLancamentoInicial.time}"/>
+			           <ui:param name="timeFieldTo" value="#{listarLancamentoMovimentoBean.process.dataLancamentoFinal.time}"/>
+					</ui:include>
+				</h:panelGroup>
+				
+				<h:outputLabel value="Data de quitação:"/>
+				<h:panelGroup>
+					<ui:include src="/pages/basic/tiles/calendars.xhtml">
+			           <ui:param name="timeFieldFrom" value="#{listarLancamentoMovimentoBean.process.dataQuitacaoInicial.time}"/>
+			           <ui:param name="timeFieldTo" value="#{listarLancamentoMovimentoBean.process.dataQuitacaoFinal.time}"/>
+					</ui:include>
+				</h:panelGroup>
+	 
+				<h:outputLabel value="Data de vencimento:"/>
+				<h:panelGroup>
+					<ui:include src="/pages/basic/tiles/calendars.xhtml">
+			           <ui:param name="timeFieldFrom" value="#{listarLancamentoMovimentoBean.process.dataVencimentoInicial.time}"/>
+			           <ui:param name="timeFieldTo" value="#{listarLancamentoMovimentoBean.process.dataVencimentoFinal.time}"/>
+					</ui:include>
+				</h:panelGroup>
+	 
+				<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.centroCusto.label}:"/>
+		 		<h:panelGrid columns="2">
+		 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+					<h:inputText id="centroCustoId"
+						value="#{listarLancamentoMovimentoBean.process.centroCusto}"
+						size="5" maxlength="5" rendered="true"
+						title="Dê um clique na caixa de texto para abrir a pesquisa"
+						styleClass="queryInputSelectOne"
+						onclick="javascript:openSelectOneId('br.com.orionsoft.financeiro.gerenciador.entities.CentroCusto',this.value,this)"
+						onkeypress="javascript:return checkKeyClick(this, event, KEY_OPEN_QUERY)"/>
+				</h:panelGrid>
+	
+				<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.itemCusto.label}: Ex.:(1,2,4,5))"/>
+		 		<h:panelGrid columns="4" >
+		 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+					<h:inputText id="itemCustoList"
+						value="#{listarLancamentoMovimentoBean.process.itemCustoIdList}"
+						size="5" maxlength="5" rendered="true"
+						title="Dê um clique na caixa de texto para abrir a pesquisa"
+						styleClass="queryInputSelectOne"
+						onclick="javascript:openSelectOneId('br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto',this.value,this)"
+						onkeypress="javascript:return checkKeyClick(this, event, KEY_OPEN_QUERY)"/>
+					<h:selectBooleanCheckbox value="#{listarLancamentoMovimentoBean.process.itemCustoNot}" />
+					<h:outputLabel value="Exceto o selecionado" for="" style="font-size: small"/>
+				</h:panelGrid>
+	
+			</h:panelGrid>
+		</ui:define>
+		
+		<ui:define name="actions">
+			<h:commandButton value="Listar" action="#{listarLancamentoMovimentoBean.doVisualizar}" styleClass="noprint"/>
+		</ui:define>
+
+		<ui:define name="result">			
+			<!-- Painel de operação quitados -->
+			<h:panelGrid rendered="#{listarLancamentoMovimentoBean.visualizando}">
+				<h:dataTable
+					value="#{listarLancamentoMovimentoBean.list}"
+				    var='item'
+				    rendered="#{listarLancamentoMovimentoBean.size>0}"
+				    headerClass="tableListHeader"
+				    footerClass="tableListFooter"
+				    styleClass="tableList"
+				    rowClasses="tableListRowEven, tableListRowOdd"
+				    columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight">
+		
+					<h:column >
+						<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.LancamentoMovimento.type.name}', '#{item.id}')"  rendered="#{menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint">
+							<h:graphicImage value="../basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
+						</h:outputLink>
+						<h:graphicImage value="../basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint"/>
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Data"/>
+						</f:facet>
+						<h:outputLabel value="#{item.dataQuitacao.time}">
+							<f:convertDateTime locale="pt_BR"/>
+						</h:outputLabel>
+					</h:column>
+	 				<h:column>
+						<f:facet name="header">
+							<h:outputText value="Conta"/>
+						</f:facet>
+						<h:outputLabel value="#{item.conta}" style="white-space: nowrap"/>
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Contrato"/>
+						</f:facet>
+						<h:outputLabel value="#{item.pessoa}" />
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Descrição"/>
+						</f:facet>
+						<h:outputLabel value="#{item.descricao}" />
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Valor"/>
+						</f:facet>
+						<h:outputLabel value="#{item.valorMovimento}" >
+							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+						</h:outputLabel>
+						<f:facet name="footer">
+							<h:outputLabel value="#{listarLancamentoMovimentoBean.process.somaMovimento}">
+								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+							</h:outputLabel>
+						</f:facet>
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Juros"/>
+						</f:facet>
+						<h:outputLabel value="#{item.valorJuros}" >
+							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+						</h:outputLabel>
+						<f:facet name="footer">
+							<h:outputLabel value="#{listarLancamentoMovimentoBean.process.somaJuros}">
+								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+							</h:outputLabel>
+						</f:facet>
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Multa"/>
+						</f:facet>
+						<h:outputLabel value="#{item.valorMulta}" >
+							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+						</h:outputLabel>
+						<f:facet name="footer">
+							<h:outputLabel value="#{listarLancamentoMovimentoBean.process.somaMulta}">
+								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+							</h:outputLabel>
+						</f:facet>
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Desconto"/>
+						</f:facet>
+						<h:outputLabel value="#{item.valorDesconto}" >
+							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+						</h:outputLabel>
+						<f:facet name="footer">
+							<h:outputLabel value="#{listarLancamentoMovimentoBean.process.somaDesconto}">
+								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+							</h:outputLabel>
+						</f:facet>
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Acréscimo"/>
+						</f:facet>
+						<h:outputLabel value="#{item.valorAcrescimo}" >
+							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+						</h:outputLabel>
+						<f:facet name="footer">
+							<h:outputLabel value="#{listarLancamentoMovimentoBean.process.somaAcrescimo}">
+								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+							</h:outputLabel>
+						</f:facet>
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Total"/>
+						</f:facet>
+						<h:outputLabel value="#{item.valorTotal}" >
+							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+						</h:outputLabel>
+						<f:facet name="footer">
+							<h:outputLabel value="#{listarLancamentoMovimentoBean.process.somaTotal}">
+								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+							</h:outputLabel>
+						</f:facet>
+					</h:column>
+	<!-- 
+					<h:column >
+						<f:facet name="header">
+							<h:outputText style="text-align:right" value="Saídas"/>
+						</f:facet>
+						<h:panelGrid width="100%" style="text-align:right; font: 12px" styleClass="tableListRow">
+							<h:outputLabel value="#{item.valorMovimento}" rendered="#{item.valorMovimento<0}">
+								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+							</h:outputLabel>
+						</h:panelGrid>
+						<f:facet name="footer">
+							<h:panelGrid width="100%" style="text-align:right; font: 12px" styleClass="tableListRow">
+								<h:outputLabel value="#{listarLancamentoMovimentoBean.process.debito}" style="text-align:right">
+									<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+								</h:outputLabel>
+							</h:panelGrid>
+						</f:facet>
+					</h:column>
+	 -->				
+	<!-- 
+					<h:column >
+						<h:commandLink action="#{transferirBean.actionTransferir}" target="transferir">
+							<h:graphicImage value="../financeiro/img/transfer.png" title="Cria uma transferência usando os dados deste registro" style="border:0"/>
+					     	<f:param name="movimentoId" value="#{item.id}"/>
+						</h:commandLink>
+					</h:column>
+	 -->
+				</h:dataTable>
+				<h:panelGrid columns="5" style="text-align:left" styleClass="tableListRow" >
+					<h:outputLabel value="#{listarLancamentoMovimentoBean.size} registro(s)"/>
+					<h:outputLabel value=" | Créditos: "/>
+					<h:outputLabel value="#{listarLancamentoMovimentoBean.process.credito}">
+						<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+					</h:outputLabel>	
+					<h:outputLabel value=" | Débitos: "/>
+					<h:outputLabel value="#{listarLancamentoMovimentoBean.process.debito}">
+						<f:convertNumber pattern="###,###,##0.00" type="currency"/>
+					</h:outputLabel>	
+				</h:panelGrid>
+				</h:panelGrid>
+			
+			<h:outputText styleClass="errorMessage" value="#{messagesBean.firstMessageSummary}" escape="false" />
+		</ui:define>
+	</ui:composition>
+</html>

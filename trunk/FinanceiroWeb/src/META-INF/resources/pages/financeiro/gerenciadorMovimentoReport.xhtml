@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<title></title>
+	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+		media="screen" />
+	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+		type="text/css" media="print" />
+	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+		type="text/css" />
+
+	<script language="javaScript" src="../basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../basic/js/interface.js"></script>
+	<script language="javaScript" src="../basic/js/utils.js"></script>
+</h:head>
+	<h:panelGrid columns="3">
+		<h:panelGrid>
+    	<h:graphicImage value="../basic/img/header.gif" title="Financeiro" style="border:0"/>
+		</h:panelGrid>	
+
+		<h:panelGrid styleClass="reportHeader">
+		<f:verbatim>
+				Sivamar - Sind. dos Loj. do Com. e do Com. Varej. de Maringá<br>
+				Rua Néo Alves Martins, 2789 - sobreloja - CEP 87013-914<br>
+				Maringá - PR<br>
+				Fone/Fax: (44) 3026-4444<br>
+		</f:verbatim>
+		</h:panelGrid>	
+		
+		<h:panelGrid>		
+   	    <h:outputText value="Usuário: #{userSessionBean.userSession.user.object}"  style="text-align: center;"/>
+		</h:panelGrid>	
+	</h:panelGrid>
+
+	<h:panelGrid  styleClass="reportTitle">			
+		<h:outputText value="Relatório de movimentação da conta"/>
+	</h:panelGrid>
+			
+	<h:panelGrid>	
+				<h:dataTable value="#{listarMovimentoBean.array}" 
+				             var='item'
+				             rendered="#{listarMovimentoBean.size>0}"
+				             headerClass="tableListHeader"
+				             styleClass="tableList"
+				             rowClasses="tableListRowEven,tableListRowOdd"
+				             columnClasses="tableListColumn"
+				             style="border-collapse: collapse;">
+
+					<h:column>
+						<f:facet name="header">
+		    	            	<h:outputText value="#{menuBean.infoMap.Movimento.propertiesMetadata.conta.label} "/>
+    	                </f:facet>
+
+						<h:outputLabel value="#{item.propertiesMap.conta.value.asString}"/>
+					</h:column>
+
+				</h:dataTable>
+	</h:panelGrid>
+	
