@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -136,6 +138,7 @@ public class AddressLabel {
      * @hibernate.property 
      */
     @Column
+    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getOcurrencyDate(){return ocurrencyDate;}
     public void setOcurrencyDate(Calendar date){this.ocurrencyDate = date;}
     

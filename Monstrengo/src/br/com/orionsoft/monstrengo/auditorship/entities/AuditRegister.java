@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.ForeignKey;
@@ -52,6 +54,7 @@ public abstract class AuditRegister
      * @hibernate.property 
      */
     @Column
+    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getOcurrencyDate()
     {
         return ocurrencyDate;
