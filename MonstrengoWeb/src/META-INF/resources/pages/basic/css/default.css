@@ -380,3 +380,7 @@ img.right {
 	float:left;
 	margin-right:10px
 }
+
+.highlight {
+	background-color: yellow
+}
