@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="FinanceiroWebID" version="3.0">
+	<display-name>Financeiro Web</display-name>
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<!--***************************JSF 2.0*************************** -->
+	<!-- JSF 2.0 Servlet -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	
+	<!--***************************Spring*************************** -->
+	<!-- Spring Listener -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!--***************************File Upload Component Filter*************************** -->
+	<!-- File Upload Component Filter -->
+		<filter>  
+	    <filter-name>PrimeFacesFileUploadFilter</filter-name>  
+	    <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>  
+    	<init-param>  
+	        <param-name>uploadDirectory</param-name>  
+        	<param-value>/tmp/</param-value>  
+	    </init-param>  
+    	<init-param>  
+	        <param-name>thresholdSize</param-name>  
+    	    <param-value>100000</param-value>  
+    	</init-param>  
+	</filter>  
+	<filter-mapping>  
+	    <filter-name>PrimeFacesFileUploadFilter</filter-name>  
+	    <servlet-name>FacesServlet</servlet-name>  
+	</filter-mapping>
+	
+	<!--***************************Authentication Filter*************************** -->
+	<!-- Authentication Filter -->
+	<filter>
+		<filter-name>Authentication</filter-name>
+		<filter-class>br.com.orionsoft.monstrengo.security.web.AuthenticationFilter</filter-class>
+	  	<init-param>
+	  		<param-name>redirect</param-name>
+	 		<param-value>../../login/login.xhtml</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Authentication</filter-name>
+		<url-pattern>/faces/pages/*</url-pattern>
+	</filter-mapping>
+
+	<!--***************************Tiles definitions*************************** -->
+	<!-- Tiles Servlet -->
+	<servlet>
+		<servlet-name>Tiles Servlet</servlet-name>
+		<servlet-class>org.apache.struts.tiles.TilesServlet</servlet-class>
+		<init-param>
+			<param-name>definitions-config</param-name>
+			<param-value>/WEB-INF/tiles.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+
+	</servlet>
+	<!--********************************************************************************* -->
+</web-app>

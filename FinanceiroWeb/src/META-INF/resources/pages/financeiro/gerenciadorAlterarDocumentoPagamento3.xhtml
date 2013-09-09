@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.AlterarDocumentoPagamentoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/documentoPagamento.png" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.AlterarDocumentoPagamentoProcess.description}" />
+	<ui:define name="content">
+	<h:panelGrid width="100%" rendered="#{alterarDocumentoPagamentoBean.process.documentoNovo != null}">
+		<h:commandLink action="#{imprimirDocumentoPagamentoBean.actionPrepararDocumento}" rendered="#{menuBean.processMap.ImprimirDocumentoPagamentoProcess}">
+			<h:graphicImage value="../financeiro/img/imprimirDocumento.png" title="Imprimir o documento" style="border:0" />
+			<h:outputText value=" Imprimir o novo documento de pagamento" escape="false"/>
+	     	<f:param name="documentoId" value="#{alterarDocumentoPagamentoBean.process.documentoNovo.id}"/>
+		</h:commandLink>
+	</h:panelGrid>
+	</ui:define>
+	
+	<ui:define name="actions">
+		<h:commandButton value="Concluir esta operação" action="#{alterarDocumentoPagamentoBean.doConcluir}"/>
+	</ui:define>
+	
+
+	<ui:define name="result">
+	<h:dataTable value="#{messagesBean.fromSecondMessage}" var='msg' style="color:blue; text-align:left">
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Mensagens adicionais:"/>
+			</f:facet>
+			<h:outputText value="#{msg.summary}" escape="false" />
+		</h:column>
+	</h:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

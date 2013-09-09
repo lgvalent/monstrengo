@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.InserirLancamentoProcess.label}" />
+	<ui:param name="icon" value="../basic/img/printer.png" />
+	<ui:param name="description" value="Novo(s) lançamento(s) foi(ram) criado(s) com sucesso.&lt;br/&gt;Agora, você poderá imprimir recibo, documento de cobrança ou ainda, o documento previsto para o pagamento." />
+	<ui:define name="content">
+	
+			<h:dataTable 
+			   value="#{inserirLancamentoBean.process.lancamentosInseridos.list}"
+			   var="item"
+			   rendered="#{!inserirLancamentoBean.process.lancamentosInseridos.isEmpty()}"
+			   styleClass="tableList noprint" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd"
+			   cellpadding="5">
+			   
+			   <h:column>
+				    <h:commandButton title="Quitar o lançamento inserido" value="quitar" action="#{quitarLancamentoBean.actionQuitarLancamento(item.id,item.object.saldo)}" />
+				    <a onclick="javascript: linkRetrieve('#{item.info.type.name}',#{item.id})">#{item}</a><br/>
+					<h:panelGroup rendered="#{menuBean.processMap.CompileDocumentProcess and inserirLancamentoBean.hasModelsDocumentEntity}">
+						<ui:include src="/pages/basic/tiles/createDocumentFromEntity.xhtml">
+							<ui:param name="entity" value="#{item}" />
+						</ui:include>
+					</h:panelGroup>
+			   </h:column>
+			   <h:column>
+					<p:growl id="growl2" showSummary="true" sticky="true" showDetail="false"/> 
+				   <h:panelGroup rendered="#{item.object.documentoCobranca != null}">
+						<a onclick="javascript: linkRetrieve('#{item.object.documentoCobranca.class.name}',#{item.object.documentoCobranca.id})">
+							<h:graphicImage value="./img/documentoCobranca.png" style="border:0" width="24" height="24"/>
+					   		#{item.object.documentoCobranca.documentoCobrancaCategoria} - #{item.object.documentoCobranca} 
+						</a><br/>
+					   <p:commandButton ajax="false" value="PDF Doc. cobrança" title="Gerar arquivo PDF do documento de cobrança e efetuar o download." 
+							action="#{imprimirDocumentoCobrancaBean.doDownload(item.propertiesMap.documentoCobranca.value.asEntity)}" icon="ui-icon-document">
+						</p:commandButton>
+
+						<h:selectOneMenu value="#{imprimirDocumentoCobrancaBean.process.printerIndex}" >
+							<f:selectItems 	value="#{imprimirDocumentoCobrancaBean.process.printerIndexList}" />
+						</h:selectOneMenu>
+						<p:commandButton value="Imprimir" actionListener="#{imprimirDocumentoCobrancaBean.doImprimir(item.propertiesMap.documentoCobranca.value.asEntity)}" update="growl2" icon="ui-icon-print"
+										 title="Imprime o documento na impressora selecionada, com o layout de impressão definido no próprio documento." >
+						</p:commandButton>
+						<br/>
+				   </h:panelGroup>
+					
+				   <h:panelGroup rendered="#{item.object.documentoPagamento != null}">
+						<a onclick="javascript: linkRetrieve('#{item.object.documentoPagamento.class.name}',#{item.object.documentoPagamento.id})">
+							<h:graphicImage value="./img/documentoPagamento.png" style="border:0" width="24" height="24"/>
+					   		#{item.object.documentoPagamento.documentoPagamentoCategoria} - #{item.object.documentoPagamento}
+						</a><br/>
+						<p:commandButton ajax="false" value="PDF Doc. pagamento" title="Gerar arquivo PDF do documento de pagamento e efetuar o download." 
+										action="#{imprimirDocumentoPagamentoBean.doDownload}" icon="ui-icon-document">
+					     	<f:param name="documentoId" value="#{item.object.documentoPagamento.id}"/>
+						</p:commandButton>
+						<h:selectOneMenu value="#{imprimirDocumentoPagamentoBean.process.printerIndex}" >
+							<f:selectItems 	value="#{imprimirDocumentoPagamentoBean.process.printerIndexList}" />
+						</h:selectOneMenu>
+						<p:commandButton value="Imprimir" actionListener="#{imprimirDocumentoPagamentoBean.doImprimir}" update="growl2" icon="ui-icon-print"
+										 title="Imprime o documento na impressora selecionada, com o layout de impressão definido no próprio documento." >
+					     	<f:param name="documentoId" value="#{item.object.documentoPagamento.id}"/>
+						</p:commandButton>
+				   </h:panelGroup>
+			   </h:column>
+					
+			</h:dataTable>
+	</ui:define>
+
+	<ui:define name="actions">
+			<p:commandButton value="Inserir um novo lançamento" title="Inicia a inserção de um novo lançamento" 
+							action="#{inserirLancamentoBean.actionStart}" icon="ui-icon-plus"/>
+
+	</ui:define>
+	<ui:define name="result">
+
+	</ui:define>
+
+</ui:composition>
+
+</html>	

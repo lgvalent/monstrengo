@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.QuitarLancamentoProcess.label}" />
+	<ui:param name="icon" value="../financeiro/img/quitar.png" />
+	<ui:param name="description" value="Quitação efetuada com sucesso. Agora você pode voltar para a posição do cliente, inserir um novo lançamento, ou ainda, imprimir recibo e documento de pagamento gerados." />
+	<ui:define name="content">
+	<h:panelGroup rendered="#{menuBean.processMap.CompileDocumentProcess and quitarLancamentoBean.hasModelsDocumentEntity}">
+		Para gerar um documento do movimento inserido, selecione o modelo na lista
+		<h:selectOneMenu id="modelDocumentEntityId" value="#{documentEntityBean.modelDocumentEntityId}" title="Selecione o modelo de documento de entidade">
+			<f:selectItems value="#{quitarLancamentoBean.modelsDocumentEntity}"/>
+		</h:selectOneMenu>
+		e clique na ação <b>[doc]</b>:
+	</h:panelGroup>
+	<br/>
+	<h:panelGroup rendered="#{menuBean.processMap.ImprimirDocumentoPagamentoProcess}">
+		Para imprimir o documento de pagamento diretamente na impressora, selecione a impressora na lista
+		<h:selectOneMenu value="#{imprimirDocumentoPagamentoBean.process.printerIndex}" id="impressora" title="Informe a impressora a ser utilizada">
+			<f:selectItems value="#{imprimirDocumentoPagamentoBean.process.printerIndexList}"/>
+		</h:selectOneMenu>
+		e clique na ação <b>[imp]</b>:
+	</h:panelGroup>
+	
+	<h:dataTable id="tableContratos"
+		border="1" 
+		value="#{quitarLancamentoBean.process.contratos}" 
+		var='contratoBean'
+		headerClass="tableListHeader"
+		footerClass="tableListFooter"
+		styleClass="tableList"
+		rowClasses="tableListRowEven,tableListRowOdd"
+		columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight"
+		style="border-collapse: collapse"
+		width="100%">
+		             
+		<h:column>
+		    
+		
+			Contrato: <a onclick="javascript: linkRetrieve('#{menuBean.infoMap.Contrato.type.name}',#{contratoBean.contrato.id})">#{contratoBean.contrato}</a>  
+
+			<h:dataTable id="tableMovimentos"
+				border="1" 
+				value="#{contratoBean.movimentosInseridos.array}" 
+		        var='item'
+		        headerClass="tableListHeader"
+		        footerClass="tableListFooter"
+		        styleClass="tableList"
+		        rowClasses="tableListRowEven,tableListRowOdd"
+		        columnClasses="tableListColumn"
+		        style="border-collapse: collapse"
+		        width="100%">
+
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="Lançamentos"/>
+   	                </f:facet>
+					<a onclick="javascript: linkRetrieve('#{item.info.type.name}',#{item.id})">#{item.object.lancamento}</a>
+					<br/>
+					<h:outputText value="#{item}" escape="false"/>
+				</h:column>
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="Ações"/>
+   	                </f:facet>
+					<h:commandLink target="_blank" action="#{documentEntityBean.actionPreparePrint(item, documentEntityBean.modelDocumentEntityId)}" rendered="#{menuBean.processMap.CompileDocumentProcess and quitarLancamentoBean.hasModelsDocumentEntity}">
+						<h:outputText value=" [doc] " title="Gera um documento do movimento quitado baseado no modelo acima selecionado"/>
+					</h:commandLink>
+					<h:panelGroup rendered="#{menuBean.processMap.ImprimirDocumentoPagamentoProcess}">
+						<h:commandLink action="#{imprimirDocumentoPagamentoBean.doDownload}" rendered="#{item.object.documentoPagamento!=null}">
+							<h:outputText value=" [pdf] " title="Gera um arquivo PDF para impressão do documento de pagamento"/>
+					     	<f:param name="documentoId" value="#{item.object.documentoPagamento.id}"/>
+						</h:commandLink>
+						<h:commandLink action="#{imprimirDocumentoPagamentoBean.doImprimir}" rendered="#{item.object.documentoPagamento!=null}">
+							<h:outputText value=" [imp] " title="Imprime diretamente na impressora selecionada acima "/>
+					     	<f:param name="documentoId" value="#{item.object.documentoPagamento.id}"/>
+						</h:commandLink>
+						<h:commandLink target="_blank" action="#{imprimirDocumentoPagamentoBean.actionPrepararDocumento}" rendered="#{item.object.documentoPagamento!=null}">
+							<h:outputText value=" [ver] " title="Abre a tela para seleção de modelos de layout e impressoras "/>
+					     	<f:param name="documentoId" value="#{item.object.documentoPagamento.id}"/>
+						</h:commandLink>
+					</h:panelGroup>
+				</h:column>
+			</h:dataTable>
+		</h:column>
+	</h:dataTable>
+	</ui:define>
+
+	<ui:define name="actions">
+		<p:commandButton ajax="false" value="Voltar para a tela anterior" onclick="javascript:window.parent.focus();window.close();" icon="ui-icon-arrowreturn-1-w"/>
+		<p:commandButton value="Inserir um novo lançamento" title="Inicia a inserção de um novo lançamento" 
+						action="#{inserirLancamentoBean.actionStart}" icon="ui-icon-plus"/>
+	</ui:define>
+	
+	<ui:define name="result">
+	</ui:define>
+</ui:composition>
+</html>
+

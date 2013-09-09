@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:param name="icon" value="../financeiro/img/imprimirDocumento_b.png" />
+	<ui:param name="title" value="#{menuBean.processInfoMap.ImprimirDocumentoCobrancaProcess.label}" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.ImprimirDocumentoCobrancaProcess.description}" />
+	<ui:define name="content">
+		<h:panelGrid columns="2" cellpadding="3">
+	 		<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.contrato.label}:" title="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.contrato.hint}"/>
+			<h:outputText value="#{imprimirDocumentoCobrancaBean.process.documento.propertiesMap.contrato.value.asString}"/>
+
+	 		<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.documentoCobrancaCategoria.label}:" title="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.documentoCobrancaCategoria.hint}"/>
+			<h:outputText value="#{imprimirDocumentoCobrancaBean.process.documento.propertiesMap.documentoCobrancaCategoria.value.asString}"/>
+
+	 		<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.numeroDocumento.label}:" title="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.numeroDocumento.hint}"/>
+			<h:outputText value="#{imprimirDocumentoCobrancaBean.process.documento.propertiesMap.numeroDocumento.value.asString}"/>
+
+	 		<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.dataVencimento.label}:" title="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.dataVencimento.hint}"/>
+			<h:outputText value="#{imprimirDocumentoCobrancaBean.process.documento.propertiesMap.dataVencimento.value.asString}"/>
+
+	 		<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.valor.label}:" title="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.valor.hint}"/>
+			<h:outputText value="#{imprimirDocumentoCobrancaBean.process.documento.propertiesMap.valor.value.asString}"/>
+
+ 			<h:outputText value="Selecione o layout de impressão:" title="Selecione o layout de impressão que deseja utilizar. Por padrão é selecionado aquele que foi definido durante a geração do documento."/>
+   			<h:selectOneMenu value="#{imprimirDocumentoCobrancaBean.process.documento.propertiesMap.layoutId.value.asInteger}" id="layoutId">
+   				<f:selectItems value="#{imprimirDocumentoCobrancaBean.process.layouts}"/>
+   			</h:selectOneMenu>
+   		
+   			<h:outputText value="Calcular multa e juros para um novo vencimento:" title="Imprime o documento de cobrança com uma nova data de vencimento, calculando os juros e multa, sem alterar o vencimento original do documento."/>
+   			<h:panelGroup>
+				<h:selectBooleanCheckbox value="#{imprimirDocumentoCobrancaBean.process.recalcularDataVencimento}" title="Imprime o documento de cobrança com uma nova data de vencimento, calculando os juros e multa, sem alterar o vencimento original do documento."/>
+					<ui:include src="/pages/basic/tiles/calendar.xhtml">
+						<ui:param name="timeField" value="#{imprimirDocumentoCobrancaBean.process.dataPagamento.time}"/>
+				</ui:include>
+   			</h:panelGroup>
+
+			<h:outputText value="Imprimir o documento com seu valor em branco:" />
+			<h:selectBooleanCheckbox id="zerarValor"  value="#{imprimirDocumentoCobrancaBean.process.zerarValor}" title="Marque esta opção para que os documentos sejam impressos com valor em branco"/>
+	</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="actions">
+		<p:commandButton ajax="false" value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+		<p:commandButton ajax="false" value="Download PDF" action="#{imprimirDocumentoCobrancaBean.doDownload}" disabled="#{!menuBean.processMap.ImprimirDocumentoCobrancaProcess}" />
+		<h:selectOneMenu value="#{imprimirDocumentoCobrancaBean.process.printerIndex}" id="impressora">
+			<f:selectItems 	value="#{imprimirDocumentoCobrancaBean.process.printerIndexList}" />
+		</h:selectOneMenu>
+		<p:commandButton ajax="false" widgetVar="doImprimir" value="Imprimir" action="#{imprimirDocumentoCobrancaBean.doImprimir}" disabled="#{!menuBean.processMap.ImprimirDocumentoCobrancaProcess}" />
+		<h:message styleClass="errorMessage" for="impressora" />
+	</ui:define>
+</ui:composition>
+</html>
