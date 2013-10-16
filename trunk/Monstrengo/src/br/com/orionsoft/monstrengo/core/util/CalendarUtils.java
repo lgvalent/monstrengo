@@ -124,6 +124,32 @@ public class CalendarUtils {
     }
 
     /**
+     * Retorna o primeiro dia do ano corrente.
+     * Útil para dataInicial de relatórios
+     * @author lucio 20131016
+     * @return
+     */
+    public static Calendar getCalendarFirstYearDay(){
+    	Calendar result = getCalendar();
+    	result.set(Calendar.MONTH, result.getActualMinimum(Calendar.MONTH));
+		result.set(Calendar.DATE, result.getActualMinimum(Calendar.DATE));
+		return result;
+    }
+
+    /**
+     * Retorna o último dia do ano corrente
+     * Útil para dataFinal de relatórios
+     * @author lucio 20131016
+     * @return
+     */
+    public static Calendar getCalendarLastYearDay(){
+    	Calendar result = getCalendar();
+		result.set(Calendar.MONTH, result.getActualMaximum(Calendar.MONTH));
+		result.set(Calendar.DATE, result.getActualMaximum(Calendar.DATE));
+		return result;
+    }
+
+    /**
      * Retorna uma instância de Calendar somente com os dados do horário
      * @return Retorna um Calendar com HH:mm:ss = 00:00:00
      */
@@ -563,5 +589,5 @@ public class CalendarUtils {
     	}
     	return diferenca;
     }
-
+    
 }

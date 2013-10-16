@@ -7,6 +7,8 @@ import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 public class CalendarUtilsTest {
 
     public static void main(String[] args) throws Exception {
+        System.out.println(CalendarUtils.formatDateTime(CalendarUtils.getCalendarFirstMonthDay()) + "-" + CalendarUtils.formatDateTime(CalendarUtils.getCalendarLastMonthDay()));
+        System.out.println(CalendarUtils.formatDateTime(CalendarUtils.getCalendarFirstYearDay()) + "-" + CalendarUtils.formatDateTime(CalendarUtils.getCalendarLastYearDay()));
     	
     	
         Calendar data1 = CalendarUtils.parseTime("12:30");
