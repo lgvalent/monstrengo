@@ -63,8 +63,8 @@
 	<target name="updateJARs" description="> Atualiza os JARs dos projetos dependentes">
 		<copy todir="${lib.web}">
 			<fileset dir="${lib.orionsoft}">
-				<include name="**/*.jar"/>
-				<exclude name="${jar.name}.jar"/>
+				<!-- Este projeto só precisa do monstrengo-core-->
+				<include name="monstrengo.jar"/>
 			</fileset>
 		</copy>
 		<eclipse.refreshLocal resource="${ant.project.name}/" depth="intinite"/>
