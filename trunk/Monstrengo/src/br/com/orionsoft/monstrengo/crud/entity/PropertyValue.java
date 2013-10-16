@@ -543,49 +543,54 @@ public class PropertyValue implements IPropertyValue
             e.getErrorList().addAll(MessageList.create(PropertyValueException.class, "SET_AS_OBJECT", propertyName, propertyOwner.getInfo().getType().getSimpleName(), propertyOwner.getEntityOwner().getInfo().getLabel()));
             throw e;
         }
-    }	public <T> IEntity<T> getAsEntity() throws PropertyValueException
-	{
-		if (!(propertyOwner.getInfo().isEntity() && !propertyOwner.getInfo()
-				.isList()))
+    }
+	
+	private IEntity<?> asEntityCache = null; 
+	@SuppressWarnings("unchecked")
+	public <T> IEntity<T> getAsEntity() throws PropertyValueException {
+		if (!(propertyOwner.getInfo().isEntity() && !propertyOwner.getInfo().isList()))
 			wrongType(IEntity.class);
 
-		try
-		{
-			// se o valor da propriedade é nullo retorna null e não
-			// uma entidade vazia, pois isto seria uma nova entidade
-			Object value = getPropertyValue();
-			if (value == null)
-				return null;
+		try{
+			/* Verifica se um getAsEntity já foi chamada para evitar sucessivas transformações */
+			if(asEntityCache == null){
 
-			return this.getPropetyOwner().getEntityOwner().getEntityManager()
-					.getEntity(value);
-		} catch (EntityException e)
-		{
+				// se o valor da propriedade é nullo retorna null e não
+				// uma entidade vazia, pois isto seria uma nova entidade
+				Object value = getPropertyValue();
+				if (value == null)
+					asEntityCache = null;
+				else
+					asEntityCache = this.getPropetyOwner().getEntityOwner().getEntityManager().getEntity(value);
+			}
+			return (IEntity<T>) asEntityCache;
+		} catch (EntityException e){
 			e.getErrorList().addAll(
 					MessageList
-							.create(PropertyValueException.class,
-									"GET_AS_ENTITY", propertyName,
-									propertyOwner.getInfo().getType()
-											.getSimpleName(), propertyOwner
-											.getEntityOwner().getInfo()
-											.getLabel()));
+					.create(PropertyValueException.class,
+							"GET_AS_ENTITY", propertyName,
+							propertyOwner.getInfo().getType()
+							.getSimpleName(), propertyOwner
+							.getEntityOwner().getInfo()
+							.getLabel()));
 			throw new PropertyValueException(e.getErrorList());
 		}
 	}
 
-	public void setAsEntity(IEntity<?> entity) throws PropertyValueException
-	{
-		if (!(propertyOwner.getInfo().isEntity() && !propertyOwner.getInfo()
-				.isList()))
+	public void setAsEntity(IEntity<?> entity) throws PropertyValueException{
+		if (!(propertyOwner.getInfo().isEntity() && !propertyOwner.getInfo().isList()))
 			wrongType(IEntity.class);
 
 		if (entity == null)
 			setPropertyValue(null);
 		else
 			setPropertyValue(entity.getObject());
+
+		/* Limpa o cache para o próximo getAsEntity */
+		this.asEntityCache = entity;
 	}
 
-	private IEntityList<?> entityList = null;
+	private IEntityList<?> asEntityListCache = null;
 
 	@SuppressWarnings("unchecked")
 	public <T> IEntityList<T> getAsEntityList() throws PropertyValueException
@@ -594,18 +599,16 @@ public class PropertyValue implements IPropertyValue
 				.isList()))
 			wrongType(IEntityList.class);
 
-		try
-		{
+		try	{
 			/* Prepara a lista caso já não tenha sido preparada */
-			if (entityList == null)
-				entityList = this.getPropetyOwner().getEntityOwner()
+			if (asEntityListCache == null)
+				asEntityListCache = this.getPropetyOwner().getEntityOwner()
 						.getEntityManager().<T>getEntityList(
 								(List<T>) getPropertyValue(),
 								(Class<T>) getPropetyOwner().getInfo().getType());
 
-			return (IEntityList<T>) entityList;
-		} catch (EntityException e)
-		{
+			return (IEntityList<T>) asEntityListCache;
+		} catch (EntityException e)	{
 			e.getErrorList().addAll(
 					MessageList
 							.create(PropertyValueException.class,
@@ -618,9 +621,7 @@ public class PropertyValue implements IPropertyValue
 		}
 	}
 
-	public void setAsEntityList(IEntityList<?> entityList)
-			throws PropertyValueException
-	{
+	public void setAsEntityList(IEntityList<?> entityList)throws PropertyValueException	{
 		if (!(propertyOwner.getInfo().isEntity() && propertyOwner.getInfo()
 				.isList()))
 			wrongType(IEntityList.class);
@@ -634,17 +635,16 @@ public class PropertyValue implements IPropertyValue
 		else
 		{
 			/* Atualiza o buffer local */
-			this.entityList = entityList;
+			this.asEntityListCache = entityList;
 			/* Grava a nova lista no objeto */
 			setPropertyValue(entityList.getObjectList());
 		}
 	}
 
-	private IEntitySet<?> entitySet = null;
+	private IEntitySet<?> asEntitySetCache = null;
 
 	@SuppressWarnings("unchecked")
-	public <T> IEntitySet<T> getAsEntitySet() throws PropertyValueException
-	{
+	public <T> IEntitySet<T> getAsEntitySet() throws PropertyValueException {
 		if (!(propertyOwner.getInfo().isEntity() && propertyOwner.getInfo()
 				.isSet()))
 			wrongType(IEntitySet.class);
@@ -652,13 +652,13 @@ public class PropertyValue implements IPropertyValue
 		try
 		{
 			/* Prepara a lista caso já não tenha sido preparada */
-			if (entitySet == null)
-				entitySet = this.getPropetyOwner().getEntityOwner()
+			if (asEntitySetCache == null)
+				asEntitySetCache = this.getPropetyOwner().getEntityOwner()
 						.getEntityManager().getEntitySet(
 								(Set<T>) getPropertyValue(),
 								(Class<T>) getPropetyOwner().getInfo().getType());
 
-			return (IEntitySet<T>) entitySet;
+			return (IEntitySet<T>) asEntitySetCache;
 		} catch (EntityException e)
 		{
 			e.getErrorList().addAll(
@@ -689,7 +689,7 @@ public class PropertyValue implements IPropertyValue
 		else
 		{
 			/* Atualiza o buffer local */
-			this.entitySet = entitySet;
+			this.asEntitySetCache = entitySet;
 			/* Grava a nova lista no objeto */
 			setPropertyValue(entitySet.getObjectSet());
 		}
@@ -930,8 +930,9 @@ public class PropertyValue implements IPropertyValue
 	/** Diz para a propriedade limpar os seus buffers pois pode haver um novo objeto
 	 * na entidade */
 	public void flush(){
-		this.entityList = null;
-		this.entitySet = null;
+		this.asEntityListCache = null;
+		this.asEntitySetCache = null;
+		this.asEntityCache = null;
 		this.oldValue = null;
 	}
 
