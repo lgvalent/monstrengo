@@ -73,8 +73,8 @@ public class AuthenticationFilter implements Filter
         {
             log.debug("Sessão ainda não autenticada");
             if(log.isDebugEnabled())
-            	log.debug("Armazenando o local original da requisição: .." + httpRequest.getPathInfo());
-        	session.setAttribute(LOCAL_BEFORE_AUTHENTICATE_PARAM, ".." + httpRequest.getPathInfo());
+            	log.debug("Armazenando o local original da requisição: ../.." + httpRequest.getPathInfo());
+        	session.setAttribute(LOCAL_BEFORE_AUTHENTICATE_PARAM, "../.." + httpRequest.getPathInfo());
         	
         	/* Exibe as informações de URL numa caixa de diálogo */
         	// JOptionPane.showMessageDialog(null,"-PI"+ httpRequest.getPathInfo() + "-CP" + httpRequest.getContextPath() + "-PT" + httpRequest.getPathTranslated() + "- QR" + httpRequest.getQueryString() + "-RU" + httpRequest.getRequestURI() );
@@ -92,5 +92,5 @@ public class AuthenticationFilter implements Filter
     {
         this.filterConfig = null;
     }
-
+    
 }
