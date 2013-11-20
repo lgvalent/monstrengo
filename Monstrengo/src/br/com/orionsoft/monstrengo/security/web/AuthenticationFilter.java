@@ -73,11 +73,11 @@ public class AuthenticationFilter implements Filter
         {
             log.debug("Sessão ainda não autenticada");
             if(log.isDebugEnabled())
-            	log.debug("Armazenando o local original da requisição: ../.." + httpRequest.getPathInfo());
-        	session.setAttribute(LOCAL_BEFORE_AUTHENTICATE_PARAM, "../.." + httpRequest.getPathInfo());
+            	log.debug("Armazenando o local original da requisição: ../.." + httpRequest.getPathInfo() + "?" + httpRequest.getQueryString());
+        	session.setAttribute(LOCAL_BEFORE_AUTHENTICATE_PARAM, "../.." + httpRequest.getPathInfo() + (httpRequest.getQueryString()==null?"":new String("?" + httpRequest.getQueryString())));
         	
         	/* Exibe as informações de URL numa caixa de diálogo */
-        	// JOptionPane.showMessageDialog(null,"-PI"+ httpRequest.getPathInfo() + "-CP" + httpRequest.getContextPath() + "-PT" + httpRequest.getPathTranslated() + "- QR" + httpRequest.getQueryString() + "-RU" + httpRequest.getRequestURI() );
+//        	JOptionPane.showMessageDialog(null,"-PI"+ httpRequest.getPathInfo() + "-CP" + httpRequest.getContextPath() + "-PT" + httpRequest.getPathTranslated() + "- QR" + httpRequest.getQueryString() + "-RU" + httpRequest.getRequestURI() );
             
         	log.debug("Redirecionando a requisição não autenticada para a página que definida no arquivo web.xml no param-filter");
             httpResponse.sendRedirect(filterConfig.getInitParameter(REDIRECT_FILTER_PARAM));
