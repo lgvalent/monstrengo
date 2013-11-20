@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Use esse cadastro como uma agenda geral com os dados de todas as pessoas que se relacionam com a empresa." hint="Pessoa física que possui algum relacionamento com a empresa" label="Pessoa Física" name="Fisica" propertiesInQueryGrid="id nome dataCadastro dataInicial documento email telefones" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.basic.entities.pessoa.Fisica" colorName="purple" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+	<group label="Dados pessoais" name="Dados">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id" readOnly="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="Nome e sobrenome da pessoa física" label="Nome" name="nome" required="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="Apelido de tratamento da pessoa" label="Apelido" name="apelido" visible="false"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Sexo" name="sexo" valuesList="M,F" required="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Nome da mãe" name="nomeMae"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Nome do pai" name="nomePai"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Estado civil" name="estadoCivil" editShowList="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Profissão" name="profissao"/>
+        <property xsi:type="PropertyEntityType" description="Município em que a pessoa nasceu" hint="Município em que a pessoa nasceu" label="Naturalidade" name="naturalidade"/>
+        <property xsi:type="PropertyEntityType" description="País onde nasceu" hint="País onde nasceu" label="Nacionalidade" name="nacionalidade" editShowList="true"/>
+        <property xsi:type="PropertyBooleanType" description="" hint="Define se a pessoa é canhota" label="Canhota" name="canhota" defaultValue="não" visible="false"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Necessidades especiais de uma pessoa" label="Necessidades especiais" name="necessidadesEspeciais" visible="false"/>
+	</group>
+
+	<group label="Datas" name="Datas">
+        <property xsi:type="PropertyCalendarType" description="" hint="Define a data em que foi feito o cadastro" label="Data do cadastro" name="dataCadastro" required="true" defaultValue="nowDate()"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data de nascimento da Pessoa" label="Data de nascimento" name="dataInicial"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data de óbito da pessoa" label="Data de óbito" name="dataFinal"/>
+	</group>
+
+	<group label="Documentos" name="Documentos">
+        <property xsi:type="PropertyStringType" description="" hint="Número do CPF" label="CPF" name="documento" required="true" editMask="###.###.###-##"/>
+        <property xsi:type="PropertyEntityType" description="Caso a pessoa cadastrada não possua um CPF, poderá utilizar o CPF de um responsável. Para isto, o responsável deverá ser identificado pelo nome e grau de parentesco." hint="Indica que o CPF utilizado pertence a outra pessoa" label="Responsável do CPF" name="responsavelCpf" visible="false" calculated="false" readOnly="true" editShowEmbedded="true"/>
+        <property xsi:type="PropertyBooleanType" description="" hint="" label="Usar CPF de um responsável" name="usaResponsavelCpf" visible="false"/>
+        <property xsi:type="PropertyStringType" description="" hint="Número do Cadastro Municipal de Contribuintes" label="CMC" name="cmc" editMask="###.###-#"/>
+        <property xsi:type="PropertyStringType" description="Este código é definido pela Agência Nacional de Saúde a um pessoa que é enviada pelo SIB (Sistema de Informação de Beneficiário)" hint="Código de Controle Operacional definido pela ANS" label="CCO" name="cco" editMask="#.###.###.###-##" visible="false"/>
+        <property xsi:type="PropertyStringType" description="" hint="Também conhecido como número de reservista" label="Documento militar: número" name="documentoMilitarNumero" visible="false"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Documento militar: órgão" name="documentoMilitarOrgao" valuesList="MEX,MMA,MAE"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Documento militar: tipo" name="documentoMilitarTipo" editShowList="true"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em que o documento foi expedido pelo órgão" label="Documento militar: data de expedição" name="documentoMilitarDataExpedicao"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="RG: Número" name="rgNumero"/>
+        <property xsi:type="PropertyStringType" description="SESP, SSP, IM" hint="Abreviação do orgão expedidor do RG" label="RG: Órgão expedidor" name="rgOrgaoExpedidor"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Unidade Federativa (Estado) expedidor do RG" label="RG: UF expedidor" name="rgUfExpedidor" editShowList="true"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em que o documento RG foi expedido" label="RG: Data de expedição" name="rgDataExpedicao"/>
+        <property xsi:type="PropertyStringType" description="" hint="Número do PIS-PASEP" label="PIS/PASEP" name="pisPasep" editMask="###.#####.##-#"/>
+        <property xsi:type="PropertyStringType" description="" hint="Número do cadastro INSS" label="INSS" name="inss" editMask="###.###.###-##"/>
+	</group>
+
+	<group label="Endereços para contato" name="Endereços">
+        <property xsi:type="PropertyStringType" description="Cadastre vários e-mails, separando-os com ';'. O último e-mail da lista será usado para enviar a senha para o cadastro on-line." hint="Endereço eletrônico da Pessoa" label="E-Mail" name="email"/>
+        <property xsi:type="PropertyStringType" description="" hint="Endereço da página pessoal na internet" label="Página na Internet" name="www"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica o endereço padrão que o sistema utiliza para envio de mala direta e documentos" label="Endereço principal" name="enderecoCorrespondencia" required="true" editShowEmbedded="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Define outros endereços da pessoa" editShowEmbedded="true" label="Outros endereços" name="enderecos"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Lista com os números dos telefones para contato" label="Telefones" name="telefones" editShowEmbedded="true"/>
+	</group>
+
+	<group label="Informações sobre os contratos" name="Contratos">
+        <property xsi:type="PropertyEntityType" description="" hint="Indica os contratos cadastrados para a Pessoa Física" label="Contratos" name="contratos" colorName="blue" readOnly="true"/>
+	</group>
+
+    <group description="" hint="" label="Responsável contábil" name="Contabil">
+        <property xsi:type="PropertyEntityType" description="" hint="Escritório responsável pela contabilidade desta pessoa física" label="Escritorio contábil" name="escritorioContabil"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Contador responsável pela contabilidade desta pessoa física" label="Contador" name="contador" />
+    </group>
+
+	<group label="Dados sobre segurança" name="Segurança">
+        <property xsi:type="PropertyEntityType" description="" hint="Informações sobre login e senha para a pessoa acessar o sistema" label="Usuário" name="applicationUser"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Senha" name="senha"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="CodigoSeguranca" name="codigoSeguranca"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="AsFisica" name="asFisica" visible="false" calculated="true" readOnly="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="AsJuridica" name="asJuridica" visible="false" calculated="true" readOnly="true"/>
+        <property xsi:type="PropertyBooleanType" description="" hint="" label="Fisica" name="fisica" visible="false" calculated="true" readOnly="true"/>
+        <property xsi:type="PropertyBooleanType" description="" hint="" label="Juridica" name="juridica" visible="false" calculated="true" readOnly="true"/>
+	</group>
+</entity>
