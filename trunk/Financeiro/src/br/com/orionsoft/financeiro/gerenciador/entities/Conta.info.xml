@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" hint="Conta para movimentação do financeiro" label="Conta" name="Conta" colorName="maroon" propertiesInQueryGrid="id inativo nome contaCategoria dataAbertura dataEncerramento dataFechamento saldoAbertura" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.financeiro.gerenciador.entities.Conta" runQueryOnOpen="true" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Dados gerais" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id" readOnly="true"/>
+        <property xsi:type="PropertyBooleanType" description="" hint="Define se esta conta não deve ser mais usada para as movimentações financeiras" label="Encerrada" name="inativo"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Nome" name="nome"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Permite agrupar as contas em categorias específicas para facilitar os relatórios sintéticos" label="Categoria da conta" name="contaCategoria" editShowList="true"/>
+        <property xsi:type="PropertyNumericType" description="Esta informação é importante para exibição correta do saldo da conta nos extratos" hint="Indica o valor que a conta possuia no momento em que foi cadastrada aqui no sistema" label="Saldo de abertura" name="saldoAbertura"/>
+    </group>
+    <group description="" hint="" label="Datas" name="Datas">
+        <property xsi:type="PropertyCalendarType" description="" hint="Indica a data em que esta conta foi aberta aqui no sistema" label="Data de abertura" name="dataAbertura"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Indica a data em que esta conta foi encerrada e não deve mais utilizada pelo sistema" label="Data de encerramento" name="dataEncerramento"/>
+        <property xsi:type="PropertyCalendarType" description="Nenhum movimento poderá ser inserido nesta conta antes desta data" hint="Indica a data em que ocorreu a conciliação da movimentação desta conta" label="Data de fechamento" name="dataFechamento"/>
+    </group>
+    <group description="" hint="" label="Segurança" name="Segurança">
+        <property xsi:type="PropertyEntityType" description="Esta propriedade permite definir os usuários que podem visualizar, inserir, alterar ou remover movimentações da conta atual." 
+        										hint="Indica quais usuários podem visualizar e movimentar esta conta" label="Usuários da conta" name="applicationUsers"
+        										colorName="red"/>
+    </group>
+    <group description="Para o controle contábil das receitas/despesas no sistema, destaca-se três momentos:&lt;br/>
+    					&lt;li>Quando o lançamento é registrado no sistema ocorre a previsão de receita ou despesa. Também chamada de conhecimento.&lt;/li>
+    					&lt;li>No momento em que este lançamento é quitado, ocorre a movimentação.&lt;/li>
+    					&lt;li>Em um terceiro momento, a quitação da dívida é marcada como compensada&lt;/li>
+    					Quitação de dívidas com dinheiro sofrem compensação automática.&lt;br/> 
+    					Quitação de dívidas com cheques e outros documentos de pagamento, devem ser compensados manualmente pelo operador. 
+    					" hint="" label="Contabilidade" name="Contabilidade">
+        <property xsi:type="PropertyStringType" description="" hint="" label="Código da Conta contábil prevista" name="contaContabilPrevista"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Código da Conta contábil para movimento" name="contaContabilMovimento"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Código da Conta contábil para compensação" name="contaContabilCompensacao"/>
+        <property xsi:type="PropertyBooleanType" description="Marque esta opção para contas que não necessitam de conferência posterior, seja ela por extrato ou por supervisor. As quitações realizadas nestas contas serão automaticamente marcadas como compensadas" hint="Define que as quitações efetuadas nesta conta serão compensadas automaticamente, na mesma data de quitação" label="Compensação automática" name="compensacaoAutomatica"/>
+    </group>
+</entity>

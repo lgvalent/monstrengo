@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Esta entidade controla todos os dados necessários para realização de cobrança ou pagamento para um determinado contrato." hint="Lançamento de crédito ou débito" label="Lançamento" name="Lancamento" propertiesInQueryGrid="id contaPrevista contrato valor saldo data dataVencimento descricao" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.financeiro.gerenciador.entities.Lancamento" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Dados gerais" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica a atual situação do lançamento" label="Situação" name="lancamentoSituacao" readOnly="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica a conta em que este lançamento será quitado." label="Conta prevista" name="contaPrevista" colorName="maroon"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica o contrato para o qual pertence este lançamento" label="Contrato" name="contrato" colorName="blue"/>
+        <property xsi:type="PropertyNumericType" description="" hint="Valor total do lançamento" label="Valor" name="valor" required="true" minimum="0" maximum="9999999"/>
+        <property xsi:type="PropertyNumericType" description="" hint="Indica o quanto falta ser pago deste lançamento ainda, descontando as quitações parciais" label="Saldo em aberto" name="saldo" readOnly="true" />
+        <property xsi:type="PropertyStringType" description="" hint="Descreve sobre o quê é este lançamento" label="Descrição" name="descricao"/>
+        <property xsi:type="PropertyStringType" description="" hint="Utilizado para armazenar o código deste lançamento em outros sistemas para facilitar conciliações durante a fase de importação de dados entre sistemas" label="Codigo externo" name="codigoExterno" visible="false"/>
+    </group>
+    <group description="" hint="" label="Datas" name="Datas">
+        <property xsi:type="PropertyCalendarType" description="" hint="Indica a data em que foi criado este lançamento" label="Data do lançamento" name="data" required="true"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Indica a data do vencimento do lançamento. A partir desta data, o recebimento será realizado com multa e juros." label="Data do vencimento" name="dataVencimento" required="true"/>
+        <property xsi:type="PropertyBooleanType" description="Se está propriedade estiver marcada, um lançamento vencido não será mais indicado como pendente" hint="Permite definir um lançamento como não recebível após o seu vencimento" label="Não receber após o vencimento" name="naoReceberAposVencimento"/>
+    </group>
+    <group description="" hint="" label="Itens de Custos e movimentações do lançamento" name="Items">
+        <property xsi:type="PropertyEntityType" description="" hint="Define o tipo de operação. Útil para classificar os lançamentos e obter saldos consolidados por operação" label="Operação" name="operacao" visible="false"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica os itens que fazem parte deste lançamento" label="Itens do lançamento" name="lancamentoItens" editShowEmbedded="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica as movimentações de quitação, cancelamento e estorno que já ocorreram com este lançamento" label="Movimentação do lançamento" name="lancamentoMovimentos" editShowEmbedded="true"/>
+    </group>
+    <group description="" hint="" label="Documentos de cobrança e de pagamento" name="Documentos">
+        <property xsi:type="PropertyEntityType" description="" hint="Define o documento que é utilizado para realizar a cobrança deste lançamento (Boleto, promissória, convênios, etc)" label="Documento de cobrança" name="documentoCobranca"/>
+        <property xsi:type="PropertyEntityType" description="Esta propriedade é útil para gerar um documento (ex. Cheque) para pagamento de um fornecedor antes da quitação do lançamento. Assim, quando o fornecedor vier buscar o seu pagamento o sistema já utilizará este documento gerado como o documento de pagamento do lançamento. Assim, é possível emitir o documento de pagamento antes do pagamento efetivo ocorrer." hint="Indica qual é o documento de pagamento que já está preparado e será sugerido para o pagamento deste lançamento" label="Documento de pagamento previsto" name="documentoPagamento"/>
+    </group>
+</entity>

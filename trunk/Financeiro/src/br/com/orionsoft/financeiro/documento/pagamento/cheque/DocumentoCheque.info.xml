@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" hint="Documento de pagamento Cheque" label="Cheque" name="DocumentoCheque" propertiesInQueryGrid="contrato convenioPagamento data dataCancelamento dataImpressao dataVencimento documentoPagamentoCategoria id lancamentos layoutId numeroDocumento transacao valor agencia banco contaCorrente contaCorrenteDigito" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.financeiro.documento.pagamento.cheque.DocumentoCheque" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Dados do cheque" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Banco" name="banco" required="true" editShowList="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Agência" name="agencia" required="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Conta Corrente" name="contaCorrente" required="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="Dígito da conta corrente" label="Dígito CC" name="contaCorrenteDigito" required="true"/>
+        <property xsi:type="PropertyStringType" description="Este número será redefinido pelo gerenciador de cheques durante a impressão de documentos com transação de saída (pagamento)." hint="" label="Número do cheque" name="numeroDocumento"/>
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Valor" name="valor" required="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Transação" name="transacao" required="true"/>
+        <property xsi:type="PropertyNumericType" description="Se nenhum documento será impresso, é utilizado o identificador 0. Para outros layouts, a documentação do gerenciador de documento responsável deverá ser consultada." hint="Indica o layout de impressão que será utilizado para imprimir o documento" label="Identificador do layout de impressão" name="layoutId" required="true"/>
+    </group>
+
+    <group description="" hint="" label="Datas e vencimentos" name="Datas">
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em que o cheque foi cadastrado no sistema" label="Data cadastro" name="data" required="true"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="" label="Data de vencimento" name="dataVencimento" required="true"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em o cheque foi impresso" label="Data de impressão" name="dataImpressao"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="" label="Data de cancelamento" name="dataCancelamento"/>
+    </group>
+    <group description="" hint="" label="Controle" name="Controle">
+        <property xsi:type="PropertyEntityType" description="" hint="Indica o Contrato com a pessoa relacionada a este documento" label="Contrato" name="contrato" required="true" colorName="blue"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Categoria de documento de pagamento" name="documentoPagamentoCategoria" editShowList="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Controlador do cheque" name="convenioPagamento" required="true" editShowList="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica os lançamentos que estão relacionados com este cheque" label="Lançamentos" name="lancamentos" readOnly="true"/>
+    </group>
+</entity>

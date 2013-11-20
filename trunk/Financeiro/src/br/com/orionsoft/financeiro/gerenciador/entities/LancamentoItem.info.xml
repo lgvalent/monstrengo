@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Um item de lançamento representa um 'produto' que está sendo cobrado ou recebido. Neste item é possivel observa quando ele foi gerado, sua data de competência, quem gerou o item e qual contrato será responsável pelo seu recebimento/pagamento" hint="" label="Lançamento Item" name="LancamentoItem" propertiesInQueryGrid="id dataLancamento dataCompetencia descricao contrato adesaoContrato valor peso centroCusto classificacaoContabil itemCusto lancamento" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.financeiro.gerenciador.entities.LancamentoItem" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Dados gerais" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Indica a data em que este item foi gerado para o contrato" label="Data do lançamento" name="dataLancamento" required="true"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Indica a data de competência desta receita ou despesa" label="Data de competência" name="dataCompetencia" required="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Descrição" name="descricao"/>
+    </group>
+    <group description="" hint="" label="Detalhes" name="Detalhes">
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Centro de custo" name="centroCusto" required="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Item de custo" name="itemCusto" required="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Classificação Contábil" name="classificacaoContabil"/>
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Valor" name="valor" required="true"/>
+        <property xsi:type="PropertyNumericType" description="" hint="Indica o quanto o valor deste item representa no valor total do lançamento" label="Peso" name="peso" readOnly="true"/>
+    </group>
+    <group description="" hint="" label="Contratos" name="Contratos" colorName="blue">
+        <property xsi:type="PropertyEntityType" description="Quando esta propriedade está vazia ela indica que o item ainda não foi lançado (faturado)" hint="Indica o lançamento do qual este item faz parte" label="Lançamento" name="lancamento" readOnly="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Define o contrato responsável pela receita/despesa" label="Contrato responsável" name="contrato" colorName="blue"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica quem foi que gerou esta receita/despesa" label="Adesão geradora" name="adesaoContrato" colorName="aqua"/>
+    </group>
+</entity>

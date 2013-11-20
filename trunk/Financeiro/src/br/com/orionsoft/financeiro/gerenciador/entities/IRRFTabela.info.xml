@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Esta entidade permite definir os valores e alíquotas do IRRF de acordo com uma vigência" hint="Tabela de Imposto de Renda Retido na Fonte" label="Tabela de IRRF" name="IRRFTabela" propertiesInQueryGrid="id inicioVigencia finalVigencia deducaoDependente deducaoAposentado valorMinimoRecolhimento aliquotas" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" runQueryOnOpen="true" className="br.com.orionsoft.financeiro.gerenciador.entities.IRRFTabela" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Geral" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="" label="Início da vigência" name="inicioVigencia"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="" label="Final da vigência" name="finalVigencia"/>
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Dedução por dependente" name="deducaoDependente"/>
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Dedução de aposentado" name="deducaoAposentado"/>
+        <property xsi:type="PropertyNumericType" description="" hint="Define um valor mínimo a partir do qual o recolhimento é efetivado." label="Valor mínimo do recolhimento" name="valorMinimoRecolhimento"/>
+    </group>
+    <group description="" hint="" label="Definições das alíquotas" name="Aliquota">
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Alíquotas" name="aliquotas" editShowEmbedded="true"/>
+    </group>
+</entity>

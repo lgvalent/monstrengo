@@ -1,0 +1,52 @@
+package br.com.orionsoft.financeiro.gerenciador.process;
+
+import br.com.orionsoft.financeiro.gerenciador.entities.Conta;
+import br.com.orionsoft.monstrengo.core.process.IProcess;
+import br.com.orionsoft.monstrengo.core.process.ProcessException;
+import br.com.orionsoft.monstrengo.core.process.RunnableEntityProcessControllerBasic;
+import br.com.orionsoft.monstrengo.crud.entity.EntityException;
+import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+
+/**
+ * Este controlador define as entidades que são compatíveis com o processo 
+ * de quitação de laçamentos.
+ * 
+ * @author Lucio 20120527
+ */
+public class ListarLancamentoMovimentoProcessController extends RunnableEntityProcessControllerBasic
+{
+    /** Informa para o gerenciador quais as entidades que são compatíveis com este controlador */
+	public static final Class<?>[] RUNNABLE_ENTITIES = {Conta.class};
+	public Class<?>[] getRunnableEntities() {return RUNNABLE_ENTITIES;}
+
+	public Class<? extends IProcess> getProcessClass() {return ListarLancamentoMovimentoProcess.class;}
+	
+	/**
+	 * @throws EntityException 
+	 * @see Consulte {@link IRunnableEntityProcessController.canRunWithEntity(IEntity)}
+	 */
+	public boolean canRunWithEntity(IEntity entity) throws ProcessException {
+		/* Limpa a atual mensagem do controlador */
+		this.setMessage(null);
+
+		/* Podem ser adicionados aqui códigos de validação 
+		 * para verificar se os atuais valores das propriedades
+		 * da entidade permitem a execução deste processo sobre
+		 * a entidade. */
+//		try{
+//			if(entity.getInfo().getType() == Contrato.class){
+//				/* Verifica se o saldo em aberto permite quitar */
+//				if(false){
+//					this.setMessage(new BusinessMessage(ListarPosicaoContratoProcessController.class, "DESCRICAO_DA_VALIDAÇÂO"));
+//					return false;
+//				}
+//			}	
+//		}catch(BusinessException e){
+//			throw new ProcessException(e.getErrorList());
+//		}
+		
+		return true;	
+	}
+
+
+}
