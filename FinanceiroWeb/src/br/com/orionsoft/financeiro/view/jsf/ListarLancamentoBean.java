@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import br.com.orionsoft.financeiro.gerenciador.process.ListarLancamentoProcess;
-import br.com.orionsoft.financeiro.gerenciador.process.ListarPosicaoContratoProcess;
 import br.com.orionsoft.financeiro.gerenciador.services.ListarLancamentoService.QueryLancamento;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
