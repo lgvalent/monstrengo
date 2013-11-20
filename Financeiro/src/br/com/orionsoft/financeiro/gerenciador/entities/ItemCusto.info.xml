@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" hint="" label="Item de Custo" name="ItemCusto" 
+propertiesInQueryGrid="id inativo nome codigoContaContabil" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto" runQueryOnOpen="true" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Geral" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
+        <property xsi:type="PropertyStringType" description="" hint="Define o nome do item de custo" label="Nome" name="nome"/>
+        <property xsi:type="PropertyBooleanType" description="" hint="Define se este item de custo não deve ser mais usado para as movimentações financeiras" label="Inativo" name="inativo"/>
+    </group>
+    <group description="Para exportar a movimentação para a contabilidade, o sistema utiliza as definições de Centro de Custo, Item de Custo e Contas.&lt;br&gt;
+                        Antes do código da conta vinculada ao Item de Custo ou Conta, o sistema acrescentará o código da conta agrupadora que está definido no Centro de Custo." hint="" label="Contabilidade" name="Contabilidade">
+        <property xsi:type="PropertyStringType" description="" hint="Define em qual conta contábil serão registradas as movimentações deste item de custo" label="Código da conta contábil" name="codigoContaContabil"/>
+    </group>
+</entity>

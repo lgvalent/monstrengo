@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" hint="" label="Dinheiro" name="DocumentoDinheiro" propertiesInQueryGrid="id data dataVencimento valor contrato convenioPagamento dataCancelamento " crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.financeiro.documento.pagamento.dinheiro.DocumentoDinheiro" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Geral" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id" readOnly="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica o Contrato com a pessoa relacionada a este documento" label="Contrato" name="contrato" required="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica se o documento foi uma receita ou despesa (entrada ou saída)" label="Transação" name="transacao"/>
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Valor" name="valor" required="true"/>
+    </group>
+    <group description="" hint="" label="Datas e vencimento" name="Datas">
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em que o documento foi criado" label="Data do documento" name="data"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em que vence o documento" label="Data de vencimento" name="dataVencimento"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em que foi realizada a última impressão deste documento" label="Data de impressão" name="dataImpressao"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data de cancelamento do documento" label="Data de cancelamento do documento" name="dataCancelamento"/>
+    </group>
+    <group description="" hint="" label="Controle" name="Controle">
+        <property xsi:type="PropertyEntityType" description="" hint="Indica em qual categoria este documento de pagamento se enquadra de acordo com as configurações atuais" label="Categoria do Documento de Pagamento" name="documentoPagamentoCategoria"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Configurações de controle de emissão e recebimento deste documento" label="Convênio" name="convenioPagamento"/>
+        <property xsi:type="PropertyNumericType" description="" hint="Identificador numérido do layout que é usado para imprimir este documento" label="Layout de impressão" name="layoutId"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Número do documento" name="numeroDocumento" visible="false"/>
+    </group>
+    <group description="" hint="" label="Lançamentos vinculados" name="Lancamentos">
+        <property xsi:type="PropertyEntityType" description="" hint="Indica quais lançamentos estão usando este documento como documento de pagamento previsto" label="Lancamentos" name="lancamentos"/>
+    </group>
+</entity>

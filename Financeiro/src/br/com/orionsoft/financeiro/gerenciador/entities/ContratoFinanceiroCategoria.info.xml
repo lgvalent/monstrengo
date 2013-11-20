@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" hint="" label="Categoria do Contrato Financeiro" name="ContratoFinanceiroCategoria" propertiesInQueryGrid="id nome diaVencimentoFatura" runQueryOnOpen="true" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.financeiro.gerenciador.entities.ContratoFinanceiroCategoria" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Geral" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id" readOnly="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="Define o nome da categoria de contrato" label="Nome" name="nome" required="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Permite definir algumas informações extras sobre a atual categoria de contrato. Como por exemplo, por que ela foi criada, qual tipo de contrato deverá utilizar esta categoria." label="Observações" name="observacoes" editShowEmbedded="true"/>
+        <property xsi:type="PropertyNumericType" description="" hint="Predefine o dia do vencimento dos documentos de cobrança que são gerados on line." label="Dia de vencimento do faturamento" name="diaVencimentoFatura"/>
+    </group>
+</entity>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" hint="" label="Parcela de lançamento" name="LancamentoParcela" propertiesInQueryGrid="numero dataLancamento dataVencimento valor documentoCobranca lancamentoMovimento lancamento id " crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.financeiro.gerenciador.entities.LancamentoParcela" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Geral" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Número" name="numero"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="" label="Data de Lançamento" name="dataLancamento"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="" label="Data de Vencimento" name="dataVencimento"/>
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Valor" name="valor"/>
+    </group>
+    <group description="" hint="" label="Detalhes" name="Detalhes">
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Lançamento" name="lancamento"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Documento de Cobrança" name="documentoCobranca"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica se esta parcela está quitada ou não, ou seja, possui algum movimento" label="Movimento de quitação" name="lancamentoMovimento"/>
+    </group>
+</entity>
