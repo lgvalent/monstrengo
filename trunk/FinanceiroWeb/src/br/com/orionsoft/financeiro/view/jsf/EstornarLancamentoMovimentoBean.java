@@ -115,6 +115,11 @@ public class EstornarLancamentoMovimentoBean extends BeanSessionBasic implements
 		return VIEW_NAME;
 	}
 
+	@Override
+    public String actionStart() {
+		return FACES_VIEW_ESTORNAR;
+    }
+
 	public String getRunnableEntityProcessName() {
 		return EstornarLancamentoMovimentoProcess.PROCESS_NAME;
 	}

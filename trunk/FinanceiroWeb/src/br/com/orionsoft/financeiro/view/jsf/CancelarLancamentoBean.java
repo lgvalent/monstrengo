@@ -115,6 +115,11 @@ public class CancelarLancamentoBean extends BeanSessionBasic implements IRunnabl
 		return VIEW_NAME;
 	}
 	
+    @Override
+    public String actionStart() {
+		return FACES_VIEW_CANCELAR;
+    }
+	
 	@SuppressWarnings("unchecked")
 	public String runWithEntities(IEntityList<?> entities) {
 		try {
