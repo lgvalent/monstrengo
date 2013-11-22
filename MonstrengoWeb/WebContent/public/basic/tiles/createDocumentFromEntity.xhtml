@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Uma variável 'entity' (IEntity) deve ser fornecida para esta visão -->
+<!-- USO
+		<ui:include src="/public/basic/tiles/createDocumentFromEntity.xhtml">
+            <ui:param name="entity" value="#{backBean.currentEntity}"/>
+		</ui:include>
+ -->
+<h:outputText styleClass="noprint"
+	value="Nenhum modelo de documento foi encontrado para #{entity.info.label}"
+	rendered="#{!documentEntityBean.hasModelsDocumentEntity(entity)}" />
+<h:outputText styleClass="noprint"
+	value="Você não possui privilégios para criar documentos de entidades"
+	rendered="#{!menuBean.processMap.CompileDocumentProcess}" />
+<h:panelGroup
+	rendered="#{menuBean.processMap.CompileDocumentProcess and documentEntityBean.hasModelsDocumentEntity(entity)}">
+	<h:panelGrid columns="2"
+		rendered="#{menuBean.processMap.CompileDocumentProcess}">
+		<h:graphicImage value="../../public/basic/img/document.png" style="border:0" />
+		<h:panelGroup>
+			<h:outputText
+				value="Para gerar um documento de &lt;i&gt;#{entity.info.label}&lt;/i&gt;, selecione o modelo de documento: "
+				escape="false" />
+			<br/>
+			<h:dataTable id="modelDocumentEntity"
+				value="#{documentEntityBean.getModelsDocumentEntity(entity)}"
+				var="itemModel">
+				<h:column>
+					<h:commandLink target="_blank" action="#{documentEntityBean.actionCompileFromEntity(entity.info.type.name, entity.id, itemModel.value)}">
+					<h:graphicImage value="../../public/basic/img/run_task.png" style="border:0" />
+					#{itemModel.label}
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:panelGroup>
+	</h:panelGrid>
+</h:panelGroup>
+</html>
