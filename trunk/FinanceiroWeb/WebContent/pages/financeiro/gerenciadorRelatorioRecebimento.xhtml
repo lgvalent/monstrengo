@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 		<ui:param name="title" value="#{menuBean.processInfoMap.ListarLancamentoProcess.label}" />
 		<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
 		<ui:param name="description" value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess.description}" />
@@ -20,7 +20,7 @@
 				<!-- Item de custo -->
 				<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.itemCusto.label}: "/>
 		 		<h:panelGrid columns="4">
-		 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+		 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 					<h:inputText id="itemCusto"
 						value="#{relatorioRecebimentoBean.process.itemCustoIdList}"
 						size="5" maxlength="5" rendered="true"
@@ -36,7 +36,7 @@
 				<!-- Escritório contábil -->
 				<h:outputLabel value="#{menuBean.infoMap.Juridica.propertiesMetadata.escritorioContabil.label}: "/>
 		 		<h:panelGrid columns="4">
-		 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+		 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 					<h:inputText id="escritorioContabil"
 						value="#{relatorioRecebimentoBean.process.escritorioContabilIdList}"
 						size="5" maxlength="5" rendered="true"
@@ -151,12 +151,12 @@
 		   		<h:panelGrid columns="5" styleClass="tableList">
 		   			<h:outputText value="CPF"/>
 			    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Fisica', document.getElementById('body:form:cpfCnpj').value, 'documento', document.getElementById('body:form:cpfCnpj'))" >
-						<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+						<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 				    </h:outputLink>
 		
 		   			<h:outputText value="/CNPJ" />
 			    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Juridica', document.getElementById('body:form:cpfCnpj').value, 'documento', document.getElementById('body:form:cpfCnpj'))" >
-						<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+						<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 				    </h:outputLink>
 		   			<h:outputText value=":" />
 		   		</h:panelGrid>

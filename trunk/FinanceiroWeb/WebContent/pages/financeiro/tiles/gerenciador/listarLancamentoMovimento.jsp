@@ -84,7 +84,7 @@
 			<%-- Centro custo --%>
 			<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.centroCusto.label}:"/>
 	 		<h:panelGrid columns="2">
-	 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+	 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="centroCustoId"
 					value="#{listarLancamentoMovimentoBean.process.centroCusto}"
 					size="5" maxlength="5"
@@ -98,7 +98,7 @@
 			<%-- Item custo --%>
 			<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.itemCusto.label}:"/>
 	 		<h:panelGrid columns="4" >
-	 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+	 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="itemCustoList"
 					value="#{listarLancamentoMovimentoBean.process.itemCustoIdList}"
 					size="5" maxlength="5" rendered="true"
@@ -142,9 +142,9 @@
 	
 				<h:column >
 					<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.LancamentoMovimento.type.name}', '#{item.id}')"  rendered="#{menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint">
-						<h:graphicImage value="../basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
+						<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
 					</h:outputLink>
-					<h:graphicImage value="../basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint"/>
+					<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint"/>
 				</h:column>
 				<h:column >
 					<f:facet name="header">

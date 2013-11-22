@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 		<ui:param name="title" value="#{menuBean.processInfoMap.TransferirProcess.label}" />
 		<ui:param name="icon" value="../financeiro/img/transfer.png" />
 		<ui:param name="description" value="#{menuBean.processInfoMap.TransferirProcess.description}" />
@@ -25,7 +25,7 @@
 		
 				<h:outputLabel value="Data"/>
 				<h:panelGroup>
-					<ui:include src="/pages/basic/tiles/calendar.xhtml">
+					<ui:include src="/public/basic/tiles/calendar.xhtml">
 			           <ui:param name="timeField" value="#{transferirBean.process.data.time}"/>
 					</ui:include>
 				</h:panelGroup>

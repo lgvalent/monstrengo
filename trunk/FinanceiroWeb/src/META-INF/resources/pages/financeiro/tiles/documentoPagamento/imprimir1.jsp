@@ -17,13 +17,13 @@
       			<h:outputText value="CPF"/>
 	    		<%-- link para CPF --%>
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Fisica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
 
       			<h:outputText value="/CNPJ" />
 	    		<%-- link para CNPJ --%>
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Juridica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
       			<h:outputText value=":" />
       	  </h:panelGrid>
@@ -61,14 +61,14 @@
 
       	  <h:outputText value="Escritório Contábil:" title="Informe o identificador de um Escritório Contábil."/>
 	  	  <h:panelGrid columns="2">
-			<h:graphicImage value="../basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 			<h:inputText value="#{imprimirDocumentosPagamentoBean.currentProcess.escritorioContabilId}" id="escritorioContabil" size="5" maxlength="5" required="true" title="Dê um clique na caixa de texto para abrir a pesquisa" styleClass="queryInputSelectOne" onblur="javascript: if(this.value=='')this.value='-1';" onclick="javascript:openSelectOneId('br.com.orionsoft.basic.entities.pessoa.EscritorioContabil',this.value,this)"/>
 	  	  </h:panelGrid>
        	  <h:message  styleClass="errorMessage" for="escritorioContabil" />
 
       	  <h:outputText value="Município:" title="Informe o identificador de um Município."/>
 	  	  <h:panelGrid columns="2">
-			<h:graphicImage value="../basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
       		<h:inputText value="#{imprimirDocumentosPagamentoBean.currentProcess.municipioId}" id="municipio" size="5" maxlength="5" rendered="true" title="Dê um clique na caixa de texto para abrir a pesquisa" styleClass="queryInputSelectOne" onblur="javascript: if(this.value=='')this.value='-1';" onclick="javascript:openSelectOneId('br.com.orionsoft.basic.entities.endereco.Municipio',this.value,this)"/>
 	  	  </h:panelGrid>
 	      <h:message   styleClass="errorMessage" for="municipio" />

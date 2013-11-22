@@ -8,7 +8,7 @@
                    
      Marcia                                                                
      ====================================================================== -->
-<project name="FinanceiroNew" default="make jar">
+<project name="Financeiro" default="make jar">
 
 	<property name="src" value="${basedir}/src" />
 	<property name="bin" value="${basedir}/bin" />

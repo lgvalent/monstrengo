@@ -13,7 +13,7 @@
 
 		<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.centroCusto.label}"/>
  		<h:panelGrid columns="4">
- 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+ 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 			<h:inputText id="centroCusto"
 				value="#{listarItemCustoBean.process.centroCustoIdList}"
 				size="5" maxlength="5" rendered="true"

@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="title" value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess.label}" />
 	<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
 	<ui:param name="description" value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess.description}" />
@@ -21,12 +21,12 @@
 	   		<h:panelGrid columns="5" styleClass="tableList" border="0">
 	   			<h:outputText value="CPF"/>
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Fisica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
 	
 	   			<h:outputText value="/CNPJ" />
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Juridica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
 	   			<h:outputText value=":" />
 	   		</h:panelGrid>
@@ -40,7 +40,7 @@
 
    			<h:outputText value="Pessoa"/>
 			<h:panelGroup id="pessoa">
-				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
     	    	   <ui:param name="paramEntity" value="#{listarPosicaoContratoBean.process.pessoa}"/>
 				</ui:include>
 			</h:panelGroup>
@@ -48,11 +48,11 @@
 			<h:outputLabel value="Data:"/>
 			<h:panelGroup>
 				<h:outputLabel value="de "/>
-				<ui:include src="/pages/basic/tiles/calendar.xhtml">
+				<ui:include src="/public/basic/tiles/calendar.xhtml">
            			<ui:param name="timeField" value="#{listarPosicaoContratoBean.process.dataInicial.time}" />
 				</ui:include>
 				<h:outputLabel value=" até "/>
-				<ui:include src="/pages/basic/tiles/calendar.xhtml">
+				<ui:include src="/public/basic/tiles/calendar.xhtml">
            			<ui:param name="timeField" value="#{listarPosicaoContratoBean.process.dataFinal.time}" />
 				</ui:include>
 			</h:panelGroup>
@@ -64,7 +64,7 @@
 	
    			<h:outputText value="Itens de Custos"/>
 			<h:panelGroup id="itemsCustoss">
-				<ui:include src="/pages/basic/tiles/processParamEntityListSuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntityListSuggest.xhtml">
     	    	   <ui:param name="paramEntityList" value="#{listarPosicaoContratoBean.process.itemCusto}"/>
 				</ui:include>
 				<h:selectBooleanCheckbox value="#{listarPosicaoContratoBean.process.itemCustoListNot}"/>
@@ -73,7 +73,7 @@
 
 			<h:outputLabel value="Contas:"/>
 			<h:panelGroup id="conta">
-				<ui:include src="/pages/basic/tiles/entityListSelect.xhtml">
+				<ui:include src="/public/basic/tiles/entityListSelect.xhtml">
            			<ui:param name="entityList" value="#{listarPosicaoContratoBean.process.contas}"/>
 				</ui:include>
 			</h:panelGroup>

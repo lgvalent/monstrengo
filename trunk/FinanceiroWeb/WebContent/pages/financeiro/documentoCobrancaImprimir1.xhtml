@@ -7,7 +7,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <!-- Esta página (imprimir1.jsp) obtem os parametros necessarios para o processo imprimirGrcsProcess -->
-<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="icon" value="../financeiro/img/imprimirDocumento_b.png" />
 	<ui:param name="title" value="#{menuBean.processInfoMap.ImprimirDocumentosCobrancaProcess.label}" />
 	<ui:param name="description" value="#{menuBean.processInfoMap.ImprimirDocumentosCobrancaProcess.description}" />
@@ -23,12 +23,12 @@
 			<h:panelGrid columns="5">
 				<h:outputText value="CPF"/>
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Fisica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
 
       			<h:outputText value="/CNPJ" />
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Juridica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
       			<h:outputText value=":" />
 			</h:panelGrid>
@@ -36,36 +36,26 @@
 			<h:message  styleClass="errorMessage" for="cpfCnpj" />
 
 			<h:outputText value="Data do documento:" title="Informe a data de emissão dos documentos a serem selecionados"/>
-			<h:panelGrid columns="5">
-	 			<h:inputText id="dataDocumentoDe" required="true" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataDocumentoDe.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
-					<f:convertDateTime locale="pt-BR" pattern="dd/MM/yyyy"/>
-				</h:inputText>
-			    <h:message  styleClass="errorMessage" for="dataDocumentoDe"/>
-				<h:outputText value=" ate "/>
-	 			<h:inputText id="dataDocumentoAte" required="true" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataDocumentoAte.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
-					<f:convertDateTime locale="pt-BR" pattern="dd/MM/yyyy"/>
-				</h:inputText>
-				<h:message  styleClass="errorMessage" for="dataDocumentoAte"/>
-			  </h:panelGrid>
-			  <h:outputText value=""/>
+			<h:panelGroup>
+				<ui:include src="/public/basic/tiles/calendars.xhtml">
+		           <ui:param name="timeFieldFrom" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataDocumentoDe.time}"/>
+		           <ui:param name="timeFieldTo" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataDocumentoAte.time}"/>
+				</ui:include>
+			</h:panelGroup>
+			<h:outputText value=""/>
 		  
      	  	<h:outputText value="Data de vencimento:" title="Informe a data de vencimento dos documentos a serem selecionados"/>
-			<h:panelGrid columns="5">
-		 		<h:inputText id="dataVencimentoDe" required="true" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataVencimentoDe.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
-					<f:convertDateTime locale="pt-BR" pattern="dd/MM/yyyy"/>
-				</h:inputText>
-			    <h:message  styleClass="errorMessage" for="dataVencimentoDe"/>
-				<h:outputText value=" até "/>
-	 			<h:inputText id="dataVencimentoAte" required="true" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataVencimentoAte.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
-					<f:convertDateTime locale="pt-BR" pattern="dd/MM/yyyy"/>
-				</h:inputText>
-				<h:message  styleClass="errorMessage" for="dataVencimentoAte"/>
-			</h:panelGrid>
+			<h:panelGroup>
+				<ui:include src="/public/basic/tiles/calendars.xhtml">
+		           <ui:param name="timeFieldFrom" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataVencimentoDe.time}"/>
+		           <ui:param name="timeFieldTo" value="#{imprimirDocumentosCobrancaBean.currentProcess.dataVencimentoAte.time}"/>
+				</ui:include>
+			</h:panelGroup>
 			<h:outputText value=""/>
 		  
 			<h:outputText value="Escritório Contábil:" title="Informe o identificador de um Escritório Contábil."/>
 			<h:panelGroup id="escritorioContabil">
-				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    		    	   <ui:param name="paramEntity" value="#{imprimirDocumentosCobrancaBean.currentProcess.paramEscritorioContabil}"/>
 				</ui:include>
 			</h:panelGroup>
@@ -73,7 +63,7 @@
 
 			<h:outputText value="Município:" title="Informe o identificador de um Município."/>
 			<h:panelGroup id="municipio">
-				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    		    	   <ui:param name="paramEntity" value="#{imprimirDocumentosCobrancaBean.currentProcess.paramMunicipio}"/>
 				</ui:include>
 			</h:panelGroup>

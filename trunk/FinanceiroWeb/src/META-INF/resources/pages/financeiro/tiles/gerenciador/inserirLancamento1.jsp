@@ -46,7 +46,7 @@
 	
 	 		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}"/>
 	 		<h:panelGrid columns="3">
-	 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+	 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="contrato"
 					value="#{inserirLancamentoBean.process.contrato.id}"
 					size="5" maxlength="5" rendered="true"
@@ -111,7 +111,7 @@
 						<h:outputLabel value="Item de custo"/>
 					</f:facet>
 					<h:panelGrid columns="2">
-			 			<h:graphicImage onclick="javascript:openSelectOneId('br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto','',document.getElementById('body:form:itemTable:0:itemCusto'))" value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+			 			<h:graphicImage onclick="javascript:openSelectOneId('br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto','',document.getElementById('body:form:itemTable:0:itemCusto'))" value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 						<h:selectOneMenu id="itemCusto" value="#{item.itemCusto.id}" styleClass="input">
 							<f:selectItems value="#{inserirLancamentoBean.process.listItemCusto}"/>
 						</h:selectOneMenu>
@@ -151,7 +151,7 @@
 				<h:column>
 					<h:panelGroup>
 						<h:commandLink action="#{inserirLancamentoBean.doRemoverItem}">
-							<h:graphicImage value="../basic/img/delete.png" title="Remover item da lista" style="border:0"/>
+							<h:graphicImage value="../../public/basic/img/delete.png" title="Remover item da lista" style="border:0"/>
 							<f:param name="itemNumero" value="#{item.id}"/>
 						</h:commandLink>
 						<a4j:support event="onchange" reRender="itemTable" ajaxSingle="false"/>
@@ -162,7 +162,7 @@
 	
 			<h:panelGroup>
 				<h:commandLink action="#{inserirLancamentoBean.doAdicionarItem}">
-					<h:graphicImage value="../basic/img/add.png" title="Adicionar item à lista" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/add.png" title="Adicionar item à lista" style="border:0"/>
 					<h:outputText value="Adicionar item" />
 				</h:commandLink>
 				<a4j:support event="onchange" reRender="itemTable" ajaxSingle="false"/>

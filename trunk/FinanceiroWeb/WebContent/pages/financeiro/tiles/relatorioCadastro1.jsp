@@ -57,12 +57,12 @@
 	   		<h:panelGrid columns="6" style="font: 12px">
 	   			<h:outputText value="CPF"/>
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Fisica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
 	
 	   			<h:outputText value="/CNPJ" />
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Juridica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
 	   			<h:outputText value=":" />
 				<h:panelGroup>
@@ -78,7 +78,7 @@
 					
 			<h:panelGroup>
 				<h:outputLabel value="Escritório contábil:"/>
-				<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+				<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="escritorioContabil"
 					value="#{relatorioCadastroBean.process.escritorioContabilId}"
 					size="5" maxlength="5" rendered="true"
@@ -94,7 +94,7 @@
 
 			<h:panelGroup>
 				<h:outputLabel value="Ramo de atividade:"/>
-				<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+				<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="cnae"
 					value="#{relatorioCadastroBean.process.cnaeId}"
 					size="5" maxlength="5" rendered="true"
@@ -110,7 +110,7 @@
 			
 			<h:panelGroup>
 				<h:outputLabel value="Representante:"/>
-				<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+				<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="representante"
 					value="#{relatorioCadastroBean.process.representanteId}"
 					size="5" maxlength="5" rendered="true"
@@ -126,7 +126,7 @@
 			
 			<h:panelGroup>
 				<h:outputLabel value="Cidade:"/>
-				<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+				<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="cidade"
 					value="#{relatorioCadastroBean.process.municipioId}"
 					size="5" maxlength="5" rendered="true"

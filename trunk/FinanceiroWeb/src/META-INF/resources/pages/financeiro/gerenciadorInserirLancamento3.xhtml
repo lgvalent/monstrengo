@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="title" value="#{menuBean.processInfoMap.InserirLancamentoProcess.label}" />
 	<ui:param name="icon" value="./img/documentoPagamento.png" />
 	<ui:param name="description" value="O documento de pagamento &lt;b&gt;previsto&lt;/b&gt; define o documento que será utilizado durante a quitação deste lançamento, seja ele de entrada ou de saída.&lt;br/&gt;Com isto, é possível emitir os documentos de pagamento mesmo antes da quitação efetiva do lançamento, pois este documento de pagamento será utilizado para a quitação no momento em que o operador registrar esta ação." />
@@ -106,20 +106,20 @@
             	        	</h:selectOneMenu>
 
 							<h:outputLink value="javascript:linkRetrieve('#{item.info.type.name}', '#{item.value.asEntity.id}')" rendered="#{not item.value.valueNull}">
-			   					<h:graphicImage value="../basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
+			   					<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
 							</h:outputLink>
 							<h:outputLink value="javascript:linkCreatePopup('#{item.info.type.name}')">
-			   					<h:graphicImage value="../basic/img/create.png" title="Cria um novo registro. Será necessário clicar em validar para atualizar a lista com o novo item" style="border:0"/>
+			   					<h:graphicImage value="../../public/basic/img/create.png" title="Cria um novo registro. Será necessário clicar em validar para atualizar a lista com o novo item" style="border:0"/>
 							</h:outputLink>
 							<h:outputLink value="javascript:document.forms[0].submit()">
-			   					<h:graphicImage value="../basic/img/reload.png" title="Recarrega a página e a lista de seleção" style="border:0"/>
+			   					<h:graphicImage value="../../public/basic/img/reload.png" title="Recarrega a página e a lista de seleção" style="border:0"/>
 							</h:outputLink>
 						</h:panelGroup>
 						<h:message for="selectSubClassInput" styleClass="errorMessage" />
 
 						<!-- Subclasse em por link -->
 						<h:panelGroup rendered="#{!item.info.editShowList and item.info.entity and !item.info.collection}">
-			   				<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+			   				<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 							<h:inputText id="idSubClassInput" value="#{item.value.id}" styleClass="queryInputSelectOne" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" required="#{item.info.required}" size="3" onclick="javascript:openSelectOneId('#{item.info.type.name}',this.value,this)" onkeypress="javascript:return checkKeyClick(this, event, KEY_OPEN_QUERY);"/>
 
 							<h:outputLink onclick="javascript:linkRetrieve('#{item.info.type.name}', '#{item.value.asEntity.id}')" rendered="#{not item.value.valueNull}">
@@ -133,7 +133,7 @@
 							<!-- Entidade -->
 						<h:panelGroup rendered="#{item.info.collection and item.info.entity}">
 							<h:outputLabel value="Para adicionar um novo item na lista de #{item.info.label}, pesquise o item aqui"/>
-			   				<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+			   				<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 							<h:inputText id="idCollInput" value="#{item.value.asEntityCollection.runId}" styleClass="queryInputSelectOne" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" size="3" onclick="javascript:openSelectOneId('#{item.info.type.name}',this.value,this)" onkeypress="javascript:return checkKeyClick(this, event, KEY_OPEN_QUERY);"/>
 							<h:outputLabel value=" e depois clique em "/>
 							<h:commandLink action="#{createBean.doAddToCollection}">
@@ -153,7 +153,7 @@
 
 							<h:column>
 					  			<h:commandLink action="#{createBean.doRemoveFromCollection}">
-									<h:graphicImage value="../basic/img/delete.png" title="Remove esta entidade da lista" style="border:0"/>
+									<h:graphicImage value="../../public/basic/img/delete.png" title="Remove esta entidade da lista" style="border:0"/>
 							     	<f:param name="collProperty" value="#{item.info.name}"/>
 							     	<f:param name="collItemId"   value="#{col.id}"/>
 								</h:commandLink>

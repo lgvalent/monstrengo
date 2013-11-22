@@ -5,34 +5,34 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/pages/basic/templates/mainMenu.xhtml">
+<ui:composition template="/public/basic/templates/mainMenu.xhtml">
 	<ui:param name="title" value="Monstrengo Framework" />
 	<ui:param name="logo" value="./img/header.jpg" />
 	<ui:define name="menu">
 		<p:submenu label="Cadastros" icon="ui-icon-contact"  >
 			<p:menuitem>
-					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+					    <ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ContratoFinanceiro}"/>
 						</ui:include><br/>
-					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+					    <ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ContratoFinanceiroCategoria}"/>
 						</ui:include><br/>
-						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.CentroCusto}"/>
 						</ui:include><br/>
-						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.Conta}"/>
 						</ui:include><br/>
-						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ItemCusto}"/>
 						</ui:include><br/>
-					    <ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+					    <ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.Lancamento}"/>
 						</ui:include><br/>
-						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 							<ui:param name="entityMetadata" value="#{menuBean.infoMap.Fisica}" />
 						</ui:include><br />
-						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 							<ui:param name="entityMetadata"	value="#{menuBean.infoMap.Juridica}" />
 						</ui:include>
 			</p:menuitem>

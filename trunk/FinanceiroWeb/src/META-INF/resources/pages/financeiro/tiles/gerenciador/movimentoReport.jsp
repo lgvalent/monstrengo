@@ -4,7 +4,7 @@
 
 	<h:panelGrid columns="3">
 		<h:panelGrid>
-    	<h:graphicImage value="../basic/img/header.gif" title="Financeiro" style="border:0"/>
+    	<h:graphicImage value="../../public/basic/img/header.gif" title="Financeiro" style="border:0"/>
 		</h:panelGrid>	
 
 		<h:panelGrid styleClass="reportHeader">
