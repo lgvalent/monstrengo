@@ -687,7 +687,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 								doc.setValorDocumento(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_TITULO));
 								doc.setMensagem(message.getMessage());
 
-								tituloJaRetornadoValorTotal = tituloJaRetornadoValorTotal.add(oTitulo.getValorPago());
+								tituloJaRetornadoValorTotal = tituloJaRetornadoValorTotal.add(oTitulo.getValor());
 								tituloJaRetornadoList.add(message);
 							}else{
 								/* Antes de ser atualizado, o título recebe a ocorrência correspondente ao retorno com sucesso (ver Ocorrencia.java) */
