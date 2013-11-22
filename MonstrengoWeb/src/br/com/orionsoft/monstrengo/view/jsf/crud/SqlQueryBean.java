@@ -3,7 +3,6 @@ package br.com.orionsoft.monstrengo.view.jsf.crud;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import br.com.orionsoft.financeiro.documento.cobranca.processes.ImprimirDocumentoCobrancaProcess;
 import br.com.orionsoft.monstrengo.auditorship.entities.AuditProcessRegister;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
@@ -98,7 +97,7 @@ public class SqlQueryBean extends BeanSessionBasic implements IRunnableProcessVi
 	}
 
 	public String getRunnableEntityProcessName() {
-		return ImprimirDocumentoCobrancaProcess.PROCESS_NAME;
+		return SqlQueryProcess.PROCESS_NAME;
 	}
 
 	public String runWithEntity(IEntity<?> entity) {

@@ -255,5 +255,5 @@ public class MenuBean extends BeanSessionBasic
 		
 		return result;
 	}
-
+	
 }

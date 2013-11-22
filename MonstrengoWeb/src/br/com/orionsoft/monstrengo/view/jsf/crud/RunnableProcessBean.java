@@ -30,6 +30,8 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 @SessionScoped
 public class RunnableProcessBean extends BasicBean
 {
+	private static final long serialVersionUID = 1L;
+
 	/*
 	 * INICIO Controle de RunnableEntitiesProcess
 	 */
@@ -140,6 +142,19 @@ public class RunnableProcessBean extends BasicBean
 		return FacesUtils.FACES_VIEW_FAILURE;
 	}
 
+	/**
+	 * Retorna o caminho da página do processo.
+	 * Na prática ele substitui o '?' por '.xhtml?' no START_VIEW
+	 * @param processName
+	 * @return
+	 * @throws BusinessException
+	 * @throws Exception
+	 */
+	public String getProcessViewUrl(String processName) throws BusinessException, Exception{
+		return actionOpenProcessView(processName).replace("?", ".xhtml?");
+
+	}
+
 	@Override
 	public Map getRequestParams() {
 		// TODO Auto-generated method stub
@@ -157,6 +172,5 @@ public class RunnableProcessBean extends BasicBean
 		// TODO Auto-generated method stub
 
 	}
-
-
+	
 }
