@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:include src="/pages/basic/tiles/head.xhtml">
+<ui:include src="/public/basic/tiles/head.xhtml">
      <ui:param name="pageTitle" value="Edição:#{updateBean.currentEntity}"/>
 </ui:include>
 
@@ -94,7 +94,7 @@
 							<h:column id="values">
 								<h:panelGroup
 									rendered="#{item.info.visible and !item.info.readOnly}">
-									<ui:include src="/pages/basic/tiles/updatePropertyRoot.xhtml">
+									<ui:include src="/public/basic/tiles/updatePropertyRoot.xhtml">
 										<ui:param name="property" value="#{item}" />
 									</ui:include>
 								</h:panelGroup>

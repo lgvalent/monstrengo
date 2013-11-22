@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:include src="/pages/basic/tiles/head.xhtml">
+<ui:include src="/public/basic/tiles/head.xhtml">
     <ui:param name="pageTitle" value="Controle de etiquetas"/>
 </ui:include>
 <h:body>
@@ -14,16 +14,16 @@
 		<p:layoutUnit position="west" resizable="true" size="200"
 			minSize="100" maxSize="200">
 
-			<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+			<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				<ui:param name="entityMetadata" value="#{menuBean.infoMap.AddressLabel}" />
 			</ui:include><br/>
-			<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+			<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				<ui:param name="entityMetadata" value="#{menuBean.infoMap.AddressLabelGroup}" />
 			</ui:include><br/>
-			<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+			<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				<ui:param name="entityMetadata" value="#{menuBean.infoMap.ModelLabel}" />
 			</ui:include><br/>
-			<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+			<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				<ui:param name="entityMetadata" value="#{menuBean.infoMap.ModelLabelEntity}" />
 			</ui:include>
 		</p:layoutUnit>
@@ -153,10 +153,10 @@
 							<h:outputLink
 								value="javascript:linkRetrieve('#{item.object.class.name}', '#{item.id}')"
 								rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
-								<h:graphicImage value="../basic/img/retrieve.png"
+								<h:graphicImage value="../../public/basic/img/retrieve.png"
 									title="Visualiza os detalhes do registro" style="border:0" />
 							</h:outputLink>
-							<h:graphicImage value="../basic/img/retrieve_d.png"
+							<h:graphicImage value="../../public/basic/img/retrieve_d.png"
 								title="Você não possui direitos para visualizar os dados do registro"
 								style="border:0"
 								rendered="#{!menuBean.crudMap.AddressLabel.canRetrieve}" />

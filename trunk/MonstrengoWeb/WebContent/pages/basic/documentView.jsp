@@ -7,11 +7,11 @@
  	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
  	<meta name="SHORTCUT Á ICON" content="http://hp.msn.com/global/c/shs/favicon.ico" />
  	<title>Pré-Visualização de documento - <h:outputText value="#{documentEntityBean.resultDocumentEntityName}"/></title>
- 	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css" />
+ 	<link href="../../public/basic/css/styles.css" rel="stylesheet" type="text/css" />
  	
-	<script type="javaScript" src="../basic/js/linkTool.js"></script>
-	<script type="javaScript" src="../basic/js/interface.js"></script>
-	<script type="javaScript" src="../basic/js/utils.js"></script>
+	<script type="javaScript" src="../../public/basic/js/linkTool.js"></script>
+	<script type="javaScript" src="../../public/basic/js/interface.js"></script>
+	<script type="javaScript" src="../../public/basic/js/utils.js"></script>
 	<script type="javaScript">
 			var borderCreator = new BorderCreator('');
 			var gridCreator = new GridCreator();
@@ -84,5 +84,5 @@
 
 <tiles:insert definition=".emptyLayout">
 	<tiles:put name="title" value="Visualização de documento de entidade"/>
-	<tiles:put name="body" value="../basic/tiles/document/view.jsp"/>
+	<tiles:put name="body" value="../../public/basic/tiles/document/view.jsp"/>
 </tiles:insert> --%>
