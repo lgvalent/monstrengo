@@ -42,7 +42,7 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 public class UserSessionBean
 {
     /** Define a view JSF do login do operador */
-	public static final String FACES_VIEW_LOGIN = "/login/login?faces-redirect=true";
+	public static final String FACES_VIEW_LOGIN = "/public/login/login?faces-redirect=true";
 
 	@ManagedProperty(value="#{applicationBean}")
 	private ApplicationBean applicationBean;

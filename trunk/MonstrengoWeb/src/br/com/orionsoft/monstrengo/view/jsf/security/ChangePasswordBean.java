@@ -19,7 +19,7 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 public class ChangePasswordBean extends BeanSessionBasic
 {
 	/** Define a view JSF que é ativada para a visão QUERY */
-	public static final String FACES_VIEW = "/pages/basic/securityChangePassword?faces-redirect=true";
+	public static final String FACES_VIEW = "/pages/admin/securityChangePassword?faces-redirect=true";
 	
     private String currentPassword;
     private String newPassword;
