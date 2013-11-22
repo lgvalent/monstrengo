@@ -5,23 +5,24 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/pages/basic/templates/mainMenu.xhtml">
+<ui:composition template="/public/basic/templates/mainMenu.xhtml">
 	<ui:param name="title" value="Monstrengo Framework" />
-	<ui:param name="logo" value="../../login/img/logo.png" />
+	<ui:param name="logo" value="../../logo.png" />
+	<ui:param name="bodyPage" value="../../public/basic/tiles/emptyFrame.xhtml" />
 	<ui:define name="menu">
 		<p:submenu label="Cadastros" icon="ui-icon-contact">
 			<p:menuitem>
-				<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 					<ui:param name="entityMetadata"
 						value="#{menuBean.infoMap.ApplicationUser}" />
 				</ui:include>
 				<br />
-				<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+				<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 					<ui:param name="entityMetadata"
 						value="#{menuBean.infoMap.SecurityGroup}" />
 				</ui:include>
 			</p:menuitem>
-			<p:menuitem value="(Todos)" icon="ui-icon-newwin" url="../basic/menu.jsp" target="ALVO" />
+			<p:menuitem value="(Todos)" icon="ui-icon-newwin" url="../basic/menu.xhtml" target="ALVO" />
 			<p:menuitem value="Últimas visualizações" url="../basic/lastEntityViews.xhtml" target="ALVO" />
 		</p:submenu>
 	</ui:define>

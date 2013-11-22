@@ -9,7 +9,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 	<title>Operação realizada com sucesso</title>
 	<link href="styles.css" rel="stylesheet" type="text/css" />
-	<script language="javaScript" src="../basic/js/interface.js"></script>
+	<script language="javaScript" src="../../public/basic/js/interface.js"></script>
 	<script language="javaScript">
 			var borderCreator = new BorderCreator('');
 			var gridCreator = new GridCreator();
@@ -20,7 +20,7 @@
 		<p:messages layout="table" showSummary="false" showDetail="true" id="failure" tooltip="true" />
 	</div>
 	<h:panelGrid columns="2">
-		<h:graphicImage value="../basic/img/success.png" style="border:0" />
+		<h:graphicImage value="../../public/basic/img/success.png" style="border:0" />
 		<h:outputText styleClass="errorMessage" value="#{messagesBean.firstMessageSummary}" escape="false" />
 	</h:panelGrid>
 	<h:panelGrid rendered="false">
@@ -46,7 +46,7 @@
 	<h:panelGrid columns="3">
 		<h:outputLink value="javascript:history.back()">
 			<h:panelGrid style="text-align:center;">
-				<h:graphicImage value="../basic/img/voltar.png" title="Voltar"
+				<h:graphicImage value="../../public/basic/img/voltar.png" title="Voltar"
 					style="border:0" />
 				<h:outputText value="Voltar" style="font-size:small"/>
 			</h:panelGrid>
@@ -55,7 +55,7 @@
 
 		<h:outputLink value="javascript:print()">
 			<h:panelGrid style="text-align:center;">
-				<h:graphicImage value="../basic/img/printer.png" title="Imprimir"
+				<h:graphicImage value="../../public/basic/img/printer.png" title="Imprimir"
 					style="border:0" />
 				<h:outputText value="Imprimir esta mensagem" style="font-size:small" />
 			</h:panelGrid>
@@ -63,7 +63,7 @@
 
 		<h:outputLink value="javascript:window.parent.focus();window.close();">
 			<h:panelGrid style="text-align:center;">
-				<h:graphicImage value="../basic/img/close_b.png"
+				<h:graphicImage value="../../public/basic/img/close_b.png"
 					title="Fecha esta mensagem" style="border:0" />
 				<h:outputText value="Fechar" style="font-size:small"/>
 			</h:panelGrid>

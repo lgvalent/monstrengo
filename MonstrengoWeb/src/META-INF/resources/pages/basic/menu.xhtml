@@ -5,29 +5,28 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:include src="/pages/basic/tiles/head.xhtml">
-     <ui:param name="pageTitle" value="Cadastro"/>
-</ui:include>
-<h:body onload="javascript:placeFocus()">
-	<h:form id="suggest">
-		<p:focus context="suggest" />
-		<ui:include src="/pages/basic/tiles/findProcess.xhtml"></ui:include>
-		<br />
-		<ui:include src="/pages/basic/tiles/findEntity.xhtml"></ui:include>
-		<!--  <br /> <ui:include src="/pages/basic/tiles/findProcessAndEntity.xhtml"></ui:include> -->
-		<hr />
-	</h:form>
-	<h:form id="formList">
-		<h:messages />
-		<p:dataTable value="#{menuBean.infoList}" var="item"
-			styleClass="tableView" rowClasses="tableViewRowEven,tableViewRowOdd"
-			style="widht:100%">
-			<p:column>
-				<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
-					<ui:param name="entityMetadata" value="#{item}" />
-				</ui:include>
-			</p:column>
-		</p:dataTable>
-	</h:form>
-</h:body>
+	<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
+		<ui:param name="title" value="Cadastros do sistema" />
+		<ui:param name="icon" value="../../public/basic/img/menu_cadastro.png" />
+		<ui:param name="description" value="Abaixo são listados todos os cadastros disponíveis no sistema.&lt;br/>Clique na lupa para pesquisar um cadastros específico ou na folha em branco para criar um novo registro.&lt;br/>Alguns cadastros são de controle do sistema e não podem ser manipulados." />
+		
+		<ui:define name="content">
+			<ui:include src="/public/basic/tiles/findEntity.xhtml"></ui:include> 
+			<p:dataTable value="#{menuBean.infoList}" var="item"
+				styleClass="tableView" rowClasses="tableViewRowEven,tableViewRowOdd"
+				style="widht:100%">
+				<p:column>
+					<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:param name="entityMetadata" value="#{item}" />
+					</ui:include>
+				</p:column>
+			</p:dataTable>
+		</ui:define>
+	
+		<ui:define name="actions">
+		</ui:define>
+	
+		<ui:define name="result">
+		</ui:define>
+	</ui:composition>
 </html>

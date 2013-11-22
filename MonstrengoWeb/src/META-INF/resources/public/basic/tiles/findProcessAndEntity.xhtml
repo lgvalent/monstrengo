@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<p:autoComplete id="autoCompleteProcessAndEntity" minQueryLength="3"
+	completeMethod="#{menuBean.findProcessAndEntity}"
+	var="processAndEntity" widgetVar="autoCompleteProcessAndEntity" size="50"
+	immediate="true" scrollHeight="400">
+	<p:column>
+		<h:panelGroup rendered="#{processAndEntity.getClass().getSimpleName().equals('ApplicationProcess')}">
+		<ui:include src="/public/basic/tiles/linkRunProcess.xhtml">
+		      <ui:param name="process" value="#{processAndEntity}"/>
+		</ui:include>
+		</h:panelGroup>
+
+		<h:panelGroup rendered="#{!processAndEntity.getClass().getSimpleName().equals('ApplicationProcess')}">
+			<h:outputLink value="javascript:linkCreatePopup('#{processAndEntity.type.name}')">
+				<h:graphicImage value="../../public/basic/img/create.png"
+					title="Criar novo registro de #{processAndEntity.label}" style="border:0" />
+			</h:outputLink>
+			<h:outputLink value="javascript:linkQuery('#{processAndEntity.type.name}')">
+				<h:graphicImage value="../../public/basic/img/query.png"
+					title="Abrir pesquisa de #{processAndEntity.label}" style="border:0" />
+				<h:outputText value="#{processAndEntity.label}" />
+			</h:outputLink>
+			<h:outputText value="&lt;br&gt;&nbsp;&nbsp; #{processAndEntity.description}"
+				styleClass="description" escape="false" />
+		</h:panelGroup>
+
+
+	</p:column>
+</p:autoComplete>
+<p:watermark for="autoCompleteProcessAndEntity" value="Busque algo que deseja executar" />
+
+</html>

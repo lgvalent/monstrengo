@@ -8,16 +8,16 @@
 <h:head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>Criar um novo regitro</title>
-	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+	<link href="../../public/basic/css/styles.css" rel="stylesheet" type="text/css"
 		media="screen" />
-	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+	<link href="../../public/basic/css/stylesPrint.css" rel="stylesheet"
 		type="text/css" media="print" />
-	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+	<link href="../../public/basic/js/border/niftyCorners.css" rel="stylesheet"
 		type="text/css" />
 
-	<script language="javaScript" src="../basic/js/linkTool.js"></script>
-	<script language="javaScript" src="../basic/js/interface.js"></script>
-	<script language="javaScript" src="../basic/js/utils.js"></script>
+	<script language="javaScript" src="../../public/basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../../public/basic/js/interface.js"></script>
+	<script language="javaScript" src="../../public/basic/js/utils.js"></script>
 </h:head>
 <h:body>
 
@@ -192,17 +192,17 @@
 									<h:outputLink
 										value="javascript:linkRetrieve('#{item.info.type.name}', '#{item.value.asEntity.id}')"
 										rendered="#{not item.value.valueNull}">
-										<h:graphicImage value="../basic/img/retrieve.png"
+										<h:graphicImage value="../../public/basic/img/retrieve.png"
 											title="Visualiza os detalhes do registro" style="border:0" />
 									</h:outputLink>
 									<h:outputLink
 										value="javascript:linkCreatePopup('#{item.info.type.name}')">
-										<h:graphicImage value="../basic/img/create.png"
+										<h:graphicImage value="../../public/basic/img/create.png"
 											title="Cria um novo registro na lista. Será necessário clicar em validar para atualizar a lista com o novo item"
 											style="border:0" />
 									</h:outputLink>
 									<h:outputLink value="javascript:document.forms[0].submit()">
-										<h:graphicImage value="../basic/img/reload.png"
+										<h:graphicImage value="../../public/basic/img/reload.png"
 											title="Recarrega a página e a lista de seleção"
 											style="border:0" />
 									</h:outputLink>
@@ -215,7 +215,7 @@
 									<!-- Subclasse em por link -->
 									<h:panelGroup rendered="#{!item.info.editShowEmbedded}">
 										<ui:include
-											src="/pages/basic/tiles/updatePropertyEntity.xhtml">
+											src="/public/basic/tiles/updatePropertyEntity.xhtml">
 											<ui:param name="property" value="#{item}" />
 										</ui:include>
 									</h:panelGroup>
@@ -386,18 +386,18 @@
 													<h:outputLink
 														value="javascript:linkRetrieve('#{itemOneToOne.info.type.name}', '#{itemOneToOne.value.asEntity.id}')"
 														rendered="#{not itemOneToOne.value.valueNull}">
-														<h:graphicImage value="../basic/img/retrieve.png"
+														<h:graphicImage value="../../public/basic/img/retrieve.png"
 															title="Visualiza os detalhes do registro"
 															style="border:0" />
 													</h:outputLink>
 													<h:outputLink
 														value="javascript:linkCreatePopup('#{itemOneToOne.info.type.name}')">
-														<h:graphicImage value="../basic/img/create.png"
+														<h:graphicImage value="../../public/basic/img/create.png"
 															title="Cria um novo registro na lista. Será necessário clicar em validar para atualizar a lista com o novo item"
 															style="border:0" />
 													</h:outputLink>
 													<h:outputLink value="javascript:document.forms[0].submit()">
-														<h:graphicImage value="../basic/img/reload.png"
+														<h:graphicImage value="../../public/basic/img/reload.png"
 															title="Recarrega a página e a lista de seleção"
 															style="border:0" />
 													</h:outputLink>
@@ -409,7 +409,7 @@
 												<h:panelGroup
 													rendered="#{!itemOneToOne.info.editShowList and itemOneToOne.info.entity and !itemOneToOne.info.collection}">
 													<ui:include
-														src="/pages/basic/tiles/updatePropertyEntity.xhtml">
+														src="/public/basic/tiles/updatePropertyEntity.xhtml">
 														<ui:param name="property" value="#{itemOneToOne}" />
 													</ui:include>
 												</h:panelGroup>
@@ -423,7 +423,7 @@
 													<h:outputLabel
 														value="Para adicionar um novo item na lista de #{itemOneToOne.info.label}, pesquise o item e pressione o botão para adicionar." />
 													<ui:include
-														src="/pages/basic/tiles/updatePropertyEntityCollection.xhtml">
+														src="/public/basic/tiles/updatePropertyEntityCollection.xhtml">
 														<ui:param name="property" value="#{itemOneToOne}" />
 													</ui:include>
 												</h:panelGroup>
@@ -438,12 +438,12 @@
 													</h:selectOneMenu>
 													<h:outputLink
 														value="javascript:linkCreatePopup('#{itemOneToOne.info.type.name}')">
-														<h:graphicImage value="../basic/img/create.png"
+														<h:graphicImage value="../../public/basic/img/create.png"
 															title="Cria um novo registro na lista. Será necessário clicar em validar para atualizar a lista com o novo item"
 															style="border:0" />
 													</h:outputLink>
 													<h:outputLink value="javascript:document.forms[0].submit()">
-														<h:graphicImage value="../basic/img/reload.png"
+														<h:graphicImage value="../../public/basic/img/reload.png"
 															title="Recarrega a página e a lista de seleção"
 															style="border:0" />
 													</h:outputLink>
@@ -465,7 +465,7 @@
 
 													<p:column>
 														<p:commandLink ajax="false">
-															<h:graphicImage value="../basic/img/delete.png"
+															<h:graphicImage value="../../public/basic/img/delete.png"
 																title="Remove este elemento da lista" style="border:0" />
 															<p:collector value="#{col}"
 															removeFrom="#{itemOneToOne.value.asEntityCollection.collection}" />
@@ -499,7 +499,7 @@
 									<h:outputLabel
 										value="Para adicionar um novo item na lista de #{item.info.label}, pesquise o item e pressione o botão adicionar." />
 									<ui:include
-										src="/pages/basic/tiles/updatePropertyEntityCollection.xhtml">
+										src="/public/basic/tiles/updatePropertyEntityCollection.xhtml">
 										<ui:param name="property" value="#{item}" />
 									</ui:include>
 								</h:panelGroup>
@@ -514,12 +514,12 @@
 									</h:selectOneMenu>
 									<h:outputLink
 										value="javascript:linkCreatePopup('#{item.info.type.name}')">
-										<h:graphicImage value="../basic/img/create.png"
+										<h:graphicImage value="../../public/basic/img/create.png"
 											title="Cria um novo registro na lista. Será necessário clicar em validar para atualizar a lista com o novo item"
 											style="border:0" />
 									</h:outputLink>
 									<h:outputLink value="javascript:document.forms[0].submit()">
-										<h:graphicImage value="../basic/img/reload.png"
+										<h:graphicImage value="../../public/basic/img/reload.png"
 											title="Recarrega a página e a lista de seleção"
 											style="border:0" />
 									</h:outputLink>
@@ -692,18 +692,18 @@
 													<h:outputLink
 														value="javascript:linkRetrieve('#{itemOneToMany.info.type.name}', '#{itemOneToMany.value.asEntity.id}')"
 														rendered="#{not itemOneToMany.value.valueNull}">
-														<h:graphicImage value="../basic/img/retrieve.png"
+														<h:graphicImage value="../../public/basic/img/retrieve.png"
 															title="Visualiza os detalhes do registro"
 															style="border:0" />
 													</h:outputLink>
 													<h:outputLink
 														value="javascript:linkCreatePopup('#{itemOneToMany.info.type.name}')">
-														<h:graphicImage value="../basic/img/create.png"
+														<h:graphicImage value="../../public/basic/img/create.png"
 															title="Cria um novo registro na lista. Será necessário clicar em validar para atualizar a lista com o novo item"
 															style="border:0" />
 													</h:outputLink>
 													<h:outputLink value="javascript:document.forms[0].submit()">
-														<h:graphicImage value="../basic/img/reload.png"
+														<h:graphicImage value="../../public/basic/img/reload.png"
 															title="Recarrega a página e a lista de seleção"
 															style="border:0" />
 													</h:outputLink>
@@ -724,7 +724,7 @@
 														onkeypress="javascript:return checkKeyClick(this, event, KEY_OPEN_QUERY);"
 														style="text-align:right;"
 														onblur="javascript: if(!isNumber(this.value))this.value='';" />
-													<h:graphicImage value="../basic/img/query_open_select.png"
+													<h:graphicImage value="../../public/basic/img/query_open_select.png"
 														title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa"
 														style="border:0" />
 													<h:outputLink
@@ -751,7 +751,7 @@
 													<h:outputLabel
 														value="Para adicionar um novo item na lista de #{itemOneToMany.info.label}, pesquise o item e pressionar o botão adicionar." />
 														<ui:include
-															src="/pages/basic/tiles/updatePropertyEntityCollection.xhtml">
+															src="/public/basic/tiles/updatePropertyEntityCollection.xhtml">
 															<ui:param name="property" value="#{itemOneToMany}" />
 														</ui:include>
 												</h:panelGroup>
@@ -766,7 +766,7 @@
 
 													<p:column>
 														<p:commandLink ajax="false">
-															<h:graphicImage value="../basic/img/delete.png"
+															<h:graphicImage value="../../public/basic/img/delete.png"
 																title="Remove este elemento da lista" style="border:0" />
 															<p:collector value="#{col}"
 															removeFrom="#{itemOneToMany.value.asEntityCollection.collection}" />
@@ -803,7 +803,7 @@
 
 									<p:column>
 										<p:commandLink ajax="false">
-											<h:graphicImage value="../basic/img/delete.png"
+											<h:graphicImage value="../../public/basic/img/delete.png"
 												title="Remove este elemento da lista" style="border:0" />
 											<p:collector value="#{col}"
 											removeFrom="#{item.value.asEntityCollection.collection}" />

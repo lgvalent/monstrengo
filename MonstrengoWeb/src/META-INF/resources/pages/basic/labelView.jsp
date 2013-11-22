@@ -4,7 +4,7 @@
 
 <tiles:insert definition=".mainLayout">
 	<tiles:put name="title" value="Controle de Etiquetas"/>
-	<tiles:put name="img" value="../basic/img/label.png"/>
-	<tiles:put name="sider" value="../basic/tiles/label/menu.jsp"/>
-	<tiles:put name="body" value="../basic/tiles/label/view.jsp"/>
+	<tiles:put name="img" value="../../public/basic/img/label.png"/>
+	<tiles:put name="sider" value="/pages/basic/tiles/label/menu.jsp"/>
+	<tiles:put name="body" value="/pages/basic/tiles/label/view.jsp"/>
 </tiles:insert>

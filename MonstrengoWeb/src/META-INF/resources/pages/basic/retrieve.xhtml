@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:include src="/pages/basic/tiles/head.xhtml">
+<ui:include src="/public/basic/tiles/head.xhtml">
      <ui:param name="pageTitle" value="Visualização"/>
 </ui:include>
 <h:body>
@@ -32,7 +32,7 @@
 			<h:outputText value="#{retrieveBean.currentEntity.info.description}" escape="false"/> 
 		</span>
 
-		<ui:include src="/pages/basic/tiles/showEntity.xhtml">
+		<ui:include src="/public/basic/tiles/showEntity.xhtml">
 			<ui:param name="entity" value="#{retrieveBean.currentEntity}" />
 		</ui:include>
 		<f:facet name="header">
@@ -59,19 +59,19 @@
 				<p:commandButton id="btnDocument" value="Documentos" styleClass="noprint" />
 
 				<p:overlayPanel for="btnProcess" >
-					<ui:include src="/pages/basic/tiles/runRunnableProcessFromEntity.xhtml">
+					<ui:include src="/public/basic/tiles/runRunnableProcessFromEntity.xhtml">
 						<ui:param name="entity" value="#{retrieveBean.currentEntity}" />
 					</ui:include>
 				</p:overlayPanel>
 				
 				<p:overlayPanel for="btnLabel">
-					<ui:include src="/pages/basic/tiles/createLabelFromEntity.xhtml">
+					<ui:include src="/public/basic/tiles/createLabelFromEntity.xhtml">
 						<ui:param name="entity" value="#{retrieveBean.currentEntity}" />
 					</ui:include>
 				</p:overlayPanel>
 
 				<p:overlayPanel for="btnDocument">
-					<ui:include src="/pages/basic/tiles/createDocumentFromEntity.xhtml">
+					<ui:include src="/public/basic/tiles/createDocumentFromEntity.xhtml">
 						<ui:param name="entity" value="#{retrieveBean.currentEntity}" />
 					</ui:include>
 				</p:overlayPanel>
