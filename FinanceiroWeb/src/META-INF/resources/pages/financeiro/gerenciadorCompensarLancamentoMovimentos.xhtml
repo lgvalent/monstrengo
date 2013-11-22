@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
+	<ui:param name="title" value="#{menuBean.processInfoMap.CompensarLancamentoMovimentosProcess.label}" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.CompensarLancamentoMovimentosProcess.description}" />
+	<ui:param name="icon" value="../financeiro/img/quitar.png" />
+	<ui:define name="content">
+		<p:dataTable id="tableMovimentos"
+		  			 border="1" 
+		             value="#{compensarLancamentoMovimentosBean.process.lancamentoMovimentos.list}" 
+		             var='item'
+		             headerClass="tableListHeader"
+		             footerClass="tableListFooter"
+		             styleClass="tableList"
+		             rowClasses="tableListRowEven,tableListRowOdd"
+		             columnClasses="tableListColumnRight, tableListColumn, tableListColumn, tableListColumn, tableListColumn, tableListColumnRight"
+		             style="border-collapse: collapse"
+		             width="100%">
+				<p:column>
+					<p:selectBooleanCheckbox id="myCheck" value="#{item.selected}">
+						<p:ajax event="change" update="tableMovimentos"/>
+					</p:selectBooleanCheckbox>
+					
+					<f:facet name="footer">
+						<h:outputText value="#{compensarLancamentoMovimentosBean.process.valorTotalCompensacaoSelecionada}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+					
+				</p:column>
+
+				<p:column headerText="Conta" sortBy="#{item.object.conta.nome}">
+					<h:outputText value="#{item.object.conta}"/>
+				</p:column>
+
+				<p:column headerText="Quitação" sortBy="#{item.object.data.time}">
+					<h:outputText value="#{item.object.data.time}">
+						<f:convertDateTime locale="pt_BR"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Movimento">
+					<h:outputText value="#{item.object.lancamento.descricao}"/>
+				</p:column>
+				<p:column headerText="Documento de pagamento" sortBy="#{item.object.documentoPagamento.numeroDocumento}">
+					<h:outputText value="#{item.object.documentoPagamento}"/>
+				</p:column>
+
+				<p:column headerText="Total" sortBy="#{item.propertiesMap.valorTotal.value.asBigDecimal}" style="text-align: right;">
+					<f:facet name="footer">
+						<h:outputText value="#{compensarLancamentoMovimentosBean.process.valorTotalCompensacao}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</f:facet>
+
+					<h:outputText id="total" value="#{item.propertiesMap.valorTotal.value.asBigDecimal}">
+							<f:convertNumber type="currency"/>
+					</h:outputText>
+					<h:message styleClass="errorMessage" for="total"/>
+				</p:column>
+			</p:dataTable>
+			
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Data da compensação"/>
+		<h:panelGroup>
+			<ui:include src="/public/basic/tiles/calendar.xhtml">
+	    	    <ui:param name="timeField" value="#{compensarLancamentoMovimentosBean.process.dataCompensacao.time}"/>
+			</ui:include>
+		</h:panelGroup>
+	</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="actions">
+			<h:commandButton value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+			<h:commandButton value="Confirmar" action="#{compensarLancamentoMovimentosBean.doCompensar}"/>
+	</ui:define>
+</ui:composition>
+</html>
+	

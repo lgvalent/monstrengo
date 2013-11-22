@@ -23,7 +23,7 @@
 
  		<h:outputLabel value="#{menuBean.infoMap.Grupo.propertiesMetadata.contrato.label}"/>
  		<h:panelGrid columns="2">
- 			<h:graphicImage value="../basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+ 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 			<h:inputText id="contrato"
 				disabled="#{inserirTransferenciaBean.transferenciaMovimento}"
 				value="#{inserirTransferenciaBean.process.contrato}"

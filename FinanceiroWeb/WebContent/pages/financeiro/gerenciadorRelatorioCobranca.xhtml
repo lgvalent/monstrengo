@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 		<ui:param name="title" value="#{menuBean.processInfoMap.RelatorioCobrancaProcess.label}" />
 		<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
 		<ui:param name="description" value="#{menuBean.processInfoMap.RelatorioCobrancaProcess.description}" />
@@ -18,28 +18,28 @@
 
 	   			<h:outputText value="Pessoa"/>
 	   			<h:panelGroup>
-				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramPessoa}"/>
 				</ui:include>
 	   			</h:panelGroup>
 
 	   			<h:outputText value="Itens de custos"/>
 	   			<h:panelGroup>
-				<ui:include src="/pages/basic/tiles/processParamEntityListSuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntityListSuggest.xhtml">
    	    		   <ui:param name="paramEntityList" value="#{relatorioCobrancaBean.process.paramItemCusto}"/>
 				</ui:include>
 	   			</h:panelGroup>
 
 	   			<h:outputText value="Escritórios contábeis"/>
 	   			<h:panelGroup>
-				<ui:include src="/pages/basic/tiles/processParamEntityListSuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntityListSuggest.xhtml">
    	    		   <ui:param name="paramEntityList" value="#{relatorioCobrancaBean.process.paramEscritorioContabil}"/>
 				</ui:include>
 	   			</h:panelGroup>
 
 	   			<h:outputText value="CNAE"/>
 	   			<h:panelGroup>
-				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramCnae}"/>
 				</ui:include>
 	   			</h:panelGroup>
@@ -58,7 +58,7 @@
 
 	   			<h:outputText value="Município"/>
 	   			<h:panelGroup>
-				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramMunicipio}"/>
 				</ui:include>
 	   			</h:panelGroup>
@@ -75,7 +75,7 @@
 
 				<h:outputLabel value="Data de lançamento:"/>
 				<h:panelGroup>
-					<ui:include src="/pages/basic/tiles/calendars.xhtml">
+					<ui:include src="/public/basic/tiles/calendars.xhtml">
 			           <ui:param name="timeFieldFrom" value="#{relatorioCobrancaBean.process.dataLancamentoInicial.time}"/>
     			       <ui:param name="timeFieldTo" value="#{relatorioCobrancaBean.process.dataLancamentoFinal.time}"/>
 					</ui:include>
@@ -83,7 +83,7 @@
 
 				<h:outputLabel value="Data de vencimento:"/>
 				<h:panelGroup>
-					<ui:include src="/pages/basic/tiles/calendars.xhtml">
+					<ui:include src="/public/basic/tiles/calendars.xhtml">
 			           <ui:param name="timeFieldFrom" value="#{relatorioCobrancaBean.process.dataVencimentoInicial.time}"/>
     			       <ui:param name="timeFieldTo" value="#{relatorioCobrancaBean.process.dataVencimentoFinal.time}"/>
 					</ui:include>
@@ -91,7 +91,7 @@
 
 				<h:outputLabel value="Calcular multa e juros até:"/>
 				<h:panelGroup>
-					<ui:include src="/pages/basic/tiles/calendar.xhtml">
+					<ui:include src="/public/basic/tiles/calendar.xhtml">
 			           <ui:param name="timeField" value="#{relatorioCobrancaBean.process.dataPagamento.time}"/>
 					</ui:include>
 				</h:panelGroup>

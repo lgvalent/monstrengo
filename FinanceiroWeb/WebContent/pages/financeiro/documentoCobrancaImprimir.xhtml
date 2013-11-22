@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="icon" value="../financeiro/img/imprimirDocumento_b.png" />
 	<ui:param name="title" value="#{menuBean.processInfoMap.ImprimirDocumentoCobrancaProcess.label}" />
 	<ui:param name="description" value="#{menuBean.processInfoMap.ImprimirDocumentoCobrancaProcess.description}" />
@@ -35,7 +35,7 @@
    			<h:outputText value="Calcular multa e juros para um novo vencimento:" title="Imprime o documento de cobrança com uma nova data de vencimento, calculando os juros e multa, sem alterar o vencimento original do documento."/>
    			<h:panelGroup>
 				<h:selectBooleanCheckbox value="#{imprimirDocumentoCobrancaBean.process.recalcularDataVencimento}" title="Imprime o documento de cobrança com uma nova data de vencimento, calculando os juros e multa, sem alterar o vencimento original do documento."/>
-					<ui:include src="/pages/basic/tiles/calendar.xhtml">
+					<ui:include src="/public/basic/tiles/calendar.xhtml">
 						<ui:param name="timeField" value="#{imprimirDocumentoCobrancaBean.process.dataPagamento.time}"/>
 				</ui:include>
    			</h:panelGroup>

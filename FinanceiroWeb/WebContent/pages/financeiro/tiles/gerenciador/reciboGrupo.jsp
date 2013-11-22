@@ -11,7 +11,7 @@
 <%--  
 			<h:outputText value="Operador: #{userSessionBean.userSession.user.object}" style="font-size:small"/>
  --%>
-			<h:graphicImage value="../basic/img/header.gif" title="Recibo"
+			<h:graphicImage value="../../public/basic/img/header.gif" title="Recibo"
 				style="border:0" />
 				<h:outputLabel value="www.sivamar.com.br"/>
 		</h:panelGrid>
@@ -69,7 +69,7 @@
 <%--
 			<h:outputText value="Operador: #{userSessionBean.userSession.user.object}" style="font-size:small"/>
  --%>
-			<h:graphicImage value="../basic/img/header.gif" title="Recibo"
+			<h:graphicImage value="../../public/basic/img/header.gif" title="Recibo"
 				style="border:0" />
 				<h:outputLabel value="www.sivamar.com.br"/>
 		</h:panelGrid>
@@ -122,7 +122,7 @@
 <%--
 			<h:outputText value="Operador: #{userSessionBean.userSession.user.object}" style="font-size:small"/>
 --%>
-			<h:graphicImage value="../basic/img/header.gif" title="Recibo"
+			<h:graphicImage value="../../public/basic/img/header.gif" title="Recibo"
 				style="border:0" />
 				<h:outputLabel value="www.sivamar.com.br"/>
 		</h:panelGrid>
@@ -181,7 +181,7 @@
 <%-- 
 			<h:outputText value="Operador: #{userSessionBean.userSession.user.object}" style="font-size:small"/>
 --%>
-			<h:graphicImage value="../basic/img/header.gif" title="Recibo"
+			<h:graphicImage value="../../public/basic/img/header.gif" title="Recibo"
 				style="border:0" />
 				<h:outputLabel value="www.sivamar.com.br"/>
 		</h:panelGrid>

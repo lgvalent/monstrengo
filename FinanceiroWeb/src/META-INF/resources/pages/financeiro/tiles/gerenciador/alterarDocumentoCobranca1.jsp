@@ -153,17 +153,17 @@
 					<h:outputLink
 						value="javascript:linkRetrieve('#{item.info.type.name}', '#{item.value.asEntity.id}')"
 						rendered="#{not item.value.valueNull}">
-						<h:graphicImage value="../basic/img/retrieve.png"
+						<h:graphicImage value="../../public/basic/img/retrieve.png"
 							title="Visualiza os detalhes do registro" style="border:0" />
 					</h:outputLink>
 					<h:outputLink
 						value="javascript:linkCreatePopup('#{item.info.type.name}')">
-						<h:graphicImage value="../basic/img/create.png"
+						<h:graphicImage value="../../public/basic/img/create.png"
 							title="Cria um novo registro. Será necessário clicar em validar para atualizar a lista com o novo item"
 							style="border:0" />
 					</h:outputLink>
 					<h:outputLink value="javascript:document.forms[0].submit()">
-						<h:graphicImage value="../basic/img/reload.png"
+						<h:graphicImage value="../../public/basic/img/reload.png"
 							title="Recarrega a página e a lista de seleção" style="border:0" />
 					</h:outputLink>
 				</h:panelGroup>
@@ -172,7 +172,7 @@
 				<%-- Subclasse em por link --%>
 				<h:panelGroup
 					rendered="#{!item.info.editShowList && item.info.entity && !item.info.collection}">
-					<h:graphicImage value="../basic/img/query_open_select.png"
+					<h:graphicImage value="../../public/basic/img/query_open_select.png"
 						title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa"
 						style="border:0" />
 					<h:inputText id="idSubClassInput" value="#{item.value.id}"
@@ -198,7 +198,7 @@
 					rendered="#{item.info.collection and item.info.entity}">
 					<h:outputLabel
 						value="Para adicionar um novo item na lista de #{item.info.label}, pesquise o item aqui" />
-					<h:graphicImage value="../basic/img/query_open_select.png"
+					<h:graphicImage value="../../public/basic/img/query_open_select.png"
 						title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa"
 						style="border:0" />
 					<h:inputText id="idCollInput"
@@ -225,7 +225,7 @@
 
 					<h:column>
 						<h:commandLink action="#{createBean.doRemoveFromCollection}">
-							<h:graphicImage value="../basic/img/delete.png"
+							<h:graphicImage value="../../public/basic/img/delete.png"
 								title="Remove esta entidade da lista" style="border:0" />
 							<f:param name="collProperty" value="#{item.info.name}" />
 							<f:param name="collItemId" value="#{col.id}" />

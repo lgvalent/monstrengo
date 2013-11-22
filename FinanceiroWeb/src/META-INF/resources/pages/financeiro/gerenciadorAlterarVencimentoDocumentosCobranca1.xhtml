@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
 	<ui:param name="title" value="#{menuBean.processInfoMap.AlterarVencimentoDocumentosCobrancaProcess.label}" />
 	<ui:param name="description" value="#{menuBean.processInfoMap.AlterarVencimentoDocumentosCobrancaProcess.description}" />
@@ -52,7 +52,7 @@
 		<br/>
 		<h:outputLabel value="Nova data de vencimento"/>
 		<h:panelGroup>
-			<ui:include src="/pages/basic/tiles/calendar.xhtml">
+			<ui:include src="/public/basic/tiles/calendar.xhtml">
         		  <ui:param name="timeField" value="#{alterarVencimentoDocumentosCobrancaBean.process.data.time}"/>
 			</ui:include>
 		</h:panelGroup>

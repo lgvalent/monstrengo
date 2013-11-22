@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="title" value="#{menuBean.processInfoMap.InserirLancamentoProcess.label}" />
 	<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
 	<ui:param name="description" value="#{menuBean.processInfoMap.InserirLancamentoProcess.description}" />
@@ -41,28 +41,28 @@
 	
 			<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contaPrevista.label}"/>
 			<h:panelGroup id="contaPrevista">
-				<ui:include src="/pages/basic/tiles/processParamEntityComboBox.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntityComboBox.xhtml">
    		    	   <ui:param name="paramEntity" value="#{inserirLancamentoBean.process.paramContaPrevista}"/>
 				</ui:include>
 			</h:panelGroup>
 	
 			<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.data.label}"/>
 			<h:panelGroup id="dataLancamento">
-				<ui:include src="/pages/basic/tiles/calendar.xhtml">
+				<ui:include src="/public/basic/tiles/calendar.xhtml">
          			<ui:param name="timeField" value="#{inserirLancamentoBean.process.data.time}" />
 				</ui:include>
 			</h:panelGroup>
 			
 			<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.dataVencimento.label}"/>
 			<h:panelGroup id="dataVencimento">
-				<ui:include src="/pages/basic/tiles/calendar.xhtml">
+				<ui:include src="/public/basic/tiles/calendar.xhtml">
          			<ui:param name="timeField" value="#{inserirLancamentoBean.process.dataVencimento.time}" />
 				</ui:include>
 			</h:panelGroup>
 	
 	 		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}"/>
 			<h:panelGroup id="contrato">
-				<ui:include src="/pages/basic/tiles/processParamEntitySuggest.xhtml">
+				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    		    	   <ui:param name="paramEntity" value="#{inserirLancamentoBean.process.paramContrato}"/>
 				</ui:include>
 			</h:panelGroup>
@@ -85,7 +85,7 @@
 		
 				<h:column>
 					<f:facet name="header">
-						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.CentroCusto}"/>
 						</ui:include>
 					</f:facet>
@@ -106,7 +106,7 @@
 	 			
 				<h:column>
 					<f:facet name="header">
-						<ui:include src="/pages/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 				           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ItemCusto}"/>
 						</ui:include>
 					</f:facet>
@@ -144,7 +144,7 @@
 				
 				<h:column>
 					<p:commandLink tabindex="-1" ajax="false" rendered="#{inserirLancamentoBean.process.lancamentoItemBeanList.size()>1}" immediate="true">
-						<h:graphicImage value="../basic/img/delete.png" title="Remover item da lista" style="border:0"/>
+						<h:graphicImage value="../../public/basic/img/delete.png" title="Remover item da lista" style="border:0"/>
 						<p:collector value="#{item}" removeFrom="#{inserirLancamentoBean.process.lancamentoItemBeanList}"/>
 					</p:commandLink>
 				</h:column> 
@@ -153,7 +153,7 @@
 
 			<h:panelGroup>
 				<p:commandLink action="#{inserirLancamentoBean.doAdicionarItem}" update="itemTable">
-					<h:graphicImage value="../basic/img/add.png" title="Adicionar item à lista" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/add.png" title="Adicionar item à lista" style="border:0"/>
 					<h:outputText value="Adicionar item" />
 				</p:commandLink>
 			</h:panelGroup>

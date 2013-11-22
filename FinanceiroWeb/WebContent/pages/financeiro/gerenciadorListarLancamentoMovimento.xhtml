@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -27,12 +28,12 @@
 				<h:outputLabel value="Tipo de listagem:"/>
 				<h:selectOneMenu id="listagem" value="#{listarLancamentoMovimentoBean.process.listagem}" label="Tipo de listagem">
 					<f:selectItems value="#{listarLancamentoMovimentoBean.process.listListagem}"/>
+					<f:ajax event="change" render="form"/>
 				</h:selectOneMenu>
-		
-				<h:outputLabel value="Ordem:"/>
-				<h:selectOneRadio id="ordem" value="#{listarLancamentoMovimentoBean.process.ordem}" style="font-size: small" label="Ordenação">
+				<h:outputLabel rendered="false" value="Ordem:"/>
+				<h:selectOneRadio rendered="false" id="ordem" value="#{listarLancamentoMovimentoBean.process.ordem}" style="font-size: small" label="Ordenação">
 					<f:selectItems value="#{listarLancamentoMovimentoBean.process.listOrdem}"/>
-				</h:selectOneRadio>
+				</h:selectOneRadio>		
 	
 				<h:outputLabel value="Data de lançamento:"/>
 				<h:panelGroup>
@@ -58,8 +59,8 @@
 					</ui:include>
 				</h:panelGroup>
 	 
-				<h:outputLabel value="Data de compensação:"/>
-				<h:panelGroup>
+				<h:outputLabel value="Data de compensação:" rendered="#{listarLancamentoMovimentoBean.process.listagem == 7}"/>
+				<h:panelGroup rendered="#{listarLancamentoMovimentoBean.process.listagem == 7}">
 					<ui:include src="/public/basic/tiles/calendars.xhtml">
 			           <ui:param name="timeFieldFrom" value="#{listarLancamentoMovimentoBean.process.dataCompensacaoInicial.time}"/>
 			           <ui:param name="timeFieldTo" value="#{listarLancamentoMovimentoBean.process.dataCompensacaoFinal.time}"/>
@@ -102,9 +103,10 @@
 		<ui:define name="result">			
 			<!-- Painel de operação quitados -->
 			<h:panelGrid rendered="#{listarLancamentoMovimentoBean.visualizando}">
-				<h:dataTable
+				<p:dataTable
 					value="#{listarLancamentoMovimentoBean.list}"
 				    var='item'
+				    sortBy="#{item.dataQuitacao}"
 				    rendered="#{listarLancamentoMovimentoBean.size>0}"
 				    headerClass="tableListHeader"
 				    footerClass="tableListFooter"
@@ -112,42 +114,22 @@
 				    rowClasses="tableListRowEven, tableListRowOdd"
 				    columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight">
 		
-					<h:column >
-						<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.LancamentoMovimento.type.name}', '#{item.id}')"  rendered="#{menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint">
-							<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
-						</h:outputLink>
-						<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint"/>
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Data"/>
-						</f:facet>
+					<p:column sortBy="#{item.dataQuitacao}" headerText="Data">
 						<h:outputLabel value="#{item.dataQuitacao.time}">
 							<f:convertDateTime locale="pt_BR"/>
 						</h:outputLabel>
-					</h:column>
-	 				<h:column>
-						<f:facet name="header">
-							<h:outputText value="Conta"/>
-						</f:facet>
+					</p:column>
+	 				<p:column sortBy="#{item.conta}" headerText="Conta">
 						<h:outputLabel value="#{item.conta}" style="white-space: nowrap"/>
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Contrato"/>
-						</f:facet>
+					</p:column>
+					<p:column sortBy="#{item.pessoa}" headerText="Contrato">
 						<h:outputLabel value="#{item.pessoa}" />
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Descrição"/>
-						</f:facet>
-						<h:outputLabel value="#{item.descricao}" />
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Valor"/>
-						</f:facet>
+					</p:column>
+					<p:column sortBy="#{item.descricao}" headerText="Descrição">
+						<h:outputLabel value="#{item.descricao}" /> 
+						<h:outputLabel value="| Doc. nº: #{item.documentoPagamentoNumeroDocumento}" rendered="#{item.documentoPagamentoNumeroDocumento != null}"/>
+					</p:column>
+					<p:column sortBy="#{item.valorMovimento}" headerText="Valor"  styleClass="noprint" style="text-align:right;">
 						<h:outputLabel value="#{item.valorMovimento}" >
 							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 						</h:outputLabel>
@@ -156,11 +138,8 @@
 								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 							</h:outputLabel>
 						</f:facet>
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Juros"/>
-						</f:facet>
+					</p:column>
+					<p:column sortBy="#{item.valorJuros}" headerText="Juros" styleClass="noprint" style="text-align:right;">
 						<h:outputLabel value="#{item.valorJuros}" >
 							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 						</h:outputLabel>
@@ -169,11 +148,8 @@
 								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 							</h:outputLabel>
 						</f:facet>
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Multa"/>
-						</f:facet>
+					</p:column>
+					<p:column sortBy="#{item.valorMulta}" headerText="Multa" styleClass="noprint" style="text-align:right;">
 						<h:outputLabel value="#{item.valorMulta}" >
 							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 						</h:outputLabel>
@@ -182,11 +158,8 @@
 								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 							</h:outputLabel>
 						</f:facet>
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Desconto"/>
-						</f:facet>
+					</p:column>
+					<p:column sortBy="#{item.valorDesconto}" headerText="Desconto" styleClass="noprint" style="text-align:right;">
 						<h:outputLabel value="#{item.valorDesconto}" >
 							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 						</h:outputLabel>
@@ -195,11 +168,8 @@
 								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 							</h:outputLabel>
 						</f:facet>
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Acréscimo"/>
-						</f:facet>
+					</p:column>
+					<p:column sortBy="#{item.valorAcrescimo}" headerText="Acréscimo" styleClass="noprint" style="text-align:right;">
 						<h:outputLabel value="#{item.valorAcrescimo}" >
 							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 						</h:outputLabel>
@@ -208,11 +178,8 @@
 								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 							</h:outputLabel>
 						</f:facet>
-					</h:column>
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Total"/>
-						</f:facet>
+					</p:column>
+					<p:column sortBy="#{item.valorTotal}" headerText="Total" style="text-align:right;">
 						<h:outputLabel value="#{item.valorTotal}" >
 							<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 						</h:outputLabel>
@@ -221,35 +188,18 @@
 								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
 							</h:outputLabel>
 						</f:facet>
-					</h:column>
-	<!-- 
-					<h:column >
+					</p:column>
+					<p:column sortBy="id" styleClass="noprint" style="white-space: nowrap; text-align: center;">
 						<f:facet name="header">
-							<h:outputText style="text-align:right" value="Saídas"/>
+									<h:commandButton value="Compensar" action="#{listarLancamentoMovimentoBean.actionCompensarSelecionados}" styleClass="noprint"/>
 						</f:facet>
-						<h:panelGrid width="100%" style="text-align:right; font: 12px" styleClass="tableListRow">
-							<h:outputLabel value="#{item.valorMovimento}" rendered="#{item.valorMovimento<0}">
-								<f:convertNumber pattern="###,###,##0.00" type="currency"/>
-							</h:outputLabel>
-						</h:panelGrid>
-						<f:facet name="footer">
-							<h:panelGrid width="100%" style="text-align:right; font: 12px" styleClass="tableListRow">
-								<h:outputLabel value="#{listarLancamentoMovimentoBean.process.debito}" style="text-align:right">
-									<f:convertNumber pattern="###,###,##0.00" type="currency"/>
-								</h:outputLabel>
-							</h:panelGrid>
-						</f:facet>
-					</h:column>
-	 -->				
-	<!-- 
-					<h:column >
-						<h:commandLink action="#{transferirBean.actionTransferir}" target="transferir">
-							<h:graphicImage value="../financeiro/img/transfer.png" title="Cria uma transferência usando os dados deste registro" style="border:0"/>
-					     	<f:param name="movimentoId" value="#{item.id}"/>
-						</h:commandLink>
-					</h:column>
-	 -->
-				</h:dataTable>
+						<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.LancamentoMovimento.type.name}', '#{item.id}')"  rendered="#{menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint">
+							<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
+						</h:outputLink>
+						<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint"/>
+						<h:selectBooleanCheckbox value="#{item.selected}" disabled="#{item.compensado}"/>
+					</p:column>
+				</p:dataTable>
 				<h:panelGrid columns="5" style="text-align:left" styleClass="tableListRow" >
 					<h:outputLabel value="#{listarLancamentoMovimentoBean.size} registro(s)"/>
 					<h:outputLabel value=" | Créditos: "/>

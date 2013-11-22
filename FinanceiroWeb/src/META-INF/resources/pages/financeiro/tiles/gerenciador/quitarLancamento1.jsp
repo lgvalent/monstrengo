@@ -10,7 +10,7 @@
 	<h:panelGrid columns="3" cellpadding="3" style="font: 12px">
  		<h:outputLabel value="#{menuBean.infoMap.LancamentoMovimento.propertiesMetadata.lancamento.label}"/>
  		<h:panelGrid columns="2">
- 			<h:graphicImage value="../basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+ 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 			<h:inputText id="lancamento"
 				value="#{quitarLancamentoBean.process.lancamentos.first.id}" 
 				size="5" maxlength="5" rendered="true"

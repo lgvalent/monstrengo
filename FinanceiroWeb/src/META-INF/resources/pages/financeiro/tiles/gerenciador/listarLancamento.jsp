@@ -15,12 +15,12 @@
 	   		<h:panelGrid columns="5" styleClass="tableList" border="0">
 	   			<h:outputText value="CPF"/>
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Fisica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
 	
 	   			<h:outputText value="/CNPJ" />
 		    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.basic.entities.pessoa.Juridica', document.getElementById('form:cpfCnpj').value, 'documento', document.getElementById('form:cpfCnpj'))" >
-					<h:graphicImage value="../basic/img/query.png" title="Pesquisar" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
 			    </h:outputLink>
 	   			<h:outputText value=":" />
 	   		</h:panelGrid>
@@ -63,7 +63,7 @@
 			<%-- Centro custo --%>
 			<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.centroCusto.label}:"/>
 	 		<h:panelGrid columns="2">
-	 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+	 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="centroCustoId"
 					value="#{listarLancamentoBean.process.centroCusto}"
 					size="5" maxlength="5" rendered="true"
@@ -77,7 +77,7 @@
 			<%-- Item custo --%>
 			<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.itemCusto.label}:"/>
 	 		<h:panelGrid columns="4" >
-	 			<h:graphicImage value="../basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
+	 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
 				<h:inputText id="itemCustoList"
 					value="#{listarLancamentoBean.process.itemCustoIdList}"
 					size="5" maxlength="5" rendered="true"
@@ -125,9 +125,9 @@
 					<h:graphicImage value="../financeiro/img/quitar_d.png" title="Quita o lançamento" style="border:0" rendered="#{item.situacao!='PENDENTE'}" styleClass="noprint"/>
 					
 					<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.Lancamento.type.name}', '#{item.id}')"  rendered="#{menuBean.crudMap.Lancamento.canRetrieve}" styleClass="noprint">
-						<h:graphicImage value="../basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
+						<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
 					</h:outputLink>
-					<h:graphicImage value="../basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.Lancamento.canRetrieve}" styleClass="noprint"/>
+					<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.Lancamento.canRetrieve}" styleClass="noprint"/>
 				</h:column>
 				<h:column >
 					<f:facet name="header">

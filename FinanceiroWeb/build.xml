@@ -44,8 +44,9 @@
           target: update META-INF/resources
           
           Copia as bibliotecas dos componentes para o lib do web-inf.
-         ================================= -->
+         ================================= -->	
 	<target name="updateMETA-INF/Resources" description="update xhtml files for JAR deployment">
+		<delete dir="${src}/META-INF/resources"/>
 		<copy todir="${src}/META-INF/resources">
 			<fileset dir="${web.dir}">
 				<include name="**/*"/>
@@ -53,7 +54,6 @@
 			</fileset>
 		</copy>
 	</target>	
-	
 	<!-- ================================= 
           target: update JARs depends
           
