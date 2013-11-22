@@ -3,6 +3,6 @@
 
 <tiles:insert definition=".menuLayout">
 	<tiles:put name="title" value="Lista de Documentos"/>
-	<tiles:put name="img" value="../basic/img/document.png"/>
-	<tiles:put name="body" value="../basic/tiles/document/list.jsp"/>
+	<tiles:put name="img" value="../../public/basic/img/document.png"/>
+	<tiles:put name="body" value="../../public/basic/tiles/document/list.jsp"/>
 </tiles:insert>

@@ -3,7 +3,6 @@
 
 <tiles:insert definition=".menuLayout">
 	<tiles:put name="title" value="Cadastro"/>
-	<tiles:put name="img" value="../basic/img/menu_cadastro.png"/>
-	<tiles:put name="sider" value="../basic/tiles/menu.jsp"/>
-	<tiles:put name="body" value="../basic/tiles/menu.jsp"/>
+	<tiles:put name="img" value="../../public/basic/img/menu_cadastro.png"/>
+	<tiles:put name="body" value="/pages/basic/tiles/menu.jsp"/>
 </tiles:insert>

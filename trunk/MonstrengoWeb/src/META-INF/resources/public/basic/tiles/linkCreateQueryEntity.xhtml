@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- Uma variável 'entityMetadata' (IEntityMetadata) deve ser fornecida para esta visão -->
+<!-- USO
+	<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ApplicationUser}"/>
+           <ui:param name="noShowLabel" value="false"/>
+           <ui:param name="noShowQuery" value="false"/>
+           <ui:param name="showSubEntities" value="false"/>
+	</ui:include>
+ -->
+ 
+<h:panelGroup styleClass="noprint" rendered="#{!noShowQuery}">
+	<h:outputLink  tabindex="-1"
+		value="javascript:linkQuery('#{entityMetadata.type.name}')"
+		rendered="#{menuBean.crudMap.get(entityMetadata.type.simpleName).canRetrieve}">
+		<h:graphicImage value="../../public/basic/img/query.png" title="Abrir tela de pesquisa avançada"	style="border:0" />
+	</h:outputLink>
+	<h:graphicImage value="../../public/basic/img/query_d.png"
+		title="Você não possui direitos para visualizar esta entidade"
+		style="border:0"
+		rendered="#{!(menuBean.crudMap.get(entityMetadata.type.simpleName).canRetrieve)}" />
+</h:panelGroup>
+<h:panelGroup rendered="#{entityMetadata.hasSubEntities and showSubEntities}" styleClass="noprint">
+	<h:dataTable 
+		value="#{entityMetadata.subEntities}"
+		var='subEntity' width="100%">
+		<h:column>
+			<h:outputLink tabindex="-1" value="javascript:linkCreatePopup('#{subEntity.name}');"
+				rendered="#{menuBean.infoMap.get(subEntity.simpleName).canCreate}"
+				style="font-size: smaller;"
+				title="#{menuBean.infoMap.get(subEntity.simpleName).hint}">
+				<h:graphicImage value="../../public/basic/img/create.png" style="border:0" />
+				<h:outputText value="#{menuBean.infoMap.get(subEntity.simpleName).label}" rendered="#{!noShowLabel}"/>
+			</h:outputLink>
+		</h:column>
+	</h:dataTable>
+</h:panelGroup>
+<h:panelGroup rendered="#{!(entityMetadata.hasSubEntities and showSubEntities)}" styleClass="noprint">
+	<h:outputText value=" " />
+	<h:outputLink tabindex="-1"
+		value="javascript:linkCreatePopup('#{entityMetadata.type.name}')"
+		rendered="#{menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate and  !entityMetadata.abstract}">
+		<h:graphicImage value="../../public/basic/img/create.png"
+			title="Criar novo registro de #{entityMetadata.label}" style="border:0" />
+	</h:outputLink>
+	<h:graphicImage value="../../public/basic/img/create_d.png"
+		title="Você não possui direitos para criar um novo registro de #{entityMetadata.label}"
+		style="border:0"
+		rendered="#{!(menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate and  !entityMetadata.abstract)}" />
+
+	<h:outputText value=" #{entityMetadata.label}" title="#{entityMetadata.hint}" rendered="#{!noShowLabel}"/>
+</h:panelGroup>
+</html>

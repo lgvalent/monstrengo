@@ -5,9 +5,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="title" value="Relatórios personalizados" />
-	<ui:param name="icon" value="../basic/img/report.png" />
+	<ui:param name="icon" value="../../public/basic/img/report.png" />
 	<ui:param name="description" value="Durante uma pesquisa o operador pode salvar as configurações em relatórios personalizados. &lt;br> Aqui você pode listar os relatórios salvos por operador e por entidade. &lt;br> Você também pode transferir a propriedade de um relatório seu para outro operador." />
 	<ui:define name="content">
 
@@ -44,13 +44,13 @@
             	<h:outputText value="Nome do relatório"/>
             </f:facet>
 			<h:outputLink styleClass="noprint" value="javascript:linkUpdate('#{item.info.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canUpdate}">
-				<h:graphicImage value="../basic/img/update.png" title="Altera os dados do registro" style="border:0"/>
+				<h:graphicImage value="../../public/basic/img/update.png" title="Altera os dados do registro" style="border:0"/>
 			</h:outputLink>
-			<h:graphicImage styleClass="noprint" value="../basic/img/update_d.png" title="Você não possui direitos para alterar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canUpdate}"/>
+			<h:graphicImage styleClass="noprint" value="../../public/basic/img/update_d.png" title="Você não possui direitos para alterar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canUpdate}"/>
 			<h:outputLink styleClass="noprint" value="javascript:linkDelete('#{item.info.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canDelete}">
-				<h:graphicImage value="../basic/img/delete.png" title="Apaga o registro" style="border:0"/>
+				<h:graphicImage value="../../public/basic/img/delete.png" title="Apaga o registro" style="border:0"/>
 			</h:outputLink>
-			<h:graphicImage styleClass="noprint" value="../basic/img/delete_d.png" title="Você não possui direitos para apagar o registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canDelete}"/>
+			<h:graphicImage styleClass="noprint" value="../../public/basic/img/delete_d.png" title="Você não possui direitos para apagar o registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canDelete}"/>
 	
 			<h:commandLink action="#{queryBean.actionRestoreUserReport}">
 				<h:outputText value="#{item}" title="#{item.propertiesMap.description.value.asString}"/>
