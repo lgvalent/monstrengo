@@ -5,9 +5,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="title" value="Exclusão de um registro" />
-	<ui:param name="icon" value="../basic/img/delete_b.png" />
+	<ui:param name="icon" value="../../public/basic/img/delete_b.png" />
 	<ui:param name="description" value="Esta operação não pode ser revertida e será registrada na auditoria do sistema.&lt;br/&gt;Neste momento, é verificado se há outros registros que estão ligados a este registro." />
 	<ui:define name="content">
 		<!-- Sincroniza a atual entidade manipulada pela view -->
@@ -17,13 +17,13 @@
 
 		<h:panelGrid rendered="#{deleteBean.hasDependences}" width="100%">
 			<h:panelGroup>
-				<h:graphicImage value="../basic/img/alert_icon.png"/>
+				<h:graphicImage value="../../public/basic/img/alert_icon.png"/>
 				<h:outputText value=" A entidade (#{deleteBean.currentEntity.info.label}) #{deleteBean.currentEntity} está vinculada às entidades listadas abaixo que impedem a sua exclusão do sistema." escape="false"/>
 				<br/>
 				<h:outputText value="Você deve excluir primeiro os elementos da listagem abaixo, para então poder excluir esta entidade." escape="false"/>
 				<h:outputText value=" Ou ainda, você pode remover a dependência editando ela " escape="false" rendered="#{deleteBean.canUpdate}"/>
 				<h:outputLink value="javascript:linkUpdate('#{deleteBean.currentEntity.info.type.name}', '#{deleteBean.currentEntity.id}')" rendered="#{deleteBean.canUpdate}">
-					<h:graphicImage value="../basic/img/update.png" title="Altera os dados do registro" style="border:0"/>
+					<h:graphicImage value="../../public/basic/img/update.png" title="Altera os dados do registro" style="border:0"/>
 					<h:outputText value="aqui." escape="false" rendered="#{deleteBean.canUpdate}"/>
 				</h:outputLink>
 			</h:panelGroup>
@@ -50,23 +50,23 @@
 						<h:column>
 							<h:selectBooleanCheckbox id="myCheck" value="#{item.selected}"/>
 				  			<h:commandLink action="#{deleteBean.actionDeleteChild}" rendered="#{item.info.canDelete}">
-								<h:graphicImage value="../basic/img/delete.png" title="Apaga o registro" style="border:0"/>
+								<h:graphicImage value="../../public/basic/img/delete.png" title="Apaga o registro" style="border:0"/>
 						     	<f:param name="entityType" value="#{item.info.type.name}"/>
 						     	<f:param name="entityId"   value="#{item.id}"/>
 							</h:commandLink>
 							<h:outputLink value="javascript:linkRetrieve('#{item.object.class.name}', '#{item.id}')" rendered="#{item.info.canRetrieve}">
-								<h:graphicImage value="../basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
+								<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
 							</h:outputLink>
-							<h:graphicImage value="../basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!item.info.canRetrieve}"/>
+							<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!item.info.canRetrieve}"/>
 							<!--	
 							usando o commandLink, não abre outra tela, mas não há erro de atualização de entidades (erro de transaction)
 							usando o outputLink, abre outra tela, mas o erro por link da atualização de entidades permanece
 												
 							<h:outputLink value="javascript:linkDelete('#{item.info.type.name}', '#{item.id}')" rendered="#{item.info.canDelete}">
-								<h:graphicImage value="../basic/img/delete.png" title="Apaga o registro" style="border:0" />
+								<h:graphicImage value="../../public/basic/img/delete.png" title="Apaga o registro" style="border:0" />
 							</h:outputLink>
 							-->
-							<h:graphicImage value="../basic/img/delete_d.png" title="Você não possui direitos para apagar o registro" style="border:0" rendered="#{!item.info.canDelete}"/>
+							<h:graphicImage value="../../public/basic/img/delete_d.png" title="Você não possui direitos para apagar o registro" style="border:0" rendered="#{!item.info.canDelete}"/>
 						</h:column>
 
 						<h:column>

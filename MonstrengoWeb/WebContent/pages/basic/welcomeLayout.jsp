@@ -8,20 +8,20 @@
  	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
  	<meta name="SHORTCUT ICON" content="http://hp.msn.com/global/c/shs/favicon.ico" />
  	<title><tiles:getAsString name="title"/></title>
- 	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css" />
+ 	<link href="../../public/basic/css/styles.css" rel="stylesheet" type="text/css" />
  	
-	<SCRIPT language=javaScript src="../basic/js/linkTool.js"></SCRIPT>
-	<SCRIPT language=javaScript src="../basic/js/interface.js"></SCRIPT>
-	<SCRIPT language=javaScript src="../basic/js/utils.js"></SCRIPT>
+	<SCRIPT language=javaScript src="../../public/basic/js/linkTool.js"></SCRIPT>
+	<SCRIPT language=javaScript src="../../public/basic/js/interface.js"></SCRIPT>
+	<SCRIPT language=javaScript src="../../public/basic/js/utils.js"></SCRIPT>
 
-	<link href="../basic/js/themes/default.css" rel="stylesheet" type="text/css"/>	
-	<link href="../basic/js/themes/alphacube.css" rel="stylesheet" type="text/css"/>
+	<link href="../../public/basic/js/themes/default.css" rel="stylesheet" type="text/css"/>	
+	<link href="../../public/basic/js/themes/alphacube.css" rel="stylesheet" type="text/css"/>
 
-	<script type="text/javascript" src="../basic/js/window/prototype.js"> </script>
-	<script type="text/javascript" src="../basic/js/window/effects.js"> </script>
-	<script type="text/javascript" src="../basic/js/window/window.js"> </script>
-	<script type="text/javascript" src="../basic/js/window/window_effects.js"> </script>
-	<script type="text/javascript" src="../basic/js/window/debug.js"> </script>
+	<script type="text/javascript" src="../../public/basic/js/window/prototype.js"> </script>
+	<script type="text/javascript" src="../../public/basic/js/window/effects.js"> </script>
+	<script type="text/javascript" src="../../public/basic/js/window/window.js"> </script>
+	<script type="text/javascript" src="../../public/basic/js/window/window_effects.js"> </script>
+	<script type="text/javascript" src="../../public/basic/js/window/debug.js"> </script>
 
 	<SCRIPT language=javaScript>
 			var borderCreator = new BorderCreator('');

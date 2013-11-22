@@ -5,9 +5,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<ui:composition template="/pages/basic/templates/simpleProcess.xhtml">
+	<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 		<ui:param name="title" value="Últimos cadastros visualizados" />
-		<ui:param name="icon" value="../basic/img/lastEntityViews.png" />
+		<ui:param name="icon" value="../../public/basic/img/lastEntityViews.png" />
 		<ui:param name="description" value="Abaixo são listados os últimos cadastros visualizados por você.&lt;br/>Use esta lista para evitar a busca sucessiva por um mesmo cadastro e agilize o seu trabalho." />
 		
 		<ui:define name="content">
@@ -19,7 +19,7 @@
 				>
 				<h:column>
 					<h:outputLink value="javascript:linkRetrieve('#{item.info.type.name}', '#{item.id}')">
-						<h:graphicImage value="../basic/img/retrieve.png"
+						<h:graphicImage value="../../public/basic/img/retrieve.png"
 							title="Visualiza os detalhes do registro" style="border:0" />
 						<h:outputText value="#{item.info.label}: #{item}" />
 					</h:outputLink>

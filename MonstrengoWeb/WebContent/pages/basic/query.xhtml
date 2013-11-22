@@ -8,16 +8,16 @@
 <h:head>
 	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 	<title>Pesquisa avançada</title>
-	<link href="../basic/css/styles.css" rel="stylesheet" type="text/css"
+	<link href="../../public/basic/css/styles.css" rel="stylesheet" type="text/css"
 		media="screen" />
-	<link href="../basic/css/stylesPrint.css" rel="stylesheet"
+	<link href="../../public/basic/css/stylesPrint.css" rel="stylesheet"
 		type="text/css" media="print" />
-	<link href="../basic/js/border/niftyCorners.css" rel="stylesheet"
+	<link href="../../public/basic/js/border/niftyCorners.css" rel="stylesheet"
 		type="text/css" />
 
-	<script language="javaScript" src="../basic/js/linkTool.js"></script>
-	<script language="javaScript" src="../basic/js/interface.js"></script>
-	<script language="javaScript" src="../basic/js/utils.js"></script>
+	<script language="javaScript" src="../../public/basic/js/linkTool.js"></script>
+	<script language="javaScript" src="../../public/basic/js/interface.js"></script>
+	<script language="javaScript" src="../../public/basic/js/utils.js"></script>
 	<script language="javaScript">
 			var borderCreator = new BorderCreator('');
 			var gridCreator = new GridCreator();
@@ -38,7 +38,7 @@
 		f:verbatim>
    		<div class="floatMenu noprint">
 			ir para 
-            <img width="16" height="16" src="../basic/img/close.png" style="border: 0pt none ;" title="Fechar" onmousedown="this.parentNode.style.display='none'"> 
+            <img width="16" height="16" src="../../public/basic/img/close.png" style="border: 0pt none ;" title="Fechar" onmousedown="this.parentNode.style.display='none'"> 
    			<a href="#" >topo</a>
    			<a href="#hqlWhere" >expressão</a>
    			<a href="#condiction" >filtro</a>
@@ -56,7 +56,7 @@
 							borderCreator.initDarkBorder('100%', '', 'center',
 									'top')
 						</script>
-						<ui:include src="/pages/basic/tiles/query/queryParent.xhtml" />
+						<ui:include src="/public/basic/tiles/query/queryParent.xhtml" />
 						<script>
 							borderCreator.endDarkBorder()
 						</script>
@@ -66,7 +66,7 @@
 			<tr>
 				<td><a name="filter" /> <script>
 					borderCreator.initDarkBorder('100%', '', 'left', 'top')
-				</script> <ui:include src="/pages/basic/tiles/query/queryFilter.xhtml" /> <script>
+				</script> <ui:include src="/public/basic/tiles/query/queryFilter.xhtml" /> <script>
 					borderCreator.endDarkBorder()
 				</script></td>
 			</tr>
@@ -77,7 +77,7 @@
 							borderCreator.initDarkBorder('100%', '', 'left',
 									'top')
 						</script>
-						<ui:include src="/pages/basic/tiles/query/queryUserReport.xhtml" />
+						<ui:include src="/public/basic/tiles/query/queryUserReport.xhtml" />
 						<script>
 							borderCreator.endDarkBorder()
 						</script>
@@ -91,7 +91,7 @@
 							borderCreator.initDarkBorder('100%', '', 'left',
 									'top')
 						</script>
-						<ui:include src="/pages/basic/tiles/query/queryHqlWhere.xhtml" />
+						<ui:include src="/public/basic/tiles/query/queryHqlWhere.xhtml" />
 						<script>
 							borderCreator.endDarkBorder()
 						</script>
@@ -105,7 +105,7 @@
 							borderCreator.initDarkBorder('100%', '', 'left',
 									'top')
 						</script>
-						<ui:include src="/pages/basic/tiles/query/queryCondiction.xhtml" />
+						<ui:include src="/public/basic/tiles/query/queryCondiction.xhtml" />
 						<script>
 							borderCreator.endDarkBorder()
 						</script>
@@ -120,7 +120,7 @@
 									'top')
 						</script>
 						<ui:include
-							src="/pages/basic/tiles/query/queryOrderCondiction.xhtml" />
+							src="/public/basic/tiles/query/queryOrderCondiction.xhtml" />
 						<script>
 							borderCreator.endDarkBorder()
 						</script>
@@ -135,7 +135,7 @@
 									'top')
 						</script>
 						<ui:include
-							src="/pages/basic/tiles/query/queryResultCondiction.xhtml" />
+							src="/public/basic/tiles/query/queryResultCondiction.xhtml" />
 						<script>
 							borderCreator.endDarkBorder()
 						</script>
@@ -148,7 +148,7 @@
 							borderCreator.initDarkBorder('100%', '', 'left',
 									'top')
 						</script>
-						<ui:include src="/pages/basic/tiles/query/queryPage.xhtml" />
+						<ui:include src="/public/basic/tiles/query/queryPage.xhtml" />
 						<script>
 							borderCreator.endDarkBorder()
 						</script>
@@ -158,7 +158,7 @@
 			<tr>
 				<td align="center"><br/> 
 				<a  name="body" />
-				<ui:include	src="/pages/basic/tiles/query/queryBody.xhtml" /> <br/>
+				<ui:include	src="/public/basic/tiles/query/queryBody.xhtml" /> <br/>
 				</td>
 			</tr>
 			<!-- tr>
@@ -175,7 +175,7 @@
 							borderCreator.initDarkBorder('100%', '', 'left',
 									'top')
 						</script>
-						<ui:include src="/pages/basic/tiles/query/queryLabel.xhtml" />
+						<ui:include src="/public/basic/tiles/query/queryLabel.xhtml" />
 						<script>
 							borderCreator.endDarkBorder()
 						</script>
