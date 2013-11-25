@@ -43,6 +43,8 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 @SessionScoped
 public class LabelBean extends BeanSessionBasic {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final String FACES_VIEW_LABELS = "/pages/basic/labelView?faces-redirect=true";
 
     private long applicationUserId=IDAO.ENTITY_UNSAVED;
@@ -78,18 +80,23 @@ public class LabelBean extends BeanSessionBasic {
        			addressLabelGroupQuery = IDAO.ENTITY_ALIAS_HQL + "." + AddressLabel.ADDRESS_LABEL_GROUP + "=" + addressLabelGroupId;
     		
     		/* Constroi a HQL */
-       		String hqlQuery = "";
-    		hqlQuery += applicationUserQuery;
-    		
-    		if(StringUtils.isNotEmpty(applicationEntityQuery)&&StringUtils.isNotEmpty(applicationUserQuery))
-        		hqlQuery += " and ";
-        	hqlQuery += applicationEntityQuery;
-    		
-    		if(StringUtils.isNotEmpty(hqlQuery)&&StringUtils.isNotEmpty(addressLabelGroupQuery))
-        		hqlQuery += " and ";
-        	hqlQuery += addressLabelGroupQuery;
-        	
-        	/* Verifica se possui alguma ordem especificada */
+       		String hqlQuery = " TRUE=TRUE ";
+       		if(StringUtils.isNotEmpty(applicationUserQuery)){
+       			hqlQuery += " AND ";
+       			hqlQuery += applicationUserQuery;
+       		}
+
+       		if(StringUtils.isNotEmpty(applicationEntityQuery)){
+       			hqlQuery += " AND ";
+       			hqlQuery += applicationEntityQuery;
+       		}
+
+       		if(StringUtils.isNotEmpty(addressLabelGroupQuery)){
+       			hqlQuery += " AND ";
+       			hqlQuery += addressLabelGroupQuery;
+       		}
+
+       		/* Verifica se possui alguma ordem especificada */
         	if(StringUtils.isNotEmpty(this.orderProperty))
         		hqlQuery += " ORDER BY " + this.orderProperty;
     		
