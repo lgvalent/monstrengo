@@ -161,36 +161,22 @@
 					<h:column>
 							<f:facet name="header">
 								<h:panelGroup>
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line1.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line1.label}" />
 									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line2.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line2.label}" />
 									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line3.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line3.label}" />
 									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line4.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line4.label}" />
 									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line5.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line5.label}" />
 								</h:panelGroup>
 							</f:facet>
-							<h:outputText value="#{item.propertiesMap.line1.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText value="#{item.propertiesMap.line2.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText value="#{item.propertiesMap.line3.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText value="#{item.propertiesMap.line4.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText value="#{item.propertiesMap.line5.value.asString}"
-								style="font-size: small;" />
+							<h:outputText value="#{item.propertiesMap.line1.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line1.value.isValueNull()}" escape="false"/>
+							<h:outputText value="#{item.propertiesMap.line2.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line2.value.isValueNull()}" escape="false"/>
+							<h:outputText value="#{item.propertiesMap.line3.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line3.value.isValueNull()}" escape="false"/>
+							<h:outputText value="#{item.propertiesMap.line4.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line4.value.isValueNull()}" escape="false"/>
+							<h:outputText value="#{item.propertiesMap.line5.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line5.value.isValueNull()}" escape="false"/>
 					</h:column>
 					<h:column>
 							<f:facet name="header">
