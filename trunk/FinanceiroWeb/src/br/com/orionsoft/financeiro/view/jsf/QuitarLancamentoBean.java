@@ -3,6 +3,7 @@
  */
 package br.com.orionsoft.financeiro.view.jsf;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
 
@@ -115,7 +116,7 @@ public class QuitarLancamentoBean extends BeanSessionBasic implements IRunnableP
      * @return
      * @throws BusinessException
      */
-    public String actionQuitarLancamento(long lancamentoId, double valorAQuitar){
+    public String actionQuitarLancamento(long lancamentoId, BigDecimal valorAQuitar){
     	log.debug("QuitarLancamentoBean.actionQuitarLancamento");
 
     	try {
@@ -128,11 +129,11 @@ public class QuitarLancamentoBean extends BeanSessionBasic implements IRunnableP
     			/*
     			 * Transforma valor em absoluto. E o define diretamente no movimento do processo
     			 */
-    			if (valorAQuitar < 0) {
-    				valorAQuitar = valorAQuitar * -1;
+    			if (valorAQuitar.signum() < 0) {
+    				valorAQuitar = valorAQuitar.negate();
     			}
     			
-    			this.getProcess().getContratos().get(0).getMovimentos().getFirst().getObject().setValor(DecimalUtils.getBigDecimal(valorAQuitar));
+    			this.getProcess().getContratos().get(0).getMovimentos().getFirst().getObject().setValor(valorAQuitar);
 
     			if(!this.getProcess().runCalcularMultaJuros()){
         			FacesUtils.addErrorMsgs(this.getProcess().getMessageList());
