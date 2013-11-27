@@ -248,9 +248,9 @@ public class ExportarMovimentoContabilService extends ServiceBasic {
 				.append(ARQUIVO_SEPARADOR_HISTORICO)
 				.append(StringUtils.defaultIfBlank(lancamento.getDescricaoLancamento(), ARQUIVO_DEFAULT_NULL))
 				.append(ARQUIVO_SEPARADOR_HISTORICO)
+				.append(StringUtils.isBlank(lancamento.getDescricaoItem())?ARQUIVO_DEFAULT_NULL:" - " + lancamento.getDescricaoItem())
 				.append(StringUtils.defaultIfBlank(lancamento.getPagamentoCategoria(), ARQUIVO_DEFAULT_NULL))
-				.append(ARQUIVO_SEPARADOR_HISTORICO)
-				.append(StringUtils.defaultIfBlank(lancamento.getPagamentoNumero(), ARQUIVO_DEFAULT_NULL)).toString();
+				.append(StringUtils.isBlank(lancamento.getPagamentoNumero())?ARQUIVO_DEFAULT_NULL:ARQUIVO_SEPARADOR_HISTORICO +" Nº:" + lancamento.getPagamentoNumero()).toString();
 	}
 	
 }
