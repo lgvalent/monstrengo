@@ -179,7 +179,7 @@ public abstract class Pessoa {
      * @return Returns the email.
      * @hibernate.property length="70"
      */
-    @Column(length=70)
+    @Column(length=200)
     public String getEmail() {
         return email;
     }
