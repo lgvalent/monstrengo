@@ -30,6 +30,7 @@ public class EmailAccount {
 	private String password;
 	private String senderName;
 	private String senderMail;
+	private String properties;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -87,6 +88,14 @@ public class EmailAccount {
 	
 	public void setSenderMail(String senderMail) {
 		this.senderMail = senderMail;
+	}
+	
+	@Column(length=500)
+	public String getProperties() {
+		return properties;
+	}
+	public void setProperties(String additionalConfiguration) {
+		this.properties = additionalConfiguration;
 	}
 	
 	public String toString(){

@@ -31,11 +31,12 @@ public class SendMailServiceTestCase extends ProcessBasicTest{
 		EmailAccount account = new EmailAccount();
 		
 		/* Este servidor requer autenticação. Mas o rafael liberou no Relay o ip da Agile e Uningá */
-		account.setHost("smtp.gmail.com");
-		account.setSenderMail("user@gmail.com");
+		account.setHost("93.159.211.185:25");
+		account.setSenderMail("lucio@orionsoft.com.br");
 		account.setSenderName("Lucio Valentin");
-		account.setUser("user@gmail.com");
-		account.setPassword("********");
+		account.setUser("orionsoft");
+		account.setPassword("9041c930");
+		account.setProperties("mail.smtp.auth=true");
 		
 		return account;
 	}
@@ -79,6 +80,7 @@ public class SendMailServiceTestCase extends ProcessBasicTest{
 			account.setSenderName(account1.getSenderName());
 			account.setUser(account1.getUser());
 			account.setPassword(account1.getPassword());
+			account.setProperties(account1.getProperties());
 			process.runUpdate();
 			process.finish();
 			

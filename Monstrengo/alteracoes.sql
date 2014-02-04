@@ -1,3 +1,7 @@
+-- Lucio 04/02/2014: Novo atributo EmailAccount.properties
+ALTER TABLE `framework_email_account` 
+ADD properties varchar(500);
+
 -- Lucio 08/04/2013: Novo CRUD_RIGHT QUERY
 ALTER TABLE `security_right_crud` 
 ADD queryAllowed bit;

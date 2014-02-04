@@ -84,22 +84,28 @@ public class SendMailService extends ServiceBasic {
 				
 				inEmailAccount = emailAccounts.get(0).getObject();
 			}
+			// Pegando uma porta personalizada ou a padrão
+			// Permite a definição hostname.com:2525
+			String[] hostAndPort = inEmailAccount.getHost().split(":");
+			
 			
 			//configurando o envio de e-mails
 			Properties properties = new Properties();
-			properties.put("mail.host", inEmailAccount.getHost());
+			properties.put("mail.smtp.host", hostAndPort[0]);
+			properties.put("mail.smtp.port", hostAndPort.length>1?hostAndPort[1]:"25");
+			properties.put("mail.from", inEmailAccount.getSenderMail());
 			
+			//obtendo as configurações adicionais da conta
+			if(StringUtils.isNotEmpty(inEmailAccount.getProperties())){
+				for(String prop: inEmailAccount.getProperties().split(";")){
+					properties.put(prop.split("=")[0],prop.split("=")[1]);
+				}
+			}
 			//se estiver utilizando autenticação
 			Authenticator authenticator = null;
 			if (StringUtils.isNotBlank(inEmailAccount.getUser()) && StringUtils.isNotBlank(inEmailAccount.getPassword())){
 				authenticator = new MyAuthenticator(inEmailAccount.getUser(),inEmailAccount.getPassword());
-				properties.put("mail.smtp.auth", "true");
-				properties.put("mail.user", inEmailAccount.getUser());
-				properties.put("mail.pwd", inEmailAccount.getPassword());
-				properties.put("mail.from", inEmailAccount.getSenderMail());
-//				properties.put("mail.to", inRecipient);
-			}
-				
+ 			}
 			
 			Session session = Session.getInstance(properties, authenticator);
 			if(log.isDebugEnabled())
@@ -124,7 +130,7 @@ public class SendMailService extends ServiceBasic {
 					//enviando mensagem
 					Transport.send(message);
 					
-					session.getTransport().sendMessage(message, message.getAllRecipients());
+//					session.getTransport().sendMessage(message, message.getAllRecipients());
 				}
 
 			if(inRecipient != null){
