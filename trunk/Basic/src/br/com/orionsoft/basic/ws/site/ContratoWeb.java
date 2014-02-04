@@ -26,7 +26,7 @@ public class ContratoWeb {
         dataRescisao = contrato.getDataRescisao();
         dataVencimento = contrato.getDataVencimento();
         inativo = contrato.isInativo();
-        representante = contrato.getRepresentante().toString();
+        representante = contrato.getRepresentante()!=null?contrato.getRepresentante().toString():"";
         categoria = contrato.getCategoria().toString();
         observacoes = contrato.getObservacoes()!=null?contrato.getObservacoes().toString():"";
     }
