@@ -31,11 +31,11 @@ public class SendMailServiceTestCase extends ProcessBasicTest{
 		EmailAccount account = new EmailAccount();
 		
 		/* Este servidor requer autenticação. Mas o rafael liberou no Relay o ip da Agile e Uningá */
-		account.setHost("93.159.211.185:25");
+		account.setHost("orionsoft.ip-zone.com:2525");
 		account.setSenderMail("lucio@orionsoft.com.br");
-		account.setSenderName("Lucio Valentin");
+		account.setSenderName("SUPORTE");
 		account.setUser("orionsoft");
-		account.setPassword("9041c930");
+		account.setPassword("xxxxxxx");
 		account.setProperties("mail.smtp.auth=true");
 		
 		return account;
