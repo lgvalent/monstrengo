@@ -149,7 +149,10 @@ public class SendMailService extends ServiceBasic {
 
 					//enviando mensagem
 					Transport.send(message);
-				}
+
+//					session.getTransport().sendMessage(message, message.getAllRecipients());
+
+			}
 
 			/* Inclui a mensagem de OK */
 			//TODO - colocar mensagens
