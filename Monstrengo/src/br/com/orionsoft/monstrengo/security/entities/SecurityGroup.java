@@ -112,8 +112,6 @@ public class SecurityGroup
 
     public String toString()
     {
-        String result = "";
-        result += this.name; 
-        return result;
+        return this.name==null?"":this.name;
     }
 }
