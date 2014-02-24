@@ -24,7 +24,7 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.ApplicationBean;
 public class SelectItemConverter implements Converter{
 	  
 	/**
-	 * O valor submetido para o conversor deve ser o id e a descriçãonome da classe da entidade e o seu id.
+	 * O valor submetido para o conversor deve ser o nome da classe da entidade e o seu id.
 	 * Exemplo: 'br.com.MyClass:1'
 	 * Use uma expressão: #{IEntity.info.type.name}:#{IEntity.id}    
 	 */

@@ -96,14 +96,14 @@
 		<h:panelGroup id="value1">
 			<h:inputText id="strInput1" value="#{queryBean.newCondictionParam.value1}"
 			                           title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                           rendered="#{queryBean.newCondictionParam.propertyInfo.string}"
+			                           rendered="#{queryBean.newCondictionParam.propertyInfo.isString()}"
 			                           maxlength="#{queryBean.newCondictionParam.propertyInfo.size}"
 			                           size="20" />
 			<h:message for="strInput1" styleClass="errorMessage" />
 
 			<h:inputText id="intInput1" value="#{queryBean.newCondictionParam.value1}"
 			                           title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                           rendered="#{queryBean.newCondictionParam.propertyInfo.integer or queryBean.newCondictionParam.propertyInfo.long}"
+			                           rendered="#{queryBean.newCondictionParam.propertyInfo.isInteger() or queryBean.newCondictionParam.propertyInfo.isLong()}"
 			                           maxlength="15"
 			                           size="15"
 			                           onkeypress="return keyPressInt(this,event)" />
@@ -128,7 +128,7 @@
 			<h:selectBooleanCheckbox id="bolInput1"
 			                         value="#{queryBean.newCondictionParam.value1AsBoolean}"
 			                         title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                         rendered="#{queryBean.newCondictionParam.propertyInfo.boolean}"/>
+			                         rendered="#{queryBean.newCondictionParam.propertyInfo.isBoolean()}"/>
 			<h:message for="bolInput1" styleClass="errorMessage" />
 
 			<%-- Subclasse --%>
@@ -151,14 +151,14 @@
 		<h:panelGroup id="value2">
 			<h:inputText id="strInput2" value="#{queryBean.newCondictionParam.value2}"
 			                           title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                           rendered="#{queryBean.newCondictionParam.propertyInfo.string}"
+			                           rendered="#{queryBean.newCondictionParam.propertyInfo.isString()}"
 			                           maxlength="#{queryBean.newCondictionParam.propertyInfo.size}"
 			                           size="20" />
 			<h:message for="strInput2" styleClass="errorMessage" />
 
 			<h:inputText id="intInput2" value="#{queryBean.newCondictionParam.value2}"
 			                           title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                           rendered="#{queryBean.newCondictionParam.propertyInfo.integer or queryBean.newCondictionParam.propertyInfo.long}"
+			                           rendered="#{queryBean.newCondictionParam.propertyInfo.isInteger() or queryBean.newCondictionParam.propertyInfo.isLong()}"
 			                           maxlength="15"
 			                           size="15"
 			                           onkeypress="return keyPressInt(this,event)" />
@@ -183,7 +183,7 @@
 			<h:selectBooleanCheckbox id="bolInput2"
 			                         value="#{queryBean.newCondictionParam.value2AsBoolean}"
 			                         title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                         rendered="#{queryBean.newCondictionParam.propertyInfo.boolean}"/>
+			                         rendered="#{queryBean.newCondictionParam.propertyInfo.isBoolean()}"/>
 			<h:message for="bolInput2" styleClass="errorMessage" />
 
 			<%-- Subclasse --%>

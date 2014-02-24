@@ -440,10 +440,10 @@
 		</f:facet>
 		<h:outputLabel
 			value="#{item.properties[queryBean.properties[1].index].value.asString}"
-			rendered="#{(not queryBean.properties[1].boolean) and queryBean.properties[1].visible}" />
+			rendered="#{(not queryBean.properties[1].isBoolean()) and queryBean.properties[1].visible}" />
 		<h:selectBooleanCheckbox disabled="true"
 			value="#{item.properties[queryBean.properties[1].index].value.asBoolean}"
-			rendered="#{queryBean.properties[1].boolean and queryBean.properties[1].visible}" />
+			rendered="#{queryBean.properties[1].isBoolean() and queryBean.properties[1].visible}" />
 		</h:column-->
 
 		</h:dataTable>

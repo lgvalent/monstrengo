@@ -14,7 +14,7 @@
  -->
 <!-- Exibe lista de escolha para campos primitivos  -->
 <h:panelGroup
-	rendered="#{propertyPrimitive.info.editShowList and !propertyPrimitive.info.enum}">
+	rendered="#{propertyPrimitive.info.editShowList and !propertyPrimitive.info.isEnum()}">
 	<h:selectOneMenu id="selectPrimitiveInput" label="#{propertyPrimitive.info.label}"
 		value="#{propertyPrimitive.value.asString}"
 		required="#{propertyPrimitive.info.required}">
@@ -25,7 +25,7 @@
 
 <!-- Exibe lista de escolha para ENUMS  -->
 <h:panelGroup
-	rendered="#{propertyPrimitive.info.enum}">
+	rendered="#{propertyPrimitive.info.isEnum()}">
 	<h:selectOneMenu id="selectEnumInput" label="#{propertyPrimitive.info.label}"
 		value="#{propertyPrimitive.value.id}"
 		required="#{propertyPrimitive.info.required}">
@@ -36,11 +36,11 @@
 
 <!-- Exibe caixa de entrada de texto para campos primitivos  -->
 <h:panelGroup
-	rendered="#{!propertyPrimitive.info.editShowList and !propertyPrimitive.info.enum}">
+	rendered="#{!propertyPrimitive.info.editShowList and !propertyPrimitive.info.isEnum()}">
 
 	<pe:ckEditor  id="editor" label="#{propertyPrimitive.info.label}"
 		value="#{propertyPrimitive.value.asString}" 
-		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.editMask eq 'HTML'}"
+		rendered="#{propertyPrimitive.info.isString() and propertyPrimitive.info.editMask eq 'HTML'}"
 		width="100%" height="350px"
 		skin="v2"
 		widgetVar="editor" 
@@ -50,14 +50,14 @@
 		value="#{propertyPrimitive.value.asString}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.size ge 200 and !propertyPrimitive.info.hasEditMask}"
+		rendered="#{propertyPrimitive.info.isString() and propertyPrimitive.info.size ge 200 and !propertyPrimitive.info.hasEditMask}"
 		disabled="#{propertyPrimitive.info.readOnly}" rows="2" />
 
 	<p:inputText id="strInput" style="width:100%" label="#{propertyPrimitive.info.label}"
 		value="#{propertyPrimitive.value.asString}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.size lt 200  and !propertyPrimitive.info.hasEditMask}"
+		rendered="#{propertyPrimitive.info.isString() and propertyPrimitive.info.size lt 200  and !propertyPrimitive.info.hasEditMask}"
 		disabled="#{propertyPrimitive.info.readOnly}"
 		maxlength="#{propertyPrimitive.info.size}" />
 
@@ -65,7 +65,7 @@
 		value="#{propertyPrimitive.value.asString}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.string and propertyPrimitive.info.hasEditMask and propertyPrimitive.info.editMask != 'HTML'}"
+		rendered="#{propertyPrimitive.info.isString() and propertyPrimitive.info.hasEditMask and propertyPrimitive.info.editMask != 'HTML'}"
 		disabled="#{propertyPrimitive.info.readOnly}"
 		maxlength="#{propertyPrimitive.info.editMaskSize}"
 		onkeypress="return keyPressMask(this,'#{propertyPrimitive.info.editMask}')" />
@@ -73,7 +73,7 @@
 	<p:inputText id="intInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.integer}"
+		rendered="#{propertyPrimitive.info.isInteger()}"
 		disabled="#{propertyPrimitive.info.readOnly}" size="10"
 		onkeypress="return keyPressInt(this,event)">
 		<f:validateLongRange minimum="-999999999" maximum="999999999" />
@@ -82,7 +82,7 @@
 	<p:inputText id="longInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.long}"
+		rendered="#{propertyPrimitive.info.isLong()}"
 		disabled="#{propertyPrimitive.info.readOnly}" size="10"
 		onkeypress="return keyPressInt(this,event)">
 		<f:validateLongRange minimum="-999999999" maximum="999999999" />
@@ -99,7 +99,7 @@
 		value="#{propertyPrimitive.value.asString}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.float}"
+		rendered="#{propertyPrimitive.info.isFloat()}"
 		disabled="#{propertyPrimitive.info.readOnly}" size="10"
 		onkeypress="return keyPressFloat(this,event)" />
 
@@ -107,7 +107,7 @@
 		value="#{propertyPrimitive.value.asString}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.double}"
+		rendered="#{propertyPrimitive.info.isDouble()}"
 		disabled="#{propertyPrimitive.info.readOnly}" size="10"
 		onkeypress="return keyPressFloat(this,event)" />
 
@@ -122,14 +122,14 @@
 		value="#{propertyPrimitive.value.asBoolean}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.boolean}"
+		rendered="#{propertyPrimitive.info.isBoolean()}"
 		disabled="#{propertyPrimitive.info.readOnly}">
 	</h:selectBooleanCheckbox>
 </h:panelGroup>
 
 <!-- Exibe informações sobre a máscara do campo -->
 <h:panelGroup
-	rendered="#{propertyPrimitive.info.hasEditMask and !propertyPrimitive.info.boolean}">
+	rendered="#{propertyPrimitive.info.hasEditMask and !propertyPrimitive.info.isBoolean()}">
 	<h:outputLabel value="#{propertyPrimitive.info.editMask}"
 		title="Utilize este formato para preencher o campo corretamente."
 		style="color:orange;" />

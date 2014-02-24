@@ -26,7 +26,7 @@
 		<h:panelGrid columns="1">
 			<h:commandLink styleClass="noprint"
 				action="#{createBean.actionCreate}"
-				rendered="#{queryBean.canCreate and !queryBean.info.abstract}"
+				rendered="#{queryBean.canCreate and !queryBean.info.isAbstract()}"
 				style="font-size: smaller;">
 				<h:graphicImage value="../../public/basic/img/create.png"
 					title="Clique aqui para criar um novo registro de #{queryBean.info.label}"

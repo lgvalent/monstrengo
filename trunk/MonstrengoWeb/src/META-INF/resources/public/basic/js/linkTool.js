@@ -148,25 +148,25 @@ function windowPage(page)
 
 function linkRetrieve(entityType, entityId)
 {
-	var page="../basic/retrieve.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
+	var page="../../pages/basic/retrieve.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
 	popupPage(page,660,495);
 }
 
 function linkRetrieveParent(parentType, parentId, parentProperty)
 {
-	var page="../basic/retrieve.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&link=true";  
+	var page="../../pages/basic/retrieve.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&link=true";  
 	popupPage(page,660,495);
 }
 
 function linkQueryParent(parentType, parentId, parentProperty)
 {
-	var page="../basic/query.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&link=true";  
+	var page="../../pages/basic/query.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&link=true";  
 	popupPage(page,660,495);
 }
 
 function linkRetrieveLocal(entityType, entityId)
 {
-	var page="../basic/retrieve.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
+	var page="../../pages/basic/retrieve.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
 	windowPage(page);
 }
 
@@ -176,25 +176,25 @@ function linkRetrieveLocal(entityType, entityId)
  */
 function linkQuery(entityType)
 {
-	var page="../basic/query.xhtml?entityType=" + entityType + "&link=true";  
+	var page="../../pages/basic/query.xhtml?entityType=" + entityType + "&link=true";  
 	popupPage(page,660,495);
 }
 
 function linkQueryFilter(entityType, filter)
 {
-	var page="../basic/query.xhtml?entityType=" + entityType + "&filter=" + filter + "&link=true";  
+	var page="../../pages/basic/query.xhtml?entityType=" + entityType + "&filter=" + filter + "&link=true";  
 	popupPage(page,660,495);
 }
 
 function linkQueryFilterParent(parentType, parentId, parentProperty, filter)
 {
-	var page="../basic/query.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&filter=" + filter + "&link=true";  
+	var page="../../pages/basic/query.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&filter=" + filter + "&link=true";  
 	popupPage(page,660,495);
 }
 
 function linkQueryUserReport(entityType, userReportId)
 {
-	var page="../basic/query.xhtml?entityType=" + entityType + "&userReportId=" + userReportId + "&link=true";  
+	var page="../../pages/basic/query.xhtml?entityType=" + entityType + "&userReportId=" + userReportId + "&link=true";  
 	popupPageReturn(page,660,495,'Relatório');
 }
 
@@ -244,7 +244,7 @@ function openSelectOneProp(entityType, filter, srcProp, destInput)
 	
 	/** Informa para a janela que ser? chamada qual o id do componente que
 	 dever? ser atualizado se o operador selecionar um id na lista */
-	var page="../basic/query.xhtml?entityType=" + entityType + "&filter=" + filter + "&selectProperty=" + srcProp + "&selectOneDest=" + destInputId + "&link=true";  
+	var page="../../pages/basic/query.xhtml?entityType=" + entityType + "&filter=" + filter + "&selectProperty=" + srcProp + "&selectOneDest=" + destInputId + "&link=true";  
 	popupPageReturn(page,660,495,'');
 }
 
@@ -274,48 +274,48 @@ function closeSelectOne(destInputId, id, queryWindow)
 
 function linkCreate(entityType)
 {
-	var page="../basic/create.xhtml?entityType=" + entityType + "&link=true";
+	var page="../../pages/basic/create.xhtml?entityType=" + entityType + "&link=true";
 	windowPage(page);
 }
 
 function linkCreatePopup(entityType)
 {
-	var page="../basic/create.xhtml?entityType=" + entityType + "&link=true";
+	var page="../../pages/basic/create.xhtml?entityType=" + entityType + "&link=true";
 	popupPage(page,660,495);
 }
 
 function linkCreateCopy(entityType, entityCopyId)
 {
-	var page="../basic/create.xhtml?entityType=" + entityType + "&entityId=" + entityCopyId + "&link=true";
+	var page="../../pages/basic/create.xhtml?entityType=" + entityType + "&entityId=" + entityCopyId + "&link=true";
 	windowPage(page);
 }
 
 function linkDeletePopup(entityType, entityId)
 {
-	var page="../basic/delete1.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
+	var page="../../pages/basic/delete1.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
 	popupPage(page,660,495);
 }
 
 function linkDelete(entityType, entityId)
 {
-	var page="../basic/delete1.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
+	var page="../../pages/basic/delete1.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
 	windowPage(page);
 }
 
 function linkUpdatePopup(entityType, entityId)
 {
-	var page="../basic/update.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
+	var page="../../pages/basic/update.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
 	popupPage(page,660,495);
 }
 function linkUpdate(entityType, entityId)
 {
-	var page="../basic/update.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
+	var page="../../pages/basic/update.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
 	windowPage(page);
 }
 
 function linkCheckAuditCrud(entityType, entityId)
 {
-	var page="../basic/securityCheckAuditCrud.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";  
+	var page="../admin/securityCheckAuditCrud.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";  
 	popupPage(page,660,300);
 }
 

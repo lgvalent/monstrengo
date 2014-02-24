@@ -5,33 +5,59 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:include src="/public/basic/tiles/head.xhtml">
-    <ui:param name="pageTitle" value="Controle de etiquetas"/>
-</ui:include>
-<h:body>
-	<h:messages styleClass="infoMessage" />
-	<p:layout style="min-width:400px;min-height:200px;" id="layout">
-		<p:layoutUnit position="west" resizable="true" size="200"
-			minSize="100" maxSize="200">
-
-			<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
-				<ui:param name="entityMetadata" value="#{menuBean.infoMap.AddressLabel}" />
-			</ui:include><br/>
-			<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
-				<ui:param name="entityMetadata" value="#{menuBean.infoMap.AddressLabelGroup}" />
-			</ui:include><br/>
-			<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
-				<ui:param name="entityMetadata" value="#{menuBean.infoMap.ModelLabel}" />
-			</ui:include><br/>
-			<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
-				<ui:param name="entityMetadata" value="#{menuBean.infoMap.ModelLabelEntity}" />
-			</ui:include>
-		</p:layoutUnit>
-
-		<p:layoutUnit position="center">
-			<h:form id="formPrint">
-				<script>borderCreator.initDarkBorder('100%', '', 'left', 'top')</script>
-				<h:outputLabel value="Impressão:" styleClass="titleGroup" />
+	<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
+		<ui:param name="title" value="Controle Etiquetas" />
+		<ui:param name="icon" value="../../public/basic/img/label.png" />
+		<ui:param name="description" value="O sistema permite que você gere etiquetas de diversas entidades. Todas as etiquetas são centralizadas nesta tela para posterior controle e manutenção.&lt;br/>Cadastres novos grupos de etiquetas, novos modelos de impressão de etiqueta e novos modelos de geração&lt;br/>Filtre as etiquetas geradas por operador, entidade ou grupo. Ordene a lista de etiqueta. Marque as etiquetas que deseja imprimir ou excluir dessa lista." />
+		
+		<ui:define name="content">
+			<p:commandButton id="cadastro" value="Cadastros" title="Cadastros relacionados às etiquetas" />
+		    <p:overlayPanel for="cadastro" hideEffect="fade">  
+					<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:param name="entityMetadata" value="#{menuBean.infoMap.AddressLabel}" />
+					</ui:include><br/>
+					<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:param name="entityMetadata" value="#{menuBean.infoMap.AddressLabelGroup}" />
+					</ui:include><br/>
+					<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:param name="entityMetadata" value="#{menuBean.infoMap.ModelLabel}" />
+					</ui:include><br/>
+					<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+						<ui:param name="entityMetadata" value="#{menuBean.infoMap.ModelLabelEntity}" />
+					</ui:include>
+			</p:overlayPanel>  		
+		
+			<p:commandButton id="filtro" value="Filtrar" title="Permite visualizar um subconjunto das etiquetas" />
+		    <p:overlayPanel for="filtro" hideEffect="fade">  
+				<h:outputLabel value="Exibir etiquetas de " />
+				<h:selectOneMenu id="operador"
+					value="#{labelBean.applicationUserId}"
+					onchange="this.form.submit()"
+					title="Selecione o operador para visualizar suas etiquetas">
+					<f:selectItems value="#{labelBean.applicationUsers}" />
+				</h:selectOneMenu>
+					<h:selectOneMenu id="entidade"
+					value="#{labelBean.applicationEntityId}"
+					onchange="this.form.submit()"
+					title="Selecione o tipo de entidade para visualizar suas etiquetas">
+					<f:selectItems value="#{labelBean.applicationEntities}" />
+				</h:selectOneMenu>
+				<h:selectOneMenu id="grupo"
+					value="#{labelBean.addressLabelGroupId}"
+					onchange="this.form.submit()"
+					title="Selecione um grupo de etiquetas para visualizar">
+					<f:selectItems value="#{labelBean.addressLabelGroupList}" />
+				</h:selectOneMenu>
+				<h:outputLabel value=" e ordenar por " />
+				<h:selectOneMenu id="order" value="#{labelBean.orderProperty}"
+					onchange="this.form.submit()"
+					title="Selecione uma propriedade para ordenação das etiquetas na visualização">
+					<f:selectItems value="#{labelBean.orderPropertyList}" />
+				</h:selectOneMenu>
+			</p:overlayPanel>  		
+		
+			<p:commandButton id="imprimir" value="Imprimir" title="Define as opções de impressão e imprime as etiquetas seleciondas" />
+		    <p:overlayPanel for="imprimir" hideEffect="fade">  
 				<h:panelGrid>
 					<h:panelGroup>
 						<h:outputLabel value="Selecione o modelo de etiquetas " />
@@ -55,15 +81,42 @@
 							title="Gera um PDF das etiquetas selecionadas" />
 					</h:panelGroup>
 				</h:panelGrid>
-				<script>borderCreator.endDarkBorder()</script>
+			</p:overlayPanel>  		
 
-				<script>borderCreator.initDarkBorder('100%', '', 'left', 'top')</script>
-				<h:outputLabel value="Manutenção:" styleClass="titleGroup" />
+			<br/>  		
+			<h:outputLabel
+				value="Não há etiquetas na lista para serem impressas. Utilize o menu Gerar Etiquetas para adicionar etiquetas na lista"
+				styleClass="infoMessage" rendered="#{!labelBean.hasLabels}" />
+
+			<h:outputLabel
+				value="Estão sendo exibidas &lt;b&gt;#{labelBean.labelsCount}&lt;/b&gt; etiquetas. Selecione as etiquetas que serão enviadas para impressão:"
+				style="color: #EE2C2C; text-align:left" escape="false"
+				rendered="#{labelBean.hasLabels}" />
+
+			<br/>  		
+
+			<h:outputLabel value="Seleção:" styleClass="titleGroup" />
+			<h:panelGroup>
+				<h:commandButton value="Marcar"
+					title="Marca todas as propriedades da lista atual"
+					onclick="return checkAll(this.form, 'myCheckEtiqueta')" />
+				<h:commandButton value="Intervalo"
+					title="Marca todas as propriedades entre um intervalo definido"
+					onclick="return checkRange(this.form, 'myCheckEtiqueta')" />
+				<h:commandButton value="Desmarcar"
+					title="Desmarca todas as propriedades da lista atual"
+					onclick="return clearAll(this.form, 'myCheckEtiqueta')" />
+				<h:commandButton value="Inverter"
+					title="Inverte a seleção das propriedades da lista atual"
+					onclick="return inverseAll(this.form, 'myCheckEtiqueta')" />
+				<h:commandButton value="Desfazer"
+					title="Volta a seleção anterior às alterações recentemente efetuadas"
+					type="reset" />
 				<h:commandButton value="Recarregar"
 					title="Recarrega a lista de etiquetas sem gravar as alterações"
 					action="#{labelBean.doReload}" />
 				<h:commandButton value="Gravar"
-					title="Grava a atual de definição de seleção de etiquetas"
+					title="Grava a atual definição de seleção de etiquetas"
 					onclick="javascript:return confirm('Confirma gravar a seleção atual?')"
 					action="#{labelBean.doUpdateSelection}"
 					disabled="#{!menuBean.crudMap.AddressLabel.canUpdate || (labelBean.applicationUserId!=userSessionBean.userSession.user.id)}" />
@@ -72,163 +125,86 @@
 					onclick="javascript:return confirm('Confirma excluir as etiquetas selecionadas?')"
 					action="#{labelBean.doDeleteSelection}"
 					disabled="#{!menuBean.crudMap.AddressLabel.canDelete || (labelBean.applicationUserId!=userSessionBean.userSession.user.id)}" />
-				<script>borderCreator.endDarkBorder()</script>
+			</h:panelGroup>
+			<br/>  		
 
-				<script>borderCreator.initDarkBorder('100%', '', 'left', 'top')</script>
-				<h:outputLabel value="Seleção:" styleClass="titleGroup" />
-				<h:panelGroup>
-						<h:outputLabel value="Exibir etiquetas de " />
-						<h:selectOneMenu id="operador"
-							value="#{labelBean.applicationUserId}"
-							onchange="this.form.submit()"
-							title="Selecione o operador para visualizar suas etiquetas">
-							<f:selectItems value="#{labelBean.applicationUsers}" />
-						</h:selectOneMenu>
-						<h:selectOneMenu id="entidade"
-							value="#{labelBean.applicationEntityId}"
-							onchange="this.form.submit()"
-							title="Selecione o tipo de entidade para visualizar suas etiquetas">
-							<f:selectItems value="#{labelBean.applicationEntities}" />
-						</h:selectOneMenu>
-						<h:selectOneMenu id="grupo"
-							value="#{labelBean.addressLabelGroupId}"
-							onchange="this.form.submit()"
-							title="Selecione um grupo de etiquetas para visualizar">
-							<f:selectItems value="#{labelBean.addressLabelGroupList}" />
-						</h:selectOneMenu>
-						<h:outputLabel value=" e ordenar por " />
-						<h:selectOneMenu id="order" value="#{labelBean.orderProperty}"
-							onchange="this.form.submit()"
-							title="Selecione uma propriedade para ordenação das etiquetas na visualização">
-							<f:selectItems value="#{labelBean.orderPropertyList}" />
-						</h:selectOneMenu>
-						<br/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<h:commandButton value="Marcar"
-						title="Marca todas as propriedades da lista atual"
-						onclick="return checkAll(this.form, 'myCheckEtiqueta')" />
-					<h:commandButton value="Intervalo"
-						title="Marca todas as propriedades entre um intervalo definido"
-						onclick="return checkRange(this.form, 'myCheckEtiqueta')" />
-					<h:commandButton value="Desmarcar"
-						title="Desmarca todas as propriedades da lista atual"
-						onclick="return clearAll(this.form, 'myCheckEtiqueta')" />
-					<h:commandButton value="Inverter"
-						title="Inverte a seleção das propriedades da lista atual"
-						onclick="return inverseAll(this.form, 'myCheckEtiqueta')" />
-					<h:commandButton value="Desfazer"
-						title="Volta a seleção anterior às alterações recentemente efetuadas"
-						type="reset" />
-				</h:panelGroup>
-				<script>
-			borderCreator.endDarkBorder()
-		</script>
-				<h:outputLabel
-					value="Não há etiquetas na lista para serem impressas. Utilize o menu Gerar Etiquetas para adicionar etiquetas na lista"
-					styleClass="infoMessage" rendered="#{!labelBean.hasLabels}" />
+			<div style="height: auto;auto; overflow-x: auto;">
+				<h:dataTable id="tbr" width="100%" value="#{labelBean.labels.list}"
+					var='item' headerClass="tableAdvancedReportHeader"
+					styleClass="tableCollectionAdvancedReport"
+					rowClasses="tableAdvancedReportRowEven,tableAdvancedReportRowOdd"
+					columnClasses="tableAdvancedReportColumnOdd"
+					style="border-collapse: collapse; white-space: nowrap;"
+					rendered="#{labelBean.hasLabels}">
 
-				<h:outputLabel
-					value="Estão sendo exibidas &lt;b&gt;#{labelBean.labelsCount}&lt;/b&gt; etiquetas. Selecione as etiquetas que serão enviadas para impressão:"
-					style="color: #EE2C2C; text-align:left" escape="false"
-					rendered="#{labelBean.hasLabels}" />
+					<h:column>
+						<h:selectBooleanCheckbox id="myCheckEtiqueta"
+							value="#{item.propertiesMap.print.value.asBoolean}" />
 
-				<div style="height: auto; overflow-x: auto;">
-					<h:dataTable id="tbr" width="100%" value="#{labelBean.labels.list}"
-						var='item' headerClass="tableAdvancedReportHeader"
-						styleClass="tableCollectionAdvancedReport"
-						rowClasses="tableAdvancedReportRowEven,tableAdvancedReportRowOdd"
-						columnClasses="tableAdvancedReportColumnOdd"
-						style="border-collapse: collapse; white-space: nowrap;"
-						rendered="#{labelBean.hasLabels}">
+						<f:facet name="header">
+							<h:outputLabel value="" />
+						</f:facet>
 
-						<h:column>
-							<h:selectBooleanCheckbox id="myCheckEtiqueta"
-								value="#{item.propertiesMap.print.value.asBoolean}" />
+						<h:outputLink
+							value="javascript:linkRetrieve('#{item.object.getClass().name}', '#{item.id}')"
+							rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
+							<h:graphicImage value="../../public/basic/img/retrieve.png"
+								title="Visualiza os detalhes do registro" style="border:0" />
+						</h:outputLink>
+						<h:graphicImage value="../../public/basic/img/retrieve_d.png"
+							title="Você não possui direitos para visualizar os dados do registro"
+							style="border:0"
+							rendered="#{!menuBean.crudMap.AddressLabel.canRetrieve}" />
 
-							<f:facet name="header">
-								<h:outputLabel value="" />
-							</f:facet>
+					</h:column>
 
-							<h:outputLink
-								value="javascript:linkRetrieve('#{item.object.class.name}', '#{item.id}')"
-								rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
-								<h:graphicImage value="../../public/basic/img/retrieve.png"
-									title="Visualiza os detalhes do registro" style="border:0" />
-							</h:outputLink>
-							<h:graphicImage value="../../public/basic/img/retrieve_d.png"
-								title="Você não possui direitos para visualizar os dados do registro"
-								style="border:0"
-								rendered="#{!menuBean.crudMap.AddressLabel.canRetrieve}" />
-
-						</h:column>
-
-						<h:column>
+					<h:column>
 							<f:facet name="header">
 								<h:panelGroup>
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line1.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line1.label}" />
 									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line2.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line2.label}" />
 									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line3.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line3.label}" />
 									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line4.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line4.label}" />
 									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line5.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.line5.label}" />
 								</h:panelGroup>
 							</f:facet>
-							<h:outputText value="#{item.propertiesMap.line1.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText value="#{item.propertiesMap.line2.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText value="#{item.propertiesMap.line3.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText value="#{item.propertiesMap.line4.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText value="#{item.propertiesMap.line5.value.asString}"
-								style="font-size: small;" />
-						</h:column>
-						<h:column>
+							<h:outputText value="#{item.propertiesMap.line1.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line1.value.isValueNull()}" escape="false"/>
+							<h:outputText value="#{item.propertiesMap.line2.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line2.value.isValueNull()}" escape="false"/>
+							<h:outputText value="#{item.propertiesMap.line3.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line3.value.isValueNull()}" escape="false"/>
+							<h:outputText value="#{item.propertiesMap.line4.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line4.value.isValueNull()}" escape="false"/>
+							<h:outputText value="#{item.propertiesMap.line5.value.asString} &lt;br/>" style="font-size: small;" rendered="#{!item.propertiesMap.line5.value.isValueNull()}" escape="false"/>
+					</h:column>
+					<h:column>
 							<f:facet name="header">
 								<h:panelGroup>
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.applicationUser.label}" />
-									<br />
-									<h:outputText
-										value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.ocurrencyDate.label}" />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.applicationUser.label}" /> / <br />
+									<h:outputText value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.ocurrencyDate.label}" />
 								</h:panelGroup>
 							</f:facet>
-							<h:outputText
-								value="#{item.propertiesMap.applicationUser.value.asString}"
-								style="font-size: small;" />
-							<br />
-							<h:outputText
-								value="#{item.propertiesMap.ocurrencyDate.value.asString}"
-								style="font-size: small;" />
-						</h:column>
-						<h:column>
+							<h:outputText value="#{item.propertiesMap.applicationUser.value.asString}" style="font-size: small;" /> / <br />
+							<h:outputText value="#{item.propertiesMap.ocurrencyDate.value.asString}" style="font-size: small;" />
+					</h:column>
+					<h:column>
 							<f:facet name="header">
-								<h:outputLabel
-									value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.addressLabelGroup.label}" />
+								<h:outputLabel	value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.applicationEntity.label}" /> / <br/>
+								<h:outputLabel	value="#{menuBean.infoMap.AddressLabel.propertiesMetadata.addressLabelGroup.label}" />
 							</f:facet>
-							<h:outputText
-								value="#{item.propertiesMap.addressLabelGroup.value.asString}"
-								style="font-size: small;" />
-						</h:column>
+							<h:outputText value="#{item.propertiesMap.applicationEntity.value.asString}" style="font-size: small;" /> / <br/>
+							<h:outputText value="#{item.propertiesMap.addressLabelGroup.value.asString}" style="font-size: small;" />
+					</h:column>
 
-					</h:dataTable>
-				</div>
-			</h:form>
-		</p:layoutUnit>
-	</p:layout>
-</h:body>
+				</h:dataTable>
+			</div>
+		</ui:define>
+	
+		<ui:define name="actions">
+		</ui:define>
+	
+		<ui:define name="result">
+		</ui:define>
+	</ui:composition>
 </html>

@@ -111,7 +111,7 @@
 					<h:outputLabel value="" />
 				</f:facet>
 
-				<h:outputLink value="javascript:linkRetrieve('#{item.object.class.name}', '#{item.id}')" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
+				<h:outputLink value="javascript:linkRetrieve('#{item.object.getClass().name}', '#{item.id}')" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
 					<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
 				</h:outputLink>
 				<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.AddressLabel.canRetrieve}"/>

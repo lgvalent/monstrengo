@@ -12,13 +12,14 @@
 	</ui:include>
  -->
 <p:autoComplete id="updatePropertyCollection-#{propertyEntityCollectionSuggest.info.name}"
-	required="#{propertyEntityCollectionSuggest.info.required}"
+	required="#{propertyEntityCollectionSuggest.info.required} and false"
 	dropdown="true"
 	completeMethod="#{propertyEntityCollectionSuggest.getSelectValues}" var="item123"
 	size="40" maxResults="10"
 	value="#{propertyEntityCollectionSuggest.value.asEntityCollection.runEntity}"
 	itemValue="#{item123}"
-	itemLabel="#{item123}" converter="EntityConverter">
+	itemLabel="#{item123}" converter="EntityConverter"
+	label="#{propertyEntityCollectionSuggest.info.label}">
 </p:autoComplete>
 
 <h:outputLink tabindex="-1"
