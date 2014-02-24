@@ -50,11 +50,11 @@
                           <h:outputText value="Conteúdo:"/>
                         </f:facet>
 
-						<h:inputText id="strInput" value="#{item.value}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.string}" readonly="#{item.info.readOnly}" size="#{item.info.size}" maxlength="#{item.info.size}" >
+						<h:inputText id="strInput" value="#{item.value}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isString()}" readonly="#{item.info.readOnly}" size="#{item.info.size}" maxlength="#{item.info.size}" >
 						</h:inputText>
 						<h:message for="strInput" styleClass="errorMessage" />
 
-						<h:inputText id="intInput" value="#{item.value}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.integer}" readonly="#{item.info.readOnly}" size="10">
+						<h:inputText id="intInput" value="#{item.value}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isInteger()}" readonly="#{item.info.readOnly}" size="10">
 							<f:validateLongRange minimum="-999999" maximum="999999" />
 						</h:inputText>
 						<h:message for="intInput" styleClass="errorMessage" />

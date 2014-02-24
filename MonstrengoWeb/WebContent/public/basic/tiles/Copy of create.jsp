@@ -53,7 +53,7 @@
 							rendered="#{item.info.visible && !item.info.readOnly}">
 							<%-- Exibe lista de escolha para campos primitivos  --%>
 							<h:panelGroup
-								rendered="#{item.info.editShowList && item.info.primitive && !item.info.enum}">
+								rendered="#{item.info.editShowList && item.info.primitive && !item.info.isEnum()}">
 								<h:selectOneMenu id="selectPrimitiveInput"
 									value="#{item.value.asString}" required="#{item.info.required}">
 									<f:selectItems value="#{item.valuesList}" />
@@ -63,7 +63,7 @@
 
 							<%-- Exibe lista de escolha para ENUMS  --%>
 							<h:panelGroup
-								rendered="#{item.info.enum and !item.info.collection}">
+								rendered="#{item.info.isEnum() and !item.info.collection}">
 								<h:selectOneMenu id="selectEnumInput" value="#{item.value.id}"
 									required="#{item.info.required}">
 									<f:selectItems value="#{item.valuesList}" />
@@ -73,25 +73,25 @@
 
 							<%-- Exibe caixa de entrada de texto para campos primitivos  --%>
 							<h:panelGroup
-								rendered="#{!item.info.editShowList && item.info.primitive && !item.info.enum}">
+								rendered="#{!item.info.editShowList && item.info.primitive && !item.info.isEnum()}">
 								<h:inputTextarea id="txtInput" style="width:100%"
 									value="#{item.value.asString}" title="#{item.info.hint}"
 									required="#{item.info.required}"
-									rendered="#{item.info.string && item.info.size>255  && !item.info.hasEditMask}"
+									rendered="#{item.info.isString() && item.info.size>255  && !item.info.hasEditMask}"
 									disabled="#{item.info.readOnly}" rows="2" />
 								<h:message for="txtInput" styleClass="errorMessage" />
 
 								<h:inputText id="strInput" style="width:100%"
 									value="#{item.value.asString}" title="#{item.info.hint}"
 									required="#{item.info.required}"
-									rendered="#{item.info.string && item.info.size<256  && !item.info.hasEditMask}"
+									rendered="#{item.info.isString() && item.info.size<256  && !item.info.hasEditMask}"
 									disabled="#{item.info.readOnly}" maxlength="#{item.info.size}" />
 								<h:message for="strInput" styleClass="errorMessage" />
 
 								<h:inputText id="strMaskInput" style="width:100%"
 									value="#{item.value.asString}" title="#{item.info.hint}"
 									required="#{item.info.required}"
-									rendered="#{item.info.string && item.info.hasEditMask}"
+									rendered="#{item.info.isString() && item.info.hasEditMask}"
 									disabled="#{item.info.readOnly}"
 									maxlength="#{item.info.editMaskSize}"
 									onkeypress="return keyPressMask(this,'#{item.info.editMask}')" />
@@ -99,7 +99,7 @@
 
 								<h:inputText id="intInput" value="#{item.value.asString}"
 									title="#{item.info.hint}" required="#{item.info.required}"
-									rendered="#{item.info.integer}"
+									rendered="#{item.info.isInteger()}"
 									disabled="#{item.info.readOnly}" size="10"
 									onkeypress="return keyPressInt(this,event)">
 									<f:validateLongRange minimum="-999999999" maximum="999999999" />
@@ -108,7 +108,7 @@
 
 								<h:inputText id="longInput" value="#{item.value.asString}"
 									title="#{item.info.hint}" required="#{item.info.required}"
-									rendered="#{item.info.long}" disabled="#{item.info.readOnly}"
+									rendered="#{item.info.isLong()}" disabled="#{item.info.readOnly}"
 									size="10" onkeypress="return keyPressInt(this,event)">
 									<f:validateLongRange minimum="-999999999" maximum="999999999" />
 								</h:inputText>
@@ -123,13 +123,13 @@
 
 								<h:inputText id="floatInput" value="#{item.value.asString}"
 									title="#{item.info.hint}" required="#{item.info.required}"
-									rendered="#{item.info.float}" disabled="#{item.info.readOnly}"
+									rendered="#{item.info.isFloat()}" disabled="#{item.info.readOnly}"
 									size="10" onkeypress="return keyPressFloat(this,event)" />
 								<h:message for="floatInput" styleClass="errorMessage" />
 
 								<h:inputText id="doubleInput" value="#{item.value.asString}"
 									title="#{item.info.hint}" required="#{item.info.required}"
-									rendered="#{item.info.double}" disabled="#{item.info.readOnly}"
+									rendered="#{item.info.isDouble()}" disabled="#{item.info.readOnly}"
 									size="10" onkeypress="return keyPressFloat(this,event)" />
 								<h:message for="doubleInput" styleClass="errorMessage" />
 
@@ -143,7 +143,7 @@
 
 							<%-- Exibe informações sobre a máscara do campo --%>
 							<h:panelGroup
-								rendered="#{item.info.hasEditMask && !item.info.boolean}">
+								rendered="#{item.info.hasEditMask && !item.info.isBoolean()}">
 								<h:outputLabel value="#{item.info.editMask}"
 									title="Utilize este formato para preencher o campo corretamente."
 									style="color:orange;" />
@@ -155,7 +155,7 @@
 
 							<h:selectBooleanCheckbox id="bolInput"
 								value="#{item.value.asBoolean}" title="#{item.info.hint}"
-								required="#{item.info.required}" rendered="#{item.info.boolean}"
+								required="#{item.info.required}" rendered="#{item.info.isBoolean()}"
 								disabled="#{item.info.readOnly}">
 							</h:selectBooleanCheckbox>
 							<h:message for="bolInput" styleClass="errorMessage" />
@@ -235,7 +235,7 @@
 											rendered="#{itemOneToOne.info.visible && !itemOneToOne.info.readOnly}">
 											<%-- Exibe lista de escolha para campos primitivos  --%>
 											<h:panelGroup
-												rendered="#{itemOneToOne.info.editShowList && itemOneToOne.info.primitive && !itemOneToOne.info.enum}">
+												rendered="#{itemOneToOne.info.editShowList && itemOneToOne.info.primitive && !itemOneToOne.info.isEnum()}">
 												<h:selectOneMenu id="selectPrimitiveInput"
 													value="#{itemOneToOne.value.asString}"
 													required="#{itemOneToOne.info.required}">
@@ -247,7 +247,7 @@
 
 											<%-- Exibe lista de escolha para ENUMS  --%>
 											<h:panelGroup
-												rendered="#{itemOneToOne.info.enum && !itemOneToOne.info.collection}">
+												rendered="#{itemOneToOne.info.isEnum() && !itemOneToOne.info.collection}">
 												<h:selectOneMenu id="selectEnumInput"
 													value="#{itemOneToOne.value.id}"
 													required="#{itemOneToOne.info.required}">
@@ -257,12 +257,12 @@
 
 											<%-- Exibe caixa de entrada de texto para campos primitivos  --%>
 											<h:panelGroup
-												rendered="#{!itemOneToOne.info.editShowList && itemOneToOne.info.primitive && !itemOneToOne.info.enum}">
+												rendered="#{!itemOneToOne.info.editShowList && itemOneToOne.info.primitive && !itemOneToOne.info.isEnum()}">
 												<h:inputTextarea id="txtInput" style="width:100%"
 													value="#{itemOneToOne.value.asString}"
 													title="#{itemOneToOne.info.hint}"
 													required="#{itemOneToOne.info.required}"
-													rendered="#{itemOneToOne.info.string && itemOneToOne.info.size>255  && !itemOneToOne.info.hasEditMask}"
+													rendered="#{itemOneToOne.info.isString() && itemOneToOne.info.size>255  && !itemOneToOne.info.hasEditMask}"
 													disabled="#{itemOneToOne.info.readOnly}" rows="2" />
 												<h:message for="txtInput" styleClass="errorMessage" />
 
@@ -270,7 +270,7 @@
 													value="#{itemOneToOne.value.asString}"
 													title="#{itemOneToOne.info.hint}"
 													required="#{itemOneToOne.info.required}"
-													rendered="#{itemOneToOne.info.string && itemOneToOne.info.size<256  && !itemOneToOne.info.hasEditMask}"
+													rendered="#{itemOneToOne.info.isString() && itemOneToOne.info.size<256  && !itemOneToOne.info.hasEditMask}"
 													disabled="#{itemOneToOne.info.readOnly}"
 													maxlength="#{itemOneToOne.info.size}" />
 												<h:message for="strInput" styleClass="errorMessage" />
@@ -279,7 +279,7 @@
 													value="#{itemOneToOne.value.asString}"
 													title="#{itemOneToOne.info.hint}"
 													required="#{itemOneToOne.info.required}"
-													rendered="#{itemOneToOne.info.string && itemOneToOne.info.hasEditMask}"
+													rendered="#{itemOneToOne.info.isString() && itemOneToOne.info.hasEditMask}"
 													disabled="#{itemOneToOne.info.readOnly}" size="20"
 													maxlength="#{itemOneToOne.info.editMaskSize}"
 													onkeypress="return keyPressMask(this,'#{itemOneToOne.info.editMask}')" />
@@ -289,7 +289,7 @@
 													value="#{itemOneToOne.value.asString}"
 													title="#{itemOneToOne.info.hint}"
 													required="#{itemOneToOne.info.required}"
-													rendered="#{itemOneToOne.info.integer}"
+													rendered="#{itemOneToOne.info.isInteger()}"
 													disabled="#{itemOneToOne.info.readOnly}" size="10"
 													onkeypress="return keyPressInt(this,event)">
 													<f:validateLongRange minimum="-999999999"
@@ -301,7 +301,7 @@
 													value="#{itemOneToOne.value.asString}"
 													title="#{itemOneToOne.info.hint}"
 													required="#{itemOneToOne.info.required}"
-													rendered="#{itemOneToOne.info.long}"
+													rendered="#{itemOneToOne.info.isLong()}"
 													disabled="#{itemOneToOne.info.readOnly}" size="10"
 													onkeypress="return keyPressInt(this,event)">
 													<f:validateLongRange minimum="-999999999"
@@ -322,7 +322,7 @@
 													value="#{itemOneToOne.value.asString}"
 													title="#{itemOneToOne.info.hint}"
 													required="#{itemOneToOne.info.required}"
-													rendered="#{itemOneToOne.info.float}"
+													rendered="#{itemOneToOne.info.isFloat()}"
 													disabled="#{itemOneToOne.info.readOnly}" size="10"
 													onkeypress="return keyPressFloat(this,event)" />
 												<h:message for="floatInput" styleClass="errorMessage" />
@@ -331,7 +331,7 @@
 													value="#{itemOneToOne.value.asString}"
 													title="#{itemOneToOne.info.hint}"
 													required="#{itemOneToOne.info.required}"
-													rendered="#{itemOneToOne.info.double}"
+													rendered="#{itemOneToOne.info.isDouble()}"
 													disabled="#{itemOneToOne.info.readOnly}" size="10"
 													onkeypress="return keyPressFloat(this,event)" />
 												<h:message for="doubleInput" styleClass="errorMessage" />
@@ -348,7 +348,7 @@
 
 											<%-- Exibe informações sobre a máscara do campo --%>
 											<h:panelGroup
-												rendered="#{itemOneToOne.info.hasEditMask && !itemOneToOne.info.boolean}">
+												rendered="#{itemOneToOne.info.hasEditMask && !itemOneToOne.info.isBoolean()}">
 												<h:outputLabel value="#{itemOneToOne.info.editMask}"
 													title="Utilize este formato para preencher o campo corretamente."
 													style="color:orange;" />
@@ -362,7 +362,7 @@
 												value="#{itemOneToOne.value.asBoolean}"
 												title="#{itemOneToOne.info.hint}"
 												required="#{itemOneToOne.info.required}"
-												rendered="#{itemOneToOne.info.boolean}"
+												rendered="#{itemOneToOne.info.isBoolean()}"
 												disabled="#{itemOneToOne.info.readOnly}">
 											</h:selectBooleanCheckbox>
 											<h:message for="bolInput" styleClass="errorMessage" />
@@ -597,7 +597,7 @@
 											rendered="#{itemOneToMany.info.visible && !itemOneToMany.info.readOnly}">
 											<%-- Exibe lista de escolha para campos primitivos  --%>
 											<h:panelGroup
-												rendered="#{itemOneToMany.info.editShowList && itemOneToMany.info.primitive && !itemOneToMany.info.enum}">
+												rendered="#{itemOneToMany.info.editShowList && itemOneToMany.info.primitive && !itemOneToMany.info.isEnum()}">
 												<h:selectOneMenu id="selectPrimitiveInput"
 													value="#{itemOneToMany.value.asString}">
 													<f:selectItems value="#{itemOneToMany.valuesList}" />
@@ -607,7 +607,7 @@
 											</h:panelGroup>
 
 											<%-- Exibe lista de escolha para ENUMS  --%>
-											<h:panelGroup rendered="#{itemOneToMany.info.enum}">
+											<h:panelGroup rendered="#{itemOneToMany.info.isEnum()}">
 												<h:selectOneMenu id="selectEnumInput"
 													value="#{itemOneToMany.value.id}"
 													required="#{itemOneToMany.info.required}">
@@ -618,18 +618,18 @@
 											<%-- Exibe caixa de entrada de texto para campos primitivos  --%>
 											<%-- Este bloco não possui a validação Required, somente a marcação --%>
 											<h:panelGroup
-												rendered="#{!itemOneToMany.info.editShowList && itemOneToMany.info.primitive && !itemOneToMany.info.enum}">
+												rendered="#{!itemOneToMany.info.editShowList && itemOneToMany.info.primitive && !itemOneToMany.info.isEnum()}">
 												<h:inputTextarea id="txtInput" style="width:100%"
 													value="#{itemOneToMany.value.asString}"
 													title="#{itemOneToMany.info.hint}"
-													rendered="#{itemOneToMany.info.string && itemOneToMany.info.size>255  && !itemOneToMany.info.hasEditMask}"
+													rendered="#{itemOneToMany.info.isString() && itemOneToMany.info.size>255  && !itemOneToMany.info.hasEditMask}"
 													disabled="#{itemOneToMany.info.readOnly}" rows="2" />
 												<h:message for="txtInput" styleClass="errorMessage" />
 
 												<h:inputText id="strInput" style="width:100%"
 													value="#{itemOneToMany.value.asString}"
 													title="#{itemOneToMany.info.hint}"
-													rendered="#{itemOneToMany.info.string && itemOneToMany.info.size<256  && !itemOneToMany.info.hasEditMask}"
+													rendered="#{itemOneToMany.info.isString() && itemOneToMany.info.size<256  && !itemOneToMany.info.hasEditMask}"
 													disabled="#{itemOneToMany.info.readOnly}"
 													maxlength="#{itemOneToMany.info.size}" />
 												<h:message for="strInput" styleClass="errorMessage" />
@@ -637,7 +637,7 @@
 												<h:inputText id="strMaskInput"
 													value="#{itemOneToMany.value.asString}"
 													title="#{itemOneToMany.info.hint}"
-													rendered="#{itemOneToMany.info.string && itemOneToMany.info.hasEditMask}"
+													rendered="#{itemOneToMany.info.isString() && itemOneToMany.info.hasEditMask}"
 													disabled="#{itemOneToMany.info.readOnly}" size="20"
 													maxlength="#{itemOneToMany.info.editMaskSize}"
 													onkeypress="return keyPressMask(this,'#{itemOneToMany.info.editMask}')" />
@@ -646,7 +646,7 @@
 												<h:inputText id="intInput"
 													value="#{itemOneToMany.value.asString}"
 													title="#{itemOneToMany.info.hint}"
-													rendered="#{itemOneToMany.info.integer}"
+													rendered="#{itemOneToMany.info.isInteger()}"
 													disabled="#{itemOneToMany.info.readOnly}" size="10"
 													onkeypress="return keyPressInt(this,event)">
 													<f:validateLongRange minimum="-999999999"
@@ -657,7 +657,7 @@
 												<h:inputText id="longInput"
 													value="#{itemOneToMany.value.asString}"
 													title="#{itemOneToMany.info.hint}"
-													rendered="#{itemOneToMany.info.long}"
+													rendered="#{itemOneToMany.info.isLong()}"
 													disabled="#{itemOneToMany.info.readOnly}" size="10"
 													onkeypress="return keyPressInt(this,event)">
 													<f:validateLongRange minimum="-999999999"
@@ -676,7 +676,7 @@
 												<h:inputText id="floatInput"
 													value="#{itemOneToMany.value.asString}"
 													title="#{itemOneToMany.info.hint}"
-													rendered="#{itemOneToMany.info.float}"
+													rendered="#{itemOneToMany.info.isFloat()}"
 													disabled="#{itemOneToMany.info.readOnly}" size="10"
 													onkeypress="return keyPressFloat(this,event)" />
 												<h:message for="floatInput" styleClass="errorMessage" />
@@ -684,7 +684,7 @@
 												<h:inputText id="doubleInput"
 													value="#{itemOneToMany.value.asString}"
 													title="#{itemOneToMany.info.hint}"
-													rendered="#{itemOneToMany.info.double}"
+													rendered="#{itemOneToMany.info.isDouble()}"
 													disabled="#{itemOneToMany.info.readOnly}" size="10"
 													onkeypress="return keyPressFloat(this,event)" />
 												<h:message for="doubleInput" styleClass="errorMessage" />
@@ -700,7 +700,7 @@
 
 											<%-- Exibe informações sobre a máscara do campo --%>
 											<h:panelGroup
-												rendered="#{itemOneToMany.info.hasEditMask && !itemOneToMany.info.boolean}">
+												rendered="#{itemOneToMany.info.hasEditMask && !itemOneToMany.info.isBoolean()}">
 												<h:outputLabel value="#{itemOneToMany.info.editMask}"
 													title="Utilize este formato para preencher o campo corretamente."
 													style="color:orange;" />
@@ -713,7 +713,7 @@
 											<h:selectBooleanCheckbox id="bolInput"
 												value="#{itemOneToMany.value.asBoolean}"
 												title="#{itemOneToMany.info.hint}"
-												rendered="#{itemOneToMany.info.boolean}"
+												rendered="#{itemOneToMany.info.isBoolean()}"
 												disabled="#{itemOneToMany.info.readOnly}">
 											</h:selectBooleanCheckbox>
 											<h:message for="bolInput" styleClass="errorMessage" />

@@ -28,7 +28,7 @@
     	                     uma String, senão ele não converte Long -> String --%>
    	                     <h:outputLabel value="" title="a #{queryBean.nextCurrentEntity.id}"/>
     	                
-						<h:outputLink value="javascript:linkRetrieve('#{item.object.class.name}', '#{item.id}')" rendered="#{queryBean.canRetrieve}">
+						<h:outputLink value="javascript:linkRetrieve('#{item.object.getClass().name}', '#{item.id}')" rendered="#{queryBean.canRetrieve}">
 							<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
 						</h:outputLink>
 						<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!queryBean.canRetrieve}"/>
@@ -69,8 +69,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[0].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[0].index].value.asString}" rendered="#{(not queryBean.properties[0].boolean) and queryBean.properties[0].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[0].index].value.asBoolean}" rendered="#{queryBean.properties[0].boolean and queryBean.properties[0].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[0].index].value.asString}" rendered="#{(not queryBean.properties[0].isBoolean()) and queryBean.properties[0].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[0].index].value.asBoolean}" rendered="#{queryBean.properties[0].isBoolean() and queryBean.properties[0].visible}" />
 					</h:column>
 
 					<h:column rendered="#{queryBean.propertiesSize > 1}" >
@@ -92,8 +92,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[1].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[1].index].value.asString}" rendered="#{(not queryBean.properties[1].boolean) and queryBean.properties[1].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[1].index].value.asBoolean}" rendered="#{queryBean.properties[1].boolean and queryBean.properties[1].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[1].index].value.asString}" rendered="#{(not queryBean.properties[1].isBoolean()) and queryBean.properties[1].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[1].index].value.asBoolean}" rendered="#{queryBean.properties[1].isBoolean() and queryBean.properties[1].visible}" />
 					</h:column>
 					
 					<h:column rendered="#{queryBean.propertiesSize > 2}" >
@@ -115,8 +115,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[2].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[2].index].value.asString}" rendered="#{(not queryBean.properties[2].boolean) and queryBean.properties[2].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[2].index].value.asBoolean}" rendered="#{queryBean.properties[2].boolean and queryBean.properties[2].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[2].index].value.asString}" rendered="#{(not queryBean.properties[2].isBoolean()) and queryBean.properties[2].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[2].index].value.asBoolean}" rendered="#{queryBean.properties[2].isBoolean() and queryBean.properties[2].visible}" />
 					</h:column>
 
 					<h:column rendered="#{queryBean.propertiesSize > 3}" >
@@ -140,8 +140,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[3].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[3].index].value.asString}" rendered="#{(not queryBean.properties[3].boolean) and queryBean.properties[3].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[3].index].value.asBoolean}" rendered="#{queryBean.properties[3].boolean and queryBean.properties[3].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[3].index].value.asString}" rendered="#{(not queryBean.properties[3].isBoolean()) and queryBean.properties[3].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[3].index].value.asBoolean}" rendered="#{queryBean.properties[3].isBoolean() and queryBean.properties[3].visible}" />
 					</h:column>
 
 					<h:column rendered="#{queryBean.propertiesSize > 4}" >
@@ -163,8 +163,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[4].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[4].index].value.asString}" rendered="#{(not queryBean.properties[4].boolean) and queryBean.properties[4].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[4].index].value.asBoolean}" rendered="#{queryBean.properties[4].boolean and queryBean.properties[4].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[4].index].value.asString}" rendered="#{(not queryBean.properties[4].isBoolean()) and queryBean.properties[4].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[4].index].value.asBoolean}" rendered="#{queryBean.properties[4].isBoolean() and queryBean.properties[4].visible}" />
 					</h:column>
 
 					<h:column rendered="#{queryBean.propertiesSize > 5}" >
@@ -186,8 +186,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[5].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[5].index].value.asString}" rendered="#{(not queryBean.properties[5].boolean) and queryBean.properties[5].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[5].index].value.asBoolean}" rendered="#{queryBean.properties[5].boolean and queryBean.properties[5].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[5].index].value.asString}" rendered="#{(not queryBean.properties[5].isBoolean()) and queryBean.properties[5].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[5].index].value.asBoolean}" rendered="#{queryBean.properties[5].isBoolean() and queryBean.properties[5].visible}" />
 					</h:column>
 
 					<h:column rendered="#{queryBean.propertiesSize > 6}" >
@@ -209,8 +209,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[6].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[6].index].value.asString}" rendered="#{(not queryBean.properties[6].boolean) and queryBean.properties[6].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[6].index].value.asBoolean}" rendered="#{queryBean.properties[6].boolean and queryBean.properties[6].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[6].index].value.asString}" rendered="#{(not queryBean.properties[6].isBoolean()) and queryBean.properties[6].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[6].index].value.asBoolean}" rendered="#{queryBean.properties[6].isBoolean() and queryBean.properties[6].visible}" />
 					</h:column>
 
 					<h:column rendered="#{queryBean.propertiesSize > 7}" >
@@ -232,8 +232,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[7].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[7].index].value.asString}" rendered="#{(not queryBean.properties[7].boolean) and queryBean.properties[7].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[7].index].value.asBoolean}" rendered="#{queryBean.properties[7].boolean and queryBean.properties[7].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[7].index].value.asString}" rendered="#{(not queryBean.properties[7].isBoolean()) and queryBean.properties[7].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[7].index].value.asBoolean}" rendered="#{queryBean.properties[7].isBoolean() and queryBean.properties[7].visible}" />
 					</h:column>
 
 					<h:column rendered="#{queryBean.propertiesSize > 8}" >
@@ -255,8 +255,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[8].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[8].index].value.asString}" rendered="#{(not queryBean.properties[8].boolean) and queryBean.properties[8].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[8].index].value.asBoolean}" rendered="#{queryBean.properties[8].boolean and queryBean.properties[8].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[8].index].value.asString}" rendered="#{(not queryBean.properties[8].isBoolean()) and queryBean.properties[8].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[8].index].value.asBoolean}" rendered="#{queryBean.properties[8].isBoolean() and queryBean.properties[8].visible}" />
 					</h:column>
 
 					<h:column rendered="#{queryBean.propertiesSize > 9}" >
@@ -278,8 +278,8 @@
 								<h:graphicImage style="border: none;" value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente" rendered="#{queryBean.properties[9].name==queryBean.newOrderParam.propertyPath && queryBean.newOrderParam.orderDesc}"/>
 							</h:panelGroup>
     	                </f:facet>
-						<h:outputText value="#{item.properties[queryBean.properties[9].index].value.asString}" rendered="#{(not queryBean.properties[9].boolean) and queryBean.properties[9].visible}" />
-						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[9].index].value.asBoolean}" rendered="#{queryBean.properties[9].boolean and queryBean.properties[9].visible}" />
+						<h:outputText value="#{item.properties[queryBean.properties[9].index].value.asString}" rendered="#{(not queryBean.properties[9].isBoolean()) and queryBean.properties[9].visible}" />
+						<h:selectBooleanCheckbox disabled="true" value="#{item.properties[queryBean.properties[9].index].value.asBoolean}" rendered="#{queryBean.properties[9].isBoolean() and queryBean.properties[9].visible}" />
 					</h:column>
 
 					<h:column rendered="#{(queryBean.propertiesSize > 3) && (queryBean.canRetrieve)}" >

@@ -79,7 +79,7 @@
 				rendered="#{propertyEmbedded.info.visible and !propertyEmbedded.info.readOnly}">
 				<h:panelGroup rendered="#{propertyEmbedded.info.primitive}">
 <h:panelGroup
-	rendered="#{propertyEmbedded.info.editShowList and !propertyEmbedded.info.enum}">
+	rendered="#{propertyEmbedded.info.editShowList and !propertyEmbedded.info.isEnum()}">
 	<h:selectOneMenu id="selectPrimitiveInput" label="#{propertyEmbedded.info.label}"
 		value="#{propertyEmbedded.value.asString}"
 		required="#{propertyEmbedded.info.required and false}">
@@ -90,7 +90,7 @@
 
 <!-- Exibe lista de escolha para ENUMS  -->
 <h:panelGroup
-	rendered="#{propertyEmbedded.info.enum}">
+	rendered="#{propertyEmbedded.info.isEnum()}">
 	<h:selectOneMenu id="selectEnumInput" label="#{propertyEmbedded.info.label}"
 		value="#{propertyEmbedded.value.id}"
 		required="#{propertyEmbedded.info.required and false}">
@@ -101,12 +101,12 @@
 
 <!-- Exibe caixa de entrada de texto para campos primitivos  -->
 <h:panelGroup
-	rendered="#{!propertyEmbedded.info.editShowList and !propertyEmbedded.info.enum}">
+	rendered="#{!propertyEmbedded.info.editShowList and !propertyEmbedded.info.isEnum()}">
 	<h:inputTextarea id="txtInput" style="width:100%" label="#{propertyEmbedded.info.label}"
 		value="#{propertyEmbedded.value.asString}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.string and propertyEmbedded.info.size gt 255  and !propertyEmbedded.info.hasEditMask}"
+		rendered="#{propertyEmbedded.info.isString() and propertyEmbedded.info.size gt 255  and !propertyEmbedded.info.hasEditMask}"
 		disabled="#{propertyEmbedded.info.readOnly}" rows="2" />
 	<h:message for="txtInput" styleClass="errorMessage" />
 
@@ -114,7 +114,7 @@
 		value="#{propertyEmbedded.value.asString}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.string and propertyEmbedded.info.size lt 256  and !propertyEmbedded.info.hasEditMask}"
+		rendered="#{propertyEmbedded.info.isString() and propertyEmbedded.info.size lt 256  and !propertyEmbedded.info.hasEditMask}"
 		disabled="#{propertyEmbedded.info.readOnly}"
 		maxlength="#{propertyEmbedded.info.size}" />
 	<h:message for="strInput" styleClass="errorMessage" />
@@ -123,7 +123,7 @@
 		value="#{propertyEmbedded.value.asString}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.string and propertyEmbedded.info.hasEditMask}"
+		rendered="#{propertyEmbedded.info.isString() and propertyEmbedded.info.hasEditMask}"
 		disabled="#{propertyEmbedded.info.readOnly}"
 		maxlength="#{propertyEmbedded.info.editMaskSize}"
 		onkeypress="return keyPressMask(this,'#{propertyEmbedded.info.editMask}')" />
@@ -132,7 +132,7 @@
 	<h:inputText id="intInput" value="#{propertyEmbedded.value.asString}" label="#{propertyEmbedded.info.label}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.integer}"
+		rendered="#{propertyEmbedded.info.isInteger()}"
 		disabled="#{propertyEmbedded.info.readOnly}" size="10"
 		onkeypress="return keyPressInt(this,event)">
 		<f:validateLongRange minimum="-999999999" maximum="999999999" />
@@ -142,7 +142,7 @@
 	<h:inputText id="longInput" value="#{propertyEmbedded.value.asString}" label="#{propertyEmbedded.info.label}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.long}"
+		rendered="#{propertyEmbedded.info.isLong()}"
 		disabled="#{propertyEmbedded.info.readOnly}" size="10"
 		onkeypress="return keyPressInt(this,event)">
 		<f:validateLongRange minimum="-999999999" maximum="999999999" />
@@ -161,7 +161,7 @@
 		value="#{propertyEmbedded.value.asString}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.float}"
+		rendered="#{propertyEmbedded.info.isFloat()}"
 		disabled="#{propertyEmbedded.info.readOnly}" size="10"
 		onkeypress="return keyPressFloat(this,event)" />
 	<h:message for="floatInput" styleClass="errorMessage" />
@@ -170,7 +170,7 @@
 		value="#{propertyEmbedded.value.asString}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.double}"
+		rendered="#{propertyEmbedded.info.isDouble()}"
 		disabled="#{propertyEmbedded.info.readOnly}" size="10"
 		onkeypress="return keyPressFloat(this,event)" />
 	<h:message for="doubleInput" styleClass="errorMessage" />
@@ -187,7 +187,7 @@
 		value="#{propertyEmbedded.value.asBoolean}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.boolean}"
+		rendered="#{propertyEmbedded.info.isBoolean()}"
 		disabled="#{propertyEmbedded.info.readOnly}">
 	</h:selectBooleanCheckbox>
 	<h:message for="bolInput" styleClass="errorMessage" />
@@ -195,7 +195,7 @@
 
 <!-- Exibe informações sobre a máscara do campo -->
 <h:panelGroup
-	rendered="#{propertyEmbedded.info.hasEditMask and !propertyEmbedded.info.boolean}">
+	rendered="#{propertyEmbedded.info.hasEditMask and !propertyEmbedded.info.isBoolean()}">
 	<h:outputLabel value="#{propertyEmbedded.info.editMask}"
 		title="Utilize este formato para preencher o campo corretamente."
 		style="color:orange;" />

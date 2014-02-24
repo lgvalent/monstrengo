@@ -31,11 +31,11 @@
 
 					<h:outputText value="#{item.value.asString}"
 						title="#{item.info.hint}"
-						rendered="#{(item.info.string or item.info.long or item.info.calendar or item.info.bigDecimal or item.info.float or item.info.double or item.info.integer or item.info.enum) and item.info.visible}" />
+						rendered="#{(item.info.isString() or item.info.isLong() or item.info.calendar or item.info.bigDecimal or item.info.isFloat() or item.info.isDouble() or item.info.isInteger() or item.info.isEnum()) and item.info.visible}" />
 
 					<h:selectBooleanCheckbox disabled="true"
 						value="#{item.value.asBoolean}" title="#{item.info.hint}"
-						rendered="#{item.info.boolean and item.info.visible}" />
+						rendered="#{item.info.isBoolean() and item.info.visible}" />
 
 					<!-- SET -->
 					<!-- Primitiva -->

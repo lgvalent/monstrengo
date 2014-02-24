@@ -2,7 +2,10 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="MonstrengoWebID" version="3.0">
+	id="MonstrengoWebID" version="3.0"
+	metadata-complete="true">
+	<!-- metadata-complete="true" sugerido por http://www.coderanch.com/t/599269/Spring/java-lang-ClassNotFoundException-org-apache 
+	  Para rodar no Tomcat 7-->
 	<display-name>MonstrengoWeb</display-name>
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>

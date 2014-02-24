@@ -15,7 +15,7 @@
 		<h:outputText styleClass="title noprint" value="Não achou? Crie um novo registro de " escape="false" />
 	  </h:panelGroup>
 	  <h:panelGrid columns="1">
-		<h:commandLink styleClass="noprint" action="#{createBean.actionCreate}"  rendered="#{queryBean.canCreate && !queryBean.info.abstract}" style="font-size: smaller;">
+		<h:commandLink styleClass="noprint" action="#{createBean.actionCreate}"  rendered="#{queryBean.canCreate && !queryBean.info.isAbstract()}" style="font-size: smaller;">
     		<h:graphicImage value="../../public/basic/img/create.png" title="Clique aqui para criar um novo registro de #{queryBean.info.label}" style="border:0" />
 			<h:outputText value="#{queryBean.info.label}" />
 		  	<f:param value="#{queryBean.info.type.name}" name="entityType" />

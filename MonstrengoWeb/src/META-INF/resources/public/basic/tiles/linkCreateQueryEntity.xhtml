@@ -45,14 +45,14 @@
 	<h:outputText value=" " />
 	<h:outputLink tabindex="-1"
 		value="javascript:linkCreatePopup('#{entityMetadata.type.name}')"
-		rendered="#{menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate and  !entityMetadata.abstract}">
+		rendered="#{menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate and  !entityMetadata.isAbstract()}">
 		<h:graphicImage value="../../public/basic/img/create.png"
 			title="Criar novo registro de #{entityMetadata.label}" style="border:0" />
 	</h:outputLink>
 	<h:graphicImage value="../../public/basic/img/create_d.png"
 		title="Você não possui direitos para criar um novo registro de #{entityMetadata.label}"
 		style="border:0"
-		rendered="#{!(menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate and  !entityMetadata.abstract)}" />
+		rendered="#{!(menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate and  !entityMetadata.isAbstract())}" />
 
 	<h:outputText value=" #{entityMetadata.label}" title="#{entityMetadata.hint}" rendered="#{!noShowLabel}"/>
 </h:panelGroup>

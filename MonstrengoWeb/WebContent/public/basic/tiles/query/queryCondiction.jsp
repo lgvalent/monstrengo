@@ -27,14 +27,14 @@
 		<h:panelGroup id="value1">
 			<h:inputText id="strInput1" value="#{queryBean.newCondictionParam.value1}"
 			                           title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                           rendered="#{queryBean.newCondictionParam.propertyInfo.string}"
+			                           rendered="#{queryBean.newCondictionParam.propertyInfo.isString()}"
 			                           maxlength="#{queryBean.newCondictionParam.propertyInfo.size}"
 			                           size="20" />
 			<h:message for="strInput1" styleClass="errorMessage" />
 
 			<h:inputText id="intInput1" value="#{queryBean.newCondictionParam.value1}"
 			                           title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                           rendered="#{queryBean.newCondictionParam.propertyInfo.integer or queryBean.newCondictionParam.propertyInfo.long}"
+			                           rendered="#{queryBean.newCondictionParam.propertyInfo.isInteger() or queryBean.newCondictionParam.propertyInfo.isLong()}"
 			                           maxlength="15"
 			                           size="15"
 			                           onkeypress="return keyPressInt(this,event)" />
@@ -59,12 +59,12 @@
 			<h:selectBooleanCheckbox id="bolInput1"
 			                         value="#{queryBean.newCondictionParam.value1AsBoolean}"
 			                         title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                         rendered="#{queryBean.newCondictionParam.propertyInfo.boolean}"/>
+			                         rendered="#{queryBean.newCondictionParam.propertyInfo.isBoolean()}"/>
 			<h:message for="bolInput1" styleClass="errorMessage" />
 
 			<h:selectOneMenu id="selectEnumInput1" 
 			                 value="#{queryBean.newCondictionParam.value1}"
-			                 rendered="#{queryBean.newCondictionParam.propertyInfo.enum}">
+			                 rendered="#{queryBean.newCondictionParam.propertyInfo.isEnum()}">
 					<f:selectItems value="#{queryBean.newCondictionParam.propertyInfo.enumValuesList}" />
 			</h:selectOneMenu>
 			<h:message for="selectEnumInput1" styleClass="errorMessage" />
@@ -90,14 +90,14 @@
 		<h:panelGroup id="value2">
 			<h:inputText id="strInput2" value="#{queryBean.newCondictionParam.value2}"
 			                           title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                           rendered="#{queryBean.newCondictionParam.propertyInfo.string}"
+			                           rendered="#{queryBean.newCondictionParam.propertyInfo.isString()}"
 			                           maxlength="#{queryBean.newCondictionParam.propertyInfo.size}"
 			                           size="20" />
 			<h:message for="strInput2" styleClass="errorMessage" />
 
 			<h:inputText id="intInput2" value="#{queryBean.newCondictionParam.value2}"
 			                           title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                           rendered="#{queryBean.newCondictionParam.propertyInfo.integer or queryBean.newCondictionParam.propertyInfo.long}"
+			                           rendered="#{queryBean.newCondictionParam.propertyInfo.isInteger() or queryBean.newCondictionParam.propertyInfo.isLong()}"
 			                           maxlength="15"
 			                           size="15"
 			                           onkeypress="return keyPressInt(this,event)" />
@@ -122,12 +122,12 @@
 			<h:selectBooleanCheckbox id="bolInput2"
 			                         value="#{queryBean.newCondictionParam.value2AsBoolean}"
 			                         title="#{queryBean.newCondictionParam.propertyInfo.hint}"
-			                         rendered="#{queryBean.newCondictionParam.propertyInfo.boolean}"/>
+			                         rendered="#{queryBean.newCondictionParam.propertyInfo.isBoolean()}"/>
 			<h:message for="bolInput2" styleClass="errorMessage" />
 
 			<h:selectOneMenu id="selectEnumInput2" 
 			                 value="#{queryBean.newCondictionParam.value2}"
-			                 rendered="#{queryBean.newCondictionParam.propertyInfo.enum}">
+			                 rendered="#{queryBean.newCondictionParam.propertyInfo.isEnum()}">
 					<f:selectItems value="#{queryBean.newCondictionParam.propertyInfo.enumValuesList}" />
 			</h:selectOneMenu>
 			<h:message for="selectEnumInput2" styleClass="errorMessage" />
@@ -192,14 +192,14 @@
 		<h:panelGroup id="valueList1" rendered="#{!item.readOnly}">
 			<h:inputText id="strInputList1" value="#{item.value1}"
 			                           title="#{item.propertyInfo.hint}"
-			                           rendered="#{item.propertyInfo.string}"
+			                           rendered="#{item.propertyInfo.isString()}"
 			                           maxlength="#{item.propertyInfo.size}"
 			                           size="20" />
 			<h:message for="strInputList1" styleClass="errorMessage" />
 
 			<h:inputText id="intInputList1" value="#{item.value1}"
 			                           title="#{item.propertyInfo.hint}"
-			                           rendered="#{item.propertyInfo.integer or item.propertyInfo.long}"
+			                           rendered="#{item.propertyInfo.isInteger() or item.propertyInfo.isLong()}"
 			                           maxlength="15"
 			                           size="15"
 			                           onkeypress="return keyPressInt(this,event)" />
@@ -224,12 +224,12 @@
 			<h:selectBooleanCheckbox id="bolInputList1"
 			                         value="#{item.value1AsBoolean}"
 			                         title="#{item.propertyInfo.hint}"
-			                         rendered="#{item.propertyInfo.boolean}"/>
+			                         rendered="#{item.propertyInfo.isBoolean()}"/>
 			<h:message for="bolInputList1" styleClass="errorMessage" />
 
 			<h:selectOneMenu id="selectEnumInput1" 
 			                 value="#{item.value1}"
-			                 rendered="#{item.propertyInfo.enum}">
+			                 rendered="#{item.propertyInfo.isEnum()}">
 					<f:selectItems value="#{item.propertyInfo.enumValuesList}" />
 			</h:selectOneMenu>
 			<h:message for="selectEnumInput1" styleClass="errorMessage" />
@@ -253,24 +253,24 @@
 		<h:outputText id="strReadOnlyValue1"
 						value="#{item.value1} #{item.value1Description}"
 			            title="#{item.propertyInfo.hint}"
-			            rendered="#{!item.propertyInfo.boolean && item.readOnly}"/>
+			            rendered="#{!item.propertyInfo.isBoolean() && item.readOnly}"/>
 		<h:selectBooleanCheckbox id="bolReadOnlyValue1"
 		                         value="#{item.value1AsBoolean}"
 		                         title="#{item.propertyInfo.hint}"
-		                         rendered="#{item.propertyInfo.boolean && item.readOnly}"/>
+		                         rendered="#{item.propertyInfo.isBoolean() && item.readOnly}"/>
 
 		<h:panelGroup id="valueList2" rendered="#{!item.readOnly and item.operator.twoValueNeeded}">
 			<h:outputText value=" até " />
 			<h:inputText id="strInputList2" value="#{item.value2}"
 			                           title="#{item.propertyInfo.hint}"
-			                           rendered="#{item.propertyInfo.string}"
+			                           rendered="#{item.propertyInfo.isString()}"
 			                           maxlength="#{item.propertyInfo.size}"
 			                           size="20" />
 			<h:message for="strInputList2" styleClass="errorMessage" />
 
 			<h:inputText id="intInputList2" value="#{item.value2}"
 			                           title="#{item.propertyInfo.hint}"
-			                           rendered="#{item.propertyInfo.integer or item.propertyInfo.long}"
+			                           rendered="#{item.propertyInfo.isInteger() or item.propertyInfo.isLong()}"
 			                           maxlength="15"
 			                           size="15"
 			                           onkeypress="return keyPressInt(this,event)" />
@@ -295,12 +295,12 @@
 			<h:selectBooleanCheckbox id="bolInputList2"
 			                         value="#{item.value2AsBoolean}"
 			                         title="#{item.propertyInfo.hint}"
-			                         rendered="#{item.propertyInfo.boolean}"/>
+			                         rendered="#{item.propertyInfo.isBoolean()}"/>
 			<h:message for="bolInputList2" styleClass="errorMessage" />
 
 			<h:selectOneMenu id="selectEnumInput2" 
 			                 value="#{item.value2}"
-			                 rendered="#{item.propertyInfo.enum}">
+			                 rendered="#{item.propertyInfo.isEnum()}">
 					<f:selectItems value="#{item.propertyInfo.enumValuesList}" />
 			</h:selectOneMenu>
 			<h:message for="selectEnumInput2" styleClass="errorMessage" />
@@ -324,11 +324,11 @@
 		<h:outputText id="strReadOnlyValue2"
 						value="#{item.value2} #{item.value2Description}"
 			            title="#{item.propertyInfo.hint}"
-			            rendered="#{!item.propertyInfo.boolean && item.readOnly}"/>
+			            rendered="#{!item.propertyInfo.isBoolean() && item.readOnly}"/>
 		<h:selectBooleanCheckbox id="bolReadOnlyValue2"
 		                         value="#{item.value2AsBoolean}"
 		                         title="#{item.propertyInfo.hint}"
-		                         rendered="#{item.propertyInfo.boolean && item.readOnly}"/>
+		                         rendered="#{item.propertyInfo.isBoolean() && item.readOnly}"/>
 
 
 
