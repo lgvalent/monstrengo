@@ -17,6 +17,7 @@ public interface IProcessParam<T>
 	
 	boolean isRequired();
 	boolean isNull();
+	boolean isEmpty();
 	
 	T getValue();
 	void setValue(T value);

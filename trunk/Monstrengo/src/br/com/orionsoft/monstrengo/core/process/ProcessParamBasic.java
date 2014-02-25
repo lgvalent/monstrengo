@@ -58,6 +58,11 @@ public class ProcessParamBasic<T> implements IProcessParam<T> {
 	public boolean isNull() {
 		return (this.value == null);
 	}
+	
+	public boolean isEmpty() {
+		return isNull() || this.value.toString().isEmpty();
+	}
+
 	public String toString(){
 		return isNull()?"(Vazio)":this.value.toString();
 	}
