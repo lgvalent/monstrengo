@@ -64,8 +64,7 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 	private Calendar dataDocumentoDe = CalendarUtils.getCalendarBaseDate();
 
 	private Calendar dataVencimentoAte = CalendarUtils.getCalendar();
-	private Calendar dataVencimentoDe = CalendarUtils.getCalendar(dataVencimentoAte.get(Calendar.YEAR),
-			dataVencimentoAte.get(Calendar.MONTH), dataVencimentoAte.getActualMinimum(Calendar.DATE));
+	private Calendar dataVencimentoDe = CalendarUtils.getCalendarFirstMonthDay();
 
 	private Long documentoCobrancaCategoriaId = IDAO.ENTITY_UNSAVED;
 	private String nomeGerenciadorDocumento = "";
@@ -450,6 +449,8 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 			this.cpfCnpj = oContrato.getPessoa().getDocumento();
 
 			/* Alguns dados poderao ser inicializados aqui */
+			this.dataVencimentoDe = CalendarUtils.getCalendar();
+			this.dataVencimentoDe.add(Calendar.YEAR, -2);
 
 			/* Executa a listagem com os parâmetros definidos acima */
 			result = this.runVisualizar();
