@@ -3,11 +3,12 @@ package br.com.orionsoft.monstrengo.core.process;
 
 /**
  * Esta interface especializa os controladores de processo para serem executados
- * a partir de uma única entidade.
+ * a partir de uma coleção de entidades.
+ *  
  * @author lucio
  * @version 20140306
  */
-public interface IRunnableEntityProcessController extends IRunnableProcessController
+public interface IRunnableEntityCollectionProcessController extends IRunnableProcessController
 {
 	
 	/**
@@ -18,6 +19,6 @@ public interface IRunnableEntityProcessController extends IRunnableProcessContro
      * são suportadas por quais processos.
      * @return
      */
-	public Class<?>[] getRunnableEntities();
-	
+	public Class<?>[] getRunnableEntitiesCollection();
+    
 }

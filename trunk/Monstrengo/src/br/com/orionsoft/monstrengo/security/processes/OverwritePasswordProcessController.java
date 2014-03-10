@@ -1,12 +1,11 @@
 package br.com.orionsoft.monstrengo.security.processes;
 
-import br.com.orionsoft.monstrengo.security.processes.OverwritePasswordProcess;
-import br.com.orionsoft.monstrengo.security.processes.OverwritePasswordProcessController;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 import br.com.orionsoft.monstrengo.core.process.IProcess;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcessController;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
-import br.com.orionsoft.monstrengo.core.process.RunnableEntityProcessControllerBasic;
+import br.com.orionsoft.monstrengo.core.process.RunnableProcessControllerBasic;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
@@ -21,7 +20,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
  * @spring.bean id="OverwritePasswordProcessController" init-method="registerController"
  * @spring.property name="processManager" ref="ProcessManager"
  */
-public class OverwritePasswordProcessController extends RunnableEntityProcessControllerBasic
+public class OverwritePasswordProcessController extends RunnableProcessControllerBasic implements IRunnableEntityProcessController
 {
     /** Informa para o gerenciador quais as entidades que são compatíveis com este controlador */
 	public static final Class<?>[] RUNNABLE_ENTITIES = {ApplicationUser.class};

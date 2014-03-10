@@ -11,6 +11,7 @@ import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 import br.com.orionsoft.monstrengo.security.services.ChangePasswordService;
 
@@ -114,5 +115,11 @@ public class OverwritePasswordProcess extends ProcessBasic implements IRunnableE
 		
 		return result;
 	}
+	
+	public boolean runWithEntities(IEntityCollection<?> entities) {
+		super.beforeRun();
+		return false;
+	}
+
 
 }
