@@ -60,21 +60,21 @@
 
 						<%-- Exibe caixa de entrada de texto para campos primitivos  --%>
 						<h:panelGroup rendered="#{!item.info.editShowList && item.info.primitive}">
-							<h:inputTextarea id="txtInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.string && item.info.size>100  && !item.info.hasEditMask}" disabled="#{item.info.readOnly}" rows="5" cols="40" />
+							<h:inputTextarea id="txtInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isString() && item.info.size>100  && !item.info.hasEditMask}" disabled="#{item.info.readOnly}" rows="5" cols="40" />
 							<h:message for="txtInput" styleClass="errorMessage" />
 							
-							<h:inputText id="strInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.string && item.info.size<101  && !item.info.hasEditMask}" disabled="#{item.info.readOnly}" size="30" maxlength="#{item.info.size}" />
+							<h:inputText id="strInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isString() && item.info.size<101  && !item.info.hasEditMask}" disabled="#{item.info.readOnly}" size="30" maxlength="#{item.info.size}" />
 							<h:message for="strInput" styleClass="errorMessage" />
 							
-							<h:inputText id="strMaskInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.string && item.info.hasEditMask}" disabled="#{item.info.readOnly}" size="30" maxlength="#{item.info.editMaskSize}" />
+							<h:inputText id="strMaskInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isString() && item.info.hasEditMask}" disabled="#{item.info.readOnly}" size="30" maxlength="#{item.info.editMaskSize}" />
 							<h:message for="strMaskInput" styleClass="errorMessage" />
 							
-							<h:inputText id="intInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.integer}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressInt(this,event)">
+							<h:inputText id="intInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isInteger()}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressInt(this,event)">
 								<f:validateLongRange minimum="-999999999" maximum="999999999" />
 							</h:inputText>
 							<h:message for="intInput" styleClass="errorMessage" />
 						
-							<h:inputText id="longInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.long}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressInt(this,event)">
+							<h:inputText id="longInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isLong()}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressInt(this,event)">
 								<f:validateLongRange minimum="-999999999" maximum="999999999" />
 							</h:inputText>
 							<h:message for="longInput" styleClass="errorMessage" />
@@ -82,10 +82,10 @@
 							<h:inputText id="bigInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.bigDecimal}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressFloat(this,event)" />
 							<h:message for="bigInput" styleClass="errorMessage" />
 					
-							<h:inputText id="floatInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.float}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressFloat(this,event)" />
+							<h:inputText id="floatInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isFloat()}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressFloat(this,event)" />
 							<h:message for="floatInput" styleClass="errorMessage" />
 					
-							<h:inputText id="doubleInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.double}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressFloat(this,event)" />
+							<h:inputText id="doubleInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isDouble()}" disabled="#{item.info.readOnly}" size="10" onkeypress="return keyPressFloat(this,event)" />
 							<h:message for="doubleInput" styleClass="errorMessage" />
 					
 							<h:inputText id="dateInput" value="#{item.value.asString}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.calendar}" disabled="#{item.info.readOnly}" size="12" onblur="return onblurCalendar(this,'#{item.info.editMask}')"/>
@@ -93,7 +93,7 @@
 						</h:panelGroup>
 						
 						<%-- Exibe informações sobre a máscara do campo --%>
-						<h:panelGroup rendered="#{item.info.hasEditMask && !item.info.boolean}" >
+						<h:panelGroup rendered="#{item.info.hasEditMask && !item.info.isBoolean()}" >
 							<f:verbatim >
 							  <br>
 							</f:verbatim>
@@ -103,7 +103,7 @@
 							</h:outputLink>
 						</h:panelGroup>		
 										
-						<h:selectBooleanCheckbox id="bolInput" value="#{item.value.asBoolean}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.boolean}" disabled="#{item.info.readOnly}" >
+						<h:selectBooleanCheckbox id="bolInput" value="#{item.value.asBoolean}" title="#{item.info.hint}" required="#{item.info.required}" rendered="#{item.info.isBoolean()}" disabled="#{item.info.readOnly}" >
 						</h:selectBooleanCheckbox>
 						<h:message for="bolInput" styleClass="errorMessage" />
 						

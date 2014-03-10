@@ -24,6 +24,7 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 
 /**
  * Bean que controla a view para gerar um arquivo de remessa para
@@ -150,4 +151,9 @@ public class GerarDocumentoCobrancaRemessaBean extends BeanSessionBasic implemen
 		this.getProcess().runWithEntity(entity);
 		return FACES_VIEW_PASSO_1;
 	}
+	
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
 }

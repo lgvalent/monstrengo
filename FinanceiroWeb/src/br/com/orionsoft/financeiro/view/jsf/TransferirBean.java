@@ -13,6 +13,7 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 /**
@@ -103,4 +104,9 @@ public class TransferirBean extends BeanSessionBasic  implements IRunnableProces
 		return FACES_VIEW_TRANSFERIR;
 	}
 	
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
+
 }

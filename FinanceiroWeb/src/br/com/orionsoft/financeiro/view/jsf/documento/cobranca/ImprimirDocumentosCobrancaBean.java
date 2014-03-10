@@ -24,7 +24,7 @@ import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.PrintUtils;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
-import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.crud.LabelBean;
@@ -284,7 +284,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String runWithEntities(IEntityList<?> entities) {
+	public String runWithEntities(IEntityCollection<?> entities) {
 	        List<DocumentoCobrancaBean> docs = new ArrayList<DocumentoCobrancaBean>(entities.getSize());
 
 	        /* Converte a lista de IEntity em beans */

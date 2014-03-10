@@ -14,6 +14,7 @@ import br.com.orionsoft.financeiro.gerenciador.process.EstornarLancamentoMovimen
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 /**
@@ -133,5 +134,10 @@ public class EstornarLancamentoMovimentoBean extends BeanSessionBasic implements
 		}
 		return FACES_VIEW_ESTORNAR;
 	}
+
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
 
 }

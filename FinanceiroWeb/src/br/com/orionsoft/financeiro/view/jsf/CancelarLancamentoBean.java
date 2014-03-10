@@ -14,6 +14,7 @@ import br.com.orionsoft.financeiro.gerenciador.process.CancelarLancamentoProcess
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
@@ -154,6 +155,10 @@ public class CancelarLancamentoBean extends BeanSessionBasic implements IRunnabl
 			return FacesUtils.FACES_VIEW_FAILURE;
 		}
 		return FACES_VIEW_CANCELAR; // O lançamento já está preenchido, vai par ao segujndo passo!
+	}
+
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
 	}
 
 	

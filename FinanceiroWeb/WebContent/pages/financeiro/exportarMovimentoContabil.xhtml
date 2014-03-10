@@ -11,29 +11,12 @@
 	<ui:param name="description" value="#{menuBean.processInfoMap.ExportarMovimentoContabilProcess.description}" />
 	<ui:define name="content">
 		<h:panelGrid
-			width="100%"
-			columns="1"
-			cellpadding="5"
-			border="0"
+			columns="2"
 			styleClass="tableList noprint" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd"
 			style="border-collapse: collapse">
 			
-			<h:panelGroup>
-				<h:outputLabel value="Data inicial:"/>
-				<ui:include src="/public/basic/tiles/calendar.xhtml">
-    	       		<ui:param name="timeField" value="#{exportarMovimentoContabilBean.process.paramDataInicial.value.time}" />
-				</ui:include>
-			</h:panelGroup>
-			
-			<h:panelGroup>
-				<h:outputLabel value="Data final:"/>
-				<ui:include src="/public/basic/tiles/calendar.xhtml">
-    	       		<ui:param name="timeField" value="#{exportarMovimentoContabilBean.process.paramDataFinal.value.time}" />
-				</ui:include>
-			</h:panelGroup>
-
+			<h:outputLabel value="Receitas e despesas:"/>
 			<h:panelGrid columns="7" >  
-				<h:outputLabel value="Receitas e despesas:"/>
 				<h:outputText value="Previstas" style="color:black"/>
 				<p:selectBooleanCheckbox value="#{exportarMovimentoContabilBean.process.paramPrevisto}" />
 				<h:outputText value="Movimentadas" style="color:black" />
@@ -42,8 +25,21 @@
 				<p:selectBooleanCheckbox value="#{exportarMovimentoContabilBean.process.paramCompensacao}" />
 			</h:panelGrid>
 			
+			<h:outputLabel value="Data inicial:"/>
+			<h:panelGroup>
+				<ui:include src="/public/basic/tiles/calendar.xhtml">
+    	       		<ui:param name="timeField" value="#{exportarMovimentoContabilBean.process.paramDataInicial.value.time}" />
+				</ui:include>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Data final:"/>
+			<h:panelGroup>
+				<ui:include src="/public/basic/tiles/calendar.xhtml">
+    	       		<ui:param name="timeField" value="#{exportarMovimentoContabilBean.process.paramDataFinal.value.time}" />
+				</ui:include>
+			</h:panelGroup>
+
 		</h:panelGrid>
-		#{exportarMovimentoContabilBean.process.paramDataInicial.value.get(5)}-#{exportarMovimentoContabilBean.process.paramDataInicial.value.get(2)+1}-#{exportarMovimentoContabilBean.process.paramDataInicial.value.get(1)}
 	</ui:define>
 	<ui:define name="actions">
 			<script type="text/javascript">
@@ -79,7 +75,7 @@
 					</p:column>
 					<p:column headerText="Valor" style="text-align:right;">
 						<h:outputText value="#{item.valor}">
-							<f:convertNumber currencyCode="BRL"/>
+							<f:convertNumber pattern="#0.00"/>
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Data competência">
@@ -90,19 +86,19 @@
 					<p:column headerText="Conta prevista">
 						<h:outputText value="#{item.contaPrevistaCcc}" />
 					</p:column>
-					<p:column headerText="Conta Contrato">
-						<h:outputText value="#{item.contratoCcc}" />
-					</p:column>
 					<p:column headerText="Conta Centro de Custo">
 						<h:outputText value="#{item.centroCustoCcc}" />
 					</p:column>
 					<p:column headerText="Conta Item de Custo">
 						<h:outputText value="#{item.itemCustoCcc}" />
 					</p:column>
+					<p:column headerText="Conta Contrato">
+						<h:outputText value="#{item.contratoCcc}" />
+					</p:column>
 					<f:facet name="footer">
 						Salvar em 
 						<h:commandLink>XLS
-							<p:dataExporter type="xls" target="dataTablePrevista" fileName="cars" />
+							<p:dataExporter type="xls" target="dataTablePrevista" fileName="Movimentação Prevista entre #{exportarMovimentoContabilBean.process.paramDataInicial.value.time} e #{exportarMovimentoContabilBean.process.paramDataFinal.value.time}" />
 						</h:commandLink>
 						ou em
 						<h:commandLink>PDF
@@ -115,7 +111,8 @@
 			</p:tab>
 			<p:tab title="Receitas e despesas movimentadas no período: #{exportarMovimentoContabilBean.process.resultMovimento.size()} registros" 
 			       rendered="#{exportarMovimentoContabilBean.process.resultMovimento != null}">
-				<p:dataTable value="#{exportarMovimentoContabilBean.process.resultMovimento}"
+				<p:dataTable id="dataTableMovimento" 
+					value="#{exportarMovimentoContabilBean.process.resultMovimento}"
 					var="item" emptyMessage="Nenhum movimento exportado">
 					<p:column headerText="id" style="text-align:left;" exportable="false">
 						<h:outputLink tabindex="-1"
@@ -128,7 +125,7 @@
 					</p:column>
 					<p:column headerText="Valor" style="text-align:right;">
 						<h:outputText value="#{item.valor}">
-							<f:convertNumber currencyCode="BRL"/>
+							<f:convertNumber pattern="#0.00"/>
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Data competência">
@@ -139,20 +136,32 @@
 					<p:column headerText="Conta movimento">
 						<h:outputText value="#{item.contaMovimentoCcc}" />
 					</p:column>
-					<p:column headerText="Conta Contrato">
-						<h:outputText value="#{item.contratoCcc}" />
-					</p:column>
 					<p:column headerText="Conta Centro de Custo">
 						<h:outputText value="#{item.centroCustoCcc}" />
 					</p:column>
 					<p:column headerText="Conta Item de Custo">
 						<h:outputText value="#{item.itemCustoCcc}" />
 					</p:column>
+					<p:column headerText="Conta Contrato">
+						<h:outputText value="#{item.contratoCcc}" />
+					</p:column>
+					<f:facet name="footer">
+						Salvar em 
+						<h:commandLink>XLS
+							<p:dataExporter type="xls" target="dataTableMovimento" fileName="Movimentação entre #{exportarMovimentoContabilBean.process.paramDataInicial.value.time} e #{exportarMovimentoContabilBean.process.paramDataFinal.value.time}" />
+						</h:commandLink>
+						ou em
+						<h:commandLink>PDF
+							<p:dataExporter type="pdf" target="dataTableMovimento" fileName="Movimentação entre #{exportarMovimentoContabilBean.process.paramDataInicial.value.time} e #{exportarMovimentoContabilBean.process.paramDataFinal.value.time}" />
+						</h:commandLink>
+						.			
+					</f:facet>
 				</p:dataTable>
 			</p:tab>
 			<p:tab title="Receitas e despesas compensadas no período: #{exportarMovimentoContabilBean.process.resultCompensacao.size()} registros" 
 			       rendered="#{exportarMovimentoContabilBean.process.resultCompensacao != null}">
-				<p:dataTable value="#{exportarMovimentoContabilBean.process.resultCompensacao}"
+				<p:dataTable id="dataTableCompensada" 
+					value="#{exportarMovimentoContabilBean.process.resultCompensacao}"
 					var="item" emptyMessage="Nenhum movimento exportado">
 					<p:column headerText="id" style="text-align:left;" exportable="false">
 						<h:outputLink tabindex="-1"
@@ -165,7 +174,7 @@
 					</p:column>
 					<p:column headerText="Valor" style="text-align:right;">
 						<h:outputText value="#{item.valor}">
-							<f:convertNumber currencyCode="BRL"/>
+							<f:convertNumber pattern="#0.00"/>
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Data competência">
@@ -174,10 +183,7 @@
 						</h:outputLabel>
 					</p:column>
 					<p:column headerText="Conta compensação">
-						<h:outputText value="#{item.contaComopensacaoCcc}" />
-					</p:column>
-					<p:column headerText="Conta Contrato">
-						<h:outputText value="#{item.contratoCcc}" />
+						<h:outputText value="#{item.contaCompensacaoCcc}" />
 					</p:column>
 					<p:column headerText="Conta Centro de Custo">
 						<h:outputText value="#{item.centroCustoCcc}" />
@@ -185,10 +191,23 @@
 					<p:column headerText="Conta Item de Custo">
 						<h:outputText value="#{item.itemCustoCcc}" />
 					</p:column>
+					<p:column headerText="Conta Contrato">
+						<h:outputText value="#{item.contratoCcc}" />
+					</p:column>
+					<f:facet name="footer">
+						Salvar em 
+						<h:commandLink>XLS
+							<p:dataExporter type="xls" target="dataTableCompensada" fileName="Movimentação Compensada entre #{exportarMovimentoContabilBean.process.paramDataInicial.value.time} e #{exportarMovimentoContabilBean.process.paramDataFinal.value.time}" />
+						</h:commandLink>
+						ou em
+						<h:commandLink>PDF
+							<p:dataExporter type="pdf" target="dataTableCompensada" fileName="Movimentação Compensada entre #{exportarMovimentoContabilBean.process.paramDataInicial.value.time} e #{exportarMovimentoContabilBean.process.paramDataFinal.value.time}" />
+						</h:commandLink>
+						.			
+					</f:facet>
 				</p:dataTable>
 			</p:tab>
 		</p:accordionPanel>
 	</ui:define>
 </ui:composition>
 </html>
-	

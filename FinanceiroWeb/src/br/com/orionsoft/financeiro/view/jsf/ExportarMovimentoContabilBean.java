@@ -10,17 +10,19 @@ import java.io.InputStream;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
-import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
-import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.springframework.http.MediaType;
+
 import br.com.orionsoft.financeiro.contabilidade.process.ExportarMovimentoContabilProcess;
 import br.com.orionsoft.financeiro.gerenciador.process.EstornarLancamentoMovimentoProcess;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-import org.springframework.http.MediaType;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
+import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
+import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
+import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 /**
  * Bean que cotrola a view de exportar movimento contábil.
  */
@@ -95,6 +97,10 @@ public class ExportarMovimentoContabilBean extends BeanSessionBasic implements I
 			return FacesUtils.FACES_VIEW_FAILURE;
 		}
 		return FACES_VIEW_EXPORTAR;
+	}
+	
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
 	}
 
 }

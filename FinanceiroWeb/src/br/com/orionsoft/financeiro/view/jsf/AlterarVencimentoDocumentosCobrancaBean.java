@@ -6,9 +6,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
-import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
-import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobranca;
 import br.com.orionsoft.financeiro.documento.cobranca.processes.AlterarVencimentoDocumentosCobrancaProcess;
 import br.com.orionsoft.financeiro.view.jsf.documento.cobranca.ImprimirDocumentosCobrancaBean;
@@ -16,8 +13,11 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
-import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
+import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
+import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
+import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
  * Bean que cotrola a view de alteração de documentos de cobrança.
@@ -119,16 +119,15 @@ public class AlterarVencimentoDocumentosCobrancaBean extends BeanSessionBasic im
 		return FACES_VIEW_PASSO_1; 
 	}
 	
-	@SuppressWarnings("unchecked")
-	public String runWithEntities(IEntityList<?> entities) {
+	public String runWithEntities(IEntityCollection<?> entities) {
 		try {
-			this.getProcess().getDocumentos().clear();
-			for(IEntity<?> entity: entities)
-				this.getProcess().getDocumentos().add((IEntity<DocumentoCobranca>) entity);
+			this.getProcess().runWithEntities(entities);
+			FacesUtils.addErrorMsgs(this.getProcess().getMessageList());
 		} catch (ProcessException e) {
 			FacesUtils.addErrorMsgs(e.getErrorList());
 			return FacesUtils.FACES_VIEW_FAILURE;
 		}
+
 		return FACES_VIEW_PASSO_1;
 	}
 

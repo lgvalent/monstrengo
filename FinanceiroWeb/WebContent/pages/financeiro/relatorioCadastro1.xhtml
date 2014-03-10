@@ -5,27 +5,27 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-  <style> 
-    .fonte{
-   		color: #00008B;
-		text-align: left;
-		font-size: small;
-    }
-  </style>
 <ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="title" value="Relatório de cadastro" />
 	<ui:param name="icon" value="../../public/basic/img/menu_cadastro.png" />
 	<ui:param name="description" value="Permite gerar um relatório bem completo e versátil dos cadastros.&lt;br/>Você pode selecionar as propriedades que serão impressas, combinar vários filtros, definir a odem, entre outros." />
 	<ui:define name="content">
+	  <style> 
+    	.fonte{
+	   		color: #00008B;
+			text-align: left;
+			font-size: small;
+    	}
+	  </style>
 
 			<h:outputLabel value="Selecione os campos que serão exibidos no relatório:" />
 			<!-- Coloca barra de rolagem no eixo y; se quiser no eixo x, colocar 'overflow-x' -->
-			<div style="height: 70px; overflow-y: scroll; width: 200px;">
+			<div style="height: 40px; overflow-x: auto; overflow-y: hidden; width: 100%; white-space: nowrap;">
 
 				<!--h:selectManyCheckbox id="campos" value="#{relatorioCadastroBean.process.campoList}" layout="lineDirection" style="font-size:small"-->
 				<h:selectManyCheckbox id="campos"
 					value="#{relatorioCadastroBean.process.campoList}"
-					layout="pageDirection" style="font-size:small">
+					layout="lineDirection" style="font-size:small">
 					<f:selectItems value="#{relatorioCadastroBean.process.listCampo}" />
 				</h:selectManyCheckbox>
 
@@ -316,9 +316,11 @@
 			<h:panelGroup id="itens" rendered="#{relatorioCadastroBean.process.incluirMovimentacoes}">
 				<h:outputLabel value="Itens de custo"/>
 				<!-- Coloca barra de rolagem no eixo y; se quiser no eixo x, colocar 'overflow-x' -->
-				<div  style="height: 60px; overflow-y: scroll; width: 500px;">
+				
+				<div style="height: 100px; overflow-y: scroll; width: 100%;">
 
-					<h:selectManyCheckbox id="itensCusto" value="#{relatorioCadastroBean.process.itemCustoList}" layout="pageDirection" style="font-size:small; white-space: nowrap;" >
+					<h:selectManyCheckbox id="itensCusto" value="#{relatorioCadastroBean.process.itemCustoList}" 
+						layout="pageDirection" style="font-size:small; white-space: nowrap;" >
 						<f:selectItems value="#{relatorioCadastroBean.process.listItemCusto}"/>
 					</h:selectManyCheckbox>
 
@@ -329,7 +331,7 @@
 		</h:panelGrid>
 		</ui:define>
 		<ui:define name="actions">
-				<h:commandButton value="Visualizar" action="#{relatorioCadastroBean.doVisualizar}" onclick="this.value='Aguarde...'"/>
+				<h:commandButton value="Visualizar" actionListener="#{relatorioCadastroBean.doVisualizar()}" onclick="this.value='Aguarde...'"/>
 		</ui:define>
 	</ui:composition>
 </html>

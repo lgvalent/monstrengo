@@ -30,7 +30,7 @@
 			   <h:column>
 					<p:growl id="growl2" showSummary="true" sticky="true" showDetail="false"/> 
 				   <h:panelGroup rendered="#{item.object.documentoCobranca != null}">
-						<a onclick="javascript: linkRetrieve('#{item.object.documentoCobranca.class.name}',#{item.object.documentoCobranca.id})">
+						<a onclick="javascript: linkRetrieve('#{item.object.documentoCobranca.getClass().name}',#{item.object.documentoCobranca.id})">
 							<h:graphicImage value="./img/documentoCobranca.png" style="border:0" width="24" height="24"/>
 					   		#{item.object.documentoCobranca.documentoCobrancaCategoria} - #{item.object.documentoCobranca} 
 						</a><br/>
@@ -48,7 +48,7 @@
 				   </h:panelGroup>
 					
 				   <h:panelGroup rendered="#{item.object.documentoPagamento != null}">
-						<a onclick="javascript: linkRetrieve('#{item.object.documentoPagamento.class.name}',#{item.object.documentoPagamento.id})">
+						<a onclick="javascript: linkRetrieve('#{item.object.documentoPagamento.getClass().name}',#{item.object.documentoPagamento.id})">
 							<h:graphicImage value="./img/documentoPagamento.png" style="border:0" width="24" height="24"/>
 					   		#{item.object.documentoPagamento.documentoPagamentoCategoria} - #{item.object.documentoPagamento}
 						</a><br/>

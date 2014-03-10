@@ -18,6 +18,7 @@ import br.com.orionsoft.financeiro.gerenciador.process.RelatorioCobrancaProcess;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 
 /**
  * Bean que controla o Relatório de Cobrança.
@@ -133,5 +134,10 @@ public class RelatorioCobrancaBean extends BeanSessionBasic  implements IRunnabl
 
 		return FACES_VIEW_PASSO_1;
 	}
+
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
 
 }

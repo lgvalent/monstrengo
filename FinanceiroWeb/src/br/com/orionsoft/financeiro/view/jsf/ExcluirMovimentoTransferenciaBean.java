@@ -14,6 +14,7 @@ import br.com.orionsoft.financeiro.gerenciador.process.ExcluirMovimentoTransfere
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 /**
@@ -117,6 +118,10 @@ public class ExcluirMovimentoTransferenciaBean extends BeanSessionBasic implemen
 			return FacesUtils.FACES_VIEW_FAILURE;
 		}
 		return FACES_VIEW;
+	}
+	
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
 	}
 
 	public String getJustificativa() {

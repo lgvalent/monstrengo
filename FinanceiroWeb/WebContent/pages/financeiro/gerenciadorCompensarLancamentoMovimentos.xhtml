@@ -27,7 +27,7 @@
 					</p:selectBooleanCheckbox>
 					
 					<f:facet name="footer">
-						<h:outputText value="#{compensarLancamentoMovimentosBean.process.valorTotalCompensacaoSelecionada}">
+						<h:outputText value="#{compensarLancamentoMovimentosBean.process.valorTotalCompensacaoSelecionada}" title="Total dos itens selecionados">
 							<f:convertNumber type="currency"/>
 						</h:outputText>
 					</f:facet>
@@ -65,6 +65,7 @@
 				</p:column>
 			</p:dataTable>
 			
+	<hr/>
 	<h:panelGrid columns="2">
 		<h:outputLabel value="Data da compensação"/>
 		<h:panelGroup>

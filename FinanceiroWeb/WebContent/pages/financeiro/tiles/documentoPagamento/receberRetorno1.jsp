@@ -1,7 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@ taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
-<%@ taglib prefix="t" uri="http://myfaces.apache.org/tomahawk"%>
 
 <h:panelGrid cellpadding="3" rendered="#{receberDocumentoCobrancaRetornoBean.process == null}">
 	<h:messages/>
