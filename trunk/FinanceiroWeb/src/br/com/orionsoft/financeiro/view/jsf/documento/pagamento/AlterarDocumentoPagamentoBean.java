@@ -13,6 +13,7 @@ import br.com.orionsoft.financeiro.documento.pagamento.processes.AlterarDocument
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 
 /**
@@ -143,5 +144,10 @@ public class AlterarDocumentoPagamentoBean extends BeanSessionBasic implements I
 		}
 		return FACES_VIEW_PASSO_1;
 	}
+
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
 
 }

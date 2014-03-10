@@ -12,6 +12,7 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
@@ -108,5 +109,8 @@ public class ListarLancamentoBean extends BeanSessionBasic implements IRunnableP
 		return FACES_VIEW_LISTAR;
 	}
 
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
 
 }

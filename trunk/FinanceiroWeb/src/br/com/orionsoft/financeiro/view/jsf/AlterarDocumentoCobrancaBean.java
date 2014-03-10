@@ -13,6 +13,7 @@ import br.com.orionsoft.financeiro.documento.cobranca.processes.AlterarDocumento
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 
 /**
@@ -142,5 +143,10 @@ public class AlterarDocumentoCobrancaBean extends BeanSessionBasic implements IR
 		}
 		return FACES_VIEW_PASSO_1;
 	}
+
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
 
 }

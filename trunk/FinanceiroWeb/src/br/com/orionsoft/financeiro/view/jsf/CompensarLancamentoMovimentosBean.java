@@ -11,7 +11,7 @@ import br.com.orionsoft.financeiro.gerenciador.process.CompensarLancamentoMovime
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
-import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
@@ -118,7 +118,7 @@ public class CompensarLancamentoMovimentosBean extends BeanSessionBasic implemen
 	}
 
 	@SuppressWarnings("unchecked")
-	public String runWithEntities(IEntityList<?> entities) {
+	public String runWithEntities(IEntityCollection<?> entities) {
 		try {
 			this.getProcess().getLancamentoMovimentos().clear();
 			for(IEntity<?> entity: entities)

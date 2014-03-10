@@ -21,6 +21,7 @@ import br.com.orionsoft.financeiro.documento.cobranca.processes.ReceberDocumento
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 
 /**
  * Bean que controla a view para receber um arquivo de retorno para um determinado cedente; 
@@ -114,4 +115,10 @@ public class ReceberDocumentoCobrancaRetornoBean extends BeanSessionBasic  imple
 		this.getProcess().runWithEntity(entity);
 		return FACES_VIEW_PASSO_1;
 	}
+	
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
+
 }

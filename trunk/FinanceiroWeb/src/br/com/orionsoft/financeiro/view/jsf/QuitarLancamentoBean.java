@@ -11,9 +11,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
-import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
-import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
 import br.com.orionsoft.financeiro.gerenciador.entities.LancamentoMovimento;
 import br.com.orionsoft.financeiro.gerenciador.process.QuitarLancamentoProcess;
@@ -25,9 +22,12 @@ import br.com.orionsoft.monstrengo.core.util.DecimalUtils;
 import br.com.orionsoft.monstrengo.crud.documents.services.ListModelDocumentEntityService;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
-import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
+import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
+import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
+import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
  * Bean que controla a view de quitação de um grupo com
@@ -359,7 +359,7 @@ public class QuitarLancamentoBean extends BeanSessionBasic implements IRunnableP
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String runWithEntities(IEntityList<?> entities) {
+	public String runWithEntities(IEntityCollection<?> entities) {
 		try {
 			this.getProcess().getLancamentos().clear();
 			for(IEntity<?> entity: entities)

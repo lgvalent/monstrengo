@@ -12,6 +12,7 @@ import br.com.orionsoft.financeiro.gerenciador.services.ListarLancamentoMoviment
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
@@ -135,5 +136,11 @@ public class ListarLancamentoMovimentoBean extends BeanSessionBasic implements I
 		
 		return FACES_VIEW_LISTAR;
 	}
+	
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
+
 
 }

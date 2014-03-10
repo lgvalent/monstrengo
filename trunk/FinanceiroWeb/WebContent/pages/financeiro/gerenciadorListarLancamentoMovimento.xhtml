@@ -112,6 +112,8 @@
 				    footerClass="tableListFooter"
 				    styleClass="tableList"
 				    rowClasses="tableListRowEven, tableListRowOdd"
+				    resizableColumns="true"
+				    draggableColumns="true"
 				    columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight">
 		
 					<p:column sortBy="#{item.dataQuitacao}" headerText="Data">
@@ -127,7 +129,10 @@
 					</p:column>
 					<p:column sortBy="#{item.descricao}" headerText="Descrição">
 						<h:outputLabel value="#{item.descricao}" /> 
-						<h:outputLabel value="| Doc. nº: #{item.documentoPagamentoNumeroDocumento}" rendered="#{item.documentoPagamentoNumeroDocumento != null}"/>
+					</p:column>
+					<p:column sortBy="#{item.documentoPagamentoNumeroDocumento}" headerText="Documento Pagamento">
+						<h:outputLabel value="#{item.documentoPagamentoCategoria} "/>
+						<h:outputLabel value="Nº: #{item.documentoPagamentoNumeroDocumento}" rendered="#{item.documentoPagamentoNumeroDocumento != null}"/>
 					</p:column>
 					<p:column sortBy="#{item.valorMovimento}" headerText="Valor"  styleClass="noprint" style="text-align:right;">
 						<h:outputLabel value="#{item.valorMovimento}" >

@@ -16,6 +16,7 @@ import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.crud.documents.services.ListModelDocumentEntityService;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
@@ -286,4 +287,9 @@ public class InserirLancamentoBean extends BeanSessionBasic implements IRunnable
 			return FacesUtils.FACES_VIEW_FAILURE;
 		}
 	}
+
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
 }

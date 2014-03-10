@@ -21,6 +21,7 @@ import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.crud.entity.EntityList;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 
 /**
@@ -267,5 +268,10 @@ public class ListarPosicaoContratoBean extends BeanSessionBasic implements IRunn
 		
 		return FACES_VIEW_PASSO_1;
 	}
+
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
 
 }

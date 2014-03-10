@@ -18,6 +18,7 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.core.util.PrintUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
@@ -200,6 +201,10 @@ public class ImprimirDocumentoPagamentoBean extends BeanSessionBasic implements 
 			return FacesUtils.FACES_VIEW_FAILURE;
 		}
 		return FACES_VIEW_PASSO_1;
+	}
+	
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
 	}
 	
 }
