@@ -4,14 +4,15 @@ import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
 import br.com.orionsoft.financeiro.gerenciador.entities.LancamentoSituacao;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 import br.com.orionsoft.monstrengo.core.process.IProcess;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcessController;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
-import br.com.orionsoft.monstrengo.core.process.RunnableEntityProcessControllerBasic;
+import br.com.orionsoft.monstrengo.core.process.RunnableProcessControllerBasic;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
 /**
  * @author Lucio 20120515
  */
-public class CancelarLancamentoProcessController extends RunnableEntityProcessControllerBasic {
+public class CancelarLancamentoProcessController extends RunnableProcessControllerBasic implements IRunnableEntityProcessController {
 	public static final Class<?>[] RUNNABLE_ENTITIES = {Lancamento.class};
 
 	public Class<? extends IProcess> getProcessClass() {return CancelarLancamentoProcess.class;}

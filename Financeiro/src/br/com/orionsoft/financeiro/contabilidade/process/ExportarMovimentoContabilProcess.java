@@ -20,7 +20,7 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
  * 
  * @author Lucio 20120822
  */
-@ProcessMetadata(label="Exportar movimento contábil", hint="Exporta a movimentação financeira para a contabilidade usando um arquivo formatado pré-definido", description="O movimento do perído informado será analisado e um arquivo será gerado para download.<br/>O processo de exportação analisa os lançamentos e movimentos do período e utiliza os códigos das contas contábeis cadastrados nos contratos, contas, centros de custo e items de custo.<br/> Por esta razão, é indispensável que todos os códigos estejam cadastrados corretamente.")
+@ProcessMetadata(label="Exportar movimento contábil", hint="Exporta a movimentação financeira para a contabilidade usando um arquivo formatado pré-definido", description="O movimento do período informado será analisado e um arquivo será gerado para download.<br/>O processo de exportação analisa os lançamentos e movimentos do período e utiliza os códigos das contas contábeis cadastrados nos contratos, contas, centros de custo e items de custo.<br/> Por esta razão, é indispensável que todos os códigos estejam cadastrados corretamente.")
 public class ExportarMovimentoContabilProcess extends ProcessBasic implements IRunnableEntityProcess {
 	public static final String PROCESS_NAME="ExportarMovimentoContabilProcess";
 	

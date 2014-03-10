@@ -3,8 +3,9 @@ package br.com.orionsoft.financeiro.gerenciador.process;
 import br.com.orionsoft.basic.entities.Contrato;
 import br.com.orionsoft.basic.entities.pessoa.Pessoa;
 import br.com.orionsoft.monstrengo.core.process.IProcess;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcessController;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
-import br.com.orionsoft.monstrengo.core.process.RunnableEntityProcessControllerBasic;
+import br.com.orionsoft.monstrengo.core.process.RunnableProcessControllerBasic;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
@@ -18,8 +19,8 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
  * @spring.bean id="RelatorioCobrancaProcessController" init-method="registerController"
  * @spring.property name="processManager" ref="ProcessManager"
  */
-public class RelatorioCobrancaProcessController extends RunnableEntityProcessControllerBasic
-{
+public class RelatorioCobrancaProcessController extends RunnableProcessControllerBasic implements IRunnableEntityProcessController {
+	
     /** Informa para o gerenciador quais as entidades que são compatíveis com este controlador */
 	public static final Class<?>[] RUNNABLE_ENTITIES = {Contrato.class, Pessoa.class};
 	public Class<?>[] getRunnableEntities() {return RUNNABLE_ENTITIES;}

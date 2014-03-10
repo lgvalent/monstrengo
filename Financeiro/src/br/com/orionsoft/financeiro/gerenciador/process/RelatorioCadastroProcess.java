@@ -129,20 +129,20 @@ public class RelatorioCadastroProcess extends ProcessBasic{
 			/* TODO: Foi decidido que o agrupamento na consulta fica por enquanto sem ser tratado,
 			 * uma vez que a clausula group by influencia a clausula order by*/
 //			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_AGRUPAMENTO, Agrupamento.values()[this.agrupamento]);
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_COMECO_ATIVIDADE_INICIO, CalendarUtils.formatDate(this.dataComecoAtividadeInicio));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_COMECO_ATIVIDADE_FIM, CalendarUtils.formatDate(this.dataComecoAtividadeFim));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_CONTRATO_INICIO, CalendarUtils.formatDate(this.dataContratoInicio));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_CONTRATO_FIM, CalendarUtils.formatDate(this.dataContratoFim));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_CONTRATO_RESCISAO_INICIO, CalendarUtils.formatDate(this.dataContratoRescisaoInicio));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_CONTRATO_RESCISAO_FIM, CalendarUtils.formatDate(this.dataContratoRescisaoFim));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_INICIO, CalendarUtils.formatDate(this.dataLancamentoInicio));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_FIM, CalendarUtils.formatDate(this.dataLancamentoFim));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_RECEBIMENTO_INICIO, CalendarUtils.formatDate(this.dataLancamentoRecebimentoInicio));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_RECEBIMENTO_FIM, CalendarUtils.formatDate(this.dataLancamentoRecebimentoFim));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_VENCIMENTO_INICIO, CalendarUtils.formatDate(this.dataLancamentoVencimentoInicio));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_VENCIMENTO_FIM, CalendarUtils.formatDate(this.dataLancamentoVencimentoFim));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_TERMINO_ATIVIDADE_INICIO, CalendarUtils.formatDate(this.dataTerminoAtividadeInicio));
-			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_TERMINO_ATIVIDADE_FIM, CalendarUtils.formatDate(this.dataTerminoAtividadeFim));
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_COMECO_ATIVIDADE_INICIO, this.dataComecoAtividadeInicio);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_COMECO_ATIVIDADE_FIM, this.dataComecoAtividadeFim);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_CONTRATO_INICIO, this.dataContratoInicio);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_CONTRATO_FIM, this.dataContratoFim);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_CONTRATO_RESCISAO_INICIO, this.dataContratoRescisaoInicio);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_CONTRATO_RESCISAO_FIM, this.dataContratoRescisaoFim);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_INICIO, this.dataLancamentoInicio);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_FIM, this.dataLancamentoFim);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_RECEBIMENTO_INICIO, this.dataLancamentoRecebimentoInicio);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_RECEBIMENTO_FIM, this.dataLancamentoRecebimentoFim);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_VENCIMENTO_INICIO, this.dataLancamentoVencimentoInicio);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_LANCAMENTO_VENCIMENTO_FIM, this.dataLancamentoVencimentoFim);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_TERMINO_ATIVIDADE_INICIO, this.dataTerminoAtividadeInicio);
+			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_DATA_TERMINO_ATIVIDADE_FIM, this.dataTerminoAtividadeFim);
 			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_CAMPO_LIST, this.campoList);
 			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_CNAE_ID, this.cnaeId);
 			sd.getArgumentList().setProperty(RelatorioCadastroService.IN_CONTRATO_CATEGORIA_ID, this.contratoCategoriaId);

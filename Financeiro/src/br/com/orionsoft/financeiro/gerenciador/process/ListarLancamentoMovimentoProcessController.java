@@ -2,8 +2,9 @@ package br.com.orionsoft.financeiro.gerenciador.process;
 
 import br.com.orionsoft.financeiro.gerenciador.entities.Conta;
 import br.com.orionsoft.monstrengo.core.process.IProcess;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcessController;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
-import br.com.orionsoft.monstrengo.core.process.RunnableEntityProcessControllerBasic;
+import br.com.orionsoft.monstrengo.core.process.RunnableProcessControllerBasic;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
@@ -13,8 +14,8 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
  * 
  * @author Lucio 20120527
  */
-public class ListarLancamentoMovimentoProcessController extends RunnableEntityProcessControllerBasic
-{
+public class ListarLancamentoMovimentoProcessController extends RunnableProcessControllerBasic implements IRunnableEntityProcessController {
+	
     /** Informa para o gerenciador quais as entidades que são compatíveis com este controlador */
 	public static final Class<?>[] RUNNABLE_ENTITIES = {Conta.class};
 	public Class<?>[] getRunnableEntities() {return RUNNABLE_ENTITIES;}

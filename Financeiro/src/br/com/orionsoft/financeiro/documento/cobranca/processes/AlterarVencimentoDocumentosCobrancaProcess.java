@@ -10,11 +10,13 @@ import br.com.orionsoft.financeiro.gerenciador.services.AlterarVencimentoDocumen
 import br.com.orionsoft.monstrengo.core.annotations.ProcessMetadata;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityCollectionProcess;
 import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 
 /**
@@ -38,7 +40,7 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
  * 
  */
 @ProcessMetadata(label = "Alterar vencimento de documentos de cobrança", hint = "Alterar o vencimento de vários documentos de cobrança, de uma só vez", description = "Altera a data de vencimento dos documentos de cobrança, <b>evitando o pagamento de multa e juros</b> e registrando as alterações na auditoria de cada documento alterado")
-public class AlterarVencimentoDocumentosCobrancaProcess extends ProcessBasic implements IRunnableEntityProcess {
+public class AlterarVencimentoDocumentosCobrancaProcess extends ProcessBasic implements IRunnableEntityProcess, IRunnableEntityCollectionProcess {
 	public static final String PROCESS_NAME="AlterarVencimentoDocumentosCobrancaProcess";
 
 	private Calendar data = CalendarUtils.getCalendar();
@@ -127,6 +129,37 @@ public class AlterarVencimentoDocumentosCobrancaProcess extends ProcessBasic imp
 		return result;
 	}
 
+	@Override
+	public boolean runWithEntities(IEntityCollection<?> entities) {
+		super.beforeRun();
+
+		boolean result = false;
+
+		/* Verifica se a entidade é compatível */
+		this.documentos.clear();
+		/* Verifica se a entidade passada eh um DocumentoCobranca ou pertence eh descendente */
+		if (ClassUtils.isAssignable(entities.getInfo().getType(), DocumentoCobranca.class)) {
+				this.documentos.addAll(((IEntityCollection<DocumentoCobranca>) entities).getCollection());
+				result = true;
+		}else
+			if (entities.getInfo().getType() == Lancamento.class) {
+				try {
+					for(IEntity<DocumentoCobranca> entity: (IEntityCollection<DocumentoCobranca>) entities){
+						this.documentos.add(entity.getProperty(Lancamento.DOCUMENTO_COBRANCA).getValue().<DocumentoCobranca>getAsEntity());
+					}
+				} catch (BusinessException e) {
+					this.getMessageList().add(e.getErrorList());
+				}
+				result = true;
+			}
+			else {
+				this.getMessageList().add(new BusinessMessage(IRunnableEntityProcess.class,"ENTITY_NOT_COMPATIBLE", PROCESS_NAME, entities.getInfo().getType().getName()));
+			}
+		
+		return result;
+
+	}
+	
 	public IEntityList<DocumentoCobranca> getDocumentos() {
 		return documentos;
 	}
