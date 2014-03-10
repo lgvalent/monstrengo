@@ -2,6 +2,7 @@ package br.com.orionsoft.financeiro.documento.cobranca.processes;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,17 +23,22 @@ import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobrancaCategoria
 import br.com.orionsoft.financeiro.documento.cobranca.services.CalcularVencimentoService;
 import br.com.orionsoft.financeiro.documento.cobranca.services.ImprimirDocumentosCobrancaService;
 import br.com.orionsoft.financeiro.documento.cobranca.services.ListarDocumentosCobrancaService;
+import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
 import br.com.orionsoft.monstrengo.auditorship.services.UtilsAuditorship;
 import br.com.orionsoft.monstrengo.core.annotations.ProcessMetadata;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityCollectionProcess;
 import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessParamEntity;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.PrintUtils;
+import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
+import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
@@ -53,7 +59,7 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
  * @version 20120821
  */
 @ProcessMetadata(label="Imprimir documentos de cobrança", hint="Permite a impressão de vários documentos de cobrança", description="Permite a impressão de vários documentos de cobrança utilizando filtros de pesquisa para seleção dos documentos.")
-public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements IRunnableEntityProcess{
+public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements IRunnableEntityProcess, IRunnableEntityCollectionProcess{
 	public static final String PROCESS_NAME = "ImprimirDocumentosCobrancaProcess";
 
 	private String cpfCnpj = "";
@@ -466,6 +472,45 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 		}else
 		{
 			this.getMessageList().add(new BusinessMessage(IRunnableEntityProcess.class, "ENTITY_NOT_COMPATIBLE", PROCESS_NAME, entity.getInfo().getType().getName()));
+		}
+
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean runWithEntities(IEntityCollection<?> entities) {
+		super.beforeRun();
+		boolean result = false;
+		/* Verifica se a entidade é compatível */
+		/* Verifica se a entidade passada eh um DocumentoCobranca ou eh descendente */
+		if (ClassUtils.isAssignable(entities.getInfo().getType(), DocumentoCobranca.class)) {
+			this.beanList = new ArrayList<DocumentoCobrancaBean>(entities.size());
+			
+			for(IEntity<DocumentoCobranca> entity: (IEntityCollection<DocumentoCobranca>) entities){
+				this.beanList.add(new DocumentoCobrancaBean(entity, ""));
+			}
+			
+			result = true;
+		}else
+			if (ClassUtils.isAssignable(entities.getInfo().getType(), Lancamento.class)) {
+				this.beanList = new ArrayList<DocumentoCobrancaBean>(entities.size());
+				
+				for(IEntity<DocumentoCobranca> entity: (IEntityCollection<DocumentoCobranca>) entities){
+					IEntity<DocumentoCobranca> doc = null;
+					try {
+						doc = entity.getProperty(Lancamento.DOCUMENTO_COBRANCA).getValue().getAsEntity();
+						if(doc != null){
+							this.beanList.add(new DocumentoCobrancaBean(doc, ""));
+						}
+					} catch (BusinessException e) {
+						this.getMessageList().add(e.getErrorList());
+					}
+				}
+				
+				result = true;
+			}else
+		{
+			this.getMessageList().add(new BusinessMessage(IRunnableEntityProcess.class, "ENTITY_NOT_COMPATIBLE", PROCESS_NAME, entities.getInfo().getType().getName()));
 		}
 
 		return result;

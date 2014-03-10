@@ -4,8 +4,9 @@ import br.com.orionsoft.financeiro.gerenciador.entities.LancamentoMovimento;
 import br.com.orionsoft.financeiro.gerenciador.entities.LancamentoMovimentoCategoria;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 import br.com.orionsoft.monstrengo.core.process.IProcess;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcessController;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
-import br.com.orionsoft.monstrengo.core.process.RunnableEntityProcessControllerBasic;
+import br.com.orionsoft.monstrengo.core.process.RunnableProcessControllerBasic;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
 /**
@@ -17,7 +18,8 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
  * @spring.bean id="EstornarLancamentoMovimentoProcessController" init-method="registerController"
  * @spring.property name="processManager" ref="ProcessManager"
  */
-public class EstornarLancamentoMovimentoProcessController extends RunnableEntityProcessControllerBasic {
+public class EstornarLancamentoMovimentoProcessController extends RunnableProcessControllerBasic implements IRunnableEntityProcessController {
+	
 	public static final Class<?>[] RUNNABLE_ENTITIES = {LancamentoMovimento.class};
 
 	public Class<? extends IProcess> getProcessClass() {return EstornarLancamentoMovimentoProcess.class;}

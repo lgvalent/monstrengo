@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,7 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
+import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.NativeSQL;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
@@ -324,20 +326,20 @@ public class RelatorioCadastroService extends ServiceBasic {
 		 */
 		String inCpfCnpj = (String)sd.getArgumentList().getProperty(IN_CPF_CNPJ);
 		Boolean inIncluirInativos = (Boolean)sd.getArgumentList().getProperty(IN_INCLUIR_INATIVOS);
-		String inDataContratoInicio = (String) sd.getArgumentList().getProperty(IN_DATA_CONTRATO_INICIO);
-		String inDataContratoFim = (String) sd.getArgumentList().getProperty(IN_DATA_CONTRATO_FIM);
-		String inDataContratoRescisaoInicio = (String) sd.getArgumentList().getProperty(IN_DATA_CONTRATO_RESCISAO_INICIO);
-		String inDataContratoRescisaoFim = (String) sd.getArgumentList().getProperty(IN_DATA_CONTRATO_RESCISAO_FIM);
-		String inDataComecoAtividadeInicio = (String) sd.getArgumentList().getProperty(IN_DATA_COMECO_ATIVIDADE_INICIO);
-		String inDataComecoAtividadeFim = (String) sd.getArgumentList().getProperty(IN_DATA_COMECO_ATIVIDADE_FIM);
-		String inDataTerminoAtividadeInicio = (String) sd.getArgumentList().getProperty(IN_DATA_TERMINO_ATIVIDADE_INICIO);
-		String inDataTerminoAtividadeFim = (String) sd.getArgumentList().getProperty(IN_DATA_TERMINO_ATIVIDADE_FIM);
-		String inDataLancamentoInicio = (String) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_INICIO);
-		String inDataLancamentoFim = (String) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_FIM);
-		String inDataLancamentoVencimentoInicio = (String) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_VENCIMENTO_INICIO);
-		String inDataLancamentoVencimentoFim = (String) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_VENCIMENTO_FIM);
-		String inDataLancamentoRecebimentoInicio = (String) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_RECEBIMENTO_INICIO);
-		String inDataLancamentoRecebimentoFim = (String) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_RECEBIMENTO_FIM);
+		Calendar inDataContratoInicio = (Calendar) sd.getArgumentList().getProperty(IN_DATA_CONTRATO_INICIO);
+		Calendar inDataContratoFim = (Calendar) sd.getArgumentList().getProperty(IN_DATA_CONTRATO_FIM);
+		Calendar inDataContratoRescisaoInicio = (Calendar) sd.getArgumentList().getProperty(IN_DATA_CONTRATO_RESCISAO_INICIO);
+		Calendar inDataContratoRescisaoFim = (Calendar) sd.getArgumentList().getProperty(IN_DATA_CONTRATO_RESCISAO_FIM);
+		Calendar inDataComecoAtividadeInicio = (Calendar) sd.getArgumentList().getProperty(IN_DATA_COMECO_ATIVIDADE_INICIO);
+		Calendar inDataComecoAtividadeFim = (Calendar) sd.getArgumentList().getProperty(IN_DATA_COMECO_ATIVIDADE_FIM);
+		Calendar inDataTerminoAtividadeInicio = (Calendar) sd.getArgumentList().getProperty(IN_DATA_TERMINO_ATIVIDADE_INICIO);
+		Calendar inDataTerminoAtividadeFim = (Calendar) sd.getArgumentList().getProperty(IN_DATA_TERMINO_ATIVIDADE_FIM);
+		Calendar inDataLancamentoInicio = (Calendar) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_INICIO);
+		Calendar inDataLancamentoFim = (Calendar) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_FIM);
+		Calendar inDataLancamentoVencimentoInicio = (Calendar) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_VENCIMENTO_INICIO);
+		Calendar inDataLancamentoVencimentoFim = (Calendar) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_VENCIMENTO_FIM);
+		Calendar inDataLancamentoRecebimentoInicio = (Calendar) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_RECEBIMENTO_INICIO);
+		Calendar inDataLancamentoRecebimentoFim = (Calendar) sd.getArgumentList().getProperty(IN_DATA_LANCAMENTO_RECEBIMENTO_FIM);
 		Long inEscritorioContabilId = (Long) sd.getArgumentList().getProperty(IN_ESCRITORIO_CONTABIL_ID);
 		Long inCnaeId = (Long) sd.getArgumentList().getProperty(IN_CNAE_ID);
 		Long inRepresentanteId = (Long) sd.getArgumentList().getProperty(IN_REPRESENTANTE_ID);
@@ -577,20 +579,20 @@ public class RelatorioCadastroService extends ServiceBasic {
 	private NativeSQL MontarSql(NativeSQL sql, 
 			String inCpfCnpj, 
 			Boolean inIncluirInativos, 
-			String inDataContratoInicio,
-			String inDataContratoFim,
-			String inDataContratoRescisaoInicio,
-			String inDataContratoRescisaoFim,
-			String inDataComecoAtividadeInicio,
-			String inDataComecoAtividadeFim,
-			String inDataTerminoAtividadeInicio,
-			String inDataTerminoAtividadeFim,
-			String inDataLancamentoInicio,
-			String inDataLancamentoFim,
-			String inDataLancamentoVencimentoInicio,
-			String inDataLancamentoVencimentoFim,
-			String inDataLancamentoRecebimentoInicio,
-			String inDataLancamentoRecebimentoFim,
+			Calendar inDataContratoInicio,
+			Calendar inDataContratoFim,
+			Calendar inDataContratoRescisaoInicio,
+			Calendar inDataContratoRescisaoFim,
+			Calendar inDataComecoAtividadeInicio,
+			Calendar inDataComecoAtividadeFim,
+			Calendar inDataTerminoAtividadeInicio,
+			Calendar inDataTerminoAtividadeFim,
+			Calendar inDataLancamentoInicio,
+			Calendar inDataLancamentoFim,
+			Calendar inDataLancamentoVencimentoInicio,
+			Calendar inDataLancamentoVencimentoFim,
+			Calendar inDataLancamentoRecebimentoInicio,
+			Calendar inDataLancamentoRecebimentoFim,
 			Long inEscritorioContabilId, 
 			Long inCnaeId, 
 			Long inRepresentanteId, 
@@ -647,20 +649,20 @@ public class RelatorioCadastroService extends ServiceBasic {
 		 */
 		if(inIncluirDatasCadastro){
 			if (inIncluirDataContrato) {
-				sql.addWhere("Contrato.dataInicio >= '" + inDataContratoInicio + "'");
-				sql.addWhere("Contrato.dataInicio <= '" + inDataContratoFim + "'");
+				sql.addWhere("Contrato.dataInicio >= '" + CalendarUtils.formatToSQLDate(inDataContratoInicio) + "'");
+				sql.addWhere("Contrato.dataInicio <= '" + CalendarUtils.formatToSQLDate(inDataContratoFim) + "'");
 			}
 			if (inIncluirDataContratoRescisao) {
-				sql.addWhere("Contrato.dataRescisao >= '" + inDataContratoRescisaoInicio + "'");
-				sql.addWhere("Contrato.dataRescisao <= '" + inDataContratoRescisaoFim + "'");
+				sql.addWhere("Contrato.dataRescisao >= '" + CalendarUtils.formatToSQLDate(inDataContratoRescisaoInicio) + "'");
+				sql.addWhere("Contrato.dataRescisao <= '" + CalendarUtils.formatToSQLDate(inDataContratoRescisaoFim) + "'");
 			}
 			if (inIncluirDataComecoAtividade) {
-				sql.addWhere("Pessoa.dataInicial >= '" + inDataComecoAtividadeInicio + "'");
-				sql.addWhere("Pessoa.dataInicial <= '" + inDataComecoAtividadeFim + "'");
+				sql.addWhere("Pessoa.dataInicial >= '" + CalendarUtils.formatToSQLDate(inDataComecoAtividadeInicio) + "'");
+				sql.addWhere("Pessoa.dataInicial <= '" + CalendarUtils.formatToSQLDate(inDataComecoAtividadeFim) + "'");
 			}
 			if (inIncluirDataTerminoAtividade) {
-				sql.addWhere("Pessoa.dataFinal >= '" + inDataTerminoAtividadeInicio + "'");
-				sql.addWhere("Pessoa.dataFinal <= '" + inDataTerminoAtividadeFim + "'");
+				sql.addWhere("Pessoa.dataFinal >= '" + CalendarUtils.formatToSQLDate(inDataTerminoAtividadeInicio) + "'");
+				sql.addWhere("Pessoa.dataFinal <= '" + CalendarUtils.formatToSQLDate(inDataTerminoAtividadeFim) + "'");
 			}
 		}
 		if (inEscritorioContabilId != null) {
@@ -723,17 +725,17 @@ public class RelatorioCadastroService extends ServiceBasic {
 
 			/* Verificacao das datas do financeiro, que correspondem ao lancamento e lancamentoMovimento*/
 			if (inIncluirDataLancamento) {
-				sql.addWhere("Lancamento.data >= '" + inDataLancamentoInicio + "'");
-				sql.addWhere("Lancamento.data <= '" + inDataLancamentoFim + "'");
+				sql.addWhere("Lancamento.data >= '" + CalendarUtils.formatToSQLDate(inDataLancamentoInicio) + "'");
+				sql.addWhere("Lancamento.data <= '" + CalendarUtils.formatToSQLDate(inDataLancamentoFim) + "'");
 			}
 			if (inIncluirDataLancamentoVencimento) {
-				sql.addWhere("Lancamento.dataVencimento >= '" + inDataLancamentoVencimentoInicio + "'");
-				sql.addWhere("Lancamento.dataVencimento <= '" + inDataLancamentoVencimentoFim + "'");
+				sql.addWhere("Lancamento.dataVencimento >= '" + CalendarUtils.formatToSQLDate(inDataLancamentoVencimentoInicio) + "'");
+				sql.addWhere("Lancamento.dataVencimento <= '" + CalendarUtils.formatToSQLDate(inDataLancamentoVencimentoFim) + "'");
 			}
 
 			if (inIncluirDataLancamentoRecebimento) {
-				sql.addWhere("LancamentoMovimento.data >= '" + inDataLancamentoRecebimentoInicio + "'");
-				sql.addWhere("LancamentoMovimento.data <= '" + inDataLancamentoRecebimentoFim + "'");
+				sql.addWhere("LancamentoMovimento.data >= '" + CalendarUtils.formatToSQLDate(inDataLancamentoRecebimentoInicio) + "'");
+				sql.addWhere("LancamentoMovimento.data <= '" + CalendarUtils.formatToSQLDate(inDataLancamentoRecebimentoFim) + "'");
 			}
 			if (inItemCustoIdList != null) {
 				StringBuilder builder = new StringBuilder();
@@ -870,20 +872,20 @@ public class RelatorioCadastroService extends ServiceBasic {
 
 	/*
 	 * Constantes para montar a lista de campos a serem mostrados no relatorio
-	 * A ordem do enum Campo e utilizada para a criaï¿½ï¿½o do relatï¿½rio no Jasper/IReport
+	 * A ordem do enum Campo e utilizada para a criaïção do relatório no Jasper/IReport
 	 * Assim, se caso mudar a posicao desse enum, manter a correspondencia no arquivo
 	 */
 	public enum Campo {
-		RAZAO_SOCIAL("Razï¿½o social/Nome", Pessoa.NOME),
-		NOME_FANTASIA("Nome fantasia/Apelido", Pessoa.APELIDO),
-		CPF_CNPJ("CPF/CNPJ", Pessoa.DOCUMENTO),
-		MUNICIPIO("Municipio", Endereco.MUNICIPIO),
-		BAIRRO("Bairro", Endereco.BAIRRO),
-		LOGRADOURO("Logradouro", Endereco.LOGRADOURO),
-		NUMERO("Nï¿½mero", Endereco.NUMERO),
-		COMPLEMENTO("Complemento", Endereco.COMPLEMENTO),
-		CEP("CEP", Endereco.CEP),
-		CAIXA_POSTAL("Caixa postal", Endereco.CAIXA_POSTAL),
+		RAZAO_SOCIAL("Razão social/Nome", "Pessoa." + Pessoa.NOME),
+		NOME_FANTASIA("Nome fantasia/Apelido", "Pessoa." + Pessoa.APELIDO),
+		CPF_CNPJ("CPF/CNPJ", "Pessoa." + Pessoa.DOCUMENTO),
+		MUNICIPIO("Município", "Endereco." + Endereco.MUNICIPIO),
+		BAIRRO("Bairro", "Endereco." + Endereco.BAIRRO),
+		LOGRADOURO("Logradouro", "Endereco." + Endereco.LOGRADOURO),
+		NUMERO("Número", "Endereco." + Endereco.NUMERO),
+		COMPLEMENTO("Complemento", "Endereco." + Endereco.COMPLEMENTO),
+		CEP("CEP", "Endereco." + Endereco.CEP),
+		CAIXA_POSTAL("Caixa postal", "Endereco." + Endereco.CAIXA_POSTAL),
 		TELEFONE("Telefone", Pessoa.TELEFONES);
 
 		private String nome;

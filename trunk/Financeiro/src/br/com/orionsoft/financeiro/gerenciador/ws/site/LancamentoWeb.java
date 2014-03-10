@@ -51,7 +51,7 @@ public class LancamentoWeb {
 		/*Lucio 20120510: Verifica se é um lançamento pendente para pegar o valor CORRIGIDO indicado no documentoCobranca.valor */
 		if((lancamento.getLancamentoSituacao() == LancamentoSituacao.PENDENTE) &&
 				(lancamento.getDocumentoCobranca()!=null)){
-			saldoCorrigido = lancamento.getDocumentoCobranca().getValor();
+			saldoCorrigido = lancamento.getDocumentoCobranca().getValorPago();
 		}else{
 			saldoCorrigido = lancamento.getSaldo();
 		}
