@@ -16,6 +16,13 @@
 		<p:commandButton styleClass="noprint" ajax="false" value="Pesquisar"
 			action="#{queryBean.doFilter}" onclick="this.value='Pesquisando...'" />
 		<p:focus for="filter"/>
+		<p:commandButton id="btnProcess" value="Processos" styleClass="noprint"/>
+		<p:overlayPanel for="btnProcess" >
+			<ui:include src="/public/basic/tiles/runRunnableProcessFromEntityCollection.xhtml">
+				<ui:param name="info" value="#{queryBean.info}" />
+				<ui:param name="entityCollection" value="#{queryBean.currentProcess.userReport.entityCollection}" />
+			</ui:include>
+		</p:overlayPanel>
 	</h:panelGroup>
 
 	<h:panelGrid columns="2">
@@ -26,7 +33,7 @@
 		<h:panelGrid columns="1">
 			<h:commandLink styleClass="noprint"
 				action="#{createBean.actionCreate}"
-				rendered="#{queryBean.canCreate and !queryBean.info.isAbstract()}"
+				rendered="#{queryBean.canCreate and not queryBean.info.isAbstract()}"
 				style="font-size: smaller;">
 				<h:graphicImage value="../../public/basic/img/create.png"
 					title="Clique aqui para criar um novo registro de #{queryBean.info.label}"

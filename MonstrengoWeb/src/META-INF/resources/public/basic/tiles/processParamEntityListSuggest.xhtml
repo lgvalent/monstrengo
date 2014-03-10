@@ -23,6 +23,7 @@
 	onkeyup="if(event.which == 13){this.select();$('.btn#{paramEntityList.value.info.type.simpleName}').click();}"
 	onfocus="setActiveComponent(this)">
 </p:autoComplete>
+<p:watermark value="Pesquise aqui #{paramEntityList.value.info.label}" for="findParamEntityList#{paramEntityList.value.info.type.simpleName}"/>
 
 <p:commandButton value="+" ajax="true" update="dataTableList#{paramEntityList.value.info.type.simpleName}" styleClass="btn#{paramEntityList.value.info.type.simpleName}">
 	<p:collector value="#{paramEntityList.value.runEntity}"

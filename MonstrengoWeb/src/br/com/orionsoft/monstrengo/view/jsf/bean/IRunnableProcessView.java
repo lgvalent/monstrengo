@@ -1,6 +1,7 @@
 package br.com.orionsoft.monstrengo.view.jsf.bean;
 
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 
 
 
@@ -36,4 +37,14 @@ public interface IRunnableProcessView extends IBasicBean
      * @return Retorna o identificador da próxima visão que será desviada 
      */
 	public String runWithEntity(IEntity<?> entity);
+
+	/**
+     * Este método possibilita que a visão seja invocada com base 
+     * nos dados de uma coleção de instâncias de uma entidade.<br>
+     * A entidade fornecida pode não ser compatível. Porém isto será alertado
+     * quando o método {@link IRunnableEntityProcess.runWithEntity(IEntity)} for invocado. 
+     * 
+     * @return Retorna o identificador da próxima visão que será desviada 
+     */
+	public String runWithEntities(IEntityCollection<?> entities);
 }

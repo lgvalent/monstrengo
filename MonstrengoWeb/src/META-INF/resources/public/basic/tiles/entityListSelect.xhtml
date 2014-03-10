@@ -18,7 +18,7 @@
 		<h:commandButton value="Desfazer" title="Volta a seleção anterior às alterações recentemente efetuadas" type="reset"/>
 <p:dataGrid value="#{entityList.list}" var="item" columns="3">
   <p:column>
-  	<h:selectBooleanCheckbox value="#{item.selected}" id="#{entityList.info.label}"/>
+  	<h:selectBooleanCheckbox value="#{item.selected}" id="#{entityList.info.type.simpleName}"/>
   	#{item}
   </p:column>
 </p:dataGrid>
