@@ -5,7 +5,7 @@ import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcessController
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 
 
-public abstract class RunnableEntityProcessControllerBasic implements IRunnableEntityProcessController
+public abstract class RunnableProcessControllerBasic implements IRunnableProcessController
 {
 	private IProcessManager processManager;
     private BusinessMessage message;
@@ -16,4 +16,5 @@ public abstract class RunnableEntityProcessControllerBasic implements IRunnableE
 	public BusinessMessage getMessage(){return message;}
 	protected void setMessage(BusinessMessage message){ this.message = message;}
 	public boolean isHasMessage(){return message != null;}
+	
 }

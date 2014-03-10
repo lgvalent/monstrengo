@@ -64,7 +64,7 @@ public class ProcessManagerTestCase extends ProcessBasicTest
 
 			int miliStart = Calendar.getInstance().get(Calendar.MILLISECOND);
 			System.out.println(miliStart + ":Mostrando todos os processo que o operador tem direito de executar para uma determinada entidades.");
-			for(RunnableProcessEntry runnableProcess: this.processManager.getRunnableProcessesEntry(list.getFirst(), this.getAdminSession())){ 
+			for(RunnableProcessEntry runnableProcess: this.processManager.getRunnableEntityProcessesEntry(list.getFirst(), this.getAdminSession())){ 
 				System.out.println(Calendar.getInstance().get(Calendar.MILLISECOND) + "ms:Exibindo...");
 				System.out.println("Ficha do processo:" + runnableProcess.getProcessClass().getName());
 				System.out.println("            label:" + runnableProcess.getInfo().label());

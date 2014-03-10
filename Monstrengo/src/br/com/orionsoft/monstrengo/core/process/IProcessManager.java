@@ -12,6 +12,7 @@ import br.com.orionsoft.monstrengo.core.process.RunnableProcessEntry;
 import br.com.orionsoft.monstrengo.core.IManager;
 import br.com.orionsoft.monstrengo.core.service.IServiceManager;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 
 /**
@@ -59,7 +60,7 @@ public interface IProcessManager extends IManager {
 	 * @return
 	 * @throws ProcessException
 	 */
-    public List<IRunnableEntityProcessController> getRunnableProcessesControllers(Class<?> entityClass) throws ProcessException;
+    public List<IRunnableEntityProcessController> getRunnableEntityProcessesControllers(Class<?> entityClass) throws ProcessException;
 	
 	/**
 	 * Obtem uma lista com a entrada de processos que podem ser executados a partir de um determinado tipo
@@ -73,8 +74,31 @@ public interface IProcessManager extends IManager {
 	 * @return
 	 * @throws ProcessException
 	 */
-    public List<RunnableProcessEntry> getRunnableProcessesEntry(IEntity<?> entity, UserSession userSession) throws ProcessException;
+    public List<RunnableProcessEntry> getRunnableEntityProcessesEntry(IEntity<?> entity, UserSession userSession) throws ProcessException;
 	
+	
+    /**
+	 * Obtem uma lista com os controladores dos processos estão habilitados para execução com coleção de entidades.<br>
+	 * @param entityClass classe de entidade com a qual se deseja pesquisar os processos compatíveis 
+	 * @return
+	 * @throws ProcessException
+	 */
+    public List<IRunnableEntityCollectionProcessController> getRunnableEntityCollectionProcessesControllers(Class<?> entityClass) throws ProcessException;
+	
+	/**
+	 * Obtem uma lista com a entrada de processos que podem ser executados a partir de uma coleção de entidade.<br>
+	 * Os {@link IRunnableEntityCollectionProcess} fornecem uma lista de tipos de entidades com as quais
+	 * eles são compatíveis. Esta lista de entidades é mantida dentro do controlador e é construida dinamicamente.<br>
+	 * Caso um controlador de processo indique que não é possível executar o processo neste momento,
+	 * ({@link IRunnableEntityCollectionProcessController.canRunWithEntity}) a entidade do processo retornada não estará com isSelected() definido.<br>  
+	 * @param entity Entidade com a qual se deseja pesquisar os processos compatíveis 
+	 * @param userSession Sessão do operador para verificar a quais processos ele tem direito de acessar
+	 * @return
+	 * @throws ProcessException
+	 */
+    public List<RunnableProcessEntry> getRunnableEntityCollectionProcessesEntry(IEntityMetadata info, UserSession userSession) throws ProcessException;
+	
+
     /**
      * Registra uma instância de um RunnableEntityProcessController que possibilita ao gerenciador de processo
      * controlar quantos processos possuem esta característica de RunnableEntity.

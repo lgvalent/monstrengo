@@ -27,6 +27,7 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.IServiceManager;
 import br.com.orionsoft.monstrengo.core.util.ClassUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
@@ -165,12 +166,12 @@ public class ProcessManager implements IProcessManager {
 	/**
 	 * @see {@link IProcessManager.getRunnableProcessesControllers()}
 	 */
-	private Map<Class<?>, List<IRunnableEntityProcessController>> runnableControllerForClassesBuffer = new HashMap<Class<?>, List<IRunnableEntityProcessController>>();
-	public List<IRunnableEntityProcessController> getRunnableProcessesControllers(Class<?> entityClass) throws ProcessException {
+	private Map<Class<?>, List<IRunnableEntityProcessController>> runnableEntityControllerBuffer = new HashMap<Class<?>, List<IRunnableEntityProcessController>>();
+	public List<IRunnableEntityProcessController> getRunnableEntityProcessesControllers(Class<?> entityClass) throws ProcessException {
 		List<IRunnableEntityProcessController> result;
 
 		/* Primeiro busca no buffer os controladores pra classe */
-		result = runnableControllerForClassesBuffer.get(entityClass);
+		result = runnableEntityControllerBuffer.get(entityClass);
 		if(result != null){
 			return result;
 		}
@@ -200,24 +201,100 @@ public class ProcessManager implements IProcessManager {
 		}
 
 		/* Bufferiza o atual resultado */
-		runnableControllerForClassesBuffer.put(entityClass, result);
+		runnableEntityControllerBuffer.put(entityClass, result);
 		return result;
 	}
+
+	/**
+	 * @see {@link IProcessManager.getRunnableProcessesControllers()}
+	 */
+	private Map<Class<?>, List<IRunnableEntityCollectionProcessController>> runnableEntityCollectionControllersBuffer = new HashMap<Class<?>, List<IRunnableEntityCollectionProcessController>>();
+	public List<IRunnableEntityCollectionProcessController> getRunnableEntityCollectionProcessesControllers(Class<?> entityClass) throws ProcessException {
+		List<IRunnableEntityCollectionProcessController> result;
+
+		/* Primeiro busca no buffer os controladores pra classe */
+		result = runnableEntityCollectionControllersBuffer.get(entityClass);
+		if(result != null){
+			return result;
+		}
+		
+		/* Não achou no buffer, então realiza a busca completa e bufferiza posteriormente */
+		result = new ArrayList<IRunnableEntityCollectionProcessController>();	
+
+		List<Class<?>> ancestorClasses = ClassUtils.getAllHierarchy(entityClass);
+		
+		/* Percorre todos os controladores, depois todas as classes de cada controlador e depois
+		 * todas as classes da hierarquia da entidade atual. Se algo cruzar, o controlador é apto para a entidade 
+		 * e uma entrada de processo é criada para exibir os dados sobre o processo que pode ser disparado */
+		for(IRunnableProcessController controller: controllers.values()){
+			boolean controllerCompatible = false;
+			if(controller instanceof IRunnableEntityCollectionProcessController){
+				for(Class<?> controllerClass: ((IRunnableEntityCollectionProcessController) controller).getRunnableEntitiesCollection()){
+					for(Class<?> entityClass1: ancestorClasses){
+						if(entityClass1 == controllerClass){
+							result.add((IRunnableEntityCollectionProcessController) controller);
+							/* Evita procurar compatibilidade com outras classe deste mesmo controlador */
+							controllerCompatible = true;
+							break;
+						}
+					}
+					if(controllerCompatible)
+						break;
+				}
+			}
+		}
+
+		/* Bufferiza o atual resultado */
+		runnableEntityCollectionControllersBuffer.put(entityClass, result);
+		return result;
+	}
+
 	/**
 	 * @see {@link IProcessManager.getRunnableProcesses()}
 	 */
-	public List<RunnableProcessEntry> getRunnableProcessesEntry(IEntity<?> entity, UserSession userSession) throws ProcessException
+	public List<RunnableProcessEntry> getRunnableEntityProcessesEntry(IEntity<?> entity, UserSession userSession) throws ProcessException
 	{
 		try {
 			List<RunnableProcessEntry> result = new ArrayList<RunnableProcessEntry>();
 
-			for(IRunnableEntityProcessController controller: getRunnableProcessesControllers(entity.getInfo().getType())){
+			for(IRunnableEntityProcessController controller: getRunnableEntityProcessesControllers(entity.getInfo().getType())){
 				/* Verifica se o operador possui direito de acesso ao processo */
 				if(UtilsSecurity.checkRightProcess(this.getServiceManager(), controller.getProcessClass().getSimpleName(), userSession, null)){
 					/* Ainda verifica se o processo poderá ser executado com os atuais dados da entidade */
 					RunnableProcessEntry entry = new RunnableProcessEntry(controller.getProcessClass());
 
 					entry.setDisabled(!controller.canRunWithEntity(entity));
+					if(entry.isDisabled())
+						entry.setMessage(controller.getMessage());
+					result.add(entry);
+				}
+			}
+
+			return result;
+
+		} catch (BusinessException e)
+		{
+			// Converte a exceção
+			throw new ProcessException(e.getErrorList());
+		}
+	}
+
+	/**
+	 * @see {@link IProcessManager.getRunnableProcesses()}
+	 */
+	public List<RunnableProcessEntry> getRunnableEntityCollectionProcessesEntry(IEntityMetadata info, UserSession userSession) throws ProcessException
+	{
+		try {
+			List<RunnableProcessEntry> result = new ArrayList<RunnableProcessEntry>();
+
+			for(IRunnableEntityCollectionProcessController controller: getRunnableEntityCollectionProcessesControllers(info.getType())){
+				/* Verifica se o operador possui direito de acesso ao processo */
+				if(UtilsSecurity.checkRightProcess(this.getServiceManager(), controller.getProcessClass().getSimpleName(), userSession, null)){
+					/* Ainda verifica se o processo poderá ser executado com os atuais dados da entidade */
+					RunnableProcessEntry entry = new RunnableProcessEntry(controller.getProcessClass());
+
+					/* Para coleções não é verificada uma pré-condição para execução em lote, pois a coleção pode não estar pronta */
+					entry.setDisabled(false);
 					if(entry.isDisabled())
 						entry.setMessage(controller.getMessage());
 					result.add(entry);

@@ -71,6 +71,7 @@ public class SqlQueryProcess extends ProcessBasic implements IRunnableEntityProc
     	this.columnsCount = 0;
     }
     
+	@SuppressWarnings("unchecked")
 	public boolean runQuery(){
 		beforeRun();
 
@@ -161,6 +162,5 @@ public class SqlQueryProcess extends ProcessBasic implements IRunnableEntityProc
 		boolean result = false;
 		return result;
 	}
-
 
 }
