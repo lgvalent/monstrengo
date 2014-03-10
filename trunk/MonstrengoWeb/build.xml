@@ -156,7 +156,7 @@
          ================================= -->
     <target name="make jar" depends="updateMETA-INF/Resources, compile" description="--> Gera arquivo jar do Framework">
     	
-		<jar destfile="${lib.orionsoft}/${jar.name}.jar" >
+		<jar destfile="${lib.orionsoft}/${jar.name}.jar"  >
 			<fileset dir="${bin}">
 				<include name="**/*"/>
 			</fileset>

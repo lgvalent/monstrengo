@@ -14,10 +14,10 @@
  -->
 <h:outputText styleClass="noprint"
 	value="Nenhum processo pode ser executado a partir de #{entity.info.label}"
-	rendered="#{!runnableProcessBean.hasRunnableViewaForUser(entity)}" />
+	rendered="#{empty runnableProcessBean.getRunnableEntityViewsForUser(entity)}" />
 <h:panelGroup styleClass="noprint"
-	rendered="#{runnableProcessBean.hasRunnableViewaForUser(entity)}">
-	<h:dataTable value="#{runnableProcessBean.getRunnableViewsForUser(entity)}"
+	rendered="#{not empty runnableProcessBean.getRunnableEntityViewsForUser(entity)}">
+	<h:dataTable value="#{runnableProcessBean.getRunnableEntityViewsForUser(entity)}"
 		var="runnableView">
 		<h:column>
 			<h:panelGroup

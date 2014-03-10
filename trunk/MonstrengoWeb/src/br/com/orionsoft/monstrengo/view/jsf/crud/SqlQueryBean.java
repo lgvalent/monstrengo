@@ -7,6 +7,7 @@ import br.com.orionsoft.monstrengo.auditorship.entities.AuditProcessRegister;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.crud.processes.SqlQueryProcess;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
@@ -103,6 +104,10 @@ public class SqlQueryBean extends BeanSessionBasic implements IRunnableProcessVi
 	public String runWithEntity(IEntity<?> entity) {
 		this.getCurrentProcess().runWithEntity(entity);
 		return FACES_VIEW_QUERY;
+	}
+
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
 	}
 
 }

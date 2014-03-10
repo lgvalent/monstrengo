@@ -5,6 +5,7 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.security.processes.OverwritePasswordProcess;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
@@ -96,6 +97,9 @@ public class OverwritePasswordBean extends BeanSessionBasic implements IRunnable
 		return FACES_VIEW_START;
 	}
 
-
+	@Override
+	public String runWithEntities(IEntityCollection<?> entities) {
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
 
 }

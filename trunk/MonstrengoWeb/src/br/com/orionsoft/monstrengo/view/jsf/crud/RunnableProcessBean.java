@@ -11,6 +11,8 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.core.process.RunnableProcessEntry;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
+import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BasicBean;
 import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
@@ -63,11 +65,11 @@ public class RunnableProcessBean extends BasicBean
 	 * @param entity
 	 * @return
 	 */
-	public List<RunnableViewEntry> getRunnableViewsForUser(IEntity<?> entity) {
+	public List<RunnableViewEntry> getRunnableEntityViewsForUser(IEntity<?> entity) {
 		List<RunnableViewEntry> runnableViewForUserBuffer = new ArrayList<RunnableViewEntry>();
 		try{
 				/* Pega todos os processo que podem ser disparados pela entidade e operador atuais */
-				for(RunnableProcessEntry runnableProcessEntry: this.getApplicationBean().getProcessManager().getRunnableProcessesEntry(entity, this.getUserSessionBean().getUserSession())){
+				for(RunnableProcessEntry runnableProcessEntry: this.getApplicationBean().getProcessManager().getRunnableEntityProcessesEntry(entity, this.getUserSessionBean().getUserSession())){
 					/* Verifica quais visões manipula o atual processo */
 					IRunnableProcessView view = this.getUserSessionBean().getRunnableEntityProcessViewByProcessName(runnableProcessEntry.getProcessClass().getSimpleName()); 
 					if(view != null ){
@@ -86,8 +88,43 @@ public class RunnableProcessBean extends BasicBean
 		return runnableViewForUserBuffer; 
 	}
 
-	public boolean hasRunnableViewaForUser(IEntity<?> entity){
-		return this.getRunnableViewsForUser(entity).size()>0;
+	/**
+	 * Retorna uma lista de processos que podem ser executados a partir de uma dada entidade.
+	 * Era feito buffer da lista, mas o método é chamado somente uma vez com o JSF 2.0.
+	 * Se voltar a fazer algum buffer, vale lembrar que o tipo e o id da entidade devem ser usados
+	 * para verificar a validade do buffer
+	 * @param entity
+	 * @return
+	 */
+	public List<RunnableViewEntry> getRunnableEntityCollectionViewsForUser(IEntityMetadata info){
+		List<RunnableViewEntry> runnableViewForUserBuffer = new ArrayList<RunnableViewEntry>();
+		try{
+				/* Pega todos os processo que podem ser disparados pela entidade e operador atuais */
+				for(RunnableProcessEntry runnableProcessEntry: this.getApplicationBean().getProcessManager().getRunnableEntityCollectionProcessesEntry(info, this.getUserSessionBean().getUserSession())){
+					/* Verifica quais visões manipula o atual processo */
+					IRunnableProcessView view = this.getUserSessionBean().getRunnableEntityProcessViewByProcessName(runnableProcessEntry.getProcessClass().getSimpleName()); 
+					if(view != null ){
+
+						RunnableViewEntry entry = new RunnableViewEntry(view.getViewName(), runnableProcessEntry);
+
+						runnableViewForUserBuffer.add(entry);
+					}else
+						FacesUtils.addErrorMsg("Nenhuma visão foi encontrada para o processo " + runnableProcessEntry.getProcessClass().getSimpleName() + ". Verifique se para um processo 'MyProcess' existe uma visão configurada com o nome 'myView'.");
+				}
+		}catch (ProcessException e){
+			FacesUtils.addErrorMsgs(e.getErrorList());
+			return null;
+		}
+
+		return runnableViewForUserBuffer; 
+	}
+
+	public boolean hasRunnableEntityViewsForUser(IEntity<?> entity){
+		return this.getRunnableEntityViewsForUser(entity).size()>0;
+	}
+
+	public boolean hasRunnableEntityCollectionViewsForUser(IEntityMetadata info){
+		return this.getRunnableEntityCollectionViewsForUser(info).size()>0;
 	}
 
 	public String actionActivateView(String runnableViewName, IEntity<?> entity) throws BusinessException, Exception{
@@ -105,6 +142,25 @@ public class RunnableProcessBean extends BasicBean
 				return runnableProcessView.actionStart();
 			else
 				return runnableProcessView.runWithEntity(entity);
+
+		return FacesUtils.FACES_VIEW_FAILURE;
+	}
+
+	public String actionCollectionActivateView(String runnableViewName, IEntityCollection<?> entities) throws BusinessException, Exception{
+
+		/* Pega o identificador da visão */
+		if(log.isDebugEnabled())
+			log.debug("Iniciando a ativação da visão:" + runnableViewName);
+
+		IRunnableProcessView runnableProcessView =  (IRunnableProcessView) this.getUserSessionBean().getRunnableEntityProcessViewByName(runnableViewName);
+
+		if (runnableProcessView == null)
+			FacesUtils.addErrorMsg("Nenhuma visão foi encontrada no facesConfig.xml com id: " + runnableViewName + ". Confira o nome VIEW_NAME definido na classe que contra a visão.");
+		else
+			if (entities == null)
+				return runnableProcessView.actionStart();
+			else
+				return runnableProcessView.runWithEntities(entities);
 
 		return FacesUtils.FACES_VIEW_FAILURE;
 	}

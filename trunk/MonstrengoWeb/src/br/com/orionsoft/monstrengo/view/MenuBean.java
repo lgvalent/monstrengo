@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import br.com.orionsoft.monstrengo.auditorship.entities.AuditProcessRegister;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
@@ -254,6 +255,11 @@ public class MenuBean extends BeanSessionBasic
 		result.addAll(findEntity(findName));
 		
 		return result;
+	}
+	
+	
+	public List<AuditProcessRegister> findAuditProccessRegister(String processName){
+		return null;
 	}
 	
 }
