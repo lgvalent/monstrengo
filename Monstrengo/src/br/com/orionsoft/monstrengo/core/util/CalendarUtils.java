@@ -581,11 +581,11 @@ public class CalendarUtils {
     	
     	if(arg0.get(Calendar.YEAR) == arg1.get(Calendar.YEAR)){
     		diferenca = arg1.get(Calendar.MONTH) - arg0.get(Calendar.MONTH);
-    	}
-    	
-    	if(arg0.get(Calendar.YEAR) != arg1.get(Calendar.YEAR)){
-    		int temp = Calendar.DECEMBER - arg0.get(Calendar.MONTH);
-    		diferenca = temp + arg1.get(Calendar.MONTH) +1; //adiciona + 1 pois o vetor de meses em Java inicia em zero 
+    	}else{
+    		int months = Calendar.DECEMBER - arg0.get(Calendar.MONTH);
+    		months += arg1.get(Calendar.MONTH) + 1; //adiciona + 1 pois o vetor de meses em Java inicia em zero
+    		int years = arg1.get(Calendar.YEAR) - arg0.get(Calendar.YEAR) -1; 
+    		diferenca = months + (12 * years);  
     	}
     	return diferenca;
     }
