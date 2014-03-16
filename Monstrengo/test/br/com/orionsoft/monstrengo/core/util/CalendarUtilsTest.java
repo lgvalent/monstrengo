@@ -7,6 +7,10 @@ import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 public class CalendarUtilsTest {
 
     public static void main(String[] args) throws Exception {
+    	testDiffMonth();
+    	
+    	if(true) return;
+    	
         System.out.println(CalendarUtils.formatDateTime(CalendarUtils.getCalendarFirstMonthDay()) + "-" + CalendarUtils.formatDateTime(CalendarUtils.getCalendarLastMonthDay()));
         System.out.println(CalendarUtils.formatDateTime(CalendarUtils.getCalendarFirstYearDay()) + "-" + CalendarUtils.formatDateTime(CalendarUtils.getCalendarLastYearDay()));
     	
@@ -31,6 +35,16 @@ public class CalendarUtilsTest {
         data2.add(Calendar.MINUTE, 2);
         
         System.out.println(CalendarUtils.diffTime(data1, data2));
+    }
+
+    public static void testDiffMonth() {
+        
+        Calendar data1 = Calendar.getInstance();
+
+        Calendar data2 = Calendar.getInstance();
+        data2.add(Calendar.MONTH, 26);
+        
+        System.out.println(CalendarUtils.diffMonth(data1, data2));
     }
 
     public static void main_(String[] args) {
