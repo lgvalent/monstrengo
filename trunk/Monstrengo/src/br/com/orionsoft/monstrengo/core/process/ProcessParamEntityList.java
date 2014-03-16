@@ -19,11 +19,15 @@ public class ProcessParamEntityList<E> extends ProcessParamBasic<IEntityList<E>>
 		this.entityType = entityType;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<IEntity<E>> getList(String filter) {
+		return getList(filter, 10);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<IEntity<E>> getList(String filter, int resultLimit) {
 		// A lista é criada depois com o tamanho já otimizado
 		try{
-			List<?> result = this.getProcess().getProcessManager().getServiceManager().getEntityManager().queryEntities(this.entityType, filter, staticHqlWhereFilter, 10).getList();
+			List<?> result = this.getProcess().getProcessManager().getServiceManager().getEntityManager().queryEntities(this.entityType, filter, staticHqlWhereFilter, resultLimit).getList();
 			
 			return (List<IEntity<E>>) result;
 		}
@@ -33,8 +37,8 @@ public class ProcessParamEntityList<E> extends ProcessParamBasic<IEntityList<E>>
 		}
 	}
 
-	public List<IEntity<E>> getList() {
-		return getList("");
+	public List<IEntity<E>> getList(int resultLimit) {
+		return getList("", resultLimit);
 	}
 
 
