@@ -37,8 +37,8 @@ public class ProcessParamEntityList<E> extends ProcessParamBasic<IEntityList<E>>
 		}
 	}
 
-	public List<IEntity<E>> getList(int resultLimit) {
-		return getList("", resultLimit);
+	public List<IEntity<E>> getFullList() {
+		return getList("", Integer.MAX_VALUE);
 	}
 
 
