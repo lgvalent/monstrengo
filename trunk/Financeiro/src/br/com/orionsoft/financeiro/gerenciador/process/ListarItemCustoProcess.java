@@ -6,11 +6,17 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.lang.ClassUtils;
+
 import br.com.orionsoft.financeiro.gerenciador.entities.Conta;
+import br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto;
 import br.com.orionsoft.financeiro.gerenciador.services.ListarItemCustoService;
 import br.com.orionsoft.financeiro.gerenciador.services.ListarItemCustoService.Coluna;
 import br.com.orionsoft.financeiro.gerenciador.services.ListarItemCustoService.QueryItemCusto;
+import br.com.orionsoft.monstrengo.core.annotations.ProcessMetadata;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
+import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
@@ -27,7 +33,8 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
  * @author Antônio 20061207
  * @version 20061207
  */
-public class ListarItemCustoProcess extends ProcessBasic {
+@ProcessMetadata(label="Listar movimentação por item de custo", hint="Gera uma listagem com a sumarização dos valores dos items de custos lançados em um período", description="Você pode filtrar a listagem por um item de custo, uma conta e um período de lançamento específico.<br/>Selecione as colunas a serem mostradas para que o sistema gere uma listagem mais ou menos detalhada.")
+public class ListarItemCustoProcess extends ProcessBasic implements IRunnableEntityProcess{
     public static final String PROCESS_NAME = "ListarItemCustoProcess";
     
     private long contaId = IDAO.ENTITY_UNSAVED;
@@ -104,7 +111,7 @@ public class ListarItemCustoProcess extends ProcessBasic {
             
             /* Verifica se foi especificada uma conta */
             if(this.contaId != IDAO.ENTITY_UNSAVED){
-                IEntity conta = UtilsCrud.retrieve(this.getProcessManager().getServiceManager(), Conta.class, this.contaId, null);
+                IEntity<Conta> conta = UtilsCrud.retrieve(this.getProcessManager().getServiceManager(), Conta.class, this.contaId, null);
                 saldoAbertura = conta.getProperty(Conta.SALDO_ABERTURA).getValue().getAsBigDecimal();
             }
             
@@ -248,6 +255,43 @@ public class ListarItemCustoProcess extends ProcessBasic {
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+	/*==============================================================================
+	 * IRunnableEntityProcess	
+	 *==============================================================================*/
+	public boolean runWithEntity(IEntity<?> entity) {
+		super.beforeRun();
+
+		boolean result = true;
+
+		/* Verifica se a entidade é compatível */
+		/* Verifica se a entidade passada eh um DocumentoCobranca ou pertence eh descendente */
+		if (ClassUtils.isAssignable(entity.getInfo().getType(), ItemCusto.class)) {
+				ItemCusto oItemCusto = (ItemCusto) entity.getObject();
+				this.centroCustoIdList = oItemCusto.getId() + "";
+
+				/* Alguns dados poderao ser inicializados aqui */
+				this.contaId = IDAO.ENTITY_UNSAVED; // Todas as contas
+
+				/* Executa a listagem com os parâmetros definidos acima */
+//				result = this.runListar();
+		}else
+		if (ClassUtils.isAssignable(entity.getInfo().getType(), Conta.class)) {
+			Conta oConta = (Conta) entity.getObject();
+			this.contaId = oConta.getId();
+
+			/* Alguns dados poderao ser inicializados aqui */
+			this.centroCustoIdList = "";
+
+			/* Executa a listagem com os parâmetros definidos acima */
+//			result = this.runListar();
+		}else
+		{
+			this.getMessageList().add(new BusinessMessage(IRunnableEntityProcess.class, "ENTITY_NOT_COMPATIBLE", PROCESS_NAME, entity.getInfo().getType().getName()));
+		}
+
+		return result;
 	}
 
 }
