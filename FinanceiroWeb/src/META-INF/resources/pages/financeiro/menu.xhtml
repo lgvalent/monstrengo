@@ -33,7 +33,9 @@
 						<ui:include src="/public/basic/tiles/linkRunProcess.xhtml">
 				           <ui:param name="process" value="#{menuBean.processInfoMap.ListarLancamentoMovimentoProcess}"/>
 						</ui:include><br/>
-						<a target="_blank" href="../financeiro/gerenciadorListarItemCusto.jsp" ><img src="../../public/basic/img/run_task.png" style="border:0"/>Movimentação por item de custo</a><br/>
+						<ui:include src="/public/basic/tiles/linkRunProcess.xhtml">
+				           <ui:param name="process" value="#{menuBean.processInfoMap.ListarItemCustoProcess}"/>
+						</ui:include><br/>
 						<ui:include src="/public/basic/tiles/linkRunProcess.xhtml">
 				           <ui:param name="process" value="#{menuBean.processInfoMap.ReceberDocumentoCobrancaRetornoProcess}"/>
 						</ui:include><br/>

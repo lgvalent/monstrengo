@@ -6,9 +6,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
-		<ui:param name="title" value="#{menuBean.processInfoMap.ListarLancamentoProcess.label}" />
+		<ui:param name="title" value="#{menuBean.processInfoMap.ListarItemCustoProcess.label}" />
 		<ui:param name="icon" value="../financeiro/img/menu_financeiro.png" />
-		<ui:param name="description" value="#{menuBean.processInfoMap.ListarPosicaoContratoProcess.description}" />
+		<ui:param name="description" value="#{menuBean.processInfoMap.ListarItemCustoProcess.description}" />
 		<ui:define name="content">
 			<h:panelGrid
 				columns="2"
@@ -31,31 +31,25 @@
 				<h:selectOneMenu id="conta" value="#{listarItemCustoBean.process.contaId}" label="Conta">
 					<f:selectItems value="#{listarItemCustoBean.process.listConta}"/>
 				</h:selectOneMenu>
-				<h:message styleClass="errorMessage" for="conta"/>
 		
 				<h:outputLabel value="Mostrar colunas "/>
 				<h:selectManyCheckbox id="colunas" value="#{listarItemCustoBean.process.colunaList}" style="font-size: small" >
 					<f:selectItems value="#{listarItemCustoBean.process.listColunas}"/>
 				</h:selectManyCheckbox>
-				<h:message styleClass="errorMessage" for="colunas"/>
 		
-				<h:outputLabel value="Data de "/>
+				<h:outputLabel value="Período de lançamento"/>
 				<h:panelGroup>
-					<h:inputText id="dataInicial" value="#{listarItemCustoBean.process.dataInicial.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
-						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR"/>
-					</h:inputText>
-					<h:outputLabel value=" até "/>
-					<h:inputText id="dataFinal" value="#{listarItemCustoBean.process.dataFinal.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
-						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR"/>
-					</h:inputText>
+					<ui:include src="/public/basic/tiles/calendars.xhtml">
+			           <ui:param name="timeFieldFrom" value="#{listarItemCustoBean.process.dataInicial.time}"/>
+			           <ui:param name="timeFieldTo" value="#{listarItemCustoBean.process.dataFinal.time}"/>
+					</ui:include>
 				</h:panelGroup>
-				<h:message styleClass="errorMessage" for="dataFinal"/>
 			</h:panelGrid>
 		</ui:define>
 
 		<ui:define name="actions">
 			<h:panelGrid>
-				<h:commandButton value="Listar" action="#{listarItemCustoBean.doVisualizar}"/>
+				<h:commandButton value="Listar" action="#{listarItemCustoBean.doVisualizar()}"/>
 				<h:outputLabel value=""/>
 			</h:panelGrid>
 		</ui:define>
@@ -78,7 +72,9 @@
 						<f:facet name="header">
 							<h:outputText value="Data"/>
 						</f:facet>
-						<h:outputLabel value="#{item.data.time}" />
+							<h:outputLabel value="#{item.data.time}">
+								<f:convertDateTime locale="pt_BR"/>
+							</h:outputLabel>
 					</h:column>
 					<h:column rendered="#{listarItemCustoBean.colunaConta}">
 						<f:facet name="header">

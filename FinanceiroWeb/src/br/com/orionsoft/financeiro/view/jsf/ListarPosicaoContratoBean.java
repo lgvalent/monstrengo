@@ -230,11 +230,6 @@ public class ListarPosicaoContratoBean extends BeanSessionBasic implements IRunn
 		return dataAtual;
 	}
 
-	@Override
-	public String actionStart() {
-		return FACES_VIEW_PASSO_1;
-	}
-
 	public CancelarLancamentoBean getCancelarLancamentoBean() {return cancelarLancamentoBean;}
 	public void setCancelarLancamentoBean(CancelarLancamentoBean cancelarLancamentoBean) {this.cancelarLancamentoBean = cancelarLancamentoBean;}
 	
@@ -248,6 +243,11 @@ public class ListarPosicaoContratoBean extends BeanSessionBasic implements IRunn
 	public void setImprimirDocumentosCobrancaBean(ImprimirDocumentosCobrancaBean imprimirDocumentosCobrancaBean) {this.imprimirDocumentosCobrancaBean = imprimirDocumentosCobrancaBean;}
 	
 	/* IRunnableProcessView */
+	@Override
+	public String actionStart() {
+		return FACES_VIEW_PASSO_1;
+	}
+
 	public String getViewName() {
 		return VIEW_NAME;
 	}
