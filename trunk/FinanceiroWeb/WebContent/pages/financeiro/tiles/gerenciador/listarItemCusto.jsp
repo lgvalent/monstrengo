@@ -39,11 +39,11 @@
 		<h:outputLabel value="Data de "/>
 		<h:panelGroup>
 			<h:inputText id="dataInicial" value="#{listarItemCustoBean.process.dataInicial.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
-				<f:convertDateTime pattern="dd/MM/yyyy" locale="Locale.BRAZIL"/>
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
 			</h:inputText>
 			<h:outputLabel value=" até "/>
 			<h:inputText id="dataFinal" value="#{listarItemCustoBean.process.dataFinal.time}" size="10" maxlength="10" onblur="return onblurCalendar(this, 'dd/MM/yyyy')">
-				<f:convertDateTime pattern="dd/MM/yyyy" locale="Locale.BRAZIL"/>
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
 			</h:inputText>
 		</h:panelGroup>
 		<h:message styleClass="errorMessage" for="dataFinal"/>
