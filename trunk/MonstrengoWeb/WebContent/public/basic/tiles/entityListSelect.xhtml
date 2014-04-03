@@ -11,11 +11,9 @@
            <ui:param name="entityList" value="#{entityList}"/>
 	</ui:include>
  -->
-  		<h:commandButton value="Marcar" title="Marca todos os contratos da lista atual" onclick="return checkAll(this.form, '#{entityList.info.type.simpleName}')"/>
-		<h:commandButton value="Intervalo" title="Marca todas as propriedades entre um intervalo definido" onclick="return checkRange(this.form, '#{entityList.info.type.simpleName}')"/>
-		<h:commandButton value="Desmarcar" title="Desmarca todos os contratos da lista atual" onclick="return clearAll(this.form, '#{entityList.info.type.simpleName}')"/>
-		<h:commandButton value="Inverter" title="Inverte a seleção dos os contratos da lista atual" onclick="return inverseAll(this.form, '#{entityList.info.type.simpleName}')"/>
-		<h:commandButton value="Desfazer" title="Volta a seleção anterior às alterações recentemente efetuadas" type="reset"/>
+<ui:include src="/public/basic/tiles/checkItems.xhtml">
+	<ui:param name="itemId" value="#{entityList.info.type.simpleName}"/>
+</ui:include>
 <p:dataGrid value="#{entityList.list}" var="item" columns="3">
   <p:column>
   	<h:selectBooleanCheckbox value="#{item.selected}" id="#{entityList.info.type.simpleName}"/>
