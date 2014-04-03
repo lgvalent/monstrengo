@@ -196,13 +196,18 @@
 					</p:column>
 					<p:column sortBy="id" styleClass="noprint" style="white-space: nowrap; text-align: center;">
 						<f:facet name="header">
+									<input type="image" src="../../public/basic/img/checkAll.png" alt="Marca todos os movimentos" onclick="return checkAll(this.form, 'checkMovimentoCompensar')" />
+									<input type="image" src="../../public/basic/img/checkNone.png" alt="Desmarcar todos os movimentos" onclick="return clearAll(this.form, 'checkMovimentoCompensar')" />
+									<input type="image" src="../../public/basic/img/checkRange.png" alt="Marca o intervalo entre as marcas atuais" onclick="return checkRange(this.form, 'checkMovimentoCompensar')" />
+									<input type="image" src="../../public/basic/img/checkInverse.png" alt="Inverte a seleção" onclick="return inverseAll(this.form, 'checkMovimentoCompensar')" />
+									<br/>
 									<h:commandButton value="Compensar" action="#{listarLancamentoMovimentoBean.actionCompensarSelecionados}" styleClass="noprint"/>
 						</f:facet>
 						<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.LancamentoMovimento.type.name}', '#{item.id}')"  rendered="#{menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint">
 							<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
 						</h:outputLink>
 						<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.LancamentoMovimento.canRetrieve}" styleClass="noprint"/>
-						<h:selectBooleanCheckbox value="#{item.selected}" disabled="#{item.compensado}"/>
+						<h:selectBooleanCheckbox id="checkMovimentoCompensar" value="#{item.selected}" disabled="#{item.compensado}"/>
 					</p:column>
 				</p:dataTable>
 				<h:panelGrid columns="5" style="text-align:left" styleClass="tableListRow" >
