@@ -37,7 +37,6 @@ import br.com.orionsoft.financeiro.documento.cobranca.titulo.GerenciadorBancoBas
 import br.com.orionsoft.financeiro.documento.cobranca.titulo.GerenciadorDocumentoTitulo;
 import br.com.orionsoft.financeiro.documento.cobranca.titulo.Ocorrencia;
 import br.com.orionsoft.financeiro.documento.cobranca.titulo.OcorrenciaControle;
-import br.com.orionsoft.financeiro.gerenciador.entities.Conta;
 import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
 import br.com.orionsoft.financeiro.gerenciador.entities.Transacao;
 import br.com.orionsoft.financeiro.gerenciador.services.QuitarLancamentoService;
@@ -85,31 +84,85 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 	public static final String EXTENSAO_PRIMEIRA_REMESSA = ".CRM";
 	public static final String EXTENSAO_DEMAIS_REMESSA = ".RM%0d"; // d é o número de remessas do dia e > 1
 	public static int NOSSO_NUMERO_LIMITE = 99999; //padrão 99999 (noventa e nove mil e novecentos e noventa e nove)
+
+	/* REMESSA */
+	public static int[] MAPA_INSTRUCOES = new int[]{
+		1001	,	1	,//"Remessa - Registrar título no banco"
+		1003	,	2	,//"Remessa - Baixar"
+		1005	,	4	,//"Remessa - Conceder abatimento"
+		1006	,	5	,//"Remessa - Cancelar abatimento"
+//		1007	,	99	,//"Remessa - Conceder desconto"
+//		1008	,	99	,//"Remessa - Cancelar desconto"
+		1009	,	6	,//"Remessa - Alterar vencimento"
+		1010	,	9	,//"Remessa - Protestar"
+		1011	,	18	,//"Remessa - Cancelar instrução de prote
+//		1012	,	99	,//"Remessa - Dispensar juros"
+		1013	,	31	,//"Remessa - Alterar nome-endereço do sa  31-Alterar outros dados
+		1014	,	31	,//"Remessa - Alterar número de controle"
+	};
+	
+	/* RETORNO */
 	public static int[] MAPA_OCORRENCIAS = new int[]{
-		1001	,	99	,//"Remessa - Registrar título no banco"
-		1003	,	99	,//"Remessa - Baixar"
-		1005	,	99	,//"Remessa - Conceder abatimento"
-		1006	,	99	,//"Remessa - Cancelar abatimento"
-		1007	,	99	,//"Remessa - Conceder desconto"
-		1008	,	99	,//"Remessa - Cancelar desconto"
-		1009	,	99	,//"Remessa - Alterar vencimento"
-		1010	,	99	,//"Remessa - Protestar"
-		1011	,	99	,//"Remessa - Cancelar instrução de prote
-		1012	,	99	,//"Remessa - Dispensar juros"
-		1013	,	99	,//"Remessa - Alterar nome-endereço do sa
-		1014	,	99	,//"Remessa - Alterar número de controle"
-		1016	,	2	,//"Retorno - Registro confirmado"
-		1017	,	3	,//"Retorno - Registro recusado"
-		1018	,	3	,//"Retorno - Comando recusado"
-		1019	,	6	,//"Retorno - Liquidado"
-		1020	,	15	,//"Retorno - Liquidado em Cartório"
-		1026	,	9	,//"Retorno - Baixado"
-		1027	,	10	,//"Retorno - Baixado por devolução"
-		1029	,	10	,//"Retorno - Baixa por protesto"
-		1057	,	23	,//"Retorno - Encaminhado ao Cartório"
-		1058	,	34	,//"Retorno - Retirado de Cartório"
-		1072	,	36	,//"Retorno - Outras ocorrências"
-		1080	,	28	 //"Retorno -Cobrança de Tarifa Bancária"
+		1016	,	2	,//Retorno - Registro confirmado
+		1017	,	3	,//Retorno - Registro recusado
+		1018	,	3	,//Retorno - Comando recusado
+		1019	,	6	,//Retorno - Liquidado
+		1020	,	15	,//Retorno - Liquidado em Cartório
+//		1021	,	99	,//Retorno - Liquidado parcialmente
+//		1022	,	99	,//Retorno - Liquidado saldo restante
+		1023	,	17	,//Retorno - Liquidado sem registro
+//		1024	,	99	,//Retorno - Liquidado por conta
+		1025	,	10	,//Retorno - Baixa solicitada
+		1026	,	9	,//Retorno - Baixado
+//		1027	,	99	,//Retorno - Baixado por devolução
+//		1028	,	99	,//Retorno - Baixado por franco pagamento
+//		1029	,	99	,//Retorno - Baixa por protesto
+//		1030	,	99	,//Retorno - Recebimento - Instrução baixar
+		1031	,	27	,//Retorno - Baixa ou liquidação estornada
+//		1032	,	99	,//Retorno - Título EmSer
+//		1033	,	99	,//Retorno - Recebimento - Instrução conceder abatimento
+		1034	,	12	,//Retorno - Abatimento concedido
+//		1035	,	99	,//Retorno - Recebimento - Instrução cancelar abatimento
+		1036	,	13	,//Retorno - Abatimento cancelado
+//		1037	,	99	,//Retorno - Recebimento - Instrução conceder desconto
+//		1038	,	99	,//Retorno - Desconto concedido
+//		1039	,	99	,//Retorno - Recebimento - Instrução cancelar desconto
+//		1040	,	99	,//Retorno - Desconto cancelado
+		1041	,	33	,//Retorno - Recebimento - Instrução alterar dados
+//		1042	,	99	,//Retorno - Dados alterados
+//		1043	,	99	,//Retorno - Recebimento - Instrução alterar vencimento
+		1044	,	13	,//Retorno - Vencimento alterado
+//		1045	,	99	,//Retorno - Alteração dados nova entrada
+//		1046	,	99	,//Retorno - Alteração dados baixa
+		1047	,	19	,//Retorno - Recebimento - Instrução protestar
+//		1048	,	99	,//Retorno - Protestado
+		1049	,	20	,//Retorno - Recebimento - Instrução sustar protesto
+//		1050	,	99	,//Retorno - Protesto sustado
+//		1051	,	99	,//Retorno - Instrução protesto - rejeitado, sustado ou pendente
+//		1052	,	99	,//Retorno - Débito em conta
+//		1053	,	99	,//Retorno - Recebimento - Instrução alterar nome do sacado
+//		1054	,	99	,//Retorno - Nome do sacado alterado
+//		1055	,	99	,//Retorno - Recebimento - Instrução alterar endereço do sacado
+//		1056	,	99	,//Retorno - Endereço do sacado alterado
+		1057	,	23	,//Retorno - Encaminhado ao Cartório
+		1058	,	34	,//Retorno - Retirado de Cartório
+//		1059	,	99	,//Retorno - Recebimento - Instrução dispensar juros
+//		1060	,	99	,//Retorno - Juros dispensados
+//		1061	,	99	,//Retorno - Manutenção de título vencido
+//		1062	,	99	,//Retorno - Recebimento - Instrução alterar tipo de cobrança
+//		1063	,	99	,//Retorno - Tipo de cobrança alterado
+//		1064	,	99	,//Retorno - Despesas protesto
+//		1065	,	99	,//Retorno - Despesas sustação protesto
+//		1066	,	99	,//Retorno - Débito custas antecipadas
+//		1067	,	99	,//Retorno - Custas Cartório Distribuidor
+//		1068	,	99	,//Retorno - Custas edital
+//		1069	,	99	,//Retorno - Protesto sustação estornado
+//		1070	,	99	,//Retorno - Débito de tarifas
+//		1071	,	99	,//Retorno - Acerto Depositária
+		1072	,	30	,//Retorno - Outras ocorrências
+		1072	,	32	,//Retorno - Outras ocorrências
+		1080	,	28	,//Retorno - Tarifa bancária
+		
 	};
 	
 	/*
@@ -245,8 +298,8 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 			condiction = new QueryCondiction(this.getProvedorBanco().getProvedorDocumentoCobranca().getServiceManager().getEntityManager(),
 					DocumentoTitulo.class,
 					DocumentoTitulo.ULTIMA_OCORRENCIA + '.' + Ocorrencia.CODIGO,
-					Operator.EQUAL,
-					String.valueOf(Ocorrencia.REMESSA_REGISTRAR.getCodigo()),
+					Operator.IN,
+					UtilsOcorrencia.gerarListaInstrucaoRemessa(MAPA_INSTRUCOES),
 			""); 
 
 			condiction.setInitOperator(QueryCondiction.INIT_AND);
@@ -362,6 +415,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 
 			try{
 				/* Construindo DetalheSemRegistro */
+				setRegistro(detalhe, DetalheRemessaSemRegistro.INSTRUCAO, "INSTRUCAO", UtilsOcorrencia.obterInstrucaoBanco(oTitulo.getUltimaOcorrencia().getCodigo(), MAPA_INSTRUCOES));
 				setRegistro(detalhe, DetalheRemessaSemRegistro.NOSSO_NUMERO, "NOSSO_NUMERO", oTitulo.getNumeroDocumento(), true);
 				setRegistro(detalhe, DetalheRemessaSemRegistro.MULTA_POR_ATRASO, "MULTA_POR_ATRASO", oTitulo.getDocumentoCobrancaCategoria().getMultaAtraso(), true);
 				setRegistro(detalhe, DetalheRemessaSemRegistro.SEU_NUMERO, "SEU_NUMERO", oTitulo.getId()+"", true);
@@ -675,7 +729,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 								BusinessMessage message = new BusinessMessage(BusinessMessage.TYPE_INFO, 
 										Gerenciador748.class, 
 										"OCORRENCIA_JA_PROCESSADA", 
-										oTitulo.getContrato() + "<br/>" + ultimaOcorrencia.toString(),
+										oTitulo.getContrato() + "<br/>" + ultimaOcorrencia.toString() + ":<b>" + ultimaOcorrenciaMotivo + "</b>",
 										oTitulo.getNumeroDocumento(),
 										CalendarUtils.formatDate(oTitulo.getDataVencimento()),
 										DecimalUtils.formatBigDecimal(oTitulo.getValor()) + " / " + detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_TITULO),
@@ -817,7 +871,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 										BusinessMessage message = new BusinessMessage(BusinessMessage.TYPE_INFO, 
 												Gerenciador748.class, 
 												"OCORRENCIA_PROCESSADA", 
-												oTitulo.getContrato() + "<br/>" + ultimaOcorrencia.toString(),
+												oTitulo.getContrato() + "<br/>" + ultimaOcorrencia.toString() + ":<b>" + ultimaOcorrenciaMotivo + "</b>",
 												oTitulo.getNumeroDocumento(),
 												CalendarUtils.formatDate(oTitulo.getDataVencimento()),
 												DecimalUtils.formatBigDecimal(oTitulo.getValor()),
