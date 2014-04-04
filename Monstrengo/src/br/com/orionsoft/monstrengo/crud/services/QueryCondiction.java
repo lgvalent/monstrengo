@@ -515,9 +515,9 @@ public class QueryCondiction
 		case Operator.NOT_BETWEEN:
 			return " not between " + strValue + " and " + funcaoVermelho(this.value2);
 		case Operator.IN:
-			return " in (" + strValue + ")";
+			return " in (" + this.value1 + ")"; // Lucio 20140404: Não trata o valor, pois deve ser uma lista separada por ',' 
 		case Operator.NOT_IN:
-			return " not in (" + strValue + ")";
+			return " not in (" + this.value1 + ")"; // Lucio 20140404: Não trata o valor, pois deve ser uma lista separada por ','
 		default:
 			throw new RuntimeException("Nenhum operador foi definido para o Id:" + operator.getId());
 		}

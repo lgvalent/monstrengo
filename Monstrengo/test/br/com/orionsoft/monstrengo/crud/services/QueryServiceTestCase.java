@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.orionsoft.monstrengo.auditorship.entities.AuditCrudRegister;
 import br.com.orionsoft.monstrengo.auditorship.entities.AuditRegister;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
@@ -76,7 +77,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
             String filter = "user";
         	
             ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
-            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditRegister.class);
+            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditCrudRegister.class);
             sd.getArgumentList().setProperty(QueryService.IN_QUERY_FILTER, filter);
             this.serviceManager.execute(sd);
             
@@ -135,7 +136,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
             String filter = "";
         	
             ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
-            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditRegister.class);
+            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditCrudRegister.class);
 //            sd.getArgumentList().setProperty(QueryService.IN_PARENT_CLASS_OPT, ApplicationModule.class);
 //            sd.getArgumentList().setProperty(QueryService.IN_PARENT_ID_OPT, new Long(1));
 //            sd.getArgumentList().setProperty(QueryService.IN_PARENT_PROPERTY_OPT, "entities");
@@ -170,25 +171,29 @@ public class QueryServiceTestCase extends ServiceBasicTest
         {
             List<QueryCondiction>  conds = new ArrayList<QueryCondiction> ();
             
-            QueryCondiction cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.OCURRENCY_DATE, Operator.BETWEEN, "01/01/2006", "31/12/2007");
+            QueryCondiction cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.OCURRENCY_DATE, Operator.BETWEEN, "01/01/2006", "31/12/2007");
             cond.setOpenPar(true);
             conds.add(cond);
 
-            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.APPLICATION_USER, Operator.MORE_EQUAL, "1", ""));
-            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.APPLICATION_USER, Operator.BETWEEN, "1", "1"));
-            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.APPLICATION_USER, Operator.NOT_BETWEEN, "2", "5"));
-            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.APPLICATION_USER, Operator.NOT_NULL, "", ""));
+            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.APPLICATION_USER, Operator.MORE_EQUAL, "1", ""));
+            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.APPLICATION_USER, Operator.BETWEEN, "1", "1"));
+            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.APPLICATION_USER, Operator.NOT_BETWEEN, "2", "5"));
+            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.APPLICATION_USER, Operator.NOT_NULL, "", ""));
 
-            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.TERMINAL, Operator.NULL, "", "");
+            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.TERMINAL, Operator.NULL, "", "");
             cond.setClosePar(true);
             conds.add(cond);
 
-            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.OCURRENCY_DATE, Operator.BETWEEN, "25/01/2006", "30/01/2006");
+            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.OCURRENCY_DATE, Operator.BETWEEN, "25/01/2006", "30/01/2006");
+            cond.setInitOperator(QueryCondiction.INIT_OR);
+            conds.add(cond);
+            
+            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.TERMINAL, Operator.IN, "1234, 1234, 1234", "");
             cond.setInitOperator(QueryCondiction.INIT_OR);
             conds.add(cond);
             
             ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
-            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditRegister.class);
+            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditCrudRegister.class);
             sd.getArgumentList().setProperty(QueryService.IN_QUERY_CONDICTIONS, conds);
 //            sd.getArgumentList().setProperty(QueryService.IN_PARENT_CLASS_OPT, ApplicationModule.class);
 //            sd.getArgumentList().setProperty(QueryService.IN_PARENT_ID_OPT, new Long(1));
@@ -227,7 +232,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
         try
         {
             ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
-            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditRegister.class);
+            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditCrudRegister.class);
             sd.getArgumentList().setProperty(QueryService.IN_QUERY_HQLWHERE, "entity.applicationUser=1");
             sd.getArgumentList().setProperty(QueryService.IN_MAX_RESULT_OPT, 10);
             sd.getArgumentList().setProperty(QueryService.IN_FIRST_RESULT_OPT, 0);
@@ -257,25 +262,25 @@ public class QueryServiceTestCase extends ServiceBasicTest
         {
         	List<QueryCondiction>  conds = new ArrayList<QueryCondiction> ();
             
-            QueryCondiction cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.OCURRENCY_DATE, Operator.BETWEEN, "01/01/2006", "31/12/2007");
+            QueryCondiction cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.OCURRENCY_DATE, Operator.BETWEEN, "01/01/2006", "31/12/2007");
             cond.setOpenPar(true);
             conds.add(cond);
 
-            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.APPLICATION_USER, Operator.MORE_EQUAL, "1", ""));
-            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.APPLICATION_USER, Operator.BETWEEN, "1", "1"));
-            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.APPLICATION_USER, Operator.NOT_BETWEEN, "2", "5"));
-            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.APPLICATION_USER, Operator.NOT_NULL, "", ""));
+            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.APPLICATION_USER, Operator.MORE_EQUAL, "1", ""));
+            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.APPLICATION_USER, Operator.BETWEEN, "1", "1"));
+            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.APPLICATION_USER, Operator.NOT_BETWEEN, "2", "5"));
+            conds.add(new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.APPLICATION_USER, Operator.NOT_NULL, "", ""));
 
-            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.TERMINAL, Operator.NULL, "", "");
+            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.TERMINAL, Operator.NULL, "", "");
             cond.setClosePar(true);
             conds.add(cond);
 
-            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.OCURRENCY_DATE, Operator.BETWEEN, "01/01/2006", "31/12/2007");
+            cond = new QueryCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.OCURRENCY_DATE, Operator.BETWEEN, "01/01/2006", "31/12/2007");
             cond.setInitOperator(QueryCondiction.INIT_OR);
             conds.add(cond);
             
             ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
-            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditRegister.class);
+            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditCrudRegister.class);
             sd.getArgumentList().setProperty(QueryService.IN_QUERY_CONDICTIONS, conds);
 //            sd.getArgumentList().setProperty(QueryService.IN_PARENT_CLASS_OPT, ApplicationModule.class);
 //            sd.getArgumentList().setProperty(QueryService.IN_PARENT_ID_OPT, new Long(1));
@@ -315,12 +320,12 @@ public class QueryServiceTestCase extends ServiceBasicTest
 	        {
 	            List<OrderCondiction> conds = new ArrayList<OrderCondiction>();
 	            
-	            OrderCondiction cond = new OrderCondiction(this.serviceManager.getEntityManager(), AuditRegister.class, AuditRegister.OCURRENCY_DATE);
+	            OrderCondiction cond = new OrderCondiction(this.serviceManager.getEntityManager(), AuditCrudRegister.class, AuditCrudRegister.OCURRENCY_DATE);
 	            cond.setOrderDirection(OrderCondiction.ORDER_DESC);
 	            conds.add(cond);
 	
 	            ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
-	            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditRegister.class);
+	            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditCrudRegister.class);
 	            sd.getArgumentList().setProperty(QueryService.IN_ORDER_CONDICTIONS_OPT, conds);
 	            sd.getArgumentList().setProperty(QueryService.IN_MAX_RESULT_OPT, 10);
 	            sd.getArgumentList().setProperty(QueryService.IN_FIRST_RESULT_OPT, 0);
@@ -354,8 +359,8 @@ public class QueryServiceTestCase extends ServiceBasicTest
 	    try
 	    {
 	        ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
-	        sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditRegister.class);
-	        sd.getArgumentList().setProperty(QueryService.IN_ORDER_EXPRESSION_OPT, AuditRegister.OCURRENCY_DATE);
+	        sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditCrudRegister.class);
+	        sd.getArgumentList().setProperty(QueryService.IN_ORDER_EXPRESSION_OPT, AuditCrudRegister.OCURRENCY_DATE);
 	        sd.getArgumentList().setProperty(QueryService.IN_MAX_RESULT_OPT, 10);
 	        sd.getArgumentList().setProperty(QueryService.IN_FIRST_RESULT_OPT, 0);
 	        this.serviceManager.execute(sd);
@@ -385,7 +390,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
         try
         {
             ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
-            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditRegister.class);
+            sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, AuditCrudRegister.class);
             sd.getArgumentList().setProperty(QueryService.IN_QUERY_SELECT, "sum(entity.id), sum(entity.id/2)");
             sd.getArgumentList().setProperty(QueryService.IN_QUERY_HQLWHERE, "entity.applicationUser=1");
             sd.getArgumentList().setProperty(QueryService.IN_MAX_RESULT_OPT, 10);
