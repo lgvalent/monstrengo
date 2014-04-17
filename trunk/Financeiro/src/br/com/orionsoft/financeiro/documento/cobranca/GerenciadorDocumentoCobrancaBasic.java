@@ -34,7 +34,6 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
-import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
@@ -500,85 +499,12 @@ public abstract class GerenciadorDocumentoCobrancaBasic implements IGerenciadorD
         quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_DATA, dataVencimento);
         quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_LANCAMENTO, lancamento);
         quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_VALOR, lancamento.getValor().abs());
+        /* Lucio 20140417: AutoCompensa movimentos gerados pelo retorno, pois não necessitam de conferência */
+        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_DATA_COMPENSACAO_OPT, dataVencimento);
         if (documentoPagamento != null){
         	quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_DOCUMENTO_PAGAMENTO_OPT, documentoPagamento);
         }
         this.getProvedorDocumentoCobranca().getServiceManager().execute(quitarLancamento);
     }
 	
-    /**
-     * Este método é útil para que os gerenciadores insiram lançamentos com os valores
-     * de Taxas, Juros e Multas que são detectadas durante o recebimento de um determinado Título.
-     * @param documento Documento de cobrança que está sendo quitado
-     * @param conta Conta onde deverá ser registrados os novos grupos
-     * @param dataVencimento A data de vencimento que é igual à data de quitação
-     * @param serviceDataOwner ServiceData com a atual configuração de sessão
-     * @param contrato Identificador do contrato utilizado
-     * @param valor Valor do grupo a ser inserido
-     * @param centroCusto Centro de Custo
-     * @param itemCusto Item de Custo
-     * @param transacao Tipo de Transação ENTRADA/SAIDA | CRÉDITO/DÉBITO
-     * @throws BusinessException 
-     */
-	protected void inserirLancamentoItems(IEntity<? extends DocumentoCobranca> documento, IEntity<Conta> conta, Calendar dataVencimento, ServiceData serviceDataOwner, IEntity<Contrato> contrato, BigDecimal valor, IEntityList<LancamentoItem> lancamentoItemList, int transacao) throws BusinessException {
-        /* Cria a lista de lancamentoItem */
-//		IEntityList lancamentoItemList = this.getProvedorDocumentoCobranca().getServiceManager().getEntityManager().getEntityList(new ArrayList<Object>(1), LancamentoItem.class);
-        /* Popula a lista com um elemento, de acordo com os parâmetros passados */
-//        lancamentoItemList.getRunEntity().setPropertyValue(LancamentoItem.CENTRO_CUSTO, centroCusto);
-//        lancamentoItemList.getRunEntity().setPropertyValue(LancamentoItem.ITEM_CUSTO, itemCusto);
-//        lancamentoItemList.getRunEntity().setPropertyValue(LancamentoItem.CLASSIFICACAO_CONTABIL, classificacaoContabil);
-        lancamentoItemList.getRunEntity().setPropertyValue(LancamentoItem.VALOR, valor);
-        if(lancamentoItemList.runAdd());
-        
-        /* Invoca o serviço que insere o lançamento */
-		ServiceData inserirLancamento = new ServiceData(InserirLancamentoService.SERVICE_NAME, serviceDataOwner);
-        inserirLancamento.getArgumentList().setProperty(InserirLancamentoService.IN_CONTA_PREVISTA_OPT, conta);
-        inserirLancamento.getArgumentList().setProperty(InserirLancamentoService.IN_CONTRATO, contrato);
-        inserirLancamento.getArgumentList().setProperty(InserirLancamentoService.IN_DATA, CalendarUtils.getCalendar());
-        inserirLancamento.getArgumentList().setProperty(InserirLancamentoService.IN_DATA_VENCIMENTO, dataVencimento);
-        inserirLancamento.getArgumentList().setProperty(InserirLancamentoService.IN_DESCRICAO_OPT, "");
-        inserirLancamento.getArgumentList().setProperty(InserirLancamentoService.IN_DOCUMENTO_COBRANCA_OPT, documento);
-        inserirLancamento.getArgumentList().setProperty(InserirLancamentoService.IN_TRANSACAO, transacao);
-        
-        inserirLancamento.getArgumentList().setProperty(InserirLancamentoService.IN_LANCAMENTO_ITEM_LIST, lancamentoItemList);
-        this.getProvedorDocumentoCobranca().getServiceManager().execute(inserirLancamento);
-
-        if(!inserirLancamento.getMessageList().isTransactionSuccess()){
-        	inserirLancamento.getMessageList().add(new BusinessMessage(GerenciadorDocumentoCobrancaBasic.class, "ERRO_INSERINDO_OUTROS_LANCAMENTOS", documento.toString(), "Desconto"));
-        	throw new DocumentoCobrancaException(inserirLancamento.getMessageList());
-        }
-
-        /* Criando um documento de quitação */
-        IEntity<DocumentoPagamentoCategoria> documentoPagamentoCategoria = null;
-		try {
-			documentoPagamentoCategoria = documento.getProperty(DocumentoCobranca.CONVENIO_COBRANCA).getValue().getAsEntity().getProperty(ConvenioCobranca.DOCUMENTO_PAGAMENTO_CATEGORIA).getValue().getAsEntity();
-		} catch (PropertyValueException e1) {
-			throw new DocumentoCobrancaException(MessageList.create(GerenciadorDocumentoCobrancaBasic.class, "ERRO_CATEGORIA_INSERINDO_GRUPO", documento.toString(), documentoPagamentoCategoria.toString()));
-		} catch (BusinessException e2) {
-			throw new DocumentoCobrancaException(MessageList.create(GerenciadorDocumentoCobrancaBasic.class, "ERRO_CONTRATO_INSERINDO_GRUPO", documento.toString(), contrato.toString()));
-		}
-
-		// TODO Urgente: Por que está sendo criado um documento e por que está quitando o lançamento e não quitando o documento?
-        /* Cria um novo documento (no caso, será o documento de pagamento) */
-        ServiceData sdCriarDocumento = new ServiceData(CriarDocumentoPagamentoService.SERVICE_NAME, serviceDataOwner);
-        sdCriarDocumento.getArgumentList().setProperty(CriarDocumentoPagamentoService.IN_DOCUMENTO_PAGAMENTO_CATEGORIA, documentoPagamentoCategoria);
-        sdCriarDocumento.getArgumentList().setProperty(CriarDocumentoPagamentoService.IN_CONTRATO, contrato);
-        sdCriarDocumento.getArgumentList().setProperty(CriarDocumentoPagamentoService.IN_DATA_DOCUMENTO, CalendarUtils.getCalendar());
-        sdCriarDocumento.getArgumentList().setProperty(CriarDocumentoPagamentoService.IN_DATA_VENCIMENTO, dataVencimento);
-        sdCriarDocumento.getArgumentList().setProperty(CriarDocumentoPagamentoService.IN_VALOR_DOCUMENTO, valor);
-        sdCriarDocumento.getArgumentList().setProperty(CriarDocumentoPagamentoService.IN_TRANSACAO, transacao);
-        this.getProvedorDocumentoCobranca().getServiceManager().execute(sdCriarDocumento);
-
-        IEntity<? extends DocumentoPagamento> documentoPagamento = sdCriarDocumento.getFirstOutput();
-        
-        IEntity<Lancamento> lancamento = inserirLancamento.getFirstOutput();
-
-        ServiceData quitarLancamento = new ServiceData(QuitarLancamentoService.SERVICE_NAME, serviceDataOwner);
-        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_CONTA, conta);
-        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_DATA, dataVencimento);
-        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_DOCUMENTO_PAGAMENTO_OPT, documentoPagamento);
-        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_LANCAMENTO, lancamento);
-        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_VALOR, valor);
-        this.getProvedorDocumentoCobranca().getServiceManager().execute(quitarLancamento);
-    }
  }
