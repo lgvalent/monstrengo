@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.orionsoft.financeiro.documento.cobranca.titulo.Ocorrencia;
+import br.com.orionsoft.financeiro.documento.cobranca.titulo.banco748.Gerenciador748;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.IServiceManager;
@@ -40,7 +41,7 @@ public class UtilsOcorrencia {
 	}
 	
 	/**
-	 * Este método permite que cada gerenciador converta a ocorrência de REMESSA e RETORNO na lista padrão que já faz parte do sistema
+	 * Este método permite que cada gerenciador converta a ocorrência de RETORNO na lista padrão que já faz parte do sistema
 	 * 
 	 * @param serviceManager
 	 * @param codigoNativoBanco
@@ -56,6 +57,52 @@ public class UtilsOcorrencia {
         }
 
 		throw new BusinessException(MessageList.createSingleInternalError(new Exception("Código de ocorrência não mapeado para o sistema: " + codigoNativoBanco)));
+	}
+    
+	/**
+	 * Este método permite que cada gerenciador converta a Instrução do Sistema em uma Instrução para a REMESSA nativa do BANCO
+	 * 
+	 * @param serviceManager
+	 * @param codigoNativoBanco
+	 * @param mapOcorrencias vetor de pares de correspondência entre o código da correspondência do Sistema com a do Banco
+	 * @param serviceDataOwner
+	 * @return
+	 * @throws BusinessException
+	 */
+	public static int obterInstrucaoBanco(int codigoInstrucaoSistema, int[] mapInstrucoes) throws BusinessException{
+        for(int i=0; i < mapInstrucoes.length; i+=2){
+        	if(mapInstrucoes[i] == codigoInstrucaoSistema)
+        		return mapInstrucoes[i+1];
+        }
+
+		throw new BusinessException(MessageList.createSingleInternalError(new Exception("Código de Instrução não mapeado para a REMESSA do banco: " + codigoInstrucaoSistema)));
+	}
+	
+	/**
+	 * Gera uma lista separada por vírgula com os ID
+	 * do sistema para as instruções de REMESSA para ser usada em query com Operator.IN
+	 * 
+	 * @param serviceManager
+	 * @param codigoNativoBanco
+	 * @param mapOcorrencias vetor de pares de correspondência entre o código da correspondência do Sistema com a do Banco
+	 * @param serviceDataOwner
+	 * @return
+	 * @throws BusinessException
+	 */
+	public static String gerarListaInstrucaoRemessa(int[] mapInstrucoes){
+        StringBuilder sb = new StringBuilder();
+		for(int i=0; i < mapInstrucoes.length; i+=2){
+			sb.append('\'');
+			sb.append(mapInstrucoes[i]);
+			sb.append('\'');
+			sb.append(',');
+        }
+		sb.delete(sb.length()-1, sb.length());
+		return sb.toString();
+	}
+	
+	public static void main(String[] args){
+		System.out.println(gerarListaInstrucaoRemessa(Gerenciador748.MAPA_INSTRUCOES)); 
 	}
     
 }
