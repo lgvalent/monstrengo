@@ -795,6 +795,8 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 							        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_DATA, lancamentoTarifa.getDataVencimento());
 							        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_LANCAMENTO, lancamentoTarifa);
 							        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_VALOR, lancamentoTarifa.getValor().abs());
+							        /* Lucio 20140417: AutoCompensa movimentos gerados pelo retorno, pois não necessitam de conferência */
+							        quitarLancamento.getArgumentList().setProperty(QuitarLancamentoService.IN_DATA_COMPENSACAO_OPT, lancamentoTarifa.getDataVencimento());
 							        
 							        this.getProvedorBanco().getProvedorDocumentoCobranca().getServiceManager().execute(quitarLancamento);
 
