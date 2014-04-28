@@ -36,6 +36,7 @@
 
 			<h:outputLabel value="Transação"/>
 			<h:selectOneMenu id="transacao" value="#{inserirLancamentoBean.process.transacao}" styleClass="input">
+				<p:ajax event="change" update="descricao"/>
 				<f:selectItems value="#{inserirLancamentoBean.process.listTransacao}"/>
 			</h:selectOneMenu>
 	
