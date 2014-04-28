@@ -68,7 +68,9 @@
 			</h:panelGroup>
 			
 			<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.descricao.label}"/>
-			<p:inputTextarea id="descricao" label="Descrição" value="#{inserirLancamentoBean.process.descricao}" rows="3" cols="40" required="true"/>
+			<p:inputTextarea id="descricao" label="Descrição" value="#{inserirLancamentoBean.process.descricao}" rows="3" cols="40" required="true"
+				onfocus="if(this.value == '' || this.value=='Recebimento de ' || this.value=='Pagamento de ') if(0==#{inserirLancamentoBean.process.transacao}) this.value='Recebimento de '; else this.value='Pagamento de ';"			
+			/>
 	
 		</h:panelGrid>
 		
