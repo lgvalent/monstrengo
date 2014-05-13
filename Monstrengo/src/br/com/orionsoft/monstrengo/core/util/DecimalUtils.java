@@ -116,5 +116,8 @@ public class DecimalUtils {
 		BigDecimal d2 = new BigDecimal(30.0);
 		System.out.println(d.divide(d2, 5, RoundingMode.HALF_UP));
 		System.out.println(d);
+
+		BigDecimal d3 = new BigDecimal("000000000000");
+		System.out.println(d3.doubleValue() == 0.00);
 	}
 }
