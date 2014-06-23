@@ -7,7 +7,9 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.lang.ClassUtils;
 
+import br.com.orionsoft.financeiro.gerenciador.entities.CentroCusto;
 import br.com.orionsoft.financeiro.gerenciador.entities.Conta;
+import br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto;
 import br.com.orionsoft.financeiro.gerenciador.entities.Transacao;
 import br.com.orionsoft.financeiro.gerenciador.services.ListarLancamentoMovimentoService;
 import br.com.orionsoft.financeiro.gerenciador.services.ListarLancamentoMovimentoService.Listagem;
@@ -19,6 +21,8 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
+import br.com.orionsoft.monstrengo.core.process.ProcessParamEntity;
+import br.com.orionsoft.monstrengo.core.process.ProcessParamEntityList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.EnumUtils;
@@ -59,8 +63,10 @@ public class ListarLancamentoMovimentoProcess extends ProcessBasic implements IR
 	private Calendar dataVencimentoInicial = CalendarUtils.getCalendarFirstMonthDay();
 	private Calendar dataVencimentoFinal = CalendarUtils.getCalendarLastMonthDay();
 	private Long documentoPagamentoCategoria = IDAO.ENTITY_UNSAVED;
-	private Long centroCusto = IDAO.ENTITY_UNSAVED;
-	private String itemCustoIdList = null;
+
+	private ProcessParamEntity<CentroCusto> paramCentroCusto = new ProcessParamEntity<CentroCusto>(CentroCusto.class, false, this);
+	private ProcessParamEntityList<ItemCusto> paramItemCusto = new ProcessParamEntityList<ItemCusto>(ItemCusto.class, false, this);
+	
 	private Boolean itemCustoNot = false;
 	private int[] transacaoList = {
 			Transacao.CREDITO.ordinal(),
@@ -109,8 +115,8 @@ public class ListarLancamentoMovimentoProcess extends ProcessBasic implements IR
 			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_ORDEM_OPT, Ordem.values()[this.ordem]);
 			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_TRANSACAO_OPT, this.transacaoList);
 			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_LISTAGEM_OPT, Listagem.values()[this.listagem]);
-			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_CENTRO_CUSTO_ID_OPT, this.centroCusto);
-			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_ITEM_CUSTO_LIST_OPT, this.itemCustoIdList);
+			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_CENTRO_CUSTO_ID_OPT, this.paramCentroCusto.isNull()?null:this.paramCentroCusto.getValue().getId());
+			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_ITEM_CUSTO_LIST_OPT, this.paramItemCusto.isNull()?null:this.paramItemCusto.getValue().getIds());
 			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_ITEM_CUSTO_LIST_NOT_OPT, this.itemCustoNot);
 			sd.getArgumentList().setProperty(ListarLancamentoMovimentoService.IN_APPLICATION_USER_OPT, this.getUserSession().getUser().getObject());
 			this.getProcessManager().getServiceManager().execute(sd);
@@ -257,22 +263,6 @@ public class ListarLancamentoMovimentoProcess extends ProcessBasic implements IR
 		this.documentoPagamentoCategoria = documentoPagamentoCategoria;
 	}
 
-	public Long getCentroCusto() {
-		return centroCusto;
-	}
-
-	public void setCentroCusto(Long centroCusto) {
-		this.centroCusto = centroCusto;
-	}
-
-	public String getItemCustoIdList() {
-		return itemCustoIdList;
-	}
-
-	public void setItemCustoIdList(String itemCustoIdList) {
-		this.itemCustoIdList = itemCustoIdList;
-	}
-
 	public int getListagem() {
 		return listagem;
 	}
@@ -355,6 +345,14 @@ public class ListarLancamentoMovimentoProcess extends ProcessBasic implements IR
 
 	public double getSomaAcrescimo() {
 		return somaAcrescimo;
+	}
+	
+	public ProcessParamEntity<CentroCusto> getParamCentroCusto() {
+		return paramCentroCusto;
+	}
+
+	public ProcessParamEntityList<ItemCusto> getParamItemCusto() {
+		return paramItemCusto;
 	}
 
 	/*==============================================================================
