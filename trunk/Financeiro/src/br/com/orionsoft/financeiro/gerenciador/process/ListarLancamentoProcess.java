@@ -9,7 +9,9 @@ import org.apache.commons.lang.ClassUtils;
 
 import br.com.orionsoft.basic.entities.Contrato;
 import br.com.orionsoft.basic.entities.pessoa.Pessoa;
+import br.com.orionsoft.financeiro.gerenciador.entities.CentroCusto;
 import br.com.orionsoft.financeiro.gerenciador.entities.Conta;
+import br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto;
 import br.com.orionsoft.financeiro.gerenciador.entities.Transacao;
 import br.com.orionsoft.financeiro.gerenciador.services.ListarLancamentoService;
 import br.com.orionsoft.financeiro.gerenciador.services.ListarLancamentoService.Ordem;
@@ -22,6 +24,7 @@ import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessParamEntity;
+import br.com.orionsoft.monstrengo.core.process.ProcessParamEntityList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.EnumUtils;
@@ -51,8 +54,10 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 	private Long conta = IDAO.ENTITY_UNSAVED;
 	private Calendar dataFinal = CalendarUtils.getCalendar();
 	private Calendar dataInicial = CalendarUtils.getCalendar();
-	private Long centroCusto = null;
-	private String itemCustoIdList = null;
+
+	private ProcessParamEntity<CentroCusto> paramCentroCusto = new ProcessParamEntity<CentroCusto>(CentroCusto.class, false, this);
+	private ProcessParamEntityList<ItemCusto> paramItemCusto = new ProcessParamEntityList<ItemCusto>(ItemCusto.class, false, this);
+	
 	private Boolean itemCustoIdListNot = false;
 	private Integer ordem = Ordem.DATA.ordinal();
 	private Integer situacao = Situacao.TODOS.ordinal();
@@ -75,8 +80,8 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 			sd.getArgumentList().setProperty(ListarLancamentoService.IN_CONTA_OPT,this.conta);
 			sd.getArgumentList().setProperty(ListarLancamentoService.IN_DATA_FINAL_OPT, this.dataFinal);
 			sd.getArgumentList().setProperty(ListarLancamentoService.IN_DATA_INICIAL_OPT, this.dataInicial);
-			sd.getArgumentList().setProperty(ListarLancamentoService.IN_CENTRO_CUSTO_OPT, this.centroCusto);
-			sd.getArgumentList().setProperty(ListarLancamentoService.IN_ITEM_CUSTO_LIST_OPT, this.itemCustoIdList);
+			sd.getArgumentList().setProperty(ListarLancamentoService.IN_CENTRO_CUSTO_OPT, this.paramCentroCusto.isNull()?null:this.paramCentroCusto.getValue().getId());
+			sd.getArgumentList().setProperty(ListarLancamentoService.IN_ITEM_CUSTO_LIST_OPT, this.paramItemCusto.isNull()?null:this.paramItemCusto.getValue().getIds());
 			sd.getArgumentList().setProperty(ListarLancamentoService.IN_ITEM_CUSTO_LIST_NOT_OPT, this.itemCustoIdListNot);
 			sd.getArgumentList().setProperty(ListarLancamentoService.IN_ORDEM_OPT,this.ordem);
 			sd.getArgumentList().setProperty(ListarLancamentoService.IN_SITUACAO_OPT, this.situacao);
@@ -151,14 +156,6 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 		this.dataInicial = dataInicial;
 	}
 
-	public String getItemCustoIdList() {
-		return itemCustoIdList;
-	}
-
-	public void setItemCustoList(String itemCustoIdList) {
-		this.itemCustoIdList = itemCustoIdList;
-	}
-
 	public List<QueryLancamento> getQueryLancamentoList() {
 		return queryLancamentoList;
 	}
@@ -183,14 +180,6 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 		this.conta = conta;
 	}
 
-	public Long getCentroCusto() {
-		return centroCusto;
-	}
-
-	public void setCentroCusto(Long centroCusto) {
-		this.centroCusto = centroCusto;
-	}
-
 	public Integer getSituacao() {
 		return situacao;
 	}
@@ -206,10 +195,6 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 //	public void setTransacao(Integer[] transacao) {
 //		this.transacao = transacao;
 //	}
-
-	public void setItemCustoIdList(String itemCustoIdList) {
-		this.itemCustoIdList = itemCustoIdList;
-	}
 
 	public Integer getOrdem() {
 		return ordem;
@@ -233,6 +218,14 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 
 	public ProcessParamEntity<Pessoa> getParamPessoa() {
 		return paramPessoa;
+	}
+
+	public ProcessParamEntity<CentroCusto> getParamCentroCusto() {
+		return paramCentroCusto;
+	}
+
+	public ProcessParamEntityList<ItemCusto> getParamItemCusto() {
+		return paramItemCusto;
 	}
 
 	/*==============================================================================
