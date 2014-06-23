@@ -46,30 +46,20 @@
 				</h:selectOneMenu>
 				
 				<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.centroCusto.label}:"/>
-		 		<h:panelGrid columns="2">
-		 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
-					<h:inputText id="centroCustoId"
-						value="#{listarLancamentoBean.process.centroCusto}"
-						size="5" maxlength="5" rendered="true"
-						title="Dê um clique na caixa de texto para abrir a pesquisa"
-						styleClass="queryInputSelectOne"
-						onclick="javascript:openSelectOneId('br.com.orionsoft.financeiro.gerenciador.entities.CentroCusto',this.value,this)"
-						onkeypress="javascript:return checkKeyClick(this, event, KEY_OPEN_QUERY)"/>
-				</h:panelGrid>
+				<h:panelGroup id="centroCusto">
+					<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
+    		    	   <ui:param name="paramEntity" value="#{listarLancamentoBean.process.paramCentroCusto}"/>
+					</ui:include>
+				</h:panelGroup>
 	
 				<h:outputLabel value="#{menuBean.infoMap.LancamentoItem.propertiesMetadata.itemCusto.label}:"/>
-		 		<h:panelGrid columns="4" >
-		 			<h:graphicImage value="../../public/basic/img/query_open_select.png" title="Aperte a tecla 'p' ou dê um clique na caixa de texto para abrir a pesquisa" style="border:0"/>
-					<h:inputText id="itemCustoList"
-						value="#{listarLancamentoBean.process.itemCustoIdList}"
-						size="5" maxlength="5" rendered="true"
-						title="Dê um clique na caixa de texto para abrir a pesquisa"
-						styleClass="queryInputSelectOne"
-						onclick="javascript:openSelectOneId('br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto',this.value,this)"
-						onkeypress="javascript:return checkKeyClick(this, event, KEY_OPEN_QUERY)"/>
-					<h:selectBooleanCheckbox value="#{listarLancamentoBean.process.itemCustoIdListNot}" />
+				<h:panelGroup id="itemsCustos">
+					<ui:include src="/public/basic/tiles/processParamEntityListSuggest.xhtml">
+    		    	   <ui:param name="paramEntityList" value="#{listarLancamentoBean.process.paramItemCusto}"/>
+					</ui:include>
+					<h:selectBooleanCheckbox value="#{listarLancamentoMovimentoBean.process.itemCustoNot}" />
 					<h:outputLabel value="Exceto o selecionado" for="" style="font-size: small"/>
-				</h:panelGrid>
+				</h:panelGroup>
 	
 				<h:outputLabel value="Ordem:"/>
 				<h:selectOneRadio id="ordem" value="#{listarLancamentoBean.process.ordem}" style="font-size: small">
