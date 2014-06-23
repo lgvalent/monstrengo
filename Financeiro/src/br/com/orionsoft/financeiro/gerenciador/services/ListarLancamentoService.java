@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
 
@@ -286,8 +288,8 @@ public class ListarLancamentoService extends ServiceBasic {
                 (Long) serviceData.getArgumentList().getProperty(IN_CENTRO_CUSTO_OPT) : null);
         Boolean inItemCustoListNot = (serviceData.getArgumentList().containsProperty(IN_ITEM_CUSTO_LIST_NOT_OPT) ? 
                 (Boolean) serviceData.getArgumentList().getProperty(IN_ITEM_CUSTO_LIST_NOT_OPT) : false);
-        String inItemCustoList = (serviceData.getArgumentList().containsProperty(IN_ITEM_CUSTO_LIST_OPT) ? 
-                (String) serviceData.getArgumentList().getProperty(IN_ITEM_CUSTO_LIST_OPT) : null);
+        Long[] inItemCustoList = (serviceData.getArgumentList().containsProperty(IN_ITEM_CUSTO_LIST_OPT) ? 
+                (Long[]) serviceData.getArgumentList().getProperty(IN_ITEM_CUSTO_LIST_OPT) : null);
         Integer inSituacao = (serviceData.getArgumentList().containsProperty(IN_SITUACAO_OPT) ? 
                 (Integer) serviceData.getArgumentList().getProperty(IN_SITUACAO_OPT) : Situacao.TODOS.ordinal());
         Integer inOrdem = (Integer) (serviceData.getArgumentList().containsProperty(IN_ORDEM_OPT) ? 
@@ -351,12 +353,16 @@ public class ListarLancamentoService extends ServiceBasic {
 				sql.setLong("centroCusto", inCentroCusto);
 			}
 			/* item de custo */
-			if (StringUtils.isNotBlank(inItemCustoList)) {
+			/* item de custo */
+			if (!ArrayUtils.isEmpty(inItemCustoList)) {
 				if (inItemCustoListNot)
-					sql.addWhere("(lancamentoItem.itemCusto not in ("+ inItemCustoList +"))");
+					sql.addWhere("(lancamentoItem.itemCusto not in "
+							+ Arrays.toString(inItemCustoList).replace('[', '(').replace(']', ')') + ")");
 				else
-					sql.addWhere("(lancamentoItem.itemCusto in ("+ inItemCustoList +"))");
+					sql.addWhere("(lancamentoItem.itemCusto in "
+							+ Arrays.toString(inItemCustoList).replace('[', '(').replace(']', ')') + ")");
 			}
+
 			/* tipo de listagem */
 			Calendar dataAtual = CalendarUtils.getCalendar();
 			if (inSituacao == Situacao.PENDENTE.ordinal()) {
