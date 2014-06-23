@@ -833,9 +833,27 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 											doc.setValorPago(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_EFETIVAMENTE_PAGO));
 
 										try{
-											/* Subtitui o valor do titulo, pois o usuario pode ter pago um valor maioir no banco */ 
-											oTitulo.setValor(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_TITULO));
-											doc.setMensagem("O valor do título foi modificado de R$ "+ titulo.getProperty(DocumentoTitulo.VALOR).getValue().getAsString() +"para R$" + detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_TITULO));
+											BigDecimal valorTituloArquivo = detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_TITULO); 
+											/* Se o banco informar o valor do título, então usa este valor como oficial */
+											if(valorTituloArquivo.doubleValue() != 0.00){
+												/* Subtitui o valor do titulo, pois o usuario pode ter pago um valor maior no banco */
+												doc.setMensagem("O valor do título foi modificado de R$ "+ titulo.getProperty(DocumentoTitulo.VALOR).getValue().getAsString() +"para R$" + valorTituloArquivo);
+												oTitulo.setValor(valorTituloArquivo);
+											}
+
+											/* Se o título estiver com valor ZERO, então usa o valor PAGO como o valor do título, subtraindo os juros, multa e etc */
+											if(oTitulo.getValor().doubleValue() == 0.00){
+												/* Subtitui o valor do titulo, pois o usuário pode ter pago um valor maior no banco */
+												BigDecimal valorPago = detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_EFETIVAMENTE_PAGO);
+												valorPago = valorPago.subtract(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_JUROS));
+												valorPago = valorPago.subtract(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_MULTA));
+												valorPago = valorPago.subtract(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_DESCONTO_CONCEDIDO));
+												valorPago = valorPago.subtract(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_ABATIMENTO_CONCEDIDO));
+												
+												doc.setMensagem("O valor do título foi modificado de R$ "+ titulo.getProperty(DocumentoTitulo.VALOR).getValue().getAsString() +"para R$" + valorPago);
+												oTitulo.setValor(valorPago);
+											}
+											
 											doc.setValorDocumento(oTitulo.getValor());
 										} catch (BusinessException e) {
 											log.debug("ERRO ao atualizar 'Titulo'- " + titulo.getPropertyValue(DocumentoTitulo.VALOR) + " -/- 'Arq Retorno'- " + detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_TITULO));
