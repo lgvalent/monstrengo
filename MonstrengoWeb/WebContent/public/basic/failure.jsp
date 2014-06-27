@@ -3,5 +3,5 @@
 
 <tiles:insert definition=".popupLayout">
 	<tiles:put name="title" value="Ocorreu um erro"/>
-	<tiles:put name="body" value="tiles/failure.jsp"/>
+	<tiles:put name="body" value="failure.jsp"/>
 </tiles:insert>

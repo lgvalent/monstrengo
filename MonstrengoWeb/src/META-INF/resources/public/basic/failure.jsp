@@ -2,6 +2,6 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-tiles" prefix="tiles" %>
 
 <tiles:insert definition=".popupLayout">
-	<tiles:put name="title" value="Operação executada com sucesso"/>
-	<tiles:put name="body" value="tiles/success.jsp"/>
+	<tiles:put name="title" value="Ocorreu um erro"/>
+	<tiles:put name="body" value="failure.jsp"/>
 </tiles:insert>
