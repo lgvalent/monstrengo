@@ -27,10 +27,10 @@ public class FacesUtils
 {
     
     /** Define a view JSF que é ativada para uma mensagem de sucesso PADRÃO */
-    public static final String FACES_VIEW_SUCCESS = "/public/basic/success?faces-redirect=true";
+    public static final String FACES_VIEW_SUCCESS = "/public/basic/success";
 
     /** Define a view JSF que é ativada para uma mensagem de erro PADRÃO */
-    public static final String FACES_VIEW_FAILURE = "/public/basic/failure?faces-redirect=true";
+    public static final String FACES_VIEW_FAILURE = "/public/basic/failure";
     
     /** Define a view JSF que é ativada para abrir uma visão que fechará a atual janela do browser */
     public static final String FACES_VIEW_CLOSE = "/public/basic/close?faces-redirect=true";
