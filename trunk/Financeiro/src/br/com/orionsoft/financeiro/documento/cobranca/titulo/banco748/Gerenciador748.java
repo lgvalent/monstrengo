@@ -715,7 +715,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 							log.debug("Verificando ocorrência repetida no titulo sistema");
 							boolean achouOcorrenciaControle = false;
 							for(OcorrenciaControle ocorrenciaControle: titulo.getObject().getOcorrencias()){
-								if(ocorrenciaControle.getControle().equals(codigoControle)){
+								if(codigoControle.equals(ocorrenciaControle.getControle())){
 									achouOcorrenciaControle = true;
 									break;
 								}
@@ -1119,4 +1119,5 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 		
 		return result.toString();
 	}
+	
 }
