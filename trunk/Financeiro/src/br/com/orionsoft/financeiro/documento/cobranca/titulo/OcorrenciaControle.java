@@ -35,6 +35,7 @@ public class OcorrenciaControle {
     private Ocorrencia ocorrencia;	
     private Calendar dataOcorrencia;
     private String motivo;
+    private String controle; // Armazena dados que auxiliam na identificaçãod do arquivo de retorno ou remessa, linha e etc.
     
 	/**
      * @hibernate.id generator-class="native" unsaved-value="-1"
@@ -96,6 +97,15 @@ public class OcorrenciaControle {
 
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
+	}
+
+	@Column(length=50)
+	public String getControle() {
+		return controle;
+	}
+
+	public void setControle(String controle) {
+		this.controle = controle;
 	}
 
 	public String toString() {

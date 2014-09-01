@@ -1,3 +1,7 @@
+-- Lucio -01/09/2014 
+ALTER TABLE `financeiro_titulo_ocorrencia_controle` 
+  ADD `controle` VARCHAR(50);
+
 -- Lucio -08/10/2013 
 ALTER TABLE `financeiro_conta` 
   ADD `compensacaoAutomatica` bit;
