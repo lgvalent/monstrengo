@@ -125,7 +125,7 @@ public class SendMailService extends ServiceBasic {
 					//subject
 					message.setSubject(inSubject);
 					//mensagem
-					message.setText(inMessage);
+					message.setContent(inMessage, "text/html; charset=utf-8");
 
 					//enviando mensagem
 					Transport.send(message);
@@ -145,7 +145,7 @@ public class SendMailService extends ServiceBasic {
 					//subject
 					message.setSubject(inSubject);
 					//mensagem
-					message.setText(inMessage);
+					message.setContent(inMessage, "text/html; charset=utf-8");
 
 					//enviando mensagem
 					Transport.send(message);

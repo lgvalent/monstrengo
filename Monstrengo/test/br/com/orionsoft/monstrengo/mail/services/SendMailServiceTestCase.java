@@ -49,8 +49,8 @@ public class SendMailServiceTestCase extends ProcessBasicTest{
 			
 			ServiceData service = new ServiceData(SendMailService.SERVICE_NAME, null);
 			service.getArgumentList().setProperty(SendMailService.IN_EMAIL_ACCOUNT_OPT, account);
-			service.getArgumentList().setProperty(SendMailService.IN_MESSAGE, "TESTE AGILE");
-			service.getArgumentList().setProperty(SendMailService.IN_RECIPIENT_OPT, "lgvalent@gmail.com");
+			service.getArgumentList().setProperty(SendMailService.IN_MESSAGE, "Teste <b>de envio</b> de Mensagem HTML.<br/> Nova linha.");
+			service.getArgumentList().setProperty(SendMailService.IN_RECIPIENT_OPT, "xxxxxxxx@gmail.com");
 			service.getArgumentList().setProperty(SendMailService.IN_SUBJECT, "Assunto teste");
             this.processManager.getServiceManager().execute(service);
             
