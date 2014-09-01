@@ -642,6 +642,8 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 					log.debug("Obtendo informações do arquivo de retorno para fazer a pesquisa de titulos");    
 
 					String nossoNumero = detalhes.get(DetalheRetornoSemRegistro.NOSSO_NUMERO);
+					/* Lucio 20140901: Gera um código com a Data, Número Retorno e Número da linha do DETALHE para detectar */
+					String codigoControle = "C" + retorno.getArquivo().getHeader().get(Header.CODIGO_CEDENTE) + " D" + retorno.getArquivo().getHeader().get(Header.DATA_GRAVACAO_ARQUIVO) + " R" + retorno.getArquivo().getHeader().get(Header.NUMERO_REMESSA) + " O" + detalhes.get(DetalheRetornoSemRegistro.OCORRENCIA) + " L" + detalhes.get(DetalheRetornoSemRegistro.NUMERO_SEQUENCIAL_REGISTRO);   
 
 					log.debug("Pesquisando um titulo atraves do NOSSO_NUMERO");
 					List<QueryCondiction> condictions = new ArrayList<QueryCondiction>();
@@ -713,10 +715,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 							log.debug("Verificando ocorrência repetida no titulo sistema");
 							boolean achouOcorrenciaControle = false;
 							for(OcorrenciaControle ocorrenciaControle: titulo.getObject().getOcorrencias()){
-								if(ocorrenciaControle.getOcorrencia().equals(
-										ultimaOcorrencia.getObject()) && 
-										ocorrenciaControle.getDataOcorrencia().equals(
-												detalhes.getAsCalendar(DetalheRetornoSemRegistro.DATA_OCORRENCIA))){
+								if(ocorrenciaControle.getControle().equals(codigoControle)){
 									achouOcorrenciaControle = true;
 									break;
 								}
@@ -754,6 +753,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 									oOcorrenciaControle.setTitulo(oTitulo);
 									oOcorrenciaControle.setOcorrencia(ultimaOcorrencia.getObject());
 									oOcorrenciaControle.setMotivo(ultimaOcorrenciaMotivo);
+									oOcorrenciaControle.setControle(codigoControle);
 									oOcorrenciaControle.setDataOcorrencia(detalhes.getAsCalendar(DetalheRetornoSemRegistro.DATA_OCORRENCIA));
 									UtilsCrud.update(this.getProvedorBanco().getProvedorDocumentoCobranca().getServiceManager(), ocorrencia, serviceDataOwner);
 									oTitulo.getOcorrencias().add(oOcorrenciaControle);
