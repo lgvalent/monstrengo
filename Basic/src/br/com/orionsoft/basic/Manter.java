@@ -356,7 +356,7 @@ public class Manter extends ManterBasic
      * 
      */
     @SuppressWarnings("unchecked")
-    public IEntity manterRamo(CNAE cnae) throws BusinessException, HibernateException
+    public IEntity manterCnae(CNAE cnae) throws BusinessException, HibernateException
     {
     	log.debug("ManterRamo: " + cnae.getId() + "-" + cnae.getCodigo() + ":" + cnae.getNome());
         if ((cnae!=null) && ((cnae.getNome()!=null)||(cnae.getCodigo()!=null)))
@@ -678,7 +678,7 @@ public class Manter extends ManterBasic
   
                 manterPrimitiveProperties(juridicaEntity, juridica);
 
-                IEntity<CNAE> ramo = manterRamo(juridica.getCnae());
+                IEntity<CNAE> ramo = manterCnae(juridica.getCnae());
                 if (ramo!=null)
                     juridicaEntity.getProperty(Juridica.CNAE).getValue().setAsEntity(ramo);
                 
@@ -730,7 +730,7 @@ public class Manter extends ManterBasic
     public IEntity manterEscritorioContabil(EscritorioContabil escritorioContabil) throws BusinessException, HibernateException
     {
     	log.debug("ManterEscritorioContabil");
-        if ((escritorioContabil!=null) && ((escritorioContabil.getId()!=IDAO.ENTITY_UNSAVED)||(escritorioContabil.getPessoa().getNome()!=null)))
+        if ((escritorioContabil!=null) && ((escritorioContabil.getId()!=IDAO.ENTITY_UNSAVED)||((escritorioContabil.getPessoa() != null) && (escritorioContabil.getPessoa().getNome()!=null))))
         {
             Criteria crit = this.serviceData.getCurrentSession().createCriteria(EscritorioContabil.class);
             /* Verifica se um id foi passado para então utilizar e localizar */
@@ -1157,7 +1157,10 @@ public class Manter extends ManterBasic
     	if ((contratoCategoria != null) && (contratoCategoria.getNome() != null)) {
 
     		Criteria crit = this.serviceData.getCurrentSession().createCriteria(ContratoCategoria.class);
-    		crit.add(Expression.eq(ContratoCategoria.NOME, contratoCategoria.getNome()));
+    		if(contratoCategoria.getId() != IDAO.ENTITY_UNSAVED)
+        		crit.add(Expression.eq(IDAO.PROPERTY_ID_NAME, contratoCategoria.getId()));
+    		else
+    			crit.add(Expression.eq(ContratoCategoria.NOME, contratoCategoria.getNome()));
 
     		IEntityList entityList = this.serviceManager.getEntityManager().getEntityList(crit.list(), ContratoCategoria.class);
 
