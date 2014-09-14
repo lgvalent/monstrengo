@@ -173,12 +173,29 @@ public class StringUtils {
     }
     
     /**
-     * Retira os caracteres não numéricos.<br>
+     * Retira os caracteres não numéricos [0-9,.-].<br>
      * Este método é <i>null safe</i>.
      * @param value - String contendo quaisquer caracteres.
-     * @return String contendo somente os caracteres númericos da string passada.
+     * @return String contendo somente os caracteres númericos da string passada ou vazia.
      */
     public static String removeNonNumeric(String value) {
+        String str = "";
+        if(value != null)
+	        for(int i = 0; i < value.length(); i++) {
+	            char ch = value.charAt(i);
+	            if((ch >= '0' && ch <= '9')|| ch== ',' || ch == '.' || ch == '-')
+	                str += String.valueOf(ch);
+	        }
+        return str;
+    }
+    
+    /**
+     * Retira os caracteres que não são dígitos numéricos [0-9].<br>
+     * Este método é <i>null safe</i>.
+     * @param value - String contendo quaisquer caracteres.
+     * @return String contendo somente os caracteres númericos da string passada ou vazia.
+     */
+    public static String removeNonDigit(String value) {
         String str = "";
         if(value != null)
 	        for(int i = 0; i < value.length(); i++) {
