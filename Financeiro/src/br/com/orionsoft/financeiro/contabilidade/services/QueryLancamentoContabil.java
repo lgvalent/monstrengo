@@ -22,10 +22,12 @@ public class QueryLancamentoContabil {
 			"item.centroCusto.codigoContaAgrupadoraContabil," +
 			"item.itemCusto.codigoContaContabil," +
 			"lan.contrato.pessoa.documento," +
-			"lan.documentoPagamento.documentoPagamentoCategoria.nome," +
-			"lan.documentoPagamento.numeroDocumento" +
+			"docPagCat.nome," +
+			"docPag.numeroDocumento" +
 			")" +
 			" FROM Lancamento AS lan" +
+			" LEFT OUTER JOIN lan.documentoPagamento AS docPag" +
+			" LEFT OUTER JOIN docPag.documentoPagamentoCategoria AS docPagCat" +
 			" JOIN lan.lancamentoItens AS item" +
 			" WHERE lan.dataVencimento BETWEEN :dataInicial AND :dataFinal" +
 			" ORDER BY lan.dataVencimento";
@@ -47,10 +49,12 @@ public class QueryLancamentoContabil {
 			"item.centroCusto.codigoContaAgrupadoraContabil," +
 			"item.itemCusto.codigoContaContabil," +
 			"mov.lancamento.contrato.pessoa.documento," +
-			"mov.documentoPagamento.documentoPagamentoCategoria.nome," +
-			"mov.documentoPagamento.numeroDocumento" +
+			"docPagCat.nome," +
+			"docPag.numeroDocumento" +
 			")" +
 			" FROM LancamentoMovimento AS mov" +
+			" LEFT OUTER JOIN mov.documentoPagamento AS docPag" +
+			" LEFT OUTER JOIN docPag.documentoPagamentoCategoria AS docPagCat" +
 			" JOIN mov.lancamento.lancamentoItens AS item" +
 			" WHERE mov.data BETWEEN :dataInicial AND :dataFinal" +
 			" ORDER BY mov.data";
@@ -72,10 +76,12 @@ public class QueryLancamentoContabil {
 			"item.centroCusto.codigoContaAgrupadoraContabil," +
 			"item.itemCusto.codigoContaContabil," +
 			"mov.lancamento.contrato.pessoa.documento," +
-			"mov.documentoPagamento.documentoPagamentoCategoria.nome," +
-			"mov.documentoPagamento.numeroDocumento" +
+			"docPagCat.nome," +
+			"docPag.numeroDocumento" +
 			")" +
 			" FROM LancamentoMovimento AS mov" +
+			" LEFT OUTER JOIN mov.documentoPagamento AS docPag" +
+			" LEFT OUTER JOIN docPag.documentoPagamentoCategoria AS docPagCat" +
 			" JOIN mov.lancamento.lancamentoItens AS item" +
 			" WHERE mov.dataCompensacao BETWEEN :dataInicial AND :dataFinal" +
 			" ORDER BY mov.dataCompensacao";
