@@ -314,10 +314,10 @@
 							</h:outputLink>
 						</h:column>
 						<h:column >
-							<h:outputLabel value="#{lancamentoMovimento.valor}" rendered="#{lancamentoMovimento.valor ge 0}" >
+							<h:outputLabel value="#{lancamentoMovimento.valorTotal}" rendered="#{lancamentoMovimento.valorTotal ge 0}" >
 								<f:convertNumber type="currency"/>
 							</h:outputLabel>
-							<h:outputLabel value="#{lancamentoMovimento.valor}" rendered="#{lancamentoMovimento.valor lt 0}" style="color:red" >
+							<h:outputLabel value="#{lancamentoMovimento.valorTotal}" rendered="#{lancamentoMovimento.valorTotal lt 0}" style="color:red" >
 								<f:convertNumber type="currency"/>
 							</h:outputLabel>
 						</h:column>
