@@ -72,7 +72,7 @@ public class CancelarContratoService extends ServiceBasic {
             /* 
              * Adiconando a mensagem de sucesso 
              */
-            this.addInfoMessage(serviceData, "SUCESSO");
+            this.addInfoMessage(serviceData, "SUCESSO", inContrato);
 		
             log.debug("::Fim da execução do serviço");
         } catch (BusinessException e) {
