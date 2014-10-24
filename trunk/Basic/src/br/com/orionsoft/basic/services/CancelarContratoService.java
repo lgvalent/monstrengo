@@ -11,6 +11,7 @@ import br.com.orionsoft.monstrengo.core.service.ServiceBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 
 /**
@@ -60,11 +61,15 @@ public class CancelarContratoService extends ServiceBasic {
             EntityAuditValue auditValue = new EntityAuditValue(inContrato);
             Contrato contrato = inContrato.getObject();
             
+            /* Efetua as alterações */
             contrato.setInativo(true);
             contrato.setDataRescisao(inDataCancelamento);
             contrato.getObservacoes().setObservacoes(contrato.getObservacoes().getObservacoes() + "\n CANCELADO: " + inDescricao);
+
+            /* Grava no banco */
+            UtilsCrud.update(getServiceManager(), inContrato, serviceData);
             
-            // Registra a auditoria da atualização
+            /* Registra a auditoria da atualização */
             UtilsAuditorship.auditUpdate(this.getServiceManager(), 
                                          inUserSession,
                                          auditValue, serviceData);
