@@ -40,7 +40,7 @@ public class QueryLancamentoContabil {
 			"mov.lancamento.contrato.pessoa.nome," +
 			"mov.lancamento.descricao," +
 			"item.descricao," +
-			"mov.valor * item.peso," +
+			"mov.valorTotal * item.peso," +
 			"mov.data," +
 			"mov.conta.contaContabilPrevista," +
 			"mov.conta.contaContabilMovimento," +
