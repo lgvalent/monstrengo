@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
+import org.hibernate.cfg.annotations.QueryBinder;
 
 import br.com.orionsoft.basic.entities.pessoa.Pessoa;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
@@ -39,6 +40,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
  */
 public class ListarLancamentoService extends ServiceBasic {
 	public class QueryLancamento {
+		public static final String SELECTED = "selected";
 		public static final String ID = "id";
 		public static final String DATA = "data";
 		public static final String DATA_VENCIMENTO = "dataVencimento";
@@ -93,6 +95,7 @@ public class ListarLancamentoService extends ServiceBasic {
 //			"left outer join financeiro_classificacao_contabil as classificacaoContabil on " +
 //			"  classificacaoContabil.id = lancamentoItem.classificacaoContabil ";
 
+		private boolean selected = false;
 		private Long id;
 		private Calendar data;
 		private Calendar dataVencimento;
@@ -169,6 +172,14 @@ public class ListarLancamentoService extends ServiceBasic {
 //		public String getDocumentoCobrancaCategoria() {
 //			return documentoCobrancaCategoria;
 //		}
+
+		public void setSelected(boolean selected) {
+			this.selected = selected;
+		}
+
+		public boolean isSelected() {
+			return selected;
+		}
 
 		public Long getId() {
 			return id;

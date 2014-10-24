@@ -52,8 +52,7 @@ public class CancelarLancamentoBean extends BeanSessionBasic implements IRunnabl
         if (FacesUtils.isNotNull(super.getRequestParams().get(URL_PARAM_LANCAMENTO_ID))){
         	IEntity<Lancamento> lancamento = UtilsCrud.retrieve(getProcess().getProcessManager().getServiceManager(), Lancamento.class, Long.parseLong(super.getRequestParams().get(URL_PARAM_LANCAMENTO_ID).toString()), null);
             lancamento.setSelected(true);
-        	this.getProcess().setLancamento(lancamento);
-            result = true;
+            result = this.getProcess().runWithEntity(lancamento);
         }
         return result;
     }
@@ -125,7 +124,6 @@ public class CancelarLancamentoBean extends BeanSessionBasic implements IRunnabl
 	public String runWithEntities(IEntityList<?> entities) {
 		try {
 			/* Limpa os atuais lançamentos do processo */
-			this.getProcess().setLancamento(null);
 			this.getProcess().getLancamentos().clear();
 			for(IEntity<?> entity: entities)
 				this.getProcess().getLancamentos().add((IEntity<Lancamento>) entity);
@@ -146,10 +144,9 @@ public class CancelarLancamentoBean extends BeanSessionBasic implements IRunnabl
 	public String runWithEntity(IEntity<?> entity) {
 		try {
 			/* Limpa os atuais lançamentos do processo */
-			this.getProcess().setLancamento(null);
 			this.getProcess().getLancamentos().clear();
 
-			this.getProcess().setLancamento((IEntity<Lancamento>) entity);
+			this.getProcess().runWithEntity((IEntity<Lancamento>) entity);
 		} catch (ProcessException e) {
 			FacesUtils.addErrorMsgs(e.getErrorList());
 			return FacesUtils.FACES_VIEW_FAILURE;
@@ -158,7 +155,16 @@ public class CancelarLancamentoBean extends BeanSessionBasic implements IRunnabl
 	}
 
 	public String runWithEntities(IEntityCollection<?> entities) {
-		return FacesUtils.FACES_VIEW_FAILURE;
+		try {
+			/* Limpa os atuais lançamentos do processo */
+			this.getProcess().getLancamentos().clear();
+
+			this.getProcess().runWithEntities(entities);
+		} catch (ProcessException e) {
+			FacesUtils.addErrorMsgs(e.getErrorList());
+			return FacesUtils.FACES_VIEW_FAILURE;
+		}
+		return FACES_VIEW_CANCELAR; // O lançamento já está preenchido, vai par ao segujndo passo!
 	}
 
 	
