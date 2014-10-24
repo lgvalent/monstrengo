@@ -43,7 +43,7 @@ public class CancelarLancamentoProcessTestCase extends ProcessBasicTest{
 	   
 	   process.setData(dataCancelamento);
 	   process.setDescricao(descricao);
-	   process.setLancamento(this.processManager.getServiceManager().getEntityManager().<Lancamento>getEntity(lancamento));
+	   process.getLancamentos().add(this.processManager.getServiceManager().getEntityManager().<Lancamento>getEntity(lancamento));
 	   Assert.assertTrue(process.runCancelar());
 	   
 	   lancamento = UtilsCrud.objectRetrieve(this.processManager.getServiceManager(), Lancamento.class, lancamento.getId(), null);
