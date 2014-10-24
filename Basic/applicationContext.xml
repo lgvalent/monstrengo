@@ -143,7 +143,7 @@
 	<bean id="Application" class="br.com.orionsoft.monstrengo.core.Application">
 		<property name="modulesPackages">
 			<list>
-				<value>br.com.orionsoft.framework</value>
+				<value>br.com.orionsoft.monstrengo</value>
 				<value>br.com.orionsoft.basic</value>
 			</list>
 		</property>
