@@ -87,7 +87,25 @@
 					    rowClasses="tableListRowEven, tableListRowOdd"
 					    columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight">
 		
+					<f:facet name="header">
+						<h:panelGroup rendered="#{listarLancamentoBean.size>0}">
+							<h:outputLabel value="Seleção dos lançamentos: " />
+							<h:commandButton value="Marcar" title="Marca todos os contratos da lista atual" onclick="return checkAll(this.form, 'myCheck')"/>
+							<h:commandButton value="Intervalo" title="Marca todas as propriedades entre um intervalo definido" onclick="return checkRange(this.form, 'myCheck')"/>
+							<h:commandButton value="Desmarcar" title="Desmarca todos os contratos da lista atual" onclick="return clearAll(this.form, 'myCheck')"/>
+							<h:commandButton value="Inverter" title="Inverte a seleção dos os contratos da lista atual" onclick="return inverseAll(this.form, 'myCheck')"/>
+							<h:commandButton value="Desfazer" title="Volta a seleção anterior às alterações recentemente efetuadas" type="reset"/>
+								<br/>
+							<h:outputLabel value="Ações selecionados: " />
+							<h:commandButton value="Quitar" action="#{listarLancamentoBean.actionQuitarSelecionados}"/>
+							<h:commandButton value="Cancelar" action="#{listarLancamentoBean.actionCancelarSelecionados}" />
+							<h:commandButton value="Alterar vencimento" action="#{listarLancamentoBean.actionAlterarVencimentoDocumentosCobrancaSelecionados}" />
+							<h:commandButton value="Imprimir Doc. Cobrança" action="#{listarLancamentoBean.actionImprimirDocumentosCobrancaSelecionados}" />
+						</h:panelGroup>
+					</f:facet>
+		
 						<h:column >
+							<h:selectBooleanCheckbox id="myCheck1" value="#{item.selected}" rendered="#{item.situacao=='PENDENTE'}"/>
 			  				<h:commandButton title="Quita o lançamento" image="../financeiro/img/quitar.png" action="#{quitarLancamentoBean.actionQuitarLancamento(item.id, item.saldo)}" rendered="#{item.situacao=='PENDENTE'}" />
 							<h:graphicImage value="../financeiro/img/quitar_d.png" title="Quita o lançamento" style="border:0" rendered="#{item.situacao!='PENDENTE'}" styleClass="noprint"/>
 							

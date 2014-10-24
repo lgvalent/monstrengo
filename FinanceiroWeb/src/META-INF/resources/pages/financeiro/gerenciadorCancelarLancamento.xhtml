@@ -11,46 +11,6 @@
 	<ui:param name="title" value="#{menuBean.processInfoMap.CancelarLancamentoProcess.label}" />
 	<ui:param name="description" value="#{menuBean.processInfoMap.CancelarLancamentoProcess.description}" />
 	<ui:define name="content">
-	<h:panelGrid 
-	  width="100%" 
-	  columns="2" 
-	  cellpadding="3" 
-	  styleClass="tableList" 
-	  columnClasses="tableListColumn" 
-	  rowClasses="tableListRowEven,tableListRowOdd"
-	  rendered="#{cancelarLancamentoBean.process.lancamento != null}">
-		<h:outputLabel value="Selecionar:"/>
-		<h:selectBooleanCheckbox value="#{cancelarLancamentoBean.process.lancamento.selected}"/>
-	  
-		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contaPrevista.label}:"/>
-		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.contaPrevista.nome}" />
- 
-		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.data.label}:"/>
-		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.data.time}" />
-		
-		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.dataVencimento.label}:"/>
-		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.dataVencimento.time}" />
-		
- 		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}:"/>
-		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.contrato}" />
-
-		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.descricao.label}:"/>
-		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.descricao}" />
-		
-		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.documentoCobranca.label}:"/>
-		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.documentoCobranca}" />
-		
-		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.valor.label}:"/>
-		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.valor}">
-			<f:convertNumber type="currency"/>
-		</h:outputText>
-		
-		<h:outputLabel value="#{menuBean.infoMap.Lancamento.propertiesMetadata.saldo.label}:"/>
-		<h:outputText value="#{cancelarLancamentoBean.process.lancamento.object.saldo}">
-			<f:convertNumber type="currency"/>
-		</h:outputText>
-	</h:panelGrid>
-
 	<h:dataTable 
 		value="#{cancelarLancamentoBean.process.lancamentos}"
 		var="item"
@@ -104,8 +64,8 @@
 		<h:outputLabel value="Motivo do cancelamento"/>
 		<p:inputTextarea id="descricao" value="#{cancelarLancamentoBean.descricao}" rows="3" required="true"/>
 
-		<h:outputLabel value="Cancelar também os contratos dos lançamentos?" title="Marque esta opção para que os contratos sejam rescindidos na data informada e marcados como INATIVOS evitando futuras gerações de cobranças"/>
-		<p:selectBooleanCheckbox id="cancelarContrato" value="#{cancelarLancamentoBean.process.cancelarContrato}"/>
+		<h:outputLabel value="Cancelar também os contratos dos lançamentos?" />
+		<p:selectBooleanCheckbox id="cancelarContrato" value="#{cancelarLancamentoBean.process.cancelarContrato}" title="Marque esta opção para que os contratos sejam rescindidos na data informada e marcados como INATIVOS evitando futuras gerações de cobranças"/>
 	</h:panelGrid>
 
 	
