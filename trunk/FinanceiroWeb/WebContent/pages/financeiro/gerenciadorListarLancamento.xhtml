@@ -88,7 +88,7 @@
 					    columnClasses="tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumn,tableListColumnRight,tableListColumnRight,tableListColumnRight,tableListColumnRight">
 		
 					<f:facet name="header">
-						<h:panelGroup rendered="#{listarLancamentoBean.size>0}">
+						<h:panelGroup rendered="#{listarLancamentoBean.size>0}" styleClass="noprint">
 							<h:outputLabel value="Seleção dos lançamentos: " />
 							<h:commandButton value="Marcar" title="Marca todos os contratos da lista atual" onclick="return checkAll(this.form, 'myCheck')"/>
 							<h:commandButton value="Intervalo" title="Marca todas as propriedades entre um intervalo definido" onclick="return checkRange(this.form, 'myCheck')"/>
