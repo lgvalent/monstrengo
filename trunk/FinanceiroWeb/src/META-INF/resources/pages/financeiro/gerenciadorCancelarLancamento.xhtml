@@ -103,6 +103,9 @@
 		</h:panelGroup>
 		<h:outputLabel value="Motivo do cancelamento"/>
 		<p:inputTextarea id="descricao" value="#{cancelarLancamentoBean.descricao}" rows="3" required="true"/>
+
+		<h:outputLabel value="Cancelar também os contratos dos lançamentos?" title="Marque esta opção para que os contratos sejam rescindidos na data informada e marcados como INATIVOS evitando futuras gerações de cobranças"/>
+		<p:selectBooleanCheckbox id="cancelarContrato" value="#{cancelarLancamentoBean.process.cancelarContrato}"/>
 	</h:panelGrid>
 
 	
