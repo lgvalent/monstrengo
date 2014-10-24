@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.orionsoft.basic.services.CancelarContratoService;
 import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
 import br.com.orionsoft.financeiro.gerenciador.entities.LancamentoMovimento;
 import br.com.orionsoft.financeiro.gerenciador.services.CancelarLancamentoService;
@@ -47,6 +48,7 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 	private IEntity<Lancamento> lancamento = null;
 	private List<IEntity<Lancamento>> lancamentos = new ArrayList<IEntity<Lancamento>>();
 	private String descricao = "";
+	private Boolean cancelarContrato = false;
 
 	/**
 	 * Armazena o LancamentoMovimento gerado pelo cancelamento.
@@ -74,7 +76,18 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 
 				/* Pega as mensagens do serviço */
 				this.getMessageList().addAll(sd.getMessageList());
-				
+
+				if(this.cancelarContrato){
+					ServiceData sdc = new ServiceData(CancelarContratoService.SERVICE_NAME, null);
+					sdc.getArgumentList().setProperty(CancelarContratoService.IN_CONTRATO, this.lancamento.getPropertyValue(Lancamento.CONTRATO));
+					sdc.getArgumentList().setProperty(CancelarContratoService.IN_DATA_CANCELAMENTO, this.data);
+					sdc.getArgumentList().setProperty(CancelarContratoService.IN_DESCRICAO, this.descricao);
+					sdc.getArgumentList().setProperty(CancelarContratoService.IN_USER_SESSION, this.getUserSession());
+					this.getProcessManager().getServiceManager().execute(sdc);
+					/* Pega as mensagens do serviço */
+					this.getMessageList().addAll(sdc.getMessageList());
+				}
+
 				/* Limpa o lancamento cancelado para evitar duplo cancelamento */
 				this.lancamento = null;
 			}
@@ -99,6 +112,18 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 
 					/* Pega as mensagens do serviço */
 					this.getMessageList().addAll(sds.getMessageList());
+
+					if(this.cancelarContrato){
+						ServiceData sdc = new ServiceData(CancelarContratoService.SERVICE_NAME, null);
+						sdc.getArgumentList().setProperty(CancelarContratoService.IN_CONTRATO, lan.getPropertyValue(Lancamento.CONTRATO));
+						sdc.getArgumentList().setProperty(CancelarContratoService.IN_DATA_CANCELAMENTO, this.data);
+						sdc.getArgumentList().setProperty(CancelarContratoService.IN_DESCRICAO, this.descricao);
+						sdc.getArgumentList().setProperty(CancelarContratoService.IN_USER_SESSION, this.getUserSession());
+						this.getProcessManager().getServiceManager().execute(sdc);
+						/* Pega as mensagens do serviço */
+						this.getMessageList().addAll(sdc.getMessageList());
+					}
+
 				}
 			}
 			/* Limpa a lista de lancamento apos o cancelamento para evitar duplo cancelamento */
@@ -112,7 +137,7 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 			return false;
 		}
 	}
-
+	
 	public String getProcessName() {
 		return PROCESS_NAME;
 	}
@@ -156,6 +181,14 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 		return lancamentoMovimento;
 	}
 	
+	public Boolean getCancelarContrato() {
+		return cancelarContrato;
+	}
+
+	public void setCancelarContrato(Boolean cancelarContrato) {
+		this.cancelarContrato = cancelarContrato;
+	}
+
 	@SuppressWarnings("unchecked")
 	public boolean runWithEntity(IEntity<?> entity) {
 		super.beforeRun();
