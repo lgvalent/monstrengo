@@ -9,9 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
-import org.hibernate.cfg.annotations.QueryBinder;
 
 import br.com.orionsoft.basic.entities.pessoa.Pessoa;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
@@ -51,6 +49,7 @@ public class ListarLancamentoService extends ServiceBasic {
 //		public static final String OPERACAO = "operacao";
 		public static final String CONTA_PREVISTA = "contaPrevista";
 		public static final String PESSOA = "pessoa";
+		public static final String PESSOA_DOCUMENTO = "pessoaDocumento";
 //		public static final String DOCUMENTO_COBRANCA_CATEGORIA = "documentoCobrancaCategoria";
 //		public static final String CENTRO_CUSTO = "centroCusto";
 //		public static final String ITEM_CUSTO = "itemCusto";
@@ -68,7 +67,8 @@ public class ListarLancamentoService extends ServiceBasic {
 //			"  lancamentoItem.valor valor, " +
 //			"  operacao.nome operacao, " +
 			"  conta.nome contaPrevista, " +
-			"  pessoa.nome pessoa " +
+			"  pessoa.nome pessoa, " +
+			"  pessoa.documento pessoaDocumento " +
 //			"  documentoCobrancaCategoria.nome documentoCobrancaCategoria, " +
 //			"  centroCusto.nome centroCusto, " +
 //			"  itemCusto.nome itemCusto, " +
@@ -106,6 +106,7 @@ public class ListarLancamentoService extends ServiceBasic {
 //		private String operacao;
 		private String contaPrevista;
 		private String pessoa;
+		private String pessoaDocumento;
 //		private String documentoCobrancaCategoria;
 //		private String centroCusto;
 //		private String itemCusto;
@@ -122,7 +123,8 @@ public class ListarLancamentoService extends ServiceBasic {
 				BigDecimal valor, 
 //				String operacao, 
 				String contaPrevista, 
-				String pessoa 
+				String pessoa,
+				String pessoaDocumento 
 //				String documentoCobrancaCategoria, 
 //				String centroCusto, 
 //				String itemCusto, 
@@ -139,6 +141,7 @@ public class ListarLancamentoService extends ServiceBasic {
 //			this.operacao = operacao;
 			this.contaPrevista = contaPrevista;
 			this.pessoa = pessoa;
+			this.pessoaDocumento = pessoaDocumento;
 //			this.documentoCobrancaCategoria = documentoCobrancaCategoria;
 //			this.centroCusto = centroCusto;
 //			this.itemCusto = itemCusto;
@@ -195,6 +198,10 @@ public class ListarLancamentoService extends ServiceBasic {
 
 		public String getPessoa() {
 			return pessoa;
+		}
+		
+		public String getPessoaDocumento() {
+			return pessoaDocumento;
 		}
 
 		public BigDecimal getSaldo() {
@@ -430,7 +437,8 @@ public class ListarLancamentoService extends ServiceBasic {
 						rs.getBigDecimal(QueryLancamento.VALOR),
 //						rs.getString(QueryLancamento.OPERACAO),
 						rs.getString(QueryLancamento.CONTA_PREVISTA),
-						rs.getString(QueryLancamento.PESSOA));
+						rs.getString(QueryLancamento.PESSOA),
+						rs.getString(QueryLancamento.PESSOA_DOCUMENTO));
 //						rs.getString(QueryLancamento.DOCUMENTO_COBRANCA_CATEGORIA),
 //						rs.getString(QueryLancamento.CENTRO_CUSTO),
 //						rs.getString(QueryLancamento.ITEM_CUSTO),
