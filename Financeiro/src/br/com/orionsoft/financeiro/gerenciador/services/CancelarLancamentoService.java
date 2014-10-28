@@ -62,8 +62,9 @@ public class CancelarLancamentoService extends ServiceBasic {
             sdSaldo.getArgumentList().setProperty(CalcularSaldoAbertoLancamentoService.IN_LANCAMENTO, inLancamento);
             this.getServiceManager().execute(sdSaldo);
             BigDecimal saldo = (BigDecimal)sdSaldo.getFirstOutput();
-        	if (saldo.signum() == 0)
-                throw new ServiceException(MessageList.create(CancelarLancamentoService.class, "FALHA_VALOR_ZERO"));
+            /* Lucio 20141028: Para cancelar, não precisa ter saldo em aberto!!!*/
+//        	if (saldo.signum() == 0)
+//                throw new ServiceException(MessageList.create(CancelarLancamentoService.class, "FALHA_VALOR_ZERO"));
 
             /*
              * Insere um LancamentoMovimento para este Lancamento.
@@ -100,7 +101,7 @@ public class CancelarLancamentoService extends ServiceBasic {
             UtilsCrud.objectUpdate(this.getServiceManager(), inLancamento, serviceData);
             
             /*
-             * Adiciona o LancamentoMovimento ao retorno do seviço.
+             * Adiciona o LancamentoMovimento ao retorno do serviço.
              */
             lancamentoMovimento = UtilsCrud.objectRetrieve(this.getServiceManager(), LancamentoMovimento.class, lancamentoMovimento.getId(), serviceData);
             serviceData.getOutputData().add(lancamentoMovimento);
