@@ -149,19 +149,19 @@ function windowPage(page)
 function linkRetrieve(entityType, entityId)
 {
 	var page="../../pages/basic/retrieve.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 
 function linkRetrieveParent(parentType, parentId, parentProperty)
 {
 	var page="../../pages/basic/retrieve.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&link=true";  
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 
 function linkQueryParent(parentType, parentId, parentProperty)
 {
 	var page="../../pages/basic/query.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&link=true";  
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 
 function linkRetrieveLocal(entityType, entityId)
@@ -177,25 +177,25 @@ function linkRetrieveLocal(entityType, entityId)
 function linkQuery(entityType)
 {
 	var page="../../pages/basic/query.xhtml?entityType=" + entityType + "&link=true";  
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 
 function linkQueryFilter(entityType, filter)
 {
 	var page="../../pages/basic/query.xhtml?entityType=" + entityType + "&filter=" + filter + "&link=true";  
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 
 function linkQueryFilterParent(parentType, parentId, parentProperty, filter)
 {
 	var page="../../pages/basic/query.xhtml?parentType=" + parentType + "&parentId=" + parentId + "&parentProperty=" + parentProperty + "&filter=" + filter + "&link=true";  
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 
 function linkQueryUserReport(entityType, userReportId)
 {
 	var page="../../pages/basic/query.xhtml?entityType=" + entityType + "&userReportId=" + userReportId + "&link=true";  
-	popupPageReturn(page,660,495,'Relatório');
+	popupPageReturn(page,800,600,'Relatório');
 }
 
 /*
@@ -245,7 +245,7 @@ function openSelectOneProp(entityType, filter, srcProp, destInput)
 	/** Informa para a janela que ser? chamada qual o id do componente que
 	 dever? ser atualizado se o operador selecionar um id na lista */
 	var page="../../pages/basic/query.xhtml?entityType=" + entityType + "&filter=" + filter + "&selectProperty=" + srcProp + "&selectOneDest=" + destInputId + "&link=true";  
-	popupPageReturn(page,660,495,'');
+	popupPageReturn(page,800,600,'');
 }
 
 function closeSelectOne(destInputId, id, queryWindow)
@@ -281,7 +281,7 @@ function linkCreate(entityType)
 function linkCreatePopup(entityType)
 {
 	var page="../../pages/basic/create.xhtml?entityType=" + entityType + "&link=true";
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 
 function linkCreateCopy(entityType, entityCopyId)
@@ -293,7 +293,7 @@ function linkCreateCopy(entityType, entityCopyId)
 function linkDeletePopup(entityType, entityId)
 {
 	var page="../../pages/basic/delete1.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 
 function linkDelete(entityType, entityId)
@@ -305,7 +305,7 @@ function linkDelete(entityType, entityId)
 function linkUpdatePopup(entityType, entityId)
 {
 	var page="../../pages/basic/update.xhtml?entityType=" + entityType + "&entityId=" + entityId + "&link=true";
-	popupPage(page,660,495);
+	popupPage(page,800,600);
 }
 function linkUpdate(entityType, entityId)
 {
