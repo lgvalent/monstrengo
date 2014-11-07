@@ -32,6 +32,14 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
+	<!--***************************Mojarra PrimeFaces MaxView *************************** -->
+	<!-- javax.faces.application.ViewExpiredException: viewId:/index.xhtml - View /index.xhtml could not be restored.  -->
+	<!-- PrimeFaces : Source:http://stackoverflow.com/questions/5474316/why-jsf-saves-the-state-of-ui-components-on-server/5475564#5475564  -->
+	<context-param>
+    	<param-name>com.sun.faces.numberOfLogicalViews</param-name>
+    	<param-value>100</param-value>
+	</context-param>
 	
 	<!--***************************File Upload Component Filter*************************** -->
 	<!-- File Upload Component Filter -->
