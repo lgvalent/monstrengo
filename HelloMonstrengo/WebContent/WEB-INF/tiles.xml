@@ -1,0 +1,76 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "tiles-config.dtd">
+
+<tiles-definitions>
+	<definition name=".welcomeLayout" path="/public/basic/tiles/welcomeLayout.jsp">
+		<put name="title" value="Bem-Vindo ao Sistema Gerencial Orion Soft"/>
+		<put name="header" value="/public/basic/tiles/header.jsp"/>
+		<put name="body" value="/public/basic/tiles/blank.jsp"/>
+		<put name="footer" value="/public/basic/tiles/footer.jsp"/>
+	</definition>
+	
+	<definition name=".menuLayout" path="/public/basic/tiles/menuLayout.jsp">
+		<put name="title" value="Menu"/>
+		<put name="img" value="../../public/basic/img/blank.gif"/>
+		<put name="sider" value="/public/basic/tiles/blank.jsp"/>
+		<put name="body" value="/public/basic/tiles/blank.jsp"/>
+	</definition>
+	
+	<definition name=".menuLayoutLastFocus" path="/public/basic/tiles/menuLayoutLastFocus.jsp">
+		<put name="title" value="Menu"/>
+		<put name="img" value="../../public/basic/img/blank.gif"/>
+		<put name="sider" value="/public/basic/tiles/blank.jsp"/>
+		<put name="body" value="/public/basic/tiles/blank.jsp"/>
+	</definition>
+	
+	<definition name=".mainLayout" path="/public/basic/tiles/mainLayout.jsp">
+		<put name="title" value="mainLayout"/>
+		<put name="img" value="../../public/basic/img/blank.gif"/>
+		<put name="body" value="/public/basic/tiles/blank.jsp"/>
+		<put name="footer" value="/public/basic/tiles/footer.jsp"/>
+	</definition>
+	
+	<definition name=".mainLayoutDiv" path="/public/basic/tiles/mainLayoutDiv.jsp">
+		<put name="title" value="mainLayout"/>
+		<put name="img" value="../../public/basic/img/blank.gif"/>
+		<put name="body" value="/public/basic/tiles/blank.jsp"/>
+		<put name="sider" value="/public/basic/tiles/blank.jsp"/>
+	</definition>
+	
+	<definition name=".emptyLayout" path="/public/basic/tiles/emptyLayout.jsp">
+		<put name="title" value="Empty Layout"/>
+		<put name="body" value="/public/basic/tiles/blank.jsp"/>
+		<put name="onload" value="javascript:placeFocus()"/>
+	</definition>
+
+	<definition name=".emptySite" path="/public/basic/tiles/emptyLayout.jsp">
+		<put name="title" value="Empty Layout"/>
+		<put name="body" value="/public/basic/tiles/blank.jsp"/>
+		<put name="onload" value="javascript:placeFocus()"/>
+	</definition>
+
+	<definition name=".queryLayout" path="/public/basic/tiles/query/queryLayout.jsp">
+		<put name="parent" value="/public/basic/tiles/query/queryParent.jsp"/>
+		<put name="filter" value="/public/basic/tiles/query/queryFilter.jsp"/>
+		<put name="hqlWhere" value="/public/basic/tiles/query/queryHqlWhere.jsp"/>
+		<put name="condiction" value="/public/basic/tiles/query/queryCondiction.jsp"/>
+		<put name="order" value="/public/basic/tiles/query/queryOrderCondiction.jsp"/>		
+		<put name="result" value="/public/basic/tiles/query/queryResultCondiction.jsp"/>		
+		<put name="userReport" value="/public/basic/tiles/query/queryUserReport.jsp"/>		
+		<put name="pagination" value="/public/basic/tiles/query/queryPage.jsp"/>		
+		<put name="command" value="/public/basic/tiles/query/queryCommand.jsp"/>								
+		<put name="label" value="/public/basic/tiles/query/queryLabel.jsp"/>								
+	</definition>
+	
+	<definition name=".retrieveLayout" path="/public/basic/tiles/retrieve/retrieveLayout.jsp">
+		<put name="parent" value="/public/basic/tiles/parentBean.jsp"/>
+		<put name="body" value="/public/basic/tiles/retrieve/retrieveBody.jsp"/>		
+	</definition>
+
+	<definition name=".popupLayout" path="/public/basic/tiles/popupLayout.jsp">
+		<put name="footer" value="/public/basic/tiles/footer.jsp"/>
+		<put name="onload" value="javascript:placeFocus()"/>
+	</definition>
+	
+</tiles-definitions>
