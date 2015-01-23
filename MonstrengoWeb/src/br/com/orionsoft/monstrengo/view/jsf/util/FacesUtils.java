@@ -57,6 +57,15 @@ public class FacesUtils
     }
     
     /**
+     * Este método verifica se um determinado parâmetro foi passado para a requisição.
+     * @return
+     */
+    public static boolean checkRequestParam(String paramName)
+    {
+        return getRequestParams().containsKey(paramName);
+    }
+    
+    /**
      * Este método obtem um parâmetro específico pela atual requisição.
      * @return
      */
