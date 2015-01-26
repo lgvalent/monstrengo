@@ -2,5 +2,5 @@
 
 <tiles:insert definition=".welcomeLayout">
 	<tiles:put name="title" value="Menu Principal do Financeiro"/>
-	<tiles:put name="body" value="../financeiro/tiles/menuPrincipal.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/menuPrincipal.jsp"/>
 </tiles:insert>

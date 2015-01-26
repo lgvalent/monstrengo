@@ -3,5 +3,5 @@
 
 <tiles:insert definition=".emptyLayout">
 	<tiles:put name="title" value="Relatório de movimento"/>
-	<tiles:put name="body" value="../financeiro/tiles/gerenciador/movimentoReport.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/gerenciador/movimentoReport.jsp"/>
 </tiles:insert>

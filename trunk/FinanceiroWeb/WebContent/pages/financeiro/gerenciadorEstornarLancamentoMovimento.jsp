@@ -4,5 +4,5 @@
 <tiles:insert definition=".menuLayout">
 	<tiles:put name="title" value="Estorno de lançamento"/>
 	<tiles:put name="img" value="../financeiro/img/menu_financeiro.png"/>
-	<tiles:put name="body" value="../financeiro/tiles/gerenciador/estornarLancamentoMovimento.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/gerenciador/estornarLancamentoMovimento.jsp"/>
 </tiles:insert>

@@ -5,5 +5,5 @@
 <tiles:insert definition=".menuLayout">
 	<tiles:put name="title" value="Receber arquivo de Retorno"/>
 	<tiles:put name="img" value="../financeiro/img/menu_financeiro.png"/>
-	<tiles:put name="body" value="../financeiro/tiles/documentoCobranca/receberRetorno1.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/documentoCobranca/receberRetorno1.jsp"/>
 </tiles:insert>

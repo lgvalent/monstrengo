@@ -5,5 +5,5 @@
 <tiles:insert definition=".menuLayout">
 	<tiles:put name="title" value="Primeiro passo da quitação"/>
 	<tiles:put name="img" value="../financeiro/img/menu_financeiro.png"/>
-	<tiles:put name="body" value="../financeiro/tiles/gerenciador/quitarLancamento2.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/gerenciador/quitarLancamento2.jsp"/>
 </tiles:insert>
