@@ -4,5 +4,5 @@
 
 <tiles:insert definition=".popupLayout">
 	<tiles:put name="title" value="Gerar arquivo de Remessa"/>
-	<tiles:put name="body" value="../financeiro/tiles/documentoCobranca/gerarRemessa4.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/documentoCobranca/gerarRemessa4.jsp"/>
 </tiles:insert>

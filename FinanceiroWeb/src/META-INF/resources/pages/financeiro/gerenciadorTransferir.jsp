@@ -5,5 +5,5 @@
 <tiles:insert definition=".menuLayout">
 	<tiles:put name="title" value="Transferir entre contas"/>
 	<tiles:put name="img" value="../financeiro/img/menu_financeiro.png"/>
-	<tiles:put name="body" value="../financeiro/tiles/gerenciador/transferir.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/gerenciador/transferir.jsp"/>
 </tiles:insert>

@@ -5,5 +5,5 @@
 <tiles:insert definition=".menuLayout">
 	<tiles:put name="title" value="Relatório de recebimento"/>
 	<tiles:put name="img" value="../financeiro/img/menu_financeiro.png"/>
-	<tiles:put name="body" value="../financeiro/tiles/gerenciador/relatorioRecebimento.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/gerenciador/relatorioRecebimento.jsp"/>
 </tiles:insert>

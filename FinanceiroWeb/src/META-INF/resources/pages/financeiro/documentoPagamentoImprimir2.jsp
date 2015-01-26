@@ -5,5 +5,5 @@
 <tiles:insert definition=".menuLayout">
 	<tiles:put name="title" value="Impressão de documentos de pagamento"/>
 	<tiles:put name="img" value="../financeiro/img/imprimirDocumento_b.png"/>
-	<tiles:put name="body" value="../financeiro/tiles/documentoPagamento/imprimir2.jsp"/>
+	<tiles:put name="body" value="/pages/financeiro/tiles/documentoPagamento/imprimir2.jsp"/>
 </tiles:insert>
