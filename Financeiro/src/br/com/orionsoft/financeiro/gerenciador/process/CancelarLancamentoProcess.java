@@ -8,6 +8,7 @@ import br.com.orionsoft.basic.services.CancelarContratoService;
 import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
 import br.com.orionsoft.financeiro.gerenciador.entities.LancamentoMovimento;
 import br.com.orionsoft.financeiro.gerenciador.services.CancelarLancamentoService;
+import br.com.orionsoft.financeiro.gerenciador.services.CancelarLancamentosService;
 import br.com.orionsoft.monstrengo.auditorship.services.UtilsAuditorship;
 import br.com.orionsoft.monstrengo.core.annotations.ProcessMetadata;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
@@ -34,6 +35,7 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 	private List<IEntity<Lancamento>> lancamentos = new ArrayList<IEntity<Lancamento>>();
 	private String descricao = "";
 	private Boolean cancelarContrato = false;
+	private Boolean cancelarLancamentos = false;
 
 	/**
 	 * Armazena o LancamentoMovimento gerado pelo cancelamento.
@@ -75,6 +77,17 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 						this.getProcessManager().getServiceManager().execute(sdc);
 						/* Pega as mensagens do serviço */
 						this.getMessageList().addAll(sdc.getMessageList());
+					}
+
+					if(this.cancelarLancamentos){
+						ServiceData sdl = new ServiceData(CancelarLancamentosService.SERVICE_NAME, null);
+						sdl.getArgumentList().setProperty(CancelarLancamentosService.IN_CONTRATO, lan.getPropertyValue(Lancamento.CONTRATO));
+						sdl.getArgumentList().setProperty(CancelarLancamentosService.IN_DATA_CANCELAMENTO, this.data);
+						sdl.getArgumentList().setProperty(CancelarLancamentosService.IN_DESCRICAO, this.descricao);
+						sdl.getArgumentList().setProperty(CancelarLancamentosService.IN_USER_SESSION, this.getUserSession());
+						this.getProcessManager().getServiceManager().execute(sdl);
+						/* Pega as mensagens do serviço */
+						this.getMessageList().addAll(sdl.getMessageList());
 					}
 
 				}
@@ -131,6 +144,14 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 
 	public void setCancelarContrato(Boolean cancelarContrato) {
 		this.cancelarContrato = cancelarContrato;
+	}
+	
+	public Boolean getCancelarLancamentos() {
+		return cancelarLancamentos;
+	}
+
+	public void setCancelarLancamentos(Boolean cancelarLancamentos) {
+		this.cancelarLancamentos = cancelarLancamentos;
 	}
 
 	@SuppressWarnings("unchecked")
