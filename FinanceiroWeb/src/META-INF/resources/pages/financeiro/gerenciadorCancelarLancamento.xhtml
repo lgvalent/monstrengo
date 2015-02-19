@@ -64,8 +64,11 @@
 		<h:outputLabel value="Motivo do cancelamento"/>
 		<p:inputTextarea id="descricao" value="#{cancelarLancamentoBean.descricao}" rows="3" required="true"/>
 
-		<h:outputLabel value="Cancelar também os contratos dos lançamentos?" />
+		<h:outputLabel value="Cancelar também os CONTRATOS dos lançamentos?" />
 		<p:selectBooleanCheckbox id="cancelarContrato" value="#{cancelarLancamentoBean.process.cancelarContrato}" title="Marque esta opção para que os contratos sejam rescindidos na data informada e marcados como INATIVOS evitando futuras gerações de cobranças"/>
+
+		<h:outputLabel value="Cancelar também TODOS os demais lançamentos PENDENTES dos contratos?" />
+		<p:selectBooleanCheckbox id="cancelarLancamentos" value="#{cancelarLancamentoBean.process.cancelarLancamentos}" title="Marque esta opção para que todos os demais lançamentos pendentes destes contratos sejam cancelados na mesma data e com a mesma justificativa"/>
 	</h:panelGrid>
 
 	
