@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -54,6 +55,9 @@ public class ExportarMovimentoContabilService extends ServiceBasic {
 	private static final String ARQUIVO_SEPARADOR_HISTORICO = "|";
 	private static final String ARQUIVO_DEFAULT_NULL = "";
 	
+	
+	private static final String NEW_LINE = "\r\n"; // Evita os problemas de importação por variação de arquitetura
+	
 	public String getServiceName() {
 		return SERVICE_NAME;
 	}
@@ -90,7 +94,7 @@ public class ExportarMovimentoContabilService extends ServiceBasic {
 			FileWriter fileWriterExportacao = new FileWriter(fileExportacao);
 			printWriterExportacao = new PrintWriter(fileWriterExportacao, true);
 			
-			printWriterExportacao.println(getCabecalho());
+			printWriterExportacao.print(getCabecalho()+NEW_LINE);
 			
 			if (inQueryPrevisto) {
 				queryResult = executeQuery(serviceData.getCurrentSession(),
@@ -146,7 +150,7 @@ public class ExportarMovimentoContabilService extends ServiceBasic {
 	}
 	
 	private void adicionarMovimentoArquivo(PrintWriter printWriter, int tipo,
-			List<QueryLancamentoContabil> lancamentos) throws IOException, ServiceException {
+		List<QueryLancamentoContabil> lancamentos) throws IOException, ServiceException {
 		
 		StringBuilder builder = null;
 		
@@ -178,7 +182,7 @@ public class ExportarMovimentoContabilService extends ServiceBasic {
 						StringUtils.defaultIfBlank(DecimalUtils.formatBigDecimal(lancamento.getValor().abs()),
 								ARQUIVO_DEFAULT_NULL));
 
-				printWriter.println(builder.toString());
+				printWriter.print(builder.toString()+NEW_LINE);
 			}
 		}
 	}

@@ -46,6 +46,7 @@ public class ListarPosicaoContratoService extends ServiceBasic {
 
     public static final String IN_DOCUMENTO_OPT = "documento";
     public static final String IN_PESSOA_OPT = "pessoa";
+    public static final String IN_CONTRATO_OPT = "contrato";
     public static final String IN_ESCRITORIO_CONTABIL_ID_OPT = "escritorioContabilId";
     public static final String IN_CONTA_LIST_OPT = "contaList";
     public static final String IN_ITEM_CUSTO_IDS_OPT = "itemCustoIds";
@@ -71,6 +72,9 @@ public class ListarPosicaoContratoService extends ServiceBasic {
         	
         	Pessoa inPessoa = (serviceData.getArgumentList().containsProperty(IN_PESSOA_OPT) ? 
             		(Pessoa) serviceData.getArgumentList().getProperty(IN_PESSOA_OPT): null);
+
+        	Contrato inContrato = (serviceData.getArgumentList().containsProperty(IN_CONTRATO_OPT) ? 
+            		(Contrato) serviceData.getArgumentList().getProperty(IN_CONTRATO_OPT): null);
 
         	Long inEscritorioContabilId = (serviceData.getArgumentList().containsProperty(IN_ESCRITORIO_CONTABIL_ID_OPT) ?
         			(Long)serviceData.getArgumentList().getProperty(IN_ESCRITORIO_CONTABIL_ID_OPT) : null);
@@ -125,6 +129,21 @@ public class ListarPosicaoContratoService extends ServiceBasic {
 						Lancamento.CONTRATO + "." + Contrato.PESSOA,
 						Operator.EQUAL,
 						inPessoa.getId()+"",
+				"");
+				condiction.setInitOperator(QueryCondiction.INIT_AND);
+				condictionList.add(condiction);
+			}
+
+			/*
+			 * Contrato.
+			 */
+			if (inContrato != null) {
+				condiction = new QueryCondiction(
+						this.getServiceManager().getEntityManager(),
+						Lancamento.class,
+						Lancamento.CONTRATO,
+						Operator.EQUAL,
+						inContrato.getId()+"",
 				"");
 				condiction.setInitOperator(QueryCondiction.INIT_AND);
 				condictionList.add(condiction);
