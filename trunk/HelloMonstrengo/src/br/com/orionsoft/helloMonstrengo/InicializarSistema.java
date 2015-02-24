@@ -10,8 +10,8 @@ import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.core.test.ServiceBasicTest;
 
 /**
- * Esta classe é útil para a primeira execução do sistema.
- * Ela gera o Banco e cria as estruturas básicas de segurança.
+ * Esta classe Ã© Ãºtil para a primeira execuÃ§Ã£o do sistema.
+ * Ela gera o Banco e cria as estruturas bÃ¡sicas de seguranÃ§a.
  * @author lucio 20121205 
  */
 public class InicializarSistema extends ServiceBasicTest{
@@ -20,7 +20,7 @@ public class InicializarSistema extends ServiceBasicTest{
 	protected PopularTabelas popularTabelas = new  PopularTabelas();
 	
 	/**
-	 * Permite que outros módulos implementem um popular tabelas personalizado
+	 * Permite que outros mÃ³dulos implementem um popular tabelas personalizado
 	 */
 	public void replacePopularTabelas(PopularTabelas newPopularTabelas){
 		this.popularTabelas = newPopularTabelas;
@@ -29,7 +29,8 @@ public class InicializarSistema extends ServiceBasicTest{
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		gerarTabelas.setUp();
+		// Lucio 20150223 super.setApplicationContextPath("./WebContent/WEB-INF/applicationContext.xml");
+    gerarTabelas.setUp();
 		popularTabelas.setUp();
 	}
 	
