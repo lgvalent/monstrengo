@@ -7,6 +7,7 @@ import org.junit.Test;
 import br.com.orionsoft.monstrengo.GerarTabelas;
 import br.com.orionsoft.monstrengo.PopularTabelas;
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
+import br.com.orionsoft.monstrengo.core.test.ApplicationBasicTest;
 import br.com.orionsoft.monstrengo.core.test.ServiceBasicTest;
 
 /**
@@ -28,9 +29,11 @@ public class InicializarSistema extends ServiceBasicTest{
 	
 	@Before
 	public void setUp() throws Exception {
+		// Lucio 20150223: Personaliza o application context que geralmente é pego do diretório corrente da aplicaçao 
+		ApplicationBasicTest.APPLICATION_CONTEXT_PATH = "./WebContent/WEB-INF/applicationContext.xml";
+
 		super.setUp();
-		// Lucio 20150223 super.setApplicationContextPath("./WebContent/WEB-INF/applicationContext.xml");
-    gerarTabelas.setUp();
+		gerarTabelas.setUp();
 		popularTabelas.setUp();
 	}
 	
