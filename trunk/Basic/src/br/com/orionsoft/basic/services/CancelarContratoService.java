@@ -3,6 +3,7 @@ package br.com.orionsoft.basic.services;
 import java.util.Calendar;
 
 import br.com.orionsoft.basic.entities.Contrato;
+import br.com.orionsoft.basic.entities.Observacoes;
 import br.com.orionsoft.monstrengo.auditorship.services.UtilsAuditorship;
 import br.com.orionsoft.monstrengo.auditorship.support.EntityAuditValue;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
@@ -64,7 +65,14 @@ public class CancelarContratoService extends ServiceBasic {
             /* Efetua as alterações */
             contrato.setInativo(true);
             contrato.setDataRescisao(inDataCancelamento);
-            contrato.getObservacoes().setObservacoes(contrato.getObservacoes().getObservacoes() + "\n CANCELADO: " + inDescricao);
+            
+            
+            /* Alguns contratos estão com NULL */
+            if(contrato.getObservacoes() == null){
+            	contrato.setObservacoes(new Observacoes());
+            }
+            
+        	contrato.getObservacoes().setObservacoes(contrato.getObservacoes().getObservacoes() + "\n CANCELADO: " + inDescricao);
 
             /* Grava no banco */
             UtilsCrud.update(getServiceManager(), inContrato, serviceData);
