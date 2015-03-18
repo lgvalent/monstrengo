@@ -430,15 +430,17 @@ public class Manter extends ManterBasic
         {
             for (Telefone tel : telefones)
             {
-                IEntity tipoTelefone = manterTipoTelefone(tel.getTipoTelefone());
-                IEntity telefone = UtilsCrud.create(this.serviceManager, Telefone.class, this.serviceData);
+            	if ((tel!=null) && (tel.getNumero()!=null)){
+            		IEntity tipoTelefone = manterTipoTelefone(tel.getTipoTelefone());
+            		IEntity telefone = UtilsCrud.create(this.serviceManager, Telefone.class, this.serviceData);
 
-                manterPrimitiveProperties(telefone, tel);
+            		manterPrimitiveProperties(telefone, tel);
 
-                telefone.getProperty(Telefone.TIPO_TELEFONE).getValue().setAsEntity(tipoTelefone);
-                
-                UtilsCrud.update(this.serviceManager, telefone, this.serviceData);
-                result.add(telefone);
+            		telefone.getProperty(Telefone.TIPO_TELEFONE).getValue().setAsEntity(tipoTelefone);
+
+            		UtilsCrud.update(this.serviceManager, telefone, this.serviceData);
+            		result.add(telefone);
+            	}
             }
         }
         return result;
