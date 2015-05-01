@@ -10,7 +10,10 @@
         	<meta http-equiv="Refresh" content= "0; URL=./pages/basic/mainMenu.xhtml" />
 		</f:verbatim>
 		<f:verbatim rendered="#{!userSessionBean.logged}">
-        	<meta http-equiv="Refresh" content= "0; URL=./faces/public/login/login.xhtml" />
+        	<meta http-equiv="Refresh" content= "0; URL=./public/login/login.xhtml" />
+		</f:verbatim>
+		<f:verbatim rendered="false">
+	       	<meta http-equiv="Refresh" content= "0; URL=./faces/index.xhtml" />
 		</f:verbatim>
 		
 		<title>Monstrengo - Entreprise Framework</title>

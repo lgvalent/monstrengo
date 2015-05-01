@@ -21,7 +21,8 @@
 	itemValue="#{item1234}"
 	itemLabel="#{item1234}" converter="EntityConverter"
 	title="Comece a digitar para buscar um valor"
-	onfocus="setActiveComponent(this)">
+	onfocus="setActiveComponent(this)"
+	forceSelection="true">
 </p:autoComplete>
 	<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
           <ui:param name="entityMetadata" value="#{paramEntity.info}"/>

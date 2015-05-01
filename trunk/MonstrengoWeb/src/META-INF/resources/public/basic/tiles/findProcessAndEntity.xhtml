@@ -8,7 +8,8 @@
 <p:autoComplete id="autoCompleteProcessAndEntity" minQueryLength="3"
 	completeMethod="#{menuBean.findProcessAndEntity}"
 	var="processAndEntity" widgetVar="autoCompleteProcessAndEntity" size="50"
-	immediate="true" scrollHeight="400">
+	immediate="true" scrollHeight="400"
+	forceSelection="true">
 	<p:column>
 		<h:panelGroup rendered="#{processAndEntity.getClass().getSimpleName().equals('ApplicationProcess')}">
 		<ui:include src="/public/basic/tiles/linkRunProcess.xhtml">
