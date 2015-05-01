@@ -46,10 +46,10 @@ public class NativeSQL {
         	this.sql = this.sql.concat(this.select);
         if (this.where != null)
         	this.sql = this.sql.concat(" ").concat(this.where);
-        if (this.having != null)
-        	this.sql = this.sql.concat(" ").concat(this.having);
         if (this.group != null)
         	this.sql = this.sql.concat(" ").concat(this.group);
+        if (this.having != null)
+        	this.sql = this.sql.concat(" ").concat(this.having);
         if (this.order != null)
         	this.sql = this.sql.concat(" ").concat(this.order);
     }
