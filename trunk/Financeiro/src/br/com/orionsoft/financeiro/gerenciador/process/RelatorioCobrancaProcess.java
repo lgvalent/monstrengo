@@ -82,6 +82,9 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 	private Calendar dataPagamento = CalendarUtils.getCalendar();
 	private Integer quantidadeItensInicial = null;
 	private Integer quantidadeItensFinal = null;
+	private Integer quantidadeItensPagosInicial = null;
+	private Integer quantidadeItensPagosFinal = null;
+	private Boolean possuiItensPagos = false;
 	private OutputStream outputStream = null;
 	private int printerIndex = 0;
 	private int cartaCobrancaModelo = CartaCobrancaModelo.PADRAO.ordinal();
@@ -121,6 +124,9 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_DATA_PAGAMENTO_OPT, this.dataPagamento);
 			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_QUANTIDADE_ITENS_INICIAL, this.quantidadeItensInicial);
 			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_QUANTIDADE_ITENS_FINAL, this.quantidadeItensFinal);
+//			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_QUANTIDADE_ITENS_PAGOS_INICIAL, this.quantidadeItensPagosInicial);
+//			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_QUANTIDADE_ITENS_PAGOS_FINAL, this.quantidadeItensPagosFinal);
+			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_POSSUI_ITENS_PAGO, this.possuiItensPagos);
 			
 			if(!this.paramPessoa.isNull())
 				sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_CPF_CNPJ_OPT, this.paramPessoa.getValue().getObject().getDocumento());
@@ -330,6 +336,30 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 
 	public void setQuantidadeItensFinal(Integer quantidadeItensFinal) {
 		this.quantidadeItensFinal = quantidadeItensFinal;
+	}
+	
+	public Integer getQuantidadeItensPagosInicial() {
+		return quantidadeItensPagosInicial;
+	}
+
+	public void setQuantidadeItensPagosInicial(Integer quantidadeItensPagoInicial) {
+		this.quantidadeItensPagosInicial = quantidadeItensPagoInicial;
+	}
+	
+	public Boolean getPossuiItensPagos() {
+		return possuiItensPagos;
+	}
+
+	public void setPossuiItensPagos(Boolean itensPagos) {
+		this.possuiItensPagos = itensPagos;
+	}
+
+	public Integer getQuantidadeItensPagosFinal() {
+		return quantidadeItensPagosFinal;
+	}
+
+	public void setQuantidadeItensPagosFinal(Integer quantidadeItensPagosFinal) {
+		this.quantidadeItensPagosFinal = quantidadeItensPagosFinal;
 	}
 
 	public OutputStream getOutputStream() {
