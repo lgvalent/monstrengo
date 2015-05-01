@@ -150,6 +150,21 @@ public class RelatorioCobrancaService extends ServiceBasic {
 			"	  pessoa.documento,	" +
 			"	  lancamento.dataVencimento";
 		
+		public static final String SELECT_PAGOS = "" +
+		"select " +
+		"  distinct bc.pessoa " +
+		"from " +
+		"  financeiro_lancamento_movimento flm " +
+		"inner join financeiro_lancamento fl " +
+		"  on flm.lancamento = fl.id " +
+		"inner join basic_contrato bc " +
+		"  on fl.contrato = bc.id ";
+
+		public static final String WHERE_PAGOS = "" +
+			"where " +
+			"     (flm.lancamentoMovimentoCategoria = 'QUITADO') and " +
+			"     (!flm.estornado)";
+
 		private Long id;
 		private String nome;
 		private String documento;
@@ -268,6 +283,9 @@ public class RelatorioCobrancaService extends ServiceBasic {
 	public static final String IN_DATA_PAGAMENTO_OPT = "dataPagamento";
 	public static final String IN_QUANTIDADE_ITENS_INICIAL = "quantidadeItensInicial";
 	public static final String IN_QUANTIDADE_ITENS_FINAL = "quantidadeItensFinal";
+	public static final String IN_QUANTIDADE_ITENS_PAGOS_INICIAL = "quantidadeItensPagosInicial";
+	public static final String IN_QUANTIDADE_ITENS_PAGOS_FINAL = "quantidadeItensPagosFinal";
+	public static final String IN_POSSUI_ITENS_PAGO = "possuiItensPago";
 	public static final String IN_CPF_CNPJ_OPT = "cpfCnpj";
 	public static final String IN_MUNICIPIO_ID_OPT = "municipio";
 	public static final String IN_NOT_MUNICIPIO_OPT = "notMunicipio";
@@ -296,6 +314,9 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		Calendar inDataVencimentoFinal = (Calendar) serviceData.getArgumentList().getProperty(IN_DATA_VENCIMENTO_FINAL);
 		Integer inQuantidadeItensInicial = (Integer) serviceData.getArgumentList().getProperty(IN_QUANTIDADE_ITENS_INICIAL);
 		Integer inQuantidadeItensFinal = (Integer) serviceData.getArgumentList().getProperty(IN_QUANTIDADE_ITENS_FINAL);
+//		Integer inQuantidadeItensPagosInicial = (Integer) serviceData.getArgumentList().getProperty(IN_QUANTIDADE_ITENS_PAGOS_INICIAL);
+//		Integer inQuantidadeItensPagosFinal = (Integer) serviceData.getArgumentList().getProperty(IN_QUANTIDADE_ITENS_PAGOS_FINAL);
+		Boolean inPossuiItensPagos = (Boolean) serviceData.getArgumentList().getProperty(IN_POSSUI_ITENS_PAGO);
 		String inCpfCnpj = serviceData.getArgumentList().containsProperty(IN_CPF_CNPJ_OPT)?(String) serviceData.getArgumentList().getProperty(IN_CPF_CNPJ_OPT):null;
 		OutputStream inOutputStream = (OutputStream) serviceData.getArgumentList().getProperty(IN_OUTPUT_STREAM);
 		RelatorioCobrancaModelo inRelatorioCobrancaModelo = (RelatorioCobrancaModelo) serviceData.getArgumentList().getProperty(IN_RELATORIO_COBRANCA_MODELO);
@@ -378,15 +399,18 @@ public class RelatorioCobrancaService extends ServiceBasic {
 
 		/* SQL Master */
 		String having = "";
-		if (inQuantidadeItensInicial != null && inQuantidadeItensFinal != null)
-			having = "having qtd between ".concat(Integer.toString(inQuantidadeItensInicial)).concat(" and ").concat(Integer.toString(inQuantidadeItensFinal));
+		if (inQuantidadeItensInicial != null && inQuantidadeItensFinal != null){
+			if(inQuantidadeItensInicial > 0 || inQuantidadeItensFinal > 0)
+				having = "having qtd between ".concat(Integer.toString(inQuantidadeItensInicial)).concat(" and ").concat(Integer.toString(inQuantidadeItensFinal));
+		}
+
 		NativeSQL sqlMaster = new NativeSQL(
 				serviceData.getCurrentSession(), 
 				QueryRelatorioCobranca.SELECT_MASTER, 
 				QueryRelatorioCobranca.WHERE_MASTER, 
 				having,
-				QueryRelatorioCobranca.ORDER,
-				null);
+				null,
+				QueryRelatorioCobranca.ORDER);
 		if (inCnaeId != null)
 			sqlMaster.addWhere("(pessoa.cnae = "+inCnaeId+")");
 		if (StringUtils.isNotBlank(inCnaeDescricao))
@@ -429,6 +453,26 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		default:
 			break;
 		}
+		
+		/* SQL Pagos */
+//		if (inQuantidadeItensPagosInicial != null && inQuantidadeItensPagosFinal != null){
+		if (inPossuiItensPagos){
+//			String havingPagos = "having count(*) between ".concat(Integer.toString(inQuantidadeItensPagosInicial)).concat(" and ").concat(Integer.toString(inQuantidadeItensPagosFinal));
+			NativeSQL sqlPagos = new NativeSQL(
+					serviceData.getCurrentSession(), 
+					QueryRelatorioCobranca.SELECT_PAGOS, 
+					QueryRelatorioCobranca.WHERE_PAGOS, 
+					null, //havingPagos,
+					null, //" group by bc.pessoa ",
+					null);
+			
+			if (inDataLancamentoInicial != null && inDataLancamentoFinal != null)
+				sqlPagos.addWhere("(fl.data between '"+CalendarUtils.formatToSQLDate(inDataLancamentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataLancamentoFinal)+"')");
+		
+			//  Integra à SQL Master
+			sqlMaster.addWhere(" (pessoa.id in (" + sqlPagos.getSql() + ") )");
+		}
+		
 		sqlMaster.setParameter("slave", sqlSlave.getSql());
 		
 		try {
