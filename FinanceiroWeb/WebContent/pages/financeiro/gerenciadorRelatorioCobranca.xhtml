@@ -96,12 +96,15 @@
 					</ui:include>
 				</h:panelGroup>
 
-				<h:outputLabel value="Quantidade de itens:"/>
+				<h:outputLabel value="Quantidade de itens pendentes:"/>
 				<h:panelGroup>
 			 		<h:inputText id="quantidadeItensInicial" value="#{relatorioCobrancaBean.process.quantidadeItensInicial}" size="4" maxlength="5" onkeypress="return keyPressInt(this, event)"/>
 					<h:outputLabel value=" até "/>
 		 			<h:inputText id="quantidadeItensFinal" value="#{relatorioCobrancaBean.process.quantidadeItensFinal}" size="4" maxlength="5" onkeypress="return keyPressInt(this, event)"/>
 				</h:panelGroup>
+
+				<h:outputLabel value="Somente empresas que tiveram alguma quitação no período:"/>
+				<h:selectBooleanCheckbox id="possuiItensPagos" value="#{relatorioCobrancaBean.process.possuiItensPagos}" />
 
 				<h:outputLabel value="Não mostrar valores:"/>
 				<h:selectBooleanCheckbox id="omitirValores" value="#{relatorioCobrancaBean.process.omitirValores}" />
