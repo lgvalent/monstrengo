@@ -31,70 +31,75 @@ import br.com.orionsoft.monstrengo.security.entities.UserSession;
  * 
  */
 public class CancelarContratoService extends ServiceBasic {
-    public static final String SERVICE_NAME = "CancelarContratoService";
-    
-    public static final String IN_CONTRATO = "contrato";
-    public static final String IN_USER_SESSION = "userSession";
-    public static final String IN_DATA_CANCELAMENTO = "data";
-    public static final String IN_DESCRICAO = "descricao";
+	public static final String SERVICE_NAME = "CancelarContratoService";
 
-    public String getServiceName() {
-        return SERVICE_NAME;
-    }
+	public static final String IN_CONTRATO = "contrato";
+	public static final String IN_USER_SESSION = "userSession";
+	public static final String IN_DATA_CANCELAMENTO = "data";
+	public static final String IN_DESCRICAO = "descricao";
 
-    public void execute(ServiceData serviceData) throws ServiceException {
-    	log.debug("::Iniciando a execução do serviço CancelarContratoService");
+	public String getServiceName() {
+		return SERVICE_NAME;
+	}
 
-        try {
-            log.debug("Preparando os argumentos");
-            
-            /* 
-             * Lê os parâmetros obrigatórios. 
-             */
-            IEntity<Contrato> inContrato = (IEntity<Contrato>) serviceData.getArgumentList().getProperty(IN_CONTRATO);
-            UserSession inUserSession = (UserSession) serviceData.getArgumentList().getProperty(IN_USER_SESSION);
-            Calendar inDataCancelamento = (Calendar) serviceData.getArgumentList().getProperty(IN_DATA_CANCELAMENTO);
-            String inDescricao = (String) serviceData.getArgumentList().getProperty(IN_DESCRICAO);
+	public void execute(ServiceData serviceData) throws ServiceException {
+		log.debug("::Iniciando a execução do serviço CancelarContratoService");
 
-            /*
-             * Prepara a auditoria de alteração do registro.
-             */
-            EntityAuditValue auditValue = new EntityAuditValue(inContrato);
-            Contrato contrato = inContrato.getObject();
-            
-            /* Efetua as alterações */
-            contrato.setInativo(true);
-            contrato.setDataRescisao(inDataCancelamento);
-            
-            
-            /* Alguns contratos estão com NULL */
-            if(contrato.getObservacoes() == null){
-            	contrato.setObservacoes(new Observacoes());
-            }
-            
-        	contrato.getObservacoes().setObservacoes(contrato.getObservacoes().getObservacoes() + "\n CANCELADO: " + inDescricao);
+		try {
+			log.debug("Preparando os argumentos");
 
-            /* Grava no banco */
-            UtilsCrud.update(getServiceManager(), inContrato, serviceData);
-            
-            /* Registra a auditoria da atualização */
-            UtilsAuditorship.auditUpdate(this.getServiceManager(), 
-                                         inUserSession,
-                                         auditValue, serviceData);
+			/* 
+			 * Lê os parâmetros obrigatórios. 
+			 */
+			IEntity<Contrato> inContrato = (IEntity<Contrato>) serviceData.getArgumentList().getProperty(IN_CONTRATO);
+			UserSession inUserSession = (UserSession) serviceData.getArgumentList().getProperty(IN_USER_SESSION);
+			Calendar inDataCancelamento = (Calendar) serviceData.getArgumentList().getProperty(IN_DATA_CANCELAMENTO);
+			String inDescricao = (String) serviceData.getArgumentList().getProperty(IN_DESCRICAO);
 
-            /* 
-             * Adiconando a mensagem de sucesso 
-             */
-            this.addInfoMessage(serviceData, "SUCESSO", inContrato);
-		
-            log.debug("::Fim da execução do serviço");
-        } catch (BusinessException e) {
-            log.fatal(e.getErrorList());
-            throw new ServiceException(e.getErrorList());
-        } catch (Exception e) {
-            log.fatal(e.getMessage());
-            throw new ServiceException(MessageList.createSingleInternalError(e));
-        }
-    }
+			Contrato contrato = inContrato.getObject();
+			if(contrato.isInativo()){
+				/* Adiconando a mensagem de sucesso */
+				this.addInfoMessage(serviceData, "INATIVO", inContrato);
+
+			}else{
+				/*
+				 * Prepara a auditoria de alteração do registro.
+				 */
+				EntityAuditValue auditValue = new EntityAuditValue(inContrato);
+
+				/* Efetua as alterações */
+				contrato.setInativo(true);
+				contrato.setDataRescisao(inDataCancelamento);
+
+
+				/* Alguns contratos estão com NULL */
+				if(contrato.getObservacoes() == null){
+					contrato.setObservacoes(new Observacoes());
+				}
+
+				contrato.getObservacoes().setObservacoes(contrato.getObservacoes().getObservacoes() + "\n CANCELADO: " + inDescricao);
+
+				/* Grava no banco */
+				UtilsCrud.update(getServiceManager(), inContrato, serviceData);
+
+				/* Registra a auditoria da atualização */
+				UtilsAuditorship.auditUpdate(this.getServiceManager(), 
+						inUserSession,
+						auditValue, serviceData);
+
+				/* 
+				 * Adiconando a mensagem de sucesso 
+				 */
+				this.addInfoMessage(serviceData, "SUCESSO", inContrato);
+			}
+			log.debug("::Fim da execução do serviço");
+		} catch (BusinessException e) {
+			log.fatal(e.getErrorList());
+			throw new ServiceException(e.getErrorList());
+		} catch (Exception e) {
+			log.fatal(e.getMessage());
+			throw new ServiceException(MessageList.createSingleInternalError(e));
+		}
+	}
 
 }
