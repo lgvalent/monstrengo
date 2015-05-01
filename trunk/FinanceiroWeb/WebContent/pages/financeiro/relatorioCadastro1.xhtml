@@ -261,7 +261,7 @@
 		</h:panelGroup>
 
 		<h:panelGrid id="tableFinanceiro" styleClass="tableList" columns="1" width="100%" border="1" style="border-collapse: collapse; font: 12px">
-			<h:outputText value="As datas não que não forem selecionadas não serão incluídas na pesquisa" style="color: #000000" rendered="#{relatorioCadastroBean.process.incluirMovimentacoes}"/>
+			<h:outputText value="As datas que não forem selecionadas não serão incluídas na pesquisa" style="color: #000000" rendered="#{relatorioCadastroBean.process.incluirMovimentacoes}"/>
 			<h:panelGroup id="panelDataLancamento" rendered="#{relatorioCadastroBean.process.incluirMovimentacoes}">
 				<h:selectBooleanCheckbox id="booleanDataLancamento" value="#{relatorioCadastroBean.process.incluirDataLancamento}" title="Incluir este filtro">
 					<p:ajax event="change" update="panelDataLancamento" process="@this"/>
