@@ -54,7 +54,7 @@ public class CancelarLancamentoService extends ServiceBasic {
 			Calendar inData = (Calendar) serviceData.getArgumentList().getProperty(IN_DATA);
 			Lancamento inLancamento = (Lancamento) serviceData.getArgumentList().getProperty(IN_LANCAMENTO);
 			String inDescricao = (String) serviceData.getArgumentList().getProperty(IN_DESCRICAO);
-
+			
 			/*
 			 * Falha se tiver saldo em aberto não maior que zero.
 			 */
