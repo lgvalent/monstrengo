@@ -46,29 +46,17 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 	public boolean runCancelar() {
 		super.beforeRun();
 		try {
+			/* Lucio 20150420: Controla os contrato e lançamentos já cancelados para evitar dupla solicitação */
+			List<Long> contratosCancelados = new ArrayList<Long>();
+			List<Long> contratosLanCancelados = new ArrayList<Long>();
+			
 			/* Cancela a coleçao de lançamentos se tiver 
 			 * e guarda os movimentos de cancelamentos gerado na lista */
 			this.lancamentoMovimentos.clear();
 			for(IEntity<Lancamento> lan: this.lancamentos){
 				if(lan.isSelected()){
-					ServiceData sds = new ServiceData(CancelarLancamentoService.SERVICE_NAME, null);
-					sds.getArgumentList().setProperty(CancelarLancamentoService.IN_DATA, this.data);
-					sds.getArgumentList().setProperty(CancelarLancamentoService.IN_DESCRICAO, this.descricao);
-					sds.getArgumentList().setProperty(CancelarLancamentoService.IN_LANCAMENTO, lan.getObject());
-					this.getProcessManager().getServiceManager().execute(sds);
-
-					/* Registra na auditoria o cancelamento */
-					if(sds.getMessageList().isTransactionSuccess()){
-						LancamentoMovimento lanMov = sds.getFirstOutput();
-						IEntity<LancamentoMovimento> entityLancamentoMovimento = this.getProcessManager().getServiceManager().getEntityManager().getEntity(lanMov);
-						UtilsAuditorship.auditCreate(this.getProcessManager().getServiceManager(), this.getUserSession(), entityLancamentoMovimento, null);
-						this.lancamentoMovimentos.add(lanMov);
-					}
-
-					/* Pega as mensagens do serviço */
-					this.getMessageList().addAll(sds.getMessageList());
-
-					if(this.cancelarContrato){
+				
+					if(this.cancelarContrato && !contratosCancelados.contains(lan.getObject().getContrato().getId())){
 						ServiceData sdc = new ServiceData(CancelarContratoService.SERVICE_NAME, null);
 						sdc.getArgumentList().setProperty(CancelarContratoService.IN_CONTRATO, lan.getPropertyValue(Lancamento.CONTRATO));
 						sdc.getArgumentList().setProperty(CancelarContratoService.IN_DATA_CANCELAMENTO, this.data);
@@ -77,17 +65,45 @@ public class CancelarLancamentoProcess extends ProcessBasic implements IRunnable
 						this.getProcessManager().getServiceManager().execute(sdc);
 						/* Pega as mensagens do serviço */
 						this.getMessageList().addAll(sdc.getMessageList());
+						
+						/* Adiciona o contrato no controle para evitar duplo cancelamento */
+						contratosCancelados.add(lan.getObject().getContrato().getId());
 					}
 
-					if(this.cancelarLancamentos){
+					if(this.cancelarLancamentos && !contratosLanCancelados.contains(lan.getObject().getContrato().getId())){
+						/* Cancela TODOS os lançamentos */
 						ServiceData sdl = new ServiceData(CancelarLancamentosService.SERVICE_NAME, null);
 						sdl.getArgumentList().setProperty(CancelarLancamentosService.IN_CONTRATO, lan.getPropertyValue(Lancamento.CONTRATO));
 						sdl.getArgumentList().setProperty(CancelarLancamentosService.IN_DATA_CANCELAMENTO, this.data);
 						sdl.getArgumentList().setProperty(CancelarLancamentosService.IN_DESCRICAO, this.descricao);
 						sdl.getArgumentList().setProperty(CancelarLancamentosService.IN_USER_SESSION, this.getUserSession());
 						this.getProcessManager().getServiceManager().execute(sdl);
+						
 						/* Pega as mensagens do serviço */
 						this.getMessageList().addAll(sdl.getMessageList());
+
+						/* Adiciona o contrato no controle para evitar duplo cancelamento */
+						contratosLanCancelados.add(lan.getObject().getContrato().getId());
+					}
+					
+					if(!this.cancelarLancamentos){
+						/* Cancela UM lançamento */
+						ServiceData sds = new ServiceData(CancelarLancamentoService.SERVICE_NAME, null);
+						sds.getArgumentList().setProperty(CancelarLancamentoService.IN_DATA, this.data);
+						sds.getArgumentList().setProperty(CancelarLancamentoService.IN_DESCRICAO, this.descricao);
+						sds.getArgumentList().setProperty(CancelarLancamentoService.IN_LANCAMENTO, lan.getObject());
+						this.getProcessManager().getServiceManager().execute(sds);
+
+						/* Registra na auditoria o cancelamento */
+						if(sds.getMessageList().isTransactionSuccess()){
+							LancamentoMovimento lanMov = sds.getFirstOutput();
+							IEntity<LancamentoMovimento> entityLancamentoMovimento = this.getProcessManager().getServiceManager().getEntityManager().getEntity(lanMov);
+							UtilsAuditorship.auditCreate(this.getProcessManager().getServiceManager(), this.getUserSession(), entityLancamentoMovimento, null);
+							this.lancamentoMovimentos.add(lanMov);
+						}
+
+						/* Pega as mensagens do serviço */
+						this.getMessageList().addAll(sds.getMessageList());
 					}
 
 				}
