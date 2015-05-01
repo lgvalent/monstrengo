@@ -21,7 +21,8 @@
 	itemValue="#{item123}"
 	itemLabel="#{item123}" converter="EntityConverter"
 	title="Comece a digitar para buscar um valor para #{propertyEntitySuggest.info.label}"
-	label="#{propertyEntitySuggest.info.label}">
+	label="#{propertyEntitySuggest.info.label}"
+	forceSelection="true">
 </p:autoComplete>
 <h:outputLink tabindex="-1"
 	value="javascript:linkCreatePopup('#{propertyEntitySuggest.info.type.name}')"

@@ -21,7 +21,8 @@
 	itemLabel="#{item12}" converter="EntityConverter"
 	title="Comece a digitar para buscar um valor"
 	onkeyup="if(event.which == 13){this.select();$('.btn#{paramEntityList.value.info.type.simpleName}').click();}"
-	onfocus="setActiveComponent(this)">
+	onfocus="setActiveComponent(this)"
+	forceSelection="true">
 </p:autoComplete>
 <p:watermark value="Pesquise aqui #{paramEntityList.value.info.label}" for="findParamEntityList#{paramEntityList.value.info.type.simpleName}"/>
 
