@@ -56,12 +56,16 @@ public class JuridicaDvo extends DvoBasic<Juridica> {
 	 */
 	public void afterUpdate(IEntity<Juridica> entity, UserSession userSession, ServiceData serviceData) throws DvoException, BusinessException {
         DvoException dvoExceptions = new DvoException(new MessageList());
+        Juridica oJuridica = entity.getObject();
         if(this.capitalizeNames){
-        	Juridica oJuridica = entity.getObject();
 
         	/* Coloca os nomes em Capitalize e remove espaços em branco desnecessários */
         	oJuridica.setApelido(StringUtils.prepareStringField(oJuridica.getApelido())); 
         	oJuridica.setNome(StringUtils.prepareStringField(oJuridica.getNome()));
+        }else{
+        	/* Remove espaços em branco desnecessários */
+        	oJuridica.setApelido(org.apache.commons.lang.StringUtils.strip(oJuridica.getApelido())); 
+        	oJuridica.setNome(org.apache.commons.lang.StringUtils.strip(oJuridica.getNome()));
         }
         
         try {
