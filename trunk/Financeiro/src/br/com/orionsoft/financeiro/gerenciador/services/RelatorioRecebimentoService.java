@@ -376,15 +376,15 @@ public class RelatorioRecebimentoService extends ServiceBasic {
 
 		/* SQL Master */
 		String having = "";
-		if (inQuantidadeItensInicial != null && inQuantidadeItensFinal != null)
+		if (inQuantidadeItensInicial != null && inQuantidadeItensFinal != null && (inQuantidadeItensInicial + inQuantidadeItensFinal > 0))
 			having = "having qtd between ".concat(Integer.toString(inQuantidadeItensInicial)).concat(" and ").concat(Integer.toString(inQuantidadeItensFinal));
 		NativeSQL sqlMaster = new NativeSQL(
 				serviceData.getCurrentSession(), 
 				QueryRelatorioRecebimento.SELECT_MASTER, 
 				QueryRelatorioRecebimento.WHERE_MASTER, 
 				having,
-				QueryRelatorioRecebimento.ORDER,
-				null);
+				null,
+				QueryRelatorioRecebimento.ORDER);
 		if (inMunicipioId != IDAO.ENTITY_UNSAVED)
 			if (inNotMunicipio)
 				sqlMaster.addWhere("(endereco.municipio != "+inMunicipioId+")");
