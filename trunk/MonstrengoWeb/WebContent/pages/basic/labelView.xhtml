@@ -11,8 +11,54 @@
 		<ui:param name="description" value="O sistema permite que você gere etiquetas de diversas entidades. Todas as etiquetas são centralizadas nesta tela para posterior controle e manutenção.&lt;br/>Cadastres novos grupos de etiquetas, novos modelos de impressão de etiqueta e novos modelos de geração&lt;br/>Filtre as etiquetas geradas por operador, entidade ou grupo. Ordene a lista de etiqueta. Marque as etiquetas que deseja imprimir ou excluir dessa lista." />
 		
 		<ui:define name="content">
-			<p:commandButton id="cadastro" value="Cadastros" title="Cadastros relacionados às etiquetas" />
-		    <p:overlayPanel for="cadastro" hideEffect="fade">  
+			<p:tabView >
+				<p:tab title="Impressão" >
+					<h:outputLabel value="Selecione o modelo de etiquetas " />
+					<h:selectOneMenu id="modelo" value="#{labelBean.modelLabelId}"
+						title="Selecione o modelo da etiqueta">
+						<f:selectItems value="#{labelBean.modelsLabel}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel value="e a impressora de destino" />
+					<h:selectOneMenu id="impressora" value="#{labelBean.printerIndex}"
+						title="Selecione a impressora na qual se deseja imprimir as etiquetas">
+						<f:selectItems value="#{labelBean.printersIndex}" />
+					</h:selectOneMenu>
+					<h:commandButton value="Imprimir" action="#{labelBean.doPrint}"
+						title="Imprime as etiquetas selecionadas" />
+					<h:outputLabel value=" ou " />
+					<h:commandButton value="Download em PDF"
+						action="#{labelBean.doDownload}"
+						title="Gera um PDF das etiquetas selecionadas" />
+				</p:tab>
+				<p:tab title="Filtro">
+					<h:outputLabel value="Exibir etiquetas de " />
+					<h:selectOneMenu id="operador"
+						value="#{labelBean.applicationUserId}"
+						onchange="this.form.submit()"
+						title="Selecione o operador para visualizar suas etiquetas">
+						<f:selectItems value="#{labelBean.applicationUsers}" />
+					</h:selectOneMenu>
+						<h:selectOneMenu id="entidade"
+						value="#{labelBean.applicationEntityId}"
+						onchange="this.form.submit()"
+						title="Selecione o tipo de entidade para visualizar suas etiquetas">
+						<f:selectItems value="#{labelBean.applicationEntities}" />
+					</h:selectOneMenu>
+					<h:selectOneMenu id="grupo"
+						value="#{labelBean.addressLabelGroupId}"
+						onchange="this.form.submit()"
+						title="Selecione um grupo de etiquetas para visualizar">
+						<f:selectItems value="#{labelBean.addressLabelGroupList}" />
+					</h:selectOneMenu>
+					<h:outputLabel value=" e ordenar por " />
+					<h:selectOneMenu id="order" value="#{labelBean.orderProperty}"
+						onchange="this.form.submit()"
+						title="Selecione uma propriedade para ordenação das etiquetas na visualização">
+						<f:selectItems value="#{labelBean.orderPropertyList}" />
+					</h:selectOneMenu>
+				</p:tab>
+				<p:tab title="Cadastro">
 					<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 						<ui:param name="entityMetadata" value="#{menuBean.infoMap.AddressLabel}" />
 					</ui:include><br/>
@@ -25,65 +71,10 @@
 					<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
 						<ui:param name="entityMetadata" value="#{menuBean.infoMap.ModelLabelEntity}" />
 					</ui:include>
-			</p:overlayPanel>  		
-		
-			<p:commandButton id="filtro" value="Filtrar" title="Permite visualizar um subconjunto das etiquetas" />
-		    <p:overlayPanel for="filtro" hideEffect="fade">  
-				<h:outputLabel value="Exibir etiquetas de " />
-				<h:selectOneMenu id="operador"
-					value="#{labelBean.applicationUserId}"
-					onchange="this.form.submit()"
-					title="Selecione o operador para visualizar suas etiquetas">
-					<f:selectItems value="#{labelBean.applicationUsers}" />
-				</h:selectOneMenu>
-					<h:selectOneMenu id="entidade"
-					value="#{labelBean.applicationEntityId}"
-					onchange="this.form.submit()"
-					title="Selecione o tipo de entidade para visualizar suas etiquetas">
-					<f:selectItems value="#{labelBean.applicationEntities}" />
-				</h:selectOneMenu>
-				<h:selectOneMenu id="grupo"
-					value="#{labelBean.addressLabelGroupId}"
-					onchange="this.form.submit()"
-					title="Selecione um grupo de etiquetas para visualizar">
-					<f:selectItems value="#{labelBean.addressLabelGroupList}" />
-				</h:selectOneMenu>
-				<h:outputLabel value=" e ordenar por " />
-				<h:selectOneMenu id="order" value="#{labelBean.orderProperty}"
-					onchange="this.form.submit()"
-					title="Selecione uma propriedade para ordenação das etiquetas na visualização">
-					<f:selectItems value="#{labelBean.orderPropertyList}" />
-				</h:selectOneMenu>
-			</p:overlayPanel>  		
-		
-			<p:commandButton id="imprimir" value="Imprimir" title="Define as opções de impressão e imprime as etiquetas seleciondas" />
-		    <p:overlayPanel for="imprimir" hideEffect="fade">  
-				<h:panelGrid>
-					<h:panelGroup>
-						<h:outputLabel value="Selecione o modelo de etiquetas " />
-						<h:selectOneMenu id="modelo" value="#{labelBean.modelLabelId}"
-							title="Selecione o modelo da etiqueta">
-							<f:selectItems value="#{labelBean.modelsLabel}" />
-						</h:selectOneMenu>
-					</h:panelGroup>
+				
+				</p:tab>
+			</p:tabView>
 
-					<h:panelGroup>
-						<h:outputLabel value="e a impressora de destino" />
-						<h:selectOneMenu id="impressora" value="#{labelBean.printerIndex}"
-							title="Selecione a impressora na qual se deseja imprimir as etiquetas">
-							<f:selectItems value="#{labelBean.printersIndex}" />
-						</h:selectOneMenu>
-						<h:commandButton value="Imprimir" action="#{labelBean.doPrint}"
-							title="Imprime as etiquetas selecionadas" />
-						<h:outputLabel value=" ou " />
-						<h:commandButton value="Download em PDF"
-							action="#{labelBean.doDownload}"
-							title="Gera um PDF das etiquetas selecionadas" />
-					</h:panelGroup>
-				</h:panelGrid>
-			</p:overlayPanel>  		
-
-			<br/>  		
 			<h:outputLabel
 				value="Não há etiquetas na lista para serem impressas. Utilize o menu Gerar Etiquetas para adicionar etiquetas na lista"
 				styleClass="infoMessage" rendered="#{!labelBean.hasLabels}" />
@@ -128,7 +119,7 @@
 			</h:panelGroup>
 			<br/>  		
 
-			<div style="height: auto;auto; overflow-x: auto;">
+			<div style="height: 100%; overflow-x: auto; overflow-y: auto;">
 				<h:dataTable id="tbr" width="100%" value="#{labelBean.labels.list}"
 					var='item' headerClass="tableAdvancedReportHeader"
 					styleClass="tableCollectionAdvancedReport"
