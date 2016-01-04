@@ -68,7 +68,8 @@ public class TituloPrintBean {
        		contrato.getPessoa().getEnderecoCorrespondencia().getBairro().getNome() + " - " +
        		contrato.getPessoa().getEnderecoCorrespondencia().getMunicipio().toString();
        	}catch(Exception e){
-       		throw new Exception("Problema com o cadastro do endereço do contrato:" + contrato.toString());
+       		e.printStackTrace();
+       		throw new Exception("Problema com o cadastro do endereço do contrato:" + contrato.toString(), e);
        	}
 
         /* dt = Dados do DocumentoTitulo */

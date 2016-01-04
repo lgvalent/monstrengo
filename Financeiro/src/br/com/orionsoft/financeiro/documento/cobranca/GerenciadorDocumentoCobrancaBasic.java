@@ -131,7 +131,10 @@ public abstract class GerenciadorDocumentoCobrancaBasic implements IGerenciadorD
 		return false;
 	}
 	
-	public void imprimirDocumento(IEntity<? extends DocumentoCobranca> documento, OutputStream outputStream, int printerIndex, String instrucoesAdicionais, ServiceData serviceDataOwner) throws DocumentoCobrancaException {
+	public void imprimirDocumento(IEntity<? extends DocumentoCobranca> documento, OutputStream outputStream, int printerIndex, String instrucoesAdicionais, InputStream inputStramImagem, ServiceData serviceDataOwner) throws DocumentoCobrancaException {
+		log.debug("::Iniciando o método imprimirDocumento");
+
+		log.debug("Preparando documento para ser impresso");
 		/* Cria uma lista de documentoBean vazia*/
 		List<DocumentoCobrancaBean> documentos = new ArrayList<DocumentoCobrancaBean>(1);
 
@@ -139,11 +142,11 @@ public abstract class GerenciadorDocumentoCobrancaBasic implements IGerenciadorD
 		documentos.add(new DocumentoCobrancaBean(documento, instrucoesAdicionais));
 		
 		/* Invoca o outro método que trabalha com uma lista de DocumentoCobrancaBean */
-		this.imprimirDocumentos(documentos, outputStream, printerIndex, serviceDataOwner);
+		this.imprimirDocumentos(documentos, outputStream, printerIndex, inputStramImagem, serviceDataOwner);
 	}
 
 
-	public void imprimirDocumentos(List<DocumentoCobrancaBean> documentos, OutputStream outputStream, int printerIndex, ServiceData serviceDataOwner) throws DocumentoCobrancaException {
+	public void imprimirDocumentos(List<DocumentoCobrancaBean> documentos, OutputStream outputStream, int printerIndex, InputStream inputStreamImagem, ServiceData serviceDataOwner) throws DocumentoCobrancaException {
 		/* Não imprime nada quando a impressão cair no gerenciador basic */
 		throw new DocumentoCobrancaException(MessageList.create(GerenciadorDocumentoCobrancaBasic.class, "NENHUM_DOCUMENTO_NECESSARIO_IMPRESSAO"));
 	}

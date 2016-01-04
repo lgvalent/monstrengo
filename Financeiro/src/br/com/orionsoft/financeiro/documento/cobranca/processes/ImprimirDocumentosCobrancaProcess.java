@@ -1,5 +1,6 @@
 package br.com.orionsoft.financeiro.documento.cobranca.processes;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -89,6 +90,8 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 	private OutputStream outputStream;
 	private int printerIndex = PrintUtils.PRINTER_INDEX_NO_PRINT;
 
+    private InputStream inputStreamImagem;
+	
 	public int getPrinterIndex() {return printerIndex;}
 	public void setPrinterIndex(int printerIndex) {this.printerIndex = printerIndex;}
 	public List<SelectItem> getPrinterIndexList() {
@@ -234,6 +237,7 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 					getBeanList());
 			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_OUTPUT_STREAM_OPT, this.outputStream);
 			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_PRINTER_INDEX_OPT, this.printerIndex);
+			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_INPUT_STREAM_IMAGEM_OPT, this.inputStreamImagem);
 			this.getProcessManager().getServiceManager().execute(sdImprimir);
 
 			this.getMessageList().addAll(sdImprimir.getMessageList());
@@ -444,6 +448,14 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 	public ProcessParamEntity<Municipio> getParamMunicipio() {
 		return paramMunicipio;
 	}
+	
+	public InputStream getInputStreamImagem() {
+		return inputStreamImagem;
+	}
+	public void setInputStreamImagem(InputStream inputStreamImagem) {
+		this.inputStreamImagem = inputStreamImagem;
+	}
+
 	/* IRunnableEntityProcess */
 	public boolean runWithEntity(IEntity<?> entity) {
 		super.beforeRun();

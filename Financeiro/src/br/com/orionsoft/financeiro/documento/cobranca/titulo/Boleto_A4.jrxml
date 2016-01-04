@@ -22,6 +22,7 @@
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
+	<parameter name="INPUT_STREAM_IMAGEM" class="java.io.InputStream" isForPrompting="false"/>
 	<field name="cbCodigoBarras" class="java.lang.String"/>
 	<field name="cbLinhaDigitavel" class="java.lang.String"/>
 	<field name="ceAceite" class="java.lang.String"/>
@@ -2352,6 +2353,10 @@ $F{dtInstrucoesAdicionais}]]></textFieldExpression>
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
+				<image scaleImage="FillFrame" hAlign="Center" isUsingCache="true">
+					<reportElement x="19" y="11" width="500" height="300"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{INPUT_STREAM_IMAGEM}]]></imageExpression>
+				</image>
 			</band>
 		</detail>
 		<columnFooter>

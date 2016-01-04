@@ -1,6 +1,7 @@
 package br.com.orionsoft.financeiro.documento.cobranca.services;
 
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 	public static final String IN_OUTPUT_STREAM_OPT = "outputStream";
 	public static final String IN_PRINTER_INDEX_OPT = "printerIndex";
 	public static final String IN_INSTRUCOES_ADICIONAIS_OPT = "instrucoesAdicionais"; 
+	public static final String IN_INPUT_STREAM_IMAGEM_OPT = "inInputStreamImagem";
 	
 	public String getServiceName() {
 		return SERVICE_NAME;
@@ -66,6 +68,8 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 				(IEntity) serviceData.getArgumentList().getProperty(IN_DOCUMENTO_OPT) : null);
 			List<DocumentoCobrancaBean> inDocumentosBean = (serviceData.getArgumentList().containsProperty(IN_DOCUMENTO_BEAN_LIST) ?
 				(List<DocumentoCobrancaBean>) serviceData.getArgumentList().getProperty(IN_DOCUMENTO_BEAN_LIST) : null);
+			InputStream inInputStreamImagem = (serviceData.getArgumentList().containsProperty(IN_INPUT_STREAM_IMAGEM_OPT)?
+                    (InputStream) serviceData.getArgumentList().getProperty(IN_INPUT_STREAM_IMAGEM_OPT):null);
 			
 			/* Lucio 20110517 Identifica se tem documentos de diferentes tipos para lançar uma exceção */
 			if(inDocumentosBean != null){
@@ -112,11 +116,11 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 			
 			log.debug("Executando o método de impressão avulsa do gerenciador");
 			if(inDocumento!=null)
-				gerenciador.imprimirDocumento(inDocumento, inOutputStream, inPrinterIndex, inInstrucoesAdicionais, serviceData);
+				gerenciador.imprimirDocumento(inDocumento, inOutputStream, inPrinterIndex, inInstrucoesAdicionais, inInputStreamImagem, serviceData);
 
 			log.debug("Executando o método de impressão coletiva do gerenciador");
 			if(inDocumentosBean!=null)
-				gerenciador.imprimirDocumentos(inDocumentosBean, inOutputStream, inPrinterIndex, serviceData);
+				gerenciador.imprimirDocumentos(inDocumentosBean, inOutputStream, inPrinterIndex, inInputStreamImagem, serviceData);
 
 			log.debug("Adicionando a mensagem de sucesso");
 			this.addInfoMessage(serviceData, "IMPRESSAO_SUCESSO");

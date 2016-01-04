@@ -53,9 +53,9 @@ public interface IGerenciadorDocumentoCobranca {
     * @throws DocumentoCobrancaException
     * @version 20090403
     */
-   public void imprimirDocumentos(List<DocumentoCobrancaBean> documentos, OutputStream outputStream, int printerIndex, ServiceData serviceDataOwner) throws DocumentoCobrancaException;
+   public void imprimirDocumentos(List<DocumentoCobrancaBean> documentos, OutputStream outputStream, int printerIndex, InputStream inputStreamImagem, ServiceData serviceDataOwner) throws DocumentoCobrancaException;
    
-   public void imprimirDocumento(IEntity<? extends DocumentoCobranca> documento, OutputStream outputStream, int printerIndex, String instrucoesAdicionais, ServiceData serviceDataOwner) throws DocumentoCobrancaException;
+   public void imprimirDocumento(IEntity<? extends DocumentoCobranca> documento, OutputStream outputStream, int printerIndex, String instrucoesAdicionais, InputStream inputStreamImagem, ServiceData serviceDataOwner) throws DocumentoCobrancaException;
 
    /** Dada a instância de um documento, o  gerenciador responsável pelo mesmo efetuará
     * os cálculos particulares de multa, juros e outros, colocando estes valores calculados 

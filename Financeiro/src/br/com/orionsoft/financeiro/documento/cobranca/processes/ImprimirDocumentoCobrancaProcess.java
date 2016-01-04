@@ -3,6 +3,7 @@
  */
 package br.com.orionsoft.financeiro.documento.cobranca.processes;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -71,6 +72,9 @@ public class ImprimirDocumentoCobrancaProcess extends ProcessBasic implements IR
 
 	private Boolean recalcularDataVencimento = false;
 	private Calendar dataPagamento = CalendarUtils.getCalendar();
+	
+    private InputStream inputStreamImagem;
+
 
 	@Override
 	public void start() throws ProcessException {
@@ -161,6 +165,8 @@ public class ImprimirDocumentoCobrancaProcess extends ProcessBasic implements IR
 			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_INSTRUCOES_ADICIONAIS_OPT, descricaoAdicionalDataPagamento);
 			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_OUTPUT_STREAM_OPT, this.outputStream);
 			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_PRINTER_INDEX_OPT, this.printerIndex);
+			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_INPUT_STREAM_IMAGEM_OPT, this.inputStreamImagem);
+			
 			this.getProcessManager().getServiceManager().execute(sd);
 
 			this.getMessageList().addAll(sd.getMessageList());
@@ -206,37 +212,20 @@ public class ImprimirDocumentoCobrancaProcess extends ProcessBasic implements IR
 
 	}
 
-	public OutputStream getOutputStream() {
-		return outputStream;
-	}
-
-	public void setOutputStream(OutputStream outputStream) {
-		this.outputStream = outputStream;
-	}
+	public OutputStream getOutputStream() {return outputStream;}
+	public void setOutputStream(OutputStream outputStream) {this.outputStream = outputStream;}
 	
-	public Boolean getRecalcularDataVencimento() {
-		return recalcularDataVencimento;
-	}
+	public Boolean getRecalcularDataVencimento() {return recalcularDataVencimento;}
+	public void setRecalcularDataVencimento(Boolean recalcularDataVencimento) {this.recalcularDataVencimento = recalcularDataVencimento;}
 
-	public void setRecalcularDataVencimento(Boolean recalcularDataVencimento) {
-		this.recalcularDataVencimento = recalcularDataVencimento;
-	}
-
-	public Calendar getDataPagamento() {
-		return dataPagamento;
-	}
-
-	public void setDataPagamento(Calendar dataPagamento) {
-		this.dataPagamento = dataPagamento;
-	}
+	public Calendar getDataPagamento() {return dataPagamento;}
+	public void setDataPagamento(Calendar dataPagamento) {this.dataPagamento = dataPagamento;}
 	
-	public Boolean getZerarValor() {
-		return zerarValor;
-	}
-
-	public void setZerarValor(Boolean zerarValor) {
-		this.zerarValor = zerarValor;
-	}
+	public Boolean getZerarValor() {return zerarValor;}
+	public void setZerarValor(Boolean zerarValor) {this.zerarValor = zerarValor;}
+	
+	public InputStream getInputStreamImagem() {return inputStreamImagem;}
+	public void setInputStreamImagem(InputStream inputStreamImagem) {this.inputStreamImagem = inputStreamImagem;}
 
 	/* IRunnableEntityProcess */
 	@SuppressWarnings("unchecked")

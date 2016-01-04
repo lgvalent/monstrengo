@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -445,7 +446,7 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 		}
 	}
 	
-	public void imprimirDocumentos(List<DocumentoCobrancaBean> documentos, OutputStream outputStream, int printerIndex, ServiceData serviceDataOwner) throws DocumentoCobrancaException{
+	public void imprimirDocumentos(List<DocumentoCobrancaBean> documentos, OutputStream outputStream, int printerIndex, InputStream inputStreamImage, ServiceData serviceDataOwner) throws DocumentoCobrancaException{
 		log.debug("::Iniciando o método imprimirDocumentos");
 		try {
 			if (!documentos.isEmpty()){ 
@@ -503,12 +504,18 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 				if (log.isDebugEnabled())
 					log.debug("Imprimindo " + documentos.size() + " Documentos");
 
+				/* Repassa o Stream com a imagem extra para publicidade */
+				HashMap<String, Object> params = new HashMap<String, Object>();
+				if(inputStreamImage != null)
+					params.put("INPUT_STREAM_IMAGEM", inputStreamImage);
+				
+				
 				//preparando os títulos com LAYOUT_2, se a lista de beansLayout2 não for vazia
 				if (!beansLayout2.isEmpty()){
 					JRDataSource jrdsLayout2 = new JRBeanCollectionDataSource(beansLayout2);
 
 					JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(LAYOUT_FILE_2));
-					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrdsLayout2);
+					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, jrdsLayout2);
 					
 					/* Envia para PDF e impressão oa mesmo tempo. A função detecta qual opção é válida.
 					 * É possível imprimir em ambas mídias */
@@ -527,7 +534,7 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 					JRDataSource jrdsLayout3 = new JRBeanCollectionDataSource(beansLayout3);
 
 					JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(LAYOUT_FILE_3));
-					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrdsLayout3);
+					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, jrdsLayout3);
 					
 					/* Envia para PDF e impressão oa mesmo tempo. A função detecta qual opção é válida.
 					 * É possível imprimir em ambas mídias */
@@ -586,17 +593,6 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 			de.getErrorList().add(new BusinessMessage(GerenciadorDocumentoTitulo.class, "ERRO_IMPRIMINDO"));
 			throw de;
 		}	
-	}
-
-	public void imprimirDocumento(IEntity<? extends DocumentoCobranca> documento, OutputStream outputStream, int printerIndex, String instrucoesAdicionais, ServiceData serviceDataOwner) throws DocumentoCobrancaException{
-		log.debug("::Iniciando o método imprimirDocumento");
-
-		log.debug("Preparando documento para ser impresso");
-		List<DocumentoCobrancaBean> documentos = new ArrayList<DocumentoCobrancaBean>(1); //apenas 1 documento
-
-		documentos.add(new DocumentoCobrancaBean(documento, instrucoesAdicionais));
-
-		this.imprimirDocumentos(documentos, outputStream, printerIndex, serviceDataOwner);
 	}
 
 	/**
