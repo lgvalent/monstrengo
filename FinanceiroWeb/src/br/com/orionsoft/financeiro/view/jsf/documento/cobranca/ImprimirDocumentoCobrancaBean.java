@@ -12,6 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.primefaces.model.UploadedFile;
+
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
@@ -39,6 +41,7 @@ public class ImprimirDocumentoCobrancaBean extends BeanSessionBasic implements I
 	public static final String VIEW_NAME = "imprimirDocumentoCobrancaBean";
     public static final String FACES_VIEW_PASSO_1 = "/pages/financeiro/documentoCobrancaImprimir?faces-redirect=true";
     
+    private UploadedFile arquivoImagem;
     private ImprimirDocumentoCobrancaProcess process = null;
     
     public void loadParams() throws BusinessException {
@@ -115,6 +118,7 @@ public class ImprimirDocumentoCobrancaBean extends BeanSessionBasic implements I
        		 * E anula o índice da impressora */
        		this.getProcess().setOutputStream(out);
        		this.getProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
+       		this.getProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
        		this.getProcess().runWithEntity(documento);
 
        		if (this.getProcess().runImprimir()){
@@ -166,23 +170,36 @@ public class ImprimirDocumentoCobrancaBean extends BeanSessionBasic implements I
     public void doImprimir(IEntity<? extends DocumentoCobranca> documento) throws BusinessException {
     	log.debug("ImprimirDocumentoCobrancaBean.doImprimir(IEntity)");
 
-    	/* O printerIndex é injetado diretamente pelo JSF
-    	 * E anula o outputStream */
-    	//this.getProcess().setPrinterIndex(printerIndex);
-   		this.getProcess().setOutputStream(null);
-   		this.getProcess().runWithEntity(documento);
+    	try{
+    		/* O printerIndex é injetado diretamente pelo JSF
+    		 * E anula o outputStream */
+    		//this.getProcess().setPrinterIndex(printerIndex);
+    		this.getProcess().setOutputStream(null);
+    		this.getProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
+    		this.getProcess().runWithEntity(documento);
 
-    	if (this.getProcess().runImprimir()){
-    		/* Adiciona as mensagens de info no Faces */
-    		FacesUtils.addInfoMsgs(this.getProcess().getMessageList());
+    		if (this.getProcess().runImprimir()){
+    			/* Adiciona as mensagens de info no Faces */
+    			FacesUtils.addInfoMsgs(this.getProcess().getMessageList());
 
-    	}else{
-    		/* Adiciona as mensagens de erro no Faces */
-    		FacesUtils.addErrorMsgs(this.getProcess().getMessageList());
+    		}else{
+    			/* Adiciona as mensagens de erro no Faces */
+    			FacesUtils.addErrorMsgs(this.getProcess().getMessageList());
+    		}
+    	} catch (IOException e) {
+    		FacesUtils.addErrorMsg(e.getMessage());
     	}
+
     }
     
-    
+    public UploadedFile getArquivoImagem() {
+		return arquivoImagem;
+	}
+
+	public void setArquivoImagem(UploadedFile arquivoImagem) {
+		this.arquivoImagem = arquivoImagem;
+	}
+
 	/* IRunnableProcessView */
 	public String getViewName() {
 		return VIEW_NAME;

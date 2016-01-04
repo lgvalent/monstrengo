@@ -10,6 +10,7 @@
 	<ui:param name="icon" value="../financeiro/img/imprimirDocumento_b.png" />
 	<ui:param name="title" value="#{menuBean.processInfoMap.ImprimirDocumentoCobrancaProcess.label}" />
 	<ui:param name="description" value="#{menuBean.processInfoMap.ImprimirDocumentoCobrancaProcess.description}" />
+	<ui:param name="hasFileUpload" value="true" />
 	<ui:define name="content">
 		<h:panelGrid columns="2" cellpadding="3">
 	 		<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.contrato.label}:" title="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.contrato.hint}"/>
@@ -43,6 +44,15 @@
 			<h:outputText value="Imprimir o documento com seu valor em branco:" />
 			<h:selectBooleanCheckbox id="zerarValor"  value="#{imprimirDocumentoCobrancaBean.process.zerarValor}" title="Marque esta opção para que os documentos sejam impressos com valor em branco"/>
 	</h:panelGrid>
+
+	<hr/>
+
+        <h:outputLabel value="Defina uma imagem adicional para ser impressa no documento de cobrança."/><br/>
+        <h:outputLabel value="Este espaço é útil para impressão de material publicitário, tabelas e outros. Use uma imagem com proporção 5:3 e nos formatos GIF, JPG ou PNG."/><br/>
+        <h:outputLabel value="Nem todos os layouts de impressão são compatíveis."/><br/>
+        <p:fileUpload value="#{imprimirDocumentoCobrancaBean.arquivoImagem}" mode="simple"/>  
+        <h:outputLabel value="#{imprimirDocumentoCobrancaBean.arquivoImagem.fileName}"/>
+
 
 	</ui:define>
 	<ui:define name="actions">

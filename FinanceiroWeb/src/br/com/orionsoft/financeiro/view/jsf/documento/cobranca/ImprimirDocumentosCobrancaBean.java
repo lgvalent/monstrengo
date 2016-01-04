@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
+import org.primefaces.model.UploadedFile;
 
 import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobranca;
 import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobrancaBean;
@@ -60,6 +61,8 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
 	
     public static final String URL_PARAM_NOME_GERENCIADOR_DOCUMENTO = "nomeGerenciadorDocumento";
 
+	//  será feito o upload de um arquivoRetorno de retorno
+    private UploadedFile arquivoImagem;
     private ImprimirDocumentosCobrancaProcess currentProcess = null;
 
     public ImprimirDocumentosCobrancaProcess getCurrentProcess() {
@@ -117,6 +120,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
     	return LabelBean.FACES_VIEW_LABELS;
     }
 
+    
     /**
      * Esta ação gera o PDF do documento
      * @return
@@ -141,6 +145,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
        		 * E anula o índice da impressora */
        		this.getCurrentProcess().setOutputStream(out);
        		this.getCurrentProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
+       		this.getCurrentProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
 
        		if (this.getCurrentProcess().runImprimir()){
        			/* Adiciona as mensagens de info no Faces */
@@ -175,6 +180,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
        		 * E anula o índice da impressora */
        		this.getCurrentProcess().setOutputStream(out);
        		this.getCurrentProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
+       		this.getCurrentProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
 
        		if (this.getCurrentProcess().runImprimir()){
            		response.setContentType("pdf-content");
@@ -205,21 +211,26 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
     public void doImprimir() throws BusinessException {
     	log.debug("ImprimirDocumentoCobrancaBean.doImprimir");
 
-    	/* O printerIndex é injetado diretamente pelo JSF
-    	 * E anula o outputStream */
-    	//this.getProcess().setPrinterIndex(printerIndex);
-   		this.getCurrentProcess().setOutputStream(null);
+    	try{
+    		/* O printerIndex é injetado diretamente pelo JSF
+    		 * E anula o outputStream */
+    		//this.getProcess().setPrinterIndex(printerIndex);
+    		this.getCurrentProcess().setOutputStream(null);
+       		this.getCurrentProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
 
-    	if (this.getCurrentProcess().runImprimir()){
-    		/* Adiciona as mensagens de info no Faces */
-    		FacesUtils.addInfoMsgs(this.getCurrentProcess().getMessageList());
+    		if (this.getCurrentProcess().runImprimir()){
+    			/* Adiciona as mensagens de info no Faces */
+    			FacesUtils.addInfoMsgs(this.getCurrentProcess().getMessageList());
 
-    	}else{
-    		/* Adiciona as mensagens de erro no Faces */
-    		FacesUtils.addErrorMsgs(this.getCurrentProcess().getMessageList());
+    		}else{
+    			/* Adiciona as mensagens de erro no Faces */
+    			FacesUtils.addErrorMsgs(this.getCurrentProcess().getMessageList());
+    		}
+    	} catch (IOException e) {
+    		FacesUtils.addErrorMsg(e.getMessage());
     	}
     }
-    
+
     
     private String prepareFileName() {
     	String result = "Doc ";
@@ -283,6 +294,11 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
 	{
 	}
 	
+	public UploadedFile getArquivoImagem() {return arquivoImagem;}
+	public void setArquivoImagem(UploadedFile arquivoImagem) {this.arquivoImagem = arquivoImagem;}
+	
+	
+
 	@SuppressWarnings("unchecked")
 	public String runWithEntities(IEntityCollection<?> entities) {
 	        List<DocumentoCobrancaBean> docs = new ArrayList<DocumentoCobrancaBean>(entities.getSize());

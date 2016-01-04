@@ -13,6 +13,7 @@
 	<ui:param name="description" value="Foram &lt;b> selecionados #{imprimirDocumentosCobrancaBean.currentProcess.size} documentos &lt;/b> para a impressão.&lt;br/>
 	                                    Agora você pode definir a ordem de impressão, atribuir algumas instruções adicionais para serem impressas nos documentos, e ainda, redefinir a data de vencimento para os títulos em atraso.&lt;br/>
 	                                    As instruções e o novo vencimento não serão gravados, servirá apenas para o devedor pagar os documentos atrasados em qualquer banco." />
+	<ui:param name="hasFileUpload" value="true" />
 	<ui:define name="content">	  	
 
 	<h:panelGrid columns="3" cellpadding="3">
@@ -34,6 +35,15 @@
 	<hr/>
 
 		<p:commandButton ajax="false" value="Atualizar lista" action="#{imprimirDocumentosCobrancaBean.doVisualizar}" onclick="this.value='Aguarde...'" title="Atualiza a lista de acordo com o tipo de ordenação escolhido e instruções adicionais"/>
+
+
+	<hr/>
+
+        <h:outputLabel value="Defina uma imagem adicional para ser impressa no documento de cobrança."/><br/>
+        <h:outputLabel value="Este espaço é útil para impressão de material publicitário, tabelas e outros. Use uma imagem com proporção 5:3 e nos formatos GIF, JPG ou PNG."/><br/>
+        <h:outputLabel value="Nem todos os layouts de impressão são compatíveis."/><br/>
+        <p:fileUpload value="#{imprimirDocumentosCobrancaBean.arquivoImagem}" mode="simple"/>  
+        <h:outputLabel value="#{imprimirDocumentosCobrancaBean.arquivoImagem.fileName}"/>
 
 	<hr/>
 		<h:outputText value="Calcular multa e juros para um novo vencimento:" title="Imprime o documento de cobrança com uma nova data de vencimento, calculando os juros e multa, sem alterar o vencimento original do documento."/>
