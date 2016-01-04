@@ -44,6 +44,7 @@ public class AlterarVencimentoDocumentosCobrancaProcess extends ProcessBasic imp
 	public static final String PROCESS_NAME="AlterarVencimentoDocumentosCobrancaProcess";
 
 	private Calendar data = CalendarUtils.getCalendar();
+	private String adendoInstrucoes3 = "";
 	private IEntityList<DocumentoCobranca> documentos;
 
 	public void start() {
@@ -66,6 +67,7 @@ public class AlterarVencimentoDocumentosCobrancaProcess extends ProcessBasic imp
 				if(doc.isSelected()){
 					ServiceData sds = new ServiceData(AlterarVencimentoDocumentosCobrancaService.SERVICE_NAME, null);
 					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_DATA, this.data);
+					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_ADENDO_INSTRUCOES_3, this.adendoInstrucoes3);
 					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_DOCUMENTOS, this.documentos);
 					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_USER_SESSION_OPT, this.getUserSession());
 					this.getProcessManager().getServiceManager().execute(sds);
@@ -94,6 +96,14 @@ public class AlterarVencimentoDocumentosCobrancaProcess extends ProcessBasic imp
 
 	public void setData(Calendar data) {
 		this.data = data;
+	}
+	
+	public String getAdendoInstrucoes3() {
+		return adendoInstrucoes3;
+	}
+
+	public void setAdendoInstrucoes3(String adendoInstrucoes3) {
+		this.adendoInstrucoes3 = adendoInstrucoes3;
 	}
 
 	/*

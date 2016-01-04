@@ -2,6 +2,8 @@ package br.com.orionsoft.financeiro.gerenciador.services;
 
 import java.util.Calendar;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobranca;
 import br.com.orionsoft.monstrengo.auditorship.services.UtilsAuditorship;
 import br.com.orionsoft.monstrengo.auditorship.support.EntityAuditValue;
@@ -36,6 +38,7 @@ public class AlterarVencimentoDocumentosCobrancaService extends ServiceBasic {
     public static final String SERVICE_NAME = "AlterarVencimentoDocumentosCobrancaService";
     
     public static final String IN_DATA = "data";
+    public static final String IN_ADENDO_INSTRUCOES_3 = "adendoInstrucoes3";
     public static final String IN_DOCUMENTOS = "documentos";
     public static final String IN_USER_SESSION_OPT = "userSession";
 
@@ -53,6 +56,7 @@ public class AlterarVencimentoDocumentosCobrancaService extends ServiceBasic {
              * Lê os parâmetros obrigatórios. 
              */
             Calendar inData = (Calendar) serviceData.getArgumentList().getProperty(IN_DATA);
+            String inAdendoInstrucoes3 = (String) serviceData.getArgumentList().getProperty(IN_ADENDO_INSTRUCOES_3);
             IEntityList<DocumentoCobranca> inDocumentos = (IEntityList<DocumentoCobranca>) serviceData.getArgumentList().getProperty(IN_DOCUMENTOS);
             UserSession inUserSession = (UserSession) (serviceData.getArgumentList().containsProperty(IN_USER_SESSION_OPT)?serviceData.getArgumentList().getProperty(IN_USER_SESSION_OPT):null);
             boolean enableAudit = inUserSession!=null;
@@ -68,6 +72,9 @@ public class AlterarVencimentoDocumentosCobrancaService extends ServiceBasic {
 
             		/* Altera a data de vencimento */
             		doc.setPropertyValue(DocumentoCobranca.DATA_VENCIMENTO, inData);
+            		/* Adiciona o adendo da instrução 3 */
+            		if(StringUtils.isNotBlank(inAdendoInstrucoes3))
+            			doc.getObject().setInstrucoes3(doc.getObject().getInstrucoes3() + " - " + inAdendoInstrucoes3);
             		UtilsCrud.update(this.getServiceManager(), doc, serviceData);
 
             		/* Prepara a auditoria da alteração se tiver habilitada */
