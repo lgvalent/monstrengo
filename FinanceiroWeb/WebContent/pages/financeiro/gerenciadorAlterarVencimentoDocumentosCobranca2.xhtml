@@ -36,16 +36,19 @@
 		  	<f:facet name="header">
 				<h:outputText value="Descrição" />
 		  	</f:facet>	
-			<h:outputLabel value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.contrato.label}:"/>
+			<h:outputLabel value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.contrato.label}: "/>
 			<h:outputText value="#{item.object.contrato}" />
 			<br/> 
-			<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.documentoCobrancaCategoria.label}:"  escape="false" />
+			<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.documentoCobrancaCategoria.label}: "  escape="false" />
 			<h:outputText value="#{item.object.documentoCobrancaCategoria}"/>
 		
-			<h:outputLabel value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.valor.label}:"/>
+			<h:outputLabel value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.valor.label}: "/>
 			<h:outputText value="#{item.object.valor}">
 				<f:convertNumber type="currency"/>
 			</h:outputText>
+			<br/> 
+			<h:outputText value="#{menuBean.infoMap.DocumentoCobranca.propertiesMetadata.instrucoes3.label}: "  escape="false" />
+			<h:outputText value="#{item.object.instrucoes3}"/>
 		  </h:column>
 		</h:dataTable>
 
