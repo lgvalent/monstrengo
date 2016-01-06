@@ -174,9 +174,11 @@ public class PageParam extends ReportParam
 		result.add(1, new SelectItem(new Integer(20), "20"));
 		result.add(2, new SelectItem(new Integer(50), "50"));
 		result.add(3, new SelectItem(new Integer(100), "100"));
-		result.add(4, new SelectItem(new Integer(150), "150"));
-		result.add(5, new SelectItem(new Integer(200), "200"));
-		
+		result.add(4, new SelectItem(new Integer(200), "200"));
+		result.add(5, new SelectItem(new Integer(400), "400"));
+		result.add(6, new SelectItem(new Integer(800), "800"));
+		result.add(7, new SelectItem(new Integer(1600), "1600"));
+		result.add(8, new SelectItem(new Integer(3200), "3200"));
 		return result;
 	}
 	
