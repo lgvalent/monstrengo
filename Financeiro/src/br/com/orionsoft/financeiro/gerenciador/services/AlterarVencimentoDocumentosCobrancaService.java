@@ -74,7 +74,8 @@ public class AlterarVencimentoDocumentosCobrancaService extends ServiceBasic {
             		doc.setPropertyValue(DocumentoCobranca.DATA_VENCIMENTO, inData);
             		/* Adiciona o adendo da instrução 3 */
             		if(StringUtils.isNotBlank(inAdendoInstrucoes3))
-            			doc.getObject().setInstrucoes3(doc.getObject().getInstrucoes3() + " - " + inAdendoInstrucoes3);
+            			if(!doc.getObject().getInstrucoes3().contains(inAdendoInstrucoes3))
+            				doc.getObject().setInstrucoes3(doc.getObject().getInstrucoes3() + " - " + inAdendoInstrucoes3);
             		UtilsCrud.update(this.getServiceManager(), doc, serviceData);
 
             		/* Prepara a auditoria da alteração se tiver habilitada */
