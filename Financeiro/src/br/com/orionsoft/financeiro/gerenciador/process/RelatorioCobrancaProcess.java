@@ -22,6 +22,7 @@ import br.com.orionsoft.basic.entities.pessoa.Representante;
 import br.com.orionsoft.basic.etiquetas.InserirEtiquetaEnderecoService;
 import br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirCartaCobrancaService;
+import br.com.orionsoft.financeiro.gerenciador.services.ListarPosicaoContratoService;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirCartaCobrancaService.CartaCobrancaModelo;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService.QueryRelatorioCobranca;
@@ -59,6 +60,7 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
     public static final String PROCESS_NAME = "RelatorioCobrancaProcess";
 
 	private ProcessParamEntity<Pessoa> paramPessoa = new ProcessParamEntity<Pessoa>(Pessoa.class, false, this);
+	private Boolean incluirFiliais = false;
 	
 	private ProcessParamEntityList<EscritorioContabil> paramEscritorioContabil= new ProcessParamEntityList<EscritorioContabil>(EscritorioContabil.class, false, this);
 	
@@ -129,7 +131,10 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_POSSUI_ITENS_PAGO, this.possuiItensPagos);
 			
 			if(!this.paramPessoa.isNull())
-				sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_CPF_CNPJ_OPT, this.paramPessoa.getValue().getObject().getDocumento());
+				if(this.incluirFiliais)
+					sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_CPF_CNPJ_OPT, this.paramPessoa.getValue().getObject().getDocumento().substring(0, 9));
+				else
+					sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_CPF_CNPJ_OPT, this.paramPessoa.getValue().getObject().getDocumento());
 			
 			if(!this.paramCnae.isNull())
 				sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_CNAE_ID_OPT, this.paramCnae.getValue().getId());
@@ -426,10 +431,12 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 		return dataLancamentoFinal;
 	}
 
+	public Boolean getIncluirFiliais() {return incluirFiliais;}
+	public void setIncluirFiliais(Boolean incluirFiliais) {this.incluirFiliais = incluirFiliais;}
+	
 	/*==============================================================================
 	 * IRunnableEntityProcess	
 	 *==============================================================================*/
-	
 	public boolean runWithEntity(IEntity<?> entity) {
         super.beforeRun();
 

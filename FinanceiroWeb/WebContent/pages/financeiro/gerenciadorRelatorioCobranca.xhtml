@@ -21,6 +21,8 @@
 				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramPessoa}"/>
 				</ui:include>
+				<h:selectBooleanCheckbox value="#{relatorioCobrancaBean.process.incluirFiliais}"/>
+				<h:outputLabel value="Incluir todas as filiais do CNPJ acima" style="font-size: small" />
 	   			</h:panelGroup>
 
 	   			<h:outputText value="Itens de custos"/>

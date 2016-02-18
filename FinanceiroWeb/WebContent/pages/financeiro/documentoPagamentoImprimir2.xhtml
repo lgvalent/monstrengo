@@ -73,7 +73,7 @@
 			<h:commandButton value="Imprimir documentos" action="#{imprimirDocumentosPagamentoBean.doImprimir}"  disabled="#{imprimirDocumentosPagamentoBean.currentProcess.size==0}" onclick="this.value='Aguarde...'" title="Imprime os documentos selecionados dessa lista na impressora selecionada "/>
 			<h:commandButton value="Gerar etiquetas da lista" action="#{imprimirDocumentosPagamentoBean.doGerarEtiquetas}"  disabled="#{imprimirDocumentosPagamentoBean.currentProcess.size==0}" onclick="this.value='Aguarde...'" title="Gera as etiquetas para os documentos selecionados"/>
 			<h:panelGroup>
-				<h:outputLink value="javascript:popupPageName('../basic/labelView.jsp',0,0, VIEW_LABEL_LIST)" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
+				<h:outputLink value="javascript:popupPageName('../basic/labelView.xhtml',0,0, VIEW_LABEL_LIST)" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
 					<h:outputText value=" Visualizar "/>
 				</h:outputLink>
 				<h:outputText value="a lista de etiquetas geradas para os documentos"/>
@@ -134,7 +134,7 @@
 			<h:commandButton value="Imprimir documentos" action="#{imprimirDocumentosPagamentoBean.doImprimir}"  disabled="#{imprimirDocumentosPagamentoBean.currentProcess.size==0}" onclick="this.value='Aguarde...'" title="Imprime os documentos selecionados dessa lista na impressora selecionada "/>
 			<h:commandButton value="Gerar etiquetas da lista" action="#{imprimirDocumentosPagamentoBean.doGerarEtiquetas}"  disabled="#{imprimirDocumentosPagamentoBean.currentProcess.size==0}" onclick="this.value='Aguarde...'" title="Gera as etiquetas para os documentos selecionados"/>
 			<h:panelGroup>
-				<h:outputLink value="javascript:popupPageName('../basic/labelView.jsp',0,0, VIEW_LABEL_LIST)" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
+				<h:outputLink value="javascript:popupPageName('../basic/labelView.xhtml',0,0, VIEW_LABEL_LIST)" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">
 					<h:outputText value=" Visualizar "/>
 				</h:outputLink>
 				<h:outputText value="a lista de etiquetas geradas para os documentos"/>

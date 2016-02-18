@@ -383,7 +383,8 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		if (inDataVencimentoInicial != null && inDataVencimentoFinal != null)
 			sqlSlave.addWhere("(flancamento.dataVencimento between '"+CalendarUtils.formatToSQLDate(inDataVencimentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataVencimentoFinal)+"')");
 		if (StringUtils.isNotBlank(inCpfCnpj))
-			sqlSlave.addWhere("(pessoa.documento = '"+inCpfCnpj+"')");
+			/* CNPJ, inclusive parciais para pegar todas as filiais. */
+			sqlSlave.addWhere("(pessoa.documento like '"+inCpfCnpj+"%')");
 		switch (inTipoContrato) {
 		case TIPO_CONTRATO_ATIVOS:
 			sqlSlave.addWhere("(fcontrato.inativo = false)");
@@ -440,7 +441,8 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		if (inDataVencimentoInicial != null && inDataVencimentoFinal != null)
 			sqlMaster.addWhere("(lancamento.dataVencimento between '"+CalendarUtils.formatToSQLDate(inDataVencimentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataVencimentoFinal)+"')");
 		if (StringUtils.isNotBlank(inCpfCnpj))
-			sqlMaster.addWhere("(pessoa.documento = '"+inCpfCnpj+"')");
+			/* CNPJ, inclusive parciais para pegar todas as filiais. */
+			sqlMaster.addWhere("(pessoa.documento like '"+inCpfCnpj+"%')");
 		switch (inTipoContrato) {
 		case TIPO_CONTRATO_ATIVOS:
 			sqlMaster.addWhere("(contrato.inativo = false)");

@@ -129,7 +129,7 @@
 			<p:commandButton ajax="true" value="Imprimir documentos" action="#{imprimirDocumentosCobrancaBean.doImprimir}"  disabled="#{imprimirDocumentosCobrancaBean.currentProcess.size==0}" title="Imprime os documentos marcados na impressora selecionada " update="growl" widgetVar="commandButtonImprimir" onstart="commandButtonImprimir.disable()" oncomplete="commandButtonImprimir.enable()" />
    			<p:commandButton ajax="true" value="Gerar etiquetas da lista" action="#{imprimirDocumentosCobrancaBean.doGerarEtiquetas}"  disabled="#{imprimirDocumentosCobrancaBean.currentProcess.size==0}" title="Gera as etiquetas para os documentos selecionados" update="growl" widgetVar="commandButtonEtiqueta" onstart="commandButtonEtiqueta.disable()" oncomplete="commandButtonEtiqueta.enable()" />
 			<p:commandButton type="button" value="Visualizar etiquetas" title="Abre a tela de listagem de todas as suas etiquetas."
-				onclick="javascript:popupPageName('../basic/labelView.jsp',0,0, VIEW_LABEL_LIST)" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}"/>
+				onclick="javascript:popupPageName('../basic/labelView.xhtml',0,0, VIEW_LABEL_LIST)" rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}"/>
 		</h:panelGroup>
 	</ui:define>
 	<ui:define name="result">
