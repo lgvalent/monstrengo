@@ -1,3 +1,11 @@
+-- Lucio - 03/09/2015 - Regime Tributário PJ: Simples, Lucro presumido e Lucro Real
+alter table basic_pessoa 
+add regimeTributario varchar(2);
+
+update basic_pessoa 
+set regimeTributario = "LR";
+
+
 -- Lucio - 06/11/2013 - Escritório contábil aceita PF como responsável
 ALTER TABLE `basic_escritorio_contabil` 
 	DROP FOREIGN KEY `basic_escritorio_contabil_ibfk_3`;

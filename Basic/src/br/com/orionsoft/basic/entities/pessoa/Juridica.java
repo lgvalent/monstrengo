@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -57,6 +59,8 @@ public class Juridica extends Pessoa
     private int numeroFuncionarios;
     
     private BigDecimal capitalSocial;
+    
+    private RegimeTributario regimeTributario;
     
     /**
      * detalhes sobre o relacionamento one-to-one
@@ -184,7 +188,16 @@ public class Juridica extends Pessoa
         this.funcionarios = funcionarios;
     }
     
-    public String toString() {
+    @Enumerated(EnumType.STRING)
+    @Column(length=RegimeTributario.COLUMN_DISCRIMINATOR_LENGTH)
+    public RegimeTributario getRegimeTributario() {
+		return regimeTributario;
+	}
+	public void setRegimeTributario(RegimeTributario regimeTributario) {
+		this.regimeTributario = regimeTributario;
+	}
+
+	public String toString() {
         String result = getNome();
         if(StringUtils.isNotEmpty(super.getDocumento()))
         	result += " (CNPJ:" + super.getDocumento() + ")";
