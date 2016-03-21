@@ -3,6 +3,7 @@ package br.com.orionsoft.basic.entities;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
+import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
@@ -40,8 +41,14 @@ public class ContratoDvo extends DvoBasic<Contrato> {
 	public void afterUpdate(IEntity<Contrato> entity, UserSession userSession, ServiceData serviceData) throws DvoException, BusinessException {
         DvoException dvoExceptions = new DvoException(new MessageList());
 
+        /* Preenche a data de Rescisão quando marcado inativo */
+        if(entity.getObject().isInativo() && entity.getObject().getDataRescisao() == null){
+        	entity.getObject().setDataRescisao(CalendarUtils.getCalendar());
+        }
+
         try {
 			validarCategoriaRepetida(entity, serviceData);
+			
 		} catch (DvoException e) {
 			dvoExceptions.getErrorList().addAll(e.getErrorList());
 		} 
