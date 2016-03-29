@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='ISO-8859-1' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <!-- Uma variável 'itemId' deve ser fornecida para esta visão -->
 <!-- USO
 	<ui:include src="/public/basic/tiles/checkItems.xhtml">
@@ -11,4 +14,4 @@
 	<input type="image" src="../../public/basic/img/checkNone.png" title="Desmarcar todos os itens" alt="Desmarcar" onclick="return clearAll(this.form, '#{itemId}')" />
 	<input type="image" src="../../public/basic/img/checkRange.png" title="Marca o intervalo entre as marcas atuais" alt="Intervalo" onclick="return checkRange(this.form, '#{itemId}')" />
 	<input type="image" src="../../public/basic/img/checkInverse.png" title="Inverte a marcação atual" alt="Inverter" onclick="return inverseAll(this.form, '#{itemId}')" />
-</html>
+</ui:composition>

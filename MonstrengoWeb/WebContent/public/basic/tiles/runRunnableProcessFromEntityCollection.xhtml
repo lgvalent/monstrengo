@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='ISO-8859-1' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -39,10 +38,10 @@
 						value="#{runnableView.runnableProcessEntry.info.label()}"/>
 				</h:commandLink>
 				<h:outputText
-					value="&lt;br&gt;&nbsp;&nbsp; #{runnableView.runnableProcessEntry.info.hint()}"
+					value="&lt;br&gt; #{runnableView.runnableProcessEntry.info.hint()}"
 					styleClass="description" escape="false" />
 			</h:panelGroup>
 		</h:column>
 	</h:dataTable>
 </h:panelGroup>
-</html>
+</ui:composition>

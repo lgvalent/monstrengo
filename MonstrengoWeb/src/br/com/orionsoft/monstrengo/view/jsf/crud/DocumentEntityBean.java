@@ -2,6 +2,7 @@ package br.com.orionsoft.monstrengo.view.jsf.crud;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.faces.bean.ManagedBean;
@@ -55,25 +56,9 @@ public class DocumentEntityBean extends CrudBasicBean
 
     public CompileDocumentProcess compileDocumentProcess = null;
 
-    public List<FieldEntry> documentFieldsEntry = new ArrayList<FieldEntry>();
-    public List<FieldEntry> getDocumentFieldsEntry(){return documentFieldsEntry;}
+    public List<Map.Entry<String, String>> documentFieldsEntry = new ArrayList<Map.Entry<String,String>>();
+    public List<Map.Entry<String, String>> getDocumentFieldsEntry(){return documentFieldsEntry;}
     
-    public class FieldEntry{
-    	private String key;
-    	private String value;
-    	
-    	public FieldEntry(String key, String value){
-    		this.key = key;
-    		this.value = value;
-    	}
-    	
-		public String getKey(){return key;}
-		public void setKey(String key){this.key = key;}
-		
-		public String getValue(){return value;}
-		public void setValue(String value){this.value = value;}
-    }
-
     /**
      * Esta action permite imprimir uma lista de entidades utilizando um modelo de documento.
      * Cada documento é compilado separadamente. O seu código HTML é então armazenado em um buffer
@@ -102,7 +87,7 @@ public class DocumentEntityBean extends CrudBasicBean
     				this.resultDocumentEntityName = getCompileDocumentProcess().getModelDocumentEntity().getProperty(ModelDocumentEntity.NAME).getValue().getAsString();
     				this.documentFieldsEntry.clear();
     				for(Entry<String,String> entry: getCompileDocumentProcess().getDocumentFieldsMap().entrySet())
-    					this.documentFieldsEntry.add(new FieldEntry(entry.getKey().toString(), entry.getValue().toString()));
+    					this.documentFieldsEntry.add(entry);
     				
     				firstTime = false;
     			}
@@ -142,7 +127,7 @@ public class DocumentEntityBean extends CrudBasicBean
         	this.resultDocumentEntityName = getCompileDocumentProcess().getModelDocumentEntity().getProperty(ModelDocumentEntity.NAME).getValue().getAsString();
         	this.documentFieldsEntry.clear();
         	for(Entry<String, String> entry: getCompileDocumentProcess().getDocumentFieldsMap().entrySet())
-        		this.documentFieldsEntry.add(new FieldEntry(entry.getKey().toString(), entry.getValue().toString()));
+        		this.documentFieldsEntry.add(entry);
         	
         	FacesUtils.addInfoMsg("Documento gerado com SUCESSO");
         	FacesUtils.addInfoMsgs(getCompileDocumentProcess().getMessageList());
@@ -206,7 +191,7 @@ public class DocumentEntityBean extends CrudBasicBean
 
             	this.documentFieldsEntry.clear();
             	for(Entry<String, String> entry: getCompileDocumentProcess().getDocumentFieldsMap().entrySet())
-            		this.documentFieldsEntry.add(new FieldEntry(entry.getKey().toString(), entry.getValue().toString()));
+            		this.documentFieldsEntry.add(entry);
             	
             	FacesUtils.addInfoMsg("Documento gerado com SUCESSO");
             	FacesUtils.addInfoMsgs(getCompileDocumentProcess().getMessageList());
@@ -301,7 +286,7 @@ public class DocumentEntityBean extends CrudBasicBean
     {
         log.debug("::Iniciando actionPrint");
         
-    	for(FieldEntry entry: this.documentFieldsEntry)
+    	for(Map.Entry<String, String> entry: this.documentFieldsEntry)
     		this.compileDocumentProcess.getDocumentFieldsMap().put(entry.getKey(), entry.getValue());
     	
     	/* A visão FACES_VIEW_DOCUMENT_VIEW pegará o documento compilado diretamente do processo.

@@ -1,12 +1,11 @@
 <?xml version='1.0' encoding='ISO-8859-1' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:outputLabel value="Crie ordens avançadas para sua pesquisa: "
-	style="color: #0000FF; font-size:smaller;" />
+	style="color: #0000FF; font-size:smaller;" /><br/>
 <h:selectOneListbox id="orderPath"
 	value="#{queryBean.newOrderParam.propertyPath}" style="height: 150px"
 	title="Escolha a propriedade utilizada na ordenação">
@@ -69,4 +68,4 @@
 		<h:outputText value="#{item}" />
 	</h:column>
 </h:dataTable>
-</html>
+</ui:composition>

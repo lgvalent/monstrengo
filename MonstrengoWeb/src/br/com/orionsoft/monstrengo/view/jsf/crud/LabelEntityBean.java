@@ -70,7 +70,7 @@ public class LabelEntityBean extends CrudBasicBean
 
                 this.getLabelBean().doReload();
                 
-                FacesUtils.addInfoMsg("Etiqueta gerada com SUCESSO.<br>Consulte sua <a href='../basic/labelView.jsp' target='_blank'>Lista de etiquetas</a>");
+                FacesUtils.addInfoMsg("Etiqueta gerada com SUCESSO.<br>Consulte sua <a href='../basic/labelView.xhtml' target='_blank'>Lista de etiquetas</a>");
             	FacesUtils.addInfoMsgs(process.getMessageList());
             }else{
             	FacesUtils.addErrorMsg("FALHA ao criar a etiqueta");
