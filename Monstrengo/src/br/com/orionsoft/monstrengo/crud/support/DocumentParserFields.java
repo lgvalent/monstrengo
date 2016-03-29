@@ -1,12 +1,11 @@
 package br.com.orionsoft.monstrengo.crud.support;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import org.apache.commons.lang.StringUtils;
 
-import br.com.orionsoft.monstrengo.crud.support.CrudExpression;
-import br.com.orionsoft.monstrengo.crud.support.DocumentParserFields;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
@@ -36,7 +35,8 @@ public class DocumentParserFields {
 	 * @throws BusinessException
 	 */
 	public static Map<String, String> findFields(final String documentSource) throws BusinessException{
-		Map<String, String> mapFields = new HashMap<String, String>();
+		/* Uses a SortedMap implementation to keep entry order */
+		Map<String, String> mapFields = new LinkedHashMap<String, String>();
 
 		try{
 			int i=0;
