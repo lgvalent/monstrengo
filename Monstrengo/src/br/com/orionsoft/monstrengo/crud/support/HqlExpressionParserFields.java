@@ -1,7 +1,7 @@
 package br.com.orionsoft.monstrengo.crud.support;
 
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -51,7 +51,7 @@ public class HqlExpressionParserFields {
 	 * @throws BusinessException
 	 */
 	public static Map<String, HqlExpressionField> findFields(final String expressionSource) throws BusinessException{
-		Map<String, HqlExpressionField> mapFields = new HashMap<String, HqlExpressionField>();
+		Map<String, HqlExpressionField> mapFields = new LinkedHashMap<String, HqlExpressionField>();
 		
 		if (expressionSource != null){
 			try{
