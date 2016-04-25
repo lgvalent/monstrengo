@@ -53,13 +53,13 @@ public class ExcluirMovimentoTransferenciaProcess extends ProcessBasic implement
             			this.getUserSession(), 
             			LancamentoMovimento.class, 
             			(Long) sd.getOutputData(ExcluirMovimentoTransferenciaService.OUT_LANCAMENTO_MOVIMENTO_ID_1), 
-            			"Transferência:" + this.justificativa, null);
+            			"Transferência:" + this.justificativa + ":'"+ this.lancamentoMovimento.toString() + "'", null);
             	
             	UtilsAuditorship.auditDelete(this.getProcessManager().getServiceManager(), 
             			this.getUserSession(), 
             			LancamentoMovimento.class, 
             			(Long) sd.getOutputData(ExcluirMovimentoTransferenciaService.OUT_LANCAMENTO_MOVIMENTO_ID_2), 
-            			"Transferência:" + this.justificativa, null);
+            			"Transferência:" + this.justificativa + ":'"+ this.lancamentoMovimento.getObject().getTransferencia().toString() + "'", null);
             }
 
             /* Pegas as mensagens do serviço */
