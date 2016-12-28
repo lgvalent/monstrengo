@@ -41,7 +41,7 @@ public class GerenciadorDocumentoCheque extends GerenciadorDocumentoPagamentoBas
     public static final String GERENCIADOR_NOME = "GerenciadorDocumentoCheque";
 
 	public static final String LAYOUT_0 = "Nenhum documento impresso";
-	public static final String LAYOUT_1 = "Folha de cheque padrão FEBRABAN";
+	public static final String LAYOUT_1 = "Modelo conforme Documento de Pagamento";
 //	public static final String LAYOUT_2 = "Impressora de cheque";
 	
 	public GerenciadorDocumentoCheque() {

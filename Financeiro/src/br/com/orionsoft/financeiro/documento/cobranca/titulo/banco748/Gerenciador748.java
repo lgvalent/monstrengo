@@ -15,6 +15,7 @@ import br.com.orionsoft.basic.entities.Contrato;
 import br.com.orionsoft.basic.entities.pessoa.Pessoa;
 import br.com.orionsoft.cnab.ICampo;
 import br.com.orionsoft.cnab.IRegistro;
+import br.com.orionsoft.cnab.banco748.cnab400.DetalheRemessaComRegistro;
 import br.com.orionsoft.cnab.banco748.cnab400.DetalheRemessaSemRegistro;
 import br.com.orionsoft.cnab.banco748.cnab400.DetalheRetornoSemRegistro;
 import br.com.orionsoft.cnab.banco748.cnab400.Header;
@@ -269,7 +270,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 
 	public String formatarAgenciaCedente(IEntity<? extends DocumentoCobranca> documento) throws DocumentoCobrancaException{
 		DocumentoTitulo titulo = (DocumentoTitulo)documento.getObject();
-		return titulo.getCedente().getContaBancaria().getAgenciaCodigo() + " / " + br.com.orionsoft.monstrengo.core.util.StringUtils.formatNumber(titulo.getCedente().getCedenteCodigo(), CEDENTE_CODIGO_LENGTH, true);
+		return titulo.getCedente().getContaBancaria().getAgenciaCodigo() + "." + POSTO + "." + br.com.orionsoft.monstrengo.core.util.StringUtils.formatNumber(titulo.getCedente().getCedenteCodigo(), CEDENTE_CODIGO_LENGTH, true);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -389,7 +390,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 		}catch (BusinessException e) {
 			throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ARQUIVO"));
 		} catch (Exception e) {
-			throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA"));
+			throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA", e.getMessage()));
 		}
 
 		BigDecimal tituloOkValorTotal = new BigDecimal("0"); //Totalizador dos valores dos titulos OK que puderam ser inseridos no arquivo de remessa
@@ -406,46 +407,16 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 			titulosTotal += 1;
 			tituloOk = true;
 
-			try {
-				detalhe = new DetalheRemessaSemRegistro("");
-				instrucao = new Instrucao("");
-			} catch (Exception e1) {
-				throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA"));
-			}
-
 			try{
-				/* Construindo DetalheSemRegistro */
-				setRegistro(detalhe, DetalheRemessaSemRegistro.INSTRUCAO, "INSTRUCAO", UtilsOcorrencia.obterInstrucaoBanco(oTitulo.getUltimaOcorrencia().getCodigo(), MAPA_INSTRUCOES));
-				setRegistro(detalhe, DetalheRemessaSemRegistro.NOSSO_NUMERO, "NOSSO_NUMERO", oTitulo.getNumeroDocumento(), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.MULTA_POR_ATRASO, "MULTA_POR_ATRASO", oTitulo.getDocumentoCobrancaCategoria().getMultaAtraso(), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.SEU_NUMERO, "SEU_NUMERO", oTitulo.getId()+"", true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.DATA_VENCIMENTO, "DATA_VENCIMENTO", CalendarUtils.formatDate("ddMMyy", oTitulo.getDataVencimento()), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.VALOR_TITULO, "VALOR_TITULO", oTitulo.getValor(), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.DATA_EMISSAO, "DATA_EMISSAO", CalendarUtils.formatDate("ddMMyy", oTitulo.getData()), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.VALOR_PERC_JUROS_POR_DIA_ATRASO, "VALOR_PERC_JUROS_POR_DIA_ATRASO", oTitulo.getDocumentoCobrancaCategoria().getJurosMora().divide(new BigDecimal(30), 4, RoundingMode.HALF_UP), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.TIPO_PESSOA_SACADO, "TIPO_PESSOA_SACADO", (oTitulo.getContrato().getPessoa().isFisica()?"1":"2"), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.CPF_CNPJ_SACADO, "CPF_CNPJ_SACADO", oTitulo.getContrato().getPessoa().getDocumento(), true);
-				/*Lucio 20100822 - Coloca o código do escritório antes do nome do sacado para facilitar a organizaçã */
-				String nomeSacado = null;
-				if(oTitulo.getContrato().getPessoa().getEscritorioContabil() != null)
-					nomeSacado = "[" + oTitulo.getContrato().getPessoa().getEscritorioContabil().getId() + "]" + oTitulo.getContrato().getPessoa().getNome();
-				else
-					nomeSacado = "[nd]" + oTitulo.getContrato().getPessoa().getNome();
-					
-				setRegistro(detalhe, DetalheRemessaSemRegistro.NOME_SACADO, "NOME_SACADO", StringUtils.removeAccent(nomeSacado.toUpperCase()), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.ENDERECO_SACADO, "ENDERECO_SACADO", StringUtils.removeAccent(UtilsRemessa.formatarEndereco(oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia(), DetalheRemessaSemRegistro.ENDERECO_SACADO.getSize())).toUpperCase(), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.CEP_SACADO, "CEP_SACADO", oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia().getCep(), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.CIDADE_SACADO, "CIDADE_SACADO", StringUtils.removeAccent(oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia().getMunicipio().getNome().toUpperCase()), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.ESTADO_SACADO, "ESTADO_SACADO", oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia().getMunicipio().getUf().getSigla(), true);
-				setRegistro(detalhe, DetalheRemessaSemRegistro.SEQUENCIAL_REGISTRO, "SEQUENCIAL_REGISTRO", ++numeroSequencial);
-
-				/* Construindo Instrução */
-				setRegistro(instrucao, Instrucao.NOSSO_NUMERO, "NOSSO_NUMERO", oTitulo.getNumeroDocumento(), true);
-				setRegistro(instrucao, Instrucao.INSTRUCAO_1, "MENSAGEM_1", br.com.orionsoft.monstrengo.core.util.StringUtils.removeAccent(verificarNull(oTitulo.getDocumentoCobrancaCategoria().getInstrucoes1())).toUpperCase(), false);
-				setRegistro(instrucao, Instrucao.INSTRUCAO_2, "MENSAGEM_2", br.com.orionsoft.monstrengo.core.util.StringUtils.removeAccent(verificarNull(oTitulo.getDocumentoCobrancaCategoria().getInstrucoes2())).toUpperCase(), false);
-				setRegistro(instrucao, Instrucao.INSTRUCAO_3, "MENSAGEM_3", br.com.orionsoft.monstrengo.core.util.StringUtils.removeAccent(verificarNull(oTitulo.getInstrucoes3())).toUpperCase(), false);
-				setRegistro(instrucao, Instrucao.SEU_NUMERO, "SEU_NUMERO", oTitulo.getId()+"", true);
-				setRegistro(instrucao, Instrucao.SEQUENCIAL_REGISTRO, "SEQUENCIAL_REGISTRO", ++numeroSequencial);
+				//CarteiraCodigo: 1-Cobranca com registro 3-Sem registro
+				switch (oTitulo.getCedente().getCarteiraCodigo().charAt(0)) {
+				case '1': detalhe = createDetalheComRegistro(++numeroSequencial, oTitulo); break;
+				case '3': detalhe = createDetalheSemRegistro(++numeroSequencial, oTitulo); break;
+				default:
+					throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA", "Código da carteira inválido " + oTitulo.getCedente().getCarteiraCodigo()));
+				}
+				
+				instrucao = createInstrucao(++numeroSequencial, oTitulo);
 
 				/* Atribuindo ocorrência ao titulo */
 				try{
@@ -597,6 +568,114 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 
 	}
 
+	/**
+	 * @param numeroSequencial
+	 * @param instrucao
+	 * @param oTitulo
+	 * @return
+	 * @throws BusinessException
+	 */
+	private IRegistro createInstrucao(long numeroSequencial, DocumentoTitulo oTitulo) throws BusinessException {
+		try {
+			IRegistro instrucao = new Instrucao("");
+			/* Construindo Instrução */
+			setRegistro(instrucao, Instrucao.NOSSO_NUMERO, "NOSSO_NUMERO", oTitulo.getNumeroDocumento(), true);
+			setRegistro(instrucao, Instrucao.INSTRUCAO_1, "MENSAGEM_1", br.com.orionsoft.monstrengo.core.util.StringUtils.removeAccent(verificarNull(oTitulo.getDocumentoCobrancaCategoria().getInstrucoes1())).toUpperCase(), false);
+			setRegistro(instrucao, Instrucao.INSTRUCAO_2, "MENSAGEM_2", br.com.orionsoft.monstrengo.core.util.StringUtils.removeAccent(verificarNull(oTitulo.getDocumentoCobrancaCategoria().getInstrucoes2())).toUpperCase(), false);
+			setRegistro(instrucao, Instrucao.INSTRUCAO_3, "MENSAGEM_3", br.com.orionsoft.monstrengo.core.util.StringUtils.removeAccent(verificarNull(oTitulo.getInstrucoes3())).toUpperCase(), false);
+			setRegistro(instrucao, Instrucao.SEU_NUMERO, "SEU_NUMERO", oTitulo.getId()+"", true);
+			setRegistro(instrucao, Instrucao.SEQUENCIAL_REGISTRO, "SEQUENCIAL_REGISTRO", numeroSequencial);
+			return instrucao;
+			
+		} catch (Exception e1) {
+			throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA", e1.getMessage()));
+		}
+	}
+
+	private IRegistro createDetalheSemRegistro(long numeroSequencial, DocumentoTitulo oTitulo) throws BusinessException {
+
+		try {
+			IRegistro detalhe = new DetalheRemessaSemRegistro(""); 
+
+			/* Construindo DetalheSemRegistro */
+			setRegistro(detalhe, DetalheRemessaSemRegistro.INSTRUCAO, "INSTRUCAO", UtilsOcorrencia.obterInstrucaoBanco(oTitulo.getUltimaOcorrencia().getCodigo(), MAPA_INSTRUCOES));
+			setRegistro(detalhe, DetalheRemessaSemRegistro.NOSSO_NUMERO, "NOSSO_NUMERO", oTitulo.getNumeroDocumento(), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.MULTA_POR_ATRASO, "MULTA_POR_ATRASO", oTitulo.getDocumentoCobrancaCategoria().getMultaAtraso(), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.SEU_NUMERO, "SEU_NUMERO", oTitulo.getId()+"", true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.DATA_VENCIMENTO, "DATA_VENCIMENTO", CalendarUtils.formatDate("ddMMyy", oTitulo.getDataVencimento()), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.VALOR_TITULO, "VALOR_TITULO", oTitulo.getValor(), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.DATA_EMISSAO, "DATA_EMISSAO", CalendarUtils.formatDate("ddMMyy", oTitulo.getData()), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.VALOR_PERC_JUROS_POR_DIA_ATRASO, "VALOR_PERC_JUROS_POR_DIA_ATRASO", oTitulo.getDocumentoCobrancaCategoria().getJurosMora().divide(new BigDecimal(30), 4, RoundingMode.HALF_UP), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.TIPO_PESSOA_SACADO, "TIPO_PESSOA_SACADO", (oTitulo.getContrato().getPessoa().isFisica()?"1":"2"), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.CPF_CNPJ_SACADO, "CPF_CNPJ_SACADO", oTitulo.getContrato().getPessoa().getDocumento(), true);
+
+			setRegistro(detalhe, DetalheRemessaSemRegistro.NOME_SACADO, "NOME_SACADO", StringUtils.removeAccent(getNomeSacado(oTitulo).toUpperCase()), true);
+
+			setRegistro(detalhe, DetalheRemessaSemRegistro.ENDERECO_SACADO, "ENDERECO_SACADO", StringUtils.removeAccent(UtilsRemessa.formatarEndereco(oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia(), DetalheRemessaSemRegistro.ENDERECO_SACADO.getSize())).toUpperCase(), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.CEP_SACADO, "CEP_SACADO", oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia().getCep(), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.CIDADE_SACADO, "CIDADE_SACADO", StringUtils.removeAccent(oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia().getMunicipio().getNome().toUpperCase()), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.ESTADO_SACADO, "ESTADO_SACADO", oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia().getMunicipio().getUf().getSigla(), true);
+			setRegistro(detalhe, DetalheRemessaSemRegistro.SEQUENCIAL_REGISTRO, "SEQUENCIAL_REGISTRO", numeroSequencial);
+			return detalhe;
+		} catch (Exception e1) {
+			throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA"));
+		}
+	}
+
+	private IRegistro createDetalheComRegistro(long numeroSequencial, DocumentoTitulo oTitulo) throws BusinessException {
+
+		try {
+			IRegistro detalhe = new DetalheRemessaComRegistro(""); 
+
+			/* Construindo DetalheSemRegistro */
+			setRegistro(detalhe, DetalheRemessaComRegistro.NOSSO_NUMERO, "NOSSO_NUMERO", oTitulo.getNumeroDocumento(), true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.DATA_INSTRUCAO, "DATA_INSTRUCAO", CalendarUtils.formatDate("yyyyMMdd", CalendarUtils.getCalendar()), true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.POSTAGEM_TITULO, "POSTAGEM_TITULO", "N", true); // S: Postar para o SACADO N: Remeter para o Cedente
+			setRegistro(detalhe, DetalheRemessaComRegistro.EMISSAO_BOLETO, "EMISSAO_BOLETO", oTitulo.getLayoutId() == GerenciadorDocumentoTitulo.LAYOUT_INT_1?"A":"B", true); // A: Impressão Sicredi, B: Impressão pelo Cedente
+			setRegistro(detalhe, DetalheRemessaComRegistro.MULTA_POR_ATRASO, "MULTA_POR_ATRASO", oTitulo.getDocumentoCobrancaCategoria().getMultaAtraso(), true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.INSTRUCAO, "INSTRUCAO", UtilsOcorrencia.obterInstrucaoBanco(oTitulo.getUltimaOcorrencia().getCodigo(), MAPA_INSTRUCOES));
+			setRegistro(detalhe, DetalheRemessaComRegistro.SEU_NUMERO, "SEU_NUMERO", oTitulo.getId()+"", true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.DATA_VENCIMENTO, "DATA_VENCIMENTO", CalendarUtils.formatDate("ddMMyy", oTitulo.getDataVencimento()), true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.VALOR_TITULO, "VALOR_TITULO", oTitulo.getValor(), true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.ACEITE_TITULO, "ACEITE_TITULO", oTitulo.getCedente().isAceite()?"S":"N", true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.DATA_EMISSAO, "DATA_EMISSAO", CalendarUtils.formatDate("ddMMyy", oTitulo.getData()), true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.VALOR_PERC_JUROS_POR_DIA_ATRASO, "VALOR_PERC_JUROS_POR_DIA_ATRASO", oTitulo.getDocumentoCobrancaCategoria().getJurosMora().divide(new BigDecimal(30), 4, RoundingMode.HALF_UP), true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.DATA_LIMITE_CONCESSAO_DESCONTO, "DATA_LIMITE_CONCESSAO_DESCONTO", CalendarUtils.formatDate("ddMMyy", oTitulo.getDataVencimento()), true);
+//			setRegistro(detalhe, DetalheRemessaComRegistro.VALOR_PERC_DESCONTO, "VALOR_PERC_DESCONTO", , true);
+//			setRegistro(detalhe, DetalheRemessaComRegistro.VALOR_ABATIMENTO, "VALOR_ABATIMENTO", , true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.TIPO_PESSOA_SACADO, "TIPO_PESSOA_SACADO", (oTitulo.getContrato().getPessoa().isFisica()?"1":"2"), true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.CPF_CNPJ_SACADO, "CPF_CNPJ_SACADO", oTitulo.getContrato().getPessoa().getDocumento(), true);
+
+			setRegistro(detalhe, DetalheRemessaComRegistro.NOME_SACADO, "NOME_SACADO", StringUtils.removeAccent(getNomeSacado(oTitulo).toUpperCase()), true);
+
+			setRegistro(detalhe, DetalheRemessaComRegistro.ENDERECO_SACADO, "ENDERECO_SACADO", StringUtils.removeAccent(UtilsRemessa.formatarEndereco(oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia(), DetalheRemessaComRegistro.ENDERECO_SACADO.getSize())).toUpperCase(), true);
+//			setRegistro(detalhe, DetalheRemessaComRegistro.CODIGO_SACADO_COOPERATIVA, "CODIGO_SACADO_COOPERATIVA", , true);
+			setRegistro(detalhe, DetalheRemessaComRegistro.CEP_SACADO, "CEP_SACADO", oTitulo.getContrato().getPessoa().getEnderecoCorrespondencia().getCep(), true);
+//			setRegistro(detalhe, DetalheRemessaComRegistro.CODIGO_SACADO_CLIENTE, "CODIGO_SACADO_CLIENTE", , true);
+//			setRegistro(detalhe, DetalheRemessaComRegistro.CPF_CNPJ_AVALISTA, "CPF_CNPJ_AVALISTA", "", false);
+//			setRegistro(detalhe, DetalheRemessaComRegistro.NOME_AVALISTA, "NOME_AVALISTA", "", false);
+			setRegistro(detalhe, DetalheRemessaComRegistro.SEQUENCIAL_REGISTRO, "SEQUENCIAL_REGISTRO", numeroSequencial);
+			return detalhe;
+		} catch (Exception e1) {
+			throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA"));
+		}
+	}
+
+	/**
+	 * Coloca o codigo do escritório contábil no início do nome para facilitar a separação dos títulos
+	 * @param oTitulo
+	 * @return
+	 */
+	private String getNomeSacado(DocumentoTitulo oTitulo) {
+		/*Lucio 20100822 - Coloca o código do escritório antes do nome do sacado para facilitar a organizaçã */
+		String nomeSacado = null;
+		if(oTitulo.getContrato().getPessoa().getEscritorioContabil() != null)
+			nomeSacado = "[" + oTitulo.getContrato().getPessoa().getEscritorioContabil().getId() + "]" + oTitulo.getContrato().getPessoa().getNome();
+		else
+			nomeSacado = "[nd]" + oTitulo.getContrato().getPessoa().getNome();
+		return nomeSacado;
+	}
+
 	public List<DocumentoRetornoResultado> receberRetorno(IEntity<? extends ConvenioCobranca> convenioCobranca, InputStream dados, ServiceData serviceDataOwner) throws DocumentoCobrancaException{
 		Cedente oCedente = (Cedente) convenioCobranca.getObject();
 		if (oCedente.getLayoutCnab().equals(GerenciadorDocumentoTitulo.CNAB_400)){
@@ -606,6 +685,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 			try {
 				log.debug("Lendo os dados do retorno");
 				retorno = new Retorno(dados, Header.class, Trailer.class, new Class<?>[]{DetalheRetornoSemRegistro.class});
+				
 			} catch (Exception e) {
 				log.debug("Erro ao preparar os dados do retorno:" + e.getMessage());
 				throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_INTERPRETANDO_ARQUIVO", "(Nome do arquivo não disponível) MSG:" + e.getMessage()));		
@@ -621,7 +701,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 			BigDecimal tituloNoOkValorTotal = new BigDecimal("0"); //Totalizador dos valores dos titulos NOOK
 			
 			/*
-			 * Andre, 19/07/2008: estava retornando null ao invés de List<DocumentoRetornoResultado>, resultado
+			 * Andre, 19/07/2008: estava retornando null ao invés de List<DocumentoRetornoResultado>, resultando
 			 * em erro de NullPointer no serviço de receberRetorno de documento de cobrança.
 			 * TODO - verificar se precisa tirar todos as lista de mensagens (tituloOk e titulosNoOk por exemplo)
 			 */
@@ -642,7 +722,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 					log.debug("Obtendo informações do arquivo de retorno para fazer a pesquisa de titulos");    
 
 					String nossoNumero = detalhes.get(DetalheRetornoSemRegistro.NOSSO_NUMERO);
-					/* Lucio 20140901: Gera um código com a Data, Número Retorno e Número da linha do DETALHE para detectar */
+					/* Lucio 20140901: Gera um código com a Data, Número Retorno e Número da linha do DETALHE para detectar ocorrências repetidas */
 					String codigoControle = "C" + retorno.getArquivo().getHeader().get(Header.CODIGO_CEDENTE) + " D" + retorno.getArquivo().getHeader().get(Header.DATA_GRAVACAO_ARQUIVO) + " R" + retorno.getArquivo().getHeader().get(Header.NUMERO_REMESSA) + " O" + detalhes.get(DetalheRetornoSemRegistro.OCORRENCIA) + " L" + detalhes.get(DetalheRetornoSemRegistro.NUMERO_SEQUENCIAL_REGISTRO);   
 
 					log.debug("Pesquisando um titulo atraves do NOSSO_NUMERO");
