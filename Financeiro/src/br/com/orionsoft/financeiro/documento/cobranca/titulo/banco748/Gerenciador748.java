@@ -630,7 +630,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 			/* Construindo DetalheSemRegistro */
 			setRegistro(detalhe, DetalheRemessaComRegistro.NOSSO_NUMERO, "NOSSO_NUMERO", oTitulo.getNumeroDocumento(), true);
 			setRegistro(detalhe, DetalheRemessaComRegistro.DATA_INSTRUCAO, "DATA_INSTRUCAO", CalendarUtils.formatDate("yyyyMMdd", CalendarUtils.getCalendar()), true);
-			setRegistro(detalhe, DetalheRemessaComRegistro.POSTAGEM_TITULO, "POSTAGEM_TITULO", "N", true); // S: Postar para o SACADO N: Remeter para o Cedente
+			setRegistro(detalhe, DetalheRemessaComRegistro.POSTAGEM_TITULO, "POSTAGEM_TITULO", "S", true); // S: Postar para o SACADO N: Remeter para o Cedente
 			setRegistro(detalhe, DetalheRemessaComRegistro.EMISSAO_BOLETO, "EMISSAO_BOLETO", oTitulo.getLayoutId() == GerenciadorDocumentoTitulo.LAYOUT_INT_1?"A":"B", true); // A: Impressão Sicredi, B: Impressão pelo Cedente
 			setRegistro(detalhe, DetalheRemessaComRegistro.MULTA_POR_ATRASO, "MULTA_POR_ATRASO", oTitulo.getDocumentoCobrancaCategoria().getMultaAtraso(), true);
 			setRegistro(detalhe, DetalheRemessaComRegistro.INSTRUCAO, "INSTRUCAO", UtilsOcorrencia.obterInstrucaoBanco(oTitulo.getUltimaOcorrencia().getCodigo(), MAPA_INSTRUCOES));
