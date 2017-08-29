@@ -783,7 +783,7 @@ public class RelatorioCadastroService extends ServiceBasic {
 		TODOS("Todos"),
 		PRINCIPAL("Principal"),
 		FILIAL("Filial"),
-		UNICO("ï¿½nico");
+		UNICO("Único");
 
 		private String nome;
 
@@ -830,9 +830,9 @@ public class RelatorioCadastroService extends ServiceBasic {
  * Constantes para montar a lista de opcoes para agrupamento
  */
 	public enum Agrupamento {
-		ESCRITORIO_CONTABIL("Escritï¿½rio contï¿½bil"),
+		ESCRITORIO_CONTABIL("Escritório contábil"),
 		CNAE("CNAE"),
-		MUNICIPIO("Municï¿½pio"),
+		MUNICIPIO("Município"),
 		REPRESENTANTE("Representante");
 
 		private String nome;

@@ -239,7 +239,7 @@
 					<reportElement
 						x="744"
 						y="0"
-						width="59"
+						width="70"
 						height="14"
 						key="staticText-22">
 							<printWhenExpression><![CDATA[new Boolean((!$F{telefone}.equals( null )) || ((!$F{telefone}.equals(""))))]]></printWhenExpression>
@@ -396,9 +396,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="752"
+						x="744"
 						y="0"
-						width="59"
+						width="70"
 						height="14"
 						key="textField-11"
 						isRemoveLineWhenBlank="true"/>

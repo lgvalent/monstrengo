@@ -436,7 +436,7 @@ public class RelatorioRecebimentoService extends ServiceBasic {
 			mfDocumento.setValueContainsLiteralCharacters(false);
 			mfDocumento.setAllowsInvalid(true);
 
-			MaskFormatter mfTelefone = new MaskFormatter("(##)####-####");
+			MaskFormatter mfTelefone = new MaskFormatter("(##)#####-####");
 			mfTelefone.setValueContainsLiteralCharacters(false);
 			mfTelefone.setAllowsInvalid(true);
 
