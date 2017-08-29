@@ -21,7 +21,6 @@
 				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramPessoa}"/>
 				</ui:include>
-				<br/>
 				<h:selectBooleanCheckbox value="#{relatorioCobrancaBean.process.incluirFiliais}"/>
 				<h:outputLabel value="Incluir todas as filiais do CNPJ acima" style="font-size: small" />
 	   			</h:panelGroup>
@@ -122,7 +121,7 @@
 		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.relatorioCobrancaModelo}" id="relatorioCobrancaModelo">
 		   			<f:selectItems value="#{relatorioCobrancaBean.process.listRelatorioCobrancaModelo}"/>
 		   		</h:selectOneMenu>
-				<p:commandButton ajax="false" value="Download PDF" action="#{relatorioCobrancaBean.doVisualizar}"  onclick="this.value='Aguarde...'" title="Gera um PDF com os documentos selecionados"/>
+				<p:commandButton ajax="false" value="Download PDF" action="#{relatorioCobrancaBean.doPdf}"  onclick="this.value='Aguarde...'" title="Gera um PDF com os documentos selecionados"/>
 			</p:overlayPanel>  		
 
 			<p:commandButton id="gerarCarta" value="Gerar cartas de cobrança" />
@@ -134,6 +133,39 @@
 				<p:commandButton ajax="false" value="Download PDF" action="#{relatorioCobrancaBean.doImprimirCartaCobranca}"/>
 		    </p:overlayPanel>  
 			<p:commandButton ajax="false" value="Gerar etiquetas" action="#{relatorioCobrancaBean.doGerarEtiqueta}" title="Gera as etiquetas para as empresas que aparecem no relatório de cobrança"/>
+			<p:commandButton ajax="false" value="Visualizar listagem" action="#{relatorioCobrancaBean.doListar}" title="Visualiza a listagem dos contratos que atendem aos critérios"/>
 		</ui:define>
+	
+		<ui:define name="formResult">
+			<h:dataTable value="#{relatorioCobrancaBean.process.lista}" 
+				             var='item'
+				             rendered="#{relatorioCobrancaBean.process.lista.size()>0}"
+				             headerClass="tableListHeader"
+				             styleClass="tableList"
+				             rowClasses="tableListRowEven,tableListRowOdd"
+				             columnClasses="tableListColumn"
+				             style="border-collapse: collapse;">
+
+					<h:column>
+						<f:facet name="header">
+		    	            	<h:outputText value="Id"/>
+    	                </f:facet>
+						<h:outputLabel value="#{item.id}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+		    	            	<h:outputText value="#{menuBean.infoMap.Pessoa.propertiesMetadata.nome.label} "/>
+    	                </f:facet>
+						<h:outputLabel value="#{item.nome}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+		    	            	<h:outputText value="#{menuBean.infoMap.Pessoa.propertiesMetadata.documento.label} "/>
+    	                </f:facet>
+						<h:outputLabel value="#{item.documento}"/>
+					</h:column>
+
+			</h:dataTable>
+		</ui:define>	
 	</ui:composition>
 </html>		

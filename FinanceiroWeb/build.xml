@@ -160,6 +160,7 @@
 				<include name="**/*"/>
 			</fileset>
 		</jar>
+		<eclipse.refreshLocal resource="${ant.project.name}/" depth="intinite"/>
     </target>
 
 

@@ -36,9 +36,25 @@ public class RelatorioCobrancaBean extends BeanSessionBasic  implements IRunnabl
 	
 	private RelatorioCobrancaProcess process = null;
 
-    public void doVisualizar() {
-		try {
+    public void doListar() {
 			log.debug("RelatorioCobrancaBean.doVisualizar");
+
+			if(!getProcess().runListar())
+				FacesUtils.addErrorMsgs(getProcess().getMessageList());
+    }
+    
+    public void doInativarContratos() {
+			log.debug("RelatorioCobrancaBean.doInativarContratos");
+
+			if(!getProcess().runInativarContratos())
+				FacesUtils.addErrorMsgs(getProcess().getMessageList());
+			else
+				FacesUtils.addInfoMsgs(getProcess().getMessageList());
+    }
+    
+    public void doPdf() {
+		try {
+			log.debug("RelatorioCobrancaBean.doPdf");
 
 			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 			response.setContentType("pdf-content"); //vinculo com o PDF
@@ -56,7 +72,6 @@ public class RelatorioCobrancaBean extends BeanSessionBasic  implements IRunnabl
 			e.printStackTrace();
 		}
     }
-    
     public void doImprimirCartaCobranca() {
     	try {
     		log.debug("RelatorioCobrancaBean.actionImprimirCartaCobranca");
