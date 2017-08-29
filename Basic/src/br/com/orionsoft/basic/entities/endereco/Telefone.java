@@ -79,9 +79,9 @@ public class Telefone
     }
 
     /**
-     * @hibernate.property length="8"
+     * @hibernate.property length="9"
      */
-    @Column(length=8)
+    @Column(length=9)
     public String getNumero() {
         return numero;
     }
@@ -128,11 +128,8 @@ public class Telefone
             result += "(" + this.ddd + ") ";
 
         if (this.numero != null)
-            if (this.numero.length() > 4)
-                result += this.numero.substring(0, this.numero.length() - 4)
+            result += this.numero.substring(0, this.numero.length() - 4)
                         + "-" + this.numero.substring(this.numero.length() - 4);
-            else
-                result += this.numero;
 
         if (this.ramal != null)
             result += " R:" + this.ramal;

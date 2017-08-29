@@ -1,3 +1,19 @@
+-- Lucio - 16/06/2017 - Atualização dos número para 9 dígitos
+ALTER TABLE `basic_telefone`
+  CHANGE numero numero VARCHAR(9);
+
+update basic_telefone
+set numero = CONCAT('9',SUBSTRING(numero, 1, 8))
+WHERE numero IS NOT NULL 
+AND SUBSTRING(numero, 1, 1) IN (9,8,7,6) --TIPO DE numero: 12345 = FIXO; 6789 = CELULAR
+AND LENGTH(numero) = 8 --TAMANHO ANTIGO COM 8 DÍGITOS
+
+update basic_telefone
+set numero = CONCAT(' ',SUBSTRING(numero, 1, 8))
+WHERE numero IS NOT NULL 
+AND SUBSTRING(numero, 1, 1) IN (1,2,3,4,5) --TIPO DE numero: 12345 = FIXO; 6789 = CELULAR
+AND LENGTH(numero) = 8 --TAMANHO ANTIGO COM 8 DÍGITOS
+
 -- Lucio - 03/09/2015 - Regime Tributário PJ: Simples, Lucro presumido e Lucro Real
 alter table basic_pessoa 
 add regimeTributario varchar(2);

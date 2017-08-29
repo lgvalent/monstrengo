@@ -4,7 +4,7 @@
         <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
         <property xsi:type="PropertyEntityType" description="" hint="Indica o tipo do Telefone (se comercial, residencial, celular etc.)" label="Tipo" name="tipoTelefone" editShowList="true" required="true" defaultValue="1"/>
         <property xsi:type="PropertyStringType" description="" hint="Número do DDD da região. Ex. 44, 41, 11, 21, ..." label="Ddd" name="ddd" defaultValue="44"/>
-        <property xsi:type="PropertyStringType" description="" hint="Número do telefone" label="Número" name="numero" required="true" editMask="****-****"/>
+        <property xsi:type="PropertyStringType" description="" hint="Número do telefone" label="Número" name="numero" required="true" editMask="*****-****"/>
         <property xsi:type="PropertyStringType" description="" hint="Número do ramal, se houver" label="Ramal" name="ramal"/>
         <property xsi:type="PropertyEntityType" description="" hint="Indica a operadora do telefone. Este dado pode estar desatualizado de acordo com a lei de portabilidade" label="Operadora" name="telefoneOperadora" editShowList="true"/>
         <property xsi:type="PropertyEntityType" description="" hint="Define a pessoa associada ao telefone" label="Pessoa" name="pessoa" readOnly="true" allowSubQuery="true"/>

@@ -2,13 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Commons">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/XDoclet"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JUnit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/TomCat"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Log4J"/>
@@ -27,6 +25,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Poi"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSF2"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/com.sun.enterprise.jst.server.runtimeTarget/GlassFish 3.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-openjdk-amd64">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
