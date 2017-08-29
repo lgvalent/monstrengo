@@ -82,13 +82,23 @@ public interface IGerenciadorDocumentoCobranca {
    
    /**
     * Este método cancela um documento; utilizado, por exemplo, quando um novo documento e uma nova forma de pagamento
-    * são atribuídos a um grupo, sendo necessário o cancelamento do documento anterior (passado por parâmetro).
+    * são atribuídos a um lançamento, sendo necessário o cancelamento do documento anterior (passado por parâmetro).
     * @param documento
     * @param dataCancelamento
     * @param serviceDataOwner
     * @throws DocumentoCobrancaException
     */
    public void cancelarDocumento(IEntity<? extends DocumentoCobranca> documento, Calendar dataCancelamento, ServiceData serviceDataOwner) throws DocumentoCobrancaException;
+   
+   /**
+    * Este método altera o vencimento de um documento; 
+    * Permite marcar e registrar a alteração do vencimento via Remessa.
+    * @param documento
+    * @param dataVencimento
+    * @param serviceDataOwner
+    * @throws DocumentoCobrancaException
+    */
+   public void alterarDataVencimento(IEntity<? extends DocumentoCobranca> documento, Calendar dataVencimento, ServiceData serviceDataOwner) throws DocumentoCobrancaException;
    
    /* 
     * É passado o Id do cedente pois este deve ser salvo no último instante no método gerarRemessa do banco correspondente, evitando NonUniqueObject 

@@ -372,6 +372,20 @@ public abstract class GerenciadorDocumentoCobrancaBasic implements IGerenciadorD
 		}
 	}
 
+	public void alterarDataVencimento(IEntity<? extends DocumentoCobranca> documento, Calendar dataVencimento, ServiceData serviceDataOwner) throws DocumentoCobrancaException{
+		log.debug("utlizando alterarDataVencimento do GerenciadorDocumentoCobrancaBasic");
+		try {
+			log.debug("atualizando a data de vencimento através do GerenciadorDocumentoCobrancaBasic");
+			if (documento != null){
+				documento.getProperty(DocumentoCobranca.DATA_VENCIMENTO).getValue().setAsCalendar(dataVencimento);
+				UtilsCrud.update(this.provedorDocumentoCobranca.getServiceManager(), documento, serviceDataOwner);
+			}else
+				log.debug("documento null - data de vencimento não alterada.");
+		} catch (BusinessException e) {
+			throw new DocumentoCobrancaException(e.getErrorList());
+		}
+	}
+
 	public File gerarRemessa(
 			IEntity<? extends ConvenioCobranca> convenioCobranca,
 			Calendar inicioPeriodo, Calendar finalPeriodo,

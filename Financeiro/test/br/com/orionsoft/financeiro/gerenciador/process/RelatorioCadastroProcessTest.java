@@ -35,7 +35,7 @@ public class RelatorioCadastroProcessTest extends ProcessBasicTest{
 	public void testExecute() throws IOException {
 
 		try {
-			File file = new File("/home/juliana/Desktop/relatorio_cadastro.pdf");
+			File file = new File("/tmp/relatorio_cadastro.pdf");
 			OutputStream stream = new FileOutputStream(file);
 			
 //			process.setAgrupamento(RelatorioCadastroService.Agrupamento.CNAE);

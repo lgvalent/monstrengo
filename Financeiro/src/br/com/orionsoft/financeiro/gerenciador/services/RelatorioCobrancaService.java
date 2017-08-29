@@ -33,6 +33,7 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
+import br.com.orionsoft.monstrengo.core.service.ServiceResultBean;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.DecimalUtils;
 import br.com.orionsoft.monstrengo.core.util.NativeSQL;
@@ -72,9 +73,10 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		}
 	}
 
-	public class QueryRelatorioCobranca {
+	public class QueryRelatorioCobranca extends ServiceResultBean{
 		public static final String SELECT_MASTER = "" +
 		"select " +
+		"  contrato.id contratoId, " +
 		"  pessoa.id id, " +
 		"  pessoa.nome nome, " +
 		"  pessoa.documento documento, " +
@@ -165,6 +167,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 			"     (flm.lancamentoMovimentoCategoria = 'QUITADO') and " +
 			"     (!flm.estornado)";
 
+		private Long contratoId;
 		private Long id;
 		private String nome;
 		private String documento;
@@ -180,6 +183,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		private BigDecimal valorCorrigido;
 
 		public QueryRelatorioCobranca(
+				Long contratoId, 
 				Long id, 
 				String nome, 
 				String documento, 
@@ -195,6 +199,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 				BigDecimal valorCorrigido
 				) {
 			super();
+			this.contratoId = contratoId;
 			this.id = id;
 			this.nome = nome;
 			this.documento = documento;
@@ -244,6 +249,10 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		
 		public BigDecimal getValorJuros() {
 			return valorJuros;
+		}
+
+		public Long getContratoId() {
+			return contratoId;
 		}
 
 		public Long getId() {
@@ -484,7 +493,8 @@ public class RelatorioCobrancaService extends ServiceBasic {
 			mfDocumento.setAllowsInvalid(true);
 
 			log.debug("Executando a SQL.");
-			MaskFormatter mfTelefone = new MaskFormatter("(##)####-####");
+
+			MaskFormatter mfTelefone = new MaskFormatter("(##)#####-####");
 			mfTelefone.setValueContainsLiteralCharacters(false);
 			mfTelefone.setAllowsInvalid(true);
 			
@@ -523,6 +533,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 						.append(rs.getString("enderecoUF"));
 				
 				QueryRelatorioCobranca query = new QueryRelatorioCobranca(
+						rs.getLong("contratoId"),
 						rs.getLong("id"),
 						rs.getString("nome"),
 						mfDocumento.valueToString(rs.getString("documento")),
@@ -555,10 +566,9 @@ public class RelatorioCobrancaService extends ServiceBasic {
 	        else
 	        	relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("RelatorioCobrancaPaisagem.jrxml"));
 	        	
-			log.debug("Imprimindo o relatório.");
-			JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, new JRBeanCollectionDataSource(list));
-			
 	        if (inOutputStream != null) {
+	        	log.debug("Imprimindo o relatório.");
+	        	JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, new JRBeanCollectionDataSource(list));
 	        	JasperExportManager.exportReportToPdfStream(print, inOutputStream);
 	        }
 	        

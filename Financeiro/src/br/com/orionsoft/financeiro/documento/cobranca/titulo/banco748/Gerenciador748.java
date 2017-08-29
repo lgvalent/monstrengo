@@ -17,6 +17,7 @@ import br.com.orionsoft.cnab.ICampo;
 import br.com.orionsoft.cnab.IRegistro;
 import br.com.orionsoft.cnab.banco748.cnab400.DetalheRemessaComRegistro;
 import br.com.orionsoft.cnab.banco748.cnab400.DetalheRemessaSemRegistro;
+import br.com.orionsoft.cnab.banco748.cnab400.DetalheRetornoComRegistro;
 import br.com.orionsoft.cnab.banco748.cnab400.DetalheRetornoSemRegistro;
 import br.com.orionsoft.cnab.banco748.cnab400.Header;
 import br.com.orionsoft.cnab.banco748.cnab400.Instrucao;
@@ -76,9 +77,13 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 	public static final String POSTO = "28";
 	public static final String PARCELA = "001";
 
+	public static final String TIPO_COBRANCA_COM_REGISTRO = "A";
+	public static final String TIPO_COBRANCA_SEM_REGISTRO = "C";
+	
 	public static final String OCORRENCIA_REGISTRADO = "02";
 	public static final String OCORRENCIA_REJEITADO = "03";
 	public static final String OCORRENCIA_LIQUIDACAO = "06"; 
+	public static final String OCORRENCIA_VENCIMENTO_ALTERADO = "14";
 	public static final String OCORRENCIA_TARIFAS = "28";
 	
 	public static final long ESPECIE_TITULO = 01; //Duplicata
@@ -132,7 +137,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 		1041	,	33	,//Retorno - Recebimento - Instrução alterar dados
 //		1042	,	99	,//Retorno - Dados alterados
 //		1043	,	99	,//Retorno - Recebimento - Instrução alterar vencimento
-		1044	,	13	,//Retorno - Vencimento alterado
+		1044	,	14	,//Retorno - Vencimento alterado 
 //		1045	,	99	,//Retorno - Alteração dados nova entrada
 //		1046	,	99	,//Retorno - Alteração dados baixa
 		1047	,	19	,//Retorno - Recebimento - Instrução protestar
@@ -719,9 +724,10 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 
 					titulosTotal += 1;
 
-					log.debug("Obtendo informações do arquivo de retorno para fazer a pesquisa de titulos");    
+					log.debug("Obtendo informações do arquivo de retorno para fazer a pesquisa de titulos");
+					boolean cobrancaComRegistro = detalhes.get(DetalheRetornoSemRegistro.TIPO_COBRANCA).equals(TIPO_COBRANCA_COM_REGISTRO);
 
-					String nossoNumero = detalhes.get(DetalheRetornoSemRegistro.NOSSO_NUMERO);
+					String nossoNumero = detalhes.get(cobrancaComRegistro?DetalheRetornoComRegistro.NOSSO_NUMERO:DetalheRetornoSemRegistro.NOSSO_NUMERO);
 					/* Lucio 20140901: Gera um código com a Data, Número Retorno e Número da linha do DETALHE para detectar ocorrências repetidas */
 					String codigoControle = "C" + retorno.getArquivo().getHeader().get(Header.CODIGO_CEDENTE) + " D" + retorno.getArquivo().getHeader().get(Header.DATA_GRAVACAO_ARQUIVO) + " R" + retorno.getArquivo().getHeader().get(Header.NUMERO_REMESSA) + " O" + detalhes.get(DetalheRetornoSemRegistro.OCORRENCIA) + " L" + detalhes.get(DetalheRetornoSemRegistro.NUMERO_SEQUENCIAL_REGISTRO);   
 
@@ -756,7 +762,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 							tituloNoOkList.add(BusinessMessage.TYPE_INFO, 
 									Gerenciador748.class, 
 									"TITULO_NAO_ENCONTRADO", 
-									detalhes.get(DetalheRetornoSemRegistro.NOSSO_NUMERO), 
+									nossoNumero, 
 									"(Não consta)", 
 									CalendarUtils.formatDate(detalhes.getAsCalendar(DetalheRetornoSemRegistro.DATA_OCORRENCIA)), 
 									DecimalUtils.formatBigDecimal(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_TITULO)), 
@@ -769,7 +775,7 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 							tituloNoOkList.add(BusinessMessage.TYPE_INFO, 
 									Gerenciador748.class, 
 									"TITULO_ID_DUPLICADO", 
-									detalhes.get(DetalheRetornoSemRegistro.NOSSO_NUMERO), 
+									nossoNumero, 
 									"(Não consta)", 
 									detalhes.get(DetalheRetornoSemRegistro.VALOR_TITULO), 
 									CalendarUtils.formatDate(detalhes.getAsCalendar(DetalheRetornoSemRegistro.DATA_OCORRENCIA)), 
@@ -847,8 +853,10 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 								}
 
 								if(OCORRENCIA_TARIFAS.equals(detalhes.get(DetalheRetornoSemRegistro.OCORRENCIA))){
+									
 									/* Lucio 20121105: O valor da tarifa vem no campo VALOR_TITULO*/
-									oTitulo.setValorTarifa(detalhes.getAsBigDecimal(DetalheRetornoSemRegistro.VALOR_TITULO));
+									/* Lucio 20170110: Sem registro o valor vem neste campo, com registro possui um campo próprio */
+									oTitulo.setValorTarifa(detalhes.getAsBigDecimal(cobrancaComRegistro?DetalheRetornoComRegistro.VALOR_DESPESAS_COBRANCA:DetalheRetornoSemRegistro.VALOR_TITULO));
 									UtilsCrud.update(this.getProvedorBanco().getProvedorDocumentoCobranca().getServiceManager(), titulo, serviceDataOwner);
 
 									Lancamento lancamentoTarifa = UtilsLancamento.inserir(this.getProvedorBanco().getProvedorDocumentoCobranca().getServiceManager(), 
@@ -967,6 +975,8 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 										/* ok, nenhum erro ocorreu */
 										doc.setStatus(DocumentoRetornoStatus.LIQUIDADO_COM_SUCESSO);
 									}else{
+										/*TODO Lucio 20170122 - A ocorrência 14 confirma a alteração do vencimento, melhor conferir se o vencimento alterado está correto ou pode ter sido solicitado pelo sistema do banco e o documento deverá ser atualizado. */
+										
 										/* Registra a mensagem das demais ocorrências */
 										BusinessMessage message = new BusinessMessage(BusinessMessage.TYPE_INFO, 
 												Gerenciador748.class, 
@@ -1055,6 +1065,8 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 		}
 
 	}
+	
+	
 
 	/** 
 	 * <p>Esta função faz uso do isEmpty (StringUtils - jakarta), que verifica se a String é vazia ("") ou null;

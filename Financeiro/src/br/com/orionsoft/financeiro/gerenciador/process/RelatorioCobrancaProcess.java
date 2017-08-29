@@ -6,7 +6,9 @@ package br.com.orionsoft.financeiro.gerenciador.process;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
@@ -22,8 +24,8 @@ import br.com.orionsoft.basic.entities.pessoa.Representante;
 import br.com.orionsoft.basic.etiquetas.InserirEtiquetaEnderecoService;
 import br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirCartaCobrancaService;
-import br.com.orionsoft.financeiro.gerenciador.services.ListarPosicaoContratoService;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirCartaCobrancaService.CartaCobrancaModelo;
+import br.com.orionsoft.financeiro.gerenciador.services.InativarContratosService;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService.QueryRelatorioCobranca;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService.RelatorioCobrancaModelo;
@@ -34,9 +36,11 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
+import br.com.orionsoft.monstrengo.core.process.ProcessParamBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessParamEntity;
 import br.com.orionsoft.monstrengo.core.process.ProcessParamEntityList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
+import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.PrintUtils;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
@@ -92,6 +96,10 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 	private int cartaCobrancaModelo = CartaCobrancaModelo.PADRAO.ordinal();
 	private int relatorioCobrancaModelo = RelatorioCobrancaModelo.RETRATO.ordinal();
 	
+	private String observacao;
+	
+	private List<QueryRelatorioCobranca> lista = null;
+	
 	@Override
 	public void start() throws ProcessException {
 		super.start();
@@ -105,6 +113,39 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 		super.beforeRun();
 
 		return this.execute(this.outputStream) != null;
+	}
+	
+	public boolean runListar(){
+		super.beforeRun();
+
+		this.lista = this.execute(null);
+		
+		return this.lista != null;
+	}
+	
+	public boolean runInativarContratos(){
+		super.beforeRun();
+		
+		Set<Long> contratoIdSet = new HashSet<Long>(this.lista.size());
+		for(QueryRelatorioCobranca bean: this.lista)
+			if(bean.isChecked())
+				contratoIdSet.add(bean.getContratoId());
+
+		ServiceData sd = new ServiceData(InativarContratosService.SERVICE_NAME, null);
+		sd.getArgumentList().setProperty(InativarContratosService.IN_DATA_RESCISAO, CalendarUtils.getCalendar());
+		sd.getArgumentList().setProperty(InativarContratosService.IN_CONTRATO_ID_SET, contratoIdSet);
+		sd.getArgumentList().setProperty(InativarContratosService.IN_OBSERVACAO, this.getObservacao());
+		sd.getArgumentList().setProperty(InativarContratosService.IN_USER_SESSION, this.getUserSession());
+		try {
+			this.getProcessManager().getServiceManager().execute(sd);
+			this.getMessageList().add(sd.getMessageList());
+		} catch (ServiceException e) {
+			this.getMessageList().addAll(e.getErrorList());
+			
+			return false;
+		}
+		
+		return true;
 	}
 	
 	
@@ -434,6 +475,15 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 	public Boolean getIncluirFiliais() {return incluirFiliais;}
 	public void setIncluirFiliais(Boolean incluirFiliais) {this.incluirFiliais = incluirFiliais;}
 	
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+
 	/*==============================================================================
 	 * IRunnableEntityProcess	
 	 *==============================================================================*/
@@ -545,6 +595,12 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 	public void setRelatorioCobrancaModelo(int relatorioCobrancaModelo) {
 		this.relatorioCobrancaModelo = relatorioCobrancaModelo;
 	}
+
+	public List<QueryRelatorioCobranca> getLista() {
+		return lista;
+	}
+	
+	
 
 }
 /*

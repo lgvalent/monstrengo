@@ -642,4 +642,38 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 		return result;
 	}
 
+	public void alterarDataVencimento(IEntity<? extends DocumentoCobranca> documento, Calendar dataVencimento, ServiceData serviceDataOwner) throws DocumentoCobrancaException{
+		log.debug("Utilizando alterarVencimento do GerenciadorDocumentoTitulo");
+		try {
+			int ultimaOcorrenciaCodigo = OCORRENCIA_VAZIA;
+			if(documento.getProperty(DocumentoTitulo.ULTIMA_OCORRENCIA).getValue().getAsEntity() != null)
+				ultimaOcorrenciaCodigo = documento.getProperty(DocumentoTitulo.ULTIMA_OCORRENCIA).getValue().getAsEntity().getProperty(Ocorrencia.CODIGO).getValue().getAsInteger(); 
+	
+			//se o documento já foi baixado, não pode ter o vencimento alterado
+			if (ultimaOcorrenciaCodigo == Ocorrencia.CONTROLE_INTERNO_BAIXA.getCodigo()){
+				log.debug("Vencimento não alterado, pois o documento já foi baixado no financeiro");
+				throw new DocumentoCobrancaException(MessageList.create(GerenciadorDocumentoTitulo.class, "CANCELAR_DOCUMENTO_ERRO_BAIXADO", documento.toString(), GERENCIADOR_NOME));
+			}
+			//o documento pode ser alterado se ainda não foi enviado ao banco ou retornou no banco com o código 'documento cancelado' ou ainda se não existe uma ocorrência atribuída ao documento
+			else if (ultimaOcorrenciaCodigo == Ocorrencia.REMESSA_REGISTRAR.getCodigo() || ultimaOcorrenciaCodigo == Ocorrencia.RETORNO_DOCUMENTO_CANCELADO.getCodigo() || ultimaOcorrenciaCodigo == OCORRENCIA_VAZIA){
+				log.debug("Alterando o vencimento no GerenciadorDocumentoTitulo");
+				
+				//o método da classe pai grava a data de cancelamento e atualiza o documento
+				super.alterarDataVencimento(documento, dataVencimento, serviceDataOwner); 
+			}
+			//se o documento já foi enviado ao banco, deve-se enviar um pedido de alteração
+			else if (ultimaOcorrenciaCodigo > Ocorrencia.REMESSA_ENVIADA.getCodigo()){
+				log.debug("Documento já enviado ao banco, gerar pedido de alteração para o arquivo de remessa");
+	
+				documento = atualizarOcorrencia(documento, Ocorrencia.REMESSA_ALTERAR_VENCIMENTO.getCodigo(), serviceDataOwner);
+	
+				//o método da classe pai grava a data de vencimento e atualiza o documento
+				super.alterarDataVencimento(documento, dataVencimento, serviceDataOwner); 
+			}
+	
+		} catch (BusinessException e) {
+			throw new DocumentoCobrancaException(e.getErrorList());
+		}
+	}
+
 }

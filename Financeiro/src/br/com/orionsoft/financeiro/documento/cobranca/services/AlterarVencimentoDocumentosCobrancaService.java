@@ -1,15 +1,15 @@
-package br.com.orionsoft.financeiro.gerenciador.services;
+package br.com.orionsoft.financeiro.documento.cobranca.services;
 
 import java.util.Calendar;
 
 import org.apache.commons.lang.StringUtils;
 
 import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobranca;
+import br.com.orionsoft.financeiro.documento.cobranca.IGerenciadorDocumentoCobranca;
 import br.com.orionsoft.monstrengo.auditorship.services.UtilsAuditorship;
 import br.com.orionsoft.monstrengo.auditorship.support.EntityAuditValue;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
-import br.com.orionsoft.monstrengo.core.service.ServiceBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
@@ -34,7 +34,7 @@ import br.com.orionsoft.monstrengo.security.entities.UserSession;
  * @spring.bean id="AlterarVencimentoDocumentosCobrancaService" init-method="registerService"
  * @spring.property name="serviceManager" ref="ServiceManager"
  */
-public class AlterarVencimentoDocumentosCobrancaService extends ServiceBasic {
+public class AlterarVencimentoDocumentosCobrancaService extends DocumentoCobrancaServiceBasic{
     public static final String SERVICE_NAME = "AlterarVencimentoDocumentosCobrancaService";
     
     public static final String IN_DATA = "data";
@@ -70,8 +70,11 @@ public class AlterarVencimentoDocumentosCobrancaService extends ServiceBasic {
             			entityAuditValue = new EntityAuditValue(doc);
             		}
 
-            		/* Altera a data de vencimento */
-            		doc.setPropertyValue(DocumentoCobranca.DATA_VENCIMENTO, inData);
+            		IGerenciadorDocumentoCobranca gerenciador = this.retrieveGerenciadorPorDocumento((DocumentoCobranca) doc.getObject());
+        			
+        			log.debug("Executando o método alterar vencimento do gerenciador");
+        			gerenciador.alterarDataVencimento(doc, inData, serviceData);
+        			
             		/* Adiciona o adendo da instrução 3 */
             		if(StringUtils.isNotBlank(inAdendoInstrucoes3))
             			if(StringUtils.isBlank(doc.getObject().getInstrucoes3())){

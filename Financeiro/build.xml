@@ -47,7 +47,7 @@
           target: compile  depends="updateJARs"             
          ================================= -->
 	<target name="compile" description="--> Compila os arquivos fonte">
-		<javac srcdir="${src}" destdir="${bin}" debug="off">
+		<javac includeantruntime="false" srcdir="${src}" destdir="${bin}" debug="off">
 			<classpath refid="lib.classpath" />
 		</javac>
 	</target>

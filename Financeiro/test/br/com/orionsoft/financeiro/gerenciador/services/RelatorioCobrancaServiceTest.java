@@ -25,15 +25,15 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 
 public class RelatorioCobrancaServiceTest extends ServiceBasicTest {
 
-//	@Test
+	@Test
 	public void test() throws ParseException {
-		MaskFormatter mf = new MaskFormatter("(##)####-####");
+		MaskFormatter mf = new MaskFormatter("(**)****-****");
 		mf.setValueContainsLiteralCharacters(false);
 		mf.setAllowsInvalid(true);
 		System.out.println(mf.valueToString("4432638001"));
 	}
 	
-	@Test
+//	@Test
 	public void testExecute() throws JRException, FileNotFoundException, BusinessException {
 		File file = new File("/home/antonio/relatorio_cobranca.pdf");
 		OutputStream stream = new FileOutputStream(file);
