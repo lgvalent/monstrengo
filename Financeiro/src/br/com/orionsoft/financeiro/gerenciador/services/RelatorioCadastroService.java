@@ -665,7 +665,7 @@ public class RelatorioCadastroService extends ServiceBasic {
 				sql.addWhere("Pessoa.dataFinal <= '" + CalendarUtils.formatToSQLDate(inDataTerminoAtividadeFim) + "'");
 			}
 		}
-		if (inEscritorioContabilId != null) {
+		if (inEscritorioContabilId != null && inEscritorioContabilId > 0) {
 			if(inNotEscritorioContabilId){
 				sql.addWhere("Pessoa.escritorioContabil != " + inEscritorioContabilId);
 			}
@@ -681,7 +681,7 @@ public class RelatorioCadastroService extends ServiceBasic {
 				sql.addWhere("Pessoa.cnae = " + inCnaeId);
 			}
 		}
-		if (inRepresentanteId != null) {
+		if (inRepresentanteId != null && inRepresentanteId > 0) {
 			if(inNotRepresentanteId){
 				sql.addWhere("Contrato.representante != " + inRepresentanteId);
 			}
@@ -689,7 +689,7 @@ public class RelatorioCadastroService extends ServiceBasic {
 				sql.addWhere("Contrato.representante = " + inRepresentanteId);
 			}
 		}
-		if (inMunicipioId != null) {
+		if (inMunicipioId != null && inMunicipioId > 0) {
 			if(inNotMunicipioId){
 				sql.addWhere("Endereco.municipio != " + inMunicipioId);
 			}
@@ -707,7 +707,7 @@ public class RelatorioCadastroService extends ServiceBasic {
 				}
 			}
 		}
-		if (inContratoCategoriaId != null) {
+		if (inContratoCategoriaId != null && inContratoCategoriaId > 0) {
 			if(inContratoCategoriaId != IDAO.ENTITY_UNSAVED){
 				if(inNotContratoCategoriaId){
 					sql.addWhere("Contrato.categoria != " + inContratoCategoriaId);
