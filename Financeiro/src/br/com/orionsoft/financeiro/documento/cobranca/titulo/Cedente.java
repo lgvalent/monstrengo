@@ -28,6 +28,7 @@ public class Cedente extends ConvenioCobranca{
     public static final String CEDENTE_DIGITO = "cedenteDigito";
     
     public static final String CARTEIRA_CODIGO = "carteiraCodigo";
+    public static final String CARTEIRA_VARIACAO = "carteiraVariacao";
     public static final String LOCAL_PAGAMENTO = "localPagamento";
     public static final String ACEITE = "aceite";
     
@@ -36,6 +37,15 @@ public class Cedente extends ConvenioCobranca{
     
     public static final String ITEM_CUSTO_IOF = "itemCustoIof";
     public static final String ITEM_CUSTO_TARIFA = "itemCustoTarifa";
+    public static final String ITEM_CUSTO_MULTA = "itemCustoMulta";
+    
+    public static final String ITEM_CUSTO_ACRESCIMO = "itemCustoAcrescimo";
+    public static final String ITEM_CUSTO_DESCONTO = "itemCustoDesconto";
+    public static final String ITEM_CUSTO_ABATIMENTO = "itemCustoAbatimento";
+    public static final String ITEM_CUSTO_DEDUCOES = "itemCustoDeducoes";
+
+    public static final String MULTA_ADICIONAL = "multaAdicional";
+    
     public static final String VALOR_TARIFA = "valorTarifa";
     public static final String BANCO_GERA_OCORRENCIA_VALOR_TARIFA = "bancoGeraOcorrenciaValorTarifa";
 
@@ -58,6 +68,14 @@ public class Cedente extends ConvenioCobranca{
     private CentroCusto centroCustoGeral;    
     private ItemCusto itemCustoIof;
     private ItemCusto itemCustoTarifa;
+    private ItemCusto itemCustoMulta;
+    private BigDecimal multaAdicional;
+    
+    private ItemCusto itemCustoAcrescimo;
+    private ItemCusto itemCustoDesconto;
+    private ItemCusto itemCustoAbatimento;
+    private ItemCusto itemCustoDeducoes;
+
     private BigDecimal valorTarifa;
     private boolean bancoGeraOcorrenciaValorTarifa;
 
@@ -175,6 +193,40 @@ public class Cedente extends ConvenioCobranca{
 	@ForeignKey(name = ITEM_CUSTO_TARIFA)
 	public ItemCusto getItemCustoTarifa(){return itemCustoTarifa;}
 	public void setItemCustoTarifa(ItemCusto itemCustoTarifa){this.itemCustoTarifa = itemCustoTarifa;}
+
+	@Column
+	public BigDecimal getMultaAdicional(){return multaAdicional;}
+	public void setMultaAdicional(BigDecimal multaAdicional){this.multaAdicional = multaAdicional;}
+
+	@ManyToOne
+	@JoinColumn(name=ITEM_CUSTO_MULTA)
+	@ForeignKey(name=ITEM_CUSTO_MULTA)
+	public ItemCusto getItemCustoMulta(){return itemCustoMulta;}
+	public void setItemCustoMulta(ItemCusto itemCustoMulta){this.itemCustoMulta = itemCustoMulta;}
+
+	@ManyToOne
+	@JoinColumn(name=ITEM_CUSTO_ACRESCIMO)
+	@ForeignKey(name=ITEM_CUSTO_ACRESCIMO)
+	public ItemCusto getItemCustoAcrescimo(){return itemCustoAcrescimo;}
+	public void setItemCustoAcrescimo(ItemCusto itemCustoAcrescimo){this.itemCustoAcrescimo = itemCustoAcrescimo;}
+
+	@ManyToOne
+	@JoinColumn(name=ITEM_CUSTO_DESCONTO)
+	@ForeignKey(name=ITEM_CUSTO_DESCONTO)
+	public ItemCusto getItemCustoDesconto(){return itemCustoDesconto;}
+	public void setItemCustoDesconto(ItemCusto itemCustoDesconto){this.itemCustoDesconto = itemCustoDesconto;}
+
+	@ManyToOne
+	@JoinColumn(name=ITEM_CUSTO_DEDUCOES)
+	@ForeignKey(name=ITEM_CUSTO_DEDUCOES)
+	public ItemCusto getItemCustoDeducoes(){return itemCustoDeducoes;}
+	public void setItemCustoDeducoes(ItemCusto itemCustoOutrasDeducoes){this.itemCustoDeducoes = itemCustoOutrasDeducoes;}
+
+	@ManyToOne
+	@JoinColumn(name=ITEM_CUSTO_ABATIMENTO)
+	@ForeignKey(name=ITEM_CUSTO_ABATIMENTO)
+	public ItemCusto getItemCustoAbatimento(){return itemCustoAbatimento;}
+	public void setItemCustoAbatimento(ItemCusto itemCustoTarifa){this.itemCustoAbatimento = itemCustoTarifa;}
 
 	@Column(length=10)
 	public String getLayoutCnab() {return layoutCnab;}
