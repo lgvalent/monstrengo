@@ -51,6 +51,7 @@ public class ImprimirCartaCobrancaService extends ServiceBasic {
 	public enum CartaCobrancaModelo {
 		PADRAO("Padrão", "CartaCobranca.jrxml", ".pdf"),
 		REVERSAO("Reversão", "CartaCobrancaReversao.jrxml", ".pdf"),
+		PARCELAS("Parcelas", "CartaCobrancaParcelas.jrxml", ".pdf"),
 		CSV_1("Mala direta por item", "", ".csv");
 		
 		private String nome;

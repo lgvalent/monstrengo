@@ -424,9 +424,9 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 //				switch (oTitulo.getCedente().getCarteiraCodigo().charAt(0)) {
 //				case '1': detalhe = createDetalheComRegistro(++numeroSequencial, oTitulo); break;
 //				case '3': detalhe = createDetalheSemRegistro(++numeroSequencial, oTitulo); break;
-				default:
-					throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA", "Código da carteira inválido " + oTitulo.getCedente().getCarteiraCodigo()));
-				}
+//				default:
+//					throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA", "Código da carteira inválido " + oTitulo.getCedente().getCarteiraCodigo()));
+//				}
 				
 				instrucao = createInstrucao(++numeroSequencial, oTitulo);
 
