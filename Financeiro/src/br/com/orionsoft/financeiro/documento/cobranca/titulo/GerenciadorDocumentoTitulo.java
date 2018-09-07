@@ -465,8 +465,7 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 							documento.getProperty(DocumentoCobranca.DATA_IMPRESSAO).getValue().setAsCalendar(Calendar.getInstance());
 							// Lucio 20100411: O FlushMode.ALWAYS após a conclusão do serviço já executa um update no banco
 							// UtilsCrud.update(this.getProvedorDocumentoCobranca().getServiceManager(), documento, serviceDataOwner);
-						}
-						else{
+						}else{
 							documento = UtilsCrud.retrieve(this.getProvedorDocumentoCobranca().getServiceManager(), DocumentoCobranca.class, bean.getId(), serviceDataOwner);
 							log.debug("Marcando documento como impresso antes de colocar os valores calculados temporários.");
 							documento.getProperty(DocumentoCobranca.DATA_IMPRESSAO).getValue().setAsCalendar(Calendar.getInstance());

@@ -67,7 +67,7 @@
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{documento}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="staticText-15" style="Dados" mode="Transparent" x="-1" y="213" width="47" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="staticText-15" style="Dados" mode="Transparent" x="137" y="213" width="47" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
@@ -75,7 +75,7 @@
 					<text><![CDATA[Parcela]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="staticText-16" style="Dados" mode="Transparent" x="65" y="213" width="70" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="staticText-16" style="Dados" mode="Transparent" x="203" y="213" width="70" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
@@ -88,10 +88,10 @@
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA["               Reconheço as parcelas descritas a seguir e comprometo-me a quitá-las até as suas respectivas datas de venvimento. com o Sindicato, referente à " + $F{descricao} + ":"]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA["               Reconheço as parcelas descritas a seguir e comprometo-me a quitá-las até as suas respectivas datas de vencimento, referente à " + $F{descricao} + ":"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="staticText-16" style="Dados" mode="Transparent" x="162" y="213" width="70" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="staticText-16" style="Dados" mode="Transparent" x="300" y="213" width="70" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
@@ -102,29 +102,18 @@
 		</groupHeader>
 		<groupFooter>
 			<band height="246">
-				<staticText>
-					<reportElement key="staticText-11" style="Texto" mode="Transparent" x="0" y="55" width="483" height="114" forecolor="#000000" backcolor="#FFFFFF"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
-					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
-					</textElement>
-					<text><![CDATA[
-
-
-
-
-                                                                                                 _______________________________________
-
-]]></text>
-				</staticText>
 				<textField pattern="" isBlankWhenNull="true" hyperlinkType="None">
-					<reportElement key="textField-2" style="Dados" mode="Transparent" x="263" y="136" width="220" height="18" printWhenGroupChanges="Documento" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement key="textField-2" style="Dados" mode="Transparent" x="137" y="122" width="233" height="18" printWhenGroupChanges="Documento" forecolor="#000000" backcolor="#FFFFFF"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 						<font fontName="SansSerif" size="10" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{razaoSocial}]]></textFieldExpression>
 				</textField>
+				<line>
+					<reportElement x="137" y="121" width="233" height="1"/>
+					<graphicElement/>
+				</line>
 			</band>
 		</groupFooter>
 	</group>
@@ -143,7 +132,7 @@
 	<detail>
 		<band height="19">
 			<textField pattern="" isBlankWhenNull="false" hyperlinkType="None">
-				<reportElement key="textField" style="Dados" mode="Transparent" x="0" y="0" width="46" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField" style="Dados" mode="Transparent" x="138" y="0" width="46" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
@@ -151,7 +140,7 @@
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{Documento_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement key="textField" style="Dados" mode="Transparent" x="65" y="1" width="70" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField" style="Dados" mode="Transparent" x="203" y="1" width="70" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
@@ -159,7 +148,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dataVencimento}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement key="textField" style="Dados" mode="Transparent" x="162" y="1" width="70" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement key="textField" style="Dados" mode="Transparent" x="300" y="1" width="70" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>

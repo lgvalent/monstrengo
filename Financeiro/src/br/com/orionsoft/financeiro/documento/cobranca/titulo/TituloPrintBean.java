@@ -6,7 +6,9 @@ import java.util.Calendar;
 
 import br.com.orionsoft.basic.entities.Contrato;
 import br.com.orionsoft.basic.entities.endereco.Endereco;
+import br.com.orionsoft.basic.entities.pessoa.Juridica;
 import br.com.orionsoft.basic.entities.pessoa.Pessoa;
+import br.com.orionsoft.financeiro.documento.cobranca.ConvenioCobranca;
 import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobranca;
 import br.com.orionsoft.financeiro.utils.UtilsRemessa;
 import br.com.orionsoft.monstrengo.core.util.DecimalUtils;
@@ -28,6 +30,7 @@ public class TituloPrintBean {
     	
         /* ce = cedente */
         ceNome = titulo.getCedente().getContratante().getNome();
+        ceNome += " CNPJ:"+_titulo.getProperty(DocumentoCobranca.CONVENIO_COBRANCA).getValue().getAsEntity().getProperty(ConvenioCobranca.CONTRATANTE).getValue().getAsEntity().getProperty(Juridica.DOCUMENTO).getValue().getAsString();
         ceBancoCodigo = titulo.getCedente().getContaBancaria().getBanco().getCodigo();
         ceBancoDigito = titulo.getCedente().getContaBancaria().getBanco().getDigito();
         ceCarteiraCodigo = titulo.getCedente().getCarteiraCodigo();
