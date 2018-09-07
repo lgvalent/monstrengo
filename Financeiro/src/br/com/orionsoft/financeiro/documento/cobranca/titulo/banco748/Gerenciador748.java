@@ -415,18 +415,18 @@ public class Gerenciador748 extends GerenciadorBancoBasic
 			try{
 				/* !!! Alteração provisória. Remover e descomentar as linhas do CASE abaixo. !!! */
 				/* Se o valor do boleto for menor que R$ 800,00 a cobrança é sem registro */
-				if (oTitulo.getValor().compareTo(BigDecimal.valueOf(800)) == -1) {
-					detalhe = createDetalheSemRegistro(++numeroSequencial, oTitulo);
-				} else {
-					detalhe = createDetalheComRegistro(++numeroSequencial, oTitulo);
-				}					
+//				if (oTitulo.getValor().compareTo(BigDecimal.valueOf(800)) == -1) {
+//					detalhe = createDetalheSemRegistro(++numeroSequencial, oTitulo);
+//				} else {
+//					detalhe = createDetalheComRegistro(++numeroSequencial, oTitulo);
+//				}					
 				/* CarteiraCodigo: 1-Cobranca com registro 3-Sem registro */
-//				switch (oTitulo.getCedente().getCarteiraCodigo().charAt(0)) {
-//				case '1': detalhe = createDetalheComRegistro(++numeroSequencial, oTitulo); break;
-//				case '3': detalhe = createDetalheSemRegistro(++numeroSequencial, oTitulo); break;
-//				default:
-//					throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA", "Código da carteira inválido " + oTitulo.getCedente().getCarteiraCodigo()));
-//				}
+				switch (oTitulo.getCedente().getCarteiraCodigo().charAt(0)) {
+				case '1': detalhe = createDetalheComRegistro(++numeroSequencial, oTitulo); break;
+				case '3': detalhe = createDetalheSemRegistro(++numeroSequencial, oTitulo); break;
+				default:
+					throw new DocumentoCobrancaException(MessageList.create(Gerenciador748.class, "ERRO_CRIANDO_ESTRUTURA_REMESSA", "Código da carteira inválido " + oTitulo.getCedente().getCarteiraCodigo()));
+				}
 				
 				instrucao = createInstrucao(++numeroSequencial, oTitulo);
 
