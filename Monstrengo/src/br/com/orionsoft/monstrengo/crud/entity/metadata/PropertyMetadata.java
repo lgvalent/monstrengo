@@ -27,7 +27,7 @@ import br.com.orionsoft.monstrengo.core.util.ArrayUtils;
  * @author marcia
  * @version 20060109
  */
-public class PropertyMetadata implements IPropertyMetadata
+public class PropertyMetadata implements IPropertyMetadataMutable
 {
 	private IEntityMetadata entity;
 
@@ -134,6 +134,12 @@ public class PropertyMetadata implements IPropertyMetadata
     public List<String> getValuesList(){return valuesList;}
 
     public boolean isEditShowList(){return editShowList;}
+
+	public String getDefaultValue(){return defaultValue;}
+
+	public boolean isAllowSubQuery() {return allowSubQuery;}
+
+	public boolean isEmbedded() {return embedded;}
 
     public PropertyMetadata (PropertyDescriptor property, IMetadataHandle metadataHandle, IEntityMetadata entityOwner) throws MetadataException
     {
@@ -270,14 +276,6 @@ public class PropertyMetadata implements IPropertyMetadata
 
         }
     }
-	public String getDefaultValue(){return defaultValue;}
-	public void setDefaultValue(String defaultValue){this.defaultValue = defaultValue;}
-
-	public boolean isAllowSubQuery() {return allowSubQuery;}
-	public void setAllowSubQuery(boolean allowSubQuery) {this.allowSubQuery = allowSubQuery;}
-
-	public boolean isEmbedded() {return embedded;}
-	public void setEmbedded(boolean embedded) {this.embedded = embedded;}
 
 	public List<SelectItem> getEnumValuesList() {
 		if(this.isEnum())
@@ -296,5 +294,60 @@ public class PropertyMetadata implements IPropertyMetadata
 		}
 
 		return null;
+	}
+	
+	public void setEntity(IEntityMetadata entity) {this.entity = entity;}
+
+	public void setIndex(int index) {this.index = index;}
+
+	public void setGroup(int group) {this.group = group;}
+
+	public void setName(String name) {this.name = name;}
+
+	public void setLabel(String label) {this.label = label;}
+
+	public void setHint(String hint) {this.hint = hint;}
+
+	public void setDescription(String description) {this.description = description;}
+
+	public void setType(Class<?> type) {this.type = type;}
+	
+	public void setColorName(String colorName) {this.colorName = colorName;}
+
+	public void setDisplayFormat(String displayFormat) {this.displayFormat = displayFormat;}
+	
+	public void setEditMask(String editMask) {this.editMask = editMask;}
+
+	public void setSize(int size) {this.size = size;}
+	
+	public void setMaximum(double maximum) {this.maximum = maximum;}
+
+	public void setMinimum(double minimum) {this.minimum = minimum;}
+	
+	public void setReadOnly(boolean readOnly) {this.readOnly = readOnly;}
+
+	public void setCalculated(boolean calculated) {this.calculated = calculated;}
+
+	public void setVisible(boolean visible) {this.visible = visible;}
+	
+	public void setRequired(boolean required) {this.required = required;}
+
+	public void setValuesList(List<String> valuesList) {this.valuesList = valuesList;}
+	
+	public void setEditShowList(boolean editShowList) {this.editShowList = editShowList;}
+
+	public void setList(boolean isList) {this.isList = isList;}
+	
+	public void setSet(boolean isSet) {this.isSet = isSet;}
+
+	public void setDefaultValue(String defaultValue){this.defaultValue = defaultValue;}
+	
+	public void setEmbedded(boolean embedded) {this.embedded = embedded;}
+	
+	public void setAllowSubQuery(boolean allowSubQuery) {this.allowSubQuery = allowSubQuery;}
+
+	@Override
+	public IPropertyMetadataMutable clone() throws CloneNotSupportedException {
+		return (IPropertyMetadataMutable)super.clone();
 	}
 }

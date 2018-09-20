@@ -40,8 +40,9 @@ public class Property implements IProperty
     }
 
     public IPropertyMetadata getInfo(){return info;}
+    public void setInfo(IPropertyMetadata info) {this.info = info;}
 
-    public IPropertyValue getValue(){return value;}
+	public IPropertyValue getValue(){return value;}
 
     public IEntity getEntityOwner(){return entityOwner;}
 

@@ -20,6 +20,7 @@ public interface IProperty
 {
     public IEntity<?> getEntityOwner();
     public IPropertyMetadata getInfo();
+    public void setInfo(IPropertyMetadata metadata); /** Permite trocar os metadados de uma propriedade */
     public IPropertyValue getValue();
 
     public List<SelectItem> getValuesList() throws PropertyException;
@@ -35,4 +36,6 @@ public interface IProperty
     public List<SelectItem> getValuesList(String filter) throws PropertyException;
 	public abstract List<IEntity<?>> getSelectValues(String filter)
 			throws PropertyException;
+	
+	
 }
