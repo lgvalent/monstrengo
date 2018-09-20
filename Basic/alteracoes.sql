@@ -1,4 +1,19 @@
--- Lucio - 16/06/2017 - Atualização dos número para 9 dígitos
+-- Lucio - 20/09/2018 - Novos atributos simplificados dos sócios
+ALTER TABLE `basic_socio`
+  ADD nome VARCHAR(255),
+  ADD dataNascimento datetime;
+
+DELETE FROM `basic_socio`
+WHERE fisica is null or juridica is null;
+
+/*
+UPDATE `basic_socio` s
+INNER JOIN `basic_pessoa` p
+ON p.id = s.fisica
+SET s.nome = null, s.dataNascimento = null;
+*/
+  
+  -- Lucio - 16/06/2017 - Atualização dos número para 9 dígitos
 ALTER TABLE `basic_telefone`
   CHANGE numero numero VARCHAR(9);
 
