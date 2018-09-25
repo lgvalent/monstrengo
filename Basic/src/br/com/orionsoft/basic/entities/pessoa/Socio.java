@@ -31,6 +31,8 @@ public class Socio
 	public static final String CARGO = "cargo";
 	public static final String DATA_ENTRADA = "dataEntrada";
 	public static final String DATA_SAIDA = "dataSaida";
+	public static final String DATA_NASCIMENTO = "dataNascimento";
+	public static final String NOME = "nome";
 	
 	private long id;
 	private Juridica juridica;
@@ -38,59 +40,66 @@ public class Socio
 	private Cargo cargo;
 	private Calendar dataEntrada;
 	private Calendar dataSaida;
+	private Calendar dataNascimento;
+	private String nome;
 	
-	
-    /**
-     * @hibernate.id generator-class="native" unsaved-value="-1"
-     */
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public long getId(){return id;}
 	public void setId(long id){this.id = id;}
 	
-    /**
-     *  @hibernate.many-to-one foreign-key="fisica"
-     */
 	@ManyToOne
 	@JoinColumn(name="fisica")
 	@ForeignKey(name="fisica")
 	public Fisica getFisica(){return fisica;}
 	public void setFisica(Fisica fisica){this.fisica = fisica;}
 	
-    /**
-     *  @hibernate.many-to-one foreign-key="juridica"
-     */
 	@ManyToOne
 	@JoinColumn(name="juridica")
 	@ForeignKey(name="juridica")
 	public Juridica getJuridica(){return juridica;}
 	public void setJuridica(Juridica juridica){this.juridica = juridica;}
 	
-    /**
-     *  @hibernate.many-to-one foreign-key="cargo"
-     */
 	@ManyToOne
 	@JoinColumn(name="cargo")
 	@ForeignKey(name="cargo")
 	public Cargo getCargo(){return cargo;}
 	public void setCargo(Cargo cargo){this.cargo = cargo;}
 	
-    /**
-     *  @hibernate.property
-     */
 	@Column
     @Temporal(TemporalType.DATE)
 	public Calendar getDataEntrada(){return dataEntrada;}
 	public void setDataEntrada(Calendar dataAdmissao){this.dataEntrada = dataAdmissao;}
 	
-    /**
-     *  @hibernate.property
-     */
 	@Column
     @Temporal(TemporalType.DATE)
 	public Calendar getDataSaida(){return dataSaida;}
 	public void setDataSaida(Calendar dataDemissao){this.dataSaida = dataDemissao;}
 
+	@Column
+    @Temporal(TemporalType.DATE)
+	public Calendar getDataNascimento(){
+		if(fisica != null)
+			return fisica.getDataInicial();
+		return dataNascimento;
+	}
+	public void setDataNascimento(Calendar dataNascimento){
+		if(fisica == null)
+			this.dataNascimento = dataNascimento;
+	}
+
+    @Column(length=255)
+    public String getNome() {
+		if(fisica != null)
+			return fisica.getNome();
+    	return nome;
+    }
+    public void setNome(String nome) {
+		if(fisica == null)
+			this.nome = nome;
+    }
+	
 	public String toString()
 	{
 		String result = "";
