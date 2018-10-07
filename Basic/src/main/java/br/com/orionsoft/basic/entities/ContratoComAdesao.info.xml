@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" hint="" label="Contrato com Adesões" name="ContratoComAdesao" propertiesInQueryGrid="id inativo categoria pessoa dataInicio dataVencimento dataRescisao observacoes representante contatos adesoes codigo" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.basic.entities.ContratoComAdesao" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Geral" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
+        <property xsi:type="PropertyBooleanType" description="" hint="Define se o Contrato está ativo ou está marcado como inativo. O sistema não gerará cobrança para contratos inativos." label="Inativo" name="inativo" required="true" defaultValue="não"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica a categoria " label="Categoria" name="categoria" editShowList="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica a pessoa (empresa ou autônomo) à qual pertence este Contrato" label="Pessoa" name="pessoa" required="true" allowSubQuery="true"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Indica uma pessoa, vendedor ou representante comercial, que é responsável por este Contrato" label="Representante" name="representante" editShowList="true" required="true"/>
+        <property xsi:type="PropertyStringType" description="Este código pode ser utilizado para diversos fins pelas especializações dos contratos" hint="Define um código para esse contrato" label="Código" name="codigo"/>
+        <property xsi:type="PropertyStringType" description="" hint="Define em qual conta contábil serão registradas as movimentações deste item de custo" label="Código da conta contábil" name="codigoContaContabil"/>
+    </group>
+    <group description="" hint="" label="Datas e vencimentos" name="Vencimento">
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em que o Contrato entra em vigor" label="Data de início" name="dataInicio" required="true" defaultValue="nowDate()"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data em que o Contrato foi rescindido" label="Data de rescisão" name="dataRescisao"/>
+        <property xsi:type="PropertyCalendarType" description="" hint="Data a partir da qual este contrato não poderá ser mais utilizado pelo seu usuário (empresa ou autônomo)" label="Data de vencimento" name="dataVencimento"/>
+    </group>
+    <group description="" hint="" label="Controle de contatos realizados" name="Contato">
+        <property xsi:type="PropertyEntityType" description="" hint="Indica os contatos que foram realizados e registrados" label="Contatos registrados" name="contatos"/>
+    </group>
+    <group description="" hint="" label="Adesões deste contrato" name="Adesoes">
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Adesões" name="adesoes" editShowEmbedded="true"/>
+    </group>
+    <group description="" hint="" label="Observações do contrato" name="Observações">
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Observações" name="observacoes" editShowEmbedded="true"/>
+    </group>
+</entity>

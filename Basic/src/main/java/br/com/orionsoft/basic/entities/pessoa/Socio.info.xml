@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" className="br.com.orionsoft.basic.entities.pessoa.Socio" crudOperations="CREATE UPDATE RETRIEVE DELETE QUERY" propertiesInQueryGrid="id dataNascimento nome cargo dataEntrada dataSaida" name="Socio" label="Sócio de Empresa" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group name="DadosSocio" label="Dados do sócio" hint="" description="">
+        <property xsi:type="PropertyNumericType" name="id" label="Id"/>
+        <property xsi:type="PropertyEntityType" name="fisica" label="Dados pessoais" description="Opcionalmente, vincule este sócio aos dados completos de uma Pessoa Física. Neste caso, o nome e a data de nascimentos serão buscados no cadastro já existente." allowSubQuery="true"/>
+        <property xsi:type="PropertyStringType" name="nome" label="Nome completo" description="Deixe vazio para usar o nome completo dos dados pessoais."/>
+        <property xsi:type="PropertyCalendarType" name="dataNascimento" label="Data de nascimento" description="Deixe vazio para usar a data de nascimento dos dados pessoais."/>
+    </group>
+    <group name="DadosEmpresa" label="Dados da Empresa" hint="" description="">
+        <property xsi:type="PropertyEntityType" name="juridica" label="Empresa" hint="Dados da empresa da qual este sócio participa" readOnly="true" />
+        <property xsi:type="PropertyEntityType" name="cargo" label="Cargo/Função" hint="Define o cargo ou função do sócio na empresa" editShowList="true" defaultValue="8"/>
+        <property xsi:type="PropertyCalendarType" name="dataEntrada" label="Data de entrada" hint="Data em que este Sócio entrou na sociedade da empresa"/>
+        <property xsi:type="PropertyCalendarType" name="dataSaida" label="Data de saída" hint="Data em que este Sócio deixou a sociedade da empresa" />
+    </group>
+</entity>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<entity
+    xmlns="http://orionsoft.net.br/entityMetadata" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd"
+	name="ApplicationUser"
+	label="Operador do sistema"
+	description="Ao cadastrar um novo operador será atribuida uma senha inicial igual ao login do operador. O operador poderá alterar sua senha pelo atalho 'Alterar Senha' na tela inicial."
+	colorName="red" 
+	crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY"
+	propertiesInQueryGrid="id inactive name login"
+	runQueryOnOpen="true"
+	>
+
+	<group name="g0" label="Informações de Autenticação" colorName="green">
+		<property xsi:type="PropertyNumericType" 
+		    name="id" 
+			label="id"
+			readOnly="true"
+			colorName="fuchsia" 
+			/>
+
+		<property xsi:type="PropertyStringType" 
+			name="name"
+			label="Nome Completo" 
+			hint="Define o nome completo do operador" 
+			description="Define o nome do operador que será exibido em algumas impressões e outras áreas do sistema" 
+			colorName="#F00"
+			required="true"
+			/>
+
+		<property xsi:type="PropertyStringType" 
+			name="login"
+			label="Login" 
+			hint="Define o login do operador" 
+			description="O login é um nome curto usado para junto com a senha para realizar a autenticação no sistema" 
+			colorName="#F00"
+			required="true"
+			/>
+
+		<property xsi:type="PropertyBooleanType" 
+			name="inactive"
+			label="Inativo" 
+			hint="Define se operador atual está inativo" 
+			description="Operadores inativos não poderão acessar o Sistema" 
+			colorName="#0F0"
+			/>
+
+		<property xsi:type="PropertyStringType" 
+			name="password"
+			label="Senha" 
+			hint="Define a senha do operador" 
+			colorName="#00F"
+			required="true"
+			/>
+	</group>
+	<group name="g1" label="Informações de grupos de direitos do operador"  colorName="navy" >
+		<property xsi:type="PropertyEntityType" 
+		    name="securityGroups" 
+			label="Grupos de segurança"
+			hint="Indica os grupos de segurança que aos quais operador pertence" 
+			colorName="green"
+			required="true" 
+			/>
+			<!-- toString="Você é o #{entity.enderecoCorrespondencia.logradouro} na cidade #{entity.enderecoCorrespondencia.municipio.nome}"  -->
+	</group>
+</entity>
+<!--
+
+ <group id="1">Informações de grupos de direitos do operador</group>
+
+ <propertyBoolean name="id"/>
+ 
+ <propertyString name="id"/> 
+ 
+ <propertyCalendar name="id"/> 
+
+
+.label=Operador do sistema
+.description=Ao cadastrar um novo operador será atribuida uma senha inicial igual ao login do operador. O operador poderá alterar sua senha pelo atalho "Alterar Senha" na tela inicial.
+.canCreate=true
+.canRetrieve=true
+.canUpdate=true
+.canDelete=true
+.runQueryOnOpen=true
+
+group.0.name=Informações de autenticação
+group.1.name=Informações de grupos de direitos do operador
+
+id.index=0
+id.readOnly=true
+id.group=0
+
+name.index=1
+name.label=Nome completo
+name.hint=Define o nome completo do operador
+name.description=Define o nome do operador que será exibido em algumas impressões e outras áreas do sistema
+name.visible=true
+name.required=true
+name.readOnly=false
+name.size=50
+name.group=0
+
+login.index=2
+login.label=Login
+login.hint=Define o login do Operador
+login.visible=true
+login.required=true
+login.readOnly=false
+login.size=20
+login.group=0
+
+inactive.index=3
+inactive.label=Inativo
+inactive.hint=Define se operador atual está inativo
+inactive.description=Operadores inativos não poderão acessar o Sistema
+inactive.visible=true
+inactive.required=false
+inactive.readOnly=false
+inactive.group=0
+
+password.index=4
+password.label=Senha
+password.hint=Define a senha do Operador
+password.visible=false
+password.required=true
+password.readOnly=false
+password.size=20
+password.group=0
+
+securityGroups.index=5
+securityGroups.label=Grupos de segurança
+securityGroups.hint=Indica os grupos de segurança que aos quais operador pertence
+securityGroups.type=br.com.orionsoft.monstrengo.security.entities.SecurityGroup
+securityGroups.isSet=true
+securityGroups.required=true
+securityGroups.readOnly=false
+securityGroups.visible=true
+securityGroups.group=1
+-->
