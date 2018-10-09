@@ -13,7 +13,7 @@
 	<property name="src" value="${basedir}/src" />
 	<property name="view" value="${basedir}/viewJSF" />
 	<property name="bin" value="${basedir}/bin" />
-	<property name="lib.home" value="../Library" />
+	<property name="lib.home" value="../SindicatoWeb/WebContent/WEB-INF/lib"/>
 	<property name="test" value="${basedir}/test" />
 	<property name="jar.dir" value="${basedir}"/>
 	<property name="jar.name" value="basic"/>
@@ -43,7 +43,7 @@
           target: compile              
          ================================= -->
 	<target name="compile" depends="" description="--> Compila os arquivos fonte">
-		<javac srcdir="${src}" destdir="${bin}" debug="off">
+		<javac includeantruntime="false" srcdir="${src}" destdir="${bin}" debug="off">
 			<classpath refid="lib.classpath" />
 		</javac>
 	</target>
