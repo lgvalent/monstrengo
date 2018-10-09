@@ -38,7 +38,11 @@ public class ConsultarCEPService extends ServiceBasic {
 			InputStream is = urlConnection.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			StringBuilder jsonSb = new StringBuilder();
-			br.lines().forEach(l -> jsonSb.append(l.trim()));
+			String line;
+			while ((line = br.readLine()) != null) {
+				jsonSb.append(line.trim());
+			}
+//			br.lines().forEach(l -> jsonSb.append(l.trim()));
 			json = jsonSb.toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
