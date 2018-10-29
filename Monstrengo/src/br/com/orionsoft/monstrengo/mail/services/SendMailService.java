@@ -1,19 +1,27 @@
 package br.com.orionsoft.monstrengo.mail.services;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.AuthenticationFailedException;
 import javax.mail.Authenticator;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -59,6 +67,8 @@ public class SendMailService extends ServiceBasic {
 	public static final String IN_RECIPIENT_OPT = "recipient";
 	public static final String IN_SUBJECT = "subject";
 	public static final String IN_MESSAGE = "message";
+	public static final String IN_MIME_BODY_PART_LIST_OPT = "mimeBodyPartList";
+	public static final String IN_FILE_PATH_LIST_OPT = "filePathList";
 
 	public String getServiceName() {
 		return SERVICE_NAME;
@@ -73,6 +83,8 @@ public class SendMailService extends ServiceBasic {
 			EmailAccount inEmailAccount = serviceData.getArgumentList().containsProperty(IN_EMAIL_ACCOUNT_OPT)?(EmailAccount)serviceData.getArgumentList().getProperty(IN_EMAIL_ACCOUNT_OPT):null;
 			String inSubject = (String)serviceData.getArgumentList().getProperty(IN_SUBJECT);
 			String inMessage = (String)serviceData.getArgumentList().getProperty(IN_MESSAGE);
+			List<MimeBodyPart> inMimeBodyPartList = serviceData.getArgumentList().containsProperty(IN_MIME_BODY_PART_LIST_OPT)?(List<MimeBodyPart>)serviceData.getArgumentList().getProperty(IN_MIME_BODY_PART_LIST_OPT):null;
+			List<String> inFilePathList = serviceData.getArgumentList().containsProperty(IN_FILE_PATH_LIST_OPT)?(List<String>)serviceData.getArgumentList().getProperty(IN_FILE_PATH_LIST_OPT):null;
 			
 			/* Verifica se foi fornecida uma conta, senão, seleciona a marcada como padrão */
 			if(inEmailAccount == null){
@@ -111,47 +123,54 @@ public class SendMailService extends ServiceBasic {
 			if(log.isDebugEnabled())
 				session.setDebug(true);
 			
-			//para cada e-mail indicado na lista
-			if(inRecipientList !=null)
-				for (String recipientMail : inRecipientList){
-					MimeMessage message = new MimeMessage(session);
+			//Semp usa a lista de e-mail para enviar os emails,  mas verifica se ela existe para colocar o unitário dentro dela
+			if(inRecipientList ==null)
+				inRecipientList = new ArrayList<String>();
+			
+			if(inRecipientList != null)
+				inRecipientList.add(inRecipient);
 
-					//setando o endereço de e-mail e o nome para assinatura
-					message.setFrom(new InternetAddress(inEmailAccount.getSenderMail(), inEmailAccount.getSenderName()));
-					//sentando o e-mail de destino
-					message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientMail));
-					//data
-					message.setSentDate(new Date());
-					//subject
-					message.setSubject(inSubject);
-					//mensagem
-					message.setContent(inMessage, "text/html; charset=utf-8");
+			for (String recipientMail : inRecipientList) {
+				MimeMessage message = new MimeMessage(session);
 
-					//enviando mensagem
-					Transport.send(message);
-					
-//					session.getTransport().sendMessage(message, message.getAllRecipients());
-				}
+				// setando o endereço de e-mail e o nome para assinatura
+				message.setFrom(new InternetAddress(inEmailAccount
+						.getSenderMail(), inEmailAccount.getSenderName()));
+				// sentando o e-mail de destino
+				message.setRecipient(Message.RecipientType.TO,
+						new InternetAddress(recipientMail));
+				// data
+				message.setSentDate(new Date());
+				// subject
+				message.setSubject(inSubject);
+				
+				// message multipart content
+				Multipart content = new MimeMultipart();
+				message.setContent(content);
 
-			if(inRecipient != null){
-					MimeMessage message = new MimeMessage(session);
+				// TextMessage
+				BodyPart textMessage = new MimeBodyPart();
+				textMessage.setContent(inMessage, "text/html; charset=utf-8");
+				content.addBodyPart(textMessage);
+				
+				// FileAttachament
+				if (inFilePathList != null)
+					for (String path : inFilePathList) {
+						DataSource fds = new FileDataSource(path);
+						BodyPart fileBodyPart = new MimeBodyPart();
+						fileBodyPart.setDataHandler(new DataHandler(fds));
+						fileBodyPart.setFileName(path.substring(path
+								.lastIndexOf("/") + 1));
+						content.addBodyPart(fileBodyPart);
+					}
 
-					//setando o endereço de e-mail e o nome para assinatura
-					message.setFrom(new InternetAddress(inEmailAccount.getSenderMail(), inEmailAccount.getSenderName()));
-					//sentando o e-mail de destino
-					message.setRecipient(Message.RecipientType.TO, new InternetAddress(inRecipient));
-					//data
-					message.setSentDate(new Date());
-					//subject
-					message.setSubject(inSubject);
-					//mensagem
-					message.setContent(inMessage, "text/html; charset=utf-8");
+				if (inMimeBodyPartList != null)
+					for (MimeBodyPart mimeBodyPart : inMimeBodyPartList)
+						content.addBodyPart(mimeBodyPart);
 
-					//enviando mensagem
-					Transport.send(message);
-
-//					session.getTransport().sendMessage(message, message.getAllRecipients());
-
+				// enviando mensagem
+				Transport.send(message);
+				// session.getTransport().sendMessage(message, message.getAllRecipients());
 			}
 
 			/* Inclui a mensagem de OK */
