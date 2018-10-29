@@ -13,7 +13,7 @@
 	<property name="src" value="${basedir}/src" />
 	<property name="view" value="${basedir}/viewJSF" />
 	<property name="bin" value="${basedir}/bin" />
-	<property name="lib.home" value="../SindicatoWeb/WebContent/WEB-INF/lib"/>
+	<property name="lib.home" value="../Library" />
 	<property name="test" value="${basedir}/test" />
 	<property name="jar.dir" value="${basedir}"/>
 	<property name="jar.name" value="basic"/>

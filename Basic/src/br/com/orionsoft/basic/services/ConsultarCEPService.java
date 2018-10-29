@@ -42,7 +42,6 @@ public class ConsultarCEPService extends ServiceBasic {
 			while ((line = br.readLine()) != null) {
 				jsonSb.append(line.trim());
 			}
-//			br.lines().forEach(l -> jsonSb.append(l.trim()));
 			json = jsonSb.toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

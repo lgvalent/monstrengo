@@ -17,6 +17,9 @@ public class ConsultarCEPServiceTestCase extends ServiceBasicTest {
 			ServiceData service = new ServiceData(ConsultarCEPService.SERVICE_NAME, null);
 			service.getArgumentList().setProperty(ConsultarCEPService.IN_CEP, cep);;
 			this.serviceManager.execute(service);
+			
+			String result = service.getFirstOutput();
+			System.out.println(result);
 		} catch (BusinessException e) {
             UtilsTest.showMessageList(e.getErrorList());
             Assert.assertTrue(false);
