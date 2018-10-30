@@ -71,6 +71,7 @@ public class SendMailServiceTestCase extends ProcessBasicTest{
 			MimeBodyPart bodyPart = new MimeBodyPart();
 			bodyPart.setContent("%PDF-1.4%5 0 obj", "application/pdf");
 			List<MimeBodyPart> bodyList = new ArrayList<MimeBodyPart>();
+			bodyList.add(bodyPart);
 			service.getArgumentList().setProperty(SendMailService.IN_MIME_BODY_PART_LIST_OPT, bodyList);
 			
             this.processManager.getServiceManager().execute(service);

@@ -146,7 +146,6 @@ public class SendMailService extends ServiceBasic {
 				
 				// message multipart content
 				Multipart content = new MimeMultipart();
-				message.setContent(content);
 
 				// TextMessage
 				BodyPart textMessage = new MimeBodyPart();
@@ -169,6 +168,7 @@ public class SendMailService extends ServiceBasic {
 						content.addBodyPart(mimeBodyPart);
 
 				// enviando mensagem
+				message.setContent(content);
 				Transport.send(message);
 				// session.getTransport().sendMessage(message, message.getAllRecipients());
 			}
