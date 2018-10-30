@@ -134,23 +134,58 @@
 		    </p:overlayPanel>  
 			<p:commandButton ajax="false" value="Gerar etiquetas" action="#{relatorioCobrancaBean.doGerarEtiqueta}" title="Gera as etiquetas para as empresas que aparecem no relatório de cobrança"/>
 			<p:commandButton ajax="false" value="Visualizar listagem" action="#{relatorioCobrancaBean.doListar}" title="Visualiza a listagem dos contratos que atendem aos critérios"/>
-		</ui:define>
-	
-		<ui:define name="formResult">
-			<h:dataTable value="#{relatorioCobrancaBean.process.lista}" 
+			
+			<hr/>
+			
+			<h:outputLabel value="Foram selecionados #{relatorioCobrancaBean.process.lista.size()} lançamentos que atendem aos critérios de busca."/><br/>
+			<h:panelGroup styleClass="noprint"/>
+			<h:dataTable value="#{relatorioCobrancaBean.process.lista.toArray()}" 
 				             var='item'
 				             rendered="#{relatorioCobrancaBean.process.lista.size()>0}"
 				             headerClass="tableListHeader"
 				             styleClass="tableList"
 				             rowClasses="tableListRowEven,tableListRowOdd"
-				             columnClasses="tableListColumn"
+				             columnClasses="tableListColumnLeft, tableListColumnRight, tableListColumnRight, tableListColumnLeft, tableListColumnRight, tableListColumnRight, tableListColumnRight"
 				             style="border-collapse: collapse;">
 
+						<f:facet name="header">
+							<h:panelGroup styleClass="noprint">
+		    	       	    	<h:outputText value="Seleção: "/>
+								<h:commandButton value="Marcar" title="Marca todos os contratos da lista atual" onclick="return checkAll(this.form, 'myCheck')"/>
+								<h:commandButton value="Intervalo" title="Marca todas as propriedades entre um intervalo definido" onclick="return checkRange(this.form, 'myCheck')"/>
+								<h:commandButton value="Desmarcar" title="Desmarca todos os contratos da lista atual" onclick="return clearAll(this.form, 'myCheck')"/>
+								<h:commandButton value="Inverter" title="Inverte a seleção dos os contratos da lista atual" onclick="return inverseAll(this.form, 'myCheck')"/>
+								<h:commandButton value="Desfazer" title="Volta a seleção anterior às alterações recentemente efetuadas" type="reset"/>
+								<br/>
+		    	       	    	<h:outputText value="Ações com a seleção: "/>
+								<h:commandButton id="inativarContratos" value="Inativar contratos" title="Inativa os contratos dos lançamentos listados" onclick="return  false;"/>
+		    					<p:overlayPanel for="inativarContratos" hideEffect="fade">  
+							    	Os contratos selecionados serão inativados<br/> na data atual e com a observação a seguir:<br/>
+									<h:inputTextarea value="#{relatorioCobrancaBean.process.observacao}"/>
+									<p:commandButton ajax="false" value="Confirmar" action="#{relatorioCobrancaBean.doInativarContratos}"/>
+							    </p:overlayPanel>  
+							</h:panelGroup>
+    	                </f:facet>
 					<h:column>
 						<f:facet name="header">
-		    	            	<h:outputText value="Id"/>
+		    	            	<h:outputText value=""/>
     	                </f:facet>
-						<h:outputLabel value="#{item.id}"/>
+						<h:selectBooleanCheckbox id="myCheck1" value="#{item.checked}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+		    	            	<h:outputText value="#{menuBean.infoMap.Lancamento.propertiesMetadata.contrato.label}"/>
+    	                </f:facet>
+							<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.Contrato.type.name}', '#{item.contratoId}')"  rendered="#{menuBean.crudMap.Contrato.canRetrieve}" styleClass="noprint">
+								<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
+							</h:outputLink>
+							<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Você não possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.Contrato.canRetrieve}" styleClass="noprint"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+		    	            	<h:outputText value="#{menuBean.infoMap.Pessoa.propertiesMetadata.documento.label}"/>
+    	                </f:facet>
+						<h:outputLabel value="#{item.documento}"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
@@ -160,9 +195,27 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-		    	            	<h:outputText value="#{menuBean.infoMap.Pessoa.propertiesMetadata.documento.label} "/>
+		    	            	<h:outputText value="#{menuBean.infoMap.Lancamento.propertiesMetadata.data.label} "/>
     	                </f:facet>
-						<h:outputLabel value="#{item.documento}"/>
+						<h:outputLabel value="#{item.data}">
+							<f:convertDateTime/>
+						</h:outputLabel>
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+		    	            	<h:outputText value="#{menuBean.infoMap.Lancamento.propertiesMetadata.dataVencimento.label} "/>
+    	                </f:facet>
+						<h:outputLabel value="#{item.dataVencimento}">
+							<f:convertDateTime/>
+						</h:outputLabel>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+		    	            	<h:outputText value="#{menuBean.infoMap.Lancamento.propertiesMetadata.valor.label} "/>
+    	                </f:facet>
+						<h:outputLabel value="#{item.valorCorrigido}">
+							<f:convertNumber pattern="R$ ###,###.00" currencySymbol="R$" type="currency"/>
+						</h:outputLabel>
 					</h:column>
 
 			</h:dataTable>

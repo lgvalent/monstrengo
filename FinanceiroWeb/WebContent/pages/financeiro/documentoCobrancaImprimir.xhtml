@@ -57,6 +57,7 @@
 	</ui:define>
 	<ui:define name="actions">
 		<p:commandButton ajax="false" value="Cancelar" onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();"/>
+		<p:commandButton ajax="false" value="Enviar por EMail" action="#{imprimirDocumentoCobrancaBean.doEnviarEMail}" disabled="#{!menuBean.processMap.ImprimirDocumentoCobrancaProcess}" title="Envia os documentos selecionados para o primeiro e-mail no cadastro da Pessoa Física/Jurídica"/>
 		<p:commandButton ajax="false" value="Download PDF" action="#{imprimirDocumentoCobrancaBean.doDownload}" disabled="#{!menuBean.processMap.ImprimirDocumentoCobrancaProcess}" />
 		<h:selectOneMenu value="#{imprimirDocumentoCobrancaBean.process.printerIndex}" id="impressora">
 			<f:selectItems 	value="#{imprimirDocumentoCobrancaBean.process.printerIndexList}" />

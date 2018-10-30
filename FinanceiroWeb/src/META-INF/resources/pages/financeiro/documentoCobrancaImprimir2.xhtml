@@ -121,6 +121,7 @@
 	</ui:define>
 	<ui:define name="actions">
 		<h:panelGroup>
+			<p:commandButton ajax="false" value="Enviar por E-Mail" action="#{imprimirDocumentosCobrancaBean.doEnviarEMail}"  disabled="#{imprimirDocumentosCobrancaBean.currentProcess.size==0}" onclick="this.value='Aguarde...'" title="Envia os documentos selecionados para o primeiro e-mail no cadastro da Pessoa Física/Jurídica"/>
 			<p:commandButton ajax="false" value="Download PDF" action="#{imprimirDocumentosCobrancaBean.doDownload}"  disabled="#{imprimirDocumentosCobrancaBean.currentProcess.size==0}" onclick="this.value='Aguarde...'" title="Gera um PDF com os documentos selecionados"/>
 			<p:selectOneMenu value="#{imprimirDocumentosCobrancaBean.currentProcess.printerIndex}" id="impressora">
 				<f:selectItems 	value="#{imprimirDocumentosCobrancaBean.currentProcess.printerIndexList}" />

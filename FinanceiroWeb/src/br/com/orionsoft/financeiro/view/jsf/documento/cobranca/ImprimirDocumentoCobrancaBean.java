@@ -116,6 +116,7 @@ public class ImprimirDocumentoCobrancaBean extends BeanSessionBasic implements I
        		
        		/* Define o outputStream que receberá o arquivo pdf do relatório
        		 * E anula o índice da impressora */
+      		this.getProcess().setEnviarEMail(false);
        		this.getProcess().setOutputStream(out);
        		this.getProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
        		this.getProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
@@ -141,6 +142,47 @@ public class ImprimirDocumentoCobrancaBean extends BeanSessionBasic implements I
 		}
     }
 
+    public void doEnviarEMail() throws BusinessException {
+    	log.debug("ImprimirDocumentoCobrancaBean.doEnviarEMail");
+    	
+    	/* Permite acionar esta action de tela passando somente o documentoId pela URL */
+    	this.loadParams();
+    	
+    	/* Passa o documento lido pelo loadParams e injetado diretamente processo*/
+    	doEnviarEMail(this.getProcess().getDocumento());
+    	
+    }
+    
+    /**
+     * Esta ação gera o PDF do documento
+     * @return
+     * @throws ParseException
+     * @throws BusinessException
+     */
+    public void doEnviarEMail(IEntity<? extends DocumentoCobranca> documento) throws BusinessException {
+        log.debug("ImprimirDocumentoCobrancaBean.doEnviarEMail(IEntity)");
+
+       	try {
+       		/* Informa ao processo para enviar e-mail */
+      		this.getProcess().setEnviarEMail(true);
+       		this.getProcess().setOutputStream(null);
+       		this.getProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
+       		this.getProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
+       		this.getProcess().runWithEntity(documento);
+
+       		if (this.getProcess().runImprimir()){
+       			/* Adiciona as mensagens de info no Faces */
+       			FacesUtils.addInfoMsgs(this.getProcess().getMessageList());
+
+    		}else{
+    			/* Adiciona as mensagens de erro no Faces */
+    			FacesUtils.addErrorMsgs(this.getProcess().getMessageList());
+       		}
+       	} catch (IOException e) {
+       		FacesUtils.addErrorMsg(e.getMessage());
+		}
+    }
+    
     /**
      * Esta ação imprime o documento na impressora definida no printerIndex
      * atual do processo
@@ -159,7 +201,6 @@ public class ImprimirDocumentoCobrancaBean extends BeanSessionBasic implements I
 
     }
     
-    
     /**
      * Esta ação imprime o documento na impressora definida no printerIndex
      * atual do processo
@@ -174,6 +215,7 @@ public class ImprimirDocumentoCobrancaBean extends BeanSessionBasic implements I
     		/* O printerIndex é injetado diretamente pelo JSF
     		 * E anula o outputStream */
     		//this.getProcess().setPrinterIndex(printerIndex);
+      		this.getProcess().setEnviarEMail(false);
     		this.getProcess().setOutputStream(null);
     		this.getProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
     		this.getProcess().runWithEntity(documento);
@@ -191,6 +233,8 @@ public class ImprimirDocumentoCobrancaBean extends BeanSessionBasic implements I
     	}
 
     }
+    
+
     
     public UploadedFile getArquivoImagem() {
 		return arquivoImagem;

@@ -128,7 +128,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
      * @throws BusinessException
      */
     public void doDownload() throws ParseException, BusinessException {
-        log.debug("ImprimirDocumentoCobrancaBean.actionImprimir");
+        log.debug("ImprimirDocumentoCobrancaBean.doDownload");
 
         /* Permite acionar esta action de tela passando somente o documentoId pela URL */
        	this.loadParams();
@@ -143,6 +143,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
        		
        		/* Define o outputStream que receberá o arquivo pdf do relatório
        		 * E anula o índice da impressora */
+      		this.getCurrentProcess().setEnviarEMail(false);
        		this.getCurrentProcess().setOutputStream(out);
        		this.getCurrentProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
        		this.getCurrentProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
@@ -170,28 +171,17 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
     /**
      * Efetua o download do documento em PDF
      */
-    public void doDownload_() {
+    public void doEnviarEMail() {
        	try {
-       		/* Define o outputStream */
-       		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-       		ServletOutputStream out = response.getOutputStream();
-       		
-       		/* Define o outputStream que receberá o arquivo pdf do relatório
-       		 * E anula o índice da impressora */
-       		this.getCurrentProcess().setOutputStream(out);
+       		/* Informa ao processo para enviar e-mail */
+       		this.getCurrentProcess().setEnviarEMail(true);
+       	    this.getCurrentProcess().setOutputStream(null);
        		this.getCurrentProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
        		this.getCurrentProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
 
        		if (this.getCurrentProcess().runImprimir()){
-           		response.setContentType("pdf-content");
-           		response.setHeader("Content-Disposition", "attachment;filename=\"" + prepareFileName() + ".pdf\"");
-
            		/* Adiciona as mensagens de info no Faces */
        			FacesUtils.addInfoMsgs(this.getCurrentProcess().getMessageList());
-
-    			out.flush();
-    			out.close();
-    			FacesContext.getCurrentInstance().responseComplete();
        		}else{
        			/* Adiciona as mensagens de erro no Faces */
        			FacesUtils.addErrorMsgs(this.getCurrentProcess().getMessageList());
@@ -215,6 +205,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
     		/* O printerIndex é injetado diretamente pelo JSF
     		 * E anula o outputStream */
     		//this.getProcess().setPrinterIndex(printerIndex);
+      		this.getCurrentProcess().setEnviarEMail(false);
     		this.getCurrentProcess().setOutputStream(null);
        		this.getCurrentProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
 
