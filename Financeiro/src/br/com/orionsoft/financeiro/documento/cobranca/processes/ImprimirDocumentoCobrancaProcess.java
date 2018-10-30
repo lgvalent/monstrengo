@@ -67,6 +67,7 @@ public class ImprimirDocumentoCobrancaProcess extends ProcessBasic implements IR
 	private long documentoId = IDAO.ENTITY_UNSAVED;
 	private OutputStream outputStream;
 	private int printerIndex = PrintUtils.PRINTER_INDEX_NO_PRINT;
+	private Boolean enviarEMail = false;
 	private Boolean zerarValor = false;
 	private Boolean zeradoOuRecalculado = false;
 
@@ -163,6 +164,7 @@ public class ImprimirDocumentoCobrancaProcess extends ProcessBasic implements IR
 			/* Lucio 03092009: Agora o sistema grava a Titulo.instrucao3 que é impressa */
 			/* Lucio 20120821: Coloca instrução adicional da data nova de pagamento */
 			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_INSTRUCOES_ADICIONAIS_OPT, descricaoAdicionalDataPagamento);
+			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_ENVIAR_EMAIL_OPT, this.enviarEMail);
 			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_OUTPUT_STREAM_OPT, this.outputStream);
 			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_PRINTER_INDEX_OPT, this.printerIndex);
 			sd.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_INPUT_STREAM_IMAGEM_OPT, this.inputStreamImagem);
@@ -221,6 +223,9 @@ public class ImprimirDocumentoCobrancaProcess extends ProcessBasic implements IR
 	public Calendar getDataPagamento() {return dataPagamento;}
 	public void setDataPagamento(Calendar dataPagamento) {this.dataPagamento = dataPagamento;}
 	
+	public Boolean getEnviarEMail() {return enviarEMail;}
+	public void setEnviarEMail(Boolean enviarEMail) {this.enviarEMail = enviarEMail;}
+
 	public Boolean getZerarValor() {return zerarValor;}
 	public void setZerarValor(Boolean zerarValor) {this.zerarValor = zerarValor;}
 	

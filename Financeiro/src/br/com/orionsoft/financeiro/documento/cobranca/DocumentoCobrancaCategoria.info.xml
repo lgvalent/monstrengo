@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" className="br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobrancaCategoria" crudOperations="CREATE UPDATE RETRIEVE DELETE QUERY" propertiesInQueryGrid="id nome contaPadrao convenioCobranca layoutId" name="DocumentoCobrancaCategoria" label="DocumentoCobrancaCategoria" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group name="Geral" label="Dados gerais" hint="" description="">
+        <property xsi:type="PropertyNumericType" name="id" label="Id"/>
+        <property xsi:type="PropertyStringType" name="nome" label="Nome" hint="Define o nome da categoria do documento cobrança"/>
+        <property xsi:type="PropertyEntityType" name="contaPadrao" label="Conta padrão" editShowList="true" hint="Define a conta padrão para lançamentos desta categoria de documento."/>
+        <property xsi:type="PropertyEntityType" name="convenioCobranca" label="Convênio" editShowList="true" hint="Define o convênio que regula esta modelidade de cobrança"/>
+        <property xsi:type="PropertyNumericType" name="layoutId" label="Layout de impressão" hint="Define o identificador do layout de impressão do documento de cobrança que o convênio deverá usar para esta categoria." description="Verifique quais são os valores aceitos pelo convênio desta categoria no cadastro do convênio."/>
+    </group>
+    <group name="Instrucoes" label="Formatação e mensangens de títulos" hint="" description="">
+        <property xsi:type="PropertyStringType" name="formatoInstrucoes0" label="Formato da instrução 0" hint="Define o formato de montagem da instrução 0 que é calculada pelo sistema." description="Utilize os formatos:&lt;li&gt;%1$d para inserir os dias de atraso&lt;/li&gt;&lt;li&gt;%2$.2f%% para inserir o percentual da multa&lt;/li&gt;&lt;li&gt;%3$.2f%% para inserir o percentual dos juros&lt;/li&gt;Obs.: Alguns bancos não suportam mais que 80 caracteres em suas linhas de instruções. Obedeça este limite caso o documento seja impresso pelo banco via arquivo de remessa."/>
+        <property xsi:type="PropertyStringType" name="instrucoes0" label="Instrução 0" calculated="true" hint="Define a primeira mensagem no campo Instruções a ser impressa no Boleto Bancário"/>
+        <property xsi:type="PropertyStringType" name="instrucoes1" label="Instrução 1" hint="Define a segunda mensagem no campo Instruções a ser impressa no Boleto Bancário"/>
+        <property xsi:type="PropertyStringType" name="instrucoes2" label="Instrução 2" hint="Define a terceira mensagem no campo Instruções a ser impressa no Boleto Bancário"/>
+    </group>
+    <group name="Juros" label="Juros, multas e outras cobranças" hint="" description="">
+        <property xsi:type="PropertyNumericType" name="jurosMora" label="Juros/Mora por mês (%)" displayFormat="%,.2f%%" required="true" hint="Define o percentual dos juros para realizações dos cálculos sobre juros"/>
+        <property xsi:type="PropertyNumericType" name="multaAtraso" label="Multa por atraso (%)" displayFormat="%,.2f%%" required="true" hint="Define o percentual da multa para realizações dos cálculos sobre multa por atraso"/>
+        <property xsi:type="PropertyNumericType" name="descontoAntecipacao" label="Desconto por antecipação" hint="Define o total de desconto para documentos pagos com antecipaçã"/>
+        <property xsi:type="PropertyNumericType" name="diasToleranciaMultaAtraso" label="Dias de tolerância do atraso" minimum="0" maximum="999" hint="Define quantos dias de atraso são tolerados antes da aplicação da multa e dos juros" description="Define quantos dias de atraso são tolerados antes da aplicação da multa e dos juros.&lt;br&gt;Se for maior que 0, é essencial adicionar esta informação na propriedade 'Formato da instrução 0'."/>
+    </group>
+    <group name="EMail" label="Configuração de envio de E-Mail" hint="" description="">
+        <property xsi:type="PropertyEntityType" name="contaEMail" label="Conta de E-Mail" editShowList="true" hint="Esta conta de Email será utilizada para enviar os documentos de cobrança com o arquivo PDF"/>
+        <property xsi:type="PropertyStringType" name="mensagemEMail" label="Mensagem do E-Mail" editMask="HTML" hint="Define a mensagem do E-Mail enviado com o Documento de Cobrança anexado" description="É possível usar tags HTML e também de CrudExpressions #{DocumentoCobranca[?].PROPRIEDADE}, onde PROPRIEDADE pode ser data, valor, contrato, convenioCobranca, documentoCobrancaCategoria."/>
+    </group>
+</entity>
