@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.ForeignKey;
 
 import br.com.orionsoft.financeiro.gerenciador.entities.Conta;
+import br.com.orionsoft.monstrengo.mail.entities.EmailAccount;
 
 @Entity
 @Table(name = "financeiro_documento_cobranca_categoria")
@@ -36,6 +37,8 @@ public class DocumentoCobrancaCategoria {
 	public static final String MULTA_ATRASO = "multaAtraso";
 	public static final String DESCONTO_ANTECIPACAO = "descontoAntecipacao";
 	public static final String DIAS_TOLERANCIA_MULTA_ATRASO = "diasToleranciaMultaAtraso";
+    public static final String EMAIL_ACCOUNT = "contaEMail";
+    public static final String MENSAGEM_EMAIL = "mensagemEMail";
 //	public static final String PERCENTUAL_MULTA_ADICIONAL = "percentualMultaAdicional";
 //	public static final String FREQUENCIA_MULTA_ADICIONAL = "frequenciaMultaAdicional";
     
@@ -51,6 +54,8 @@ public class DocumentoCobrancaCategoria {
 	private BigDecimal multaAtraso;
 	private BigDecimal descontoAntecipacao;
 	private int diasToleranciaMultaAtraso;
+    private EmailAccount contaEMail;
+    private String mensagemEMail;
 //	private BigDecimal percentualMultaAdicional;
 //  private Frequencia frequenciaMultaAdicional;
     
@@ -93,6 +98,12 @@ public class DocumentoCobrancaCategoria {
 	public void setConvenioCobranca(ConvenioCobranca convenioCobranca) {
 		this.convenioCobranca = convenioCobranca;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = EMAIL_ACCOUNT)
+	@ForeignKey(name = EMAIL_ACCOUNT)
+	public EmailAccount getContaEMail() {return contaEMail;}
+	public void setContaEMail(EmailAccount contaEMail) {this.contaEMail = contaEMail;}
 
 	@Override
 	public String toString() {
@@ -186,6 +197,17 @@ public class DocumentoCobrancaCategoria {
 	public void setDiasToleranciaMultaAtraso(int diasToleranciaMultaAtraso) {
 		this.diasToleranciaMultaAtraso = diasToleranciaMultaAtraso;
 	}
+
+	@Column(name="mensagemEMail", columnDefinition="Text")
+	public String getMensagemEMail() {
+		return mensagemEMail;
+	}
+
+	public void setMensagemEMail(String mensagemEMail) {
+		this.mensagemEMail = mensagemEMail;
+	}
+	
+	
 
 //	@Column
 //	public BigDecimal getPercentualMultaAdicional() {

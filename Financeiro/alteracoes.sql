@@ -1,3 +1,8 @@
+-- Lucio -13/10/2018
+ALTER TABLE `financeiro_documento_cobranca_categoria` ADD mensagemEMail Text;
+ALTER TABLE `financeiro_documento_cobranca_categoria` ADD contaEMail bigint;
+ALTER TABLE `financeiro_documento_cobranca_categoria` add index contaEMail (contaEMail), add constraint financeiro_documento_cobranca_categoria_contaEMail foreign key (contaEMail) references framework_email_account (id);
+ 
 -- Lucio -01/09/2014 
 ALTER TABLE `financeiro_titulo_ocorrencia_controle` 
   ADD `controle` VARCHAR(50);
