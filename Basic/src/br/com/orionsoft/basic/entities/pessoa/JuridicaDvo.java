@@ -15,6 +15,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoBasic;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoException;
 import br.com.orionsoft.monstrengo.crud.services.ListService;
+import br.com.orionsoft.monstrengo.mail.services.SendMailService;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 /**
  * Classe que valida entidades do tipo Juridica. <br>
@@ -76,6 +77,12 @@ public class JuridicaDvo extends DvoBasic<Juridica> {
 		
 		try {
 			validarCnpjRepetido(entity, serviceData);
+		} catch (DvoException e) {
+			dvoExceptions.getErrorList().addAll(e.getErrorList());
+		}
+		
+		try {
+			validarEMail(entity);
 		} catch (DvoException e) {
 			dvoExceptions.getErrorList().addAll(e.getErrorList());
 		}
@@ -166,4 +173,26 @@ public class JuridicaDvo extends DvoBasic<Juridica> {
 			throw new DvoException(MessageList.create(JuridicaDvo.class, "CNPJ_REPETIDO", entity.getPropertyValue(Juridica.DOCUMENTO), juridica.getId() + ":" + juridica.toString()));
 		}
 	}
+	
+	/***
+	 * Método que verifica se os são válidos.
+	 */
+	public void validarEMail(IEntity<Juridica> entity) throws DvoException, BusinessException {
+		try{
+			String emails = entity.getProperty(Juridica.EMAIL).getValue().getAsString();
+			if(!StringUtils.isBlank(emails)){
+				for(String email: emails.split(";"))
+					if(!SendMailService.validateEMail(email))
+						throw new DvoException(MessageList.create(JuridicaDvo.class, "EMAIL_INVALIDO", email));
+			}
+		}
+		catch(PropertyValueException e) {
+			throw new BusinessException(e.getErrorList());
+		}
+		catch(EntityException e) {
+			throw new BusinessException(e.getErrorList());
+		}
+		
+	}
+
 }

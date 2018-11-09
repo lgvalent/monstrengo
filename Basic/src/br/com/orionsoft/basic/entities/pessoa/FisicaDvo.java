@@ -14,6 +14,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoBasic;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoException;
 import br.com.orionsoft.monstrengo.crud.services.ListService;
+import br.com.orionsoft.monstrengo.mail.services.SendMailService;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 
 /**
@@ -87,6 +88,13 @@ public class FisicaDvo extends DvoBasic<Fisica> {
 			dvoExceptions.getErrorList().addAll(e.getErrorList());
 		}
 		
+		try{
+			validarEMail(entity);
+		}
+		catch(DvoException e){
+			dvoExceptions.getErrorList().addAll(e.getErrorList());
+		}
+		
 		if(!dvoExceptions.getErrorList().isEmpty()){
 			throw dvoExceptions;
 		}
@@ -153,6 +161,27 @@ public class FisicaDvo extends DvoBasic<Fisica> {
 				else{
 					log.debug("Data de Nascimento OK !");
 				}
+			}
+		}
+		catch(PropertyValueException e) {
+			throw new BusinessException(e.getErrorList());
+		}
+		catch(EntityException e) {
+			throw new BusinessException(e.getErrorList());
+		}
+		
+	}
+	
+	/***
+	 * Método que verifica se os são válidos.
+	 */
+	public void validarEMail(IEntity<Fisica> entity) throws DvoException, BusinessException {
+		try{
+			String emails = entity.getProperty(Fisica.EMAIL).getValue().getAsString();
+			if(!StringUtils.isBlank(emails)){
+				for(String email: emails.split(";"))
+					if(!SendMailService.validateEMail(email))
+						throw new DvoException(MessageList.create(FisicaDvo.class, "EMAIL_INVALIDO", email));
 			}
 		}
 		catch(PropertyValueException e) {
@@ -263,5 +292,6 @@ public class FisicaDvo extends DvoBasic<Fisica> {
 
 		}
 	}
+	
 	
 }
