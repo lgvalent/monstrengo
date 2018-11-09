@@ -181,10 +181,7 @@ public class SendMailService extends ServiceBasic {
 			/* O Serviço não precisa adicionar mensagem local. O Manager já
 			 indica qual srv falhou e os parâmetros.*/
 			throw new ServiceException(e.getErrorList());
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			throw new ServiceException(MessageList.createSingleInternalError(e));
-		} catch (MessagingException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new ServiceException(MessageList.createSingleInternalError(e));
 		} 
@@ -211,6 +208,16 @@ public class SendMailService extends ServiceBasic {
 		protected PasswordAuthentication getPasswordAuthentication() {
 			return new PasswordAuthentication(username,password);
 		} 
+	}
+	
+	public static boolean validateEMail(String email){
+		try{
+			InternetAddress emailAddr = new InternetAddress(email);
+			emailAddr.validate();
+			return true;
+		} catch (MessagingException ex) {
+			return false;
+		}
 	}
 	
 }
