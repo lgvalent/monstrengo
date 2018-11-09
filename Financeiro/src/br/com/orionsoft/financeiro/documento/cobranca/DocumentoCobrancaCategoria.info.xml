@@ -20,7 +20,7 @@
         <property xsi:type="PropertyNumericType" name="diasToleranciaMultaAtraso" label="Dias de tolerância do atraso" minimum="0" maximum="999" hint="Define quantos dias de atraso são tolerados antes da aplicação da multa e dos juros" description="Define quantos dias de atraso são tolerados antes da aplicação da multa e dos juros.&lt;br&gt;Se for maior que 0, é essencial adicionar esta informação na propriedade 'Formato da instrução 0'."/>
     </group>
     <group name="EMail" label="Configuração de envio de E-Mail" hint="" description="">
-        <property xsi:type="PropertyEntityType" name="contaEMail" label="Conta de E-Mail" editShowList="true" hint="Esta conta de Email será utilizada para enviar os documentos de cobrança com o arquivo PDF"/>
+        <property xsi:type="PropertyEntityType" name="contaEMail" label="Conta de E-Mail" editShowList="true" hint="Esta conta de Email será utilizada para enviar os documentos de cobrança com o arquivo PDF" description="Esta conta será utilizada para enviar os documentos aos destinatários e caso não exista um e-mail cadastrado na Pessoa, o arquivo será enviado para este e-mail."/>
         <property xsi:type="PropertyStringType" name="mensagemEMail" label="Mensagem do E-Mail" editMask="HTML" hint="Define a mensagem do E-Mail enviado com o Documento de Cobrança anexado" description="É possível usar tags HTML e também de CrudExpressions #{DocumentoCobranca[?].PROPRIEDADE}, onde PROPRIEDADE pode ser data, valor, contrato, convenioCobranca, documentoCobrancaCategoria."/>
     </group>
 </entity>
