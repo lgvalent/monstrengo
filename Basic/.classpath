@@ -30,6 +30,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Json"/>
+	<classpathentry kind="lib" path="/Library/Json/javax.json-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

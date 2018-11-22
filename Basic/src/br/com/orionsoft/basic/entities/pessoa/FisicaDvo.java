@@ -11,7 +11,6 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
-import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoBasic;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoException;
 import br.com.orionsoft.monstrengo.crud.services.ListService;
 import br.com.orionsoft.monstrengo.mail.services.SendMailService;
@@ -26,7 +25,7 @@ import br.com.orionsoft.monstrengo.security.entities.UserSession;
  * @spring.property name="dvoManager" ref="DvoManager"
  * @spring.property name="capitalizeNames" value="false"
  */
-public class FisicaDvo extends DvoBasic<Fisica> {
+public class FisicaDvo extends PessoaDvo<Fisica> {
 	
 	/** Permite configurar via Spring, se deseja ou não a capitalização
 	 * dos nomes automaticamente. Pois em alguns casos isto não é bom.
@@ -53,7 +52,12 @@ public class FisicaDvo extends DvoBasic<Fisica> {
 	 * Ele verifica se existe um CPF para validá-lo, se o documento é obrigatório é evitada a gravação sem o CPF.
 	 */
 	public void afterUpdate(IEntity<Fisica> entity, UserSession userSession, ServiceData serviceData) throws DvoException, BusinessException {
-        DvoException dvoExceptions = new DvoException(new MessageList());
+		DvoException dvoExceptions = new DvoException(new MessageList());
+		try {
+			super.afterUpdate(entity, userSession, serviceData);
+		} catch (DvoException e) {
+			dvoExceptions.getErrorList().addAll(e.getErrorList());
+		} 
         
         if(this.capitalizeNames){
         	Fisica oFisica = entity.getObject();
@@ -87,14 +91,7 @@ public class FisicaDvo extends DvoBasic<Fisica> {
 		catch(DvoException e){
 			dvoExceptions.getErrorList().addAll(e.getErrorList());
 		}
-		
-		try{
-			validarEMail(entity);
-		}
-		catch(DvoException e){
-			dvoExceptions.getErrorList().addAll(e.getErrorList());
-		}
-		
+				
 		if(!dvoExceptions.getErrorList().isEmpty()){
 			throw dvoExceptions;
 		}
@@ -161,27 +158,6 @@ public class FisicaDvo extends DvoBasic<Fisica> {
 				else{
 					log.debug("Data de Nascimento OK !");
 				}
-			}
-		}
-		catch(PropertyValueException e) {
-			throw new BusinessException(e.getErrorList());
-		}
-		catch(EntityException e) {
-			throw new BusinessException(e.getErrorList());
-		}
-		
-	}
-	
-	/***
-	 * Método que verifica se os são válidos.
-	 */
-	public void validarEMail(IEntity<Fisica> entity) throws DvoException, BusinessException {
-		try{
-			String emails = entity.getProperty(Fisica.EMAIL).getValue().getAsString();
-			if(!StringUtils.isBlank(emails)){
-				for(String email: emails.split(";"))
-					if(!SendMailService.validateEMail(email))
-						throw new DvoException(MessageList.create(FisicaDvo.class, "EMAIL_INVALIDO", email));
 			}
 		}
 		catch(PropertyValueException e) {

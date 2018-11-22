@@ -12,7 +12,6 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
-import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoBasic;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoException;
 import br.com.orionsoft.monstrengo.crud.services.ListService;
 import br.com.orionsoft.monstrengo.mail.services.SendMailService;
@@ -26,7 +25,7 @@ import br.com.orionsoft.monstrengo.security.entities.UserSession;
  * @spring.property name="capitalizeNames" value="false"
  * 
  */
-public class JuridicaDvo extends DvoBasic<Juridica> {
+public class JuridicaDvo extends PessoaDvo<Juridica> {
 
 	/** Permite configurar via Spring, se deseja ou não a capitalização
 	 * dos nomes automaticamente. Pois em alguns casos isto não é bom.
@@ -47,6 +46,7 @@ public class JuridicaDvo extends DvoBasic<Juridica> {
 	 * Ele verifica se existe um CNPJ para validá-lo, se o documento é obrigatório é evitada a gravação sem o CNPJ.
 	 */
 	public void afterCreate(IEntity<Juridica> entity, UserSession userSession, ServiceData serviceData) throws DvoException, BusinessException {
+
 		/* Lucio 12/12/12: Define o endereço principal na lista de outros endereços */
 		Juridica oJuridica = entity.getObject();
 		oJuridica.getEnderecoCorrespondencia().setPessoa(oJuridica);
@@ -56,8 +56,14 @@ public class JuridicaDvo extends DvoBasic<Juridica> {
 	 * Ele verifica se existe um CPF para validá-lo, se o documento é obrigatório é evitada a gravação sem o CPF.
 	 */
 	public void afterUpdate(IEntity<Juridica> entity, UserSession userSession, ServiceData serviceData) throws DvoException, BusinessException {
-        DvoException dvoExceptions = new DvoException(new MessageList());
-        Juridica oJuridica = entity.getObject();
+		DvoException dvoExceptions = new DvoException(new MessageList());
+		try {
+			super.afterUpdate(entity, userSession, serviceData);
+		} catch (DvoException e) {
+			dvoExceptions.getErrorList().addAll(e.getErrorList());
+		} 
+
+		Juridica oJuridica = entity.getObject();
         if(this.capitalizeNames){
 
         	/* Coloca os nomes em Capitalize e remove espaços em branco desnecessários */

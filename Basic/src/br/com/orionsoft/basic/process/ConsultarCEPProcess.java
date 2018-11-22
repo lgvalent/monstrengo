@@ -1,6 +1,9 @@
 package br.com.orionsoft.basic.process;
 
+import javax.json.Json;
 import javax.json.JsonObject;
+
+import org.apache.tools.ant.filters.StringInputStream;
 
 import br.com.orionsoft.basic.services.ConsultarCEPService;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
@@ -36,7 +39,7 @@ public class ConsultarCEPProcess extends ProcessBasic {
 			service.getArgumentList().setProperty(ConsultarCEPService.IN_CEP, cep);
 			this.getProcessManager().getServiceManager().execute(service);
 			
-			JsonObject endereco = (JsonObject) service.getOutputData().get(0);
+			JsonObject endereco = Json.createReader(new StringInputStream(service.getFirstOutput().toString())).readObject();
 			logradouro = endereco.getString("logradouro");
 			complemento = endereco.getString("complemento");
 			bairro = endereco.getString("bairro");
