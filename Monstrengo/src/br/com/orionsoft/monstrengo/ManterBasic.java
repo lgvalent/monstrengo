@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
@@ -40,6 +41,20 @@ public class ManterBasic
     public ManterBasic(IServiceManager serviceManager, ServiceData serviceDataOwner)
     {
         this.serviceManager = serviceManager;
+        if(serviceDataOwner== null){
+        	/** Copiado do método privado ServiceManager.prepareSession() */
+            log.debug("Criando uma nova sessão");
+            serviceDataOwner = new ServiceData("", null);
+            serviceDataOwner.setCurrentSession(serviceManager.getEntityManager().getDaoManager().getSessionFactory().openSession());
+
+            /* Lucio 23/04/2009
+             * Ao usar o FlushMode.COMMIT e usar o LockMode.UPGRADE em algum objeto, o 
+             * hibernate atualizava o objeto 'lockado', mas ao dar um commit, um flush era 
+             * executado e uma versao antiga da entidade era gravada, o que causava 
+             * inconsistencia no sequenciaNumeroDocumento.
+             */
+             serviceDataOwner.getCurrentSession().setFlushMode(FlushMode.ALWAYS);
+        }
         this.serviceData = serviceDataOwner;
     }
     
