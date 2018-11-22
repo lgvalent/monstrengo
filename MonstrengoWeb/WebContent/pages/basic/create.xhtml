@@ -23,8 +23,33 @@
 		<script>
 			document.title = "Novo #{createBean.currentEntity.info.label}";
 		</script>
-
-		<p:panel header="Criando novo registro de &lt;span style='color: #{createBean.currentEntity.info.colorName}' &gt;&lt;i&gt;#{createBean.currentEntity.info.label}&lt;/i&gt;&lt;/span&gt;">
+		<style>
+			.ui-panel .ui-panel-content {
+	    		padding: 0;
+			}
+		</style>
+		<p:panel style="position: fixed; top: 0; width: 100%">
+			<f:facet name="header">
+				Criando novo registro de
+				<span style="color: #{createBean.currentEntity.info.colorName}">
+					<i>#{createBean.currentEntity.info.label}</i>
+				</span>
+				<hr/>
+				<p:commandButton value="Gravar"
+					onclick="javascript:return confirm('Confirma gravar as alterações?')"
+					action="#{createBean.actionUpdate}" ajax="false"/>
+				<p:commandButton value="Cancelar"
+					onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();" />
+				<p:commandButton value="Limpar" onclick="this.value='Aguarde...'"
+					title="Limpa os dados, descartando as alterações realizadas até aqui"
+					action="#{createBean.doReloadEntity}" ajax="false"/>
+				<p:commandButton value="Validar" onclick="this.value='Validando...'"
+					title="Submete os dados digitados até aqui para uma validação"
+					action="#{createBean.doValidateEntity}" immediate="false" ajax="false"/>
+			</f:facet>
+			
+		</p:panel>
+		<p:panel style="margin-top: 85px;">
 			<h:outputText value="#{createBean.currentEntity.info.description}"
 				escape="false" styleClass="description" />
 			<br/>
@@ -70,20 +95,6 @@
 
 
 			<h:outputLabel value="* Campos requeridos " styleClass="errorMessage" />
-
-			<f:facet name="footer">
-				<p:commandButton value="Gravar"
-					onclick="javascript:return confirm('Confirma gravar as alterações?')"
-					action="#{createBean.actionUpdate}" ajax="false"/>
-				<p:commandButton value="Cancelar"
-					onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();" />
-				<p:commandButton value="Limpar" onclick="this.value='Aguarde...'"
-					title="Limpa os dados, descartando as alterações realizadas até aqui"
-					action="#{createBean.doReloadEntity}" ajax="false"/>
-				<p:commandButton value="Validar" onclick="this.value='Validando...'"
-					title="Submete os dados digitados até aqui para uma validação"
-					action="#{createBean.doValidateEntity}" immediate="false" ajax="false"/>
-			</f:facet>
 		</p:panel>
 	</h:form>
 </h:body>
