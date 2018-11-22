@@ -28,6 +28,7 @@ public interface IPropertyValue {
     // Esta propriedade não pôde se chamar null ou empty, dá conflito com o JSF
     public boolean isValueNull();
     public boolean isModified();
+    public void setModified(boolean value);
     
     public Object getOldValue();
     

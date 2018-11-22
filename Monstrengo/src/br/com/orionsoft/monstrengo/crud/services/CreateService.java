@@ -133,6 +133,7 @@ public class CreateService extends ServiceBasic {
             					prop.getValue().setAsObject(defaultObject);
             				else
             					prop.getValue().setAsString(defaultValue);
+            				
             			}catch(PropertyValueException e){
             				PropertyValueException ex = new PropertyValueException(e.getErrorList());
             				ex.getErrorList().add(CreateService.class, "ERROR_GETTING_DEFAULT", prop.getInfo().getLabel(), prop.getEntityOwner().getInfo().getLabel(), prop.getInfo().getDefaultValue());
@@ -153,6 +154,9 @@ public class CreateService extends ServiceBasic {
             				/* Usando a nova entidade no relacionamento OneToOne */
         					prop.getValue().setAsEntity(entityEmbedded);
             			}
+            		
+       				/* Default value não caracteriza uma modificação! */
+            		prop.getValue().setModified(false);
             	}
             }
             

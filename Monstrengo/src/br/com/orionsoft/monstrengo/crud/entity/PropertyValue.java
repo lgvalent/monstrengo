@@ -73,10 +73,8 @@ public class PropertyValue implements IPropertyValue
 		}
 	}
 
-	public boolean isModified()
-	{
-		return modified;
-	}
+	public boolean isModified(){return modified;}
+	public void setModified(boolean modified) {this.modified = modified;}
 
 	/**
 	 * Obtem o valor objeto da propriedade e tenta extrair o ID deste objeto.
