@@ -146,6 +146,8 @@
 				<value>br.com.orionsoft.monstrengo</value>
 				<value>br.com.orionsoft.monstrengoWeb</value>
 				<value>br.com.orionsoft.basic</value>
+				<value>br.com.orionsoft.financeiro</value>
+				<value>br.com.orionsoft.financeiroWeb</value>
 			</list>
 		</property>
 	</bean>
