@@ -4,85 +4,36 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:panelGrid>
-	<h:panelGroup>
+<style>
+	.ui-panel .ui-panel-content {
+   		padding: 0;
+	}
+</style>
+	
+<p:panel>
+	<f:facet name="header">
+		Pesquisando
+		<span style="color: #{queryBean.info.colorName}">
+			<i>#{queryBean.info.label}</i>
+		</span>
 		<!-- h:outputText value="Conteúdo: "/-->
 		<p:inputText id="filter"
 			value="#{queryBean.currentProcess.userReport.filterParam.filter}"
 			title="Digite qualquer conteúdo que será procurado em todas as propriedades da entidade, inclusive campos de datas e numéricos"
-			size="60" onblur="onblurAlfanumeric(this)"
+			size="50" onblur="onblurAlfanumeric(this)"
 			type="search"/>
-		<p:commandButton styleClass="noprint" ajax="false" value="Pesquisar"
-			action="#{queryBean.doFilter}" onclick="this.value='Pesquisando...'" />
+		<p:commandButton styleClass="noprint" ajax="false" value="Buscar"
+			action="#{queryBean.doFilter}" onclick="this.value='Buscando...'" />
 		<p:focus for="filter"/>
-		<p:commandButton id="btnProcess" value="Processos" styleClass="noprint"/>
+		<p:commandButton id="btnProcess" value="Processos" styleClass="noprint" icon="ui-icon-grip-dotted-horizontal"/>
 		<p:overlayPanel for="btnProcess" >
 			<ui:include src="/public/basic/tiles/runRunnableProcessFromEntityCollection.xhtml">
 				<ui:param name="info" value="#{queryBean.info}" />
 				<ui:param name="entityCollection" value="#{queryBean.currentProcess.userReport.entityCollection}" />
 			</ui:include>
 		</p:overlayPanel>
-	</h:panelGroup>
-
-	<h:panelGrid columns="2">
-		<h:panelGroup>
-			<h:outputText styleClass="title noprint"
-				value="Não achou? Crie um novo registro de " escape="false" />
-		</h:panelGroup>
-		<h:panelGrid columns="1">
-			<h:commandLink styleClass="noprint"
-				action="#{createBean.actionCreate}"
-				rendered="#{queryBean.canCreate and not queryBean.info.isAbstract()}"
-				style="font-size: smaller;">
-				<h:graphicImage value="../../public/basic/img/create.png"
-					title="Clique aqui para criar um novo registro de #{queryBean.info.label}"
-					style="border:0" />
-				<h:outputText value="#{queryBean.info.label}" />
-				<f:param value="#{queryBean.info.type.name}" name="entityType" />
-				<f:param value="#{queryBean.currentParams.selectOneDest}"
-					name="selectOneDest" />
-				<f:param value="#{queryBean.currentParams.selectProperty}"
-					name="selectProperty" />
-				<f:param
-					value="#{queryBean.currentProcess.userReport.filterParam.filter}"
-					name="filter" />
-			</h:commandLink>
-			<h:panelGroup
-				rendered="#{!queryBean.canCreate and !queryBean.info.hasSubEntities}">
-				<h:graphicImage styleClass="noprint"
-					value="../../public/basic/img/create_d.png"
-					title="Você não possui direitos para criar um novo registro de #{queryBean.info.label}"
-					style="border:0" />
-				<h:outputText value="#{queryBean.info.label}" />
-			</h:panelGroup>
-			<h:dataTable styleClass="noprint" value="#{queryBean.subEntities}"
-				var='item' width="100%" rendered="#{queryBean.info.hasSubEntities}">
-				<h:column>
-					<h:commandLink action="#{createBean.actionCreate}"
-						rendered="#{item.canCreate}" style="font-size: smaller;">
-						<h:graphicImage value="../../public/basic/img/create.png"
-							title="Clique aqui para criar um novo registro de #{item.label}"
-							style="border:0" />
-						<h:outputText value="#{item.label}" />
-
-						<f:param value="#{item.type.name}" name="entityType" />
-						<f:param value="#{queryBean.currentParams.selectOneDest}"
-							name="selectOneDest" />
-						<f:param value="#{queryBean.currentParams.selectProperty}"
-							name="selectProperty" />
-						<f:param
-							value="#{queryBean.currentProcess.userReport.filterParam.filter}"
-							name="filter" />
-					</h:commandLink>
-					<h:graphicImage value="../../public/basic/img/create_d.png"
-						title="Você não possui direitos para criar um novo registro de #{item.label}"
-						style="border:0" rendered="#{!item.canCreate}" />
-				</h:column>
-			</h:dataTable>
-		</h:panelGrid>
-	</h:panelGrid>
-
-	<h:panelGrid columns="5" styleClass="noprint">
+	</f:facet>
+	<h:panelGrid columns="6" styleClass="noprint">
 		<h:panelGroup
 			style="text-align: right; color: #006600; font-size: smaller;">
 			<h:selectBooleanCheckbox id="sbAdvancedQuery"
@@ -136,6 +87,65 @@
 				onclick="this.form.submit()" />
 			<h:outputLabel value="Expressão" for="sbAdvancedHqlWhere" />
 		</h:panelGroup>
+
+		<h:panelGroup>
+			|
+			<h:outputText styleClass="title noprint"
+				value="Não achou? Crie um novo registro de " escape="false" />
+			<p:commandButton id="btnSubentities" value="" icon="ui-icon-grip-dotted-horizontal"/>
+		</h:panelGroup>
+		
 	</h:panelGrid>
-</h:panelGrid>
+</p:panel>
+	    <p:overlayPanel for="btnSubentities" hideEffect="fade">  
+			<h:commandLink styleClass="noprint"
+				action="#{createBean.actionCreate}"
+				rendered="#{queryBean.canCreate and not queryBean.info.isAbstract()}"
+				style="font-size: smaller;"> 
+				<h:graphicImage value="../../public/basic/img/create.png"
+					title="Clique aqui para criar um novo registro de #{queryBean.info.label}"
+					style="border:0" />
+				<h:outputText value="#{queryBean.info.label}" />
+				<f:param value="#{queryBean.info.type.name}" name="entityType" />
+				<f:param value="#{queryBean.currentParams.selectOneDest}"
+					name="selectOneDest" />
+				<f:param value="#{queryBean.currentParams.selectProperty}"
+					name="selectProperty" />
+				<f:param
+					value="#{queryBean.currentProcess.userReport.filterParam.filter}"
+					name="filter" />
+			</h:commandLink>
+			<h:panelGroup
+				rendered="#{!queryBean.canCreate and !queryBean.info.hasSubEntities}">
+				<h:graphicImage styleClass="noprint"
+					value="../../public/basic/img/create_d.png"
+					title="Você não possui direitos para criar um novo registro de #{queryBean.info.label}"
+					style="border:0" />
+				<h:outputText value="#{queryBean.info.label}" />
+			</h:panelGroup>
+			<h:dataTable styleClass="noprint" value="#{queryBean.subEntities}"
+				var='item' width="100%" rendered="#{queryBean.info.hasSubEntities}">
+				<h:column>
+					<h:commandLink action="#{createBean.actionCreate}"
+						rendered="#{item.canCreate}" style="font-size: smaller;">
+						<h:graphicImage value="../../public/basic/img/create.png"
+							title="Clique aqui para criar um novo registro de #{item.label}"
+							style="border:0" />
+						<h:outputText value="#{item.label}" />
+
+						<f:param value="#{item.type.name}" name="entityType" />
+						<f:param value="#{queryBean.currentParams.selectOneDest}"
+							name="selectOneDest" />
+						<f:param value="#{queryBean.currentParams.selectProperty}"
+							name="selectProperty" />
+						<f:param
+							value="#{queryBean.currentProcess.userReport.filterParam.filter}"
+							name="filter" />
+					</h:commandLink>
+					<h:graphicImage value="../../public/basic/img/create_d.png"
+						title="Você não possui direitos para criar um novo registro de #{item.label}"
+						style="border:0" rendered="#{!item.canCreate}" />
+				</h:column>
+			</h:dataTable>
+		</p:overlayPanel>  		
 </ui:composition>

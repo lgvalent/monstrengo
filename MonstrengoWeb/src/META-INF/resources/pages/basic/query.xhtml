@@ -48,7 +48,7 @@
    		</div>
 	</f:verbatim-->
 
-		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size: smaller;">
 			<tr valign="top">
 				<td><h:panelGroup styleClass="parentGroupHeader"
 						rendered="#{queryBean.currentProcess.userReport.parentParam.hasParent}">
@@ -64,11 +64,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td><a name="filter" /> <script>
-					borderCreator.initDarkBorder('100%', '', 'left', 'top')
-				</script> <ui:include src="/public/basic/tiles/query/queryFilter.xhtml" /> <script>
-					borderCreator.endDarkBorder()
-				</script></td>
+				<td><a name="filter" /> 
+					<ui:include src="/public/basic/tiles/query/queryFilter.xhtml" /> 
+				</td>
 			</tr>
 			<tr>
 				<td><h:panelGroup

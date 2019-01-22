@@ -23,10 +23,19 @@
 		<script>
 			document.title = "#{updateBean.currentEntity.info.label}: #{updateBean.currentEntity}";
 		</script>
-
-		<p:panel>
-
+		<style>
+			.ui-panel .ui-panel-content {
+	    		padding: 0;
+			}
+		</style>
+		<p:panel style="position: fixed; top: 0; width: 100%">
 			<f:facet name="header">
+				Alterando os dados de
+				<span style="color: #{retrieveBean.currentEntity.info.colorName}">
+					<i>#{updateBean.currentEntity.info.label}</i>: 
+					<b>#{updateBean.currentEntity}</b>
+				</span>
+				<hr/>
 				<p:commandButton value="Gravar"
 					onclick="javascript:return confirm('Confirma gravar as alterações?')"
 					action="#{updateBean.actionUpdate}" ajax="false" />
@@ -42,30 +51,9 @@
 					action="#{updateBean.doValidateEntity}" immediate="false"
 					ajax="false" />
 			</f:facet>
-
-			<f:facet name="footer">
-				<p:commandButton value="Gravar"
-					onclick="javascript:return confirm('Confirma gravar as alterações?')"
-					action="#{updateBean.actionUpdate}" ajax="false" />
-				<p:commandButton value="Cancelar"
-					action="#{updateBean.actionCancel}"
-					onclick="this.value='Aguarde...'" immediate="true" ajax="false" />
-				<p:commandButton value="Recarregar"
-					onclick="this.value='Aguarde...'"
-					title="Recarrega os dados, descartando as alterações realizadas até aqui"
-					action="#{updateBean.doReloadEntity}" immediate="true" ajax="false" />
-				<p:commandButton value="Validar" onclick="this.value='Validando...'"
-					title="Submete os dados digitados até aqui para uma validação"
-					action="#{updateBean.doValidateEntity}" immediate="false"
-					ajax="false" />
-			</f:facet>
-			<span style="color: #{retrieveBean.currentEntity.info.colorName}">
-				<i>#{updateBean.currentEntity.info.label}</i>: 
-				<b>#{updateBean.currentEntity}</b>
-			</span>
-			<br />
+		</p:panel>
+		<p:panel style="margin-top: 85px;">
 			<span class="description">#{updateBean.currentEntity.info.description} </span>
-
 			<h:dataTable value="#{updateBean.currentEntity.groupsProperties}"
 				var='group' width="100%">
 
@@ -108,5 +96,4 @@
 		</p:panel>
 	</h:form>
 </h:body>
-<h:messages showDetail="true" />
 </html>

@@ -35,7 +35,7 @@
           target: compile  
          ================================= -->
 	<target name="compile" description="--> Compila os arquivos fonte">
-		<javac srcdir="${src}" destdir="${bin}" debug="off">
+		<javac srcdir="${src}" destdir="${bin}" debug="off" includeantruntime="false">
 			<classpath refid="lib.classpath" />
 		</javac>
 	</target>
