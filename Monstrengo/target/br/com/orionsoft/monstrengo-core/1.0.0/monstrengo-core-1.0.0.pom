@@ -197,4 +197,10 @@
 
 		</plugins>
 	</build>
+	<distributionManagement>
+	    <repository>
+    	    <id>internal</id>
+	        <url>file://${project.build.directory}</url>
+	    </repository>
+	</distributionManagement>
 </project>
