@@ -1,11 +1,13 @@
 package br.com.orionsoft.monstrengo.core.test;
 
+import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-public class ApplicationBasicTest {
+public class ApplicationBasicTest extends TestCase{
 	
 	public static String APPLICATION_CONTEXT_PATH = "applicationContext.xml";
 

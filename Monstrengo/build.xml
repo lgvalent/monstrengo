@@ -10,7 +10,7 @@
 <project name="Montrengo" default="make jar">
 
 	<property name="src" value="${basedir}/src" />
-	<property name="bin" value="${basedir}/bin" />
+	<property name="bin" value="${basedir}/target/classes" />
 	<property name="lib.home" value="../Library" />
 	<property name="test" value="${basedir}/test" />
 	<property name="jar.dir" value="${basedir}"/>

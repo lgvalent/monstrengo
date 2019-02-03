@@ -1,7 +1,6 @@
 package br.com.orionsoft.monstrengo.crud.services;
 
 import org.hibernate.HibernateException;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import br.com.orionsoft.monstrengo.crud.services.DeleteService;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
@@ -61,16 +60,16 @@ public class DeleteService extends ServiceBasic
             */
             serviceData.getCurrentSession().delete(entity.getObject());
             
-        } catch (DataIntegrityViolationException e) {
-            log.fatal(e.getMessage());
-            // O Serviço não precisa adicionar mensagem local. O Manager já indica qual srv falhou e os parâmetros.
-            throw new ServiceException(MessageList.create(DeleteService.class, "ERROR_DELETE_FOREING", entity.getObject().toString()));
         } catch (BusinessException e) {
             log.fatal(e.getErrorList());
             // O Serviço não precisa adicionar mensagem local. O Manager já indica qual srv falhou e os parâmetros.
             throw new ServiceException(e.getErrorList());
         } catch (HibernateException e) {
             throw new ServiceException(MessageList.createSingleInternalError(e));
+        } catch (Exception e) {
+        	log.fatal(e.getMessage());
+        	// O Serviço não precisa adicionar mensagem local. O Manager já indica qual srv falhou e os parâmetros.
+        	throw new ServiceException(MessageList.create(DeleteService.class, "ERROR_DELETE_FOREING", entity.getObject().toString()));
 		}
     }
     

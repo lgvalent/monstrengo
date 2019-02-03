@@ -2,6 +2,7 @@ package br.com.orionsoft.monstrengo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.JUnitCore;
 
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.core.test.ServiceBasicTest;
@@ -46,6 +47,10 @@ public class InicializarSistema extends ServiceBasicTest{
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static void main(String[] args) {
+		JUnitCore.runClasses(InicializarSistema.class);
 	}
 
 }

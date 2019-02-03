@@ -1,14 +1,12 @@
 package br.com.orionsoft.monstrengo.core.util;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Calendar;
 
 import org.junit.Test;
 
-import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
+import br.com.orionsoft.monstrengo.core.test.ApplicationBasicTest;
 
-public class CalendarUtilsTestCase{
+public class CalendarUtilsTestCase extends ApplicationBasicTest{
 
     public static void main(String[] args) {
         junit.textui.TestRunner.run(CalendarUtilsTestCase.class);

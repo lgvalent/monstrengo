@@ -7,13 +7,9 @@ import javax.persistence.Entity;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.impl.CriteriaImpl;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import br.com.orionsoft.monstrengo.crud.entity.dao.DAOException;
-import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
-import br.com.orionsoft.monstrengo.crud.entity.dao.IDaoManager;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.util.AnnotationUtils;
 

@@ -1,14 +1,12 @@
 package br.com.orionsoft.monstrengo.core.test;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import br.com.orionsoft.monstrengo.core.test.ApplicationBasicTest;
 import br.com.orionsoft.monstrengo.crud.entity.dao.DaoManager;
 
 /**

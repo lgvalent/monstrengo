@@ -1,5 +1,4 @@
 package br.com.orionsoft.monstrengo;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.junit.After;
@@ -39,16 +38,8 @@ public class GerarTabelas extends DaoBasicTest{
 							  boolean justDrop) {
 		AnnotationConfiguration cfg = new AnnotationConfiguration();
 
-		cfg.setProperties(this.daoManager.getSessionFactoryBuilder().getHibernateProperties());
+		cfg.setProperties(this.daoManager.getConfiguration().getProperties());
 		
-		/* Fornece uma conexão para evitar a presença de hibernate.properties */
-		BasicDataSource dataSource = this.ctx.getBean(BasicDataSource.class);
-		
-		cfg.getProperties().setProperty("hibernate.connection.driver_class", dataSource.getDriverClassName());
-		cfg.getProperties().setProperty("hibernate.connection.url", dataSource.getUrl());
-		cfg.getProperties().setProperty("hibernate.connection.username", dataSource.getUsername());
-		cfg.getProperties().setProperty("hibernate.connection.password", dataSource.getPassword());
-
 		for(IDAO<?> dao: this.daoManager.getDaos().values()){
 			cfg.addAnnotatedClass(dao.getEntityClass());
 		}

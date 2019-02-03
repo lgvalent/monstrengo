@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataIntegrityViolationException;
-
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceBasic;
@@ -152,16 +150,16 @@ public class CheckDependencesEntityService extends ServiceBasic
 					}
 				}
 			}
-        } catch (DataIntegrityViolationException e) {
-            log.fatal(e.getMessage());
-            // O Serviço não precisa adicionar mensagem local. O Manager já indica qual srv falhou e os parâmetros.
-            throw new ServiceException(MessageList.create(CheckDependencesEntityService.class, "ERROR_DELETE_FOREING", inEntity.getObject().toString()));
         } catch (BusinessException e) {
             log.fatal(e.getErrorList());
             // O Serviço não precisa adicionar mensagem local. O Manager já indica qual srv falhou e os parâmetros.
             throw new ServiceException(e.getErrorList());
 //        } catch (HibernateException e) {
 //            throw new ServiceException(MessageList.createSingleInternalError(e));
+        } catch (Exception e) {
+        	log.fatal(e.getMessage());
+        	// O Serviço não precisa adicionar mensagem local. O Manager já indica qual srv falhou e os parâmetros.
+        	throw new ServiceException(MessageList.create(CheckDependencesEntityService.class, "ERROR_DELETE_FOREING", inEntity.getObject().toString()));
 		}
     }
 }

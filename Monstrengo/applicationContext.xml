@@ -81,59 +81,21 @@
 		</property>
 	</bean>
 
-	<!-- DataSource Definition -->
-	<bean id="DataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName">
-			<value>com.mysql.jdbc.Driver</value>
-		</property>
-		<property name="url">
-			<value>jdbc:mysql://localhost:3306/desenvolvimento</value>
-		</property>
-		<property name="username">
-			<value>user</value>
-		</property>
-		<property name="password">
-			<value>user</value>
-		</property>
-	</bean>
-
-	<!--Hibernate Session Definition -->
-	<bean id="SessionFactoryBuilder"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBuilder">
+	<bean id="DaoManager" class="br.com.orionsoft.monstrengo.crud.entity.dao.DaoManager"
+	    init-method="init">
 		<property name="hibernateProperties">
 			<props>
+				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+				<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/desenvolvimento</prop>
+				<prop key="hibernate.connection.username">user</prop>
+				<prop key="hibernate.connection.password">user</prop>
+				<prop key="hibernate.connection.pool_size">100</prop>
+						
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
 			</props>
-		</property>
-		<property name="dataSource">
-			<ref bean="DataSource" />
-		</property>
-	</bean>
-
-	<!-- Bean utilizado pelo ServiceManager para criar as transações -->
-	<bean id="TransactionTemplate"
-		class="org.springframework.transaction.support.TransactionTemplate">
-		<property name="transactionManager">
-			<ref bean="TransactionManager" />
-		</property>
-	</bean>
-
-	<!-- Bean utilizado pelo TransactionTemplate para manipular as transações -->
-	<bean id="TransactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource">
-			<ref bean="DataSource" />
-		</property>
-	</bean>
-
-	<bean id="DaoManager" class="br.com.orionsoft.monstrengo.crud.entity.dao.DaoManager"
-	    init-method="init">
-		<property name="sessionFactoryBuilder">
-			<ref bean="SessionFactoryBuilder" />
 		</property>
 		<property name="application">
 			<ref bean="Application" />
