@@ -111,7 +111,7 @@ public class PropertyValueFormat
         try{
             //se não exitir a máscara, seta o que está no value
             if (StringUtils.isEmpty(mask)){
-                Boolean.parseBoolean(value);
+            	prop.setAsBoolean(Boolean.parseBoolean(value));
             }
             else{ //senão usa a máscara encontrada
                 String[] list = StringUtils.split(mask,",");
