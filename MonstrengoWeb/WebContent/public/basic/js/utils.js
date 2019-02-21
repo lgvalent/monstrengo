@@ -212,16 +212,19 @@ function keyPressCalendar_() {
   if(input.value.length == 6){
     /* Verifica se o ano está no futuro ou passado para determinar um
        prefixo 19 ou 20 */
-    ano = parseInt(input.value.substr(4,2));
-    anoCorrente = new Date().getFullYear();
-    anoPrefixo = "";
+    var ano = parseInt(input.value.substr(4,2));
+    var anoPrefixo = "";
    
     if(ano < 50) 
-      anoPrefixo = "20"
+      anoPrefixo = "20";
     else
-      anoPrefixo = "19"
+      anoPrefixo = "19";
 
     input.value = input.value.substr(0,4) + anoPrefixo + input.value.substr(4,2);
+  }else{
+	/* Completa com Zeros à direita as datas e horas digitadas parcialmente */  
+	if(mask.length >= input.value)
+	  input.value = input.value + Array(mask.length - input.value).join("0");
   }
   
   /* Remove caracteres não numéricos */
@@ -238,7 +241,7 @@ function keyPressCalendar_() {
     /* Transformando dd/MM/yyyy hh:mm:ss em ##/##/#### ##:##:## */
     mask = mask.replace(/[dDmMyYhHsS]/g, "#");
   }
-  setTimeout("maskGenerics()",1)
+  setTimeout("maskGenerics()",1);
 }
 
 /* Verifica se a data digitada possui somente 2 dígitos de ano para acrescentar o 19--
