@@ -17,6 +17,8 @@ public enum DiaSemana
 	QUINTA("Quinta-feira", "QUI", Calendar.THURSDAY),
 	SEXTA("Sexta-feira", "SEX", Calendar.FRIDAY),
 	SABADO("Sábado", "SÁB", Calendar.SATURDAY);
+
+	public static final int COLUMN_DISCRIMINATOR_LENGTH = 7;
 	
     private String nome;
     private String abreviaca;
