@@ -17,9 +17,9 @@ import org.hibernate.annotations.ForeignKey;
 
 
 /**
- * Essa classe representa a entidade Sócio.
- * Ela deverá conter todas as informações que expressam o relacionamento
- * de uma pessoa Física com um pessoa Juridica como sócio desta.
+ * Essa classe representa a entidade SÃ³cio.
+ * Ela deverÃ¡ conter todas as informaÃ§Ãµes que expressam o relacionamento
+ * de uma pessoa FÃ­sica com um pessoa Juridica como sÃ³cio desta.
  * @hibernate.class table="basic_socio"
  */
 @Entity
@@ -102,9 +102,7 @@ public class Socio
 	
 	public String toString()
 	{
-		String result = "";
-		if(this.fisica!=null)
-			result += this.fisica.getNome(); 
+		String result = getNome(); 
 
 		if(this.cargo!=null)
 			result += " ("+this.cargo.getNome()+")";
