@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -12,7 +13,7 @@
 		<ui:define name="content">
 		
 			<h:panelGrid
-				width="100%"
+				width="100%" 
 				columns="2"
 				styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
 
@@ -127,13 +128,31 @@
 			<p:commandButton id="gerarCarta" value="Gerar cartas de cobrança" />
 		    <p:overlayPanel for="gerarCarta" hideEffect="fade">  
 				<h:outputLabel value="Modelo da carta de cobrança:"/>
-		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.cartaCobrancaModelo}" id="cartaCobrancaModelo">
+		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.cartaCobrancaModelo}" id="cartaCobrancaModelo" onchange="document.getElementById('form:cartaCobrancaModelo2').value = this.value">
 		   			<f:selectItems value="#{relatorioCobrancaBean.process.listCartaCobrancaModelo}"/>
 		   		</h:selectOneMenu>
 				<p:commandButton ajax="false" value="Download PDF" action="#{relatorioCobrancaBean.doImprimirCartaCobranca}"/>
 		    </p:overlayPanel>  
 			<p:commandButton ajax="false" value="Gerar etiquetas" action="#{relatorioCobrancaBean.doGerarEtiqueta}" title="Gera as etiquetas para as empresas que aparecem no relatório de cobrança"/>
 			<p:commandButton ajax="false" value="Visualizar listagem" action="#{relatorioCobrancaBean.doListar}" title="Visualiza a listagem dos contratos que atendem aos critérios"/>
+			<p:commandButton id="enviarEMailCarta" value="Enviar cartas por E-Mail" />
+		    <p:overlayPanel for="enviarEMailCarta" hideEffect="fade">  
+				<h:outputLabel value="Modelo da carta de cobrança:"/>
+		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.cartaCobrancaModelo}" id="cartaCobrancaModelo2" onchange="document.getElementById('form:cartaCobrancaModelo').value = this.value">
+		   			<f:selectItems value="#{relatorioCobrancaBean.process.listCartaCobrancaModelo}"/>
+		   		</h:selectOneMenu>
+		   		<br/>
+				<h:outputLabel value="Conta de E-Mail:"/>
+				<ui:include src="/public/basic/tiles/processParamEntityComboBox.xhtml">
+           			<ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramContaEMail}"/>
+				</ui:include>
+				<br/>
+				<pe:ckEditor id="editor" label="Mensagem do E-Mail com as cartas de cobrança"
+					value="#{relatorioCobrancaBean.process.mensagemEMail}"
+					skin="v2" widgetVar="editor"
+					toolbar=" [['Undo','Redo','-','Bold','Italic','Underline','StrikeThrough','-','TextColor','BGColor','-','Format','Font','FontSize','-','Cut', 'Copy','Paste','PasteText','PasteFromWord','Find','Replace','-', 'Outdent','Indent','NumberedList','BulletedList'],    ['-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],    ['Image','Table','-','Link','Flash'],  ['Source'], ]" />
+				<p:commandButton ajax="false" value="Enviar" action="#{relatorioCobrancaBean.doEnviarEMail}"/>
+		    </p:overlayPanel>  
 			
 			<hr/>
 			

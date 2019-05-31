@@ -35,7 +35,7 @@
           target: compile  
          ================================= -->
 	<target name="compile" description="--> Compila os arquivos fonte">
-		<javac srcdir="${src}" destdir="${bin}" debug="off">
+		<javac srcdir="${src}" destdir="${bin}" debug="off" includeantruntime="false">
 			<classpath refid="lib.classpath" />
 		</javac>
 	</target>
@@ -66,7 +66,7 @@
 				<exclude name="${jar.name}.jar"/>
 			</fileset>
 		</copy>
-		<eclipse.refreshLocal resource="${ant.project.name}/" depth="intinite"/>
+		<!--eclipse.refreshLocal resource="${ant.project.name}/" depth="intinite"/-->
 
 <!--
 		<copy todir="/home/antonio/workspace/Web/WebContent/WEB-INF/lib">
@@ -160,7 +160,7 @@
 				<include name="**/*"/>
 			</fileset>
 		</jar>
-		<eclipse.refreshLocal resource="${ant.project.name}/" depth="intinite"/>
+		<!--eclipse.refreshLocal resource="${ant.project.name}/" depth="intinite"/-->
     </target>
 
 

@@ -4,6 +4,7 @@
 package br.com.orionsoft.financeiro.view.jsf;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -11,14 +12,15 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
-import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
-import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 import br.com.orionsoft.financeiro.gerenciador.process.RelatorioCobrancaProcess;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
+import br.com.orionsoft.monstrengo.core.util.PrintUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
+import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
+import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
+import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
  * Bean que controla o Relatório de Cobrança.
@@ -93,6 +95,31 @@ public class RelatorioCobrancaBean extends BeanSessionBasic  implements IRunnabl
     	}
     }
 
+    
+    /**
+     * Esta ação gera o PDF do documento
+     * @return
+     * @throws ParseException
+     * @throws BusinessException
+     */
+    public void doEnviarEMail() throws BusinessException {
+        log.debug("RelatorioCobrancaBean.doEnviarEMail(IEntity)");
+
+       		/* Informa ao processo para enviar e-mail */
+      		this.getProcess().setEnviarEMail(true);
+       		this.getProcess().setOutputStream(null);
+       		this.getProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
+
+       		if (this.getProcess().runImprimirCartaCobranca()){
+       			/* Adiciona as mensagens de info no Faces */
+       			FacesUtils.addInfoMsgs(this.getProcess().getMessageList());
+
+    		}else{
+    			/* Adiciona as mensagens de erro no Faces */
+    			FacesUtils.addErrorMsgs(this.getProcess().getMessageList());
+       		}
+    }
+    
     public void doGerarEtiqueta() {
         log.debug("RelatorioCobrancaBean.actionImprimirEtiqueta");
 		getProcess().setOutputStream(null);

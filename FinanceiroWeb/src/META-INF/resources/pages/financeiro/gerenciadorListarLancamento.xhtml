@@ -65,7 +65,14 @@
 				<h:selectOneRadio id="ordem" value="#{listarLancamentoBean.process.ordem}" style="font-size: small">
 					<f:selectItems value="#{listarLancamentoBean.process.listOrdem}"/>
 				</h:selectOneRadio>
-				
+
+	   			<h:outputText value="Cabeçalho"/>
+				<h:panelGroup id="modelDocumentEntity">
+						<ui:include src="/public/basic/tiles/processParamEntityComboBox.xhtml">
+				           <ui:param name="paramEntity" value="#{listarLancamentoBean.process.paramModelDocument}"/>
+						</ui:include>
+						Cabeçalho opcional para impressão no relatório.
+				</h:panelGroup>
 			</h:panelGrid>
 		</ui:define>
 	
