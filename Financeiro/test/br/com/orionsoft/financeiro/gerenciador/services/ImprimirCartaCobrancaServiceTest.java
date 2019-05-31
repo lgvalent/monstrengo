@@ -44,7 +44,7 @@ public class ImprimirCartaCobrancaServiceTest extends ServiceBasicTest {
         List<QueryRelatorioCobranca> list = sd.getFirstOutput();
 		
 		CartaCobrancaModelo modelo = CartaCobrancaModelo.PADRAO;
-		OutputStream out = new FileOutputStream("/home/antonio/carta_cobranca.pdf");
+		OutputStream out = new FileOutputStream("/tmp/carta_cobranca.pdf");
 		
 		sd = new ServiceData(ImprimirCartaCobrancaService.SERVICE_NAME, null);
 		sd.getArgumentList().setProperty(ImprimirCartaCobrancaService.IN_MODELO_CARTA_COBRANCA, modelo);

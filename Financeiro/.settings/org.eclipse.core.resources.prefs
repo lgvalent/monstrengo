@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/br/com/orionsoft/financeiro/gerenciador/services/CartaCobranca.jrxml=UTF-8
+encoding//src/br/com/orionsoft/financeiro/gerenciador/services/CartaCobrancaEMail.jrxml=UTF-8
+encoding//src/br/com/orionsoft/financeiro/gerenciador/services/CartaCobrancaParcelas.jrxml=UTF-8
 encoding//src/br/com/orionsoft/financeiro/gerenciador/services/CartaCobrancaReversao.jrxml=UTF-8

@@ -28,6 +28,7 @@ import br.com.orionsoft.monstrengo.core.process.ProcessParamEntityList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.EnumUtils;
+import br.com.orionsoft.monstrengo.crud.documents.entities.ModelDocumentEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 
@@ -51,6 +52,8 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 	
 	private ProcessParamEntity<Pessoa> paramPessoa = new ProcessParamEntity<Pessoa>(Pessoa.class, false, this);
 
+	private ProcessParamEntity<ModelDocumentEntity> paramModelDocument = new ProcessParamEntity<ModelDocumentEntity>(ModelDocumentEntity.class, false, this);
+
 	private Long conta = IDAO.ENTITY_UNSAVED;
 	private Calendar dataFinal = CalendarUtils.getCalendar();
 	private Calendar dataInicial = CalendarUtils.getCalendar();
@@ -70,6 +73,8 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 		/* Seta a data inicial como primeiro dia do mês corrente */
 		super.start();
 		dataInicial.set(Calendar.DATE, dataInicial.getMinimum(Calendar.DATE));
+
+		this.paramModelDocument.setStaticHqlWhereFilter("("+ModelDocumentEntity.APPLICATION_ENTITY + " is null)");
 	}
 	
 	public boolean runListar() {
@@ -187,6 +192,11 @@ public class ListarLancamentoProcess extends ProcessBasic implements IRunnableEn
 	public void setSituacao(Integer situacao) {
 		this.situacao = situacao;
 	}
+	
+	public ProcessParamEntity<ModelDocumentEntity> getParamModelDocument() {
+		return paramModelDocument;
+	}
+
 
 //	public Integer[] getTransacao() {
 //		return transacao;

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="CartaCobrancaReversao" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="36" bottomMargin="46">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="Texto" lineSpacing="Single" fontName="SansSerif" isPdfEmbedded="true"/>
+	<style name="Dados" lineSpacing="Single" fontName="SansSerif" isItalic="true" isPdfEmbedded="true"/>
+	<parameter name="data" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="razaoSocial" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="cnpj" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="endereco" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="cep" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="cidade" class="java.lang.String" isForPrompting="false"/>
+	<field name="dataMovimento" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="dataVencimento" class="java.lang.String"/>
+	<field name="valor" class="java.lang.String"/>
+	<field name="razaoSocial" class="java.lang.String"/>
+	<field name="documento" class="java.lang.String"/>
+	<group name="Documento" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{documento}]]></groupExpression>
+		<groupHeader>
+			<band height="286">
+				<image scaleImage="RetainShape" hAlign="Left" vAlign="Top" isUsingCache="false" hyperlinkType="None">
+					<reportElement key="image-1" mode="Opaque" x="0" y="0" width="483" height="56" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<graphicElement fill="Solid"/>
+					<imageExpression class="java.lang.String"><![CDATA["br/com/orionsoft/financeiro/gerenciador/services/novalogo.png"]]></imageExpression>
+				</image>
+				<textField pattern="" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement key="textField-1" style="Texto" mode="Transparent" x="1" y="79" width="514" height="15" printWhenGroupChanges="Documento" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{data}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-12" mode="Transparent" x="0" y="132" width="515" height="133" printWhenGroupChanges="Documento" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single" isStyledText="true">
+						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Bom dia
+
+
+Sabemos que na correria do dia a dia é complicado dar conta de tudo, mas como você sabe, o Sivamar – Sindicato dos Lojistas do Comércio e do Comércio Varejista e Atacadista de Maringá e Região está aqui para ajudar a fortalecer a sua empresa.
+
+Infelizmente o pagamento referente às seguintes mensalidades não foram identificadas:
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" style="Dados" mode="Transparent" x="1" y="265" width="72" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Vencimento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" style="Dados" mode="Transparent" x="73" y="265" width="75" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Valor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" style="Dados" mode="Transparent" x="153" y="265" width="70" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Descrição]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement key="textField-1" style="Texto" mode="Transparent" x="1" y="105" width="514" height="15" printWhenGroupChanges="Documento" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="SansSerif" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{razaoSocial} + " (" + $F{documento} + ")"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="275">
+				<staticText>
+					<reportElement x="0" y="0" width="515" height="272"/>
+					<textElement textAlignment="Justified" lineSpacing="Single" isStyledText="true">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[
+Pedimos a gentileza de entrar em contato conosco para juntos resolvemos está questão ou caso já tenha efetuado o pagamento, poderia nos enviar o comprovante para verificarmos o que pode ter ocorrido?
+
+Se estiver com alguma outra dificuldade para efetuar os pagamentos, <b>sugerimos</b> entrar em contato por e-mail ou através do nosso telefone (44-3026-4444). Temos certeza que encontraremos uma solução para resolvermos esta questão.
+
+Estaremos sempre <b>disponíveis</b> para lutar pelos interesses da categoria, fique à vontade para entrar em contato conosco e lembrem-se <b>“Juntos somos mais fortes”</b>
+
+
+Tenha um ótimo dia,
+
+
+Departamento de cobrança]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="14">
+			<textField pattern="" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement key="textField" style="Dados" mode="Transparent" x="1" y="0" width="72" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dataVencimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement key="textField" style="Dados" mode="Transparent" x="73" y="0" width="75" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement key="textField" style="Dados" mode="Transparent" x="153" y="0" width="329" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

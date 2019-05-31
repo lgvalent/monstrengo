@@ -36,7 +36,6 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
-import br.com.orionsoft.monstrengo.core.process.ProcessParamBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessParamEntity;
 import br.com.orionsoft.monstrengo.core.process.ProcessParamEntityList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
@@ -46,6 +45,7 @@ import br.com.orionsoft.monstrengo.core.util.PrintUtils;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
+import br.com.orionsoft.monstrengo.mail.entities.EmailAccount;
 
 /**
  * Este processo lista as pend�ncias dos contratos para cobran�a.
@@ -95,7 +95,11 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 	private int printerIndex = 0;
 	private int cartaCobrancaModelo = CartaCobrancaModelo.PADRAO.ordinal();
 	private int relatorioCobrancaModelo = RelatorioCobrancaModelo.RETRATO.ordinal();
-	
+
+	private Boolean enviarEMail = false;
+	private ProcessParamEntity<EmailAccount> paramContaEMail = new ProcessParamEntity<EmailAccount>(EmailAccount.class, false, this);
+	private String mensagemEMail = "";
+
 	private String observacao;
 	
 	private List<QueryRelatorioCobranca> lista = null;
@@ -209,6 +213,7 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 	}
 	
 	public boolean runImprimirCartaCobranca() {
+		super.beforeRun();
 		log.debug("Iniciando RelatorioCobrancaProcess (ImprimirCartaCobranca)");
 		try {
 	        List<QueryRelatorioCobranca> list = this.execute(null);
@@ -222,6 +227,9 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
     		sd.getArgumentList().setProperty(ImprimirCartaCobrancaService.IN_QUERY_RELATORIO_COBRANCA, list);
     		sd.getArgumentList().setProperty(ImprimirCartaCobrancaService.IN_MODELO_CARTA_COBRANCA, CartaCobrancaModelo.values()[this.cartaCobrancaModelo]);
     		sd.getArgumentList().setProperty(ImprimirCartaCobrancaService.IN_OUTPUT_STREAM, this.outputStream);
+			sd.getArgumentList().setProperty(ImprimirCartaCobrancaService.IN_ENVIAR_EMAIL_OPT, this.enviarEMail);
+			sd.getArgumentList().setProperty(ImprimirCartaCobrancaService.IN_CONTA_EMAIL_OPT, this.paramContaEMail.getValue().getObject());
+			sd.getArgumentList().setProperty(ImprimirCartaCobrancaService.IN_MENSAGAEM_EMAIL_OPT, this.mensagemEMail);
     		this.getProcessManager().getServiceManager().execute(sd);
     		
             /* Mensagem de sucesso */
@@ -483,6 +491,25 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 		this.observacao = observacao;
 	}
 
+	public Boolean getEnviarEMail() {
+		return enviarEMail;
+	}
+
+	public void setEnviarEMail(Boolean enviarEMail) {
+		this.enviarEMail = enviarEMail;
+	}
+	
+	public String getMensagemEMail() {
+		return mensagemEMail;
+	}
+
+	public void setMensagemEMail(String mensagemEMail) {
+		this.mensagemEMail = mensagemEMail;
+	}
+
+	public ProcessParamEntity<EmailAccount> getParamContaEMail() {
+		return paramContaEMail;
+	}
 
 	/*==============================================================================
 	 * IRunnableEntityProcess	

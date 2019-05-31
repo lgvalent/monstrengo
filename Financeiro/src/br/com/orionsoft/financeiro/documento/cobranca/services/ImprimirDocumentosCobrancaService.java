@@ -197,7 +197,7 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 		String assunto = "[Empresa com E-Mail inválido ou inexistente] Documento de Cobrança: " + documento.toString();
 		if(StringUtils.isNotBlank(documento.getObject().getContrato().getPessoa().getEmail())){
 			String emailTemp = documento.getObject().getContrato().getPessoa().getEmail().split(";")[0];
-			if(!SendMailService.validateEMail(emailTemp)){
+			if(SendMailService.validateEMail(emailTemp)){
 				email = emailTemp;
 				assunto = "Documento de Cobrança: " + documento.toString();
 			}

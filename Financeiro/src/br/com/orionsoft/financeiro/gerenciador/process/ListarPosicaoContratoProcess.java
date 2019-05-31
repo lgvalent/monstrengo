@@ -25,6 +25,7 @@ import br.com.orionsoft.monstrengo.core.process.ProcessParamEntity;
 import br.com.orionsoft.monstrengo.core.process.ProcessParamEntityList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
+import br.com.orionsoft.monstrengo.crud.documents.entities.ModelDocumentEntity;
 import br.com.orionsoft.monstrengo.crud.entity.EntityList;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
@@ -49,6 +50,8 @@ public class ListarPosicaoContratoProcess extends ProcessBasic implements IRunna
 	private ProcessParamEntityList<ItemCusto> paramItemCusto = new ProcessParamEntityList<ItemCusto>(ItemCusto.class, false, this);
 	private Boolean itemCustoListNot = false;
 	
+	private ProcessParamEntity<ModelDocumentEntity> paramModelDocument = new ProcessParamEntity<ModelDocumentEntity>(ModelDocumentEntity.class, false, this);
+
 	private EntityList<Lancamento> lancamentos = null;
 	
 //	private String cpfCnpj;
@@ -71,6 +74,8 @@ public class ListarPosicaoContratoProcess extends ProcessBasic implements IRunna
 		} catch (BusinessException e) {
 			super.getMessageList().add(e.getErrorList());
 		}
+		
+		this.paramModelDocument.setStaticHqlWhereFilter("("+ModelDocumentEntity.APPLICATION_ENTITY + " is null)");
 	}
 	
 	public List<SelectItem> getListSituacao() {
@@ -189,14 +194,10 @@ public class ListarPosicaoContratoProcess extends ProcessBasic implements IRunna
 	public ProcessParamEntityList<ItemCusto> getParamItemCusto() {
 		return paramItemCusto;
 	}
-	
-//	public String getCpfCnpj() {
-//		return cpfCnpj;
-//	}
-//
-//	public void setCpfCnpj(String cpfCnpj) {
-//		this.cpfCnpj = cpfCnpj;
-//	}
+
+	public ProcessParamEntity<ModelDocumentEntity> getParamModelDocument() {
+		return paramModelDocument;
+	}
 
 	/*==============================================================================
 	 * IRunnableEntityProcess	

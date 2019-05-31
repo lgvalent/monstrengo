@@ -6,18 +6,20 @@ public class CartaCobrancaBean {
 	private String endereco;
 	private String cep;
 	private String cidade;
+	private String email;
     private String dataMovimento;
     private String descricao;
     private String dataVencimento;
     private String valor;
 
-    public CartaCobrancaBean(String razaoSocial, String documento, String endereco, String cep, String cidade, String dataMovimento, String descricao, String dataVencimento, String valor) {
+    public CartaCobrancaBean(String razaoSocial, String documento, String endereco, String cep, String cidade, String email, String dataMovimento, String descricao, String dataVencimento, String valor) {
         super();
         this.razaoSocial = razaoSocial;
         this.documento = documento;
         this.endereco = endereco;
         this.cep = cep;
         this.cidade = cidade;
+        this.email = email;
         this.dataMovimento = dataMovimento;
         this.descricao = descricao;
         this.dataVencimento = dataVencimento;
@@ -96,4 +98,17 @@ public class CartaCobrancaBean {
 		this.cidade = cidade;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return razaoSocial + "("+ documento +")";
+	}
 }

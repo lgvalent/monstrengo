@@ -88,6 +88,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		"  endereco.cep enderecoCep, " +
 		"  municipio.nome enderecoMunicipio, " +
 		"  municipio.uf enderecoUF, " +
+		"  pessoa.email email, " +
 		"  lancamento.id idLancamento, " +
 		"  lancamento.descricao descricao, " +
 		"  lancamento.data data, " +	
@@ -173,6 +174,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		private String documento;
 		private String telefone;
 		private String endereco;
+		private String email;
 		private String descricao;
 		private Date data;
 		private Date dataVencimento;
@@ -189,6 +191,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 				String documento, 
 				String telefone, 
 				String endereco, 
+				String email, 
 				String descricao, 
 				Date data, 
 				Date dataVencimento, 
@@ -205,6 +208,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 			this.documento = documento;
 			this.telefone = telefone;
 			this.endereco = endereco;
+			this.email= email;
 			this.descricao = descricao;
 			this.data = data;
 			this.dataVencimento = dataVencimento;
@@ -267,8 +271,8 @@ public class RelatorioCobrancaService extends ServiceBasic {
 			return endereco;
 		}
 
-		public void setEndereco(String endereco) {
-			this.endereco = endereco;
+		public String getEmail() {
+			return email;
 		}
 
 		public Long getIdItemCusto() {
@@ -539,6 +543,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 						mfDocumento.valueToString(rs.getString("documento")),
 						telefone,
 						endereco.toString(),
+						rs.getString("email"),
 						rs.getString("descricao"),
 						rs.getDate("data", data),
 						rs.getDate("dataVencimento", data),
