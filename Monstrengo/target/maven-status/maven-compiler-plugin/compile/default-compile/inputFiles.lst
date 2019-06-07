@@ -129,6 +129,7 @@
 /home/lucio/workspaceDelta/Monstrengo/src/br/com/orionsoft/monstrengo/crud/entity/metadata/IPropertyMetadata.java
 /home/lucio/workspaceDelta/Monstrengo/src/br/com/orionsoft/monstrengo/core/process/IProcessManager.java
 /home/lucio/workspaceDelta/Monstrengo/src/br/com/orionsoft/monstrengo/crud/entity/IEntity.java
+/home/lucio/workspaceDelta/Monstrengo/src/br/com/orionsoft/monstrengo/security/processes/ChangePasswordProcessController.java
 /home/lucio/workspaceDelta/Monstrengo/src/br/com/orionsoft/monstrengo/security/services/CreateSecurityStructureService.java
 /home/lucio/workspaceDelta/Monstrengo/src/br/com/orionsoft/monstrengo/security/services/CheckAllRightProcessService.java
 /home/lucio/workspaceDelta/Monstrengo/src/br/com/orionsoft/monstrengo/RewriteConstraintExportSchema.java

@@ -7,7 +7,7 @@
   <name>Monstrengo WEB</name>
   
   <properties>
-	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
   </properties>
   
   <repositories>
@@ -44,6 +44,11 @@
 	    <version>0.5.1</version>
 	</dependency>
 	<dependency>
+	    <groupId>org.primefaces.extensions</groupId>
+	    <artifactId>resources-ckeditor</artifactId>
+	    <version>0.5.1</version>
+	</dependency>
+	<dependency>
     	<groupId>com.sun.faces</groupId>
 	    <artifactId>jsf-api</artifactId>
 	    <version>2.1.29</version>
@@ -63,11 +68,33 @@
 	    <artifactId>jstl</artifactId>
 	    <version>1.2</version>
 	</dependency>
+  	<dependency>
+  		<groupId>javax.servlet</groupId>
+  		<artifactId>servlet-api</artifactId>
+  		<version>2.4</version>
+  		<scope>provided</scope>
+  	</dependency>	
   </dependencies>
   
   <build>
 		<sourceDirectory>src</sourceDirectory>
-		
+		<resources>
+      		<resource>
+		        <directory>WebContent</directory>
+	      		<targetPath>META-INF/resources/</targetPath>
+			        <includes>
+						<include>pages/**/*.*</include>
+						<include>public/**/*.*</include>
+			        </includes>
+			</resource>
+      		<resource>
+		        <directory>WebContent</directory>
+	      		<targetPath>META-INF/</targetPath>
+			        <includes>
+						<include>/faces-config.xml</include>
+			        </includes>
+			</resource>
+    	</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
