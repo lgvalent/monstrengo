@@ -63,23 +63,23 @@ public class ConsultarCNPJProcess extends ProcessBasic {
 			this.getProcessManager().getServiceManager().execute(service);
 			JsonObject obj = (JsonObject) service.getOutputData().get(0);
 			if (obj.getString("status").equals("OK")) {
-                nome = obj.getString("nome");
+                nome = obj.getString("nome").replaceAll("[^\\p{ASCII}]", "");
                 uf = obj.getString("uf");
                 telefone = obj.getString("telefone");
                 email = obj.getString("email");
                 situacao = obj.getString("situacao");
-                bairro = obj.getString("bairro");
-                logradouro = obj.getString("logradouro");
+                bairro = obj.getString("bairro").replaceAll("[^\\p{ASCII}]", "");
+                logradouro = obj.getString("logradouro").replaceAll("[^\\p{ASCII}]", "");
                 numero = obj.getString("numero");
                 cep = obj.getString("cep");
-                municipio = obj.getString("municipio");
+                municipio = obj.getString("municipio").replaceAll("[^\\p{ASCII}]", "");
                 porte = obj.getString("porte");
-                natureza_juridica = obj.getString("natureza_juridica");
-                fantasia = obj.getString("fantasia");
+                natureza_juridica = obj.getString("natureza_juridica").replaceAll("[^\\p{ASCII}]", "");
+                fantasia = obj.getString("fantasia").replaceAll("[^\\p{ASCII}]", "");
                 tipo = obj.getString("tipo");
-                complemento = obj.getString("complemento");
+                complemento = obj.getString("complemento").replaceAll("[^\\p{ASCII}]", "");
                 efr = obj.getString("efr");
-                motivo_situacao = obj.getString("motivo_situacao");
+                motivo_situacao = obj.getString("motivo_situacao").replaceAll("[^\\p{ASCII}]", "");
                 situacao_especial = obj.getString("situacao_especial");
                 capital_social = new BigDecimal(obj.getString("capital_social"));
 
@@ -104,8 +104,8 @@ public class ConsultarCNPJProcess extends ProcessBasic {
                 for (int i = 0; i < ja.size(); i++) {
                     JsonObject jo = ja.get(i).asJsonObject();
                     QuadroSocietario item = new QuadroSocietario();
-                    item.qualificacao = jo.getString("qual");
-                    item.nome = jo.getString("nome");
+                    item.qualificacao = jo.getString("qual").replaceAll("[^\\p{ASCII}]", "");
+                    item.nome = jo.getString("nome").replaceAll("[^\\p{ASCII}]", "");
                     quandro_societario.add(item);
                 }
                 
@@ -115,7 +115,7 @@ public class ConsultarCNPJProcess extends ProcessBasic {
                     JsonObject jo = ja.get(i).asJsonObject();
                     Atividade item = new Atividade();
                     item.codigo = jo.getString("code");
-                    item.texto = jo.getString("text");
+                    item.texto = jo.getString("text").replaceAll("[^\\p{ASCII}]", "");
                     atividade_principal.add(item);
                 }
 
@@ -125,11 +125,11 @@ public class ConsultarCNPJProcess extends ProcessBasic {
                     JsonObject jo = ja.get(i).asJsonObject();
                     Atividade item = new Atividade();
                     item.codigo = jo.getString("code");
-                    item.texto = jo.getString("text");
+                    item.texto = jo.getString("text").replaceAll("[^\\p{ASCII}]", "");
                     atividades_secundarias.add(item);
                 }
 			} else {
-				message = obj.getString("message");
+				message = obj.getString("message").replaceAll("[^\\p{ASCII}]", "");
 			}
 			
 		} catch (BusinessException e) {
