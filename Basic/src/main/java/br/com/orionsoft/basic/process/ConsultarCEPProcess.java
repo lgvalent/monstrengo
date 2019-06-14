@@ -37,10 +37,10 @@ public class ConsultarCEPProcess extends ProcessBasic {
 			this.getProcessManager().getServiceManager().execute(service);
 			
 			JsonObject endereco = (JsonObject) service.getOutputData().get(0);
-			logradouro = endereco.getString("logradouro");
-			complemento = endereco.getString("complemento");
-			bairro = endereco.getString("bairro");
-			localidade = endereco.getString("localidade");
+			logradouro = endereco.getString("logradouro").replaceAll("[^\\p{ASCII}]", "");
+			complemento = endereco.getString("complemento").replaceAll("[^\\p{ASCII}]", "");
+			bairro = endereco.getString("bairro").replaceAll("[^\\p{ASCII}]", "");
+			localidade = endereco.getString("localidade").replaceAll("[^\\p{ASCII}]", "");
 			uf = endereco.getString("uf");
 			unidade = endereco.getString("unidade");
 			ibge = endereco.getString("ibge");
