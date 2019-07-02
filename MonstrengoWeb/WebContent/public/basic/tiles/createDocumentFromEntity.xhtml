@@ -37,6 +37,12 @@
 					</h:commandLink>
 				</h:column>
 			</h:dataTable>
+			<h:outputText value="Um novo documento pode ser cadastro em " />
+			<h:outputLink
+				onclick="javascript:popupPage('../basic/documentList.xhtml',800,600, VIEW_DOCUMENT_LIST)"
+				rendered="#{menuBean.crudMap.ModelDocumentEntity.canRetrieve}">
+				<h:outputText value="Modelo de Documentos" />
+			</h:outputLink>
 		</h:panelGroup>
 	</h:panelGrid>
 </h:panelGroup>
