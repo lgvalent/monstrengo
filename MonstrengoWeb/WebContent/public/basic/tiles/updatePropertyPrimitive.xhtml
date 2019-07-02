@@ -75,7 +75,7 @@
 		rendered="#{propertyPrimitive.info.isInteger()}"
 		disabled="#{propertyPrimitive.info.readOnly}" size="10"
 		onkeypress="return keyPressInt(this,event)">
-		<f:validateLongRange minimum="-999999999" maximum="999999999" />
+		<f:validateLongRange minimum="-999999999999999999" maximum="999999999999999999" />
 	</p:inputText>
 
 	<p:inputText id="longInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
@@ -110,10 +110,10 @@
 		disabled="#{propertyPrimitive.info.readOnly}" size="10"
 		onkeypress="return keyPressFloat(this,event)" />
 
-	<p:inputText id="dateInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
+	<p:inputText id="calendarInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
 		title="#{propertyPrimitive.info.hint}"
 		required="#{propertyPrimitive.info.required}"
-		rendered="#{propertyPrimitive.info.calendar}"
+		rendered="#{propertyPrimitive.info.calendar or propertyPrimitive.info.date}"
 		disabled="#{propertyPrimitive.info.readOnly}" size="14"
 		onblur="return onblurCalendar(this,'#{propertyPrimitive.info.editMask}')" />
 

@@ -31,7 +31,7 @@
 					<h:outputText value="#{item.value.asString}"
 						title="#{item.info.hint}"
 						escape="false"
-						rendered="#{(item.info.isString() or item.info.isLong() or item.info.calendar or item.info.bigDecimal or item.info.isFloat() or item.info.isDouble() or item.info.isInteger() or item.info.isEnum()) and item.info.visible}" />
+						rendered="#{(item.info.isString() or item.info.isLong() or item.info.calendar or item.info.date or item.info.bigDecimal or item.info.isFloat() or item.info.isDouble() or item.info.isInteger() or item.info.isEnum()) and item.info.visible}" />
 
 					<h:selectBooleanCheckbox disabled="true"
 						value="#{item.value.asBoolean}" title="#{item.info.hint}"

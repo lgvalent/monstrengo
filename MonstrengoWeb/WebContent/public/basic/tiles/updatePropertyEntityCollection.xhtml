@@ -178,7 +178,7 @@
 	<h:inputText id="dateInput" value="#{propertyEmbedded.value.asString}" label="#{propertyEmbedded.info.label}"
 		title="#{propertyEmbedded.info.hint}"
 		required="#{propertyEmbedded.info.required and false}"
-		rendered="#{propertyEmbedded.info.calendar}"
+		rendered="#{propertyEmbedded.info.calendar or propertyEmbedded.info.date}"
 		disabled="#{propertyEmbedded.info.readOnly}" size="14"
 		onblur="return onblurCalendar(this,'#{propertyEmbedded.info.editMask}')" />
 	<h:message for="dateInput" styleClass="errorMessage" />
