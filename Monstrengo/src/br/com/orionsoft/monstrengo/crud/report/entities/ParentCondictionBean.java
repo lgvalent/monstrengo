@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
-import br.com.orionsoft.monstrengo.crud.report.entities.UserReportBean;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
 
@@ -22,7 +21,9 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
 @Table(name="framework_parent_condiction")
 public class ParentCondictionBean
 {
-    public static final String PARENT = "parent";
+	public static final String PROPERTY = "property";
+	public static final String APPLICATION_ENTITY = "applicatinoEntity";
+	public static final String USER_REPORT = "userReport";
 
     /** Parâmetros get/set */
     private long id = IDAO.ENTITY_UNSAVED;

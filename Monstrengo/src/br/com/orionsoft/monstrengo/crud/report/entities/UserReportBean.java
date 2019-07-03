@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,20 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
-import org.hibernate.annotations.Index;
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import br.com.orionsoft.monstrengo.crud.report.entities.OrderCondictionBean;
-import br.com.orionsoft.monstrengo.crud.report.entities.PageCondictionBean;
-import br.com.orionsoft.monstrengo.crud.report.entities.ParentCondictionBean;
-import br.com.orionsoft.monstrengo.crud.report.entities.QueryCondictionBean;
-import br.com.orionsoft.monstrengo.crud.report.entities.ResultCondictionBean;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
@@ -162,16 +156,17 @@ public class UserReportBean
     /**
      * @hibernate.one-to-one constrained="false" cascade="all"
      */
-	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@OneToOne(mappedBy=PageCondictionBean.USER_REPORT, cascade=CascadeType.ALL, fetch =  FetchType.EAGER, optional = true, orphanRemoval = true)
 	public PageCondictionBean getPageCondiction(){return pageCondiction;}
 	public void setPageCondiction(PageCondictionBean page){this.pageCondiction = page;}
 	
     /**
+     * Best Way to Map OneToOne
+     * https://vladmihalcea.com/the-best-way-to-map-a-onetoone-relationship-with-jpa-and-hibernate/
+     * 
      * @hibernate.one-to-one constrained="false" cascade="all"
      */
-	@OneToOne(cascade=CascadeType.ALL) 
-	@PrimaryKeyJoinColumn
+	@OneToOne(mappedBy=ParentCondictionBean.USER_REPORT, cascade=CascadeType.ALL, fetch =  FetchType.EAGER, optional = true, orphanRemoval = true)
 	public ParentCondictionBean getParentCondiction(){return parentCondiction;}
 	public void setParentCondiction(ParentCondictionBean parent){this.parentCondiction = parent;}
 
