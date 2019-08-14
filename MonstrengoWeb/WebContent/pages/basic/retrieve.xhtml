@@ -47,10 +47,14 @@
 					disabled="!#{retrieveBean.canDelete}" title="Apaga o registro"
 					ajax="true"
 					onclick="javascript:linkDelete('#{retrieveBean.currentEntity.info.type.name}', #{retrieveBean.currentEntity.id});" />
-				<p:commandButton image="ui-icon ui-icon-document"  styleClass="noprint"
-					disabled="!#{retrieveBean.canCreate}" title="Cria um novo registro"
+				<p:commandButton image="ui-icon ui-icon-copy"  styleClass="noprint"
+					disabled="!#{retrieveBean.canCreate}" title="Cria um novo registro a partir dos dados atuais"
 					ajax="true"
 					onclick="javascript:linkCreateCopy('#{retrieveBean.currentEntity.info.type.name}', #{retrieveBean.currentEntity.id});" />
+				<p:commandButton image="ui-icon ui-icon-document"  styleClass="noprint"
+					disabled="!#{retrieveBean.canCreate}" title="Cria um novo registro em branco"
+					ajax="true"
+					onclick="javascript:linkCreate('#{retrieveBean.currentEntity.info.type.name}');" />
 					
 				<p:commandButton id="btnProcess" value="Processos" styleClass="noprint"/>
 				<p:commandButton id="btnLabel" value="Etiquetas" styleClass="noprint"/>
