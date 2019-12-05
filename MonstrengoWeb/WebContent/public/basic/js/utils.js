@@ -208,6 +208,9 @@ function onblurCalendar(input_,mask_) {
  */
 
 function keyPressCalendar_() {
+  /*Lucio 20190918 Não trata inputs vazios */
+  if(input.value.length == 0) return;
+  
   /* Acrescenta 20 ou 19 se a data estiver com 6 digitos 010101 => 01012001*/
   if(input.value.length == 6){
     /* Verifica se o ano está no futuro ou passado para determinar um
@@ -223,8 +226,8 @@ function keyPressCalendar_() {
     input.value = input.value.substr(0,4) + anoPrefixo + input.value.substr(4,2);
   }else{
 	/* Completa com Zeros à direita as datas e horas digitadas parcialmente */  
-	if(mask.length >= input.value)
-	  input.value = input.value + Array(mask.length - input.value).join("0");
+	if(mask.length >= input.value.length)
+	  input.value = input.value + Array(mask.length - input.value.length).join("0");
   }
   
   /* Remove caracteres não numéricos */
