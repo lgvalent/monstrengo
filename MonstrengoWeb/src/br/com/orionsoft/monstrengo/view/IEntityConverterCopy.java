@@ -31,7 +31,7 @@ public class IEntityConverterCopy implements Converter{
 	            return null;  
 	        } else {  
 	            try {
-	            	ApplicationBean applicationBean = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{applicationBean}", ApplicationBean.class);
+	            	ApplicationBean applicationBean = (ApplicationBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{applicationBean}", ApplicationBean.class);
 	                
 	            	String[] values = submittedValue.split(":");
 	            	String className = values[0];

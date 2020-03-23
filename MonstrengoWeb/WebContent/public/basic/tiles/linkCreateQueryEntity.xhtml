@@ -11,6 +11,7 @@
            <ui:param name="noShowLabel" value="false"/>
            <ui:param name="noShowQuery" value="false"/>
            <ui:param name="showSubEntities" value="false"/>
+           <ui:param name="noShowCreate" value="false"/>
 	</ui:include>
  -->
  
@@ -40,7 +41,7 @@
 		</h:column>
 	</h:dataTable>
 </h:panelGroup>
-<h:panelGroup rendered="#{!(entityMetadata.hasSubEntities and showSubEntities)}" styleClass="noprint">
+<h:panelGroup rendered="#{!(entityMetadata.hasSubEntities and showSubEntities) and !noShowCreate}" styleClass="noprint">
 	<h:outputText value=" " />
 	<h:outputLink tabindex="-1"
 		value="javascript:linkCreatePopup('#{entityMetadata.type.name}')"
@@ -52,7 +53,6 @@
 		title="Você não possui direitos para criar um novo registro de #{entityMetadata.label}"
 		style="border:0"
 		rendered="#{!(menuBean.crudMap.get(entityMetadata.type.simpleName).canCreate and  !entityMetadata.isAbstract())}" />
-
-	<h:outputText value=" #{entityMetadata.label}" title="#{entityMetadata.hint}" rendered="#{!noShowLabel}"/>
 </h:panelGroup>
+<h:outputText value=" #{entityMetadata.label}" title="#{entityMetadata.hint}" rendered="#{!(entityMetadata.hasSubEntities and showSubEntities) and !noShowLabel}"/>
 </ui:composition>

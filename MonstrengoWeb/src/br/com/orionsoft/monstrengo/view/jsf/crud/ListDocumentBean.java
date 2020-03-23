@@ -33,6 +33,8 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 public class ListDocumentBean extends BeanSessionBasic  
 {
 
+	private static final long serialVersionUID = 1L;
+	
 	public static final String FACES_VIEW_DOCUMENT_LIST = "/pages/basic/documentList?faces-redirect=true";
 	public static final String FACES_VIEW_DOCUMENT_MENU = "/pages/basic/documentMenu?faces-redirect=true";
 	public static final String FACES_VIEW_DOCUMENT_PRINT = "/pages/basic/documentPrint?faces-redirect=true";
@@ -114,6 +116,7 @@ public class ListDocumentBean extends BeanSessionBasic
 	}
 	
 	private IEntityList<ModelDocumentEntity> documents = null;
+	@SuppressWarnings("unchecked")
 	public IEntityList<ModelDocumentEntity> getDocuments() throws BusinessException
 	{
 		if(documents==null){

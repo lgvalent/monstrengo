@@ -51,12 +51,8 @@
 					<p:menuitem value="Documentos" url="../basic/documentList.xhtml"
 						target="ALVO" />
 				</p:submenu>
-				<p:submenu label="Administração" icon="ui-icon-locked">
-					<p:menuitem value="Auditorias"
-						url="../admin/auditorshipMenu.jsp" target="ALVO" />
-					<p:menuitem value="Usuários"
-						url="../admin/securityMenu.jsp" target="ALVO" />
-				</p:submenu>
+				<p:menuitem value="Administração" icon="ui-icon-locked"
+						url="../admin/menu.xhtml" target="ALVO" />
 				<p:menuitem value="Suporte" onclick="dialogSupport.show();"
 					icon="ui-icon-help" />
 
@@ -89,7 +85,7 @@
 
 	<p:dialog widgetVar="dialogChangePassword" modal="true" height="400"
 		width="550" header="Alteração da senha de acesso">
-		<iframe src="../admin/securityChangePassword.jsp" frameborder="1"
+		<iframe src="../admin/securityChangePassword.xhtml" frameborder="1"
 			style="width: 100%; height: 100%;" />
 
 	</p:dialog>

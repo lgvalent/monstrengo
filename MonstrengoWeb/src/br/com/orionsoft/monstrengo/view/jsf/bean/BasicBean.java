@@ -45,7 +45,7 @@ public abstract class BasicBean implements IBasicBean, Serializable
 	}
 	
     /**
-     * @deprecated Este método foi criado para evitar que o novo método getVieName() 
+     * deprecated Este método foi criado para evitar que o novo método getVieName() 
      * da interface IBasicBean tenha que ser implementado por todos os atuais Beans
      * que foram criados seguindo a antiga interface. Assim, este método deve
      * ser removido e todos os beans passados para a nova interface. Para isto, as

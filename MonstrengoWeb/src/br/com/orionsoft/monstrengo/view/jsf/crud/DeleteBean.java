@@ -42,10 +42,11 @@ public class DeleteBean extends CrudBasicBean
 	
 	private Map<String, String> dependencesMap = new HashMap<String, String>(0);
 
+	@SuppressWarnings("rawtypes")
 	private DeleteProcess process = null;
-	public DeleteProcess getProcess() throws ProcessException {
+	public DeleteProcess<?> getProcess() throws ProcessException {
 		if (process == null)
-			process = (DeleteProcess)this.getApplicationBean().getProcessManager().createProcessByName(DeleteProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
+			process = (DeleteProcess<?>)this.getApplicationBean().getProcessManager().createProcessByName(DeleteProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
 		return process;
 	}
 	
@@ -139,7 +140,7 @@ public class DeleteBean extends CrudBasicBean
     public String actionConfirm() throws Exception{
     	log.debug("::Iniciando actionUpdate");
     	log.debug("Gravando alterações pelo processo:" + currentEntityKey);
-    	DeleteProcess proc = (DeleteProcess) processes.get(currentEntityKey); 
+    	DeleteProcess<?> proc = (DeleteProcess<?>) processes.get(currentEntityKey); 
     	//justification
 
     	proc.setJustification(this.justification);
@@ -190,7 +191,7 @@ public class DeleteBean extends CrudBasicBean
      * Obtem a chave da entidade que está currentemente sendo criada pelo bean
      * @return
      */
-    public IEntity getCurrentEntity() {
+    public IEntity<?> getCurrentEntity() {
 		return currentEntity;
 	}
 
@@ -201,17 +202,18 @@ public class DeleteBean extends CrudBasicBean
      * um novo processo é criado.  
 	 * @throws BusinessException 
      */
-    public void prepareCurrentEntity(String currentEntityKey) throws BusinessException, Exception{
+    @SuppressWarnings("unchecked")
+	public void prepareCurrentEntity(String currentEntityKey) throws BusinessException, Exception{
     	
         super.prepareCurrentEntity(currentEntityKey);
         
         if(processes.containsKey(currentEntityKey)){
         	log.debug("Utilizando o processo já ativo");
-        	process = (DeleteProcess) processes.get(currentEntityKey); 
+        	process = (DeleteProcess<?>) processes.get(currentEntityKey); 
         	currentEntity = getProcess().retrieveEntity();
     	}else{
         	log.debug("Iniciando um novo processo Delete");
-        	process = (DeleteProcess) this.getApplicationBean().getProcessManager().createProcessByName(DeleteProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
+        	process = (DeleteProcess<?>) this.getApplicationBean().getProcessManager().createProcessByName(DeleteProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
             try{
                 /* Preenche os parâmetros */
             	process.setEntityType(Class.forName(this.getEntityParam().getTypeName()));

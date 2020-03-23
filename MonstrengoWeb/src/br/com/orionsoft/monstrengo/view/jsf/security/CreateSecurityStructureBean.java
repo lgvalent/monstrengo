@@ -5,8 +5,11 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
+import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.security.processes.CreateSecurityStructureProcess;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
+import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
@@ -19,11 +22,11 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
  */
 @ManagedBean
 @SessionScoped
-public class CreateSecurityStructureBean extends BeanSessionBasic
+public class CreateSecurityStructureBean extends BeanSessionBasic implements IRunnableProcessView
 {
  
     /** Define a view JSF que é ativada para a visão RETRIEVE */
-	public static final String FACES_VIEW = "/pages/basic/securityCreateSecurityStructure?faces-redirect=true";
+	public static final String FACES_VIEW = "/pages/admin/securityCreateSecurityStructure?faces-redirect=true";
 
 	private String login;
     private String groupName;
@@ -78,6 +81,10 @@ public class CreateSecurityStructureBean extends BeanSessionBasic
         return result;
     }
 
+    @Override
+    public String actionStart() {
+    	return FACES_VIEW;
+    }
 
 	public void doReset() throws BusinessException, Exception {
 		// TODO Auto-generated method stub
@@ -87,6 +94,20 @@ public class CreateSecurityStructureBean extends BeanSessionBasic
 	public void doReload() throws BusinessException, Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public String getRunnableEntityProcessName() {
+		return CreateSecurityStructureProcess.PROCESS_NAME;
+	}
+	@Override
+	public String runWithEntity(IEntity<?> entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String runWithEntities(IEntityCollection<?> entities) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

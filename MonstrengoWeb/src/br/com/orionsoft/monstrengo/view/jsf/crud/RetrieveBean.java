@@ -30,7 +30,9 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 @SessionScoped
 public class RetrieveBean extends CrudBasicBean
 {
-    /** Define a view JSF que é ativada para a visão RETRIEVE */
+	private static final long serialVersionUID = 1L;
+
+	/** Define a view JSF que é ativada para a visão RETRIEVE */
 	public static final String FACES_VIEW_RETRIEVE = "/pages/basic/retrieve?faces-redirect=true";
     
     public static final String URL_PARAM_SELECT_ONE_DEST = "selectOneDest";
@@ -108,6 +110,7 @@ public class RetrieveBean extends CrudBasicBean
      * um novo processo é criado.  
 	 * @throws BusinessException 
      */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void prepareCurrentEntity(String currentEntityKey) throws BusinessException, Exception
 	{
         if(processes.containsKey(currentEntityKey)){
@@ -218,8 +221,4 @@ public class RetrieveBean extends CrudBasicBean
 		this.lastViews = lastViews;
 	}
 
-	/*
-	 * FIM
-	 */
-	
 }

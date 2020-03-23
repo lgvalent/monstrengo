@@ -18,6 +18,8 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 @SessionScoped
 public class OverwritePasswordBean extends BeanSessionBasic implements IRunnableProcessView
 {
+	private static final long serialVersionUID = 1L;
+
 	/** Define a view JSF que é ativada para a visão QUERY */
 	public static final String FACES_VIEW_START = "/pages/admin/securityOverwritePassword?faces-redirect=true";
 
@@ -58,7 +60,7 @@ public class OverwritePasswordBean extends BeanSessionBasic implements IRunnable
     	String result = null;
 
     	if (process.runOverwrite()){
-    		// Definir o fluxo de tela de SUCESSO
+    		// Definir o fluxo de tela de SUCESSO 
     		result = FacesUtils.FACES_VIEW_SUCCESS;
     		// Adiciona as mensagens no Faces
     		FacesUtils.addInfoMsgs(process.getMessageList());

@@ -5,8 +5,11 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
+import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 import br.com.orionsoft.monstrengo.security.processes.ChangePasswordProcess;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
+import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
@@ -16,7 +19,7 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
  */
 @ManagedBean
 @SessionScoped
-public class ChangePasswordBean extends BeanSessionBasic
+public class ChangePasswordBean extends BeanSessionBasic implements IRunnableProcessView
 {
 	/** Define a view JSF que é ativada para a visão QUERY */
 	public static final String FACES_VIEW = "/pages/admin/securityChangePassword?faces-redirect=true";
@@ -49,9 +52,6 @@ public class ChangePasswordBean extends BeanSessionBasic
         	if (process.runChange()){
         		// Definir o fluxo de tela de SUCESSO
         		result = FacesUtils.FACES_VIEW_SUCCESS;
-        	}else{
-        		// Definir o fluxo de tela de SUCESSO
-        		result = FacesUtils.FACES_VIEW_FAILURE;
         	}
 
         	// Adiciona as mensagens de erro no Faces
@@ -69,7 +69,6 @@ public class ChangePasswordBean extends BeanSessionBasic
         return result;
     }
 
-
 	public void doReset() throws BusinessException, Exception {
 		// TODO Auto-generated method stub
 		
@@ -78,6 +77,26 @@ public class ChangePasswordBean extends BeanSessionBasic
 	public void doReload() throws BusinessException, Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public String actionStart() {
+		return FACES_VIEW;
+	}
+
+	@Override
+	public String getRunnableEntityProcessName() {
+		return ChangePasswordProcess.PROCESS_NAME;
+	}
+	@Override
+	public String runWithEntity(IEntity<?> entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String runWithEntities(IEntityCollection<?> entities) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

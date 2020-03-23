@@ -75,7 +75,7 @@
 		rendered="#{propertyPrimitive.info.isInteger()}"
 		disabled="#{propertyPrimitive.info.readOnly}" size="10"
 		onkeypress="return keyPressInt(this,event)">
-		<f:validateLongRange minimum="-999999999999999999" maximum="999999999999999999" />
+		<f:validateLongRange  minimum="-2147483648" maximum="2147483647" />
 	</p:inputText>
 
 	<p:inputText id="longInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"
@@ -84,7 +84,7 @@
 		rendered="#{propertyPrimitive.info.isLong()}"
 		disabled="#{propertyPrimitive.info.readOnly}" size="10"
 		onkeypress="return keyPressInt(this,event)">
-		<f:validateLongRange minimum="-999999999" maximum="999999999" />
+		<f:validateLongRange minimum="-999999999999999" maximum="999999999999999" />
 	</p:inputText>
 
 	<p:inputText id="bigInput" value="#{propertyPrimitive.value.asString}" label="#{propertyPrimitive.info.label}"

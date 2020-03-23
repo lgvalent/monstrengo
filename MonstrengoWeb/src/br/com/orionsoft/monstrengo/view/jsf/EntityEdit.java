@@ -25,13 +25,14 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
  */
 public class EntityEdit extends BeanSessionBasic
 {
-    //entities: guarda as entidades em edição na sessão corrente.
+	private static final long serialVersionUID = 1L;
+	//entities: guarda as entidades em edição na sessão corrente.
     /** Armazena as entidades que estão atualmente em edição */
-    private Map<String, IEntity> entities = new HashMap<String, IEntity>();
+    private Map<String, IEntity<?>> entities = new HashMap<String, IEntity<?>>();
     /** Armazena os processos das entidades que estão atualmente em edição */
-    private Map<String, UpdateProcess> processes = new HashMap<String, UpdateProcess>();
+    private Map<String, UpdateProcess<?>> processes = new HashMap<String, UpdateProcess<?>>();
     
-    private IEntity currentEntity;
+    private IEntity<?> currentEntity;
     private String currentEntityKey;
     
     /**
@@ -39,7 +40,8 @@ public class EntityEdit extends BeanSessionBasic
      * @throws BusinessException
      * @throws ClassNotFoundException
      */
-    public void doEdit() throws BusinessException, ClassNotFoundException
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public void doEdit() throws BusinessException, ClassNotFoundException
     {
 //        System.out.println("EntityEdit.doEdit: ");
 
@@ -60,7 +62,7 @@ public class EntityEdit extends BeanSessionBasic
             // de onde ele vai pegar o userSession??
             UserSession userSession = null;
             // Cria um novo processo de edição para a entidade
-            UpdateProcess editProcess = (UpdateProcess)this.getApplicationBean().getProcessManager().createProcessByName(UpdateProcess.PROCESS_NAME, userSession);
+            UpdateProcess editProcess = (UpdateProcess<?>)this.getApplicationBean().getProcessManager().createProcessByName(UpdateProcess.PROCESS_NAME, userSession);
 //          não vai dar certo porque não vai ter o nome do pacote na variável, tipo br.com...
             editProcess.setEntityType(Class.forName(entityType)); 
             editProcess.setEntityId(entityId);
@@ -116,7 +118,7 @@ public class EntityEdit extends BeanSessionBasic
         currentEntity = entities.get(currentEntityKey);
     }
     
-    public IEntity getCurrentEntity()
+    public IEntity<?> getCurrentEntity()
     {
 //        System.out.println("EntityEdit.getCurrentEntity " + currentEntity.getInfo().getName());
         return currentEntity;
@@ -230,12 +232,11 @@ public class EntityEdit extends BeanSessionBasic
     {
 //        System.out.println("========>>>>>>>EntityEdit.saveEntity: " + currentEntity.getInfo().getName());
 //      result será false se a operação lançar uma exceção.
-        boolean result = processes.get(this.currentEntityKey).runUpdate();
+//        boolean result = processes.get(this.currentEntityKey).runUpdate();
         
 //        currentEntity.getProperties().save();
         
-//        super.finishSession();
-        
+//        super.finishSession();        
 //        super.initSession();
         
 //        // Obs.: Existe uma sessão 'mantida', assim o proxies são todos válidos

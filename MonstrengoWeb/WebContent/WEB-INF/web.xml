@@ -77,22 +77,4 @@
 		<filter-name>Authentication</filter-name>
 		<url-pattern>/faces/pages/*</url-pattern>
 	</filter-mapping>
-
-	<!--***************************Tiles definitions*************************** -->
-	<!-- Tiles Servlet -->
-	<servlet>
-		<servlet-name>Tiles Servlet</servlet-name>
-		<servlet-class>org.apache.struts.tiles.TilesServlet</servlet-class>
-		<init-param>
-			<param-name>definitions-config</param-name>
-			<param-value>/WEB-INF/tiles.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>debug</param-name>
-			<param-value>0</param-value>
-		</init-param>
-		<load-on-startup>2</load-on-startup>
-
-	</servlet>
-	<!--********************************************************************************* -->
 </web-app>

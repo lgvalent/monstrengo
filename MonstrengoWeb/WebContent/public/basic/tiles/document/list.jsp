@@ -32,8 +32,6 @@ h:commandLink action="#{documentEntityBean.actionCreate}" rendered="#{menuBean.c
 	  <f:verbatim >	
 		<br>
 	  </f:verbatim >	
-
-    <h:message for="userReportId"/>
 </h:form>	
 <h:panelGrid columns="2">
   <h:form>

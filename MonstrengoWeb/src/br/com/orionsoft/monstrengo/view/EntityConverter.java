@@ -13,9 +13,9 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.view.jsf.bean.ApplicationBean;
 
 /**
- * Esta classe define o conversor genérico de uma IEntity. Útil para usar com o componentes Primes
- * que trabalham diretamente com valores IEntity e não mais os primitivos.
- * o parâmetro value="" é necessário, pois senão ele o Prime usa o o conversor para TUDO!@! 
+ * Esta classe define o conversor genï¿½rico de uma IEntity. ï¿½til para usar com o componentes Primes
+ * que trabalham diretamente com valores IEntity e nï¿½o mais os primitivos.
+ * o parï¿½metro value="" ï¿½ necessï¿½rio, pois senï¿½o ele o Prime usa o o conversor para TUDO!@! 
  * @author lucio
  * @version 01012012
  */
@@ -25,30 +25,30 @@ public class EntityConverter implements Converter{
 	/**
 	 * O valor submetido para o conversor deve ser o nome da classe da entidade e o seu id.
 	 * Exemplo: 'br.com.MyClass:1'
-	 * Use uma expressão: #{IEntity.info.type.name}:#{IEntity.id}    
+	 * Use uma expressï¿½o: #{IEntity.info.type.name}:#{IEntity.id}    
 	 */
 	public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue) {
 	        if (submittedValue.trim().equals("")) {  
 	            return null;  
 	        } else {  
 	            try {
-	            	ApplicationBean applicationBean = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{applicationBean}", ApplicationBean.class);
+	            	ApplicationBean applicationBean = (ApplicationBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{applicationBean}", ApplicationBean.class);
 	            	
 	            	String[] values = submittedValue.split(":");
 	            	String className = values[0];
 	            	long entityId = Long.parseLong(values[1]);
 	            	
-	            	/* Verifica se a entidade a ser convertida existe. Senão, cria uma vazia */
+	            	/* Verifica se a entidade a ser convertida existe. Senï¿½o, cria uma vazia */
 	            	if(entityId != IDAO.ENTITY_UNSAVED){
 	            		return UtilsCrud.retrieve(applicationBean.getProcessManager().getServiceManager(), Class.forName(className), entityId, null);
 	            	}else{
-		            	/* Precisa retornar NULL pois se a entidade for do tipo abstrata não dá para dar um CREATE return UtilsCrud.create(applicationBean.getProcessManager().getServiceManager(), entityClass, null); */
+		            	/* Precisa retornar NULL pois se a entidade for do tipo abstrata nï¿½o dï¿½ para dar um CREATE return UtilsCrud.create(applicationBean.getProcessManager().getServiceManager(), entityClass, null); */
 		            	return null;
 	            	}
 	            	
 	            } catch(Exception exception) {  
 	            	exception.printStackTrace();
-	                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de conversão. Use como valor do componente uma expressão: #{IEntity.info.type.name}:#{IEntity.id}", "O valor submetido não pode ser convertido para IEntity. Utilize este Converter somente para esta interface. Valor recebido:" + submittedValue));  
+	                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de conversï¿½o. Use como valor do componente uma expressï¿½o: #{IEntity.info.type.name}:#{IEntity.id}", "O valor submetido nï¿½o pode ser convertido para IEntity. Utilize este Converter somente para esta interface. Valor recebido:" + submittedValue));  
 	            }  
 	        }  
 	    }  

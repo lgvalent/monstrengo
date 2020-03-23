@@ -56,7 +56,7 @@ public class UserSessionBean
 	}
 
 	private String login;
-    private String password;    
+    private String password;
     
     private Logger log = Logger.getLogger(getClass()); 
     
@@ -292,14 +292,14 @@ public class UserSessionBean
 	}
 	/**
 	 *	 
-	 * @deprecated metodo depreciado, pois a manutenção da lista de visões ainda está indefinida
+	 * deprecated metodo depreciado, pois a manutenção da lista de visões ainda está indefinida
 	 */
 	public Map<String, IBasicBean> getViews() {return views;}
+
 	/**
 	 *	 
-	 * @deprecated metodo depreciado, pois a manutenção da lista de visões ainda está indefinida
+	 * deprecated metodo depreciado, pois a manutenção da lista de visões ainda está indefinida
 	 */
-	
 	public void registerView(IBasicBean view) throws BusinessException{
 		if(log.isDebugEnabled())
 			log.debug("Registrando visão: " + view.getViewName() + "(" + view.getClass().getName() + ")");
@@ -338,7 +338,7 @@ public class UserSessionBean
 	}
 	/**
 	 *		 
-	 * @deprecated metodo depreciado, pois a manutenção da lista de visões ainda está indefinida
+	 * deprecated metodo depreciado, pois a manutenção da lista de visões ainda está indefinida
 	 */
 	public void unregisterView(IBasicBean view) throws BusinessException{
 		if(log.isDebugEnabled())

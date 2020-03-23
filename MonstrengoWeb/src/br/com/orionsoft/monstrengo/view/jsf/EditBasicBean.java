@@ -19,10 +19,13 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
  */
 public class EditBasicBean extends BeanSessionBasic
 {
+	private static final long serialVersionUID = 1L;
+
 	/* Dados internos */
     /** Armazena os processos das entidades que estão atualmente em edição */
-    private UpdateProcess process = null;
-    private IEntity entity=null;
+    @SuppressWarnings("rawtypes")
+	private UpdateProcess process = null;
+    private IEntity<?> entity=null;
     
     // Outros Beans que são utilizados
     private EntityBean entityBean;
@@ -106,7 +109,7 @@ public class EditBasicBean extends BeanSessionBasic
      * @throws Exception 
      * @throws  
      */
-    public IEntity getEntity() throws Exception {
+    public IEntity<?> getEntity() throws Exception {
     	/* Se a visao for chamada por URL
     	 * o metodo actionEdit nao eh executado. Assim, 
     	 * Quando tentar pegar a primeira vez a entity e ela
@@ -124,7 +127,7 @@ public class EditBasicBean extends BeanSessionBasic
      * localizado e a entidade corrente é obtida. 
      * @return
      */
-	public void setEntity(IEntity currentEntity) {
+	public void setEntity(IEntity<?> currentEntity) {
 		this.entity = currentEntity;
 	}
 
@@ -133,7 +136,8 @@ public class EditBasicBean extends BeanSessionBasic
      * baseando-se nos parametros capturados pelo EntityBean.<br>
 	 * @throws BusinessException 
      */
-    private void prepareCurrentEntity() throws BusinessException, Exception{
+    @SuppressWarnings("unchecked")
+	private void prepareCurrentEntity() throws BusinessException, Exception{
     	
         if(log.isDebugEnabled())
         	log.debug("prepareCurrentEntity:");
@@ -143,7 +147,7 @@ public class EditBasicBean extends BeanSessionBasic
         	entity = process.retrieveEntity();
     	}else{
         	log.debug("Iniciando um novo processo de Edição");
-        	process = (UpdateProcess)this.getApplicationBean().getProcessManager().createProcessByName(UpdateProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
+        	process = (UpdateProcess<?>)this.getApplicationBean().getProcessManager().createProcessByName(UpdateProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
             
         	/* Preenche os parâmetros */
         	process.setEntityType(entityBean.getEntity().getInfo().getType());
