@@ -67,17 +67,17 @@ public class ImprimirCartaCobrancaService extends ServiceBasic {
 		PARCELAS("Parcelas", "CartaCobrancaParcelas.jrxml", ".pdf"),
 		EMAIL("E-Mail", "CartaCobrancaEMail.jrxml", ".pdf"),
 		CSV_1("Mala direta por item", "", ".csv");
-		
+
 		private String nome;
 		private String arquivo;
 		private String extensaoSaida;
-		
+
 		private CartaCobrancaModelo(String nome, String arquivo, String extensaoSaida) {
 			this.nome = nome;
 			this.arquivo = arquivo;
 			this.extensaoSaida = extensaoSaida;
 		}
-		
+
 		public String getNome() {
 			return nome;
 		}
@@ -90,214 +90,217 @@ public class ImprimirCartaCobrancaService extends ServiceBasic {
 			return extensaoSaida;
 		}
 	}
-	
-    public static final String SERVICE_NAME = "ImprimirCartaCobrancaService";
-    
-    public static final String IN_QUERY_RELATORIO_COBRANCA = "queryRelatorioCobranca";
-    public static final String IN_MODELO_CARTA_COBRANCA = "modeloCartaCobranca";
-    public static final String IN_OUTPUT_STREAM = "outputSteam";
-    
+
+	public static final String SERVICE_NAME = "ImprimirCartaCobrancaService";
+
+	public static final String IN_QUERY_RELATORIO_COBRANCA = "queryRelatorioCobranca";
+	public static final String IN_MODELO_CARTA_COBRANCA = "modeloCartaCobranca";
+	public static final String IN_OUTPUT_STREAM = "outputSteam";
+
 	public static final String IN_ENVIAR_EMAIL_OPT = "enviarEmail";
 	public static final String IN_CONTA_EMAIL_OPT = "contaEmail";
 	public static final String IN_MENSAGAEM_EMAIL_OPT = "mensagemEmail";
 
-    @SuppressWarnings("unchecked")
-    public void execute(ServiceData serviceData) throws ServiceException {
-        log.debug("::Iniciando a execução do serviço ImprimirCartaCobrancaService");
-        try {
-            log.debug("Preparando os argumentos");
-            /* Obrigatórios */
-            List<QueryRelatorioCobranca> cobrancaList = (List<QueryRelatorioCobranca>) serviceData.getArgumentList().getProperty(IN_QUERY_RELATORIO_COBRANCA);
-            CartaCobrancaModelo modelo = (CartaCobrancaModelo) serviceData.getArgumentList().getProperty(IN_MODELO_CARTA_COBRANCA);
-            OutputStream inOutputStream = (OutputStream) serviceData.getArgumentList().getProperty(IN_OUTPUT_STREAM);
-    
+	@SuppressWarnings("unchecked")
+	public void execute(ServiceData serviceData) throws ServiceException {
+		log.debug("::Iniciando a execução do serviço ImprimirCartaCobrancaService");
+		try {
+			log.debug("Preparando os argumentos");
+			/* Obrigatórios */
+			List<QueryRelatorioCobranca> cobrancaList = (List<QueryRelatorioCobranca>) serviceData.getArgumentList().getProperty(IN_QUERY_RELATORIO_COBRANCA);
+			CartaCobrancaModelo modelo = (CartaCobrancaModelo) serviceData.getArgumentList().getProperty(IN_MODELO_CARTA_COBRANCA);
+			OutputStream inOutputStream = (OutputStream) serviceData.getArgumentList().getProperty(IN_OUTPUT_STREAM);
+
 			Boolean inEnviarEMail = (serviceData.getArgumentList().containsProperty(IN_ENVIAR_EMAIL_OPT) ? (Boolean) serviceData.getArgumentList().getProperty(IN_ENVIAR_EMAIL_OPT): false);
 			EmailAccount inEmailAccount = (serviceData.getArgumentList().containsProperty(IN_CONTA_EMAIL_OPT) ? (EmailAccount) serviceData.getArgumentList().getProperty(IN_CONTA_EMAIL_OPT): null);
 			String inMensagemEMail = (serviceData.getArgumentList().containsProperty(IN_MENSAGAEM_EMAIL_OPT) ? (String) serviceData.getArgumentList().getProperty(IN_MENSAGAEM_EMAIL_OPT): "");
 
-            if(modelo == CartaCobrancaModelo.CSV_1){
-            	if(inEnviarEMail)
-            		throw new ServiceException(MessageList.createSingleInternalError(new Exception("O modelo não é compatível para ser enviado por E-Mail. Selecione outro modelo!")));
-            	
-            	PrintWriter pw = new PrintWriter(new OutputStreamWriter(inOutputStream, "ISO-8859-1"));
-            	pw.println("cpf/cnpj;nome;telefone;endereço;total geral;id do 1º item;descrição do 1º item;valor do 1º item;...");
-            	StringBuffer linha = null;
-            	
-            	/* Cria um mapa com os items disponíveis em TODAS AS EMPRESAS para
-            	 * conseguir sempre formar um registro padrão mesmo que a empresa
-            	 * não possua aquele item. No entanto, não deve aparecer ZERO, mas sim
-            	 * VAZIO, pois em uma mala direta, o item nem deverá aparecer */
-            	HashMap<Long, String> itemsMap = new HashMap<Long, String>();
-            	for(QueryRelatorioCobranca query: cobrancaList){
-            		if(!itemsMap.containsKey(query.getIdItemCusto())){
-   						String descricao = ((ItemCusto)UtilsCrud.objectRetrieve(this.getServiceManager(), ItemCusto.class, query.getIdItemCusto(), serviceData.getServiceDataOwner())).getNome();
-            			itemsMap.put(query.getIdItemCusto(), descricao);
-            		}
-            	}
-            	
-            	Iterator<QueryRelatorioCobranca> it = cobrancaList.iterator();
-            	HashMap<Long, BigDecimal> map = null;
-            	String documentoCorrente = "";
-            	do{
-            		QueryRelatorioCobranca query = it.next();
+			if(modelo == CartaCobrancaModelo.CSV_1){
+				if(inEnviarEMail)
+					throw new ServiceException(MessageList.createSingleInternalError(new Exception("O modelo não é compatível para ser enviado por E-Mail. Selecione outro modelo!")));
 
-            		if(!documentoCorrente.equals(query.getDocumento())){
-            			/* Verifica se houve troca do cara para gravar o atual conteudo do mapa */
-            			if(!documentoCorrente.equals("")){
-               				// Escreve os itens do map na linha e preprara outro cara
-               				// Escreve o total primeiro, pois nem todos caras terão todos os itens
-            				// !!! CODIGO REPETIDO ABAIXO
-               				BigDecimal total = BigDecimal.ZERO;
-               				StringBuffer sub = new StringBuffer();
-               				for(Long id: map.keySet()){
-               					if(map.get(id)==null){
-               						sub.append(";");
-               						sub.append(";");
-               						sub.append(";");
-               					}else{
-               						sub.append(id);
-               						sub.append(";");
-               						sub.append(itemsMap.get(id));
-               						sub.append(";");
-               						sub.append(DecimalUtils.formatBigDecimal(map.get(id)));
-               						sub.append(";");
-                   					total = total.add(map.get(id));
-               					}
-               				}
-               				linha.append(DecimalUtils.formatBigDecimal(total));
-               				linha.append(";");
-               				linha.append(sub.toString());
-               				pw.println(linha.toString());
-            			}
-            			
-            			// Prepara a nova entidade
-            			linha = new StringBuffer();
+				PrintWriter pw = new PrintWriter(new OutputStreamWriter(inOutputStream, "ISO-8859-1"));
+				pw.println("cpf/cnpj;nome;telefone;endereço;total geral;id do 1º item;descrição do 1º item;valor do 1º item;...");
+				StringBuffer linha = null;
 
-            			linha.append(query.getDocumento());
-            			linha.append(";");
-            			linha.append(query.getNome());
-            			linha.append(";");
-            			linha.append(query.getTelefone());
-            			linha.append(";");
-            			linha.append(query.getEndereco());
-            			linha.append(";");
-            			
-            			// Indica quem é o cara corrente
-            			documentoCorrente = query.getDocumento();
-            			// Prepara o mapa do cara já com os itens pré analisados
-            			map = new HashMap<Long, BigDecimal>();
-            			for(Long id: itemsMap.keySet()){
-            				map.put(id, null);
-            			}
-            		}
+				/* Cria um mapa com os items disponíveis em TODAS AS EMPRESAS para
+				 * conseguir sempre formar um registro padrão mesmo que a empresa
+				 * não possua aquele item. No entanto, não deve aparecer ZERO, mas sim
+				 * VAZIO, pois em uma mala direta, o item nem deverá aparecer */
+				HashMap<Long, String> itemsMap = new HashMap<Long, String>();
+				for(QueryRelatorioCobranca query: cobrancaList){
+					if(query.isChecked() && !itemsMap.containsKey(query.getIdItemCusto())){
+						String descricao = ((ItemCusto)UtilsCrud.objectRetrieve(this.getServiceManager(), ItemCusto.class, query.getIdItemCusto(), serviceData.getServiceDataOwner())).getNome();
+						itemsMap.put(query.getIdItemCusto(), descricao);
+					}
+				}
 
-            		// Soma os itens no map
-           			// Busca no mapa o item atual
-           			if(map.get(query.getIdItemCusto())!=null){
-           				// Adiciona ao existente
-           				map.put(query.getIdItemCusto(), map.get(query.getIdItemCusto()).add(query.getValorCorrigido()));
-           			}else{
-           				// Adiciona o primeiro
-           				map.put(query.getIdItemCusto(), query.getValorCorrigido());
-           			}
-            		
-           			if(!it.hasNext()){
-           				// Escreve os itens do map na linha e preprara outro cara
-           				// Escreve o total primeiro, pois nem todos caras terão todos os itens
-        				// !!! CODIGO REPETIDO ACIMA
-           				BigDecimal total = BigDecimal.ZERO;
-           				StringBuffer sub = new StringBuffer();
-           				for(Long id: map.keySet()){
-           					if(map.get(id)==null){
-           						sub.append(";");
-           						sub.append(";");
-           						sub.append(";");
-           					}else{
-           						sub.append(id);
-           						sub.append(";");
-           						sub.append(itemsMap.get(id));
-           						sub.append(";");
-           						sub.append(DecimalUtils.formatBigDecimal(map.get(id)));
-           						sub.append(";");
-               					total = total.add(map.get(id));
-           					}
-           				}
-           				linha.append(DecimalUtils.formatBigDecimal(total));
-           				linha.append(";");
-           				linha.append(sub.toString());
-           				pw.println(linha.toString());
-           			}
-            	}while(it.hasNext());
+				Iterator<QueryRelatorioCobranca> it = cobrancaList.iterator();
+				HashMap<Long, BigDecimal> map = null;
+				String documentoCorrente = "";
+				do{
+					QueryRelatorioCobranca query = it.next();
+					if(query.isChecked()) {
 
-            	/* Descarrega os buffers */
-            	pw.flush();
-            	
-        } else {
-        	Map<String, String> parametros = new HashMap<String, String>();
-            	parametros.put("data", "Maringá, "+ SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG).format(Calendar.getInstance().getTime()));
-            	
-            	List<CartaCobrancaBean> beans = new ArrayList<CartaCobrancaBean>(cobrancaList.size());
-            	for (QueryRelatorioCobranca query : cobrancaList) {
-            		CartaCobrancaBean bean;
-            		/* Lucio 20121206: beans com valores nulos também são exibidos */
-            		if ((query.getValorOriginal() == null) || (query.getValorOriginal().signum() == 1)) {
-            			bean = new CartaCobrancaBean(
-            					query.getNome(),
-            					query.getDocumento(),
-            					"",
-            					"",
-            					"",
-            					query.getEmail(),
-            					CalendarUtils.formatDate(query.getData()),
-            					query.getDescricao(),
-            					CalendarUtils.formatDate(query.getDataVencimento()), 
-            					DecimalUtils.formatBigDecimal(query.getValorOriginal()));
-            			beans.add(bean);
-            		}
-            	}
-            	
-            	log.debug("Compilando o relatório.");
-            	JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream(modelo.getArquivo()));
-            	
-            	if(inEnviarEMail){
-            		CartaCobrancaBean lastBean = null; beans.add(new CartaCobrancaBean("", "00000000000", "", "", "", "", "", "", "", "")); // Insere um último elemento sinalizador de fim de lista que não será impresso!
-            		
-            		List<CartaCobrancaBean> cartasBeans = new ArrayList<CartaCobrancaBean>();
-            		for(CartaCobrancaBean bean: beans){
-            			if(lastBean != null && !bean.getDocumento().equals(lastBean.getDocumento())){
-            				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            				log.debug("Imprimindo o relatório.");
-            				JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, new JRBeanCollectionDataSource(cartasBeans));
-            				JasperExportManager.exportReportToPdfStream(print, outputStream);
-            				
-            				log.debug("Enviando E-Mail com o PDF do relatório.");
-            				enviarEMail(outputStream, lastBean, inEmailAccount, inMensagemEMail, serviceData);
-            				
-            				cartasBeans.clear();
-            			}
-            			cartasBeans.add(bean);
-            			lastBean = bean;
-            		}
-            	}else{
-            		log.debug("Executando o método de impressão coletiva do gerenciador");
-            		log.debug("Imprimindo o relatório.");
-            		JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, new JRBeanCollectionDataSource(beans));
 
-            		log.debug("Gerando o PDF do relatório.");
-            		JasperExportManager.exportReportToPdfStream(print, inOutputStream);
-            	}
-        }
+						if(!documentoCorrente.equals(query.getDocumento())){
+							/* Verifica se houve troca do cara para gravar o atual conteudo do mapa */
+							if(!documentoCorrente.equals("")){
+								// Escreve os itens do map na linha e preprara outro cara
+								// Escreve o total primeiro, pois nem todos caras terão todos os itens
+								// !!! CODIGO REPETIDO ABAIXO
+								BigDecimal total = BigDecimal.ZERO;
+								StringBuffer sub = new StringBuffer();
+								for(Long id: map.keySet()){
+									if(map.get(id)==null){
+										sub.append(";");
+										sub.append(";");
+										sub.append(";");
+									}else{
+										sub.append(id);
+										sub.append(";");
+										sub.append(itemsMap.get(id));
+										sub.append(";");
+										sub.append(DecimalUtils.formatBigDecimal(map.get(id)));
+										sub.append(";");
+										total = total.add(map.get(id));
+									}
+								}
+								linha.append(DecimalUtils.formatBigDecimal(total));
+								linha.append(";");
+								linha.append(sub.toString());
+								pw.println(linha.toString());
+							}
 
-            
-        } catch (Exception e) {
-            log.fatal(e.getMessage());
-            /*
-             * Indica que o serviço falhou por causa de uma exceção do
-             * hibernate.
-             */
-            throw new ServiceException(MessageList.createSingleInternalError(e));
-        }
-    }
+							// Prepara a nova entidade
+							linha = new StringBuffer();
+
+							linha.append(query.getDocumento());
+							linha.append(";");
+							linha.append(query.getNome());
+							linha.append(";");
+							linha.append(query.getTelefone());
+							linha.append(";");
+							linha.append(query.getEndereco());
+							linha.append(";");
+
+							// Indica quem é o cara corrente
+							documentoCorrente = query.getDocumento();
+							// Prepara o mapa do cara já com os itens pré analisados
+							map = new HashMap<Long, BigDecimal>();
+							for(Long id: itemsMap.keySet()){
+								map.put(id, null);
+							}
+						}
+
+						// Soma os itens no map
+						// Busca no mapa o item atual
+						if(map.get(query.getIdItemCusto())!=null){
+							// Adiciona ao existente
+							map.put(query.getIdItemCusto(), map.get(query.getIdItemCusto()).add(query.getValorCorrigido()));
+						}else{
+							// Adiciona o primeiro
+							map.put(query.getIdItemCusto(), query.getValorCorrigido());
+						}
+
+						if(!it.hasNext()){
+							// Escreve os itens do map na linha e preprara outro cara
+							// Escreve o total primeiro, pois nem todos caras terão todos os itens
+							// !!! CODIGO REPETIDO ACIMA
+							BigDecimal total = BigDecimal.ZERO;
+							StringBuffer sub = new StringBuffer();
+							for(Long id: map.keySet()){
+								if(map.get(id)==null){
+									sub.append(";");
+									sub.append(";");
+									sub.append(";");
+								}else{
+									sub.append(id);
+									sub.append(";");
+									sub.append(itemsMap.get(id));
+									sub.append(";");
+									sub.append(DecimalUtils.formatBigDecimal(map.get(id)));
+									sub.append(";");
+									total = total.add(map.get(id));
+								}
+							}
+							linha.append(DecimalUtils.formatBigDecimal(total));
+							linha.append(";");
+							linha.append(sub.toString());
+							pw.println(linha.toString());
+						}
+					}
+				}while(it.hasNext());
+
+				/* Descarrega os buffers */
+				pw.flush();
+
+			} else {
+				Map<String, String> parametros = new HashMap<String, String>();
+				parametros.put("data", "Maringá, "+ SimpleDateFormat.getDateInstance(SimpleDateFormat.LONG).format(Calendar.getInstance().getTime()));
+
+				List<CartaCobrancaBean> beans = new ArrayList<CartaCobrancaBean>(cobrancaList.size());
+				for (QueryRelatorioCobranca query : cobrancaList) {
+					CartaCobrancaBean bean;
+					/* Lucio 20121206: beans com valores nulos também são exibidos */
+					if (query.isChecked() && ((query.getValorOriginal() == null) || (query.getValorOriginal().signum() == 1))) {
+						bean = new CartaCobrancaBean(
+								query.getNome(),
+								query.getDocumento(),
+								"",
+								"",
+								"",
+								query.getEmail(),
+								CalendarUtils.formatDate(query.getData()),
+								query.getDescricao(),
+								CalendarUtils.formatDate(query.getDataVencimento()), 
+								DecimalUtils.formatBigDecimal(query.getValorOriginal()));
+						beans.add(bean);
+					}
+				}
+
+				log.debug("Compilando o relatório.");
+				JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream(modelo.getArquivo()));
+
+				if(inEnviarEMail){
+					CartaCobrancaBean lastBean = null; beans.add(new CartaCobrancaBean("", "00000000000", "", "", "", "", "", "", "", "")); // Insere um último elemento sinalizador de fim de lista que não será impresso!
+
+					List<CartaCobrancaBean> cartasBeans = new ArrayList<CartaCobrancaBean>();
+					for(CartaCobrancaBean bean: beans){
+						if(lastBean != null && !bean.getDocumento().equals(lastBean.getDocumento())){
+							ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+							log.debug("Imprimindo o relatório.");
+							JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, new JRBeanCollectionDataSource(cartasBeans));
+							JasperExportManager.exportReportToPdfStream(print, outputStream);
+
+							log.debug("Enviando E-Mail com o PDF do relatório.");
+							enviarEMail(outputStream, lastBean, inEmailAccount, inMensagemEMail, serviceData);
+
+							cartasBeans.clear();
+						}
+						cartasBeans.add(bean);
+						lastBean = bean;
+					}
+				}else{
+					log.debug("Executando o método de impressão coletiva do gerenciador");
+					log.debug("Imprimindo o relatório.");
+					JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, new JRBeanCollectionDataSource(beans));
+
+					log.debug("Gerando o PDF do relatório.");
+					JasperExportManager.exportReportToPdfStream(print, inOutputStream);
+				}
+			}
+
+
+		} catch (Exception e) {
+			log.fatal(e.getMessage());
+			/*
+			 * Indica que o serviço falhou por causa de uma exceção do
+			 * hibernate.
+			 */
+			throw new ServiceException(MessageList.createSingleInternalError(e));
+		}
+	}
 
 	private void enviarEMail(ByteArrayOutputStream pdfOutputStream, CartaCobrancaBean bean, EmailAccount emailAccount, String mensagemEmail, ServiceData serviceData) throws BusinessException{
 		/* TODO Lucio 20181029	Se der erro ao enviar um email, tem que ver como tratar transacionalmente!!! Os emails errados vão retornar como MSG para o e-mail origem */
@@ -343,8 +346,8 @@ public class ImprimirCartaCobrancaService extends ServiceBasic {
 			throw new ServiceException(MessageList.createSingleInternalError(e));
 		}
 	}
-    public String getServiceName() {
-        return SERVICE_NAME;
-    }
+	public String getServiceName() {
+		return SERVICE_NAME;
+	}
 
 }

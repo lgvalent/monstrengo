@@ -130,9 +130,9 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		"select " +
 		"  count(*) " +
 		"from " + 
-		"  financeiro_lancamento flancamento " +
+		"  financeiro_lancamento lancamento " +
 		"inner join basic_contrato fcontrato on ( " +
-		"  fcontrato.id = flancamento.contrato) " +
+		"  fcontrato.id = lancamento.contrato) " +
 		"inner join basic_pessoa pessoa on ( " +
 		"  pessoa.id = fcontrato.pessoa) " +
 		"left outer join basic_cnae cnae on ( " +
@@ -140,12 +140,12 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		"left outer join basic_endereco endereco on ( " +
 		"  endereco.id = pessoa.enderecoCorrespondencia) " +
 		"left outer join financeiro_lancamento_item lancamento_item on ( " +
-		"  lancamento_item.lancamento = flancamento.id) ";
+		"  lancamento_item.lancamento = lancamento.id) ";
 
 		public static final String WHERE_SLAVE = "" +
 			"where " +
-			"     (flancamento.contrato = contrato.id) and " +
-			"	  (flancamento.saldo > 0)";
+			"     (lancamento.contrato = contrato.id) and " +
+			"	  (lancamento.saldo > 0)";
 		
 		public static final String ORDER = "" +
 			"order by	" +
@@ -392,9 +392,9 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		if (inCategoriaContratoId != IDAO.ENTITY_UNSAVED)
 			sqlSlave.addWhere("(fcontrato.categoria = "+inCategoriaContratoId+")");
 		if (inDataLancamentoInicial != null && inDataLancamentoFinal != null)
-			sqlSlave.addWhere("(flancamento.data between '"+CalendarUtils.formatToSQLDate(inDataLancamentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataLancamentoFinal)+"')");
+			sqlSlave.addWhere("(lancamento.data between '"+CalendarUtils.formatToSQLDate(inDataLancamentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataLancamentoFinal)+"')");
 		if (inDataVencimentoInicial != null && inDataVencimentoFinal != null)
-			sqlSlave.addWhere("(flancamento.dataVencimento between '"+CalendarUtils.formatToSQLDate(inDataVencimentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataVencimentoFinal)+"')");
+			sqlSlave.addWhere("(documento_cobranca.dataVencimento between '"+CalendarUtils.formatToSQLDate(inDataVencimentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataVencimentoFinal)+"')");
 		if (StringUtils.isNotBlank(inCpfCnpj))
 			/* CNPJ, inclusive parciais para pegar todas as filiais. */
 			sqlSlave.addWhere("(pessoa.documento like '"+inCpfCnpj+"%')");

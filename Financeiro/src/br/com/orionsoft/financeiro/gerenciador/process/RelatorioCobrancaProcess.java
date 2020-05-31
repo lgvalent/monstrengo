@@ -216,7 +216,7 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 		super.beforeRun();
 		log.debug("Iniciando RelatorioCobrancaProcess (ImprimirCartaCobranca)");
 		try {
-	        List<QueryRelatorioCobranca> list = this.execute(null);
+	        List<QueryRelatorioCobranca> list = this.lista==null?this.execute(null):this.lista;
 	        if(list == null)
 	        	return false;
 
