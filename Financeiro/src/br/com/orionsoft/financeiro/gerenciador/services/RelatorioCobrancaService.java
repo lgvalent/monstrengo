@@ -1,6 +1,5 @@
 package br.com.orionsoft.financeiro.gerenciador.services;
 
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,25 +7,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.text.MaskFormatter;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import br.com.orionsoft.basic.entities.commons.Frequencia;
-import br.com.orionsoft.basic.entities.pessoa.EscritorioContabil;
 import br.com.orionsoft.basic.entities.pessoa.Juridica;
 import br.com.orionsoft.financeiro.utils.UtilsJuros;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
@@ -40,7 +28,6 @@ import br.com.orionsoft.monstrengo.core.util.NativeSQL;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.crud.entity.metadata.MetadataException;
-import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 /**
  * Serviço que lista informações financeiras para o Relatório de Cobrança.
@@ -307,8 +294,6 @@ public class RelatorioCobrancaService extends ServiceBasic {
 //	public static final String IN_ESCRITORIO_ID_OPT = "escritorio";
 	public static final String IN_CONTRATO_REPRESENTANTE_ID_OPT = "contratoReprensentanteId";
 	public static final String IN_OMITIR_VALORES = "omitirValores";
-	public static final String IN_OUTPUT_STREAM = "outputStream";
-	public static final String IN_RELATORIO_COBRANCA_MODELO = "relatorioCobrancaModelo";
 
 	public void execute(ServiceData serviceData) throws ServiceException {
 		log.debug("Iniciando a execução do serviço RelatorioCobrancaService");
@@ -331,8 +316,6 @@ public class RelatorioCobrancaService extends ServiceBasic {
 //		Integer inQuantidadeItensPagosFinal = (Integer) serviceData.getArgumentList().getProperty(IN_QUANTIDADE_ITENS_PAGOS_FINAL);
 		Boolean inPossuiItensPagos = (Boolean) serviceData.getArgumentList().getProperty(IN_POSSUI_ITENS_PAGO);
 		String inCpfCnpj = serviceData.getArgumentList().containsProperty(IN_CPF_CNPJ_OPT)?(String) serviceData.getArgumentList().getProperty(IN_CPF_CNPJ_OPT):null;
-		OutputStream inOutputStream = (OutputStream) serviceData.getArgumentList().getProperty(IN_OUTPUT_STREAM);
-		RelatorioCobrancaModelo inRelatorioCobrancaModelo = (RelatorioCobrancaModelo) serviceData.getArgumentList().getProperty(IN_RELATORIO_COBRANCA_MODELO);
 		
 		/*
 		 * Parâmetros opcionais
@@ -349,10 +332,10 @@ public class RelatorioCobrancaService extends ServiceBasic {
 				(Long[]) serviceData.getArgumentList().getProperty(IN_ESCRITORIO_CONTABIL_ID_LIST) : null);
 		Long inContratoRepresentanteId = (serviceData.getArgumentList().containsProperty(IN_CONTRATO_REPRESENTANTE_ID_OPT) ?
 				(Long) serviceData.getArgumentList().getProperty(IN_CONTRATO_REPRESENTANTE_ID_OPT) : IDAO.ENTITY_UNSAVED);
-		Boolean inOmitirValores = (serviceData.getArgumentList().containsProperty(IN_OMITIR_VALORES) ?
-				(Boolean) serviceData.getArgumentList().getProperty(IN_OMITIR_VALORES) : false);
 		Calendar inDataPagamento = (serviceData.getArgumentList().containsProperty(IN_DATA_PAGAMENTO_OPT) ?
 				(Calendar) serviceData.getArgumentList().getProperty(IN_DATA_PAGAMENTO_OPT) : CalendarUtils.getCalendar());
+		Boolean inOmitirValores = (serviceData.getArgumentList().containsProperty(IN_OMITIR_VALORES) ?
+				(Boolean) serviceData.getArgumentList().getProperty(IN_OMITIR_VALORES) : false);
 		
 		log.debug("Montando SQL para busca dos dados.");
 		/* SQL Slave */
@@ -434,14 +417,8 @@ public class RelatorioCobrancaService extends ServiceBasic {
 				sqlMaster.addWhere("(endereco.municipio != "+inMunicipioId+")");
 			else
 				sqlMaster.addWhere("(endereco.municipio = "+inMunicipioId+")");
-		String escritorio = "";
 		if (!ArrayUtils.isEmpty(inEscritorioContabilIdList)) {
 			sqlMaster.addWhere("(pessoa.escritorioContabil in ("+ br.com.orionsoft.monstrengo.core.util.StringUtils.toString(inEscritorioContabilIdList)+"))");
-			try {
-				EscritorioContabil ec = UtilsCrud.objectRetrieve(this.getServiceManager(), EscritorioContabil.class, inEscritorioContabilIdList[0], null);
-				escritorio = ec.getPessoa().getNome();
-			} catch (Exception e) {
-			}
 		}
 		if (inContratoRepresentanteId != IDAO.ENTITY_UNSAVED)
 			sqlMaster.addWhere("(contrato.representante = "+inContratoRepresentanteId+")");
@@ -559,30 +536,9 @@ public class RelatorioCobrancaService extends ServiceBasic {
 			serviceData.getOutputData().add(list);
 			
 			
-			log.debug("Compilando o relatório.");
-	        Map<String, String> parametros = new HashMap<String, String>();
-	        parametros.put("Memo1", "Impresso em " + CalendarUtils.formatDateTime(Calendar.getInstance()));
-	        parametros.put("Memo2", "Valores calculados para pagamento até " + CalendarUtils.formatDate(inDataPagamento));
-	        parametros.put("Memo3", escritorio);
-
-	        JasperReport relatorio = null;
-	        if(inRelatorioCobrancaModelo == RelatorioCobrancaModelo.RETRATO)
-	        	relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("RelatorioCobrancaRetrato.jrxml"));
-	        else
-	        	relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("RelatorioCobrancaPaisagem.jrxml"));
-	        	
-	        if (inOutputStream != null) {
-	        	log.debug("Imprimindo o relatório.");
-	        	JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, new JRBeanCollectionDataSource(list));
-	        	JasperExportManager.exportReportToPdfStream(print, inOutputStream);
-	        }
-	        
 		} catch (SQLException e) {
             log.fatal(e.getMessage());
             /* Indica que o serviço falhou por causa de uma exceção da SQL. */
-            throw new ServiceException(MessageList.createSingleInternalError(e));
-		} catch (JRException e) {
-            /* Indica que o serviço falhou por causa de uma exceção do Jasper. */
             throw new ServiceException(MessageList.createSingleInternalError(e));
 		} catch (MetadataException e) {
             /* Indica que o serviço falhou por causa de uma exceção de Metadata. */

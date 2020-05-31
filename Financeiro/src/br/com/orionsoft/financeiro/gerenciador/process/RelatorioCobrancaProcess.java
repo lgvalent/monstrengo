@@ -25,6 +25,7 @@ import br.com.orionsoft.basic.etiquetas.InserirEtiquetaEnderecoService;
 import br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirCartaCobrancaService;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirCartaCobrancaService.CartaCobrancaModelo;
+import br.com.orionsoft.financeiro.gerenciador.services.ImprimirRelatorioCobrancaService;
 import br.com.orionsoft.financeiro.gerenciador.services.InativarContratosService;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService.QueryRelatorioCobranca;
@@ -115,8 +116,29 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
     
 	public boolean runGerarPdf(){
 		super.beforeRun();
+		log.debug("Iniciando RelatorioCobrancaProcess (ImprimirCartaCobranca)");
+		try {
+	        List<QueryRelatorioCobranca> list = this.lista==null?this.execute(null):this.lista;
+	        if(list == null)
+	        	return false;
 
-		return this.execute(this.outputStream) != null;
+    		/*
+	         * Imprime a carta de cobrança
+	         */
+    		ServiceData sd = new ServiceData(ImprimirRelatorioCobrancaService.SERVICE_NAME, null);
+    		sd.getArgumentList().setProperty(ImprimirRelatorioCobrancaService.IN_DATA_PAGAMENTO_OPT, this.dataPagamento);
+    		sd.getArgumentList().setProperty(ImprimirRelatorioCobrancaService.IN_OUTPUT_STREAM, this.outputStream);
+    		sd.getArgumentList().setProperty(ImprimirRelatorioCobrancaService.IN_QUERY_RELATORIO_COBRANCA, list);
+			sd.getArgumentList().setProperty(ImprimirRelatorioCobrancaService.IN_RELATORIO_COBRANCA_MODELO, RelatorioCobrancaModelo.values()[this.relatorioCobrancaModelo]);
+    		this.getProcessManager().getServiceManager().execute(sd);
+    		
+	        return true;
+		} catch (BusinessException e) {
+			/* Armazenando a lista de erros */
+			this.getMessageList().addAll(e.getErrorList());
+			return false;
+		}
+
 	}
 	
 	public boolean runListar(){
@@ -193,8 +215,6 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 			
 			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_OMITIR_VALORES, this.omitirValores);
 			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_CONTRATO_REPRESENTANTE_ID_OPT, this.contratoRepresentanteId);
-			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_OUTPUT_STREAM, outputStreamLocal);
-			sd.getArgumentList().setProperty(RelatorioCobrancaService.IN_RELATORIO_COBRANCA_MODELO, RelatorioCobrancaModelo.values()[this.relatorioCobrancaModelo]);
 			this.getProcessManager().getServiceManager().execute(sd);
 			
 			List<QueryRelatorioCobranca> result = sd.getFirstOutput();
