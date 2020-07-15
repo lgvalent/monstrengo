@@ -84,6 +84,7 @@ public class TituloPrintBean {
         
         dtDataVencimento = new SimpleDateFormat("dd/MM/yyyy").format(titulo.getDataVencimento().getTime());
         dtNossoNumero = titulo.getNumeroDocumento();
+        dtNumeroDocumento = Long.toString(titulo.getId());
         
         /* dados da contribuição */
         if((titulo.getValor() != null) && (titulo.getValor().compareTo(BigDecimal.ZERO)!=0)){
@@ -111,7 +112,6 @@ public class TituloPrintBean {
         
         dtDataDocumento = new SimpleDateFormat("dd/MM/yyyy").format(titulo.getData().getTime());
         dtDataProcessamento = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-        dtNumeroDocumento = titulo.getNumeroDocumento();
 
         /* Código de barras */
 //        CodigoBarrasTitulo codigoBarras = new CodigoBarrasTitulo(_titulo, gerenciadorBanco.getCampoLivre(_titulo));
