@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.mail.internet.MimeBodyPart;
 
@@ -17,6 +19,7 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
+import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.PrintUtils;
 import br.com.orionsoft.monstrengo.core.util.StringUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
@@ -51,6 +54,7 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 	public static final String IN_DOCUMENTO_OPT = "documento";
 	public static final String IN_DOCUMENTO_BEAN_LIST = "documentoBeanList"; 
 	public static final String IN_ENVIAR_EMAIL_OPT = "enviarEMail";
+	public static final String IN_DOWNLOAD_PDF_ZIP_OPT = "downloadPdfZip";
 	public static final String IN_OUTPUT_STREAM_OPT = "outputStream";
 	public static final String IN_PRINTER_INDEX_OPT = "printerIndex";
 	public static final String IN_INSTRUCOES_ADICIONAIS_OPT = "instrucoesAdicionais"; 
@@ -70,6 +74,11 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 			Boolean inEnviarEMail = (serviceData.getArgumentList()
 					.containsProperty(IN_ENVIAR_EMAIL_OPT) ? (Boolean) serviceData
 							.getArgumentList().getProperty(IN_ENVIAR_EMAIL_OPT)
+							: false);
+
+			Boolean inDownloadPdfZip = (serviceData.getArgumentList()
+					.containsProperty(IN_DOWNLOAD_PDF_ZIP_OPT) ? (Boolean) serviceData
+							.getArgumentList().getProperty(IN_DOWNLOAD_PDF_ZIP_OPT)
 							: false);
 
 			OutputStream inOutputStream = (serviceData.getArgumentList()
@@ -155,12 +164,28 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 			if(inDocumentosBean!=null){
 				if(inEnviarEMail){
 					for(DocumentoCobrancaBean bean: inDocumentosBean){
-						List<DocumentoCobrancaBean> docUnitarioBean = new ArrayList<DocumentoCobrancaBean>(1);
-						docUnitarioBean.add(bean);
-						ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-						gerenciador.imprimirDocumentos(docUnitarioBean, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, inInputStreamImagem, serviceData);
-						enviarEMail(outputStream, bean.getDocumentoOriginal(), serviceData);
+						if(bean.isChecked()) {
+							List<DocumentoCobrancaBean> docUnitarioBean = new ArrayList<DocumentoCobrancaBean>(1);
+							docUnitarioBean.add(bean);
+							ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+							gerenciador.imprimirDocumentos(docUnitarioBean, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, inInputStreamImagem, serviceData);
+							enviarEMail(outputStream, bean.getDocumentoOriginal(), serviceData);
+						}
 					}
+				}else if(inDownloadPdfZip){
+					ZipOutputStream zos = new ZipOutputStream(inOutputStream);
+					for(DocumentoCobrancaBean bean: inDocumentosBean){
+						if(bean.isChecked()) {
+							List<DocumentoCobrancaBean> docUnitarioBean = new ArrayList<DocumentoCobrancaBean>(1);
+							docUnitarioBean.add(bean);
+							String fileName = bean.getPessoa() + "(" + bean.getDocumento() + ") - " + bean.getId() + ".pdf";
+							ZipEntry zipEntry = new ZipEntry(fileName);
+							zos.putNextEntry(zipEntry);
+							gerenciador.imprimirDocumentos(docUnitarioBean, zos, PrintUtils.PRINTER_INDEX_NO_PRINT, inInputStreamImagem, serviceData);
+							zos.closeEntry();
+						}
+					}
+					zos.close();
 				}else
 					gerenciador.imprimirDocumentos(inDocumentosBean, inOutputStream, inPrinterIndex, inInputStreamImagem, serviceData);
 			}

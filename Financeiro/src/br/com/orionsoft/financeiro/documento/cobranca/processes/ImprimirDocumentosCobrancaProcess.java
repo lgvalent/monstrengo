@@ -81,7 +81,9 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 
 	private Boolean excluirMunicipio = false;
 	private Boolean zerarValor = false;
+	private Boolean downloadPdfZip = false;
 	
+
 	private Boolean recalcularDataVencimento = false;
 	private Calendar dataPagamento = CalendarUtils.getCalendar();
 
@@ -98,6 +100,9 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 
 	public Boolean getEnviarEMail() {return enviarEMail;}
 	public void setEnviarEMail(Boolean enviarEMail) {this.enviarEMail = enviarEMail;}
+
+	public Boolean getDownloadPdfZip() {return downloadPdfZip;}
+	public void setDownloadPdfZip(Boolean downloadPdfZip) {this.downloadPdfZip = downloadPdfZip;}
 
 	public List<SelectItem> getPrinterIndexList() {
 		return PrintUtils.retrievePrinters();
@@ -241,6 +246,7 @@ public class ImprimirDocumentosCobrancaProcess extends ProcessBasic implements I
 			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_DOCUMENTO_BEAN_LIST,
 					getBeanList());
 			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_OUTPUT_STREAM_OPT, this.outputStream);
+			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_DOWNLOAD_PDF_ZIP_OPT, this.downloadPdfZip);
 			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_PRINTER_INDEX_OPT, this.printerIndex);
 			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_ENVIAR_EMAIL_OPT, this.enviarEMail);
 			sdImprimir.getArgumentList().setProperty(ImprimirDocumentosCobrancaService.IN_INPUT_STREAM_IMAGEM_OPT, this.inputStreamImagem);
