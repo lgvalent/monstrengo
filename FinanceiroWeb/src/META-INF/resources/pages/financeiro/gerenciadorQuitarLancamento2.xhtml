@@ -16,12 +16,12 @@
 		<h:selectOneMenu id="conta" value="#{quitarLancamentoBean.process.contaId}" onfocus="setActiveComponent(this);">
 			<f:selectItems value="#{quitarLancamentoBean.process.listConta}"/>
 		</h:selectOneMenu>
-		<h:message styleClass="errorMessage" for="dataQuitacao"/>
 
 		<h:outputLabel value="Data de quitação: "/>
-		<p:calendar value="#{quitarLancamentoBean.process.dataQuitacao.time}" size="10" maxlength="10" showOtherMonths="true" pattern="dd/MM/yyyy" onblur="return onblurCalendar(this, 'dd/MM/yyyy')" onfocus="setActiveComponent(this)" showButtonPanel="true">
+		<p:calendar id="dataQuitacao" value="#{quitarLancamentoBean.process.dataQuitacao.time}" size="10" maxlength="10" showOtherMonths="true" pattern="dd/MM/yyyy" onblur="return onblurCalendar(this, 'dd/MM/yyyy')" onfocus="setActiveComponent(this)" showButtonPanel="true">
 			<p:ajax event="keyup" update="tableContratos" listener="#{quitarLancamentoBean.doCalcularMultaJuros}"/>
 		</p:calendar>
+		<h:message styleClass="errorMessage" for="dataQuitacao"/>
 
 		<h:dataTable id="tableContratos"
 		  			 border="1" 

@@ -127,7 +127,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
 	 * @throws ParseException
 	 * @throws BusinessException
 	 */
-	public void doDownload() throws ParseException, BusinessException {
+	private void doDownload() throws ParseException, BusinessException {
 		log.debug("ImprimirDocumentoCobrancaBean.doDownload");
 
 		/* Permite acionar esta action de tela passando somente o documentoId pela URL */
@@ -177,7 +177,21 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
 	/**
 	 * Efetua o download do documento em PDF separados em ZIP
 	 */
-	public void doDownloadPdfZip() {
+	public void doDownloadPdf() {
+		try {
+			/* Informa ao processo para enviar e-mail */
+			this.getCurrentProcess().setEnviarEMail(false);
+			this.getCurrentProcess().setDownloadPdfZip(false);
+			this.doDownload();
+		} catch (Exception e) {
+			FacesUtils.addErrorMsg(e.getMessage());
+		}
+	}
+
+	/**
+	 * Efetua o download do documento em PDF separados em ZIP
+	 */
+	public void doDownloadZip() {
 		try {
 			/* Informa ao processo para enviar e-mail */
 			this.getCurrentProcess().setEnviarEMail(false);
@@ -186,7 +200,6 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
 		} catch (Exception e) {
 			FacesUtils.addErrorMsg(e.getMessage());
 		}
-
 	}
 
 	/**
@@ -196,6 +209,7 @@ public class ImprimirDocumentosCobrancaBean extends BeanSessionBasic implements 
 		try {
 			/* Informa ao processo para enviar e-mail */
 			this.getCurrentProcess().setEnviarEMail(true);
+			this.getCurrentProcess().setDownloadPdfZip(false);
 			this.getCurrentProcess().setOutputStream(null);
 			this.getCurrentProcess().setPrinterIndex(PrintUtils.PRINTER_INDEX_NO_PRINT);
 			this.getCurrentProcess().setInputStreamImagem(arquivoImagem==null?null:arquivoImagem.getInputstream());
