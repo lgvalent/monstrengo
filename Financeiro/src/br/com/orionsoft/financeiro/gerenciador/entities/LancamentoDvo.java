@@ -1,6 +1,7 @@
 package br.com.orionsoft.financeiro.gerenciador.entities;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Column;
 import org.apache.commons.lang.StringUtils;
 
 import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobranca;
+import br.com.orionsoft.financeiro.documento.cobranca.services.AlterarVencimentoDocumentosCobrancaService;
 import br.com.orionsoft.financeiro.documento.pagamento.DocumentoPagamento;
 import br.com.orionsoft.financeiro.utils.UtilsConta;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
@@ -15,6 +17,7 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.util.DecimalUtils;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
+import br.com.orionsoft.monstrengo.crud.entity.EntityList;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoBasic;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoException;
@@ -73,7 +76,7 @@ public class LancamentoDvo extends DvoBasic<Lancamento> {
 		} 
 
 		try {
-			cascateiaVencimento(entity, serviceData);
+			cascateiaVencimento(entity, userSession, serviceData);
 		} catch (DvoException e) {
 			dvoExceptions.getErrorList().addAll(e.getErrorList());
 		} 
@@ -218,7 +221,7 @@ public class LancamentoDvo extends DvoBasic<Lancamento> {
 	 * Método que verifica e cascateia as alterações de contrato nos documentos
 	 * de cobrança e de pagamento, e tambem nos documentos dos movimentos.
 	 */
-	public void cascateiaVencimento(IEntity<Lancamento> lancamento, ServiceData serviceDataOwner) throws BusinessException{
+	public void cascateiaVencimento(IEntity<Lancamento> lancamento, UserSession userSession, ServiceData serviceDataOwner) throws BusinessException{
 		try {
 			/* Verifica se houve alteração na data do vencimento */
 			if(lancamento.getProperty(Lancamento.DATA_VENCIMENTO).getValue().isModified()){
@@ -234,8 +237,16 @@ public class LancamentoDvo extends DvoBasic<Lancamento> {
 				/* Documento de cobrança */
 				DocumentoCobranca oDocumentoCobranca = oLancamento.getDocumentoCobranca();
 				if(oDocumentoCobranca != null){
-					oDocumentoCobranca.setDataVencimento(oLancamento.getDataVencimento());
-					UtilsCrud.objectUpdate(this.getDvoManager().getEntityManager().getServiceManager(), oDocumentoCobranca, serviceDataOwner);
+					
+					EntityList<Object> docs = new EntityList<>(new ArrayList<Object>(), this.getDvoManager().getEntityManager().getEntityMetadata(DocumentoCobranca.class), this.getDvoManager().getEntityManager());
+					docs.add(lancamento.getProperty(Lancamento.DOCUMENTO_COBRANCA).getValue().getAsEntity());
+					
+					ServiceData sds = new ServiceData(AlterarVencimentoDocumentosCobrancaService.SERVICE_NAME, null);
+					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_DATA, oLancamento.getDataVencimento());
+					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_ADENDO_INSTRUCOES_3, "");
+					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_DOCUMENTOS, docs);
+					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_USER_SESSION_OPT, userSession);
+					this.getDvoManager().getEntityManager().getServiceManager().execute(sds);
 				}
 			}
 		} catch (EntityException e) {
