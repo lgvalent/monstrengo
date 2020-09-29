@@ -63,19 +63,15 @@ public class AlterarVencimentoDocumentosCobrancaProcess extends ProcessBasic imp
 		super.beforeRun();
 		try {
 			/* Altera o vencimento */
-			for(IEntity<DocumentoCobranca> doc: this.documentos){
-				if(doc.isSelected()){
-					ServiceData sds = new ServiceData(AlterarVencimentoDocumentosCobrancaService.SERVICE_NAME, null);
-					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_DATA, this.data);
-					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_ADENDO_INSTRUCOES_3, this.adendoInstrucoes3);
-					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_DOCUMENTOS, this.documentos);
-					sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_USER_SESSION_OPT, this.getUserSession());
-					this.getProcessManager().getServiceManager().execute(sds);
+			ServiceData sds = new ServiceData(AlterarVencimentoDocumentosCobrancaService.SERVICE_NAME, null);
+			sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_DATA, this.data);
+			sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_ADENDO_INSTRUCOES_3, this.adendoInstrucoes3);
+			sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_DOCUMENTOS, this.documentos);
+			sds.getArgumentList().setProperty(AlterarVencimentoDocumentosCobrancaService.IN_USER_SESSION_OPT, this.getUserSession());
+			this.getProcessManager().getServiceManager().execute(sds);
 
-					/* Pega as mensagens do serviço */
-					this.getMessageList().addAll(sds.getMessageList());
-				}
-			}
+			/* Pega as mensagens do serviço */
+			this.getMessageList().addAll(sds.getMessageList());
 
 			return true;
 
