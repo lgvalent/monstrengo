@@ -34,6 +34,7 @@ public enum TipoLogradouro
 	SETOR("ST","Setor"),
 	TRAVESSA("TV","Travessa"),
 	VAZIO("",""),
+	VIA("VIA", "Via"),
 	VILA("VL","Vila");
 
 	public static final int COLUMN_DISCRIMINATOR_LENGTH = 11;

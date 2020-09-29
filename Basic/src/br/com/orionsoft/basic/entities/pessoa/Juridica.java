@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -86,7 +87,7 @@ public class Juridica extends Pessoa
      * @hibernate.collection-key foreign-key="juridica"
      * @hibernate.collection-key-column name="juridica" index="juridica"
      */
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @ForeignKey(name="juridica") 
     @JoinColumn(name="juridica")

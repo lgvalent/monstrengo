@@ -36,7 +36,7 @@ public class Bairro
     /**
      * @hibernate.property length="50"
      */
-    @Column(length=50)
+    @Column(length=100)
     public String getNome()
     {
         return nome;

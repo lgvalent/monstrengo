@@ -9,6 +9,7 @@ import org.apache.tools.ant.filters.StringInputStream;
 
 import br.com.orionsoft.basic.Manter;
 import br.com.orionsoft.basic.services.ConsultarCEPService;
+import br.com.orionsoft.basic.services.ConsultarCEPService.ConsultarCepBean;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
@@ -73,29 +74,33 @@ public class EnderecoDvo extends DvoBasic<Endereco> {
 			service.getArgumentList().setProperty(ConsultarCEPService.IN_CEP, endereco.getObject().getCep());
 			this.getDvoManager().getEntityManager().getServiceManager().execute(service);
 
-			JsonObject json = Json.createReader(new StringInputStream(service.getFirstOutput().toString())).readObject();
+			ConsultarCepBean bean = service.getFirstOutput();
 
 			Manter manter = new Manter(this.getDvoManager().getEntityManager().getServiceManager(), serviceData);
 			
 			if(endereco.getProperty(Endereco.CEP).getValue().isModified()){
 				Bairro oBairro = new Bairro();
-				oBairro.setNome(json.getString("bairro"));
+				oBairro.setNome(bean.getBairro());
 				IEntity<Bairro> bairro = manter.manterBairro(oBairro);
 				if (bairro!=null)
 					endereco.getProperty(Endereco.BAIRRO).getValue().setAsEntity(bairro);
 
 				Municipio oMunicipio = new Municipio();
-				oMunicipio.setNome(json.getString("localidade"));
-				oMunicipio.setUf(Uf.valueOf(json.getString("uf")));
+				oMunicipio.setNome(bean.getLocalidade());
+				oMunicipio.setUf(Uf.valueOf(bean.getUf()));
+				oMunicipio.setCodigoIbge(bean.getIbge());
 				IEntity<Municipio> municipio = manter.manterMunicipio(oMunicipio);
 				if (municipio!=null)
 					endereco.getProperty(Endereco.MUNICIPIO).getValue().setAsEntity(municipio);
 
 				Logradouro oLogradouro = new Logradouro();
-				String log = json.getString("logradouro");
-				int firstSpace = log.indexOf(" ");
-				oLogradouro.setTipoLogradouro(TipoLogradouro.valueOf(StringUtils.removeAccent(log.substring(0,firstSpace).toUpperCase())));
-				oLogradouro.setNome(log.substring(firstSpace+1));
+				String log = bean.getLogradouro();
+				if(!log.isEmpty()){ // Alguns CEP não retornam logradouro, somente município!
+					int firstSpace = log.indexOf(" ");
+					oLogradouro.setTipoLogradouro(TipoLogradouro.valueOf(StringUtils.removeAccent(log.substring(0,firstSpace).toUpperCase())));
+					oLogradouro.setNome(log.substring(firstSpace+1));
+				} else
+					oLogradouro.setNome(".");
 				IEntity<Logradouro> logradouro = manter.manterLogradouro(oLogradouro);
 				if (logradouro!=null)
 					endereco.getProperty(Endereco.LOGRADOURO).getValue().setAsEntity(logradouro);
@@ -105,5 +110,4 @@ public class EnderecoDvo extends DvoBasic<Endereco> {
 			throw new DvoException(MessageList.create(EnderecoDvo.class, "CEP_INVALIDO", endereco.getObject().getCep(), e.getMessage()));
 		}
 	}
-
 }
