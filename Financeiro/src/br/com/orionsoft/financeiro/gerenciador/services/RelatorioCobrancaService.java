@@ -131,7 +131,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 
 		public static final String WHERE_SLAVE = "" +
 			"where " +
-			"     (lancamento.contrato = contrato.id) and " +
+			"     (lancamento.contrato = fcontrato.id) and " +
 			"	  (lancamento.saldo > 0)";
 		
 		public static final String ORDER = "" +
@@ -377,7 +377,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		if (inDataLancamentoInicial != null && inDataLancamentoFinal != null)
 			sqlSlave.addWhere("(lancamento.data between '"+CalendarUtils.formatToSQLDate(inDataLancamentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataLancamentoFinal)+"')");
 		if (inDataVencimentoInicial != null && inDataVencimentoFinal != null)
-			sqlSlave.addWhere("(documento_cobranca.dataVencimento between '"+CalendarUtils.formatToSQLDate(inDataVencimentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataVencimentoFinal)+"')");
+			sqlSlave.addWhere("(lancamento.dataVencimento between '"+CalendarUtils.formatToSQLDate(inDataVencimentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataVencimentoFinal)+"')");
 		if (StringUtils.isNotBlank(inCpfCnpj))
 			/* CNPJ, inclusive parciais para pegar todas as filiais. */
 			sqlSlave.addWhere("(pessoa.documento like '"+inCpfCnpj+"%')");
