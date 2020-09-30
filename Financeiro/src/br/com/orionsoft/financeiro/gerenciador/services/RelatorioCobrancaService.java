@@ -117,22 +117,16 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		"select " +
 		"  count(*) " +
 		"from " + 
-		"  financeiro_lancamento lancamento " +
-		"inner join basic_contrato fcontrato on ( " +
-		"  fcontrato.id = lancamento.contrato) " +
-		"inner join basic_pessoa pessoa on ( " +
-		"  pessoa.id = fcontrato.pessoa) " +
-		"left outer join basic_cnae cnae on ( " +
-		"  cnae.id = pessoa.cnae) " +
-		"left outer join basic_endereco endereco on ( " +
-		"  endereco.id = pessoa.enderecoCorrespondencia) " +
-		"left outer join financeiro_lancamento_item lancamento_item on ( " +
-		"  lancamento_item.lancamento = lancamento.id) ";
+		"  financeiro_lancamento slancamento " +
+		"inner join basic_contrato scontrato on ( " +
+		"  scontrato.id = slancamento.contrato) " +
+		"left outer join financeiro_lancamento_item slancamento_item on ( " +
+		"  slancamento_item.lancamento = slancamento.id) ";
 
 		public static final String WHERE_SLAVE = "" +
 			"where " +
-			"     (lancamento.contrato = fcontrato.id) and " +
-			"	  (lancamento.saldo > 0)";
+			"     (scontrato.pessoa = contrato.pessoa) and " +
+			"	  (slancamento.saldo > 0)";
 		
 		public static final String ORDER = "" +
 			"order by	" +
@@ -346,21 +340,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 				null,
 				null,
 				null);
-		if (inCnaeId != null)
-			sqlSlave.addWhere("(pessoa.cnae = "+inCnaeId+")");
-		StringBuffer cnaeDescricaoSql = new StringBuffer("(");
-		if (StringUtils.isNotBlank(inCnaeDescricao)){
-			String[] descricoes = inCnaeDescricao.replace(", ", ",").split(",");
-			int i = 0;
-			for(String desc: descricoes){
-				if (i>0)
-					cnaeDescricaoSql.append(" OR ");
-				cnaeDescricaoSql.append("(cnae.nome like '%"+desc+"%')");
-				i++;
-			}
-			cnaeDescricaoSql.append(")");
-			sqlSlave.addWhere(cnaeDescricaoSql.toString());
-		}
+
 		if (inMunicipioId != IDAO.ENTITY_UNSAVED)
 			if (inNotMunicipio)
 				sqlSlave.addWhere("(endereco.municipio != "+inMunicipioId+")");
@@ -371,28 +351,11 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		if (inContratoRepresentanteId != IDAO.ENTITY_UNSAVED)
 			sqlSlave.addWhere("(contrato.representante = "+inContratoRepresentanteId+")");
 		if (!ArrayUtils.isEmpty(inItemCustoIdList))
-				sqlSlave.addWhere("(lancamento_item.itemCusto "+ (inNotItemCusto?"not":"") +" in ("+br.com.orionsoft.monstrengo.core.util.StringUtils.toString(inItemCustoIdList)+"))");
-		if (inCategoriaContratoId != IDAO.ENTITY_UNSAVED)
-			sqlSlave.addWhere("(fcontrato.categoria = "+inCategoriaContratoId+")");
+				sqlSlave.addWhere("(slancamento_item.itemCusto "+ (inNotItemCusto?"not":"") +" in ("+br.com.orionsoft.monstrengo.core.util.StringUtils.toString(inItemCustoIdList)+"))");
 		if (inDataLancamentoInicial != null && inDataLancamentoFinal != null)
-			sqlSlave.addWhere("(lancamento.data between '"+CalendarUtils.formatToSQLDate(inDataLancamentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataLancamentoFinal)+"')");
+			sqlSlave.addWhere("(slancamento.data between '"+CalendarUtils.formatToSQLDate(inDataLancamentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataLancamentoFinal)+"')");
 		if (inDataVencimentoInicial != null && inDataVencimentoFinal != null)
-			sqlSlave.addWhere("(lancamento.dataVencimento between '"+CalendarUtils.formatToSQLDate(inDataVencimentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataVencimentoFinal)+"')");
-		if (StringUtils.isNotBlank(inCpfCnpj))
-			/* CNPJ, inclusive parciais para pegar todas as filiais. */
-			sqlSlave.addWhere("(pessoa.documento like '"+inCpfCnpj+"%')");
-		switch (inTipoContrato) {
-		case TIPO_CONTRATO_ATIVOS:
-			sqlSlave.addWhere("(fcontrato.inativo = false)");
-			break;
-
-		case TIPO_CONTRATO_INATIVOS:
-			sqlSlave.addWhere("(fcontrato.inativo = true)");
-			break;
-
-		default:
-			break;
-		}
+			sqlSlave.addWhere("(slancamento.dataVencimento between '"+CalendarUtils.formatToSQLDate(inDataVencimentoInicial)+"' and '"+CalendarUtils.formatToSQLDate(inDataVencimentoFinal)+"')");
 
 		/* SQL Master */
 		String having = "";
@@ -410,6 +373,20 @@ public class RelatorioCobrancaService extends ServiceBasic {
 				QueryRelatorioCobranca.ORDER);
 		if (inCnaeId != null)
 			sqlMaster.addWhere("(pessoa.cnae = "+inCnaeId+")");
+		
+		StringBuffer cnaeDescricaoSql = new StringBuffer("(");
+		if (StringUtils.isNotBlank(inCnaeDescricao)){
+			String[] descricoes = inCnaeDescricao.replace(", ", ",").split(",");
+			int i = 0;
+			for(String desc: descricoes){
+				if (i>0)
+					cnaeDescricaoSql.append(" OR ");
+				cnaeDescricaoSql.append("(cnae.nome like '%"+desc+"%')");
+				i++;
+			}
+			cnaeDescricaoSql.append(")");
+		}
+
 		if (StringUtils.isNotBlank(inCnaeDescricao))
 			sqlMaster.addWhere(cnaeDescricaoSql.toString());
 		if (inMunicipioId != IDAO.ENTITY_UNSAVED)
