@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" className="br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobrancaCategoria" crudOperations="CREATE UPDATE RETRIEVE DELETE QUERY" propertiesInQueryGrid="id nome contaPadrao convenioCobranca layoutId" name="DocumentoCobrancaCategoria" label="DocumentoCobrancaCategoria" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" className="br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobrancaCategoria" crudOperations="CREATE UPDATE RETRIEVE DELETE QUERY" propertiesInQueryGrid="id nome contaPadrao convenioCobranca layoutId" name="DocumentoCobrancaCategoria" label="Categoria do documento de cobrança" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
     <group name="Geral" label="Dados gerais" hint="" description="">
         <property xsi:type="PropertyNumericType" name="id" label="Id"/>
         <property xsi:type="PropertyStringType" name="nome" label="Nome" hint="Define o nome da categoria do documento cobrança"/>
