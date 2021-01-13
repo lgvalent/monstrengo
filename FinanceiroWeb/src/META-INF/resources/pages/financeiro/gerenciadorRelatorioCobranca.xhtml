@@ -13,7 +13,7 @@
 		<ui:define name="content">
 		
 			<h:panelGrid
-				width="100%"
+				width="100%" 
 				columns="2"
 				styleClass="tableList" columnClasses="tableListColumn" rowClasses="tableListRowEven,tableListRowOdd">
 
@@ -135,7 +135,7 @@
 		    </p:overlayPanel>  
 			<p:commandButton ajax="false" value="Gerar etiquetas" action="#{relatorioCobrancaBean.doGerarEtiqueta}" title="Gera as etiquetas para as empresas que aparecem no relatório de cobrança"/>
 			<p:commandButton ajax="false" value="Visualizar listagem" action="#{relatorioCobrancaBean.doListar}" title="Visualiza a listagem dos contratos que atendem aos critérios"/>
-			<p:commandButton id="enviarEMailCarta" value="Enviar cartas por E-Mail" />
+			<p:commandButton id="enviarEMailCarta" value="Enviar cartas por E-Mail..." />
 		    <p:overlayPanel for="enviarEMailCarta" hideEffect="fade">  
 				<h:outputLabel value="Modelo da carta de cobrança:"/>
 		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.cartaCobrancaModelo}" id="cartaCobrancaModelo2" onchange="document.getElementById('form:cartaCobrancaModelo').value = this.value">
