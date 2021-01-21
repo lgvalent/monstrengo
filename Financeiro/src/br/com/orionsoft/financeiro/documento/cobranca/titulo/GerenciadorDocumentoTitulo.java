@@ -31,7 +31,9 @@ import br.com.orionsoft.financeiro.gerenciador.entities.Conta;
 import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
 import br.com.orionsoft.financeiro.gerenciador.entities.LancamentoItem;
 import br.com.orionsoft.financeiro.gerenciador.entities.Transacao;
+import br.com.orionsoft.financeiro.gerenciador.services.ListarPosicaoContratoService;
 import br.com.orionsoft.financeiro.gerenciador.services.QuitarLancamentoService;
+import br.com.orionsoft.financeiro.gerenciador.services.ListarLancamentoService.Situacao;
 import br.com.orionsoft.financeiro.utils.UtilsJuros;
 import br.com.orionsoft.financeiro.utils.UtilsOcorrencia;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
@@ -42,8 +44,11 @@ import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.core.util.DecimalUtils;
 import br.com.orionsoft.monstrengo.core.util.PrintUtils;
+import br.com.orionsoft.monstrengo.core.util.StringUtils;
+import br.com.orionsoft.monstrengo.crud.entity.EntityList;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
+import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 
@@ -66,14 +71,17 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 	public static final String LAYOUT_1 = "Boleto impresso pelo banco e incluído na remessa";
 	public static final String LAYOUT_2 = "Boleto 2 vias em folha A4 (com espaço superior)";
 	public static final String LAYOUT_3 = "Boleto 2 vias em folha A5";
+	public static final String LAYOUT_4 = "Boleto 2 vias em folha A4 (com débitos em aberto)";
 
 	public static final int LAYOUT_INT_0 = 0;
 	public static final int LAYOUT_INT_1 = 1;
 	public static final int LAYOUT_INT_2 = 2;
 	public static final int LAYOUT_INT_3 = 3;
+	public static final int LAYOUT_INT_4 = 4;
 
 	private static final String LAYOUT_FILE_2 = "Boleto_A4.jrxml";
 	private static final String LAYOUT_FILE_3 = "Boleto_A5.jrxml";
+	private static final String LAYOUT_FILE_4 = "Boleto_A4_Cobranca.jrxml";
 
 	public static final String CNAB_240 = "CNAB240";
 	public static final String CNAB_400 = "CNAB400";
@@ -454,6 +462,7 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 
 				List<TituloPrintBean> beansLayout2 = new ArrayList<TituloPrintBean>();
 				List<TituloPrintBean> beansLayout3 = new ArrayList<TituloPrintBean>();
+				List<TituloPrintBean> beansLayout4 = new ArrayList<TituloPrintBean>();
 
 				for (DocumentoCobrancaBean bean : documentos){
 					if(bean.isChecked()){
@@ -494,6 +503,8 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 							beansLayout2.add(new TituloPrintBean(documento, bean.getInstrucoesAdicionais(), this.getProvedorBanco().retrieveGerenciadorBanco(codigoBanco)));
 						else if (documento.getProperty(DocumentoTitulo.LAYOUT_ID).getValue().getAsInteger() == LAYOUT_INT_3) //"Boleto 2 vias em folha A5"
 							beansLayout3.add(new TituloPrintBean(documento, bean.getInstrucoesAdicionais(), this.getProvedorBanco().retrieveGerenciadorBanco(codigoBanco)));
+						else if (documento.getProperty(DocumentoTitulo.LAYOUT_ID).getValue().getAsInteger() == LAYOUT_INT_4) //"Boleto 2 vias em folha A4 com cobrança"
+							beansLayout4.add(new TituloPrintBean(documento, bean.getInstrucoesAdicionais(), this.getProvedorBanco().retrieveGerenciadorBanco(codigoBanco)));
 						else //usa o Layout_2 como padrão
 							beansLayout2.add(new TituloPrintBean(documento, bean.getInstrucoesAdicionais(), this.getProvedorBanco().retrieveGerenciadorBanco(codigoBanco)));
 					}
@@ -546,6 +557,29 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 					//JasperViewer.viewReport(printLayout3);
 				}
 
+				//preparando os títulos com LAYOUT_3, se a lista de beansLayout3 não for vazia
+				if (!beansLayout4.isEmpty()){
+					/* Preenche os dados sobre cobranças */
+					for(TituloPrintBean bean: beansLayout4) {
+						this.preencherDebitosAbertos(bean);
+					}
+					
+					JRDataSource jrdsLayout4 = new JRBeanCollectionDataSource(beansLayout4);
+
+					JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(LAYOUT_FILE_4));
+					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, jrdsLayout4);
+					
+					/* Envia para PDF e impressão oa mesmo tempo. A função detecta qual opção é válida.
+					 * É possível imprimir em ambas mídias */
+					PrintUtils.printJasper(jasperPrint, outputStream);
+					/* print recebe o arquivo relacionado à impressão do Título e priterIndex é a impressora selecionada para a impressão */
+					PrintUtils.printJasper(jasperPrint, printerIndex);
+
+					/* apenas visualiza a impressão em pdf*/
+					//JRPrinterAWT.printPages(printLayout3, 0, beansLayout3.size()-1, false);
+					//JasperViewer.viewReport(printLayout3);
+				}
+				
 				/*
 				 * Exemplo tirado do RelatorioCobrancaService
 				 */
@@ -593,6 +627,61 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 			throw de;
 		}	
 	}
+	
+	private void preencherDebitosAbertos(TituloPrintBean bean) {
+		ServiceData sd = new ServiceData(ListarPosicaoContratoService.SERVICE_NAME, null);
+		sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_DOCUMENTO_OPT, StringUtils.removeNonDigit(bean.getDsNumeroInscricao()));
+//		sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_CONTA_LIST_OPT, contas);
+		
+//		/* Somente se o cpf estiver preenchido observa ele e não a pessoa */
+//		if (StringUtils.isNotBlank(this.cpfCnpj))
+//			/*Lucio 20100603: Remove possíveis pontos e caracteres de máscara */
+//			sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_DOCUMENTO_OPT, br.com.orionsoft.monstrengo.core.util.StringUtils.removeNonNumeric(this.cpfCnpj));
+//		else
+//		if (!this.paramPessoa.isNull() && (this.paramPessoa.getValue().getId()!=IDAO.ENTITY_UNSAVED)){
+//			if(this.incluirFiliais)
+//				sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_DOCUMENTO_OPT, this.paramPessoa.getValue().getObject().getDocumento().substring(0, 9));
+//			else
+//				sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_PESSOA_OPT, this.paramPessoa.getValue().getObject());
+//		}
+//		sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_DATA_INICIAL_OPT, dataInicial);
+//		sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_DATA_FINAL_OPT, bean.get);
+		sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_SITUACAO_OPT, Situacao.VENCIDO);
+//		sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_ITEM_CUSTO_IDS_OPT, this.paramItemCusto.getValue().getIds());
+//		sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_ITEM_CUSTO_LIST_NOT_OPT, itemCustoListNot);
+//		sd.getArgumentList().setProperty(ListarPosicaoContratoService.IN_APPLICATION_USER_OPT, this.getUserSession().getUser().getObject());
+		try {
+			this.getProvedorDocumentoCobranca().getServiceManager().execute(sd);
+			IEntityList<Lancamento> lancamentos = sd.getFirstOutput();
+			
+			for(IEntity<Lancamento> lancamento: lancamentos) {
+				Lancamento oLancamento = lancamento.getObject();
+				if(oLancamento.getDocumentoCobranca()!=null && bean.getDtNumeroDocumento().equals(oLancamento.getDocumentoCobranca().getId()+"")){
+					lancamentos.remove(lancamento);
+					break;
+				}
+			}
+
+			StringBuilder sb = new StringBuilder();
+			sb.append("Análise de Débitos em abertos...:\n");
+			if(!lancamentos.isEmpty()) {
+				sb.append("Olá, os seguintes débitos encontram-se em aberto:\n");
+
+				for(IEntity<Lancamento> lancamento: lancamentos) {
+					sb.append(lancamento.toString()).append('\n');
+				}
+			}else {
+				sb.append("Parabéns, você não possui nenhuma cobrança ativa.\n");
+
+			}
+			bean.setCoDebitosEmAberto(sb.toString());
+
+		} catch (BusinessException e) {
+			bean.setCoDebitosEmAberto(e.getMessage());
+			e.printStackTrace();
+		}
+	
+	}
 
 	/**
 	 * Atualiza a última ocorrência de um título bancário
@@ -638,6 +727,7 @@ public class GerenciadorDocumentoTitulo extends GerenciadorDocumentoCobrancaBasi
 		result.add(new SelectItem(1, LAYOUT_1));
 		result.add(new SelectItem(2, LAYOUT_2));
 		result.add(new SelectItem(3, LAYOUT_3));
+		result.add(new SelectItem(4, LAYOUT_4));
 		return result;
 	}
 

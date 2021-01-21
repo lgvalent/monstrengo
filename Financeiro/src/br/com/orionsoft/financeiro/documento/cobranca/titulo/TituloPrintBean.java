@@ -158,6 +158,7 @@ public class TituloPrintBean {
     private String cbCodigoBarras;
     private String cbLinhaDigitavel;
 
+    private String coDebitosEmAberto;
     
     public String getCeAceite() {
         return ceAceite;
@@ -406,4 +407,13 @@ public class TituloPrintBean {
 	public void setDtInstrucoes3(String dtInstrucoes3) {
 		this.dtInstrucoes3 = dtInstrucoes3;
 	}
+
+	public String getCoDebitosEmAberto() {
+		return coDebitosEmAberto;
+	}
+
+	public void setCoDebitosEmAberto(String coDebitosEmAberto) {
+		this.coDebitosEmAberto = coDebitosEmAberto;
+	}
+	
 }
