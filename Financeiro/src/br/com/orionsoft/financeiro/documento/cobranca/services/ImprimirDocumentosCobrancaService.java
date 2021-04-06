@@ -155,7 +155,11 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 				if(inEnviarEMail){
 					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 					gerenciador.imprimirDocumento(inDocumento, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, inInstrucoesAdicionais, inInputStreamImagem, serviceData);
-					enviarEMail(outputStream, inDocumento, serviceData);
+					try {
+						enviarEMail(outputStream, inDocumento, serviceData);
+					} catch (BusinessException e) {
+						this.addInfoMessage(serviceData, "ERRO_ENVIAR_EMAIL", inDocumento, e.getMessage());
+					}
 				}else
 					gerenciador.imprimirDocumento(inDocumento, inOutputStream, inPrinterIndex, inInstrucoesAdicionais, inInputStreamImagem, serviceData);
 			}
