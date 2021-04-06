@@ -169,7 +169,13 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 							docUnitarioBean.add(bean);
 							ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 							gerenciador.imprimirDocumentos(docUnitarioBean, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, inInputStreamImagem, serviceData);
-							enviarEMail(outputStream, bean.getDocumentoOriginal(), serviceData);
+							
+							try {
+								enviarEMail(outputStream, bean.getDocumentoOriginal(), serviceData);								
+							} catch (BusinessException e) {
+								IEntity<? extends DocumentoCobranca> doc = bean.getDocumentoOriginal();
+								this.addInfoMessage(serviceData, "ERRO_ENVIAR_EMAIL", doc.getObject().getContrato(), e.getMessage());
+							}
 						}
 					}
 				}else if(inDownloadPdfZip){
