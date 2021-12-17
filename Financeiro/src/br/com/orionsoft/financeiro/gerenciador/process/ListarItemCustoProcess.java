@@ -41,6 +41,8 @@ public class ListarItemCustoProcess extends ProcessBasic implements IRunnableEnt
     private String centroCustoIdList = null;
     private int[] colunaList = {
     		Coluna.DATA.ordinal(), 
+    		Coluna.ANO.ordinal(), 
+    		Coluna.MES.ordinal(), 
     		Coluna.CONTA.ordinal(), 
     		Coluna.CENTRO_CUSTO.ordinal()
     		};
