@@ -140,6 +140,8 @@ public class ListarItemCustoService extends ServiceBasic {
 
 	public enum Coluna {
 		DATA("Data"),
+		ANO("Ano"),
+		MES("Mês"),
 		CONTA("Conta"),
 		CENTRO_CUSTO("Centro de custo");
 		
@@ -201,6 +203,12 @@ public class ListarItemCustoService extends ServiceBasic {
             for (int i = 0; i < inColunas.length; i++){
                 if (inColunas[i] == Coluna.DATA.ordinal()) {
                     colunas.append("data, ");
+                }
+                if (inColunas[i] == Coluna.MES.ordinal()) {
+                	colunas.append("YEAR( DATA ), ");
+                }
+                if (inColunas[i] == Coluna.MES.ordinal()) {
+                    colunas.append("MONTH(data), ");
                 }
                 if (inColunas[i] == Coluna.CONTA.ordinal()) {
                     colunas.append("conta, ");
