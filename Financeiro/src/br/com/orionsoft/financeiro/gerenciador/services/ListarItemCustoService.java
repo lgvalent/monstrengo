@@ -31,6 +31,8 @@ public class ListarItemCustoService extends ServiceBasic {
 	    public static final String SQL_QUITADO_BAIXADO = "" +
 	    "select " +
 	    "	LancamentoMovimento.data as data, " +
+	    "	YEAR(LancamentoMovimento.data) as ano, " +
+	    "	MONTH(LancamentoMovimento.data) as mes, " +
 	    "	Conta.nome as conta, " +
 	    "	ItemCusto.nome as itemCusto, " +
 	    "	CentroCusto.nome as centroCusto, " +
@@ -80,6 +82,8 @@ public class ListarItemCustoService extends ServiceBasic {
 	    
 //	    private String operacaoNome;
 	    private Calendar data;
+	    private int ano;
+	    private int mes;
 	    private String conta;
 	    private String itemCusto;
 	    private String centroCusto;
@@ -87,9 +91,11 @@ public class ListarItemCustoService extends ServiceBasic {
 	    private BigDecimal valorCredito;
 	    private BigDecimal valorDebito;
 
-	    public QueryItemCusto(Calendar data, String conta, String itemCusto, String centroCusto, BigDecimal valorTotal, BigDecimal valorCredito, BigDecimal valorDebito) {
+	    public QueryItemCusto(Calendar data, int ano, int mes, String conta, String itemCusto, String centroCusto, BigDecimal valorTotal, BigDecimal valorCredito, BigDecimal valorDebito) {
 	        super();
 	        this.data = data;
+	        this.ano= ano;
+	        this.mes = mes;
 	        this.conta = conta;
 	        this.itemCusto = itemCusto;
 	        this.centroCusto = centroCusto;
@@ -106,6 +112,14 @@ public class ListarItemCustoService extends ServiceBasic {
 	        return data;
 	    }
 
+	    public int getAno() {
+	    	return ano;
+	    }
+	    
+	    public int getMes() {
+	    	return mes;
+	    }
+	    
 	    public String getItemCusto() {
 	        return itemCusto;
 	    }
@@ -161,7 +175,7 @@ public class ListarItemCustoService extends ServiceBasic {
 	}
 
     /* 
-     * Constantes de parâmetros
+     * Constantes de parâmetros 
      */
     public static final String IN_CONTA_ID_OPT = "contasId";
     public static final String IN_CENTRO_CUSTO_ID_LIST_OPT = "centroCustoIdList";
@@ -205,10 +219,10 @@ public class ListarItemCustoService extends ServiceBasic {
                     colunas.append("data, ");
                 }
                 if (inColunas[i] == Coluna.MES.ordinal()) {
-                	colunas.append("YEAR( DATA ), ");
+                	colunas.append("ano, ");
                 }
                 if (inColunas[i] == Coluna.MES.ordinal()) {
-                    colunas.append("MONTH(data), ");
+                    colunas.append("mes, ");
                 }
                 if (inColunas[i] == Coluna.CONTA.ordinal()) {
                     colunas.append("conta, ");
@@ -263,6 +277,8 @@ public class ListarItemCustoService extends ServiceBasic {
             while (rs.next()) {
                 QueryItemCusto itemCusto = new QueryItemCusto(
                         CalendarUtils.getCalendar(rs.getDate("data", data)),
+                        rs.getInt("ano"),
+                        rs.getInt("mes"),
                         rs.getString("conta"),
                         rs.getString("itemCusto"),
                         rs.getString("centroCusto"),
