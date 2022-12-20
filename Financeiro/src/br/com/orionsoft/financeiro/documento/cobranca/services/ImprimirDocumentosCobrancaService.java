@@ -1,6 +1,7 @@
 package br.com.orionsoft.financeiro.documento.cobranca.services;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,6 +11,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.mail.internet.MimeBodyPart;
+
+import org.apache.commons.io.IOUtils;
 
 import br.com.orionsoft.basic.entities.pessoa.Pessoa;
 import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobranca;
@@ -154,6 +157,7 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 			if(inDocumento!=null){
 				if(inEnviarEMail){
 					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					
 					gerenciador.imprimirDocumento(inDocumento, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, inInstrucoesAdicionais, inInputStreamImagem, serviceData);
 					try {
 						enviarEMail(outputStream, inDocumento, serviceData);
@@ -167,12 +171,16 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 			log.debug("Executando o método de impressão coletiva do gerenciador");
 			if(inDocumentosBean!=null){
 				if(inEnviarEMail){
+					log.debug("Clonando a imagem para ser usada em cada e-mail...");
+					byte[] imagemBytes = IOUtils.toByteArray(inInputStreamImagem);
 					for(DocumentoCobrancaBean bean: inDocumentosBean){
 						if(bean.isChecked()) {
 							List<DocumentoCobrancaBean> docUnitarioBean = new ArrayList<DocumentoCobrancaBean>(1);
 							docUnitarioBean.add(bean);
+							
+							
 							ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-							gerenciador.imprimirDocumentos(docUnitarioBean, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, inInputStreamImagem, serviceData);
+							gerenciador.imprimirDocumentos(docUnitarioBean, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, new ByteArrayInputStream(imagemBytes), serviceData);
 							
 							try {
 								enviarEMail(outputStream, bean.getDocumentoOriginal(), serviceData);								
