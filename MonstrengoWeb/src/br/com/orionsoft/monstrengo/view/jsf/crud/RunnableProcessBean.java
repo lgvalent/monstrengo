@@ -18,8 +18,8 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Est· classe È o controlador da vis„o de geraÁ„o de etiquetas 
- * para uma entidade especÌfica ou uma lista de entidades
+ * Est√° classe √© o controlador da vis√£o de gera√ß√£o de etiquetas 
+ * para uma entidade espec√≠fica ou uma lista de entidades
  * usando um modelo.
  * 
  * @author Lucio 20061005
@@ -38,8 +38,8 @@ public class RunnableProcessBean extends BasicBean
 	 * INICIO Controle de RunnableEntitiesProcess
 	 */
 	/**
-	 * Classe que descreve uma entrada para facilitar a construÁ„o de links que disparam
-	 * uma determinada vis„o pelo seu nome, mas que exibem detalhes (label, hint e description)
+	 * Classe que descreve uma entrada para facilitar a constru√ß√£o de links que disparam
+	 * uma determinada vis√£o pelo seu nome, mas que exibem detalhes (label, hint e description)
 	 * sobre o processo que ela manipula.
 	 * 
 	 * @author lucio 
@@ -59,7 +59,7 @@ public class RunnableProcessBean extends BasicBean
 
 	/**
 	 * Retorna uma lista de processos que podem ser executados a partir de uma dada entidade.
-	 * Era feito buffer da lista, mas o mÈtodo È chamado somente uma vez com o JSF 2.0.
+	 * Era feito buffer da lista, mas o m√©todo √© chamado somente uma vez com o JSF 2.0.
 	 * Se voltar a fazer algum buffer, vale lembrar que o tipo e o id da entidade devem ser usados
 	 * para verificar a validade do buffer
 	 * @param entity
@@ -70,7 +70,7 @@ public class RunnableProcessBean extends BasicBean
 		try{
 				/* Pega todos os processo que podem ser disparados pela entidade e operador atuais */
 				for(RunnableProcessEntry runnableProcessEntry: this.getApplicationBean().getProcessManager().getRunnableEntityProcessesEntry(entity, this.getUserSessionBean().getUserSession())){
-					/* Verifica quais visıes manipula o atual processo */
+					/* Verifica quais vis√µes manipula o atual processo */
 					IRunnableProcessView view = this.getUserSessionBean().getRunnableEntityProcessViewByProcessName(runnableProcessEntry.getProcessClass().getSimpleName()); 
 					if(view != null ){
 
@@ -78,7 +78,7 @@ public class RunnableProcessBean extends BasicBean
 
 						runnableViewForUserBuffer.add(entry);
 					}else
-						FacesUtils.addErrorMsg("Nenhuma vis„o foi encontrada para o processo " + runnableProcessEntry.getProcessClass().getSimpleName() + ". Verifique se para um processo 'MyProcess' existe uma vis„o configurada com o nome 'myView'.");
+						FacesUtils.addErrorMsg("Nenhuma vis√£o foi encontrada para o processo " + runnableProcessEntry.getProcessClass().getSimpleName() + ". Verifique se para um processo 'MyProcess' existe uma vis√£o configurada com o nome 'myView'.");
 				}
 		}catch (ProcessException e){
 			FacesUtils.addErrorMsgs(e.getErrorList());
@@ -90,7 +90,7 @@ public class RunnableProcessBean extends BasicBean
 
 	/**
 	 * Retorna uma lista de processos que podem ser executados a partir de uma dada entidade.
-	 * Era feito buffer da lista, mas o mÈtodo È chamado somente uma vez com o JSF 2.0.
+	 * Era feito buffer da lista, mas o m√©todo √© chamado somente uma vez com o JSF 2.0.
 	 * Se voltar a fazer algum buffer, vale lembrar que o tipo e o id da entidade devem ser usados
 	 * para verificar a validade do buffer
 	 * @param entity
@@ -101,7 +101,7 @@ public class RunnableProcessBean extends BasicBean
 		try{
 				/* Pega todos os processo que podem ser disparados pela entidade e operador atuais */
 				for(RunnableProcessEntry runnableProcessEntry: this.getApplicationBean().getProcessManager().getRunnableEntityCollectionProcessesEntry(info, this.getUserSessionBean().getUserSession())){
-					/* Verifica quais visıes manipula o atual processo */
+					/* Verifica quais vis√µes manipula o atual processo */
 					IRunnableProcessView view = this.getUserSessionBean().getRunnableEntityProcessViewByProcessName(runnableProcessEntry.getProcessClass().getSimpleName()); 
 					if(view != null ){
 
@@ -109,7 +109,7 @@ public class RunnableProcessBean extends BasicBean
 
 						runnableViewForUserBuffer.add(entry);
 					}else
-						FacesUtils.addErrorMsg("Nenhuma vis„o foi encontrada para o processo " + runnableProcessEntry.getProcessClass().getSimpleName() + ". Verifique se para um processo 'MyProcess' existe uma vis„o configurada com o nome 'myView'.");
+						FacesUtils.addErrorMsg("Nenhuma vis√£o foi encontrada para o processo " + runnableProcessEntry.getProcessClass().getSimpleName() + ". Verifique se para um processo 'MyProcess' existe uma vis√£o configurada com o nome 'myView'.");
 				}
 		}catch (ProcessException e){
 			FacesUtils.addErrorMsgs(e.getErrorList());
@@ -129,14 +129,14 @@ public class RunnableProcessBean extends BasicBean
 
 	public String actionActivateView(String runnableViewName, IEntity<?> entity) throws BusinessException, Exception{
 
-		/* Pega o identificador da vis„o */
+		/* Pega o identificador da vis√£o */
 		if(log.isDebugEnabled())
-			log.debug("Iniciando a ativaÁ„o da vis„o:" + runnableViewName);
+			log.debug("Iniciando a ativa√ß√£o da vis√£o:" + runnableViewName);
 
 		IRunnableProcessView runnableProcessView =  (IRunnableProcessView) this.getUserSessionBean().getRunnableEntityProcessViewByName(runnableViewName);
 
 		if (runnableProcessView == null)
-			FacesUtils.addErrorMsg("Nenhuma vis„o foi encontrada no facesConfig.xml com id: " + runnableViewName + ". Confira o nome VIEW_NAME definido na classe que contra a vis„o.");
+			FacesUtils.addErrorMsg("Nenhuma vis√£o foi encontrada no facesConfig.xml com id: " + runnableViewName + ". Confira o nome VIEW_NAME definido na classe que contra a vis√£o.");
 		else
 			if (entity == null)
 				return runnableProcessView.actionStart();
@@ -148,14 +148,14 @@ public class RunnableProcessBean extends BasicBean
 
 	public String actionCollectionActivateView(String runnableViewName, IEntityCollection<?> entities) throws BusinessException, Exception{
 
-		/* Pega o identificador da vis„o */
+		/* Pega o identificador da vis√£o */
 		if(log.isDebugEnabled())
-			log.debug("Iniciando a ativaÁ„o da vis„o:" + runnableViewName);
+			log.debug("Iniciando a ativa√ß√£o da vis√£o:" + runnableViewName);
 
 		IRunnableProcessView runnableProcessView =  (IRunnableProcessView) this.getUserSessionBean().getRunnableEntityProcessViewByName(runnableViewName);
 
 		if (runnableProcessView == null)
-			FacesUtils.addErrorMsg("Nenhuma vis„o foi encontrada no facesConfig.xml com id: " + runnableViewName + ". Confira o nome VIEW_NAME definido na classe que contra a vis„o.");
+			FacesUtils.addErrorMsg("Nenhuma vis√£o foi encontrada no facesConfig.xml com id: " + runnableViewName + ". Confira o nome VIEW_NAME definido na classe que contra a vis√£o.");
 		else
 			if (entities == null)
 				return runnableProcessView.actionStart();
@@ -168,14 +168,14 @@ public class RunnableProcessBean extends BasicBean
 	public String actionStartProcessView() throws BusinessException, Exception{
 
 		String processName = FacesUtils.getRequestParams().get("processName").toString();
-		/* Pega o identificador da vis„o */
+		/* Pega o identificador da vis√£o */
 		if(log.isDebugEnabled())
-			log.debug("Buscando uma vis„o para o processo:" + processName);
+			log.debug("Buscando uma vis√£o para o processo:" + processName);
 
 		IRunnableProcessView runnableProcessView =  (IRunnableProcessView) this.getUserSessionBean().getRunnableEntityProcessViewByProcessName(processName);
 
 		if (runnableProcessView == null)
-			FacesUtils.addErrorMsg("Nenhuma vis„o registrada para o processo: " + processName + ".");
+			FacesUtils.addErrorMsg("Nenhuma vis√£o registrada para o processo: " + processName + ".");
 		else
 			return runnableProcessView.actionStart();
 
@@ -184,14 +184,14 @@ public class RunnableProcessBean extends BasicBean
 
 	public String actionOpenProcessView(String processName) throws BusinessException, Exception{
 
-		/* Pega o identificador da vis„o */
+		/* Pega o identificador da vis√£o */
 		if(log.isDebugEnabled())
-			log.debug("Buscando uma vis„o para o processo:" + processName);
+			log.debug("Buscando uma vis√£o para o processo:" + processName);
 
 		IRunnableProcessView runnableProcessView =  (IRunnableProcessView) this.getUserSessionBean().getRunnableEntityProcessViewByProcessName(processName);
 
 		if (runnableProcessView == null)
-			FacesUtils.addErrorMsg("Nenhuma vis„o registrada para o processo: " + processName + ".");
+			FacesUtils.addErrorMsg("Nenhuma vis√£o registrada para o processo: " + processName + ".");
 		else
 			return runnableProcessView.actionStart();
 
@@ -199,8 +199,8 @@ public class RunnableProcessBean extends BasicBean
 	}
 
 	/**
-	 * Retorna o caminho da p·gina do processo.
-	 * Na pr·tica ele substitui o '?' por '.xhtml?' no START_VIEW
+	 * Retorna o caminho da p√°gina do processo.
+	 * Na pr√°tica ele substitui o '?' por '.xhtml?' no START_VIEW
 	 * @param processName
 	 * @return
 	 * @throws BusinessException

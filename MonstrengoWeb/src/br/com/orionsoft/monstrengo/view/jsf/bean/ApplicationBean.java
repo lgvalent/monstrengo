@@ -20,8 +20,8 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
  * ApplicationBean deve ser definido com escopo de 'application' no arquivo faces-managed-beans.xml.
- * Desta forma, haver· durante toda a aplicaÁ„o somente uma aplicaÁ„o rodando e conectada no banco de dados,
- * com os DAOs criados e os ServiÁos instanciados. Todas as sessıes dos usu·rios usar„o o mesmo BackingBean.
+ * Desta forma, haver√° durante toda a aplica√ß√£o somente uma aplica√ß√£o rodando e conectada no banco de dados,
+ * com os DAOs criados e os Servi√ßos instanciados. Todas as sess√µes dos usu√°rios usar√£o o mesmo BackingBean.
  * 
  * @author Orion Soft
  * 
@@ -40,13 +40,13 @@ public class ApplicationBean implements Serializable
     
     public ApplicationBean()
     {
-        log.debug("Iniciando a aplicaÁ„o WEB...");
+        log.debug("Iniciando a aplica√ß√£o WEB...");
     	ServletContext context = FacesUtils.getServletContext();
         this.appContext = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
         processManager = (IProcessManager) appContext.getBean(ProcessManager.MANAGER_NAME);
-        /* Registrando o ApplicationBean na sess„o HTTP */
+        /* Registrando o ApplicationBean na sess√£o HTTP */
         context.setAttribute("applicationBean", this);
-        log.debug("AplicaÁ„o WEB CARREGADA COM SUCESSO.");
+        log.debug("Aplica√ß√£o WEB CARREGADA COM SUCESSO.");
     }
 
     public IProcessManager getProcessManager(){return processManager;}

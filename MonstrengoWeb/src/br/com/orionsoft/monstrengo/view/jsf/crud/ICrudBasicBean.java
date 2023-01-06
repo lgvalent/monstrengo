@@ -11,29 +11,29 @@ public interface ICrudBasicBean extends IBasicBean
 {
 
 	/** 
-	 * Faz a validaÁ„o da entidade corrente antes de restaurar a vis„o. 
+	 * Faz a valida√ß√£o da entidade corrente antes de restaurar a vis√£o. 
 	 */
 	public abstract void validateCurrentEntityKey(FacesContext facesContext,
 			UIComponent component, Object newValue) throws BusinessException,
 			Exception;
 
 	/**
-	 * Fornece acesso a ligaÁ„o entre o componente instanciado pelo JSF e 
-	 * o Bean que ir· controlar a entidade correntemente manipulada pelo Bean. <br>
-	 * Assim, È possivel manipular o componente JSF da p·gina diretamente
-	 * pelo cÛdigo interno do bean.<br>
-	 * … possÌvel acessar o valor do formul·rio antes mesmo dele ser validado ou 
-	 * populado para dentro do Bean. E ainda, È possÌvel anular seu valor para
-	 * forÁar uma validaÁ„o na prÛxima renderizaÁ„o.
+	 * Fornece acesso a liga√ß√£o entre o componente instanciado pelo JSF e 
+	 * o Bean que ir√° controlar a entidade correntemente manipulada pelo Bean. <br>
+	 * Assim, √© possivel manipular o componente JSF da p√°gina diretamente
+	 * pelo c√≥digo interno do bean.<br>
+	 * √â poss√≠vel acessar o valor do formul√°rio antes mesmo dele ser validado ou 
+	 * populado para dentro do Bean. E ainda, √© poss√≠vel anular seu valor para
+	 * for√ßar uma valida√ß√£o na pr√≥xima renderiza√ß√£o.
 	 */
 	public abstract HtmlInputHidden getInputCurrentEntityKey();
 	public abstract void setInputCurrentEntityKey(HtmlInputHidden inputCurrentEntityKey)
 			throws Exception;
 
 	/**
-	 * Carrega os par‚metros pertinente aos Bean da atual transaÁ„o.   
-	 * Antes de recarregar os par‚metros, o Bean sofre um reset() para 
-	 * que os par‚metros atuais sejam limpos.
+	 * Carrega os par√¢metros pertinente aos Bean da atual transa√ß√£o.   
+	 * Antes de recarregar os par√¢metros, o Bean sofre um reset() para 
+	 * que os par√¢metros atuais sejam limpos.
 	 */
 	public abstract void loadEntityParams() throws Exception;
 	
@@ -43,10 +43,10 @@ public interface ICrudBasicBean extends IBasicBean
 	public abstract void setCurrentEntityKey(String currentEntityKey);
 	
 	/**
-	 * De acordo com a chave passada, este mÈtodo prepara a entidade 
-	 * que ser· manipulada pela atual requisiÁ„o do Bean. 
-	 * Com a chave, È pesquisado se um processo interno j· manipula 
-	 * a entidade, se  n„o encontrar, um novo processo È instanciado
+	 * De acordo com a chave passada, este m√©todo prepara a entidade 
+	 * que ser√° manipulada pela atual requisi√ß√£o do Bean. 
+	 * Com a chave, √© pesquisado se um processo interno j√° manipula 
+	 * a entidade, se  n√£o encontrar, um novo processo √© instanciado
 	 * e colocado no mapa de processos atualmente ativos no Bean. 
 	 * @param currentEntityKey
 	 * @throws BusinessException
@@ -55,11 +55,11 @@ public interface ICrudBasicBean extends IBasicBean
 	public void prepareCurrentEntity(String currentEntityKey) throws BusinessException, Exception;
 
 	/**
-	 * Este mÈtodo prepara a chave da entidade corrente baseando-se
-	 * nos par‚metros da entidade e do pai da entidade.
-	 * Deve-se evitar utilizar outros recursos do bean que n„o seja
-	 * o entityParam() para compor a chave da vis„o.
-	 * @return Retorna uma chave de identificaÁ„o da entidade corrente
+	 * Este m√©todo prepara a chave da entidade corrente baseando-se
+	 * nos par√¢metros da entidade e do pai da entidade.
+	 * Deve-se evitar utilizar outros recursos do bean que n√£o seja
+	 * o entityParam() para compor a chave da vis√£o.
+	 * @return Retorna uma chave de identifica√ß√£o da entidade corrente
 	 * @throws Exception
 	 */
 	public String prepareCurrentEntityKey();

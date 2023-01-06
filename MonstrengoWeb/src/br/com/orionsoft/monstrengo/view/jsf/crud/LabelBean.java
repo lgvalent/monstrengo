@@ -34,7 +34,7 @@ import br.com.orionsoft.monstrengo.view.jsf.security.UserSessionBean;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Bean que controla a view de impress„o de etiquetas
+ * Bean que controla a view de impress√£o de etiquetas
  * 
  * @jsf.bean name="labelBean" scope="session"
  * 
@@ -134,7 +134,7 @@ public class LabelBean extends BeanSessionBasic {
 //    			labelsBuffer = sdList.getFirstOutput();
 //    		}else{
 //    		
-//    			/* Sen„o, exibe todas as etiquetas que est„o no banco */
+//    			/* Sen√£o, exibe todas as etiquetas que est√£o no banco */
 //    			labelsBuffer  = UtilsCrud.list(this.getApplicationBean().getProcessManager().getServiceManager(),
 //    					AddressLabel.class,
 //    					null);
@@ -157,7 +157,7 @@ public class LabelBean extends BeanSessionBasic {
 		try
 		{
 			result = this.getApplicationBean().getProcessManager().getServiceManager().getEntityManager().getEntitySelectItems(ApplicationUser.class,  IDAO.ENTITY_ALIAS_HQL + "." + ApplicationUser.INACTIVE + " = FALSE");
-	    	/* Adiciona a primeira opÁ„o para mostar todas as etiquetas */
+	    	/* Adiciona a primeira op√ß√£o para mostar todas as etiquetas */
 	    	result.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(Todos os operadores)"));
 		} catch (EntityException e)
 		{
@@ -171,7 +171,7 @@ public class LabelBean extends BeanSessionBasic {
 		try
 		{
 			result = this.getApplicationBean().getProcessManager().getServiceManager().getEntityManager().getEntitySelectItems(ApplicationEntity.class, "");
-	    	/* Adiciona a primeira opÁ„o para mostar todas as etiquetas */
+	    	/* Adiciona a primeira op√ß√£o para mostar todas as etiquetas */
 	    	result.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(Todas as entidades)"));
 	    	result.add(1, new SelectItem(APPLICATION_ENTITY_NULL, "(Sem entidade definida)"));
 		} catch (EntityException e)
@@ -186,7 +186,7 @@ public class LabelBean extends BeanSessionBasic {
 		try
 		{
 			result = this.getApplicationBean().getProcessManager().getServiceManager().getEntityManager().getEntitySelectItems(AddressLabelGroup.class, "");
-	    	/* Adiciona a primeira opÁ„o para mostar todas as etiquetas */
+	    	/* Adiciona a primeira op√ß√£o para mostar todas as etiquetas */
 	    	result.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(Todos os grupos)"));
 		} catch (EntityException e)
 		{
@@ -286,7 +286,7 @@ public class LabelBean extends BeanSessionBasic {
 				entity,
 				null);
 		
-		FacesUtils.addInfoMsg("A seleÁ„o foi gravada com sucesso");
+		FacesUtils.addInfoMsg("A sele√ß√£o foi gravada com sucesso");
 		
     }
 
@@ -295,8 +295,8 @@ public class LabelBean extends BeanSessionBasic {
 		
 		/* Excluindo todas as etiquetas */
 		for(IEntity<AddressLabel> entity: this.getLabels())
-			/* Verifica se a etiqeuta est· selecionada para imprimir,
-			 * Caso contr·rio, ent„o salva a situaÁ„o atual dela */
+			/* Verifica se a etiqeuta est√° selecionada para imprimir,
+			 * Caso contr√°rio, ent√£o salva a situa√ß√£o atual dela */
 			if(entity.getProperty(AddressLabel.PRINT).getValue().getAsBoolean())
 				UtilsCrud.delete(this.getApplicationBean().getProcessManager().getServiceManager(),
 						entity,
@@ -306,10 +306,10 @@ public class LabelBean extends BeanSessionBasic {
 						entity,
 						null);
 
-		/* Limpa o buffer atual  para forÁar uma recarga */
+		/* Limpa o buffer atual  para for√ßar uma recarga */
 		this.labelsBuffer = null;
 		
-		FacesUtils.addInfoMsg("A seleÁ„o foi excluÌda com sucesso");
+		FacesUtils.addInfoMsg("A sele√ß√£o foi exclu√≠da com sucesso");
     }
 
 	public void doReset() throws BusinessException, Exception
@@ -320,7 +320,7 @@ public class LabelBean extends BeanSessionBasic {
 
 	public void doReload() throws BusinessException, Exception
 	{
-		/* Limpa o buffer atual  para forÁar uma recarga */
+		/* Limpa o buffer atual  para for√ßar uma recarga */
 		this.labelsBuffer = null;
 	}
 
@@ -331,7 +331,7 @@ public class LabelBean extends BeanSessionBasic {
 	public void setApplicationUserId(long operadorId){
 		if(this.applicationUserId != operadorId){
 			this.applicationUserId = operadorId;
-			/* O Operador mudou, ent„o limpa o atual buffer de etiquetas
+			/* O Operador mudou, ent√£o limpa o atual buffer de etiquetas
 			 * para que ele seja recarregado e venham somente as etiquetas
 			 * do operador */
 			labelsBuffer = null;
@@ -342,7 +342,7 @@ public class LabelBean extends BeanSessionBasic {
 	public void setApplicationEntityId(long applicationEntityId){
 		if(this.applicationEntityId != applicationEntityId){
 			this.applicationEntityId = applicationEntityId;
-			/* O Operador mudou, ent„o limpa o atual buffer de etiquetas
+			/* O Operador mudou, ent√£o limpa o atual buffer de etiquetas
 			 * para que ele seja recarregado e venham somente as etiquetas
 			 * do operador */
 			labelsBuffer = null;
@@ -353,7 +353,7 @@ public class LabelBean extends BeanSessionBasic {
 	public void setAddressLabelGroupId(long addressLabelGroupId){
 		if(this.addressLabelGroupId != addressLabelGroupId){
 			this.addressLabelGroupId = addressLabelGroupId;
-			/* O Operador mudou, ent„o limpa o atual buffer de etiquetas
+			/* O Operador mudou, ent√£o limpa o atual buffer de etiquetas
 			 * para que ele seja recarregado e venham somente as etiquetas
 			 * do operador */
 			labelsBuffer = null;
@@ -364,8 +364,8 @@ public class LabelBean extends BeanSessionBasic {
 	public void setPrinterIndex(int printerIndex){this.printerIndex = printerIndex;}
 	
 	/**
-	 * Sobreescreve o mÈtodo da classe para ao ser definido um operador
-	 * este ser usado como padr„o na seleÁ„o dos filtros
+	 * Sobreescreve o m√©todo da classe para ao ser definido um operador
+	 * este ser usado como padr√£o na sele√ß√£o dos filtros
 	 */
 	public void setUserSessionBean(UserSessionBean userSessionBean) {
 		super.setUserSessionBean(userSessionBean);
@@ -378,7 +378,7 @@ public class LabelBean extends BeanSessionBasic {
 	public void setOrderProperty(String orderProperty) {
 		if(!StringUtils.equals(this.orderProperty, orderProperty)){
 			this.orderProperty = orderProperty;
-			/* A ordem mudou, ent„o limpa o atual buffer de etiquetas
+			/* A ordem mudou, ent√£o limpa o atual buffer de etiquetas
 			 * para que ele seja recarregado e venham somente as etiquetas
 			 * do operador */
 			labelsBuffer = null;

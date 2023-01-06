@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:outputLabel
-	value="Indique quais propriedades serão exibidas no relatório da pesquisa:"
+	value="Indique quais propriedades serÃ£o exibidas no relatÃ³rio da pesquisa:"
 	style="color: #EE2C2C; font-size: smaller;" />
 <div style="height: 200px; overflow: auto;">
 	<h:dataTable id="tbr" width="100%"
@@ -23,14 +23,14 @@
 			</f:facet>
 
 			<h:selectBooleanCheckbox id="myCheck" value="#{item.visible}" />
-			<!--h:inputText id="index" value="#{item.resultIndex}" title="Define o Ã­ndice da propriedade no relatório" size="3" onkeypress="return keyPressInt(this,event)">
+			<!--h:inputText id="index" value="#{item.resultIndex}" title="Define o ÃƒÂ­ndice da propriedade no relatÃ³rio" size="3" onkeypress="return keyPressInt(this,event)">
 					<f:validateLongRange minimum="0" maximum="9999" />
 				</h:inputText-->
 		</h:column>
 		<h:column>
 			<f:facet name="header">
 				<h:panelGroup>
-					<!--h:outputLabel value="Lista das propriedades visÃ­veis no relatório: " /-->
+					<!--h:outputLabel value="Lista das propriedades visÃƒÂ­veis no relatÃ³rio: " /-->
 					<h:commandButton value="Marcar"
 						title="Marca todas as propriedades da lista atual"
 						onclick="return checkAll(this.form, 'myCheck')"
@@ -40,11 +40,11 @@
 						onclick="return clearAll(this.form, 'myCheck')"
 						style="font-size: small;" />
 					<h:commandButton value="Inverter"
-						title="Inverte a seleção das propriedades da lista atual"
+						title="Inverte a seleÃ§Ã£o das propriedades da lista atual"
 						onclick="return inverseAll(this.form, 'myCheck')"
 						style="font-size: small;" />
 					<h:commandButton value="Desfazer"
-						title="Volta a seleção anterior Ã s alterações recentemente efetuadas"
+						title="Volta a seleÃ§Ã£o anterior ÃƒÂ s alteraÃ§Ãµes recentemente efetuadas"
 						type="reset" style="font-size: small;" />
 				</h:panelGroup>
 			</f:facet>
@@ -56,7 +56,7 @@
 </div>
 
 <h:outputLabel
-	value="Defina a ordem de exibição das propriedades no relatório da pesquisa:"
+	value="Defina a ordem de exibiÃ§Ã£o das propriedades no relatÃ³rio da pesquisa:"
 	style="color: #EE2C2C;  font-size: smaller;" />
 <h:commandButton id="refreshResultCondiction" value="Atualizar"
 	action="#{queryBean.doPageRefresh}"
@@ -72,7 +72,7 @@
 
 	<h:column>
 		<f:facet name="header">
-			<h:outputLabel value="Índice:" />
+			<h:outputLabel value="Ãndice:" />
 		</f:facet>
 		<h:inputText id="index" value="#{item.resultIndex}" size="3"
 			onkeypress="return keyPressInt(this,event)" style="text-align:right;">

@@ -7,9 +7,9 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Este bean controla os par‚metros de entidade pai para identificar
- * a classe o id pai e a propriedade que ser· exibida.
- * Ele analisa a atual requisiÁ„o e busca par‚metros de URL_PARAM_PARENT_*
+ * Este bean controla os par√¢metros de entidade pai para identificar
+ * a classe o id pai e a propriedade que ser√° exibida.
+ * Ele analisa a atual requisi√ß√£o e busca par√¢metros de URL_PARAM_PARENT_*
  * para trata-los
  * 
  * @author marcia 2005/11/16
@@ -22,7 +22,7 @@ public class ParentBean extends BeanSessionBasic
     public static final String URL_PARAM_PARENT_ID = "parentId";
     public static final String URL_PARAM_PARENT_PROPERTY = "parentProperty";
  
-    /** Par‚metros get/set */
+    /** Par√¢metros get/set */
     private String typeName = "";
     private long id = -1;
     private String property= "";
@@ -45,14 +45,14 @@ public class ParentBean extends BeanSessionBasic
     }
     
     /**
-     * Carrega os par‚metros pertinente aos Bean da atual transaÁ„o.   
-     * Antes de recarregar os par‚metros, o Bean sofre um reset() para 
-     * que os par‚metros atuais sejam limpos e dados processados sejam 
+     * Carrega os par√¢metros pertinente aos Bean da atual transa√ß√£o.   
+     * Antes de recarregar os par√¢metros, o Bean sofre um reset() para 
+     * que os par√¢metros atuais sejam limpos e dados processados sejam 
      * descarregados.
      */
     public void loadEntityParams()
     {
-        // Causa um reset para que os novos par‚metros entrem em aÁ„o
+        // Causa um reset para que os novos par√¢metros entrem em a√ß√£o
         this.reset();
 
         if (FacesUtils.isNotNull(super.getRequestParams().get(URL_PARAM_PARENT_TYPE)))
@@ -71,8 +71,8 @@ public class ParentBean extends BeanSessionBasic
     }
 
     /**
-     * Este mÈtodo anula a atual inst‚ncia da entidade preparada. 
-     * Assim, os dados internos do bean ser„o novamente 
+     * Este m√©todo anula a atual inst√¢ncia da entidade preparada. 
+     * Assim, os dados internos do bean ser√£o novamente 
      * recarregada quando solicidados. 
      */
     public void doReload()
@@ -81,17 +81,17 @@ public class ParentBean extends BeanSessionBasic
     }
 
     /**
-     * Limpa todos os par‚metros anteriormente carregados,
-     * voltando seu valor padr„o.
-     * Os dados processados internos tambÈm s„o marcados para
-     * Se ocorrer alguma mudanÁa nos par‚metros,
-     * o controlador da View dever· se resetar.
-     * Para isto, os objetos preparados dever„o
-     * ser destruÌdos 
+     * Limpa todos os par√¢metros anteriormente carregados,
+     * voltando seu valor padr√£o.
+     * Os dados processados internos tamb√©m s√£o marcados para
+     * Se ocorrer alguma mudan√ßa nos par√¢metros,
+     * o controlador da View dever√° se resetar.
+     * Para isto, os objetos preparados dever√£o
+     * ser destru√≠dos 
      */
     private void reset()
     {
-        // Limpa os par‚metros
+        // Limpa os par√¢metros
         this.typeName = "";
         this.id = -1;
         this.property = "";
@@ -146,7 +146,7 @@ public class ParentBean extends BeanSessionBasic
 //        
 //        super.setInit(param);
 //
-//        // Vari·veis utilizadas internamente para decompor os par‚metros
+//        // Vari√°veis utilizadas internamente para decompor os par√¢metros
 //        String paramParentClassName=null;
 //        long paramParentId = IDAO.ENTITY_UNSAVED;
 //

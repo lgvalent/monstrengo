@@ -7,11 +7,11 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 
 /**
- * Este bean controla a view o conteúdo que será exibido no
- * rodapé da página. A intenção era colocar os dados da empresa que
- * atualmente licencia o software e evitar alterações de JSP caso 
- * algum dado da empresa mude. Assim, as alterações realizadas no
- * cadastro seriam automaticamente refletidas no rodapé.
+ * Este bean controla a view o conteÃºdo que serÃ¡ exibido no
+ * rodapÃ© da pÃ¡gina. A intenÃ§Ã£o era colocar os dados da empresa que
+ * atualmente licencia o software e evitar alteraÃ§Ãµes de JSP caso 
+ * algum dado da empresa mude. Assim, as alteraÃ§Ãµes realizadas no
+ * cadastro seriam automaticamente refletidas no rodapÃ©.
  */
 @ManagedBean
 @SessionScoped

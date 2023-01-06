@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<!-- Uma variável 'propertyEntity' (IProperty) deve ser fornecida para esta visão -->
+<!-- Uma variÃ¡vel 'propertyEntity' (IProperty) deve ser fornecida para esta visÃ£o -->
 <!-- USO
 	<ui:include src="/public/basic/tiles/updatePropertyEntity.xhtml">
            <ui:param name="propertyEntity" value="#{currentProperty}"/>
@@ -35,12 +35,12 @@
 		value="javascript:linkCreatePopup('#{propertyEntity.info.type.name}')"
 		rendered="#{menuBean.infoMap.get(propertyEntity.info.type.simpleName).canCreate}">
 		<h:graphicImage value="../../public/basic/img/create.png"
-			title="Cria um novo registro na lista. Será necessário clicar em validar para atualizar a lista com o novo item"
+			title="Cria um novo registro na lista. SerÃ¡ necessÃ¡rio clicar em validar para atualizar a lista com o novo item"
 			style="border:0" />
 	</h:outputLink>
 	<h:outputLink value="javascript:document.forms[0].submit()" tabindex="-1">
 		<h:graphicImage value="../../public/basic/img/reload.png"
-			title="Recarrega a página e a lista de seleção" style="border:0" />
+			title="Recarrega a pÃ¡gina e a lista de seleÃ§Ã£o" style="border:0" />
 	</h:outputLink>
 	<h:message for="selectSubClassInput" styleClass="errorMessage" />
 </h:panelGroup>

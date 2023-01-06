@@ -8,10 +8,10 @@
  */
 
 
-/* Esta funÁ„o permite somente a entrada
-   de n˙meros com uma vÌrgula */
+/* Esta fun√ß√£o permite somente a entrada
+   de n√∫meros com uma v√≠rgula */
 function keyPressFloat(input, e) {
-	// Permite combinaÁ„o de teclas, como Ctrl+V
+	// Permite combina√ß√£o de teclas, como Ctrl+V
 	if(e.ctrlKey) return true;
 	
 	if(window.event) {
@@ -32,11 +32,11 @@ function keyPressFloat(input, e) {
 			return false;
 	}
 
-	if (key == 46)  return false;  //n„o permite '.' (ponto)
+	if (key == 46)  return false;  //n√£o permite '.' (ponto)
 
 
-	/* Verifica se tem mais de uma vÌrgula */
-	/* Lucio 20110804: Com entrada de coleÁıes de BigDecimal, uma entrada poder· ter v·rias vÌrgulas.
+	/* Verifica se tem mais de uma v√≠rgula */
+	/* Lucio 20110804: Com entrada de cole√ß√µes de BigDecimal, uma entrada poder√° ter v√°rias v√≠rgulas.
 	 * Exemplo: 10,55;150,00;158,2;*/
 //	if(key==44) {
 //		return (input.value.indexOf(String.fromCharCode(key))==-1) && (input.value.length>0);
@@ -50,7 +50,7 @@ function keyPressFloat(input, e) {
 /* Esta fun??o permite somente a entrada
    de n?meros inteiros */
 function keyPressInt(input, e) {
-	// Permite combinaÁ„o de teclas, como Ctrl+V
+	// Permite combina√ß√£o de teclas, como Ctrl+V
 	if(e.ctrlKey) return true;
 
 	if(window.event) {
@@ -77,11 +77,11 @@ function keyPressInt(input, e) {
 
 /* Esta fun??o permite somente a entrada
  *  de datas
- * @deprecated Utilize keyPressCalendar() que È capaz de tratar
- *  m·scaras genÈricas para dd/MM/yyyy
+ * @deprecated Utilize keyPressCalendar() que √© capaz de tratar
+ *  m√°scaras gen√©ricas para dd/MM/yyyy
  */
 function keyPressDate(input,e) {
-	// Permite combinaÁ„o de teclas, como Ctrl+V
+	// Permite combina√ß√£o de teclas, como Ctrl+V
 	if(e.ctrlKey) return true;
 
 	if(window.event) {
@@ -124,7 +124,7 @@ function keyPressMask(input_,mask_) {
 }
 
 function maskGenerics(){
-  /* Remove os caracteres que n„o s„o (A a Z e 0 a 9) */
+  /* Remove os caracteres que n√£o s√£o (A a Z e 0 a 9) */
 //  var entrada = input.value.replace(/[^a-zA-Z0-9\/]/g, "");
   var entrada = input.value;
 
@@ -133,13 +133,13 @@ function maskGenerics(){
   var i_ent = 0;
   var i_masc = 0;
 
-  // Verifica se no input o conte˙do j· est· no tamanho m·ximo da m·scara
+  // Verifica se no input o conte√∫do j√° est√° no tamanho m√°ximo da m√°scara
   if(entrada.length > mascara.length){
      saida = entrada.substring(0,mascara.length);
   }else 
-     /* Vai consumindo a entrada e a m·scara, quando um terminar o laÁo p·ra */
+     /* Vai consumindo a entrada e a m√°scara, quando um terminar o la√ßo p√°ra */
      while((i_ent < entrada.length) && (i_masc < mascara.length)){
-  	   /* Verifica na m·scara qual caractere È esperado (Letras de A a Z) */
+  	   /* Verifica na m√°scara qual caractere √© esperado (Letras de A a Z) */
   	   if(mascara.charAt(i_masc) == 'U'){
           var str = "" + entrada.charAt(i_ent);
           if(str.match(/[a-zA-Z]/)){
@@ -148,7 +148,7 @@ function maskGenerics(){
   	      }
           i_ent++;
 
-  	   /* Verifica na m·scara qual caractere È esperado (0 a 9)*/
+  	   /* Verifica na m√°scara qual caractere √© esperado (0 a 9)*/
        }else if((mascara.charAt(i_masc) == '#') ||(mascara.charAt(i_masc) == '*') ){
            var str = "" + entrada.charAt(i_ent);
            if(str.match(/[0-9]/)){
@@ -157,7 +157,7 @@ function maskGenerics(){
   	       }
            i_ent++;
 
-  	   /* Verifica na m·scara qual caractere È esperado (Letras de A a Z) */
+  	   /* Verifica na m√°scara qual caractere √© esperado (Letras de A a Z) */
        }else if(mascara.charAt(i_masc) == 'L'){
            var str = "" + entrada.charAt(i_ent);
            if(str.match(/[a-zA-Z]/)){
@@ -166,7 +166,7 @@ function maskGenerics(){
   	       }
   	       i_ent++;
 
-  	   /* Verifica na m·scara qual caractere È esperado (Qualquer caractere (A a Z e 0-9 ) */
+  	   /* Verifica na m√°scara qual caractere √© esperado (Qualquer caractere (A a Z e 0-9 ) */
        }else if(mascara.charAt(i_masc) == '?'){
             var str = "" + entrada.charAt(i_ent);
             if(str.match(/[0-9a-zA-Z]/)){
@@ -175,7 +175,7 @@ function maskGenerics(){
   	        }
   	        i_ent++;
        }else{
-  	   // Caractere n„o È de controle da m·scara (U,L, #,?), ent„o devolve ele na saida
+  	   // Caractere n√£o √© de controle da m√°scara (U,L, #,?), ent√£o devolve ele na saida
   	       saida += mascara.charAt(i_masc);
   	       i_masc++;
        }
@@ -184,7 +184,7 @@ function maskGenerics(){
 }
 
 
-/* Dispara o mecanismo de timeOut para tratar m·scara de Calendar
+/* Dispara o mecanismo de timeOut para tratar m√°scara de Calendar
  */
 function keyPressCalendar(input_,mask_) {
   input=input_;
@@ -192,8 +192,8 @@ function keyPressCalendar(input_,mask_) {
   setTimeout("keyPressCalendar_()",1)
 }
 
-/* Dispara o tratamento da m·scara de Calendar
- * na saÌda, pois durante o onKeyPress fica ruim alterar parte da
+/* Dispara o tratamento da m√°scara de Calendar
+ * na sa√≠da, pois durante o onKeyPress fica ruim alterar parte da
  * data
  */
 function onblurCalendar(input_,mask_) {
@@ -202,18 +202,18 @@ function onblurCalendar(input_,mask_) {
   setTimeout("keyPressCalendar_()",1)
 }
 
-/* Este mÈtodo trata algumas particularidades do tratamento da
- * m·scara de datas que ao invÈs de usar os padrıes U, L, ? e *
- * utiliza o padr„o dd/MM/yyyy hh:mm:ss
+/* Este m√©todo trata algumas particularidades do tratamento da
+ * m√°scara de datas que ao inv√©s de usar os padr√µes U, L, ? e *
+ * utiliza o padr√£o dd/MM/yyyy hh:mm:ss
  */
 
 function keyPressCalendar_() {
-  /*Lucio 20190918 N„o trata inputs vazios */
+  /*Lucio 20190918 N√£o trata inputs vazios */
   if(input.value.length == 0) return;
   
   /* Acrescenta 20 ou 19 se a data estiver com 6 digitos 010101 => 01012001*/
   if(input.value.length == 6){
-    /* Verifica se o ano est· no futuro ou passado para determinar um
+    /* Verifica se o ano est√° no futuro ou passado para determinar um
        prefixo 19 ou 20 */
     var ano = parseInt(input.value.substr(4,2));
     var anoPrefixo = "";
@@ -225,20 +225,20 @@ function keyPressCalendar_() {
 
     input.value = input.value.substr(0,4) + anoPrefixo + input.value.substr(4,2);
   }else{
-	/* Completa com Zeros ‡ direita as datas e horas digitadas parcialmente */  
+	/* Completa com Zeros √† direita as datas e horas digitadas parcialmente */  
 	if(mask.length >= input.value.length)
 	  input.value = input.value + Array(mask.length - input.value.length).join("0");
   }
   
-  /* Remove caracteres n„o numÈricos */
+  /* Remove caracteres n√£o num√©ricos */
   input.value = input.value.replace(/[^a-zA-Z0-9\/:]/g, "");
 
-  /* Verifica se o primeiro caractere È uma barra '/'
-   * Se for, ent„o significa que o operador poder· entrar somente
-   * o mÍs do tipo /01
+  /* Verifica se o primeiro caractere √© uma barra '/'
+   * Se for, ent√£o significa que o operador poder√° entrar somente
+   * o m√™s do tipo /01
    */
   if(input.value.charAt(0) == '/'){
-    /* Define a m·scara PUBLICA como /## */
+    /* Define a m√°scara PUBLICA como /## */
     mask="/##";
   }else{
     /* Transformando dd/MM/yyyy hh:mm:ss em ##/##/#### ##:##:## */
@@ -247,7 +247,7 @@ function keyPressCalendar_() {
   setTimeout("maskGenerics()",1);
 }
 
-/* Verifica se a data digitada possui somente 2 dÌgitos de ano para acrescentar o 19--
+/* Verifica se a data digitada possui somente 2 d√≠gitos de ano para acrescentar o 19--
  */
 function onblurCalendar_() {
   if(input.value.length == 8)
@@ -351,12 +351,12 @@ function isNumber(number){
    return !invalid;
 }
 
-/** Remove os caracteres que n„o sema */
+/** Remove os caracteres que n√£o sema */
 function onblurAlfanumeric(input){
 	   input.value = input.value.replace(/[^a-zA-Z0-9 ]/g, "");
 }
 
-/** Controla a ativaÁ„o de componentes para recuperar focus apÛs uma chamada Ajax
+/** Controla a ativa√ß√£o de componentes para recuperar focus ap√≥s uma chamada Ajax
  * no onfocus:setActiveComponent(this)
  * no ajax:oncomplete:getActiveComponent() 
  * Exemplo de uso: quitarLancamento2.jsp */

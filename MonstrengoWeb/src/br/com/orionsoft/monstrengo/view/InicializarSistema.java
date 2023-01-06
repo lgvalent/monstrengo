@@ -13,8 +13,8 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.MetadataHandleXmlImp
 import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.EntityType;
 
 /**
- * Esta classe é útil para a primeira execução do sistema. Ela gera o Banco e
- * cria as estruturas básicas de segurança.
+ * Esta classe Ã© Ãºtil para a primeira execuÃ§Ã£o do sistema. Ela gera o Banco e
+ * cria as estruturas bÃ¡sicas de seguranÃ§a.
  * 
  * @author lucio 20121205
  */

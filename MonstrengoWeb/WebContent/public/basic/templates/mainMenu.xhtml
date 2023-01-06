@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -20,7 +20,7 @@
 </ui:include>
 <f:verbatim>
 	<script>
-	/* Redimensiona o IFrame ao ler e sempre a página */
+	/* Redimensiona o IFrame ao ler e sempre a pÃ¡gina */
 	function resizeW() {
 		var f = document.getElementById('frame');
 		var h = window.innerHeight;
@@ -32,7 +32,7 @@
 </f:verbatim>
 <h:body onload="resizeW();">
 	<h:outputLabel
-		title="Força a crição das estruturas de segurança para agilizar o acesso ao sistema e demorar somente na abertura da tela"
+		title="ForÃ§a a criÃ§Ã£o das estruturas de seguranÃ§a para agilizar o acesso ao sistema e demorar somente na abertura da tela"
 		rendered="#{menuBean.infoMap!=null and menuBean.crudMap!=null and menuBean.processMap!=null}" />
 	<h:form id="formMenu">
 		<p:focus context="formMenu" />
@@ -41,17 +41,17 @@
 		</div>
 		<div style="float: right; text-align: right; white-space: nowrap;">
 			<ui:include src="/public/basic/tiles/findProcessAndEntity.xhtml"></ui:include> 
-			<p:menubar style="text-align: right;" >
+			<p:menubar style="text-align: right;"  autoDisplay="false">
 				<ui:insert name="menu" />
-				<p:submenu label="Relatórios" icon="ui-icon-print">
-					<p:menuitem value="Relatórios personalizados"
+				<p:submenu label="RelatÃ³rios" icon="ui-icon-print">
+					<p:menuitem value="RelatÃ³rios personalizados"
 						url="../basic/listUserReport.xhtml" target="ALVO" />
 					<p:menuitem value="Etiquetas" url="../basic/labelView.xhtml"
 						target="ALVO" />
 					<p:menuitem value="Documentos" url="../basic/documentList.xhtml"
 						target="ALVO" />
 				</p:submenu>
-				<p:menuitem value="Administração" icon="ui-icon-locked"
+				<p:menuitem value="AdministraÃ§Ã£o" icon="ui-icon-locked"
 						url="../admin/menu.xhtml" target="ALVO" />
 				<p:menuitem value="Suporte" onclick="dialogSupport.show();"
 					icon="ui-icon-help" />
@@ -70,7 +70,7 @@
 			</h:panelGroup>
 			<h:panelGroup rendered="#{userSessionBean.logged}">
 				<h:outputLabel
-					value="Olá &lt;b&gt;#{userSessionBean.userSession.user.object.name}&lt;/b&gt;."
+					value="OlÃ¡ &lt;b&gt;#{userSessionBean.userSession.user.object.name}&lt;/b&gt;."
 					escape="false" />
 				<a href="#" onclick="dialogChangePassword.show();">[alterar
 					senha]</a>
@@ -84,7 +84,7 @@
 	</h:form>
 
 	<p:dialog widgetVar="dialogChangePassword" modal="true" height="400"
-		width="550" header="Alteração da senha de acesso">
+		width="550" header="AlteraÃ§Ã£o da senha de acesso">
 		<iframe src="../admin/securityChangePassword.xhtml" frameborder="1"
 			style="width: 100%; height: 100%;" />
 

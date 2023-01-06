@@ -20,15 +20,15 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.BeanRequestBasic;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Bean que controla a view de verificaÁ„o das alteraÁıes de uma determinada
- * entidade, exibindo um relatÛrio da auditoria
+ * Bean que controla a view de verifica√ß√£o das altera√ß√µes de uma determinada
+ * entidade, exibindo um relat√≥rio da auditoria
  * @jsf.bean name="checkAuditCrudBean" scope="session"
  */
 @ManagedBean
 @RequestScoped
 public class CheckAuditCrudBean extends BeanRequestBasic{
 
-    /** Define a view JSF que È ativada para a vis„o RETRIEVE */
+    /** Define a view JSF que √© ativada para a vis√£o RETRIEVE */
 	public static final String FACES_VIEW = "/pages/basic/securityCheckAuditCrud?faces-redirect=true";
 	
 	public static String URL_PARAM_ENTITY_TYPE = "entityType";
@@ -63,7 +63,7 @@ public class CheckAuditCrudBean extends BeanRequestBasic{
     public static class AuditPropertyBean{
     	public AuditPropertyBean(IProperty property) {
 			this.property = property;
-			/* Verifica se a propriedade È collection para cria a lista de resultados
+			/* Verifica se a propriedade √© collection para cria a lista de resultados
 			 * deste tipo de porpriedade */
 			if(property.getInfo().isCollection())
 				results = new ArrayList<AuditCollectionBean>();
@@ -84,7 +84,7 @@ public class CheckAuditCrudBean extends BeanRequestBasic{
 		public boolean isNotEmpty(){
 			boolean result = false;
 			
-			/* Verifica o resultado de propriedade simples ou de coleÁ„o */
+			/* Verifica o resultado de propriedade simples ou de cole√ß√£o */
 			if(property.getInfo().isCollection())
 				for(AuditCollectionBean bean: results)
 					result = result || bean.isNotEmpty();
@@ -148,16 +148,16 @@ public class CheckAuditCrudBean extends BeanRequestBasic{
     
     private List<AuditPropertyBean> propertiesResult = null;
     public List<AuditPropertyBean> getPropertiesResult(){
-    	/* Se o resultado j· estiver preparado, retorn·-o */
+    	/* Se o resultado j√° estiver preparado, retorn√°-o */
     	if(propertiesResult != null)
     		return propertiesResult;
     	
-    	/* Cria uma lista com as propriedades que ser„o auditadas */
+    	/* Cria uma lista com as propriedades que ser√£o auditadas */
 		List<AuditPropertyBean> propertiesBean = new ArrayList<AuditPropertyBean>();
     	try
     	{
         	if(this.entity != null)
-            	/* Verifica se a propriedade È do tipo entidade, se n„o È calculada e se tem algum valor */
+            	/* Verifica se a propriedade √© do tipo entidade, se n√£o √© calculada e se tem algum valor */
         		for(IProperty prop: this.entity.getPropertiesMap().values())
     				if(prop.getInfo().isEntity() &&
     				   !prop.getInfo().isCalculated() &&    				   
@@ -166,7 +166,7 @@ public class CheckAuditCrudBean extends BeanRequestBasic{
     					/* Prepara a auditoria da propriedade */
     					AuditPropertyBean bean = new AuditPropertyBean(prop);
     					
-    					/* Se n„o for coleÁ„o ser· realizada a busca pela auditoria da entidade referenciada pela propriedade */
+    					/* Se n√£o for cole√ß√£o ser√° realizada a busca pela auditoria da entidade referenciada pela propriedade */
     					if(!prop.getInfo().isCollection()){
     		    			ServiceData sd = new ServiceData(CheckAuditCrudService.SERVICE_NAME, null);
     		    			sd.getArgumentList().setProperty(CheckAuditCrudService.IN_ENTITY_TYPE, prop.getInfo().getType());
@@ -175,7 +175,7 @@ public class CheckAuditCrudBean extends BeanRequestBasic{
     		    			
     		    			bean.result = sd.getFirstOutput(); 
     					}else{
-    						/* Prepara a auditoria de cada entidade que se encontra na coleÁ„o */
+    						/* Prepara a auditoria de cada entidade que se encontra na cole√ß√£o */
     						for(IEntity<?> propColValue: prop.getValue().getAsEntityCollection()){
 
     							ServiceData sd = new ServiceData(CheckAuditCrudService.SERVICE_NAME, null);
@@ -186,13 +186,13 @@ public class CheckAuditCrudBean extends BeanRequestBasic{
     							AuditCollectionBean colBean = new AuditCollectionBean(propColValue);
         		    			colBean.result = sd.getFirstOutput(); 
         						
-        						/* Lucio 20111129: Adiciona a entidade mesmo se n„o houve registro de auditoria na mesma */
+        						/* Lucio 20111129: Adiciona a entidade mesmo se n√£o houve registro de auditoria na mesma */
 //        		    			if(colBean.isNotEmpty())
         		    				bean.results.add(colBean);
     						}
     					}
     					
-						/* Lucio 20111129: Adiciona a propriedade mesmo se n„o houver registros de auditoria na mesma */
+						/* Lucio 20111129: Adiciona a propriedade mesmo se n√£o houver registros de auditoria na mesma */
 //		    			if(colBean.isNotEmpty())
    						propertiesBean.add(bean);
     				}

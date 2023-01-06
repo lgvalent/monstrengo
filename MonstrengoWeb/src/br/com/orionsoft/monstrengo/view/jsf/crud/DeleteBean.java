@@ -14,14 +14,14 @@ import br.com.orionsoft.monstrengo.crud.processes.DeleteProcess;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Bean que controla a p·gina de exclus„o de uma entidade Crud.
- * Par‚metro de URL necess·rio: <br>
- * entityType: nome completo da classe da entidade que ser· deletada.
+ * Bean que controla a p√°gina de exclus√£o de uma entidade Crud.
+ * Par√¢metro de URL necess√°rio: <br>
+ * entityType: nome completo da classe da entidade que ser√° deletada.
  * A tela pode ser chamada pelo actionDelete(), ou ainda, diretamente
- * acessando a p·gina delete1.jsp.
- * No primeiro caso, o action ir· disparar runCheckDependences();
- * No segundo caso, o mÈtodo isHasDependences() ir· verificar se a tela foi 
- * chamada de um link (checkLinkRequest()) para ent„o acionar o runVerifyDependence()
+ * acessando a p√°gina delete1.jsp.
+ * No primeiro caso, o action ir√° disparar runCheckDependences();
+ * No segundo caso, o m√©todo isHasDependences() ir√° verificar se a tela foi 
+ * chamada de um link (checkLinkRequest()) para ent√£o acionar o runVerifyDependence()
  * 
  * @author Andre
  * @version 20060206
@@ -36,7 +36,7 @@ public class DeleteBean extends CrudBasicBean
 {
 	private static final long serialVersionUID = 1L;
 	
-	/** Define a view JSF que È ativada para a vis„o DELETE */
+	/** Define a view JSF que √© ativada para a vis√£o DELETE */
 	public static final String FACES_VIEW_DELETE_1 = "/pages/basic/delete1?faces-redirect=true";
 	public static final String FACES_VIEW_DELETE_2 = "/pages/basic/delete2?faces-redirect=true";
 	
@@ -50,18 +50,18 @@ public class DeleteBean extends CrudBasicBean
 		return process;
 	}
 	
-	/*String justificando o porquÍ da exclus„o da entidade*/
+	/*String justificando o porqu√™ da exclus√£o da entidade*/
     private String justification;
     
     /**
-     * Action que prepara a visualizaÁ„o
+     * Action que prepara a visualiza√ß√£o
      * e controla o fluxo de tela. 
      * @return
      */
     public String actionDelete() throws Exception
     {
         log.debug("::Iniciando actionDelete");
-    	// Prepara os par‚metros fornecidos
+    	// Prepara os par√¢metros fornecidos
         this.loadEntityParams();
 
         /*Limpa o cache do processo ativo, para trabalhar com as entidades que foram atualizadas por outros processos*/
@@ -72,7 +72,7 @@ public class DeleteBean extends CrudBasicBean
             log.debug("::Preparando a entidade corrente");
             prepareCurrentEntity(prepareCurrentEntityKey());
             
-            /* Executa a verificaÁ„o se tem dependÍncias */
+            /* Executa a verifica√ß√£o se tem depend√™ncias */
             if(getProcess().runCheckDependences()){
             	if(getProcess().getDependencesBean().isEmpty())
             		return FACES_VIEW_DELETE_2;
@@ -86,15 +86,15 @@ public class DeleteBean extends CrudBasicBean
             
         }catch(BusinessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* EdiÁ„o REJEITADA */
+        	/* Edi√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
     }
 
     /**
-     * Action que prepara a visualizaÁ„o baseada
-	 * nos par‚metros passados.
-	 * Este mÈtodo È usado pelos outros beans quando desejam 
+     * Action que prepara a visualiza√ß√£o baseada
+	 * nos par√¢metros passados.
+	 * Este m√©todo √© usado pelos outros beans quando desejam 
 	 * exibir uma entidade no browser
      * e controla o fluxo de tela. 
      * @return
@@ -104,7 +104,7 @@ public class DeleteBean extends CrudBasicBean
 	{
         log.debug("::Iniciando actionDelete");
         
-  		/* Passa os par‚metros para o controlador de entidade da visao */
+  		/* Passa os par√¢metros para o controlador de entidade da visao */
    		this.getEntityParam().getParentParam().setTypeName(null);
    		this.getEntityParam().setTypeName(typeName);
    		this.getEntityParam().setId(id);
@@ -117,7 +117,7 @@ public class DeleteBean extends CrudBasicBean
             log.debug("::Preparando a entidade corrente");
             prepareCurrentEntity(prepareCurrentEntityKey());
             
-            /* Executa a verificaÁ„o se tem dependÍncias */
+            /* Executa a verifica√ß√£o se tem depend√™ncias */
             if(getProcess().runCheckDependences()){
             	if(getProcess().getDependencesBean().isEmpty())
             		return FACES_VIEW_DELETE_2;
@@ -131,7 +131,7 @@ public class DeleteBean extends CrudBasicBean
             
         }catch(BusinessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* EdiÁ„o REJEITADA */
+        	/* Edi√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
 	}
@@ -139,7 +139,7 @@ public class DeleteBean extends CrudBasicBean
    
     public String actionConfirm() throws Exception{
     	log.debug("::Iniciando actionUpdate");
-    	log.debug("Gravando alteraÁıes pelo processo:" + currentEntityKey);
+    	log.debug("Gravando altera√ß√µes pelo processo:" + currentEntityKey);
     	DeleteProcess<?> proc = (DeleteProcess<?>) processes.get(currentEntityKey); 
     	//justification
 
@@ -157,38 +157,38 @@ public class DeleteBean extends CrudBasicBean
     		
     		/* Se a entidade a ser excluida estiver na pilha de dependencias, 
     		 * prepara a entidade corrente e renderiza a tela delete1.jsp
-    		 * sen„o, fecha o processo.*/
+    		 * sen√£o, fecha o processo.*/
     		if(dependencesMap.containsKey(currentEntityKey)){
     			String parentKey = dependencesMap.get(currentEntityKey);
-    			/* Troca o contexto da vis„o, ativando o processo que foi
+    			/* Troca o contexto da vis√£o, ativando o processo que foi
     			 * armazenado sob a chave 'parentKey' que foi guardada 
-    			 * no inÌcio da exclus„o pela actionDeleteChild() */
+    			 * no in√≠cio da exclus√£o pela actionDeleteChild() */
     			this.setCurrentEntityKey(parentKey);
     			this.prepareCurrentEntity(parentKey);
     			
-    			/* Verifica a dependÍncia novamente para forÁar que
-    			 * o processo atualize a entidade e suas dependÍncias
-    			 * e logo depois, atualiza a referÍncia da entidade da
-    			 * atual vis„o */
+    			/* Verifica a depend√™ncia novamente para for√ßar que
+    			 * o processo atualize a entidade e suas depend√™ncias
+    			 * e logo depois, atualiza a refer√™ncia da entidade da
+    			 * atual vis√£o */
 				getProcess().runCheckDependences();
 				currentEntity = getProcess().retrieveEntity();
     			
     			return FACES_VIEW_DELETE_1;
     		}
     		
-    		log.debug("::Fim actionConfirm(). Redirecionando para a vis„o SUCCESS.");
+    		log.debug("::Fim actionConfirm(). Redirecionando para a vis√£o SUCCESS.");
     		return FacesUtils.FACES_VIEW_SUCCESS;
     			
 
     	}else{
-    		log.debug("::Fim actionConfirm(). Houveram erros, voltando para a vis„o DELETE.");
+    		log.debug("::Fim actionConfirm(). Houveram erros, voltando para a vis√£o DELETE.");
     		FacesUtils.addErrorMsgs(proc.getMessageList());
     		return "";
     	}
     }
     
     /**
-     * Obtem a chave da entidade que est· currentemente sendo criada pelo bean
+     * Obtem a chave da entidade que est√° currentemente sendo criada pelo bean
      * @return
      */
     public IEntity<?> getCurrentEntity() {
@@ -196,10 +196,10 @@ public class DeleteBean extends CrudBasicBean
 	}
 
 	/**
-     * Este mÈtodo prepara a entidade correntemente deletada, 
+     * Este m√©todo prepara a entidade correntemente deletada, 
      * baseando-se na chave passada.<br>
-     * O mapa de processos ativos È consultado e se n„o for encontrado o processo,
-     * um novo processo È criado.  
+     * O mapa de processos ativos √© consultado e se n√£o for encontrado o processo,
+     * um novo processo √© criado.  
 	 * @throws BusinessException 
      */
     @SuppressWarnings("unchecked")
@@ -208,26 +208,26 @@ public class DeleteBean extends CrudBasicBean
         super.prepareCurrentEntity(currentEntityKey);
         
         if(processes.containsKey(currentEntityKey)){
-        	log.debug("Utilizando o processo j· ativo");
+        	log.debug("Utilizando o processo j√° ativo");
         	process = (DeleteProcess<?>) processes.get(currentEntityKey); 
         	currentEntity = getProcess().retrieveEntity();
     	}else{
         	log.debug("Iniciando um novo processo Delete");
         	process = (DeleteProcess<?>) this.getApplicationBean().getProcessManager().createProcessByName(DeleteProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
             try{
-                /* Preenche os par‚metros */
+                /* Preenche os par√¢metros */
             	process.setEntityType(Class.forName(this.getEntityParam().getTypeName()));
             	process.setEntityId(this.getEntityParam().getId());
                 
-            	/* Obtem a entidade Delete , a tentativa causar· um throw
-                 * e o processo responder· com a mensage de DELETE_DENIED
+            	/* Obtem a entidade Delete , a tentativa causar√° um throw
+                 * e o processo responder√° com a mensage de DELETE_DENIED
                  */
             	currentEntity = process.retrieveEntity();
             	/* Coloca o processo Delete na lista de processos ativos */
             	processes.put(this.currentEntityKey, process);
 	        	
             }catch(BusinessException e){
-	        	log.debug("Finalizando o processo pela ocorrÍncia de erro:" + e.getMessage());
+	        	log.debug("Finalizando o processo pela ocorr√™ncia de erro:" + e.getMessage());
             	process.finish();
             	process = null;
             	/* Passa o erro pra frente */
@@ -237,7 +237,7 @@ public class DeleteBean extends CrudBasicBean
     }
     
 	/**
-     * Este mÈtodo È respons·vel por compor a chave Delete da entidade usando
+     * Este m√©todo √© respons√°vel por compor a chave Delete da entidade usando
      * o tipo da entidade e o id da entidade. 
      * @return Retorna uma chave com entityType+entityId.
      */
@@ -249,20 +249,20 @@ public class DeleteBean extends CrudBasicBean
 	public String getJustification(){return this.justification;}
 	
 	/**
-	 * Este mÈtodo verifica apenas se existem entidades relacionadas com a entidade
+	 * Este m√©todo verifica apenas se existem entidades relacionadas com a entidade
 	 * corrente (entidade a ser deletada), obtidas pelo metodo runVerifyDependences
 	 */
 	public boolean isHasDependences(){
-		/* Verifica se a chamada È por meio de um Link, pois ser· necess·rio executar
-		 * o runCheckDependences(), pois o actionDelete() n„o foi acionado. 
-		 * Para evitar dupla execuÁ„o em uma mesma p·gina È verificado se a lista
-		 * j· possui itens */
+		/* Verifica se a chamada √© por meio de um Link, pois ser√° necess√°rio executar
+		 * o runCheckDependences(), pois o actionDelete() n√£o foi acionado. 
+		 * Para evitar dupla execu√ß√£o em uma mesma p√°gina √© verificado se a lista
+		 * j√° possui itens */
 		try {
 			if(checkLinkRequest() && getProcess().getDependencesBean().isEmpty()){
 				getProcess().runCheckDependences();
 			}
 
-			/*Variavel deleteProcess recebe o processo j· ativo*/
+			/*Variavel deleteProcess recebe o processo j√° ativo*/
 			if(getProcess().getDependencesBean().size()>0){
 				return true;
 			}
@@ -273,14 +273,14 @@ public class DeleteBean extends CrudBasicBean
 	}
 
 	/**
-	 * Verifica se a aÁ„o de delete È sobre uma entidade filha que depende de um pai.
+	 * Verifica se a a√ß√£o de delete √© sobre uma entidade filha que depende de um pai.
 	 * Se for uma entidade filha, a armazena numa pilha a entidade que possui dependentes para 
 	 * que o processo possa voltar para este e atualizar a lista de dependentes
 	 */
 	public String actionDeleteChild(){
 		String result = "";
 		try {
-			/*armazena a entidade dependente e o seu pai na pilha, e depois chama o actionDelete, para decidir a vis„o*/
+			/*armazena a entidade dependente e o seu pai na pilha, e depois chama o actionDelete, para decidir a vis√£o*/
 			String parentKey = currentEntityKey;
 			result = actionDelete();
 			dependencesMap.put(currentEntityKey, parentKey);
@@ -293,7 +293,7 @@ public class DeleteBean extends CrudBasicBean
 	}
 	
 	/**
-	 * Verifica se a aÁ„o de delete È sobre uma entidade filha que depende de um pai.
+	 * Verifica se a a√ß√£o de delete √© sobre uma entidade filha que depende de um pai.
 	 * Se for uma entidade filha, a armazena numa pilha a entidade que possui dependentes para 
 	 * que o processo possa voltar para este e atualizar a lista de dependentes
 	 */
@@ -302,7 +302,7 @@ public class DeleteBean extends CrudBasicBean
 		try {
 	        log.debug("::Iniciando actionDeleteChilds");
 
-	        // Prepara os par‚metros fornecidos
+	        // Prepara os par√¢metros fornecidos
 	        this.loadEntityParams();
 
 	    	process.setJustification(this.justification);

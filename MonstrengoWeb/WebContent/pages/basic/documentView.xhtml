@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -8,13 +8,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="icon" value="../../public/basic/img/document.png" />
-	<ui:param name="title" value="Pré-Visualização de documento - #{documentEntityBean.resultDocumentEntityName}" />
-	<ui:param name="description" value="Visualize como o documento será impresso.&lt;br/&gt; Neste momento, ainda é possível preencher alguns dados solicitados pelo documento ou mesmo fazer alterações diretamente no texto do documento." />
+	<ui:param name="title" value="PrÃ©-VisualizaÃ§Ã£o de documento - #{documentEntityBean.resultDocumentEntityName}" />
+	<ui:param name="description" value="Visualize como o documento serÃ¡ impresso.&lt;br/&gt; Neste momento, ainda Ã© possÃ­vel preencher alguns dados solicitados pelo documento ou mesmo fazer alteraÃ§Ãµes diretamente no texto do documento." />
 	<ui:define name="content">
 		<h:panelGroup rendered="#{!documentEntityBean.hasDocumentFieldsEntry}">
 		<h:panelGrid>
-			<h:outputText styleClass="title" value="Preencha os campos necessários" escape="false"/>
-			<h:outputText value="Este documento possui campos que podem ser preenchidos neste momento, antes de sua impressão. Defina o conteúdo de cada campo que é listado abaixo" escape="false" styleClass="description"/>
+			<h:outputText styleClass="title" value="Preencha os campos necessÃ¡rios" escape="false"/>
+			<h:outputText value="Este documento possui campos que podem ser preenchidos neste momento, antes de sua impressÃ£o. Defina o conteÃºdo de cada campo que Ã© listado abaixo" escape="false" styleClass="description"/>
 			<h:dataTable width="100%" 
 			 value="#{documentEntityBean.documentFieldsEntry}" 
 			 var='item' 
@@ -35,7 +35,7 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">
-						<h:outputText value="Conteúdo: " />
+						<h:outputText value="ConteÃºdo: " />
 				</f:facet>
 
 				<h:inputText  value="#{item.value}" />

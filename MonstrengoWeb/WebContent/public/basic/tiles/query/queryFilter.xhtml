@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -16,10 +16,10 @@
 		<span style="color: #{queryBean.info.colorName}">
 			<i>#{queryBean.info.label}</i>
 		</span>
-		<!-- h:outputText value="Conteúdo: "/-->
+		<!-- h:outputText value="ConteÃºdo: "/-->
 		<p:inputText id="filter"
 			value="#{queryBean.currentProcess.userReport.filterParam.filter}"
-			title="Digite qualquer conteúdo que será procurado em todas as propriedades da entidade, inclusive campos de datas e numéricos"
+			title="Digite qualquer conteÃºdo que serÃ¡ procurado em todas as propriedades da entidade, inclusive campos de datas e numÃ©ricos"
 			size="50" onblur="onblurAlfanumeric(this)"
 			type="search"/>
 		<p:commandButton styleClass="noprint" ajax="false" value="Buscar"
@@ -38,7 +38,7 @@
 			style="text-align: right; color: #006600; font-size: smaller;">
 			<h:selectBooleanCheckbox id="sbAdvancedQuery"
 				value="#{queryBean.currentParams.advancedQuery}"
-				title="Marque ou desmarque para Ativar/Desativar a pesquisa com filtros avançados"
+				title="Marque ou desmarque para Ativar/Desativar a pesquisa com filtros avanÃ§ados"
 				onclick="this.form.submit()" />
 				
 			<h:graphicImage value="../../public/basic/img/advanced_query.png"
@@ -50,7 +50,7 @@
 			style="text-align: right; color: #0000FF; font-size: smaller;">
 			<h:selectBooleanCheckbox id="sbAdvancedOrder"
 				value="#{queryBean.currentParams.advancedOrder}"
-				title="Marque ou desmarque para Ativar/Desativar a ordenação avançada"
+				title="Marque ou desmarque para Ativar/Desativar a ordenaÃ§Ã£o avanÃ§ada"
 				onclick="this.form.submit()" />
 			<h:graphicImage value="../../public/basic/img/advanced_sort.png"
 				style="border:0" width="16" height="16" />
@@ -61,7 +61,7 @@
 			style="text-align: right; color: #EE2C2C; font-size: smaller;">
 			<h:selectBooleanCheckbox id="sbAdvancedResult"
 				value="#{queryBean.currentParams.advancedResult}"
-				title="Marque ou desmarque para Ativar/Desativar o recurso de seleção das propriedades visí­veis para o relatório da pesquisa"
+				title="Marque ou desmarque para Ativar/Desativar o recurso de seleÃ§Ã£o das propriedades visÃ­Â­veis para o relatÃ³rio da pesquisa"
 				onclick="this.form.submit()" />
 			<h:graphicImage value="../../public/basic/img/advanced_report.png"
 				style="border:0" width="16" height="16" />
@@ -72,7 +72,7 @@
 			style="text-align: right; color: #FF751A; font-size: smaller;">
 			<h:selectBooleanCheckbox id="sbAdvancedUserReport"
 				value="#{queryBean.currentParams.advancedUserReport}"
-				title="Marque ou desmarque para Ativar/Desativar o recurso de relatórios personalizados"
+				title="Marque ou desmarque para Ativar/Desativar o recurso de relatÃ³rios personalizados"
 				onclick="this.form.submit()" />
 			<h:graphicImage value="../../public/basic/img/advanced_user_report.png"
 				style="border:0" width="16" height="16" />
@@ -83,15 +83,15 @@
 			style="text-align: right; color: #00AAAA; font-size: smaller;">
 			<h:selectBooleanCheckbox id="sbAdvancedHqlWhere"
 				value="#{queryBean.currentParams.advancedHqlWhere}"
-				title="Marque ou desmarque para Ativar/Desativar o recurso de expressões personalizados"
+				title="Marque ou desmarque para Ativar/Desativar o recurso de expressÃµes personalizados"
 				onclick="this.form.submit()" />
-			<h:outputLabel value="Expressão" for="sbAdvancedHqlWhere" />
+			<h:outputLabel value="ExpressÃ£o" for="sbAdvancedHqlWhere" />
 		</h:panelGroup>
 
 		<h:panelGroup>
 			|
 			<h:outputText styleClass="title noprint"
-				value="Não achou? Crie um novo registro de " escape="false" />
+				value="NÃ£o achou? Crie um novo registro de " escape="false" />
 			<p:commandButton id="btnSubentities" value="" icon="ui-icon-grip-dotted-horizontal"/>
 		</h:panelGroup>
 		
@@ -119,7 +119,7 @@
 				rendered="#{!queryBean.canCreate and !queryBean.info.hasSubEntities}">
 				<h:graphicImage styleClass="noprint"
 					value="../../public/basic/img/create_d.png"
-					title="Você não possui direitos para criar um novo registro de #{queryBean.info.label}"
+					title="VocÃª nÃ£o possui direitos para criar um novo registro de #{queryBean.info.label}"
 					style="border:0" />
 				<h:outputText value="#{queryBean.info.label}" />
 			</h:panelGroup>
@@ -143,7 +143,7 @@
 							name="filter" />
 					</h:commandLink>
 					<h:graphicImage value="../../public/basic/img/create_d.png"
-						title="Você não possui direitos para criar um novo registro de #{item.label}"
+						title="VocÃª nÃ£o possui direitos para criar um novo registro de #{item.label}"
 						style="border:0" rendered="#{!item.canCreate}" />
 				</h:column>
 			</h:dataTable>

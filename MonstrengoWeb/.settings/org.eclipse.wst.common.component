@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
-    <wb-module deploy-name="MonstrengoWeb">
-                
-        <wb-resource deploy-path="/" source-path="/WebContent"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebContent"/>
-                
-        <property name="context-root" value="MonstrengoWeb"/>
-                
-        <property name="java-output-path" value="/MonstrengoWeb/build/classes"/>
             
-    </wb-module>
     
+    <wb-module deploy-name="monstrengo-web-1.0.0">
+                        
+        
+        <wb-resource deploy-path="/" source-path="/WebContent"/>
+                        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+                
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebContent"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                        
+        
+        <property name="java-output-path" value="/MonstrengoWeb/build/classes"/>
+        <property name="context-root" value="monstrengo-web"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/lib/*.jar"/>
+                    
+    
+    </wb-module>
+        
+
 </project-modules>

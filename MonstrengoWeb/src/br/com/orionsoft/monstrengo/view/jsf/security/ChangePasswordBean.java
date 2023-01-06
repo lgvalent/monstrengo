@@ -13,7 +13,7 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Bean que controla a view de alteraÁ„o de senha do operador corrente
+ * Bean que controla a view de altera√ß√£o de senha do operador corrente
  * 
  * @jsf.bean name="changePasswordBean" scope="session"
  */
@@ -21,7 +21,7 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 @SessionScoped
 public class ChangePasswordBean extends BeanSessionBasic implements IRunnableProcessView
 {
-	/** Define a view JSF que È ativada para a vis„o QUERY */
+	/** Define a view JSF que √© ativada para a vis√£o QUERY */
 	public static final String FACES_VIEW = "/pages/admin/securityChangePassword?faces-redirect=true";
 	
     private String currentPassword;

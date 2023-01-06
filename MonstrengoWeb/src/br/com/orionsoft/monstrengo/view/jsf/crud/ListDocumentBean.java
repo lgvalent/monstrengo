@@ -45,8 +45,8 @@ public class ListDocumentBean extends BeanSessionBasic
 	private long userId = IDAO.ENTITY_UNSAVED;
 	
 	/**
-	 * Define o valor do item que permite a filtragem dos documentos que n„o
-	 * possuem uma entidade especÌfica (entidade coringa, #{Entity[?]}) ou que n„o
+	 * Define o valor do item que permite a filtragem dos documentos que n√£o
+	 * possuem uma entidade espec√≠fica (entidade coringa, #{Entity[?]}) ou que n√£o
 	 * possuem um operador definido
 	 */
 	private long APPLICATION_ENTITY_NULL = IDAO.ENTITY_UNSAVED - 1;
@@ -68,7 +68,7 @@ public class ListDocumentBean extends BeanSessionBasic
 		}
 	}
 
-	/** Buffer para evitar in˙meras buscas no banco */
+	/** Buffer para evitar in√∫meras buscas no banco */
 	private List<SelectItem> entityListBuffer = null;
 	private List<SelectItem> userListBuffer = null;
 	private List<SelectItem> userTransferListBuffer = null;
@@ -109,8 +109,8 @@ public class ListDocumentBean extends BeanSessionBasic
 		userTransferListBuffer.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(Todos)"));
 	}
 	
-	/** Indica que algum par‚metro foi alterado e que a lista
-	 * deve entao ser recarregada para refletir os novos par‚metros */ 
+	/** Indica que algum par√¢metro foi alterado e que a lista
+	 * deve entao ser recarregada para refletir os novos par√¢metros */ 
 	private void paramChanged(){
 		documents = null;
 	}
@@ -124,9 +124,9 @@ public class ListDocumentBean extends BeanSessionBasic
 			sd.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, ModelDocumentEntity.class);
 
 			String entityWhereClause = "";
-			/* Verifica a express„o de filtro por Entidade */
+			/* Verifica a express√£o de filtro por Entidade */
 			if(entityId == IDAO.ENTITY_UNSAVED){
-				// Nada È filtrado
+				// Nada √© filtrado
 			}else
 			if(entityId == APPLICATION_ENTITY_NULL){
 				entityWhereClause = "(" + ModelDocumentEntity.APPLICATION_ENTITY + " is null)";
@@ -136,9 +136,9 @@ public class ListDocumentBean extends BeanSessionBasic
 			}
 			
 			String userWhereClause = "";
-			/* Verifica a express„o de filtro por Operador */
+			/* Verifica a express√£o de filtro por Operador */
 			if(userId == IDAO.ENTITY_UNSAVED){
-				// Nada È filtrado
+				// Nada √© filtrado
 			}else
 			if(userId == APPLICATION_USER_NULL){
 				userWhereClause = "("+ModelDocumentEntity.APPLICATION_USER + " is null)";
@@ -146,7 +146,7 @@ public class ListDocumentBean extends BeanSessionBasic
 				userWhereClause = "("+ModelDocumentEntity.APPLICATION_USER + "=" + userId + ")";
 			}
 
-			/* Verfica se precisar· do operador AND entre as expressıes */
+			/* Verfica se precisar√° do operador AND entre as express√µes */
 			if(StringUtils.isNotEmpty(entityWhereClause)&& StringUtils.isNotEmpty(userWhereClause))
 				sd.getArgumentList().setProperty(QueryService.IN_QUERY_HQLWHERE, entityWhereClause + "and" + userWhereClause);
 			else
@@ -179,8 +179,8 @@ public class ListDocumentBean extends BeanSessionBasic
 	}
 
 	/** 
-	 * Permite salvar as lateraÁıes de operadores que podem
-	 * ser realizadas na lista do relatÛrio.
+	 * Permite salvar as latera√ß√µes de operadores que podem
+	 * ser realizadas na lista do relat√≥rio.
 	 */
 	public void doSave()
 	{
@@ -198,8 +198,8 @@ public class ListDocumentBean extends BeanSessionBasic
 	}
 	
 	/**
-	 * Sobreescreve o mÈtodo da classe para ao ser definido um operador
-	 * este ser usado como padr„o na seleÁ„o dos filtros
+	 * Sobreescreve o m√©todo da classe para ao ser definido um operador
+	 * este ser usado como padr√£o na sele√ß√£o dos filtros
 	 */
 	public void setUserSessionBean(UserSessionBean userSessionBean) {
 		super.setUserSessionBean(userSessionBean);

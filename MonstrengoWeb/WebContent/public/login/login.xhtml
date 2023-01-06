@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -6,8 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-	<title>Autenticação de Operador</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>AutenticaÃ§Ã£o de Operador</title>
 	<link href="styles.css" rel="stylesheet" type="text/css" />
 </h:head>
 
@@ -20,13 +20,13 @@
 			<table align="center" border="0" width="256" >
 				<tr valign="top" align="center">
 					<td colspan="3"><h:outputText
-							value="&lt;b&gt;Autenticação de operador&lt;/b&gt;"
+							value="&lt;b&gt;AutenticaÃ§Ã£o de operador&lt;/b&gt;"
 							escape="false" /></td>
 				</tr>
 				<tr valign="top" align="center">
 					<td colspan="3">
 					      <h:form id="form"
-							onsubmit="alert_('O Sistema se encontra em manutenção e está liberado somente para consultas. Não altere dados, pois as alterações serão descartadas quando o sistema voltar à produção.')">
+							onsubmit="alert_('O Sistema se encontra em manutenÃ§Ã£o e estÃ¡ liberado somente para consultas. NÃ£o altere dados, pois as alteraÃ§Ãµes serÃ£o descartadas quando o sistema voltar Ã  produÃ§Ã£o.')">
 							<p:focus context="form"/>
 							<h:panelGrid columns="3" cellpadding="5"
 								style="text-align:center">
@@ -46,11 +46,11 @@
 							</h:panelGrid>
 							<h:panelGroup rendered="#{userSessionBean.logged}">
 								<h:outputLabel
-									value="O login #{userSessionBean.userSession.userLogin} já está autenticado no sistema. " />
+									value="O login #{userSessionBean.userSession.userLogin} jÃ¡ estÃ¡ autenticado no sistema. " />
 								<h:commandLink action="#{userSessionBean.doLogoff}"
 									immediate="true" accesskey="s"
 									onmouseup="javascript:closeAllWindows()">
-									<h:outputText value="Fechar seção." />
+									<h:outputText value="Fechar seÃ§Ã£o." />
 								</h:commandLink>
 							</h:panelGroup>
 						<h:outputText styleClass="errorMessage"
@@ -61,9 +61,9 @@
 			</table>
 		</p:layoutUnit>
 		<p:layoutUnit position="south" >
-				Este sistema foi desenvolvido utilizando tecnologia de <a href="https://pt.wikipedia.org/wiki/C%C3%B3digo_aberto">código aberto</a>.<br/>
+				Este sistema foi desenvolvido utilizando tecnologia de <a href="https://pt.wikipedia.org/wiki/C%C3%B3digo_aberto">cÃ³digo aberto</a>.<br/>
 				<a href="http://code.google.com/p/monstrengo"
-					target="blank">Monstrengo</a> - Uma plataforma opensource para desenvolvimento de aplicações WEB.
+					target="blank">Monstrengo</a> - Uma plataforma opensource para desenvolvimento de aplicaÃ§Ãµes WEB.
 				<br />
 		</p:layoutUnit>
 	</p:layout>

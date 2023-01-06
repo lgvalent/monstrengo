@@ -26,17 +26,17 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 public class FacesUtils
 {
     
-    /** Define a view JSF que È ativada para uma mensagem de sucesso PADR√O */
+    /** Define a view JSF que √© ativada para uma mensagem de sucesso PADR√ÉO */
     public static final String FACES_VIEW_SUCCESS = "/public/basic/success";
 
-    /** Define a view JSF que È ativada para uma mensagem de erro PADR√O */
+    /** Define a view JSF que √© ativada para uma mensagem de erro PADR√ÉO */
     public static final String FACES_VIEW_FAILURE = "/public/basic/failure";
     
-    /** Define a view JSF que È ativada para abrir uma vis„o que fechar· a atual janela do browser */
+    /** Define a view JSF que √© ativada para abrir uma vis√£o que fechar√° a atual janela do browser */
     public static final String FACES_VIEW_CLOSE = "/public/basic/close?faces-redirect=true";
 
 	/**
-     * Este mÈtodo obtem a atual requisiÁ„o do Faces.
+     * Este m√©todo obtem a atual requisi√ß√£o do Faces.
      * @return
      */
     public static HttpServletRequest getRequest()
@@ -45,8 +45,8 @@ public class FacesUtils
     }
 
     /**
-     * Este mÈtodo obtem os par‚metros passados pela atual requisiÁ„o.
-     * Todos os par‚metros, inclusive os de controle do JSF estar„o neste Map.
+     * Este m√©todo obtem os par√¢metros passados pela atual requisi√ß√£o.
+     * Todos os par√¢metros, inclusive os de controle do JSF estar√£o neste Map.
      * o ParameterMap. 
      * @return
      */
@@ -57,7 +57,7 @@ public class FacesUtils
     }
     
     /**
-     * Este mÈtodo verifica se um determinado par‚metro foi passado para a requisiÁ„o.
+     * Este m√©todo verifica se um determinado par√¢metro foi passado para a requisi√ß√£o.
      * @return
      */
     public static boolean checkRequestParam(String paramName)
@@ -66,7 +66,7 @@ public class FacesUtils
     }
     
     /**
-     * Este mÈtodo obtem um par‚metro especÌfico pela atual requisiÁ„o.
+     * Este m√©todo obtem um par√¢metro espec√≠fico pela atual requisi√ß√£o.
      * @return
      */
     public static String getRequestParam(String paramName)
@@ -86,7 +86,7 @@ public class FacesUtils
     }
 
     /**
-     * Adiciona uma mensagem de saÌda para ser renderizada pelo Faces na p·gina.
+     * Adiciona uma mensagem de sa√≠da para ser renderizada pelo Faces na p√°gina.
      * @param msg
      */
     public static void addMsg(String msg)
@@ -96,7 +96,7 @@ public class FacesUtils
     }
     
     /**
-     * Adiciona uma mensagem de informaÁ„o saÌda para ser renderizada pelo Faces na p·gina.
+     * Adiciona uma mensagem de informa√ß√£o sa√≠da para ser renderizada pelo Faces na p√°gina.
      * @param msg
      */
     public static void addInfoMsg(String msg)
@@ -108,7 +108,7 @@ public class FacesUtils
     }
     
     /**
-     * Adiciona uma mensagem de informaÁ„o saÌda para ser renderizada pelo Faces na p·gina.
+     * Adiciona uma mensagem de informa√ß√£o sa√≠da para ser renderizada pelo Faces na p√°gina.
      * @param msg
      */
     public static void addErrorMsg(String msg)
@@ -119,7 +119,7 @@ public class FacesUtils
     }
     
     /**
-     * Adiciona uma mensagem de erro saÌda para ser renderizada pelo Faces na p·gina.
+     * Adiciona uma mensagem de erro sa√≠da para ser renderizada pelo Faces na p√°gina.
      * @param msg
      */
     public static void addErrorMsgs(MessageList errorList)
@@ -136,7 +136,7 @@ public class FacesUtils
     }
     
     /**
-     * Adiciona v·rias mensagens de informaÁıes para serem renderizadas pelo Faces na p·gina.
+     * Adiciona v√°rias mensagens de informa√ß√µes para serem renderizadas pelo Faces na p√°gina.
      * @param msg
      */
     public static void addInfoMsgs(MessageList errorList)
@@ -170,29 +170,29 @@ public class FacesUtils
     }
     
     /**
-     * Tenta obter o nome do host da atual requisiÁ„o.
+     * Tenta obter o nome do host da atual requisi√ß√£o.
      * Converte o IP do host em um vetor de Byte (com sinal).
-     * Depois usa a funÁ„o InetAddress.getByAddress(byte[]) para tentar
+     * Depois usa a fun√ß√£o InetAddress.getByAddress(byte[]) para tentar
      * traduzir o nome.
      * 
-     * @return O nome do host ou somente o endereÁo IP
+     * @return O nome do host ou somente o endere√ßo IP
      */
     public static String getRequestHostName() {
-    	/* Obtem o host que originou a requisiÁ„o. Ex: 10.0.0.1 */
+    	/* Obtem o host que originou a requisi√ß√£o. Ex: 10.0.0.1 */
     	String name = getRequest().getRemoteHost();
 
-    	/* Quebra o endereÁo do host em um conjunto de bytes */
+    	/* Quebra o endere√ßo do host em um conjunto de bytes */
     	try {
     		String[] add = StringUtils.split(name, ".");
     		byte[] addByte = new byte[]{new Integer(add[0]).byteValue(),
     				new Integer(add[1]).byteValue(),
     				new Integer(add[2]).byteValue(),
     				new Integer(add[3]).byteValue()};
-    		/* Tenta traduzir o endereÁo em nome do host. 
-    		 * Se o IneAddess n„o conseguir ele retorna o ip mesmo.*/
+    		/* Tenta traduzir o endere√ßo em nome do host. 
+    		 * Se o IneAddess n√£o conseguir ele retorna o ip mesmo.*/
     		return InetAddress.getByAddress(addByte).getHostName();
     	} catch (Exception e) {
-    		/* Se ocorrer uma exceÁ„o, o ip È retornado */
+    		/* Se ocorrer uma exce√ß√£o, o ip √© retornado */
     		return name;
     	}
     }

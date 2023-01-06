@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -10,7 +10,7 @@
 		<ui:param name="icon" value="../../public/basic/img/sqlQuery.png" />
 		<ui:param name="description" value="#{menuBean.processInfoMap.SqlQueryProcess.description}" />
 		<ui:define name="content">
-			Instrução SQL: 
+			InstruÃ§Ã£o SQL: 
 			<p:selectOneMenu id="history" value="#{sqlQueryBean.history}" converter="EntityConverter">
 				<p:ajax event="change" listener="#{sqlQueryBean.doChooseHistory}" update="sql"/>
 				<f:selectItem itemLabel="Selecione uma SQL anterior" itemValue=""/>
@@ -98,7 +98,7 @@
 							#{item[20]}
 						</p:column>
 						<p:column headerText="..." rendered="#{sqlQueryBean.currentProcess.columnsCount > 21}">
-							<h:outputText value="..." title="Não é possível exibir todas as colunas da consulta"/>
+							<h:outputText value="..." title="NÃ£o Ã© possÃ­vel exibir todas as colunas da consulta"/>
 						</p:column>
 					</p:dataTable>
 		</ui:define>

@@ -29,10 +29,10 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.IRunnableProcessView;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Bean que controla o operador que est· atualmente autenticado no sistema.
+ * Bean que controla o operador que est√° atualmente autenticado no sistema.
  * Os outros beans que precisam disparar processos e consequentemente identificar
- * o operador, precisam de uma referÍncia para este bean.
- * AlÈm disso, este bean fornece as rotinas de login e logoff do sistema.
+ * o operador, precisam de uma refer√™ncia para este bean.
+ * Al√©m disso, este bean fornece as rotinas de login e logoff do sistema.
  * 
  * @jsf.bean name="userSessionBean" scope="session"
  * @jsf.navigation from="*" result="login" to="/login/login.jsp"
@@ -69,7 +69,7 @@ public class UserSessionBean
 	private final Map<String, IBasicBean> views = new HashMap<String, IBasicBean>();
 	
 	public UserSessionBean(){
-        // Identificar o atual terminal do usu·rio
+        // Identificar o atual terminal do usu√°rio
         this.host = FacesUtils.getRequestHostName();
     }
     
@@ -80,7 +80,7 @@ public class UserSessionBean
 
         try
         {
-            // Criar um processo de autenticaÁ„o
+            // Criar um processo de autentica√ß√£o
             authProcess = (AuthenticateProcess)this.getApplicationBean().getProcessManager().createProcessByName(AuthenticateProcess.PROCESS_NAME, null);
             
             // Validar o login e password pelo processo
@@ -88,25 +88,25 @@ public class UserSessionBean
             authProcess.setPassword(this.password);
             authProcess.setTerminal(this.host);
             
-            /* Verifica se est· acontecendo uma autenticaÁ„o de uma
-             * credencial e n„o precisa utilizar a senha
+            /* Verifica se est√° acontecendo uma autentica√ß√£o de uma
+             * credencial e n√£o precisa utilizar a senha
              */
            	authProcess.setCheckPassword(!authenticatingCredential);
             
             if (authProcess.runAuthenticate())
             {
-                // Obter o UserSession validado e armazen·-lo
+                // Obter o UserSession validado e armazen√°-lo
                 this.userSession = authProcess.getUserSession();
 
-                // Define a sess„o do usu·rio como v·lida para o 
+                // Define a sess√£o do usu√°rio como v√°lida para o 
                 // filtro web
                 HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
                 request.getSession().setAttribute(AuthenticationFilter.AUTHENTICATED_SESSION_PARAM, "");
 
                 // Definir o fluxo de tela de SUCESSO
-                /* Lucio - 16/09/2007: Definindo a URL original antes da necessidade de autenticaÁ„o.
-                 * Se esta URL n„o estiver armazenada como um atributo da atual sess„o HTTP do usu·rio
-                 * ent„o redireciona para a vis„o faces MenuBean.FACES_VIEW_MENU.
+                /* Lucio - 16/09/2007: Definindo a URL original antes da necessidade de autentica√ß√£o.
+                 * Se esta URL n√£o estiver armazenada como um atributo da atual sess√£o HTTP do usu√°rio
+                 * ent√£o redireciona para a vis√£o faces MenuBean.FACES_VIEW_MENU.
                  */
                 Object localBeforeAuthenticateParam = request.getSession().getAttribute(AuthenticationFilter.LOCAL_BEFORE_AUTHENTICATE_PARAM);
                 if(localBeforeAuthenticateParam != null){
@@ -136,7 +136,7 @@ public class UserSessionBean
             // Adiciona as mensagens de erro no Faces
             FacesUtils.addErrorMsgs(e.getErrorList());
             
-            // Exibe o erro na mesma p·gina
+            // Exibe o erro na mesma p√°gina
             result = "";
         }
         finally
@@ -155,15 +155,15 @@ public class UserSessionBean
         return result;
     }
 
-    /* Este flag permite indicar ao mÈtodo doLogin() que
-     * a autenticaÁ„o atual È de uma credencial e ele n„o precisa
+    /* Este flag permite indicar ao m√©todo doLogin() que
+     * a autentica√ß√£o atual √© de uma credencial e ele n√£o precisa
      * verificar a SENHA */
     private boolean authenticatingCredential = false;
     public boolean doLogin(ApplicationUser user){
         boolean result = false;
     	try
         {
-            /* Ativa autenticaÁ„o de credencial sem a senha */
+            /* Ativa autentica√ß√£o de credencial sem a senha */
         	authenticatingCredential = true;
             
             // Validar o login e password pelo processo
@@ -176,7 +176,7 @@ public class UserSessionBean
         }
         finally
         {
-            /* Garante a desativaÁ„o da autenticaÁ„o de credencial sem a senha */
+            /* Garante a desativa√ß√£o da autentica√ß√£o de credencial sem a senha */
             authenticatingCredential = false;
         }
         
@@ -191,11 +191,11 @@ public class UserSessionBean
         this.login = "";
         this.password = "";
         
-        // Indica que a sess„o n„o est· v·lida
+        // Indica que a sess√£o n√£o est√° v√°lida
         // Finalizar a UserSession
         this.userSession = null;
         
-        // Invalida a sess„o corrente
+        // Invalida a sess√£o corrente
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         request.getSession().invalidate();
         
@@ -240,27 +240,27 @@ public class UserSessionBean
 	}
 
 	/**
-	 * Controla a lista de visıes que implementam a interface {@link IRunnableProcessView}.<br>
-	 * Esta lista È montada durante o mÈtodo {@link UserSessionBean.registerView()}. O mÈtodo
-	 * separa as visıes comuns das visıes 'Runnable'. Assim, È possÌvel obter esta lista para
-	 * verificar os processos manipulados pelas visıes e verificar o direito do atual operador
+	 * Controla a lista de vis√µes que implementam a interface {@link IRunnableProcessView}.<br>
+	 * Esta lista √© montada durante o m√©todo {@link UserSessionBean.registerView()}. O m√©todo
+	 * separa as vis√µes comuns das vis√µes 'Runnable'. Assim, √© poss√≠vel obter esta lista para
+	 * verificar os processos manipulados pelas vis√µes e verificar o direito do atual operador
 	 * sobre os processos.  
 	 * @return
-	 * @deprecated Deve ser usado o getRunnableEntityProcessViewByName, pois a manutenÁ„o da lista de visıes ainda est· indefinida
+	 * @deprecated Deve ser usado o getRunnableEntityProcessViewByName, pois a manuten√ß√£o da lista de vis√µes ainda est√° indefinida
 	 */
 	public Map<String, IRunnableProcessView> getRunnableEntityProcessViews() {return runnableEntityProcessViews;}
 	
 	/**
-	 * Este mÈtodo obtÈm a vis„o que controla o processo solicitado.
+	 * Este m√©todo obt√©m a vis√£o que controla o processo solicitado.
 	 * 
-	 * Converte o nome do processo no nome da vis„o correspondente.
-	 * Para isto, um padr„o de  correspondÍncia foi estabelecido:
+	 * Converte o nome do processo no nome da vis√£o correspondente.
+	 * Para isto, um padr√£o de  correspond√™ncia foi estabelecido:
 	 * MyPersonalProcess -> myPersonalBean
-	 * - A primeira letra do nome do processo min˙scula;
-	 * - O sufixo 'Process' È substituÌdo por 'Bean';
-	 * Uma vis„o no faces-config.xml com o nome correspondente
-	 * dever· estar devidamente configurada.
-	 * TODO APERFEI«OAMENTO O ideal È que todos os beans de vis„o tivesse o sufixo View e n„o Bean, pois Bean È muito usado no Hibernate e Jasper, para dados e n„o controladores de vis„o! Lucio 24/06/2008. 
+	 * - A primeira letra do nome do processo min√∫scula;
+	 * - O sufixo 'Process' √© substitu√≠do por 'Bean';
+	 * Uma vis√£o no faces-config.xml com o nome correspondente
+	 * dever√° estar devidamente configurada.
+	 * TODO APERFEI√áOAMENTO O ideal √© que todos os beans de vis√£o tivesse o sufixo View e n√£o Bean, pois Bean √© muito usado no Hibernate e Jasper, para dados e n√£o controladores de vis√£o! Lucio 24/06/2008. 
 	 * @return
 	 */
 	public IRunnableProcessView getRunnableEntityProcessViewByProcessName(String processName) {
@@ -278,12 +278,12 @@ public class UserSessionBean
 	}
 	
 	/**
-	 * Este mÈtodo obtÈm o objeto da vis„o pelo nome da mesma.
+	 * Este m√©todo obt√©m o objeto da vis√£o pelo nome da mesma.
 	 * @return
 	 */
 	public IRunnableProcessView getRunnableEntityProcessViewByName(String viewName) {
 		FacesContext context = FacesContext.getCurrentInstance();
-		/* Lucio 2011-11-29: Usando o novo mÈtodo ELContext, pois ValueBinding foi deprecado */
+		/* Lucio 2011-11-29: Usando o novo m√©todo ELContext, pois ValueBinding foi deprecado */
 		
 //		ValueExpression value = ExpressionFactory.newInstance().createValueExpression(context.getELContext(), "#{" + viewName+ "}", IRunnableProcessView.class);
 //		return (IRunnableProcessView) value.getValue(context.getELContext());
@@ -292,17 +292,17 @@ public class UserSessionBean
 	}
 	/**
 	 *	 
-	 * deprecated metodo depreciado, pois a manutenÁ„o da lista de visıes ainda est· indefinida
+	 * deprecated metodo depreciado, pois a manuten√ß√£o da lista de vis√µes ainda est√° indefinida
 	 */
 	public Map<String, IBasicBean> getViews() {return views;}
 
 	/**
 	 *	 
-	 * deprecated metodo depreciado, pois a manutenÁ„o da lista de visıes ainda est· indefinida
+	 * deprecated metodo depreciado, pois a manuten√ß√£o da lista de vis√µes ainda est√° indefinida
 	 */
 	public void registerView(IBasicBean view) throws BusinessException{
 		if(log.isDebugEnabled())
-			log.debug("Registrando vis„o: " + view.getViewName() + "(" + view.getClass().getName() + ")");
+			log.debug("Registrando vis√£o: " + view.getViewName() + "(" + view.getClass().getName() + ")");
 	
 		final String viewName = view.getViewName();
 		
@@ -311,38 +311,38 @@ public class UserSessionBean
 	        throw new BusinessException(MessageList.create(ApplicationBean.class, "DUPLICATED_VIEW", viewName, view.getClass().getName(), views.get(viewName).getClass().getName()));
 	    }
 	    
-		/* Verifica se a vis„o n„o implementa o recurso de identificador de vis„o ainda */
+		/* Verifica se a vis√£o n√£o implementa o recurso de identificador de vis√£o ainda */
 	    if(!view.getViewName().equals(BasicBean.VIEW_NAME_NOT_IMPLEMENTED))
 	    	views.put(view.getViewName(), view);
 	    
-		/* Verifica se a vis„o È IRunnableProcess para registra-la separadamente
+		/* Verifica se a vis√£o √© IRunnableProcess para registra-la separadamente
 		 * pelo nome do processo que ela manipula. Em caso de duplicidade 
-		 * SOMENTE um warning ser· disparado e a ˙ltima vis„o registrada ser·
+		 * SOMENTE um warning ser√° disparado e a √∫ltima vis√£o registrada ser√°
 		 * utilizada */
 	    if(view instanceof IRunnableProcessView){
 	    	IRunnableProcessView runnableView = (IRunnableProcessView) view;
 	    	
 	    	if(log.isDebugEnabled())
-	    		log.debug("A vis„o: " + view.getViewName() + "(" + view.getClass().getName() + ") foi identifica como uma vis„o IRunnableProcessView e ser· registrada para execuÁ„o do processo " + runnableView.getRunnableEntityProcessName());
+	    		log.debug("A vis√£o: " + view.getViewName() + "(" + view.getClass().getName() + ") foi identifica como uma vis√£o IRunnableProcessView e ser√° registrada para execu√ß√£o do processo " + runnableView.getRunnableEntityProcessName());
 	    	
-	    	/* Verifica se j· tem uma vis„o controladora deste processo para emitir um WARNING */
+	    	/* Verifica se j√° tem uma vis√£o controladora deste processo para emitir um WARNING */
 	    	if(runnableEntityProcessViews.containsKey(runnableView.getRunnableEntityProcessName())){
 	    		if(log.isInfoEnabled())
-	        		log.info("A vis„o: " + view.getViewName() + "(" + view.getClass().getName() + ") que manipula  o processo " + runnableView.getRunnableEntityProcessName() + " ser· registrada sobre a classe " + runnableEntityProcessViews.get(runnableView.getRunnableEntityProcessName()).getClass().getName() + " que foi registrada anteriormente para o mesmo processo.");
+	        		log.info("A vis√£o: " + view.getViewName() + "(" + view.getClass().getName() + ") que manipula  o processo " + runnableView.getRunnableEntityProcessName() + " ser√° registrada sobre a classe " + runnableEntityProcessViews.get(runnableView.getRunnableEntityProcessName()).getClass().getName() + " que foi registrada anteriormente para o mesmo processo.");
 	    	}
 	    	
-	    	/* Registra a vis„o para o processo que ela controla */
+	    	/* Registra a vis√£o para o processo que ela controla */
 	    	runnableEntityProcessViews.put(runnableView.getRunnableEntityProcessName(), runnableView);
 	    }
 	    
 	}
 	/**
 	 *		 
-	 * deprecated metodo depreciado, pois a manutenÁ„o da lista de visıes ainda est· indefinida
+	 * deprecated metodo depreciado, pois a manuten√ß√£o da lista de vis√µes ainda est√° indefinida
 	 */
 	public void unregisterView(IBasicBean view) throws BusinessException{
 		if(log.isDebugEnabled())
-			log.debug("Desregistrando vis„o: " + view.getViewName() + "(" + view.getClass().getName() + ")");
+			log.debug("Desregistrando vis√£o: " + view.getViewName() + "(" + view.getClass().getName() + ")");
 	
 		final String viewName = view.getViewName(); 
 	    if (!views.containsKey(viewName))

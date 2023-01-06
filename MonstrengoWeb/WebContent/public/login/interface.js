@@ -292,7 +292,7 @@ function GridCreator2(){
 	}
 }
 
-/* Procura dentro dos formulários o primeiro elementos
+/* Procura dentro dos formulÃ¡rios o primeiro elementos
 que pode receber foco. Fonte: http://javascript.internet.com/forms/form-focus.html */
 function placeFocus() {
   if (document.forms.length > 0) {

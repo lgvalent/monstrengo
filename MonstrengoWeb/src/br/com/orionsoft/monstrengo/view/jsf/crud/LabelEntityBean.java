@@ -19,8 +19,8 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Est· classe È o controlador da vis„o de geraÁ„o de etiquetas 
- * para uma entidade especÌfica ou uma lista de entidades
+ * Est√° classe √© o controlador da vis√£o de gera√ß√£o de etiquetas 
+ * para uma entidade espec√≠fica ou uma lista de entidades
  * usando um modelo.
  * 
  * @author Lucio 20061005
@@ -33,7 +33,7 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 @SessionScoped
 public class LabelEntityBean extends CrudBasicBean
 {
-    /** Define a view JSF que È ativada para a vis„o RETRIEVE */
+    /** Define a view JSF que √© ativada para a vis√£o RETRIEVE */
 	public static final String FACES_VIEW_LABELS = "/pages/basic/labelView?faces-redirect=true";
     
     private long modelLabelEntityId = IDAO.ENTITY_UNSAVED;
@@ -46,7 +46,7 @@ public class LabelEntityBean extends CrudBasicBean
 	public void setAddressLabelGroupId(long addressLabelGroupId) {this.addressLabelGroupId = addressLabelGroupId;}
 
 	/**
-     * Action que prepara a visualizaÁ„o
+     * Action que prepara a visualiza√ß√£o
      * e controla o fluxo de tela. 
      * @return
      */
@@ -55,7 +55,7 @@ public class LabelEntityBean extends CrudBasicBean
         log.debug("::Iniciando actionView");
         
         try{
-        	// Prepara os par‚metros fornecidos
+        	// Prepara os par√¢metros fornecidos
             this.doReset();
             
         	IEntity<?> entity = UtilsCrud.retrieve(this.getApplicationBean().getProcessManager().getServiceManager(), Class.forName(entityClassName), entityId, null);
@@ -63,8 +63,8 @@ public class LabelEntityBean extends CrudBasicBean
             CreateLabelFromEntityProcess process = (CreateLabelFromEntityProcess) this.getApplicationBean().getProcessManager().createProcessByName(CreateLabelFromEntityProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
             
             process.setEntity(entity);
-            process.setModelLabelEntityId(modelId); // Injetados diretamente no BEAN pela vis„o usu·ria
-            process.setAddressLabelGroupId(this.addressLabelGroupId); // Injetados diretamente no BEAN pela vis„o usu·ria
+            process.setModelLabelEntityId(modelId); // Injetados diretamente no BEAN pela vis√£o usu√°ria
+            process.setAddressLabelGroupId(this.addressLabelGroupId); // Injetados diretamente no BEAN pela vis√£o usu√°ria
             
             if(process.runCreate()){
 
@@ -79,12 +79,12 @@ public class LabelEntityBean extends CrudBasicBean
             
         }catch(ProcessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* VisualizaÁ„o REJEITADA */
+        	/* Visualiza√ß√£o REJEITADA */
         }
     }
 	
 	/**
-     * Action que prepara a visualizaÁ„o
+     * Action que prepara a visualiza√ß√£o
      * e controla o fluxo de tela. 
      * @return
      */
@@ -93,7 +93,7 @@ public class LabelEntityBean extends CrudBasicBean
     }
 	
 	/**
-     * Este mÈtodo È respons·vel por compor a chave de criaÁ„o da entidade usando
+     * Este m√©todo √© respons√°vel por compor a chave de cria√ß√£o da entidade usando
      * o tipo da entidade e o id da entidade. 
      * @return Retorna uma chave com entityType+entityId.
      */
@@ -106,7 +106,7 @@ public class LabelEntityBean extends CrudBasicBean
 	/**
 	 *  Cria uma lista com os modelos de etiquetas de entidades disponivel
 	 *  para a entidade atualmente manipulada.
-	 *  O tipo da entidade j· deve estar definido para executar este mÈtodo, para que ele mostra somente os modelos 
+	 *  O tipo da entidade j√° deve estar definido para executar este m√©todo, para que ele mostra somente os modelos 
 	 *  da entidade selecionada
 	 */
 	private List<SelectItem> modelsLabelEntityBuffer = null;
@@ -129,15 +129,15 @@ public class LabelEntityBean extends CrudBasicBean
     }
 
 	/**
-	 *  Cria uma lista com os grupos de etiquetas disponÌveis
+	 *  Cria uma lista com os grupos de etiquetas dispon√≠veis
 	 */
 	private List<SelectItem> addressLabelGroupBuffer = null;
 	public List<SelectItem> getAddressLabelGroupList(){
 		try{
 			if(addressLabelGroupBuffer == null){
 				addressLabelGroupBuffer = this.getApplicationBean().getProcessManager().getServiceManager().getEntityManager().getEntitySelectItems(AddressLabelGroup.class, "");
-		    	/* Adiciona a primeira opÁ„o para mostar todas as etiquetas */
-				addressLabelGroupBuffer.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(N„o definido)"));
+		    	/* Adiciona a primeira op√ß√£o para mostar todas as etiquetas */
+				addressLabelGroupBuffer.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(N√£o definido)"));
 			}
 			
 			return addressLabelGroupBuffer;

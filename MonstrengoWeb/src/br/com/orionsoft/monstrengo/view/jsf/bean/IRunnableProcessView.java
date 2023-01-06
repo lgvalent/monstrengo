@@ -6,13 +6,13 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 
 
 /**
- * Esta interface define os mÈtodos necess·rios para que o gerenciador 
- * de sess„o do usu·rio (UserSessionBean) controle todas as visıes que possam ser acionadas
+ * Esta interface define os m√©todos necess√°rios para que o gerenciador 
+ * de sess√£o do usu√°rio (UserSessionBean) controle todas as vis√µes que possam ser acionadas
  * para disparar um determinado processo.<br>
- * Esta interface surgiu da necessidade de uma vis„o (tela) disparar outra vis„o
- * baseada no processo que a vis„o manipula.<br>
- * No entanto, um processo n„o possui referÍncia sobre qual tela ele deve acionar, pois 
- * isto È responsabilidade da camada de vis„o, e o processo se encontra numa 
+ * Esta interface surgiu da necessidade de uma vis√£o (tela) disparar outra vis√£o
+ * baseada no processo que a vis√£o manipula.<br>
+ * No entanto, um processo n√£o possui refer√™ncia sobre qual tela ele deve acionar, pois 
+ * isto √© responsabilidade da camada de vis√£o, e o processo se encontra numa 
  * camada inferior.
  * 
  * @author Lucio
@@ -21,30 +21,30 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
  */
 public interface IRunnableProcessView extends IBasicBean
 {
-	/** Fornece no nome do processo que a atual vis„o utiliza para ser executada.
+	/** Fornece no nome do processo que a atual vis√£o utiliza para ser executada.
 	 * O UserSessionBean vai manter uma mapa com o nome dos processos apontando 
-	 * para um controlador de vis„o (Bean). Assim, ser· possÌvel ‡ uma vis„o disparar
-	 * outra vis„o, baseando-se no nome do processo que se deseja disparar.<br>
+	 * para um controlador de vis√£o (Bean). Assim, ser√° poss√≠vel √† uma vis√£o disparar
+	 * outra vis√£o, baseando-se no nome do processo que se deseja disparar.<br>
 	 */
 	public abstract String getRunnableEntityProcessName();
 
 	/**
-     * Este mÈtodo possibilita que a vis„o seja invocada com base 
-     * nos dados de uma determinada inst‚ncia de uma entidade.<br>
-     * A entidade fornecida pode n„o ser compatÌvel. PorÈm isto ser· alertado
-     * quando o mÈtodo {@link IRunnableEntityProcess.runWithEntity(IEntity)} for invocado. 
+     * Este m√©todo possibilita que a vis√£o seja invocada com base 
+     * nos dados de uma determinada inst√¢ncia de uma entidade.<br>
+     * A entidade fornecida pode n√£o ser compat√≠vel. Por√©m isto ser√° alertado
+     * quando o m√©todo {@link IRunnableEntityProcess.runWithEntity(IEntity)} for invocado. 
      * 
-     * @return Retorna o identificador da prÛxima vis„o que ser· desviada 
+     * @return Retorna o identificador da pr√≥xima vis√£o que ser√° desviada 
      */
 	public String runWithEntity(IEntity<?> entity);
 
 	/**
-     * Este mÈtodo possibilita que a vis„o seja invocada com base 
-     * nos dados de uma coleÁ„o de inst‚ncias de uma entidade.<br>
-     * A entidade fornecida pode n„o ser compatÌvel. PorÈm isto ser· alertado
-     * quando o mÈtodo {@link IRunnableEntityProcess.runWithEntity(IEntity)} for invocado. 
+     * Este m√©todo possibilita que a vis√£o seja invocada com base 
+     * nos dados de uma cole√ß√£o de inst√¢ncias de uma entidade.<br>
+     * A entidade fornecida pode n√£o ser compat√≠vel. Por√©m isto ser√° alertado
+     * quando o m√©todo {@link IRunnableEntityProcess.runWithEntity(IEntity)} for invocado. 
      * 
-     * @return Retorna o identificador da prÛxima vis„o que ser· desviada 
+     * @return Retorna o identificador da pr√≥xima vis√£o que ser√° desviada 
      */
 	public String runWithEntities(IEntityCollection<?> entities);
 }

@@ -323,7 +323,7 @@ function placeFocus() {
     	       // Somente inputs tem .select()
     	       if((field.type == "text") || (field.type == "textarea"))
 	    	       field.select();
-        	   // interrompe a funçao no primeiro componente encontrado
+        	   // interrompe a funÃ§ao no primeiro componente encontrado
         	   return;
         	}
           }
@@ -334,13 +334,13 @@ function placeFocus() {
 }
 
 /* 
-Procura dentro dos formulários o ÚLTIMO elemento que pode receber foco. 
+Procura dentro dos formulÃ¡rios o ÃšLTIMO elemento que pode receber foco. 
 Fonte: http://javascript.internet.com/forms/form-focus.html 
-Criado por Andre para manter o último campo texto como foco nos wizards do projeto ProcessoSeletivo
+Criado por Andre para manter o Ãºltimo campo texto como foco nos wizards do projeto ProcessoSeletivo
 */
 function placeLastFocus() {
-  /* Verifica se o browser suporta e se a página já foi rolada pelo usuário
-    para não tirar a página donde ele posicionou */
+  /* Verifica se o browser suporta e se a pÃ¡gina jÃ¡ foi rolada pelo usuÃ¡rio
+    para nÃ£o tirar a pÃ¡gina donde ele posicionou */
   if(window.pageYOffset != null && window.pageYOffset == 0){
     if (document.forms.length > 0) {
 	  for (f = document.forms.length-1; f >= 0; f--) {

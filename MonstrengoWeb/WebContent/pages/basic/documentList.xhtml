@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -8,13 +8,13 @@
 <ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 	<ui:param name="icon" value="../../public/basic/img/document.png" />
 	<ui:param name="title" value="Lista de Modelos de Documentos" />
-	<ui:param name="description" value="Os modelos de documentos são usados para gerar documentos preenchidos a partir das telas de cadastros.&lt;br/&gt;Existem modelos que dependem de uma entidade fornecedora para ser impresso e outros que podem ser diretamente impressos a partir daqui.&lt;br/&gt;Pré-visualize, altere, exclua ou imprima um modelo listado. Você também pode transferir modelos para outros usuários." />
+	<ui:param name="description" value="Os modelos de documentos sÃ£o usados para gerar documentos preenchidos a partir das telas de cadastros.&lt;br/&gt;Existem modelos que dependem de uma entidade fornecedora para ser impresso e outros que podem ser diretamente impressos a partir daqui.&lt;br/&gt;PrÃ©-visualize, altere, exclua ou imprima um modelo listado. VocÃª tambÃ©m pode transferir modelos para outros usuÃ¡rios." />
 	<ui:param name="hasFileUpload" value="false" />
 	<ui:define name="content">
 		<h:outputLabel value="Filtro:" style="color: #0000FF;"/>
 
 		<h:panelGrid columns="2">
-			<h:outputLabel value="Por usuário:"/>
+			<h:outputLabel value="Por usuÃ¡rio:"/>
 			<h:selectOneMenu id="userId" value="#{listDocumentBean.userId}" onchange="this.form.submit()">
 				<f:selectItems value="#{listDocumentBean.userList}"/>
 			</h:selectOneMenu>
@@ -54,15 +54,15 @@
 				<h:outputLink onclick="javascript:linkUpdatePopup('#{menuBean.infoMap.ModelDocumentEntity.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canUpdate}">
 					<h:graphicImage value="../../public/basic/img/update.png" title="Altera os dados do registro" style="border:0"/>
 				</h:outputLink>
-				<h:graphicImage value="../../public/basic/img/update_d.png" title="Você não possui direitos para alterar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canUpdate}"/>
+				<h:graphicImage value="../../public/basic/img/update_d.png" title="VocÃª nÃ£o possui direitos para alterar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canUpdate}"/>
 
 				<h:outputLink value="javascript:linkDeletePopup('#{item.info.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canDelete}">
 					<h:graphicImage value="../../public/basic/img/delete.png" title="Apaga o registro" style="border:0"/>
 				</h:outputLink>
-				<h:graphicImage value="../../public/basic/img/delete_d.png" title="Você não possui direitos para apagar o registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canDelete}"/>
+				<h:graphicImage value="../../public/basic/img/delete_d.png" title="VocÃª nÃ£o possui direitos para apagar o registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canDelete}"/>
 	
 				<h:commandLink action="#{documentEntityBean.actionCompile}" rendered="#{item.propertiesMap.applicationEntity.value.valueNull and menuBean.processMap.CompileDocumentProcess}" >
-					<h:graphicImage value="../../public/basic/img/run_task.png" style="border:0" width="16" height="16" title="Gera o documento que não precisa de entidade"/>
+					<h:graphicImage value="../../public/basic/img/run_task.png" style="border:0" width="16" height="16" title="Gera o documento que nÃ£o precisa de entidade"/>
 					<h:outputText value="#{item}" title="#{item.propertiesMap.description.value.asString}"/>
 			    	<f:param name="documentId" value="#{item.id}"/>
 				</h:commandLink>
@@ -87,7 +87,7 @@
 		</h:column>
 		<h:column>
 			<f:facet name="header">
-            	<h:outputText value="Data de criação"/>
+            	<h:outputText value="Data de criaÃ§Ã£o"/>
             </f:facet>
 			<h:outputText value="#{item.propertiesMap.date.value.asString}"/>
 		</h:column>

@@ -17,9 +17,9 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 
 /**
- * Bean que controla a p·gina de criaÁ„o de uma entidade Crud.
- * Par‚metro de URL necess·rio: <br>
- * entityType: nome completo da classe da entidade que ser· criada uma nova inst‚ncia.
+ * Bean que controla a p√°gina de cria√ß√£o de uma entidade Crud.
+ * Par√¢metro de URL necess√°rio: <br>
+ * entityType: nome completo da classe da entidade que ser√° criada uma nova inst√¢ncia.
  * 
  * @author Juliana e Tatiana
  * @version 20060203
@@ -33,7 +33,7 @@ public class CreateBean extends CrudBasicBean
 {
 	private static final long serialVersionUID = 1L;
 
-	/** Define a view JSF que È ativada para a vis„o CREATE */
+	/** Define a view JSF que √© ativada para a vis√£o CREATE */
 	public static final String FACES_VIEW_CREATE = "/pages/basic/create?faces-redirect=true";
 
 	public static final String URL_PARAM_COLL_PROPERTY = "collProperty";
@@ -42,8 +42,8 @@ public class CreateBean extends CrudBasicBean
     public static final String URL_PARAM_SELECT_ONE_DEST = "selectOneDest";
     public static final String URL_PARAM_SELECT_PROPERTY = "selectProperty";
     
-    /** Se for fornecido algum filtro, o valor ser· inserido na primeira propriedade 
-     * String da entidade que est· sendo criada */
+    /** Se for fornecido algum filtro, o valor ser√° inserido na primeira propriedade 
+     * String da entidade que est√° sendo criada */
     public static final String URL_PARAM_FILTER = "filter";
 
     private String collProperty;
@@ -53,14 +53,14 @@ public class CreateBean extends CrudBasicBean
     private RetrieveBean retrieveBean;
 
     /**
-     * Action que prepara a visualizaÁ„o
+     * Action que prepara a visualiza√ß√£o
      * e controla o fluxo de tela. 
      * @return
      */
     public String actionCreate() throws Exception
     {
         log.debug("::Iniciando actionCreate");
-    	// Prepara os par‚metros fornecidos
+    	// Prepara os par√¢metros fornecidos
         super.loadEntityParams();
         
         try{
@@ -68,7 +68,7 @@ public class CreateBean extends CrudBasicBean
             log.debug("::Preparando a entidade corrente");
             prepareCurrentEntity(prepareCurrentEntityKey());
             
-            /* Verifica se tem algum par‚metro no filtro para 
+            /* Verifica se tem algum par√¢metro no filtro para 
              * coloca-lo na primeira propriedade string da entidade */
             if(isHasFilter()){
             	for(IProperty prop: this.getCurrentEntity().getProperties()){
@@ -81,7 +81,7 @@ public class CreateBean extends CrudBasicBean
             
         }catch(ProcessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* EdiÁ„o REJEITADA */
+        	/* Edi√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a create
@@ -90,9 +90,9 @@ public class CreateBean extends CrudBasicBean
     }
     
     /**
-     * Action que prepara a visualizaÁ„o baseada
-	 * nos par‚metros passados.
-	 * Este mÈtodo È usado pelos outros beans quando desejam 
+     * Action que prepara a visualiza√ß√£o baseada
+	 * nos par√¢metros passados.
+	 * Este m√©todo √© usado pelos outros beans quando desejam 
 	 * exibir uma entidade no browser
      * e controla o fluxo de tela. 
      * @return
@@ -102,7 +102,7 @@ public class CreateBean extends CrudBasicBean
 	{
         log.debug("::Iniciando actionCreate");
         
-  		/* Passa os par‚metros para o controlador de entidade da visao */
+  		/* Passa os par√¢metros para o controlador de entidade da visao */
    		this.getEntityParam().getParentParam().setTypeName(null);
    		this.getEntityParam().setTypeName(typeName);
    		this.getEntityParam().setId(id);
@@ -112,7 +112,7 @@ public class CreateBean extends CrudBasicBean
             log.debug("::Preparando a entidade corrente");
             prepareCurrentEntity(prepareCurrentEntityKey());
             
-            /* Verifica se tem algum par‚metro no filtro para 
+            /* Verifica se tem algum par√¢metro no filtro para 
              * coloca-lo na primeira propriedade string da entidade */
             if(isHasFilter()){
             	for(IProperty prop: this.getCurrentEntity().getProperties()){
@@ -125,7 +125,7 @@ public class CreateBean extends CrudBasicBean
             
         }catch(ProcessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* EdiÁ„o REJEITADA */
+        	/* Edi√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a create
@@ -140,21 +140,21 @@ public class CreateBean extends CrudBasicBean
 	public String actionUpdate() throws Exception{
     
         log.debug("::Iniciando actionUpdate");
-        log.debug("Gravando alteraÁıes pelo processo:" + currentEntityKey);
+        log.debug("Gravando altera√ß√µes pelo processo:" + currentEntityKey);
     	CreateProcess proc = (CreateProcess) processes.get(currentEntityKey); 
 
-    	/* Esta acontecendo que quando ocorre algum erro de validaÁ„o durante
-    	 * a fase de ediÁ„o, quando o operador corrige os erros e submete novamente
+    	/* Esta acontecendo que quando ocorre algum erro de valida√ß√£o durante
+    	 * a fase de edi√ß√£o, quando o operador corrige os erros e submete novamente
     	 * o faces faz tudo certinho, mas quando vai renderizar a next view,
-    	 * ele volta pra aÁ„o que n„o foi completada antes da validaÁ„o (actionUpdate)
-    	 * porem, a actionUpdate j· foi completada com sucesso e n„o h· mais este processo.
+    	 * ele volta pra a√ß√£o que n√£o foi completada antes da valida√ß√£o (actionUpdate)
+    	 * porem, a actionUpdate j√° foi completada com sucesso e n√£o h√° mais este processo.
     	 * Pra contornar este problema, estou enviando diretamente pra RETRIEVE */
     	if(proc == null){
     		/* Processo null e chamada ocorrida por link, indica que o operador
-    		 * cancelou a ˙ltima ediÁ„o apÛs alguns erros de validaÁ„o e agora o faces,
-    		 * ao renderizar novamente a vis„o, tenta executar o actionUpdate onde parou,
-    		 * mas n„o houve prepareCurrentyEntity. Ent„o, o fluxo È desviado para o 
-    		 * inÌcio de um novo processo de criaÁ„o */
+    		 * cancelou a √∫ltima edi√ß√£o ap√≥s alguns erros de valida√ß√£o e agora o faces,
+    		 * ao renderizar novamente a vis√£o, tenta executar o actionUpdate onde parou,
+    		 * mas n√£o houve prepareCurrentyEntity. Ent√£o, o fluxo √© desviado para o 
+    		 * in√≠cio de um novo processo de cria√ß√£o */
     		if(checkLinkRequest())
     			return actionCreate();
 
@@ -165,10 +165,10 @@ public class CreateBean extends CrudBasicBean
     		/* Exibe a mensagem de sucesso */
     		FacesUtils.addInfoMsgs(proc.getMessageList());
 
-    		log.debug("Recarregando a nova entidade para ser mostrada na vis„o RETRIEVE");
+    		log.debug("Recarregando a nova entidade para ser mostrada na vis√£o RETRIEVE");
     		String nextView = retrieveBean.actionView(proc.getEntityType().getName(), proc.retrieveEntity().getId());
     		
-    		log.debug("Repassando os par‚metros sobre seleÁ„o de uma entidade");
+    		log.debug("Repassando os par√¢metros sobre sele√ß√£o de uma entidade");
     		retrieveBean.currentParams.put(RetrieveBean.URL_PARAM_SELECT_ONE_DEST, this.currentParams.get(URL_PARAM_SELECT_ONE_DEST));
     		retrieveBean.currentParams.put(RetrieveBean.URL_PARAM_SELECT_PROPERTY, this.currentParams.get(URL_PARAM_SELECT_PROPERTY));
     		
@@ -179,20 +179,20 @@ public class CreateBean extends CrudBasicBean
     		currentEntity = null;
     		currentEntityKey = "";
     		
-    		log.debug("::Fim actionSave(). Redirecionando para a vis„o VIEW.");
+    		log.debug("::Fim actionSave(). Redirecionando para a vis√£o VIEW.");
         	return nextView;
     	}else{
-    		log.debug("::Fim actionSave(). Houveram erros, voltando para a vis„o CREATE.");
+    		log.debug("::Fim actionSave(). Houveram erros, voltando para a vis√£o CREATE.");
     		FacesUtils.addErrorMsgs(proc.getMessageList());
     		return "";
     	}
     }
     
 	/**
-     * Este mÈtodo prepara a entidade correntemente em criaÁ„o, 
+     * Este m√©todo prepara a entidade correntemente em cria√ß√£o, 
      * baseando-se na chave passada.<br>
-     * O mapa de processos ativos È consultado e n„o for encontrado o processo,
-     * um novo processo È criado.  
+     * O mapa de processos ativos √© consultado e n√£o for encontrado o processo,
+     * um novo processo √© criado.  
      * @return Retorna uma chave com entityType+entityId.
 	 * @throws BusinessException 
      */
@@ -202,27 +202,27 @@ public class CreateBean extends CrudBasicBean
         super.prepareCurrentEntity(currentEntityKey);
         
         if(processes.containsKey(currentEntityKey)){
-        	log.debug("Utilizando o processo j· ativo");
+        	log.debug("Utilizando o processo j√° ativo");
         	currentEntity = ((CreateProcess) processes.get(currentEntityKey)).retrieveEntity();
     	}else{
-        	log.debug("Iniciando um novo processo de CriaÁ„o");
+        	log.debug("Iniciando um novo processo de Cria√ß√£o");
         	CreateProcess createProcess = (CreateProcess)this.getApplicationBean().getProcessManager().createProcessByName(CreateProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
             try{
-                /* Preenche os par‚metros */
+                /* Preenche os par√¢metros */
             	createProcess.setEntityType(Class.forName(this.getEntityParam().getTypeName()));
-            	/* Preenche o id da entidade que ser· copiada. Este id È opcional e pode ser enviado
+            	/* Preenche o id da entidade que ser√° copiada. Este id √© opcional e pode ser enviado
             	 * pelo link ou f:param que requisitou a tela */
             	createProcess.setEntityCopyId(this.getEntityParam().getId());
                 
-            	/* Obtem a entidade de criaÁ„o , a tentativa causar· um throw
-                 * e o processo responder· com a mensage de CREATE_DENIED
+            	/* Obtem a entidade de cria√ß√£o , a tentativa causar√° um throw
+                 * e o processo responder√° com a mensage de CREATE_DENIED
                  */
             	currentEntity = createProcess.retrieveEntity();
-            	/* Coloca o processo de criaÁ„o na lista de processos ativos */
+            	/* Coloca o processo de cria√ß√£o na lista de processos ativos */
             	processes.put(this.currentEntityKey, createProcess);
 	        	log.debug("Novo processo criado com sucesso");
             }catch(BusinessException e){
-	        	log.debug("Finalizando o processo pela ocorrÍncia de erro:" + e.getMessage());
+	        	log.debug("Finalizando o processo pela ocorr√™ncia de erro:" + e.getMessage());
             	createProcess.finish();
             	createProcess = null;
             	/* Passa o erro pra frente */
@@ -231,7 +231,7 @@ public class CreateBean extends CrudBasicBean
             
     	}
 
-		/* Sempre verifica se recebeu par‚metros de seleÁ„o */
+		/* Sempre verifica se recebeu par√¢metros de sele√ß√£o */
         loadSelectParams();
         
     }
@@ -263,8 +263,8 @@ public class CreateBean extends CrudBasicBean
 	
 
 	/**
-     * ReferÍncia para o bean de visualizaÁ„o de uma entidade para que apÛs a
-     * alteraÁ„o ser confirmada, a vis„o de retrieve seja exibida
+     * Refer√™ncia para o bean de visualiza√ß√£o de uma entidade para que ap√≥s a
+     * altera√ß√£o ser confirmada, a vis√£o de retrieve seja exibida
      * 
      * @jsf.managed-property value="retrieveBean"
      */
@@ -273,14 +273,14 @@ public class CreateBean extends CrudBasicBean
 
 	
 	/**
-	 * Como a chave de inserÁ„o È composta somente pelo nome da classe,
-	 * o sistema n„o permitia abrir duas telas diferentes de criaÁ„o 
-	 * de uma mesma entidade, pois a chave È sempre a mesma. Foi necess·rio ent„o
-	 * criar uma chave para cada aÁ„o de inserÁ„o. 
+	 * Como a chave de inser√ß√£o √© composta somente pelo nome da classe,
+	 * o sistema n√£o permitia abrir duas telas diferentes de cria√ß√£o 
+	 * de uma mesma entidade, pois a chave √© sempre a mesma. Foi necess√°rio ent√£o
+	 * criar uma chave para cada a√ß√£o de inser√ß√£o. 
 	 */
 	private static int insertCount = 0;
 	/**
-     * Este mÈtodo È respons·vel por compor a chave de criaÁ„o da entidade usando
+     * Este m√©todo √© respons√°vel por compor a chave de cria√ß√£o da entidade usando
      * o tipo da entidade. 
      * @return Retorna uma chave com entityType.
      */
@@ -289,11 +289,11 @@ public class CreateBean extends CrudBasicBean
     	return this.getEntityParam().getTypeName() + insertCount++;
 	}
 	/**
-     * Este mÈtodo pode ser disparado pela interface, a qual fornecer·
-     * por meio de par‚metros URL as definiÁıes da ordem desejada.
-     * Ele lÍ estes par‚metros da requisiÁ„o.
-     * Interpreta os par„metros
-     * E realiza a remoÁ„o do item 
+     * Este m√©todo pode ser disparado pela interface, a qual fornecer√°
+     * por meio de par√¢metros URL as defini√ß√µes da ordem desejada.
+     * Ele l√™ estes par√¢metros da requisi√ß√£o.
+     * Interpreta os par√£metros
+     * E realiza a remo√ß√£o do item 
      * @throws EntityException 
      * @throws PropertyValueException 
      * @throws BusinessException
@@ -301,12 +301,12 @@ public class CreateBean extends CrudBasicBean
      */
     public void doRemoveFromCollection() throws BusinessException
     {
-        log.debug("Iniciando a aÁ„o doRemoveFromCollection");
-    	/* Carregar os par‚metros de remoÁ„o */
+        log.debug("Iniciando a a√ß√£o doRemoveFromCollection");
+    	/* Carregar os par√¢metros de remo√ß√£o */
     	loadCollectionParams();
     	
     	/* Localiza a propriedade
-    	 * Lucio 08112007: Aceita collProperty prop1.prop2 para coleÁıes dentro de entidade.
+    	 * Lucio 08112007: Aceita collProperty prop1.prop2 para cole√ß√µes dentro de entidade.
     	 */
     	String[] props = StringUtils.split(this.collProperty, ".");
     	IEntityCollection<?> coll=null;
@@ -331,17 +331,17 @@ public class CreateBean extends CrudBasicBean
     		if(coll.getRunEntity()!=null)
     			successStr = "Item <b>"+coll.getRunEntity().toString()+ "</b> removido com sucesso da lista de " + propLabel + ".";
 
-    	/* Remove o item da coleÁ„o */
+    	/* Remove o item da cole√ß√£o */
     	if(coll.runRemove())
     		FacesUtils.addInfoMsg(successStr);
     }
     
     /**
-     * Este mÈtodo pode ser disparado pela interface, a qual fornecer·
-     * por meio de par‚metros URL as definiÁıes da ordem desejada.
-     * Ele lÍ estes par‚metros da requisiÁ„o.
-     * Interpreta os par„metros
-     * E realiza a remoÁ„o do item 
+     * Este m√©todo pode ser disparado pela interface, a qual fornecer√°
+     * por meio de par√¢metros URL as defini√ß√µes da ordem desejada.
+     * Ele l√™ estes par√¢metros da requisi√ß√£o.
+     * Interpreta os par√£metros
+     * E realiza a remo√ß√£o do item 
      * @throws EntityException 
      * @throws PropertyValueException 
      * @throws BusinessException
@@ -349,13 +349,13 @@ public class CreateBean extends CrudBasicBean
      */
     public void doAddToCollection() throws BusinessException
     {
-        log.debug("Iniciando a aÁ„o doAddToCollection");
+        log.debug("Iniciando a a√ß√£o doAddToCollection");
     	try {
-    	/* Carregar os par‚metros de remoÁ„o */
+    	/* Carregar os par√¢metros de remo√ß√£o */
     	loadCollectionParams();
     	
     	/* Localiza a propriedade
-    	 * Lucio 08112007: Aceita collProperty prop1.prop2 para coleÁıes dentro de entidade.
+    	 * Lucio 08112007: Aceita collProperty prop1.prop2 para cole√ß√µes dentro de entidade.
     	 */
     	String[] props = StringUtils.split(this.collProperty, ".");
     	IEntityCollection<?> coll=null;
@@ -371,7 +371,7 @@ public class CreateBean extends CrudBasicBean
     	
     	
     	/* Define o Id a ser removido */
-    	/* O id j· È alimentado pelo FACES direto na coleÁ„o */
+    	/* O id j√° √© alimentado pelo FACES direto na cole√ß√£o */
     	
     	/* Adiciona o elemento */
     	String successStr = "";
@@ -390,9 +390,9 @@ public class CreateBean extends CrudBasicBean
     }
     
     /**
-     * Este mÈtodo analisa a tual requisiÁ„o e verifica se
-     * foram recebidos par„metros da coleÁ„o. Se foram, eles s„o 
-     * carregados para o bean e poder„o posteriormente ser
+     * Este m√©todo analisa a tual requisi√ß√£o e verifica se
+     * foram recebidos par√£metros da cole√ß√£o. Se foram, eles s√£o 
+     * carregados para o bean e poder√£o posteriormente ser
      * aplicados aos processos ativos.
      */
     private void loadCollectionParams()
@@ -424,17 +424,17 @@ public class CreateBean extends CrudBasicBean
 	}
 
 	/**
-	 * Este mÈtodo solicita para o processo recarregar 
-	 * a entidade, descartando as atuais alteraÁıes. Deve ser
-	 * chamado com a tag immediate=true para evitar validaÁıes
+	 * Este m√©todo solicita para o processo recarregar 
+	 * a entidade, descartando as atuais altera√ß√µes. Deve ser
+	 * chamado com a tag immediate=true para evitar valida√ß√µes
 	 * do faces antes da recarga.
-	 * Foi utilizado um mÈtodo com retorno, porque
-	 * o mÈtodo void ficava dando um erro de validaÁ„o.
+	 * Foi utilizado um m√©todo com retorno, porque
+	 * o m√©todo void ficava dando um erro de valida√ß√£o.
 	 */
 	@SuppressWarnings("rawtypes")
 	public String doReloadEntity() throws BusinessException
 	{
-	    log.debug("Iniciando a aÁ„o doReload");
+	    log.debug("Iniciando a a√ß√£o doReload");
 		CreateProcess createProcess = (CreateProcess) processes.get(currentEntityKey);
 		
 		/* Recarrega a entidade */
@@ -446,13 +446,13 @@ public class CreateBean extends CrudBasicBean
 	}
 	
     /**
-     * Este mÈtodo solicita para o processo validar a entidade pelos DVO antes 
-     * da confirmaÁ„o do update.
+     * Este m√©todo solicita para o processo validar a entidade pelos DVO antes 
+     * da confirma√ß√£o do update.
      */
     @SuppressWarnings("rawtypes")
 	public void doValidateEntity()
     {
-        log.debug("Iniciando a aÁ„o doValidateEntity");
+        log.debug("Iniciando a a√ß√£o doValidateEntity");
         CreateProcess createProcess = (CreateProcess) processes.get(currentEntityKey);
     	
     	/* Recarrega a entidade */

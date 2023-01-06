@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<!-- Uma variável 'entity' (IEntity) deve ser fornecida para esta visão -->
+<!-- Uma variÃ¡vel 'entity' (IEntity) deve ser fornecida para esta visÃ£o -->
 <!-- USO
 		<ui:include src="/public/basic/tiles/createLabelFromEntity.xhtml">
             <ui:param name="entity" value="#{backBean.currentEntity}"/>
@@ -15,7 +15,7 @@
 	value="Nenhum modelo de etiqueta foi criado para #{entity.info.label}"
 	rendered="#{!labelEntityBean.hasModelsLabelEntity(entity)}"/>
 <h:outputText styleClass="noprint"
-	value="Você não possui privilégios para criar etiquetas"
+	value="VocÃª nÃ£o possui privilÃ©gios para criar etiquetas"
 	rendered="#{!menuBean.crudMap.AddressLabel.canCreate}"/>
 
 	<p:growl id="growl" escape="false"/>
@@ -41,7 +41,7 @@
 				</h:column>
 			</h:dataTable>
 			<br/>
-			<h:outputText value="Uma etiqueta será inserida em sua " />
+			<h:outputText value="Uma etiqueta serÃ¡ inserida em sua " />
 			<h:outputLink
 				onclick="javascript:popupPage('../basic/labelView.xhtml',800,600, VIEW_LABEL_LIST)"
 				rendered="#{menuBean.crudMap.AddressLabel.canRetrieve}">

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
+	<ui:param name="icon" value="../../pages/admin/img/menu.png" />
+	<ui:param name="title" value="#{menuBean.processInfoMap.CreateSecurityStructureProcess.label}" />
+	<ui:param name="description" value="#{menuBean.processInfoMap.CreateSecurityStructureProcess.description}" />
+	<ui:define name="content">
+	  	<h:panelGrid columns="4" cellpadding="3">
+
+      		<h:outputText value="Login do novo operador ou de um já existente"/>
+	    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.monstrengo.security.entities.ApplicationUser', document.getElementById('form:login').value, 'login', document.getElementById('form:login'))" >
+				<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
+		    </h:outputLink>
+      		<h:inputText value="#{createSecurityStructureBean.login}" id="login" size="20" maxlength="#{menuBean.infoMap.ApplicationUser.propertiesMetadata.login.size}" title="Se for fornecido um login não existente o sistema criará o novo operador, senão será usado o operador já cadastrado"/>
+	    	<h:message styleClass="errorMessage" for="login" />
+
+      		<h:outputText value="Nome do novo grupo ou de um já existente"/>
+	    	<h:outputLink value="javascript:openSelectOneProp('br.com.orionsoft.monstrengo.security.entities.SecurityGroup', document.getElementById('form:groupName').value, 'name', document.getElementById('form:groupName'))" >
+				<h:graphicImage value="../../public/basic/img/query.png" title="Pesquisar" style="border:0"/>
+		    </h:outputLink>
+      		<h:inputText value="#{createSecurityStructureBean.groupName}" id="groupName" size="20" maxlength="#{menuBean.infoMap.SecurityGroup.propertiesMetadata.name.size}" title="Se for fornecido um nome não existente o sistema criará o novo grupo, senão será usado o grupo já cadastrado"/>
+	    	<h:message styleClass="errorMessage" for="groupName" />
+
+      		<h:outputText value="Permitir acesso a todos os módulos do sistema"/>
+  	  		<h:outputLabel value=""/>
+	    	<h:selectBooleanCheckbox id="allowAll" value="#{createSecurityStructureBean.allowAll}"/>
+	    	<h:message styleClass="errorMessage" for="allowAll" />
+	  	</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="actions">
+   		<p:commandButton ajax="false" value="Criar/Manutenir direitos" action="#{createSecurityStructureBean.actionCreate}" onclick="this.value='Aguarde...'"/>
+	</ui:define>
+</ui:composition>
+</html>
+	

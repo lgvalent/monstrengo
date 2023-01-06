@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -24,7 +24,7 @@
 		  </h:commandLink>
 		  <h:graphicImage value="../../public/basic/img/arrow_prior_d.png" rendered="#{queryBean.currentProcess.userReport.pageParam.first}"/>		
 
-		  <h:outputLabel value="Página:" title="Permite ir para uma determinada página" accesskey="p"/>
+		  <h:outputLabel value="PÃ¡gina:" title="Permite ir para uma determinada pÃ¡gina" accesskey="p"/>
 		  <h:selectOneMenu id="setpage" value="#{queryBean.currentProcess.userReport.pageParam.page}" disabled="#{queryBean.currentProcess.userReport.pageParam.pageCount==1}" style="width:50px">
 			<f:selectItems value="#{queryBean.currentProcess.userReport.pageParam.pageList}"/>
 		  </h:selectOneMenu>
@@ -40,7 +40,7 @@
 		  </h:commandLink>
 		  <h:graphicImage value="../../public/basic/img/arrow_last_d.png" rendered="#{queryBean.currentProcess.userReport.pageParam.last}"/>	
 
-		  <h:outputLabel value="Tamanho da página:" title="Permite alterar o número de registros que são visualizados por página" accesskey="s"/>
+		  <h:outputLabel value="Tamanho da pÃ¡gina:" title="Permite alterar o nÃºmero de registros que sÃ£o visualizados por pÃ¡gina" accesskey="s"/>
 		  <h:selectOneMenu id="setpagesize" value="#{queryBean.currentProcess.userReport.pageParam.pageSize}" style="width:50px">
 			<f:selectItems value="#{queryBean.currentProcess.userReport.pageParam.pageSizesList}"/>
 		  </h:selectOneMenu>
@@ -51,7 +51,7 @@
 	</h:panelGroup>
 	
     <h:outputLink styleClass="noprint" value="javascript:popupPage('../basic/queryReport.xhtml',800,600)">
-		<h:graphicImage value="../../public/basic/img/printer.png" title="Exibe o relatório da pesquisa" style="border:0"/>
+		<h:graphicImage value="../../public/basic/img/printer.png" title="Exibe o relatÃ³rio da pesquisa" style="border:0"/>
 	</h:outputLink>
   </h:panelGrid>
 </ui:composition>

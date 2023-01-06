@@ -24,17 +24,17 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Este bean È bastante utilizado na composiÁ„o da interface.
- * Ele possui trÍs mapas <String, Object>:
+ * Este bean √© bastante utilizado na composi√ß√£o da interface.
+ * Ele possui tr√™s mapas <String, Object>:
  * - Lista das propriedades de uma entidade;
- * - Lista dos direitos crud do atual operador autenticado, que identifica quais aÁıes CRUD ele pode executar
+ * - Lista dos direitos crud do atual operador autenticado, que identifica quais a√ß√µes CRUD ele pode executar
  * - Lista dos direitos de processos que o operador pode executar
  * 
- *  TODO OTIMIZA«√O A inicializaÁ„o destes mapas demora bastante. Verificar quais servi
- *  Áos demoram mais e tentar otimizar, pois est· bem lerdo.
+ *  TODO OTIMIZA√á√ÉO A inicializa√ß√£o destes mapas demora bastante. Verificar quais servi
+ *  √ßos demoram mais e tentar otimizar, pois est√° bem lerdo.
  * 
  * @jsf.bean name="menuBean" scope="session"
- * #Esta regra de navegaÁ„o È insejata no faces-config.xml por merge, utilizando
+ * #Esta regra de navega√ß√£o √© insejata no faces-config.xml por merge, utilizando
  * o arquivo OrionSoft/jsf-navigations.xml
  * #@jsf.navigation from="*" result="menu" to="/pages/basic/menu.jsp" 
  */
@@ -59,15 +59,15 @@ public class MenuBean extends BeanSessionBasic
 			if(!this.getUserSessionBean().isLogged())
 				throw new BusinessException(MessageList.create(MenuBean.class, "USER_NOT_AUTHENTICATED"));
 			
-			// Executa o serviÁo para obter todos os direitos de todas entidades
+			// Executa o servi√ßo para obter todos os direitos de todas entidades
 			ServiceData sd = new ServiceData(CheckAllRightCrudService.SERVICE_NAME, null);
 			sd.getArgumentList().getProperties().put(CheckAllRightCrudService.IN_USER_OPT, this.getUserSessionBean().getUserSession().getUser());
 			this.getApplicationBean().getProcessManager().getServiceManager().execute(sd);
 			crudMap = sd.<Map<String, Map<String,Boolean>>>getFirstOutput();
 
 			/* 
-			 * Para cada entidade crud encontrada na atual inst‚ncia do sistema
-			 * verifica se est· no mapa de direitos para nao dar erro pela ausencia do direito no mapa (null pointer)
+			 * Para cada entidade crud encontrada na atual inst√¢ncia do sistema
+			 * verifica se est√° no mapa de direitos para nao dar erro pela ausencia do direito no mapa (null pointer)
 			 */
 			for(IEntityMetadata info: getInfoMap().values()){
 				getInfoMap().put(info.getType().getSimpleName(), info);
@@ -77,7 +77,7 @@ public class MenuBean extends BeanSessionBasic
 				}
 			}
 			
-			// Executa o serviÁo para obter todos os processos
+			// Executa o servi√ßo para obter todos os processos
 			sd = new ServiceData(CheckAllRightProcessService.SERVICE_NAME, null);
 			sd.getArgumentList().getProperties().put(CheckAllRightProcessService.IN_USER_OPT, this.getUserSessionBean().getUserSession().getUser());
 			this.getApplicationBean().getProcessManager().getServiceManager().execute(sd);
@@ -122,10 +122,10 @@ public class MenuBean extends BeanSessionBasic
 
 	/**
 	 * Retorna um mapa indexado pelo nome das entidades. Os items do mapa
-	 * s„o do tipo {@link IEntityMetadata}. Assim, È possivel obter todos os
-	 * metadados de uma entidade e tambÈm de suas propriedades.<br>
-	 * Para conseguir os metadados, n„o È preciso executar de autenticaÁ„o. Logo, esta propriedade
-	 * pode ser usada em visıes fora do diretÛrio "/pages/".    
+	 * s√£o do tipo {@link IEntityMetadata}. Assim, √© possivel obter todos os
+	 * metadados de uma entidade e tamb√©m de suas propriedades.<br>
+	 * Para conseguir os metadados, n√£o √© preciso executar de autentica√ß√£o. Logo, esta propriedade
+	 * pode ser usada em vis√µes fora do diret√≥rio "/pages/".    
 	 * @return
 	 * @throws BusinessException
 	 */
@@ -158,7 +158,7 @@ public class MenuBean extends BeanSessionBasic
 			for(IEntityMetadata info: this.getInfoMap().values()){
 				infoListBuffer.add(info);
 			}
-			/* Ordena por ordem alfabÈtica */
+			/* Ordena por ordem alfab√©tica */
 			Collections.<IEntityMetadata>sort(infoListBuffer, IEntityMetadata.COMPARATOR_LABEL);
 			
 		}
@@ -168,10 +168,10 @@ public class MenuBean extends BeanSessionBasic
 
 	/**
 	 * Retorna um mapa indexado pelo nome das entidades. Os items do mapa
-	 * s„o do tipo {@link IEntityMetadata}. Assim, È possivel obter todos os
-	 * metadados de uma entidade e tambÈm de suas propriedades.<br>
-	 * Para conseguir os metadados, n„o È preciso executar de autenticaÁ„o. Logo, esta propriedade
-	 * pode ser usada em visıes fora do diretÛrio "/pages/".    
+	 * s√£o do tipo {@link IEntityMetadata}. Assim, √© possivel obter todos os
+	 * metadados de uma entidade e tamb√©m de suas propriedades.<br>
+	 * Para conseguir os metadados, n√£o √© preciso executar de autentica√ß√£o. Logo, esta propriedade
+	 * pode ser usada em vis√µes fora do diret√≥rio "/pages/".    
 	 * @return
 	 * @throws BusinessException
 	 */
@@ -186,7 +186,7 @@ public class MenuBean extends BeanSessionBasic
 	public void doRefreshEntitiesMetadata() throws BusinessException{
 		this.getApplicationBean().getProcessManager().getServiceManager().getEntityManager().refreshEntitiesMetadata();
 		
-		/* Recompila os dados do menu para pegarem os novos metadados que est„o no EntityManager */
+		/* Recompila os dados do menu para pegarem os novos metadados que est√£o no EntityManager */
 		doPrepareMenu();
 		
 		FacesUtils.addInfoMsg("Os metadados das entidades foram recarregados com sucesso");
@@ -201,9 +201,9 @@ public class MenuBean extends BeanSessionBasic
 	}
 
 	/**
-	 * Este mÈtodo È utilizado para retornar uma lista com os metadados
+	 * Este m√©todo √© utilizado para retornar uma lista com os metadados
 	 * de todas as entidades cujo nome, label ou description possui a parte 
-	 * do texto fornecido em entityName. N„o È sensÌvel ao caso.
+	 * do texto fornecido em entityName. N√£o √© sens√≠vel ao caso.
 	 * @param entityName
 	 * @return
 	 */
@@ -221,9 +221,9 @@ public class MenuBean extends BeanSessionBasic
 	}
 	
 	/**
-	 * Este mÈtodo È utilizado para retornar uma lista com os metadados
+	 * Este m√©todo √© utilizado para retornar uma lista com os metadados
 	 * de todas as entidades cujo nome, label ou description possui a parte 
-	 * do texto fornecido em entityName. N„o È sensÌvel ao caso.
+	 * do texto fornecido em entityName. N√£o √© sens√≠vel ao caso.
 	 * @param entityName
 	 * @return
 	 * @throws BusinessException 
@@ -241,9 +241,9 @@ public class MenuBean extends BeanSessionBasic
 	}
 
 	/**
-	 * Este mÈtodo È utilizado para retornar uma lista heterogÍnea com os metadados
+	 * Este m√©todo √© utilizado para retornar uma lista heterog√™nea com os metadados
 	 * de todas as entidades e processos cujos nome, label ou description possui a parte 
-	 * do texto fornecido em findName. N„o È sensÌvel ao caso.
+	 * do texto fornecido em findName. N√£o √© sens√≠vel ao caso.
 	 * @param findName
 	 * @return
 	 * @throws BusinessException 

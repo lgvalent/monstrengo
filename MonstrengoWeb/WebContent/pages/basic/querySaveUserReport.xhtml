@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -6,8 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-	<title>Salvar relatório personalizado</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>Salvar relatÃ³rio personalizado</title>
 	<link href="../../public/basic/css/styles.css" rel="stylesheet" type="text/css"
 		media="screen" />
 	<link href="../../public/basic/css/stylesPrint.css" rel="stylesheet"
@@ -25,18 +25,18 @@
 		<h:inputHidden immediate="true" id="currentEntityKey"
 			value="#{queryBean.currentEntityKey}"
 			validator="#{queryBean.validateCurrentEntityKey}" />
-		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forçe a reconstrução quando necessário -->
+		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forÃ§e a reconstruÃ§Ã£o quando necessÃ¡rio -->
 		<h:inputHidden immediate="true"
 			binding="#{queryBean.inputCurrentEntityKey}" />
 
 		<h:panelGrid width="100%" style="text-align:center">
-			<h:outputLabel value="Nome do relatório:" />
+			<h:outputLabel value="Nome do relatÃ³rio:" />
 			<h:inputText value="#{queryBean.currentProcess.userReport.name}"
 				size="50" />
-			<h:outputLabel value="Descrição do relatório:" />
+			<h:outputLabel value="DescriÃ§Ã£o do relatÃ³rio:" />
 			<h:inputTextarea cols="50" rows="5"
 				value="#{queryBean.currentProcess.userReport.description}"
-				title="Digite uma descrição sobre este relatório" />
+				title="Digite uma descriÃ§Ã£o sobre este relatÃ³rio" />
 			<h:panelGrid columns="2" width="100%" style="text-align:center">
 				<h:commandButton value="Salvar"
 					action="#{queryBean.actionSaveUserReport}"

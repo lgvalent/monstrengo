@@ -22,26 +22,26 @@ import br.com.orionsoft.monstrengo.view.jsf.security.UserSessionBean;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Este bean controla a view que lista os relatÛrios
+ * Este bean controla a view que lista os relat√≥rios
  * personalizados dos operadores.
- * H· duas lista de operadores:<br>
- * userListBuffer: para opÁıes de filtragem
- * userTransferListBuffer: para opÁıes de transferÍncia
+ * H√° duas lista de operadores:<br>
+ * userListBuffer: para op√ß√µes de filtragem
+ * userTransferListBuffer: para op√ß√µes de transfer√™ncia
  */
 @ManagedBean
 @SessionScoped
 public class ListUserReportBean extends BeanSessionBasic  
 {
-	/** Define a view JSF que È ativada para a vis„o QUERY */
+	/** Define a view JSF que √© ativada para a vis√£o QUERY */
 	public static final String FACES_VIEW_QUERY = "/pages/basic/listUserReport?faces-redirect=true";
 
 	private long entityId = IDAO.ENTITY_UNSAVED;
 	private long userId = IDAO.ENTITY_UNSAVED;
 
 	/**
-	 * Define o valor do item que permite a filtragem dos relatÛrios de todos os 
-	 * operadores, pois -1 (IDAO.ENTITY_UNSAVED) È utilizada pelo funÁ„o UserReport.listUserReportByUser()
-	 * para detectar a listagem de relatÛrios sem operadores definidos
+	 * Define o valor do item que permite a filtragem dos relat√≥rios de todos os 
+	 * operadores, pois -1 (IDAO.ENTITY_UNSAVED) √© utilizada pelo fun√ß√£o UserReport.listUserReportByUser()
+	 * para detectar a listagem de relat√≥rios sem operadores definidos
 	 */
 	private long FILTER_ALL_APPLICATION_USER = IDAO.ENTITY_UNSAVED - 1;
 	
@@ -61,15 +61,15 @@ public class ListUserReportBean extends BeanSessionBasic
 		}
 	}
 
-	/** Buffer para evitar in˙meras buscas no banco */
+	/** Buffer para evitar in√∫meras buscas no banco */
 	private List<SelectItem> entityListBuffer = null;
 	private List<SelectItem> userListBuffer = null;
 	/**
-	 * Esta lista contem somente os operadores com id >= -1, assim, o crud entender· quando
+	 * Esta lista contem somente os operadores com id >= -1, assim, o crud entender√° quando
 	 * algum -1 for enviado para o Entity.getPoperty().getValue().setId(-1).
-	 * Isto È necess·rio, pois a userListBuffer, contem o elemento (Sem operador definido) e (Todos) com valores -1 e -2 
-	 * que sÛ serve para a filtragem, mas n„o serve na opÁ„o de transferÍncia de relatÛrio
-	 * pelo bot„o Transferir na interface.
+	 * Isto √© necess√°rio, pois a userListBuffer, contem o elemento (Sem operador definido) e (Todos) com valores -1 e -2 
+	 * que s√≥ serve para a filtragem, mas n√£o serve na op√ß√£o de transfer√™ncia de relat√≥rio
+	 * pelo bot√£o Transferir na interface.
 	 */
 	private List<SelectItem> userTransferListBuffer = null;
 	
@@ -81,7 +81,7 @@ public class ListUserReportBean extends BeanSessionBasic
 		return entityListBuffer;
 	}
 	
-	/** Buffer para evitar in˙meras buscas no banco */
+	/** Buffer para evitar in√∫meras buscas no banco */
 	public List<SelectItem> getUserList() throws BusinessException{
 		if(userListBuffer==null){
 			createListsBuffer();
@@ -89,7 +89,7 @@ public class ListUserReportBean extends BeanSessionBasic
 		return userListBuffer;
 	}
 
-	/** Buffer para evitar in˙meras buscas no banco */
+	/** Buffer para evitar in√∫meras buscas no banco */
 	public List<SelectItem> getUserTransferList() throws BusinessException{
 		if(userTransferListBuffer==null){
 			createListsBuffer();
@@ -99,7 +99,7 @@ public class ListUserReportBean extends BeanSessionBasic
 
 	private void createListsBuffer() throws BusinessException{
 		IEntity<UserReportBean> userReportBean = UtilsCrud.create(this.getApplicationBean().getProcessManager().getServiceManager(), UserReportBean.class, null);
-		/* Verifica se a propriedade ApplicationEntity È obrigatÛria para o UserReportBean, pois o primeiro item È vazio se n„o for obrigatoria */
+		/* Verifica se a propriedade ApplicationEntity √© obrigat√≥ria para o UserReportBean, pois o primeiro item √© vazio se n√£o for obrigatoria */
 		entityListBuffer = userReportBean.getProperty(UserReportBean.APPLICATION_ENTITY).getValuesList();
 		
 		if (userReportBean.getProperty(UserReportBean.APPLICATION_ENTITY).getInfo().isRequired())
@@ -107,23 +107,23 @@ public class ListUserReportBean extends BeanSessionBasic
 		else
 			entityListBuffer.get(0).setLabel("(Todos)");
 		
-		/* Lista somente os operadores ATIVOS. Assim, esta lista n„o ter· o primeiro elemento vazio */
+		/* Lista somente os operadores ATIVOS. Assim, esta lista n√£o ter√° o primeiro elemento vazio */
 		userListBuffer = this.getApplicationBean().getProcessManager().getServiceManager().getEntityManager().getEntitySelectItems(ApplicationUser.class,   IDAO.ENTITY_ALIAS_HQL + "." + ApplicationUser.INACTIVE + " = FALSE");
 		userTransferListBuffer =  new ArrayList<SelectItem>(userListBuffer);
 		
-		/* Coloca uma descriÁ„o mais amig·vel no primeiro item vazio da lista de usu·rios para transferÍncia */
+		/* Coloca uma descri√ß√£o mais amig√°vel no primeiro item vazio da lista de usu√°rios para transfer√™ncia */
 		userTransferListBuffer.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(Todos)"));
 		
-		/* Coloca uma descriÁ„o mais amig·vel no primeiro item vazio da lista de operadores */
+		/* Coloca uma descri√ß√£o mais amig√°vel no primeiro item vazio da lista de operadores */
 		userListBuffer.add(0, new SelectItem(FILTER_ALL_APPLICATION_USER, "(Todos)"));;
 
-		/* Define a opÁ„o que permite lista os relatÛrios que nao possuem um operador definido */
+		/* Define a op√ß√£o que permite lista os relat√≥rios que nao possuem um operador definido */
 		userListBuffer.add(1, new SelectItem(IDAO.ENTITY_UNSAVED, "(Sem operador definido)"));
 
 	}
 	
-	/** Indica que algum par‚metro foi alterado e que a lista
-	 * deve entao ser recarregada para refletir os novos par‚metros */ 
+	/** Indica que algum par√¢metro foi alterado e que a lista
+	 * deve entao ser recarregada para refletir os novos par√¢metros */ 
 	private void paramChanged(){
 		userReports = null;
 	}
@@ -182,8 +182,8 @@ public class ListUserReportBean extends BeanSessionBasic
 		
 
 	/** 
-	 * Permite salvar as lateraÁıes de operadores que podem
-	 * ser realizadas na lista do relatÛrio.
+	 * Permite salvar as latera√ß√µes de operadores que podem
+	 * ser realizadas na lista do relat√≥rio.
 	 */
 	public void doSave()
 	{
@@ -201,8 +201,8 @@ public class ListUserReportBean extends BeanSessionBasic
 	}
 	
 	/**
-	 * Sobreescreve o mÈtodo da classe para ao ser definido um operador
-	 * este ser usado como padr„o na seleÁ„o dos filtros
+	 * Sobreescreve o m√©todo da classe para ao ser definido um operador
+	 * este ser usado como padr√£o na sele√ß√£o dos filtros
 	 */
 	public void setUserSessionBean(UserSessionBean userSessionBean) {
 		super.setUserSessionBean(userSessionBean);

@@ -10,8 +10,8 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Controla a identificaÁ„o da entidade que est· sendo manipulada 
- * em uma requisiÁ„o, geralmente dos beans Crud
+ * Controla a identifica√ß√£o da entidade que est√° sendo manipulada 
+ * em uma requisi√ß√£o, geralmente dos beans Crud
  * 
  * Created on 14/04/2005
  * @author marcia
@@ -31,21 +31,21 @@ public class EntityBean extends BeanSessionBasic
     private ParentBean parentBean;
 
     /**
-     * Carrega os par‚metros pertinente aos Bean da atual transaÁ„o.   
-     * Antes de recarregar os par‚metros, o Bean sofre um reset() para 
-     * que os par‚metros atuais sejam limpos e dados processados sejam 
+     * Carrega os par√¢metros pertinente aos Bean da atual transa√ß√£o.   
+     * Antes de recarregar os par√¢metros, o Bean sofre um reset() para 
+     * que os par√¢metros atuais sejam limpos e dados processados sejam 
      * descarregados.
      */
     public void loadEntityParams() throws Exception
     {
 		log.debug("EntityBean.loadParams");
-        // Causa um reset para que os novos par‚metros entrem em aÁ„o
+        // Causa um reset para que os novos par√¢metros entrem em a√ß√£o
         this.reset();
 
-        // Solicita que seu pai tambÈm prepare os par‚metros
+        // Solicita que seu pai tamb√©m prepare os par√¢metros
         this.parentBean.loadEntityParams();
 
-        // Pega os par‚metros da requisiÁ„o
+        // Pega os par√¢metros da requisi√ß√£o
         if (FacesUtils.isNotNull(super.getRequestParams().get(URL_PARAM_ENTITY_TYPE)))
         {
             this.typeName = super.getRequestParams().get(URL_PARAM_ENTITY_TYPE).toString();
@@ -55,14 +55,14 @@ public class EntityBean extends BeanSessionBasic
             this.id = Long.parseLong(super.getRequestParams().get(URL_PARAM_ENTITY_ID).toString());
         }
 
-        // Verifica se o pai preparou para pegar os par‚metros do Pai
+        // Verifica se o pai preparou para pegar os par√¢metros do Pai
         if(this.parentBean.isHasParent())
         {
-            // Atualiza os par‚metros atuais, de acordo com a propriedade do pai
-            // para manter a consistÍncia do tipo e id da entidade atual.
-            // Quando a propriedade do pai for uma coleÁ„o de objetos,
-            // n„o ser· possÌvel pegar o Id, pois uma coleÁ„o n„o possui 
-            // um ˙nico Id. PorÈm, o tipo da coleÁ„o È possÌvel de ser pego.
+            // Atualiza os par√¢metros atuais, de acordo com a propriedade do pai
+            // para manter a consist√™ncia do tipo e id da entidade atual.
+            // Quando a propriedade do pai for uma cole√ß√£o de objetos,
+            // n√£o ser√° poss√≠vel pegar o Id, pois uma cole√ß√£o n√£o possui 
+            // um √∫nico Id. Por√©m, o tipo da cole√ß√£o √© poss√≠vel de ser pego.
             IProperty prop = this.parentBean.getEntity().getProperty(this.parentBean.getProperty()); 
             if (prop.getInfo().isCollection())
             {
@@ -82,18 +82,18 @@ public class EntityBean extends BeanSessionBasic
     }
 
     /**
-     * Limpa todos os par‚metros anteriormente carregados,
-     * voltando seu valor padr„o.
-     * Os dados processados internos tambÈm s„o marcados para
-     * Se ocorrer alguma mudanÁa nos par‚metros,
-     * o controlador da View dever· se resetar.
-     * Para isto, os objetos preparados dever„o
-     * ser destruÌdos 
+     * Limpa todos os par√¢metros anteriormente carregados,
+     * voltando seu valor padr√£o.
+     * Os dados processados internos tamb√©m s√£o marcados para
+     * Se ocorrer alguma mudan√ßa nos par√¢metros,
+     * o controlador da View dever√° se resetar.
+     * Para isto, os objetos preparados dever√£o
+     * ser destru√≠dos 
      */
     private void reset()
     {
 		log.debug("EntityBean.reset");
-        // Limpa os par‚metros
+        // Limpa os par√¢metros
         this.typeName = null;
         this.id = IDAO.ENTITY_UNSAVED;
         
@@ -102,9 +102,9 @@ public class EntityBean extends BeanSessionBasic
     }
 
     /**
-     * Este mÈtodo anula a atual inst‚ncia da entidade preparada.
-     * E recarrega os par‚metros. 
-     * Assim, a entidade ser· novamente recarregada quando solicidada. 
+     * Este m√©todo anula a atual inst√¢ncia da entidade preparada.
+     * E recarrega os par√¢metros. 
+     * Assim, a entidade ser√° novamente recarregada quando solicidada. 
      * @throws Exception 
      */
     public void doReload()
@@ -141,7 +141,7 @@ public class EntityBean extends BeanSessionBasic
     }
 
     /**
-     * ReferÍncia para o bean ParentBean que manipula as propriedades do pai.
+     * Refer√™ncia para o bean ParentBean que manipula as propriedades do pai.
      * 
      * @jsf.managed-property value="#{parentBean}"
      */
@@ -209,17 +209,17 @@ public class EntityBean extends BeanSessionBasic
 //                this.entity = new EntityData(super.appBean.getProcessManager(),paramEntityClassName,paramEntityId);
 //            }
 //            else
-//            // se n„o foi tenta pegar da propriedade do Pai. 
+//            // se n√£o foi tenta pegar da propriedade do Pai. 
 //            if (parentBean.isHasParent())
 //            {
 //                
 //                this.entity = new EntityData(super.appBean.getProcessManager(),paramEntityClassName,parentBean.getPropertyId());
 //            }
-//            // se n„o foi cria uma entidade sem Id. Somente com nome dos campos e suas propriedades (hint, label, etc)
+//            // se n√£o foi cria uma entidade sem Id. Somente com nome dos campos e suas propriedades (hint, label, etc)
 //            else
 //            {
 //                this.entity = new EntityData(super.appBean.getProcessManager(),paramEntityClassName,IDAO.ENTITY_UNSAVED);
-////                throw new Exception("URL inv·lida. N„o foi possÌvel identificar a classe entidade e seu Id ou utilizar uma classe Pai para isto. Aceito: (entity, id) ou (entity, parent, parentId, property) ou (entity, id, parent, parentId)");
+////                throw new Exception("URL inv√°lida. N√£o foi poss√≠vel identificar a classe entidade e seu Id ou utilizar uma classe Pai para isto. Aceito: (entity, id) ou (entity, parent, parentId, property) ou (entity, id, parent, parentId)");
 //            }
 //            
 //        }
@@ -239,7 +239,7 @@ public class EntityBean extends BeanSessionBasic
 //            return PageFlow.SUCCESS;
 //        }
 //        
-//        FacesUtils.addMsg("N„o foi possÌvel excluir a entidade."); 
+//        FacesUtils.addMsg("N√£o foi poss√≠vel excluir a entidade."); 
 //        return PageFlow.FAILURE;
 //    }
 //
@@ -253,7 +253,7 @@ public class EntityBean extends BeanSessionBasic
 //            this.entityEdit.editEntity(this.entity);
 //            return PageFlow.EDIT;
 //        }
-//        FacesUtils.addMsg("N„o foi possÌvel modificar a entidade."); 
+//        FacesUtils.addMsg("N√£o foi poss√≠vel modificar a entidade."); 
 //        return PageFlow.FAILURE;
 //    }
 //
@@ -267,7 +267,7 @@ public class EntityBean extends BeanSessionBasic
 //            this.entityEdit.editEntity(this.entity);
 //            return PageFlow.EDIT;
 //        }
-//        FacesUtils.addMsg("N„o foi possÌvel modificar a entidade."); 
+//        FacesUtils.addMsg("N√£o foi poss√≠vel modificar a entidade."); 
 //        return PageFlow.FAILURE;
 //    }
 //

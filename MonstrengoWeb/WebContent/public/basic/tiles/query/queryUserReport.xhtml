@@ -1,19 +1,19 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:outputLabel value="Grave e recupere relatórios personalizados: "
+<h:outputLabel value="Grave e recupere relatÃ³rios personalizados: "
 	style="color: #FF751A;" />
 <h:panelGrid columns="2">
 	<h:panelGrid>
 		<h:panelGrid>
 			<h:panelGroup>
-				<h:outputLabel value="Meus relatórios:" />
+				<h:outputLabel value="Meus relatÃ³rios:" />
 				<h:commandLink action="#{queryBean.doRefreshListUserReport}">
 					<h:outputText value="[atualizar]"
-						title="Atualiza a lista de relatórios salvos" />
+						title="Atualiza a lista de relatÃ³rios salvos" />
 				</h:commandLink>
 			</h:panelGroup>
 			<h:selectOneMenu id="userReportId"
@@ -26,26 +26,26 @@
 				<h:commandButton value="Carregar"
 					action="#{queryBean.doRestoreUserReport}"
 					onclick="this.value='Carregando...'"
-					title="Carrega o relatório atualmente selecionado na lista" />
+					title="Carrega o relatÃ³rio atualmente selecionado na lista" />
 				<h:commandButton value="Excluir"
-					onclick="javascript:return confirm('Confirma exclusão do relatório selecionado na lista?')"
+					onclick="javascript:return confirm('Confirma exclusÃ£o do relatÃ³rio selecionado na lista?')"
 					action="#{queryBean.doDeleteUserReport}"
-					title="Exclui o relatório atualmente selecionado na lista" />
+					title="Exclui o relatÃ³rio atualmente selecionado na lista" />
 				<h:commandButton value="Limpar"
 					action="#{queryBean.doClearUserReport}"
 					onclick="this.value='Limpando...'"
-					title="Limpa todos os atuais parâmetros da pesquisa" />
+					title="Limpa todos os atuais parÃ¢metros da pesquisa" />
 				<h:commandButton value="Salvar"
 					onclick="javascript:return (popupPage('../basic/querySaveUserReport.xhtml',600,300) || false)"
-					title="Salva os atuais parâmetros de pesquisa para serem recuperados depois" />
+					title="Salva os atuais parÃ¢metros de pesquisa para serem recuperados depois" />
 			</h:panelGrid>
 		</h:panelGrid>
 	</h:panelGrid>
 	<h:panelGrid>
 		<h:outputLabel
-			value="Relatório ativo: #{queryBean.currentProcess.userReport.name}" />
+			value="RelatÃ³rio ativo: #{queryBean.currentProcess.userReport.name}" />
 		<h:outputLabel
-			value="Descrição: #{queryBean.currentProcess.userReport.description}" />
+			value="DescriÃ§Ã£o: #{queryBean.currentProcess.userReport.description}" />
 	</h:panelGrid>
 </h:panelGrid>
 </ui:composition>

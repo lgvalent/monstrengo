@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<!-- Uma variável 'entity' (IEntity) deve ser fornecida para esta visão -->
+<!-- Uma variÃ¡vel 'entity' (IEntity) deve ser fornecida para esta visÃ£o -->
 <!-- USO
 		<ui:include src="/public/basic/tiles/runRunnableProcessFromEntity.xhtml">
             <ui:param name="entityCollection" value="#{queryBean.currentProcess.userReport.entityCollection}"/>
@@ -13,7 +13,7 @@
 		</ui:include>
  -->
 <h:outputText styleClass="noprint"
-	value="Nenhum processo pode ser executado a partir dessa coleção."
+	value="Nenhum processo pode ser executado a partir dessa coleÃ§Ã£o."
 	rendered="#{empty runnableProcessBean.getRunnableEntityCollectionViewsForUser(info)}" />
 <h:panelGroup styleClass="noprint"
 	rendered="#{not empty runnableProcessBean.getRunnableEntityCollectionViewsForUser(info)}">

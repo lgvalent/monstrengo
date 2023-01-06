@@ -34,7 +34,7 @@ import br.com.orionsoft.monstrengo.crud.services.ResultCondiction;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Bean que cotrola a view de pesquisa avanÁada
+ * Bean que cotrola a view de pesquisa avan√ßada
  * 
  * Created on 05/04/2005
  * @author Lucio Valentin
@@ -47,7 +47,7 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 @SessionScoped
 public class QueryBean extends CrudBasicBean
 {
-	/** Define a view JSF que È ativada para a vis„o QUERY */
+	/** Define a view JSF que √© ativada para a vis√£o QUERY */
 	public static final String FACES_VIEW_QUERY = "/pages/basic/query?faces-redirect=true";
 
 	public static final String URL_PARAM_ORDER_PROPERTY = "orderProperty";
@@ -66,7 +66,7 @@ public class QueryBean extends CrudBasicBean
 	public static final String URL_PARAM_ADVANCED_RESULT = "advancedResult";
 	public static final String URL_PARAM_ADVANCED_USER_REPORT = "advancedUserReport";
 
-	/** Utilizado para indicar o id do report atualmente selecionado pelo operador na tela de seleÁ„o */
+	/** Utilizado para indicar o id do report atualmente selecionado pelo operador na tela de sele√ß√£o */
     public static final String URL_PARAM_USER_REPORT_ID = "userReportId";
 
     // Dados internos da classe
@@ -75,7 +75,7 @@ public class QueryBean extends CrudBasicBean
     private IEntity parentEntity = null;
 
 	/**
-     * Action que constrÛi a lista e redireciona a view para "list". 
+     * Action que constr√≥i a lista e redireciona a view para "list". 
      * @return
      */
     public String actionList() throws Exception
@@ -84,7 +84,7 @@ public class QueryBean extends CrudBasicBean
         
 
         try{
-        	// Prepara os par‚metros fornecidos
+        	// Prepara os par√¢metros fornecidos
             this.loadEntityParams();
 
             /* prepara entidade corrente */ 
@@ -95,7 +95,7 @@ public class QueryBean extends CrudBasicBean
             doRunQuery();
         }catch(ProcessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* VisualizaÁ„o REJEITADA */
+        	/* Visualiza√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a create
@@ -104,23 +104,23 @@ public class QueryBean extends CrudBasicBean
     }
     
 	/**
-	 * Este mÈtodo solicita ao processo para que adicione em sua
-	 * lista de condiÁıes ativas a condiÁ„o atualmente preenchida pela
+	 * Este m√©todo solicita ao processo para que adicione em sua
+	 * lista de condi√ß√µes ativas a condi√ß√£o atualmente preenchida pela
 	 * interface.
-	 * Para preencher esta condiÁ„o a interface referencia diretamente
+	 * Para preencher esta condi√ß√£o a interface referencia diretamente
 	 * a propriedade QueryParam.currentProcess.condictionParam.newCondiciton. 
 	 * @throws BusinessException 
 	 */
     public void doAddNewCondiction() throws BusinessException{
-        log.debug("Adicionando nova condiÁ„o na lista de condiÁıes do processo atual");
+        log.debug("Adicionando nova condi√ß√£o na lista de condi√ß√µes do processo atual");
         currentProcess.getUserReport().getCondictionParam().addNewCondiction();
 	}
     
 	/**
-	 * Este mÈtodo solicita ao processo para que adicione em sua
-	 * lista de condiÁıes ativas a condiÁ„o atualmente preenchida pela
+	 * Este m√©todo solicita ao processo para que adicione em sua
+	 * lista de condi√ß√µes ativas a condi√ß√£o atualmente preenchida pela
 	 * interface e ATUALIZA IMEDIATAMENTE
-	 * Para preencher esta condiÁ„o a interface referencia diretamente
+	 * Para preencher esta condi√ß√£o a interface referencia diretamente
 	 * a propriedade QueryParam.currentProcess.condictionParam.newCondiciton. 
 	 * @throws BusinessException 
 	 */
@@ -130,23 +130,23 @@ public class QueryBean extends CrudBasicBean
 		doRunQuery();
 	}
 	/**
-	 * Este mÈtodo solicita ao processo para que adicione em sua
-	 * lista de ordenaÁ„o ativa a condiÁ„o atualmente preenchida pela
+	 * Este m√©todo solicita ao processo para que adicione em sua
+	 * lista de ordena√ß√£o ativa a condi√ß√£o atualmente preenchida pela
 	 * interface.
-	 * Para preencher esta condiÁ„o a interface referencia diretamente
+	 * Para preencher esta condi√ß√£o a interface referencia diretamente
 	 * a propriedade QueryParam.currentProcess.orderParam.newCondiciton. 
 	 * @throws BusinessException 
 	 */
     public void doAddNewOrder() throws BusinessException{
-        log.debug("Adicionando nova ordem na lista de condiÁıes do processo atual");
+        log.debug("Adicionando nova ordem na lista de condi√ß√µes do processo atual");
         currentProcess.getUserReport().getOrderParam().addNewCondiction();
 	}
     
 	/**
-	 * Este mÈtodo solicita ao processo para que adicione em sua
-	 * lista de ordenaÁ„o ativa a condiÁ„o atualmente preenchida pela
+	 * Este m√©todo solicita ao processo para que adicione em sua
+	 * lista de ordena√ß√£o ativa a condi√ß√£o atualmente preenchida pela
 	 * interface e ATUALIZA IMEDIATAMENTE
-	 * Para preencher esta condiÁ„o a interface referencia diretamente
+	 * Para preencher esta condi√ß√£o a interface referencia diretamente
 	 * a propriedade QueryParam.currentProcess.orderParam.newCondiciton. 
 	 * @throws BusinessException 
 	 */
@@ -158,38 +158,38 @@ public class QueryBean extends CrudBasicBean
     
     
 	/**
-	 * Este remove uma condiÁ„o da 
-	 * lista de condiÁıes ativas a condiÁ„o atualmente preenchida pela
+	 * Este remove uma condi√ß√£o da 
+	 * lista de condi√ß√µes ativas a condi√ß√£o atualmente preenchida pela
 	 * interface.
-	 * Para identipreencher esta condiÁ„o a interface referencia diretamente
+	 * Para identipreencher esta condi√ß√£o a interface referencia diretamente
 	 * a propriedade QueryParam.currentProcess.condictionParam.newCondiciton. 
 	 * @throws ProcessException 
 	 * @throws NumberFormatException 
 	 */
 	public void doRemoveCondiction() throws Exception{
-	    log.debug("Lendo os par‚metros das condÁıes");
+	    log.debug("Lendo os par√¢metros das cond√ß√µes");
 		loadCondictionParams();
 	
-		log.debug("Removendo a condiÁ„o da lista de condiÁıes do processo atual");
+		log.debug("Removendo a condi√ß√£o da lista de condi√ß√µes do processo atual");
 		currentProcess.getUserReport().getCondictionParam().removeCondiction(Integer.parseInt(this.currentParams.get(URL_PARAM_CONDICTION_ID).toString()));
 		
 		log.debug("Atualizando a pesquisa imediatamente");
 		doRunQuery();
 	}
 	/**
-	 * Este remove uma condiÁ„o da 
-	 * lista de condiÁıes ativas a condiÁ„o atualmente preenchida pela
+	 * Este remove uma condi√ß√£o da 
+	 * lista de condi√ß√µes ativas a condi√ß√£o atualmente preenchida pela
 	 * interface.
-	 * Para identipreencher esta condiÁ„o a interface referencia diretamente
+	 * Para identipreencher esta condi√ß√£o a interface referencia diretamente
 	 * a propriedade QueryParam.currentProcess.condictionParam.newCondiciton. 
 	 * @throws ProcessException 
 	 * @throws NumberFormatException 
 	 */
     public void doRemoveOrder() throws Exception{
-        log.debug("Lendo os par‚metros das ordenaÁıes");
+        log.debug("Lendo os par√¢metros das ordena√ß√µes");
 		loadCondictionParams();
 
-		log.debug("Removendo a ordem da lista de condiÁıes do processo atual");
+		log.debug("Removendo a ordem da lista de condi√ß√µes do processo atual");
 		currentProcess.getUserReport().getOrderParam().removeCondiction(Integer.parseInt(this.currentParams.get(URL_PARAM_CONDICTION_ID).toString()));
     	
 		log.debug("Atualizando a pesquisa imediatamente");
@@ -197,9 +197,9 @@ public class QueryBean extends CrudBasicBean
 	}
 
     /**
-     * Este mÈtodo analisa a tual requisiÁ„o e verifica se
-     * foram recebidos par„metros de ordenaÁ„o. Se foram, eles s„o 
-     * carregados para o bean e poder„o posteriormente ser
+     * Este m√©todo analisa a tual requisi√ß√£o e verifica se
+     * foram recebidos par√£metros de ordena√ß√£o. Se foram, eles s√£o 
+     * carregados para o bean e poder√£o posteriormente ser
      * aplicados aos processos ativos.
      */
     private void loadCondictionParams()
@@ -211,19 +211,19 @@ public class QueryBean extends CrudBasicBean
 	}
     
 	/**
-	 * Este mÈtodo remove TODAS AS CONDI«’ES 
+	 * Este m√©todo remove TODAS AS CONDI√á√ïES 
 	 * atualmente preenchida pela interface e ATUALIZA A CONSULTA.
 	 * @throws BusinessException 
 	 */
 	public void doClearCondictions() throws BusinessException{
-	    log.debug("Limpando todas as condiÁıes");
+	    log.debug("Limpando todas as condi√ß√µes");
 	    currentProcess.getUserReport().getCondictionParam().getCondictions().clear();
 		log.debug("Atualizando a pesquisa imediatamente");
 		doRunQuery();
 	}
 	
 	/**
-	 * Este mÈtodo remove TODAS AS ORDENS 
+	 * Este m√©todo remove TODAS AS ORDENS 
 	 * atualmente preenchida pela interface e ATUALIZA A CONSULTA.
 	 * @throws BusinessException 
 	 */
@@ -235,37 +235,37 @@ public class QueryBean extends CrudBasicBean
 	}
     
     /**
-     * Este mÈtodo pode ser disparado pela interface, a qual fornecer·
-     * por meio de par‚metros URL as definiÁıes da ordem desejada.
-     * Ele lÍ estes par‚metros da requisiÁ„o.
-     * Aplica os par‚metros no processo de pesquisa corrente
+     * Este m√©todo pode ser disparado pela interface, a qual fornecer√°
+     * por meio de par√¢metros URL as defini√ß√µes da ordem desejada.
+     * Ele l√™ estes par√¢metros da requisi√ß√£o.
+     * Aplica os par√¢metros no processo de pesquisa corrente
      * E pede para o processo recarregar a pesquisa. 
      * @throws BusinessException 
      */
     public void doOrder() throws BusinessException
     {
-        log.debug("Iniciando a aÁ„o doOrder");
-    	/* Carregar os par‚metros de ordenaÁ„o passados */
+        log.debug("Iniciando a a√ß√£o doOrder");
+    	/* Carregar os par√¢metros de ordena√ß√£o passados */
     	loadOrderParams();
     	
-    	/* Altera no processo corrente os par‚metros de ordenaÁ„o */
+    	/* Altera no processo corrente os par√¢metros de ordena√ß√£o */
     	applyOrderParams();
 
-		/* Solicita o processo para recarregar a coleÁ„o */
+		/* Solicita o processo para recarregar a cole√ß√£o */
 		doRunQuery();
     }
     
     /**
-     * Este mÈtodo aplica os atuais par‚metros de ordem da pesquisa 
+     * Este m√©todo aplica os atuais par√¢metros de ordem da pesquisa 
      * no processo de pesquisa corrente.
-     * Ele poder· ser chamado quando uma aÁ„o doOrder È requisitada,
-     * ou ainda durante a primeira carga da vis„o.
+     * Ele poder√° ser chamado quando uma a√ß√£o doOrder √© requisitada,
+     * ou ainda durante a primeira carga da vis√£o.
      * @throws BusinessException 
      */
     private void applyOrderParams() throws BusinessException{
-		/* Verifica se h· par‚metros de ordenaÁ„o para serem aplicados */
+		/* Verifica se h√° par√¢metros de ordena√ß√£o para serem aplicados */
     	if(this.currentParams.containsKey(URL_PARAM_ORDER_PROPERTY)){
-    		/* Limpa as atuais ordenaÁıes */
+    		/* Limpa as atuais ordena√ß√µes */
     		currentProcess.getUserReport().getOrderParam().getCondictions().clear();
     		
     		/* Preenche a Ordem */
@@ -283,9 +283,9 @@ public class QueryBean extends CrudBasicBean
     }
 
     /**
-     * Este mÈtodo analisa a tual requisiÁ„o e verifica se
-     * foram recebidos par„metros de ordenaÁ„o. Se foram, eles s„o 
-     * carregados para o bean e poder„o posteriormente ser
+     * Este m√©todo analisa a tual requisi√ß√£o e verifica se
+     * foram recebidos par√£metros de ordena√ß√£o. Se foram, eles s√£o 
+     * carregados para o bean e poder√£o posteriormente ser
      * aplicados aos processos ativos.
      */
     private void loadOrderParams()
@@ -301,23 +301,23 @@ public class QueryBean extends CrudBasicBean
 	}
 
 	/**
-	 * Atualmente o jsp est· injetando o valor do filtro diretamente
+	 * Atualmente o jsp est√° injetando o valor do filtro diretamente
 	 * em queryBean.currentProcess.userReport.filterParam.filter
-	 * para que o carga de um relatÛrio salvo j· exiba o valor do
+	 * para que o carga de um relat√≥rio salvo j√° exiba o valor do
 	 * filtro no componente na tela
 	 * @throws BusinessException
 	 */
     public void doFilter() throws BusinessException{
-		/* Redefine a p·gina inicial antes de realizar a nova pesquisa */
+		/* Redefine a p√°gina inicial antes de realizar a nova pesquisa */
 		currentProcess.getUserReport().getPageParam().doReset();
 		
-		/* LÍ o par‚metro do filtro */
+		/* L√™ o par√¢metro do filtro */
 		loadFilterParams();
 		
-		/* O par‚metro j· È enviado pelo queryBean.currentProcess.filterParam.filter */
+		/* O par√¢metro j√° √© enviado pelo queryBean.currentProcess.filterParam.filter */
 		applyFilterParams();
 
-		/* Solicita o processo para recarregar a coleÁ„o */
+		/* Solicita o processo para recarregar a cole√ß√£o */
 		doRunQuery();
 	}
 	
@@ -336,11 +336,11 @@ public class QueryBean extends CrudBasicBean
 	}
 
 	private void applyEntityParams() throws BusinessException{
-		/* Preenche os par‚metros de Entidade e Pai, S¬O AS CHAVES DA VIS¬O */
+		/* Preenche os par√¢metros de Entidade e Pai, S√ÇO AS CHAVES DA VIS√ÇO */
 		try {
 			currentProcess.setEntityType(Class.forName(this.getEntityParam().getTypeName()));
 
-			/* Preenche os par‚metros de entidade Pai */
+			/* Preenche os par√¢metros de entidade Pai */
 			if(this.getEntityParam().getParentParam().isHasParent()){
 				currentProcess.getUserReport().getParentParam().setType(Class.forName(this.getEntityParam().getParentParam().getTypeName()));
 				currentProcess.getUserReport().getParentParam().setId(this.getEntityParam().getParentParam().getId());
@@ -355,19 +355,19 @@ public class QueryBean extends CrudBasicBean
 
 	public void doPageRefresh(){
 		
-		/* LÍ o par‚metro do filtro */
+		/* L√™ o par√¢metro do filtro */
 		loadPageParams();
 		
-		/* O par‚metro j· È enviado pelo queryBean.currentProcess.pageParam.page */
-		/* O par‚metro j· È enviado pelo queryBean.currentProcess.pageParam.pageSize */
+		/* O par√¢metro j√° √© enviado pelo queryBean.currentProcess.pageParam.page */
+		/* O par√¢metro j√° √© enviado pelo queryBean.currentProcess.pageParam.pageSize */
 		//applyPageParams();
 
-		/* Solicita o processo para recarregar a coleÁ„o */
+		/* Solicita o processo para recarregar a cole√ß√£o */
 		doRunQuery();
 	}
 	
 	private void applyPageParams() throws BusinessException{
-		/* Preenche os par‚metros de PaginaÁ„o */
+		/* Preenche os par√¢metros de Pagina√ß√£o */
 		currentProcess.getUserReport().getPageParam().setPage(Integer.parseInt(this.currentParams.get(URL_PARAM_PAGE_INDEX).toString()));
 		currentProcess.getUserReport().getPageParam().setPageSize(Integer.parseInt(this.currentParams.get(URL_PARAM_PAGE_SIZE).toString()));
 	} 
@@ -431,8 +431,8 @@ public class QueryBean extends CrudBasicBean
     }
 
     /**
-     * Este mÈtodo analisa as subEntidades de da entidade corrente e constroi uma lista com os metadados destas entidades.
-     * @return Retorna um metadado de uma entidade do tipo das entidades que est„o 
+     * Este m√©todo analisa as subEntidades de da entidade corrente e constroi uma lista com os metadados destas entidades.
+     * @return Retorna um metadado de uma entidade do tipo das entidades que est√£o 
      * armazenadas na lista.
      * @throws Exception 
      */
@@ -449,11 +449,11 @@ public class QueryBean extends CrudBasicBean
 
     
     /**
-     * Este mÈtodo foi implementado porque a coleÁ„o do currentProcess.userReport.entityCollection È
-     * inicialmente nula antes da primeira execuÁ„o da pesquisa.
-     * Assim, n„o h· metadados preparados.
+     * Este m√©todo foi implementado porque a cole√ß√£o do currentProcess.userReport.entityCollection √©
+     * inicialmente nula antes da primeira execu√ß√£o da pesquisa.
+     * Assim, n√£o h√° metadados preparados.
      * E um erro era gerado.  
-     * @return Retorna um metadado de uma entidade do tipo das entidades que est„o 
+     * @return Retorna um metadado de uma entidade do tipo das entidades que est√£o 
      * armazenadas na lista.
      * @throws Exception 
      */
@@ -468,8 +468,8 @@ public class QueryBean extends CrudBasicBean
     }
 
     /**
-     * Este mÈtodo obtÈm, uma ˙nica vez a lista ordenada das propriedades
-     * visÌveis.
+     * Este m√©todo obt√©m, uma √∫nica vez a lista ordenada das propriedades
+     * vis√≠veis.
      * @return
      * @throws Exception
      */
@@ -484,8 +484,8 @@ public class QueryBean extends CrudBasicBean
     } 
     
     /**
-     * Este mÈtodo obtÈm, uma ˙nica vez a lista ordenada das propriedades
-     * visÌveis.
+     * Este m√©todo obt√©m, uma √∫nica vez a lista ordenada das propriedades
+     * vis√≠veis.
      * @return
      * @throws Exception
      */
@@ -500,7 +500,7 @@ public class QueryBean extends CrudBasicBean
     }
     
     /**
-     * Este mÈtodo obtÈm os metadados da propriedade visualizada.
+     * Este m√©todo obt√©m os metadados da propriedade visualizada.
      * para isto, Utiliza o atual processo e o atual pai.
      * @return
      * @throws Exception
@@ -512,9 +512,9 @@ public class QueryBean extends CrudBasicBean
     
     
     /**
-     * Este mÈtodo permite obter o tamanho do vetor de propriedades visÌveis atualmente
+     * Este m√©todo permite obter o tamanho do vetor de propriedades vis√≠veis atualmente
      * preparado pelo bean.<br>
-     * Tipos Arrays n„o possuem mÈtodos getSize() no padr„o JavaBean 
+     * Tipos Arrays n√£o possuem m√©todos getSize() no padr√£o JavaBean 
      * @return
      * @throws Exception
      */
@@ -524,20 +524,20 @@ public class QueryBean extends CrudBasicBean
     }
 	
     /**
-     * Este mÈtodo prepara a coleÁ„o de objetos que ser· mostrada na lista.
-     * <p>Se a lista possui uma entidade Pai, a entidade Pai È obtida e a propriedade
-     * e o serviÁo QueryService È executado com os par‚metros do pai.
-     * O filtro ser· aplicado ‡s entidades filhas do pai. 
+     * Este m√©todo prepara a cole√ß√£o de objetos que ser√° mostrada na lista.
+     * <p>Se a lista possui uma entidade Pai, a entidade Pai √© obtida e a propriedade
+     * e o servi√ßo QueryService √© executado com os par√¢metros do pai.
+     * O filtro ser√° aplicado √†s entidades filhas do pai. 
      */
     public void prepareCurrentEntity(String currentEntityKey) throws BusinessException, Exception
 	{
 		super.prepareCurrentEntity(currentEntityKey);
 		
         if(processes.containsKey(currentEntityKey)){
-        	log.debug("Utilizando o processo j· ativo");
+        	log.debug("Utilizando o processo j√° ativo");
         	currentProcess = (QueryProcess) processes.get(currentEntityKey);
 
-        	log.debug("Verificando se È uma chamada por link, para atualizar os par‚metros do atual processo");
+        	log.debug("Verificando se √© uma chamada por link, para atualizar os par√¢metros do atual processo");
         	if(this.checkLinkRequest())
             	doReload();
         	
@@ -547,29 +547,29 @@ public class QueryBean extends CrudBasicBean
     		log.debug("Colocando o processo Query na lista de processos ativos");
            	processes.put(this.currentEntityKey, currentProcess);
     		
-        	log.debug("Carregando os par‚metros para o processo recÈm criado");
+        	log.debug("Carregando os par√¢metros para o processo rec√©m criado");
 			doReload();
 
    		}
 
-		/* Uma nova entidade foi preparada para a atual vis„o. Com isso, os dados locais 
-		 * bufferizados precisam ser limpos. Os doRunQuery j· fazem isto, porÈm o isRunQueryOpen utiliza
-		 * um dado que È buiferrizado, e se o cleanBuffers() n„o for executado antes dele, ele utilizar·
-		 * um buffer errado que n„o pertence ‡ atual entidade da vis„o */
+		/* Uma nova entidade foi preparada para a atual vis√£o. Com isso, os dados locais 
+		 * bufferizados precisam ser limpos. Os doRunQuery j√° fazem isto, por√©m o isRunQueryOpen utiliza
+		 * um dado que √© buiferrizado, e se o cleanBuffers() n√£o for executado antes dele, ele utilizar√°
+		 * um buffer errado que n√£o pertence √† atual entidade da vis√£o */
 		cleanBuffers();
 
 		if(this.isRunQueryOnOpen())
         	doRunQuery();
         else
-        	/* Verifica se for link request e tem um filtro definido ent„o d· um run Query para que a 
-        	 * tela de pesquisa j· seja exibida com o resultado */  
+        	/* Verifica se for link request e tem um filtro definido ent√£o d√° um run Query para que a 
+        	 * tela de pesquisa j√° seja exibida com o resultado */  
         	if(this.checkLinkRequest() && this.isHasFilterParams())
         		doRunQuery();
 	}
     
     /**
-     * Atualmente a chave da vis„o est· muito restrita, fazendo com que muitas visıes
-     * fiquem armazenadas na memÛria. 
+     * Atualmente a chave da vis√£o est√° muito restrita, fazendo com que muitas vis√µes
+     * fiquem armazenadas na mem√≥ria. 
      */
 	public String prepareCurrentEntityKey()
 	{
@@ -580,27 +580,27 @@ public class QueryBean extends CrudBasicBean
 	}
 	
 	/**
-	 * Verifica se a atual vis„o possui uma propriedade de SELECT_ONE_ACTIVE 
+	 * Verifica se a atual vis√£o possui uma propriedade de SELECT_ONE_ACTIVE 
 	 */
 	public boolean isSelectOneActive(){return currentParams.get(URL_PARAM_SELECT_ONE_DEST)!=null;}
 	
 
 	/**
-	 * Este mÈtodo analisa o propriedade que est· definida para ser selecionada;
-	 * Analisa a atual entidade da coleÁ„o;
+	 * Este m√©todo analisa o propriedade que est√° definida para ser selecionada;
+	 * Analisa a atual entidade da cole√ß√£o;
 	 * Pega o valor da propriedade na atual entidade.
 	 * @return Retorna o valor da propriedade da entidade
 	 * @throws BusinessException
 	 * @throws Exception
 	 */
 	public String getSelectPropertyValue() throws BusinessException, Exception{
-		/* Obtem o valor da propriedade que ser· retornado pela tela de pesquisa */
+		/* Obtem o valor da propriedade que ser√° retornado pela tela de pesquisa */
 		if(currentEntity == null)
-			throw new Exception("A entidade corrente n„o est· preparada. Execute pelo menos uma vez o mÈtodo getNextCurrentEntity()");
+			throw new Exception("A entidade corrente n√£o est√° preparada. Execute pelo menos uma vez o m√©todo getNextCurrentEntity()");
 		
 		IProperty prop = currentEntity.getProperty(this.currentParams.get(URL_PARAM_SELECT_PROPERTY));
 		
-		/* Verifica se a propriedade possui uma m·scara para retorna-la sem a m·scara */
+		/* Verifica se a propriedade possui uma m√°scara para retorna-la sem a m√°scara */
 		if(prop.getInfo().isHasEditMask())
 			if(prop.getValue().getAsObject()==null)
 				return "";
@@ -613,30 +613,30 @@ public class QueryBean extends CrudBasicBean
 	public QueryProcess getCurrentProcess() {return currentProcess;}
 	
 	public void doRunQuery(){
-    	/* Solicita ao processo para executar a pesquisa com os atuais par‚metros */
+    	/* Solicita ao processo para executar a pesquisa com os atuais par√¢metros */
 		if(!currentProcess.runQuery())
 			FacesUtils.addErrorMsgs(currentProcess.getMessageList());
 
-        /* Limpa os buffers apÛs a nova pesquisa ter sido executada */
+        /* Limpa os buffers ap√≥s a nova pesquisa ter sido executada */
 		cleanBuffers();
 	}
 
-	/* Permite iterar a coleÁ„o de entidades atuais */
+	/* Permite iterar a cole√ß√£o de entidades atuais */
 	private int currentEntityIndex = 0;
 	public IEntity getNextCurrentEntity() throws Exception{
-		/* Obtem na coleÁ„o de entidades a entidade corrente  e j· incrementa o ponteiro 
-		 * para a prÛxima */
+		/* Obtem na cole√ß√£o de entidades a entidade corrente  e j√° incrementa o ponteiro 
+		 * para a pr√≥xima */
 		currentEntity = (IEntity) getArray()[currentEntityIndex++];
 		
-		/* Se o ponteiro atingir o tamanho da lista ele volta ao inÌcio para n„o ultrapassar o limite */
+		/* Se o ponteiro atingir o tamanho da lista ele volta ao in√≠cio para n√£o ultrapassar o limite */
 		if(currentEntityIndex == currentProcess.getUserReport().getEntityCollection().getSize()) currentEntityIndex = 0;
 
 		return currentEntity;
 	}
 	
     /** 
-     * O bean, por questıes de desempenho, faz alguns buffers de informaÁıes
-     * da entidade corrente. Assim, a cada troca de entidade ou preparaÁ„o de um novo
+     * O bean, por quest√µes de desempenho, faz alguns buffers de informa√ß√µes
+     * da entidade corrente. Assim, a cada troca de entidade ou prepara√ß√£o de um novo
      * processo de pesquisa, estes buffers precisam ser limpos */
 	private void cleanBuffers(){
         /* Executa algumas rotinas que sempre preparam propriedades para uma nova consulta */ 
@@ -651,7 +651,7 @@ public class QueryBean extends CrudBasicBean
 		
 		subEntitiesBuffer = null;
 		
-		/* Buffer da lista de relatÛrio disponÌveis para a entidades */
+		/* Buffer da lista de relat√≥rio dispon√≠veis para a entidades */
 		listUserReportBuffer = null;
 		
 		modelsLabelEntityBuffer = null;
@@ -659,7 +659,7 @@ public class QueryBean extends CrudBasicBean
 	
 	public void doReload() throws BusinessException{
 		log.debug("Executando doReload");
-		/* Recarrega e aplica os par„metros da vis„o */
+		/* Recarrega e aplica os par√£metros da vis√£o */
 		applyEntityParams();
 		
 		loadFilterParams();
@@ -674,27 +674,27 @@ public class QueryBean extends CrudBasicBean
 		loadSelectParams();
 		
 		/* Realiza a query */
-		/* Lucio 20060525 N„o È necess·rio carregar a query agora...
-		 * cada action ou do ir· solicitar se re-carrega ou n„o a query */
+		/* Lucio 20060525 N√£o √© necess√°rio carregar a query agora...
+		 * cada action ou do ir√° solicitar se re-carrega ou n√£o a query */
 		//doRunQuery();
 	}
 
 	
-	/** Buffer para evitar in˙meras buscas no banco */
+	/** Buffer para evitar in√∫meras buscas no banco */
 	private List<SelectItem> listUserReportBuffer = null;
 	public List<SelectItem> getListUserReport() throws BusinessException{
 		if(listUserReportBuffer==null){
 			listUserReportBuffer = new ArrayList<SelectItem>();
 			for(IEntity entity: UserReport.listUserReportByEntityAndUser(this.getApplicationBean().getProcessManager().getServiceManager(), this.currentProcess.getEntityType(), this.getUserSessionBean().getUserSession().getUser().getId()))
-				/** Os par‚metros corrente do atual beam s„o armazenados em String, logo userReportId ser· uma
-				 * string e a lista de opÁıes para ele dever· ser tambÈm uma String */ 
+				/** Os par√¢metros corrente do atual beam s√£o armazenados em String, logo userReportId ser√° uma
+				 * string e a lista de op√ß√µes para ele dever√° ser tamb√©m uma String */ 
 				listUserReportBuffer.add(new SelectItem(Long.toString(entity.getId()), entity.toString()));
 
 			/* Garante que tenha pelo menos um elemento vazio na lista.
-			 * Isto porque durante o post do Ajax, se n„o tiver um elemento 
-			 * v·lido na lista, ele n„o consegue concluir e d· erro. Lucio - 03/05/2007 */
+			 * Isto porque durante o post do Ajax, se n√£o tiver um elemento 
+			 * v√°lido na lista, ele n√£o consegue concluir e d√° erro. Lucio - 03/05/2007 */
 			if(listUserReportBuffer.isEmpty()){
-				listUserReportBuffer.add(new SelectItem(Long.toString(IDAO.ENTITY_UNSAVED), "(Nenhum relatÛrio salvo)"));
+				listUserReportBuffer.add(new SelectItem(Long.toString(IDAO.ENTITY_UNSAVED), "(Nenhum relat√≥rio salvo)"));
 			}
 			
 		}
@@ -704,9 +704,9 @@ public class QueryBean extends CrudBasicBean
 	}
 	
 	/**
-	 * Este mÈtodo forÁa a limpeza da atual lista de relatÛrios
-	 * disponÌveis para serem carregadas novamente do banco. ⁄til
-	 * quando o operador gravou um relatÛrio recentemente e este n„o
+	 * Este m√©todo for√ßa a limpeza da atual lista de relat√≥rios
+	 * dispon√≠veis para serem carregadas novamente do banco. √ötil
+	 * quando o operador gravou um relat√≥rio recentemente e este n√£o
 	 * aparece na lista  
 	 */
 	public void doRefreshListUserReport() throws BusinessException{
@@ -714,8 +714,8 @@ public class QueryBean extends CrudBasicBean
 	}
 
 	/**
-     * Esta action necessita basicamente de dois par‚metros sejam
-     * fornecidos pela requisiÁ„o:
+     * Esta action necessita basicamente de dois par√¢metros sejam
+     * fornecidos pela requisi√ß√£o:
      * -entityType
      * -userReportId 
      */
@@ -724,7 +724,7 @@ public class QueryBean extends CrudBasicBean
         log.debug("::Iniciando actionRestoreUserReport");
 
         try{
-        	// Prepara os par‚metros fornecidos
+        	// Prepara os par√¢metros fornecidos
             this.loadEntityParams();
 
             /* prepara entidade corrente */ 
@@ -739,7 +739,7 @@ public class QueryBean extends CrudBasicBean
 
         }catch(ProcessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* VisualizaÁ„o REJEITADA */
+        	/* Visualiza√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a create
@@ -749,18 +749,18 @@ public class QueryBean extends CrudBasicBean
 
 	
 	/**
-     * Esta action necessita basicamente de dois par‚metros sejam
+     * Esta action necessita basicamente de dois par√¢metros sejam
      * fornecidos diretamente:
      * -entityType
      * -userReportId
-     * Ele n„o utiliza os componentes e mÈtodos que analisam os par‚metros
-     * da requisiÁ„o, pois os par‚metros da requisiao s„o read-only. Assim,
-     * este mÈtodo injeta diretamente onde s„o necess·rios os par‚metros entityType e
+     * Ele n√£o utiliza os componentes e m√©todos que analisam os par√¢metros
+     * da requisi√ß√£o, pois os par√¢metros da requisiao s√£o read-only. Assim,
+     * este m√©todo injeta diretamente onde s√£o necess√°rios os par√¢metros entityType e
      * userReportId.
-     * Como este mÈtodo È ˙til para que outros beans chamem a pesquisa de suas
-     * entidades, estes beans podem querar incluir filtros (condiÁıes) que restrinjam 
-     * o acesso aos dados pelo operador. Assim, este mÈtodo somente carrega os par‚metros
-     * do relatÛrio, mas n„o invoca o doRunQuery() que atualizaria a tela com o resultado
+     * Como este m√©todo √© √∫til para que outros beans chamem a pesquisa de suas
+     * entidades, estes beans podem querar incluir filtros (condi√ß√µes) que restrinjam 
+     * o acesso aos dados pelo operador. Assim, este m√©todo somente carrega os par√¢metros
+     * do relat√≥rio, mas n√£o invoca o doRunQuery() que atualizaria a tela com o resultado
      * da pesquisa.
      * <b>O doRunQuery() deve ser invocado pelo bean chamador.</b>
      */ 
@@ -768,11 +768,11 @@ public class QueryBean extends CrudBasicBean
     {
         log.debug("::Iniciando actionRestoreUserReport");
 
-        /* Prepara os par‚metros fornecidos diretamente no bean que controla o par‚metro.
-         * Pois n„o È possÌvel injetar este par‚metro no mapa de par‚metro da requisiÁ„o 
-         * (this.getRequestParams, FacesUtils.getRequestParams). Ele È read-only.
-         * Assim, È necess·rio informar diretamente o que deve ser informado para a 
-         * preparaÁ„o do QueryBean
+        /* Prepara os par√¢metros fornecidos diretamente no bean que controla o par√¢metro.
+         * Pois n√£o √© poss√≠vel injetar este par√¢metro no mapa de par√¢metro da requisi√ß√£o 
+         * (this.getRequestParams, FacesUtils.getRequestParams). Ele √© read-only.
+         * Assim, √© necess√°rio informar diretamente o que deve ser informado para a 
+         * prepara√ß√£o do QueryBean
          */
         this.getEntityParam().setTypeName(entityType);
 
@@ -780,19 +780,19 @@ public class QueryBean extends CrudBasicBean
         log.debug("::Preparando a entidade corrente");
         prepareCurrentEntity(prepareCurrentEntityKey());
 
-        /* Recupera o relatÛrio do banco de dados */
+        /* Recupera o relat√≥rio do banco de dados */
        	currentProcess.getUserReport().restoreReport(userReportId);		
         	
        	/* Ativa o painel de propriedades dos filtros */
         this.getCurrentParams().put(URL_PARAM_ADVANCED_QUERY, "true");
         	
-       	/* O processo n„o recarregar· a coleÁ„o neste momento,
-       	 * pois quem chamou este mÈtodo pode querer adicionar novas
-       	 * condiÁıes ‡ pesquisa, e o chamador executar· o doRunQuery
+       	/* O processo n√£o recarregar√° a cole√ß√£o neste momento,
+       	 * pois quem chamou este m√©todo pode querer adicionar novas
+       	 * condi√ß√µes √† pesquisa, e o chamador executar√° o doRunQuery
        	 * para atualizar */
 //       	doRunQuery();
 
-       	FacesUtils.addInfoMsg("O relatÛrio foi carregado com SUCESSO.");
+       	FacesUtils.addInfoMsg("O relat√≥rio foi carregado com SUCESSO.");
 
         log.debug("::Fim action");
         return QueryBean.FACES_VIEW_QUERY;
@@ -800,21 +800,21 @@ public class QueryBean extends CrudBasicBean
 
 	
 	public void doRestoreUserReport() throws BusinessException{
-		/* N¬O LÍ o par‚metro do UserReportId 
-		 * O mesmo È ligado ao HtmlInputText */
+		/* N√ÇO L√™ o par√¢metro do UserReportId 
+		 * O mesmo √© ligado ao HtmlInputText */
 		loadUserReportIdParam();
 		
-		/* Verifica se o id È inv·lido */
+		/* Verifica se o id √© inv√°lido */
         if(FacesUtils.isNotNull(this.currentParams.get(URL_PARAM_USER_REPORT_ID)) && (Long.parseLong(this.currentParams.get(URL_PARAM_USER_REPORT_ID)) != -1)){
-        	/* Recupera o relatÛrio do banco de dados */
+        	/* Recupera o relat√≥rio do banco de dados */
         	currentProcess.getUserReport().restoreReport(Long.parseLong(this.currentParams.get(URL_PARAM_USER_REPORT_ID)));		
         	
-        	/* Solicita o processo para recarregar a coleÁ„o */
+        	/* Solicita o processo para recarregar a cole√ß√£o */
         	doRunQuery();
         	
-        	FacesUtils.addInfoMsg("O relatÛrio foi carregado com SUCESSO.");
+        	FacesUtils.addInfoMsg("O relat√≥rio foi carregado com SUCESSO.");
         }else
-			FacesUtils.addInfoMsg("O relatÛrio selecionado n„o È v·lido.");
+			FacesUtils.addInfoMsg("O relat√≥rio selecionado n√£o √© v√°lido.");
 
 	}
 	
@@ -826,55 +826,55 @@ public class QueryBean extends CrudBasicBean
 	
 	public String actionSaveUserReport() throws BusinessException{
 		
-		/* Os dados do relatÛrio atual como Nome de outros j·
-		 * s„o diretamente alimentados no bean
+		/* Os dados do relat√≥rio atual como Nome de outros j√°
+		 * s√£o diretamente alimentados no bean
 		 */
-		/* O par‚metro j· È enviado pelo queryBean.currentProcess.filterParam.filter */
+		/* O par√¢metro j√° √© enviado pelo queryBean.currentProcess.filterParam.filter */
 		currentProcess.getUserReport().saveReport();
 		
-		/* Limpa o buffer de lista de relatorios para forÁar a recarga */
+		/* Limpa o buffer de lista de relatorios para for√ßar a recarga */
 		doRefreshListUserReport();
 		
-		FacesUtils.addInfoMsg("O relatÛrio foi salvo com SUCESSO.");
+		FacesUtils.addInfoMsg("O relat√≥rio foi salvo com SUCESSO.");
 		
 		return FacesUtils.FACES_VIEW_CLOSE;
 	}
 	
 	public void doClearUserReport() throws BusinessException{
 		
-		/* Limpa todas as condiÁıes do relatÛrio atual */
+		/* Limpa todas as condi√ß√µes do relat√≥rio atual */
 		currentProcess.getUserReport().clear();
 
-		/* Solicita o processo para recarregar a coleÁ„o */
+		/* Solicita o processo para recarregar a cole√ß√£o */
 		doRunQuery();
 
-		FacesUtils.addInfoMsg("Todas as propriedades do relatÛrio atual foram limpas com SUCESSO.");
+		FacesUtils.addInfoMsg("Todas as propriedades do relat√≥rio atual foram limpas com SUCESSO.");
 	}
 	
 	public void doDeleteUserReport() throws BusinessException{
 		
-		/* N¬O LÍ o par‚metro do UserReportId 
-		 * O mesmo È ligado ao HtmlInputText */
+		/* N√ÇO L√™ o par√¢metro do UserReportId 
+		 * O mesmo √© ligado ao HtmlInputText */
 		//loadUserReportIdParam();
 		
         if(FacesUtils.isNotNull(this.currentParams.get(URL_PARAM_USER_REPORT_ID))){
-        	/* Remove o relatÛrio da lista banco de dados */
+        	/* Remove o relat√≥rio da lista banco de dados */
         	currentProcess.getUserReport().deleteReport(Long.parseLong(this.currentParams.get(URL_PARAM_USER_REPORT_ID)));
         	
-        	/* Define id do atual relatÛrio selecionado na lista como -1 para n„o
-        	 * dar erro de validaÁ„o pois o relatÛrio excluido n„o estar· mais na lista */
+        	/* Define id do atual relat√≥rio selecionado na lista como -1 para n√£o
+        	 * dar erro de valida√ß√£o pois o relat√≥rio excluido n√£o estar√° mais na lista */
         	currentParams.remove(URL_PARAM_USER_REPORT_ID);
 
-        	FacesUtils.addInfoMsg("O relatÛrio foi excluÌdo da lista com SUCESSO.");
+        	FacesUtils.addInfoMsg("O relat√≥rio foi exclu√≠do da lista com SUCESSO.");
         }else
-			FacesUtils.addInfoMsg("O relatÛrio selecionado n„o È v·lido.");
+			FacesUtils.addInfoMsg("O relat√≥rio selecionado n√£o √© v√°lido.");
 
-		/* Limpa o buffer de lista de relatorios para forÁar a recarga */
+		/* Limpa o buffer de lista de relatorios para for√ßar a recarga */
 		doRefreshListUserReport();
 	}
 	
 	/* Executa o download da lista de contratos  
-	 * o arquivo est· na extens„o .csv (Excel)
+	 * o arquivo est√° na extens√£o .csv (Excel)
 	 */
 	public void actionExport() throws BusinessException{
 		
@@ -883,18 +883,18 @@ public class QueryBean extends CrudBasicBean
 			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 			response.setContentType("csv-content"); //vinculo com o Excel
 			
-			/* Verifica se o relatÛrio possui um nome se nao tiver, usa o label da entidade */
+			/* Verifica se o relat√≥rio possui um nome se nao tiver, usa o label da entidade */
 			String fileName = this.getCurrentProcess().getUserReport().getName();
 			if(StringUtils.isEmpty(fileName))
 				fileName = this.getInfo().getLabel();
 
-			//pıe em cache o nome do arquivo e sua extens„o
+			//p√µe em cache o nome do arquivo e sua extens√£o
 			response.setHeader("Content-Disposition",
 					"attachment;filename=\"" + fileName + ".csv\""); 
 			ServletOutputStream out = response.getOutputStream();
 			
-			String[][] data = this.getCurrentProcess().getUserReport().getBuildResult();//obtem a bufferizaÁ„o das propriedades
-			/*Inicia a linha com n˙mero da linha do relatÛrio */
+			String[][] data = this.getCurrentProcess().getUserReport().getBuildResult();//obtem a bufferiza√ß√£o das propriedades
+			/*Inicia a linha com n√∫mero da linha do relat√≥rio */
 			String outRow=";";
 			// Montar header do arquivo com os labels das propriedades Ex: "Nome" ; "propriedade"
 			for(ResultCondiction condiction: this.getCurrentProcess().getUserReport().getSelectedResult()){
@@ -904,9 +904,9 @@ public class QueryBean extends CrudBasicBean
 			out.println(outRow);
 			
 			int currentLine = 1; //contador para a linha
-			//para cada registro na lista de entidade faÁa
+			//para cada registro na lista de entidade fa√ßa
 			for(String[] row: data){
-				// Coloca o n˙mero da linha
+				// Coloca o n√∫mero da linha
 				outRow = currentLine++ + ";";
 				
 				for(String col: row)
@@ -919,7 +919,7 @@ public class QueryBean extends CrudBasicBean
 			//propriedade totalizadora
 //			outRow += "\"" + condiction.getSumTotal() + "\";";
 			//}
-			// Escreve a ˙ltima linha no arquivo -> total das propriedades
+			// Escreve a √∫ltima linha no arquivo -> total das propriedades
 //			out.println(outRow);
 			
 			out.flush();
@@ -936,10 +936,10 @@ public class QueryBean extends CrudBasicBean
 
 	/**
 	 * Permite definir se durante a abertura da tela deve-se se 
-	 * executar a pesquisa ou n„o. Assim para sistemas com
-	 * muitas entidades È melhor ficar falso, pois sempre o operador vai querer
-	 * pesquisar, ja com poucas entidades cadastradas È interessante
-	 * j· mostrar 
+	 * executar a pesquisa ou n√£o. Assim para sistemas com
+	 * muitas entidades √© melhor ficar falso, pois sempre o operador vai querer
+	 * pesquisar, ja com poucas entidades cadastradas √© interessante
+	 * j√° mostrar 
 	 * @throws Exception 
 	 */
 //	private boolean runQueryOnOpen = false;
@@ -951,7 +951,7 @@ public class QueryBean extends CrudBasicBean
 	
 	
 	/*
-	 * ROTINAS PARA CONTROLE DE GERA«¬O DE ETIQUETAS
+	 * ROTINAS PARA CONTROLE DE GERA√á√ÇO DE ETIQUETAS
 	 */
     private long modelLabelEntityId = IDAO.ENTITY_UNSAVED;
     private long addressLabelGroupId = IDAO.ENTITY_UNSAVED;
@@ -965,7 +965,7 @@ public class QueryBean extends CrudBasicBean
 	/**
 	 *  Cria uma lista com os modelos de etiquetas de entidades disponivel
 	 *  para a entidade atualmente manipulada.
-	 *  O tipo da entidade j· deve estar definido para executar este mÈtodo, para que ele mostra somente os modelos 
+	 *  O tipo da entidade j√° deve estar definido para executar este m√©todo, para que ele mostra somente os modelos 
 	 *  da entidade selecionada
 	 */
 	private List<SelectItem> modelsLabelEntityBuffer = null;
@@ -986,15 +986,15 @@ public class QueryBean extends CrudBasicBean
     }
 
 	/**
-	 *  Cria uma lista com os grupos de etiquetas disponÌveis
+	 *  Cria uma lista com os grupos de etiquetas dispon√≠veis
 	 */
 	private List<SelectItem> addressLabelGroupBuffer = null;
 	public List<SelectItem> getAddressLabelGroupList(){
 		try{
 			if(addressLabelGroupBuffer == null){
 				addressLabelGroupBuffer = this.getApplicationBean().getProcessManager().getServiceManager().getEntityManager().getEntitySelectItems(AddressLabelGroup.class, "");
-		    	/* Adiciona a primeira opÁ„o para mostar todas as etiquetas */
-				addressLabelGroupBuffer.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(N„o definido)"));
+		    	/* Adiciona a primeira op√ß√£o para mostar todas as etiquetas */
+				addressLabelGroupBuffer.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, "(N√£o definido)"));
 			}
 			
 			return addressLabelGroupBuffer;
@@ -1015,7 +1015,7 @@ public class QueryBean extends CrudBasicBean
 		
 		// Prepara o outPutStream
 		try {
-			this.getCurrentProcess().getUserReport().runCreateLabels(this.modelLabelEntityId, this.addressLabelGroupId);//obtem a bufferizaÁ„o das propriedades
+			this.getCurrentProcess().getUserReport().runCreateLabels(this.modelLabelEntityId, this.addressLabelGroupId);//obtem a bufferiza√ß√£o das propriedades
 			FacesUtils.addInfoMsg("Etiquetas geradas com SUCESSO.");
 			
 			this.getLabelBean().doReload();
@@ -1028,7 +1028,7 @@ public class QueryBean extends CrudBasicBean
 	}
 
 	/*
-	 * FIM - ROTINAS PARA CONTROLE DE GERA«¬O DE ETIQUETAS
+	 * FIM - ROTINAS PARA CONTROLE DE GERA√á√ÇO DE ETIQUETAS
 	 */
 
 }

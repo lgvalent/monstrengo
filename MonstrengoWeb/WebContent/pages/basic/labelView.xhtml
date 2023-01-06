@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -8,11 +8,11 @@
 	<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
 		<ui:param name="title" value="Controle Etiquetas" />
 		<ui:param name="icon" value="../../public/basic/img/label.png" />
-		<ui:param name="description" value="O sistema permite que você gere etiquetas de diversas entidades. Todas as etiquetas são centralizadas nesta tela para posterior controle e manutenção.&lt;br/>Cadastres novos grupos de etiquetas, novos modelos de impressão de etiqueta e novos modelos de geração&lt;br/>Filtre as etiquetas geradas por operador, entidade ou grupo. Ordene a lista de etiqueta. Marque as etiquetas que deseja imprimir ou excluir dessa lista." />
+		<ui:param name="description" value="O sistema permite que vocÃª gere etiquetas de diversas entidades. Todas as etiquetas sÃ£o centralizadas nesta tela para posterior controle e manutenÃ§Ã£o.&lt;br/>Cadastres novos grupos de etiquetas, novos modelos de impressÃ£o de etiqueta e novos modelos de geraÃ§Ã£o&lt;br/>Filtre as etiquetas geradas por operador, entidade ou grupo. Ordene a lista de etiqueta. Marque as etiquetas que deseja imprimir ou excluir dessa lista." />
 		
 		<ui:define name="content">
 			<p:tabView >
-				<p:tab title="Impressão" >
+				<p:tab title="ImpressÃ£o" >
 					<h:outputLabel value="Selecione o modelo de etiquetas " />
 					<h:selectOneMenu id="modelo" value="#{labelBean.modelLabelId}"
 						title="Selecione o modelo da etiqueta">
@@ -54,7 +54,7 @@
 					<h:outputLabel value=" e ordenar por " />
 					<h:selectOneMenu id="order" value="#{labelBean.orderProperty}"
 						onchange="this.form.submit()"
-						title="Selecione uma propriedade para ordenação das etiquetas na visualização">
+						title="Selecione uma propriedade para ordenaÃ§Ã£o das etiquetas na visualizaÃ§Ã£o">
 						<f:selectItems value="#{labelBean.orderPropertyList}" />
 					</h:selectOneMenu>
 				</p:tab>
@@ -76,17 +76,17 @@
 			</p:tabView>
 
 			<h:outputLabel
-				value="Não há etiquetas na lista para serem impressas. Utilize o menu Gerar Etiquetas para adicionar etiquetas na lista"
+				value="NÃ£o hÃ¡ etiquetas na lista para serem impressas. Utilize o menu Gerar Etiquetas para adicionar etiquetas na lista"
 				styleClass="infoMessage" rendered="#{!labelBean.hasLabels}" />
 
 			<h:outputLabel
-				value="Estão sendo exibidas &lt;b&gt;#{labelBean.labelsCount}&lt;/b&gt; etiquetas. Selecione as etiquetas que serão enviadas para impressão:"
+				value="EstÃ£o sendo exibidas &lt;b&gt;#{labelBean.labelsCount}&lt;/b&gt; etiquetas. Selecione as etiquetas que serÃ£o enviadas para impressÃ£o:"
 				style="color: #EE2C2C; text-align:left" escape="false"
 				rendered="#{labelBean.hasLabels}" />
 
 			<br/>  		
 
-			<h:outputLabel value="Seleção:" styleClass="titleGroup" />
+			<h:outputLabel value="SeleÃ§Ã£o:" styleClass="titleGroup" />
 			<h:panelGroup>
 				<h:commandButton value="Marcar"
 					title="Marca todas as propriedades da lista atual"
@@ -98,17 +98,17 @@
 					title="Desmarca todas as propriedades da lista atual"
 					onclick="return clearAll(this.form, 'myCheckEtiqueta')" />
 				<h:commandButton value="Inverter"
-					title="Inverte a seleção das propriedades da lista atual"
+					title="Inverte a seleÃ§Ã£o das propriedades da lista atual"
 					onclick="return inverseAll(this.form, 'myCheckEtiqueta')" />
 				<h:commandButton value="Desfazer"
-					title="Volta a seleção anterior às alterações recentemente efetuadas"
+					title="Volta a seleÃ§Ã£o anterior Ã s alteraÃ§Ãµes recentemente efetuadas"
 					type="reset" />
 				<h:commandButton value="Recarregar"
-					title="Recarrega a lista de etiquetas sem gravar as alterações"
+					title="Recarrega a lista de etiquetas sem gravar as alteraÃ§Ãµes"
 					action="#{labelBean.doReload}" />
 				<h:commandButton value="Gravar"
-					title="Grava a atual definição de seleção de etiquetas"
-					onclick="javascript:return confirm('Confirma gravar a seleção atual?')"
+					title="Grava a atual definiÃ§Ã£o de seleÃ§Ã£o de etiquetas"
+					onclick="javascript:return confirm('Confirma gravar a seleÃ§Ã£o atual?')"
 					action="#{labelBean.doUpdateSelection}"
 					disabled="#{!menuBean.crudMap.AddressLabel.canUpdate || (labelBean.applicationUserId!=userSessionBean.userSession.user.id)}" />
 				<h:commandButton value="Excluir"
@@ -143,7 +143,7 @@
 								title="Visualiza os detalhes do registro" style="border:0" />
 						</h:outputLink>
 						<h:graphicImage value="../../public/basic/img/retrieve_d.png"
-							title="Você não possui direitos para visualizar os dados do registro"
+							title="VocÃª nÃ£o possui direitos para visualizar os dados do registro"
 							style="border:0"
 							rendered="#{!menuBean.crudMap.AddressLabel.canRetrieve}" />
 

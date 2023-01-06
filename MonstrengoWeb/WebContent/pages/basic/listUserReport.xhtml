@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -6,13 +6,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="/public/basic/templates/simpleProcess.xhtml">
-	<ui:param name="title" value="Relatórios personalizados" />
+	<ui:param name="title" value="RelatÃ³rios personalizados" />
 	<ui:param name="icon" value="../../public/basic/img/report.png" />
-	<ui:param name="description" value="Durante uma pesquisa o operador pode salvar as configurações em relatórios personalizados. &lt;br> Aqui você pode listar os relatórios salvos por operador e por entidade. &lt;br> Você também pode transferir a propriedade de um relatório seu para outro operador." />
+	<ui:param name="description" value="Durante uma pesquisa o operador pode salvar as configuraÃ§Ãµes em relatÃ³rios personalizados. &lt;br> Aqui vocÃª pode listar os relatÃ³rios salvos por operador e por entidade. &lt;br> VocÃª tambÃ©m pode transferir a propriedade de um relatÃ³rio seu para outro operador." />
 	<ui:define name="content">
 
    <h:panelGrid columns="2">
-     <h:outputLabel value="Por usuário:"/>
+     <h:outputLabel value="Por usuÃ¡rio:"/>
      <h:selectOneMenu id="userId" value="#{listUserReportBean.userId}" onchange="this.form.submit()">
        <f:selectItems value="#{listUserReportBean.userList}"/>
      </h:selectOneMenu>
@@ -39,16 +39,16 @@
 			     style="widht:100%">
 		<h:column>
 			<f:facet name="header">
-            	<h:outputText value="Nome do relatório"/>
+            	<h:outputText value="Nome do relatÃ³rio"/>
             </f:facet>
 			<h:outputLink styleClass="noprint" value="javascript:linkUpdate('#{item.info.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canUpdate}">
 				<h:graphicImage value="../../public/basic/img/update.png" title="Altera os dados do registro" style="border:0"/>
 			</h:outputLink>
-			<h:graphicImage styleClass="noprint" value="../../public/basic/img/update_d.png" title="Você não possui direitos para alterar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canUpdate}"/>
+			<h:graphicImage styleClass="noprint" value="../../public/basic/img/update_d.png" title="VocÃª nÃ£o possui direitos para alterar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canUpdate}"/>
 			<h:outputLink styleClass="noprint" value="javascript:linkDelete('#{item.info.type.name}', '#{item.id}')" rendered="#{menuBean.crudMap[item.info.type.simpleName].canDelete}">
 				<h:graphicImage value="../../public/basic/img/delete.png" title="Apaga o registro" style="border:0"/>
 			</h:outputLink>
-			<h:graphicImage styleClass="noprint" value="../../public/basic/img/delete_d.png" title="Você não possui direitos para apagar o registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canDelete}"/>
+			<h:graphicImage styleClass="noprint" value="../../public/basic/img/delete_d.png" title="VocÃª nÃ£o possui direitos para apagar o registro" style="border:0" rendered="#{!menuBean.crudMap[item.info.type.simpleName].canDelete}"/>
 	
 			<h:commandLink action="#{queryBean.actionRestoreUserReport}">
 				<h:outputText value="#{item}" title="#{item.propertiesMap.description.value.asString}"/>
@@ -65,7 +65,7 @@
 	        	<h:selectOneMenu styleClass="noprint" id="userId" value="#{item.propertiesMap.applicationUser.value.id}" >
 		    		<f:selectItems value="#{listUserReportBean.userTransferList}"/>
         		</h:selectOneMenu>
-        		<h:commandButton  styleClass="noprint" value="Transferir" action="#{listUserReportBean.doSave}" title="Define o novo operador dono do relatório" />
+        		<h:commandButton  styleClass="noprint" value="Transferir" action="#{listUserReportBean.doSave}" title="Define o novo operador dono do relatÃ³rio" />
             </h:panelGroup>
             
 			<h:outputText  styleClass="noprint" value="#{item.propertiesMap.applicationUser.value.asEntity}" rendered="#{item.propertiesMap.applicationUser.value.id!=listUserReportBean.userSessionBean.userSession.user.id}"/>
@@ -73,7 +73,7 @@
 		</h:column>
 		<h:column>
 			<f:facet name="header">
-            	<h:outputText value="Data de criação"/>
+            	<h:outputText value="Data de criaÃ§Ã£o"/>
             </f:facet>
 			<h:outputText value="#{item.propertiesMap.date.value.asString}"/>
 		</h:column>

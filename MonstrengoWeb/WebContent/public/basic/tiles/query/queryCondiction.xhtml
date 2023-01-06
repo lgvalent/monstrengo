@@ -1,16 +1,16 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:outputLabel
-	value="Crie filtros avan�ados para melhor restringir sua pesquisa:"
+	value="Crie filtros avançados para melhor restringir sua pesquisa:"
 	style="color: #006600; font-size:smaller;" />
 <h:panelGrid>
 	<h:selectOneRadio id="e_ou"
 		value="#{queryBean.newCondictionParam.initOperator}"
-		title="Define se a opera��o ser� restritiva (e) ou abrangente (ou).">
+		title="Define se a operação será restritiva (e) ou abrangente (ou).">
 		<f:selectItems
 			value="#{queryBean.currentProcess.userReport.condictionParam.listInitOperator}" />
 	</h:selectOneRadio>
@@ -25,7 +25,7 @@
 
 	<h:panelGrid columns="2" columnClasses="tableViewColumnEven">
 		<h:panelGrid columnClasses="tableViewColumnEven">
-			<h:outputLabel value="Condi��o:" />
+			<h:outputLabel value="Condição:" />
 			<h:selectOneMenu id="operatorId"
 				value="#{queryBean.newCondictionParam.operatorId}"
 				onchange="this.form.submit()">
@@ -93,12 +93,12 @@
 			<h:panelGroup
 						rendered="#{queryBean.newCondictionParam.propertyInfo.entity}">
 						<h:graphicImage value="../../public/basic/img/query_open_select.png"
-							title="Dê um clique na caixa de texto para abrir a pesquisa"
+							title="DÃª um clique na caixa de texto para abrir a pesquisa"
 							style="border:0" />
 						<h:inputText id="idSubClassInput1"
 							value="#{queryBean.newCondictionParam.value1}"
 							styleClass="queryInputSelectOne"
-							title="Dê um clique na caixa de texto para abrir a pesquisa"
+							title="DÃª um clique na caixa de texto para abrir a pesquisa"
 							size="3"
 							onclick="javascript:openSelectOneId('#{queryBean.newCondictionParam.propertyInfo.type.name}',this.value,this)" />
 					</h:panelGroup>
@@ -109,7 +109,7 @@
 			<h:panelGrid
 				rendered="#{queryBean.newCondictionParam.operator.twoValueNeeded}"
 				columnClasses="tableViewColumnEven">
-				<h:outputLabel value="até o valor:" />
+				<h:outputLabel value="atÃ© o valor:" />
 				<h:panelGroup id="value2">
 					<h:inputText id="strInput2"
 						value="#{queryBean.newCondictionParam.value2}"
@@ -162,12 +162,12 @@
 			<h:panelGroup
 						rendered="#{queryBean.newCondictionParam.propertyInfo.entity}">
 						<h:graphicImage value="../../public/basic/img/query_open_select.png"
-							title="Dê um clique na caixa de texto para abrir a pesquisa"
+							title="DÃª um clique na caixa de texto para abrir a pesquisa"
 							style="border:0" />
 						<h:inputText id="idSubClassInput2"
 							value="#{queryBean.newCondictionParam.value2}"
 							styleClass="queryInputSelectOne"
-							title="Dê um clique na caixa de texto para abrir a pesquisa"
+							title="DÃª um clique na caixa de texto para abrir a pesquisa"
 							size="3"
 							onclick="javascript:openSelectOneId('#{queryBean.newCondictionParam.propertyInfo.type.name}',this.value,this)" />
 					</h:panelGroup>
@@ -182,11 +182,11 @@
 		<h:commandButton value="Adicionar"
 			action="#{queryBean.doAddNewCondiction}"
 			onclick="this.value='Adicionando...'"
-			title="Adiciona a atual condi��o na lista de filtros da pesquisa sem executar a atualiza��o" />
+			title="Adiciona a atual condição na lista de filtros da pesquisa sem executar a atualização" />
 		<h:commandButton value="Adicionar e atualizar"
 			action="#{queryBean.doAddNewCondictionAndRefresh}"
 			onclick="this.value='Adicionando...'"
-			title="Adiciona a atual condi��o na lista de filtros da pesquisa e atualiza a pesquisa para exibir o novo resultado" />
+			title="Adiciona a atual condição na lista de filtros da pesquisa e atualiza a pesquisa para exibir o novo resultado" />
 	</h:panelGrid>
 
 </h:panelGrid>
@@ -268,11 +268,11 @@
 			<!-- Lista de Classes -->
 			<h:panelGroup rendered="#{item.propertyInfo.entity}">
 				<h:graphicImage value="../../public/basic/img/query_open_select.png"
-					title="Dê um clique na caixa de texto para abrir a pesquisa"
+					title="DÃª um clique na caixa de texto para abrir a pesquisa"
 					style="border:0" />
 				<h:inputText id="idSubClassInputList1" value="#{item.value1}"
 					styleClass="queryInputSelectOne"
-					title="Dê um clique na caixa de texto para abrir a pesquisa"
+					title="DÃª um clique na caixa de texto para abrir a pesquisa"
 					size="3"
 					onclick="javascript:openSelectOneId('#{item.propertyInfo.type.name}','',this)" />
 			</h:panelGroup>
@@ -293,7 +293,7 @@
 
 		<h:panelGroup id="valueList2"
 			rendered="#{!item.readOnly and item.operator.twoValueNeeded}">
-			<h:outputText value=" até " />
+			<h:outputText value=" atÃ© " />
 			<h:inputText id="strInputList2" value="#{item.value2}"
 				title="#{item.propertyInfo.hint}"
 				rendered="#{item.propertyInfo.isString()}"
@@ -333,11 +333,11 @@
 			<!-- Lista de Classes -->
 			<h:panelGroup rendered="#{item.propertyInfo.entity}">
 				<h:graphicImage value="../../public/basic/img/query_open_select.png"
-					title="Dê um clique na caixa de texto para abrir a pesquisa"
+					title="DÃª um clique na caixa de texto para abrir a pesquisa"
 					style="border:0" />
 				<h:inputText id="idSubClassInputList2" value="#{item.value2}"
 					styleClass="queryInputSelectOne"
-					title="Dê um clique na caixa de texto para abrir a pesquisa"
+					title="DÃª um clique na caixa de texto para abrir a pesquisa"
 					size="3"
 					onclick="javascript:openSelectOneId('#{item.propertyInfo.type.name}','',this)" />
 			</h:panelGroup>
@@ -366,7 +366,7 @@
 	<h:outputText styleClass="title" value="Preencha os filtros adicionais"
 		escape="false" />
 	<h:outputText
-		value="Os filtros adicionais pré-definidos possibilitam a realiza��o de pesquisas baseadas em par�metros que o criador do relat�rio define nas express�es personalizadas."
+		value="Os filtros adicionais prÃ©-definidos possibilitam a realização de pesquisas baseadas em parâmetros que o criador do relatório define nas expressões personalizadas."
 		escape="false" styleClass="description" />
 	<h:dataTable width="100%"
 		value="#{queryBean.currentProcess.userReport.hqlWhereParam.hqlFieldsList}"
@@ -386,7 +386,7 @@
 		</h:column>
 		<h:column>
 			<f:facet name="header">
-				<h:outputText value="Conte�do: " />
+				<h:outputText value="Conteúdo: " />
 			</f:facet>
 
 			<h:inputText value="#{item.value}" />

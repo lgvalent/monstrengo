@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<!-- Uma variável 'propertyEntitySuggest' (IProperty) deve ser fornecida para esta visão -->
+<!-- Uma variÃ¡vel 'propertyEntitySuggest' (IProperty) deve ser fornecida para esta visÃ£o -->
 <!-- USO
 	<ui:include src="/public/basic/tiles/updatePropertyEntitySuggest.xhtml">
            <ui:param name="propertyEntitySuggest" value="#{currentProperty}"/>
@@ -38,7 +38,7 @@
 		<h:outputLink tabindex="-1" value="javascript:linkCreatePopup('#{subEntity.name}');"
 			rendered="#{menuBean.infoMap.get(subEntity.simpleName).canCreate}"
 			style="font-size: smaller;"
-			title="Não encontrou! Clique aqui para criar um novo registro de #{menuBean.infoMap.get(subEntity.simpleName).label}">
+			title="NÃ£o encontrou! Clique aqui para criar um novo registro de #{menuBean.infoMap.get(subEntity.simpleName).label}">
 			<h:graphicImage value="../../public/basic/img/create.png" style="border:0" />
 			<h:outputText
 				value="#{menuBean.infoMap.get(subEntity.simpleName).label}" />
@@ -47,6 +47,6 @@
 </h:dataTable>
 <h:outputLink tabindex="-1" value="javascript:document.forms[0].submit()">
 	<h:graphicImage value="../../public/basic/img/reload.png"
-		title="Recarrega a página e atualiza a lista de seleção" style="border:0" />
+		title="Recarrega a pÃ¡gina e atualiza a lista de seleÃ§Ã£o" style="border:0" />
 </h:outputLink>
 </ui:composition>

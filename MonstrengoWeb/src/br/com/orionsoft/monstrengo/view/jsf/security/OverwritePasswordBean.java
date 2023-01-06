@@ -20,14 +20,14 @@ public class OverwritePasswordBean extends BeanSessionBasic implements IRunnable
 {
 	private static final long serialVersionUID = 1L;
 
-	/** Define a view JSF que È ativada para a vis„o QUERY */
+	/** Define a view JSF que √© ativada para a vis√£o QUERY */
 	public static final String FACES_VIEW_START = "/pages/admin/securityOverwritePassword?faces-redirect=true";
 
-	/* Identifica o nome da vis„o corrente para o gerenciador de vis„o */
+	/* Identifica o nome da vis√£o corrente para o gerenciador de vis√£o */
 	public static final String VIEW_NAME = "overwritePasswordBean";
 	public String getViewName(){return VIEW_NAME; }
 
-	/* Identifica o processo manipulado por esta vis„o. ImplementaÁ„o da interface IRunnableProcessView */
+	/* Identifica o processo manipulado por esta vis√£o. Implementa√ß√£o da interface IRunnableProcessView */
 	public String getRunnableEntityProcessName() {return OverwritePasswordProcess.PROCESS_NAME;}
 
 	
@@ -45,8 +45,8 @@ public class OverwritePasswordBean extends BeanSessionBasic implements IRunnable
 		return FACES_VIEW_START;
 	}
 	/**
-	 * Este mÈtodo implementa as atividades b·sicas de cancelamento do processo
-	 * atual da vis„o. Os dados b·sicos s„o limpos. A vis„o seguinte È sugerida para "close".<br>
+	 * Este m√©todo implementa as atividades b√°sicas de cancelamento do processo
+	 * atual da vis√£o. Os dados b√°sicos s√£o limpos. A vis√£o seguinte √© sugerida para "close".<br>
 	 */
     public String actionCancel() throws Exception{
     	getProcess().finish();

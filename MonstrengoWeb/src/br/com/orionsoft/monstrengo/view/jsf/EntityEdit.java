@@ -11,12 +11,12 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.BeanSessionBasic;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Esta classe manipula as entidades que est„o correntemente sendo editadas.
- * A classe mantÈm uma pilha de entidades que est„o sendo editadas na sess„o 
+ * Esta classe manipula as entidades que est√£o correntemente sendo editadas.
+ * A classe mant√©m uma pilha de entidades que est√£o sendo editadas na sess√£o 
  * corrente. 
- * ApÛs um save, as entidades s„o persistidas e s„o excluidas da lista. O escopo
- * da inst‚ncia desta entidade È de Sess„o. Para esta classe receber os
- * par‚metros de preparaÁ„o È utilizado na p·gina JSP tags: <h:commandLink
+ * Ap√≥s um save, as entidades s√£o persistidas e s√£o excluidas da lista. O escopo
+ * da inst√¢ncia desta entidade √© de Sess√£o. Para esta classe receber os
+ * par√¢metros de prepara√ß√£o √© utilizado na p√°gina JSP tags: <h:commandLink
  * action="entityEdit.prepareEntity"> <f:param name="itemId"
  * value="#{cartItem.item.itemId}"/> </h:commandLink>
  * 
@@ -26,10 +26,10 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 public class EntityEdit extends BeanSessionBasic
 {
 	private static final long serialVersionUID = 1L;
-	//entities: guarda as entidades em ediÁ„o na sess„o corrente.
-    /** Armazena as entidades que est„o atualmente em ediÁ„o */
+	//entities: guarda as entidades em edi√ß√£o na sess√£o corrente.
+    /** Armazena as entidades que est√£o atualmente em edi√ß√£o */
     private Map<String, IEntity<?>> entities = new HashMap<String, IEntity<?>>();
-    /** Armazena os processos das entidades que est„o atualmente em ediÁ„o */
+    /** Armazena os processos das entidades que est√£o atualmente em edi√ß√£o */
     private Map<String, UpdateProcess<?>> processes = new HashMap<String, UpdateProcess<?>>();
     
     private IEntity<?> currentEntity;
@@ -45,32 +45,32 @@ public class EntityEdit extends BeanSessionBasic
     {
 //        System.out.println("EntityEdit.doEdit: ");
 
-        // Obtem os par‚metros
+        // Obtem os par√¢metros
         String entityType = FacesUtils.getRequestParam(EntityBean.URL_PARAM_ENTITY_TYPE);
         long entityId = Long.parseLong(FacesUtils.getRequestParam(EntityBean.URL_PARAM_ENTITY_ID));
 
-        // ConstrÛi a chave da entidades
+        // Constr√≥i a chave da entidades
         this.currentEntityKey = entityType + entityId; 
         
-        // Verifica se a entidade j· se encontra na lista interna 
+        // Verifica se a entidade j√° se encontra na lista interna 
 //        System.out.println("EntityEdit.editEntity.currentClassKey: " + currentEntityKey);
         this.currentEntity = entities.get(this.currentEntityKey);
         
-        // Se n„o estiver, coloca atual instancia na lista
+        // Se n√£o estiver, coloca atual instancia na lista
         if (this.currentEntity == null)
         {
             // de onde ele vai pegar o userSession??
             UserSession userSession = null;
-            // Cria um novo processo de ediÁ„o para a entidade
+            // Cria um novo processo de edi√ß√£o para a entidade
             UpdateProcess editProcess = (UpdateProcess<?>)this.getApplicationBean().getProcessManager().createProcessByName(UpdateProcess.PROCESS_NAME, userSession);
-//          n„o vai dar certo porque n„o vai ter o nome do pacote na vari·vel, tipo br.com...
+//          n√£o vai dar certo porque n√£o vai ter o nome do pacote na vari√°vel, tipo br.com...
             editProcess.setEntityType(Class.forName(entityType)); 
             editProcess.setEntityId(entityId);
             currentEntity = editProcess.retrieveEntity();
             entities.put(this.currentEntityKey, currentEntity);
             processes.put(this.currentEntityKey, editProcess);
             
-//            // preparar a entidade para ediÁ„o antes de colocar na LISTA
+//            // preparar a entidade para edi√ß√£o antes de colocar na LISTA
 //            this.currentEntity = entity;
 //
 //           //this.currentEntity.getProperties().prepareForEdit();
@@ -85,15 +85,15 @@ public class EntityEdit extends BeanSessionBasic
 //    {
 //        System.out.println("EntityEdit.editEntity: " + entity);
 //
-//        // Verifica se a entidade j· se encontra na lista interna 
+//        // Verifica se a entidade j√° se encontra na lista interna 
 //        this.currentEntityKey = entity.getClassName() + entity.getId(); 
 //        System.out.println("EntityEdit.editEntity.currentClassKey: " + currentEntityKey);
 //        this.currentEntity = entities.get(this.currentEntityKey);
 //        
-//        // Se n„o estiver, coloca atual instancia na lista
+//        // Se n√£o estiver, coloca atual instancia na lista
 //        if (this.currentEntity == null)
 //        {
-//            // preparar a entidade para ediÁ„o antes de colocar na LISTA
+//            // preparar a entidade para edi√ß√£o antes de colocar na LISTA
 //            this.currentEntity = entity;
 //
 //           //this.currentEntity.getProperties().prepareForEdit();
@@ -111,7 +111,7 @@ public class EntityEdit extends BeanSessionBasic
     public void setCurrentEntityKey(String currentEntityKey)
     {
 //        System.out.println("EntityEdit.setCurrentEntityKey: " + currentEntityKey);
-        // Define a entidade corrente para a ediÁ„o
+        // Define a entidade corrente para a edi√ß√£o
         this.currentEntityKey = currentEntityKey;
 
         // Localiza no mapa a entidade corrente
@@ -136,8 +136,8 @@ public class EntityEdit extends BeanSessionBasic
 //    public String prepareEntity() throws Exception
 //    {
 //        /*
-//         * Pegar os par‚metros passados Estes par‚metros s„o pegos do mapa de
-//         * par‚metros que o Faces monta por URL ou commandLinks com par‚metros
+//         * Pegar os par√¢metros passados Estes par√¢metros s√£o pegos do mapa de
+//         * par√¢metros que o Faces monta por URL ou commandLinks com par√¢metros
 //         */
 //        System.out.println("EntityEdit.prepareEntity: ");
 ////        Object obj;
@@ -170,10 +170,10 @@ public class EntityEdit extends BeanSessionBasic
 ////            this.paramParentProperty = (String) obj;
 //
 //
-//   // Procurar no Map se esta classe j· est· na lista de ediÁ„o
+//   // Procurar no Map se esta classe j√° est√° na lista de edi√ß√£o
 ////        entityBean = entities.get(this.paramEntityClassName);
 ////        currentEntity entities.get(entityBean.getEntity().getClassName());
-//        // Se n„o achar, cria-se uma nova EntityBean e coloca no Map
+//        // Se n√£o achar, cria-se uma nova EntityBean e coloca no Map
 ////        if (entity == null)
 //        {
 //            // Cria a nova entidade
@@ -231,7 +231,7 @@ public class EntityEdit extends BeanSessionBasic
     public String saveEntity() throws Exception
     {
 //        System.out.println("========>>>>>>>EntityEdit.saveEntity: " + currentEntity.getInfo().getName());
-//      result ser· false se a operaÁ„o lanÁar uma exceÁ„o.
+//      result ser√° false se a opera√ß√£o lan√ßar uma exce√ß√£o.
 //        boolean result = processes.get(this.currentEntityKey).runUpdate();
         
 //        currentEntity.getProperties().save();
@@ -239,9 +239,9 @@ public class EntityEdit extends BeanSessionBasic
 //        super.finishSession();        
 //        super.initSession();
         
-//        // Obs.: Existe uma sess„o 'mantida', assim o proxies s„o todos v·lidos
+//        // Obs.: Existe uma sess√£o 'mantida', assim o proxies s√£o todos v√°lidos
 //        // para
-//        // acessar as subColeÁıes e subClasses da classe: Object
+//        // acessar as subCole√ß√µes e subClasses da classe: Object
 //        // entityBean.entity.data.
 //        // Popular a classe (Nova ou do Retrieve)
 //        Object object = currentEntity.getData();
@@ -289,14 +289,14 @@ public class EntityEdit extends BeanSessionBasic
 //        // entityBean.entity.properties[n].value
 //        // entityBean.entity.data('nome propriedade') = {novo valor}
 //        // se for do tipo subClass:
-//        // Verifica se o properties[n].id È !=-1, o que indica que foi alterado
-//        // ent„o
+//        // Verifica se o properties[n].id √© !=-1, o que indica que foi alterado
+//        // ent√£o
 //        // obtem (retrive) o objeto do banco e executa um
 //        // setProperty(retrivedObj).
 //        // Obs.: Utilizar as rotinas de BeansUtils e PropertiesUtils
-//        // Executar alguma validaÁ„o de negÛcio (DEPOIS IMPLEMENTA ISTO)
+//        // Executar alguma valida√ß√£o de neg√≥cio (DEPOIS IMPLEMENTA ISTO)
 //        // Persiste a entidade
-//        // Remove a entidade da lista de classes em ediÁ„o
+//        // Remove a entidade da lista de classes em edi√ß√£o
         return "";
 //        return "success";
     }

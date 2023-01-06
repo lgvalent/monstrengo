@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<!-- Armazena os parãmetros de ordenação na visão para não perde-los e
-				     submetelos a cada nova requisição -->
+<!-- Armazena os parÃ£metros de ordenaÃ§Ã£o na visÃ£o para nÃ£o perde-los e
+				     submetelos a cada nova requisiÃ§Ã£o -->
 <div style="overflow-x: scroll;">
 	<h:dataTable value="#{queryBean.array}" var='item'
 		rendered="#{queryBean.currentProcess.userReport.pageParam.itemsCount>0}"
@@ -19,10 +19,10 @@
 	    	            	<h:outputText value="Comandos:"/>
     	                </f:facet !-->
 			<!-- Atualiza a entidade corrente para ser utilizada nas rotinas posteriores
-    	                     que necessitam saber qual Ã© a entidade corrente da tabela.
-    	                     Força a execução do mÃ©todo next(). Utiliza title para nada ser exibido 
-    	                     na interface. utiliza ="a " para forçar o JSF a interpretar tudo como
-    	                     uma String, senão ele não converte Long -> String -->
+    	                     que necessitam saber qual ÃƒÂ© a entidade corrente da tabela.
+    	                     ForÃ§a a execuÃ§Ã£o do mÃƒÂ©todo next(). Utiliza title para nada ser exibido 
+    	                     na interface. utiliza ="a " para forÃ§ar o JSF a interpretar tudo como
+    	                     uma String, senÃ£o ele nÃ£o converte Long -> String -->
 			<h:outputLabel value="" title="a #{queryBean.nextCurrentEntity.id}" />
 
 			<h:outputLink
@@ -32,18 +32,18 @@
 					title="Visualiza os detalhes do registro" style="border:0" />
 			</h:outputLink>
 			<h:graphicImage value="../../public/basic/img/retrieve_d.png"
-				title="VocÃª não possui direitos para visualizar os dados do registro"
+				title="VocÃƒÂª nÃ£o possui direitos para visualizar os dados do registro"
 				style="border:0" rendered="#{!queryBean.canRetrieve}" />
 
 			<!-- h:outputLink value="javascript:linkUpdate('#{item.info.type.name}', '#{item.id}')" rendered="#{queryBean.canUpdate}">
 							<h:graphicImage value="../../public/basic/img/update.png" title="Altera os dados do registro" style="border:0"/>
 						</h:outputLink>
-						<h:graphicImage value="../../public/basic/img/update_d.png" title="VocÃª não possui direitos para alterar os dados do registro" style="border:0" rendered="#{!queryBean.canUpdate}"/>
+						<h:graphicImage value="../../public/basic/img/update_d.png" title="VocÃƒÂª nÃ£o possui direitos para alterar os dados do registro" style="border:0" rendered="#{!queryBean.canUpdate}"/>
 
 						<h:outputLink value="javascript:linkDelete('#{item.info.type.name}', '#{item.id}')" rendered="#{queryBean.canDelete}">
 							<h:graphicImage value="../../public/basic/img/delete.png" title="Apaga o registro" style="border:0"/>
 						</h:outputLink>
-						<h:graphicImage value="../../public/basic/img/delete_d.png" title="VocÃª não possui direitos para apagar o registro" style="border:0" rendered="#{!queryBean.canDelete}"/ -->
+						<h:graphicImage value="../../public/basic/img/delete_d.png" title="VocÃƒÂª nÃ£o possui direitos para apagar o registro" style="border:0" rendered="#{!queryBean.canDelete}"/ -->
 
 			<h:outputLink
 				value="javascript: closeSelectOne('#{queryBean.currentParams.selectOneDest}','#{queryBean.selectPropertyValue}',window)"
@@ -64,25 +64,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[0].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[0].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[0].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[0].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[0].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[0].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[0].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[0].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -102,25 +102,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[1].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[1].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[1].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[1].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[1].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[1].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[1].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[1].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -140,25 +140,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[2].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[2].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[2].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[2].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[2].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[2].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[2].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[2].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -178,8 +178,8 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[3].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[3].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
-						<!-- Parâmetros da view -->
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
+						<!-- ParÃ¢metros da view -->
 						<f:param name="entityType"
 							value="#{queryBean.entityParam.typeName}" />
 						<f:param name="orderProperty"
@@ -187,19 +187,19 @@
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[3].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[3].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[3].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[3].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[3].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -219,25 +219,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[4].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[4].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[4].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[4].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[4].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[4].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[4].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[4].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -257,25 +257,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[5].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[5].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[5].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[5].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[5].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[5].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[5].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[5].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -295,25 +295,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[6].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[6].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[6].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[6].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[6].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[6].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[6].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[6].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -333,25 +333,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[7].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[7].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[7].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[7].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[7].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[7].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[7].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[7].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -371,25 +371,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[8].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[8].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[8].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[8].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[8].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[8].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[8].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[8].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>
@@ -409,25 +409,25 @@
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[9].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc) and !(queryBean.properties[9].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_asc.gif" alt="Ordenação crescente" />
+							value="../../public/basic/img/order_asc.gif" alt="OrdenaÃ§Ã£o crescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[9].name}" />
 						<f:param name="orderDirection" value="asc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_asc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_asc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[9].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderAsc}" />
 
 					<h:commandLink action="#{queryBean.doOrder}"
 						rendered="#{!(queryBean.properties[9].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc) and !(queryBean.properties[9].collection)}">
 						<h:graphicImage style="border: none;"
-							value="../../public/basic/img/order_desc.gif" alt="Ordenação Decrescente" />
+							value="../../public/basic/img/order_desc.gif" alt="OrdenaÃ§Ã£o Decrescente" />
 						<f:param name="orderProperty"
 							value="#{queryBean.properties[9].name}" />
 						<f:param name="orderDirection" value="desc" />
 					</h:commandLink>
 					<h:graphicImage style="border: none;"
-						value="../../public/basic/img/order_desc_d.gif" alt="Ordenação crescente"
+						value="../../public/basic/img/order_desc_d.gif" alt="OrdenaÃ§Ã£o crescente"
 						rendered="#{queryBean.properties[9].name==queryBean.newOrderParam.propertyPath and queryBean.newOrderParam.orderDesc}" />
 				</h:panelGroup>
 			</f:facet>

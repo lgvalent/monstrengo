@@ -15,9 +15,9 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 
 /**
- * Bean que controla a p·gina de ediÁ„o de uma entidade Crud.
- * Par‚metro de URL necess·rio: <br>
- * entityType: nome completo da classe da entidade que ser· alterada.
+ * Bean que controla a p√°gina de edi√ß√£o de uma entidade Crud.
+ * Par√¢metro de URL necess√°rio: <br>
+ * entityType: nome completo da classe da entidade que ser√° alterada.
  * entityId: identificador da entidade.
  * 
  * @author Lucio
@@ -32,7 +32,7 @@ public class UpdateBean extends CrudBasicBean
 {
 	private static final long serialVersionUID = 1L;
 
-	/** Define a view JSF que È ativada para a vis„o UPDATE */
+	/** Define a view JSF que √© ativada para a vis√£o UPDATE */
 	public static final String FACES_VIEW_UPDATE = "/pages/basic/update?faces-redirect=true";
     
     public static final String URL_PARAM_COLL_PROPERTY = "collProperty";
@@ -47,20 +47,20 @@ public class UpdateBean extends CrudBasicBean
     
 
     /**
-     * Action que prepara a visualizaÁ„o
+     * Action que prepara a visualiza√ß√£o
      * e controla o fluxo de tela. 
      * @return
      */
     public String actionEdit() throws Exception
     {
-        /* Indica que a aÁ„o de uma nova ediÁ„o est·
+        /* Indica que a a√ß√£o de uma nova edi√ß√£o est√°
          * sendo disparada para que se encontrado um processo
-         * j· ativo para a entidade solicitada, a mesma seja
-         * recarregada e a ediÁao enterior seja descartada */
+         * j√° ativo para a entidade solicitada, a mesma seja
+         * recarregada e a edi√ßao enterior seja descartada */
         this.actionEditActive = true;
 
         log.debug("::Iniciando actionEdit");
-    	// Prepara os par‚metros fornecidos
+    	// Prepara os par√¢metros fornecidos
         this.loadEntityParams();
         
         try{
@@ -70,7 +70,7 @@ public class UpdateBean extends CrudBasicBean
             
         }catch(BusinessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* EdiÁ„o REJEITADA */
+        	/* Edi√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a Edit
@@ -80,9 +80,9 @@ public class UpdateBean extends CrudBasicBean
     }
     
     /**
-     * Action que prepara a visualizaÁ„o baseada
-	 * nos par‚metros passados.
-	 * Este mÈtodo È usado pelos outros beans quando desejam 
+     * Action que prepara a visualiza√ß√£o baseada
+	 * nos par√¢metros passados.
+	 * Este m√©todo √© usado pelos outros beans quando desejam 
 	 * exibir uma entidade no browser
      * e controla o fluxo de tela. 
      * @return
@@ -92,15 +92,15 @@ public class UpdateBean extends CrudBasicBean
 	{
         log.debug("::Iniciando actionEdit");
         
-   		/* Passa os par‚metros para o controlador de entidade da visao */
+   		/* Passa os par√¢metros para o controlador de entidade da visao */
    		this.getEntityParam().getParentParam().setTypeName(null);
    		this.getEntityParam().setTypeName(typeName);
    		this.getEntityParam().setId(id);
 
-        /* Indica que a aÁ„o de uma nova ediÁ„o est·
+        /* Indica que a a√ß√£o de uma nova edi√ß√£o est√°
          * sendo disparada para que se encontrado um processo
-         * j· ativo para a entidade solicitada, a mesma seja
-         * recarregada e a ediÁao enterior seja descartada */
+         * j√° ativo para a entidade solicitada, a mesma seja
+         * recarregada e a edi√ßao enterior seja descartada */
         this.actionEditActive = true;
 
         try{
@@ -110,7 +110,7 @@ public class UpdateBean extends CrudBasicBean
             
         }catch(BusinessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* EdiÁ„o REJEITADA */
+        	/* Edi√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a Edit
@@ -120,7 +120,7 @@ public class UpdateBean extends CrudBasicBean
 	}
 
     /**
-     * AÁ„o que È invocada para finalizar (gravar) um processo de ediÁ„o
+     * A√ß√£o que √© invocada para finalizar (gravar) um processo de edi√ß√£o
      * ativo. 
      * @return
      */
@@ -128,21 +128,21 @@ public class UpdateBean extends CrudBasicBean
 	public String actionUpdate() throws Exception{
     
     	log.debug("::Iniciando actionUpdate");
-        log.debug("Gravando alteraÁıes pelo processo:" + currentEntityKey);
+        log.debug("Gravando altera√ß√µes pelo processo:" + currentEntityKey);
     	UpdateProcess proc = (UpdateProcess) processes.get(currentEntityKey); 
     	
-    	/* Esta acontecendo que quando ocorre algum erro de validaÁ„o durante
-    	 * a fase de ediÁ„o, quando o operador corrige os erros e submete novamente
+    	/* Esta acontecendo que quando ocorre algum erro de valida√ß√£o durante
+    	 * a fase de edi√ß√£o, quando o operador corrige os erros e submete novamente
     	 * o faces faz tudo certinho, mas quando vai renderizar a next view,
-    	 * ele volta pra aÁ„o que n„o foi completada antes da validaÁ„o (actionUpdate)
-    	 * porem, a actionUpdate j· foi completada com sucesso e n„o h· mais este processo.
+    	 * ele volta pra a√ß√£o que n√£o foi completada antes da valida√ß√£o (actionUpdate)
+    	 * porem, a actionUpdate j√° foi completada com sucesso e n√£o h√° mais este processo.
     	 * Pra contornar este problema, estou enviando diretamente pra RETRIEVE */
     	if(proc == null){
     		/* Processo null e chamada ocorrida por link, indica que o operador
-    		 * cancelou a ˙ltima ediÁ„o apÛs alguns erros de validaÁ„o e agora o faces,
-    		 * ao renderizar novamente a vis„o, tenta executar o actionUpdate onde parou,
-    		 * mas n„o houve prepareCurrentyEntity. Ent„o, o fluxo È desviado para o 
-    		 * inÌcio de um novo processo de criaÁ„o */
+    		 * cancelou a √∫ltima edi√ß√£o ap√≥s alguns erros de valida√ß√£o e agora o faces,
+    		 * ao renderizar novamente a vis√£o, tenta executar o actionUpdate onde parou,
+    		 * mas n√£o houve prepareCurrentyEntity. Ent√£o, o fluxo √© desviado para o 
+    		 * in√≠cio de um novo processo de cria√ß√£o */
     		if(checkLinkRequest())
     			return actionEdit();
 
@@ -162,10 +162,10 @@ public class UpdateBean extends CrudBasicBean
     		currentEntity = null;
     		currentEntityKey = "";
     		
-    		log.debug("::Fim actionUpdate(). Redirecionando para a vis„o VIEW.");
+    		log.debug("::Fim actionUpdate(). Redirecionando para a vis√£o VIEW.");
         	return nextView;
     	}else{
-    		log.debug("::Fim actionUpdate(). Hoveram erros, voltando para a vis„o EDIT.");
+    		log.debug("::Fim actionUpdate(). Hoveram erros, voltando para a vis√£o EDIT.");
     		FacesUtils.addErrorMsgs(proc.getMessageList());
     		return "";
     	}
@@ -173,10 +173,10 @@ public class UpdateBean extends CrudBasicBean
     
     
 	/**
-     * Este mÈtodo prepara a entidade correntemente em ediÁ„o, 
+     * Este m√©todo prepara a entidade correntemente em edi√ß√£o, 
      * baseando-se na chave passada.<br>
-     * O mapa de processos ativos È consultado e n„o for encontrado o processo,
-     * um novo processo È criado.  
+     * O mapa de processos ativos √© consultado e n√£o for encontrado o processo,
+     * um novo processo √© criado.  
      * @return Retorna uma chave com entityType+entityId.
 	 * @throws BusinessException 
      */
@@ -186,33 +186,33 @@ public class UpdateBean extends CrudBasicBean
         super.prepareCurrentEntity(currentEntityKey);
         
     	if(processes.containsKey(currentEntityKey)){
-        	log.debug("Utilizando o processo j· ativo");
+        	log.debug("Utilizando o processo j√° ativo");
         	UpdateProcess updateProcess = (UpdateProcess) processes.get(currentEntityKey);
         	
-        	/* Verifica se È uma chamada por link para recarregar a entidade
+        	/* Verifica se √© uma chamada por link para recarregar a entidade
         	 * ou se a actionEdit foi disparada*/
         	if(checkLinkRequest() || this.actionEditActive)
         		updateProcess.runReload();
         	
         	currentEntity = updateProcess.retrieveEntity();
     	}else{
-        	log.debug("Iniciando um novo processo de EdiÁ„o");
+        	log.debug("Iniciando um novo processo de Edi√ß√£o");
         	UpdateProcess updateProcess = (UpdateProcess)this.getApplicationBean().getProcessManager().createProcessByName(UpdateProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
-            /* Preenche os par‚metros */
+            /* Preenche os par√¢metros */
         	updateProcess.setEntityType(Class.forName(this.getEntityParam().getTypeName()));
             updateProcess.setEntityId(this.getEntityParam().getId());
             
             try{
-                /* Obtem a entidade de ediÁ„o , a tentativa causar· um throw
-                 * e o processo responder· com a mensage de UPDATE_DENIED
+                /* Obtem a entidade de edi√ß√£o , a tentativa causar√° um throw
+                 * e o processo responder√° com a mensage de UPDATE_DENIED
                  */
             	currentEntity = updateProcess.retrieveEntity();
             	
-            	/* Coloca o processo de ediÁ„o na lista de processos ativos */
+            	/* Coloca o processo de edi√ß√£o na lista de processos ativos */
             	processes.put(this.currentEntityKey, updateProcess);
 	        	log.debug("Novo processo criado com sucesso");
             }catch(BusinessException e){
-	        	log.debug("Finalizando o processo pela ocorrÍncia de algum erro");
+	        	log.debug("Finalizando o processo pela ocorr√™ncia de algum erro");
             	updateProcess.finish();
             	updateProcess = null;
             	/* Passa o erro pra frente */
@@ -223,8 +223,8 @@ public class UpdateBean extends CrudBasicBean
     }
 	
     /**
-     * ReferÍncia para o bean de visualizaÁ„o de uma entidade para que apÛs a
-     * alteraÁ„o ser confirmada, a vis„o de retrieve seja exibida
+     * Refer√™ncia para o bean de visualiza√ß√£o de uma entidade para que ap√≥s a
+     * altera√ß√£o ser confirmada, a vis√£o de retrieve seja exibida
      * 
      * @jsf.managed-property value="#{retrieveBean}"
      */
@@ -232,7 +232,7 @@ public class UpdateBean extends CrudBasicBean
 	public void setRetrieveBean(RetrieveBean retrieveBean){this.retrieveBean = retrieveBean;}
 
 	/**
-     * Este mÈtodo È respons·vel por compor a chave de criaÁ„o da entidade usando
+     * Este m√©todo √© respons√°vel por compor a chave de cria√ß√£o da entidade usando
      * o tipo da entidade e o id da entidade. 
      * @return Retorna uma chave com entityType+entityId.
      */
@@ -244,11 +244,11 @@ public class UpdateBean extends CrudBasicBean
 	}
 
 	/**
-     * Este mÈtodo pode ser disparado pela interface, a qual fornecer·
-     * por meio de par‚metros URL as definiÁıes da ordem desejada.
-     * Ele lÍ estes par‚metros da requisiÁ„o.
-     * Interpreta os par„metros
-     * E realiza a remoÁ„o do item 
+     * Este m√©todo pode ser disparado pela interface, a qual fornecer√°
+     * por meio de par√¢metros URL as defini√ß√µes da ordem desejada.
+     * Ele l√™ estes par√¢metros da requisi√ß√£o.
+     * Interpreta os par√£metros
+     * E realiza a remo√ß√£o do item 
      * @throws EntityException 
      * @throws PropertyValueException 
      * @throws BusinessException
@@ -256,12 +256,12 @@ public class UpdateBean extends CrudBasicBean
      */
     public void doRemoveFromCollection() throws BusinessException
     {
-        log.debug("Iniciando a aÁ„o doOrder");
-    	/* Carregar os par‚metros de remoÁ„o */
+        log.debug("Iniciando a a√ß√£o doOrder");
+    	/* Carregar os par√¢metros de remo√ß√£o */
     	loadCollectionParams();
     	
     	/* Localiza a propriedade
-    	 * Lucio 08112007: Aceita collProperty prop1.prop2 para coleÁıes dentro de entidade.
+    	 * Lucio 08112007: Aceita collProperty prop1.prop2 para cole√ß√µes dentro de entidade.
     	 */
     	String[] props = StringUtils.split(this.collProperty, ".");
     	IEntityCollection<?> coll=null;
@@ -286,17 +286,17 @@ public class UpdateBean extends CrudBasicBean
     		if(coll.getRunEntity()!=null)
     			successStr = "Item <b>"+coll.getRunEntity().toString()+ "</b> removido com sucesso da lista de " + propLabel + ".";
 
-    	/* Remove o item da coleÁ„o */
+    	/* Remove o item da cole√ß√£o */
     	if(coll.runRemove())
     		FacesUtils.addInfoMsg(successStr);
     }
     
     /**
-     * Este mÈtodo pode ser disparado pela interface, a qual fornecer·
-     * por meio de par‚metros URL as definiÁıes da ordem desejada.
-     * Ele lÍ estes par‚metros da requisiÁ„o.
-     * Interpreta os par„metros
-     * E realiza a remoÁ„o do item 
+     * Este m√©todo pode ser disparado pela interface, a qual fornecer√°
+     * por meio de par√¢metros URL as defini√ß√µes da ordem desejada.
+     * Ele l√™ estes par√¢metros da requisi√ß√£o.
+     * Interpreta os par√£metros
+     * E realiza a remo√ß√£o do item 
      * @throws EntityException 
      * @throws PropertyValueException 
      * @throws BusinessException
@@ -304,13 +304,13 @@ public class UpdateBean extends CrudBasicBean
      */
     public void doAddToCollection() throws BusinessException
     {
-        log.debug("Iniciando a aÁ„o doAddToCollection");
+        log.debug("Iniciando a a√ß√£o doAddToCollection");
     	try {
-    	/* Carregar os par‚metros de remoÁ„o */
+    	/* Carregar os par√¢metros de remo√ß√£o */
     	loadCollectionParams();
     	
     	/* Localiza a propriedade
-    	 * Lucio 08112007: Aceita collProperty prop1.prop2 para coleÁıes dentro de entidade.
+    	 * Lucio 08112007: Aceita collProperty prop1.prop2 para cole√ß√µes dentro de entidade.
     	 */
     	String[] props = StringUtils.split(this.collProperty, ".");
     	IEntityCollection<?> coll=null;
@@ -326,7 +326,7 @@ public class UpdateBean extends CrudBasicBean
     	
     	
     	/* Define o Id a ser removido */
-    	/* O id j· È alimentado pelo FACES */
+    	/* O id j√° √© alimentado pelo FACES */
     	
     	/* Adiciona o elemento */
     	String successStr = "";
@@ -345,17 +345,17 @@ public class UpdateBean extends CrudBasicBean
     }
     
     /**
-     * Este mÈtodo solicita para o processo recarregar 
-     * a entidade, descartando as atuais alteraÁıes. Deve ser
-     * chamado com a tag immediate=true para evitar validaÁıes
+     * Este m√©todo solicita para o processo recarregar 
+     * a entidade, descartando as atuais altera√ß√µes. Deve ser
+     * chamado com a tag immediate=true para evitar valida√ß√µes
      * do faces antes da recarga.
-     * Foi utilizado um mÈtodo com retorno, porque
-     * o mÈtodo void ficava dando um erro de validaÁ„o.
+     * Foi utilizado um m√©todo com retorno, porque
+     * o m√©todo void ficava dando um erro de valida√ß√£o.
      */
     @SuppressWarnings("rawtypes")
 	public String doReloadEntity() throws BusinessException
     {
-        log.debug("Iniciando a aÁ„o doReload");
+        log.debug("Iniciando a a√ß√£o doReload");
     	UpdateProcess updateProcess = (UpdateProcess) processes.get(currentEntityKey);
     	
     	/* Recarrega a entidade */
@@ -367,13 +367,13 @@ public class UpdateBean extends CrudBasicBean
     }
 
     /**
-     * Este mÈtodo solicita para o processo validar a entidade pelos DVO antes 
-     * da confirmaÁ„o do update.
+     * Este m√©todo solicita para o processo validar a entidade pelos DVO antes 
+     * da confirma√ß√£o do update.
      */
     @SuppressWarnings("rawtypes")
 	public void doValidateEntity()
     {
-        log.debug("Iniciando a aÁ„o doValidateEntity");
+        log.debug("Iniciando a a√ß√£o doValidateEntity");
     	UpdateProcess updateProcess = (UpdateProcess) processes.get(currentEntityKey);
     	
     	/* Recarrega a entidade */
@@ -384,9 +384,9 @@ public class UpdateBean extends CrudBasicBean
     }
 
     /**
-     * Este mÈtodo analisa a tual requisiÁ„o e verifica se
-     * foram recebidos par„metros de ordenaÁ„o. Se foram, eles s„o 
-     * carregados para o bean e poder„o posteriormente ser
+     * Este m√©todo analisa a tual requisi√ß√£o e verifica se
+     * foram recebidos par√£metros de ordena√ß√£o. Se foram, eles s√£o 
+     * carregados para o bean e poder√£o posteriormente ser
      * aplicados aos processos ativos.
      */
     private void loadCollectionParams()

@@ -17,8 +17,8 @@ import br.com.orionsoft.monstrengo.view.MenuBean;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Est· classe È o controlador da vis„o RetrieveBean.
- * Nela est„o os mÈtodos para acionamento da view e fluxo de tela.  
+ * Est√° classe √© o controlador da vis√£o RetrieveBean.
+ * Nela est√£o os m√©todos para acionamento da view e fluxo de tela.  
  * 
  * @author Lucio 20051117
  * @version 20060207
@@ -32,7 +32,7 @@ public class RetrieveBean extends CrudBasicBean
 {
 	private static final long serialVersionUID = 1L;
 
-	/** Define a view JSF que È ativada para a vis„o RETRIEVE */
+	/** Define a view JSF que √© ativada para a vis√£o RETRIEVE */
 	public static final String FACES_VIEW_RETRIEVE = "/pages/basic/retrieve?faces-redirect=true";
     
     public static final String URL_PARAM_SELECT_ONE_DEST = "selectOneDest";
@@ -45,7 +45,7 @@ public class RetrieveBean extends CrudBasicBean
 	private List<IEntity<?>> lastViews = new LinkedList<IEntity<?>>();
 
     /**
-     * Action que prepara a visualizaÁ„o
+     * Action que prepara a visualiza√ß√£o
      * e controla o fluxo de tela. 
      * @return
      */
@@ -54,7 +54,7 @@ public class RetrieveBean extends CrudBasicBean
         log.debug("::Iniciando actionView");
         
         try{
-        	// Prepara os par‚metros fornecidos
+        	// Prepara os par√¢metros fornecidos
             this.loadEntityParams();
 
             /* prepara entidade corrente */ 
@@ -62,7 +62,7 @@ public class RetrieveBean extends CrudBasicBean
             prepareCurrentEntity(prepareCurrentEntityKey());
         }catch(ProcessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* VisualizaÁ„o REJEITADA */
+        	/* Visualiza√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a create
@@ -71,9 +71,9 @@ public class RetrieveBean extends CrudBasicBean
     }
 	
     /**
-     * Action que prepara a visualizaÁ„o baseada
-	 * nos par‚metros passados.
-	 * Este mÈtodo È usado pelos outros beans quando desejam 
+     * Action que prepara a visualiza√ß√£o baseada
+	 * nos par√¢metros passados.
+	 * Este m√©todo √© usado pelos outros beans quando desejam 
 	 * exibir uma entidade no browser
      * e controla o fluxo de tela. 
      * @return
@@ -84,7 +84,7 @@ public class RetrieveBean extends CrudBasicBean
         log.debug("::Iniciando actionView");
         
         try{
-    		/* Passa os par‚metros para o controlador de entidade da visao */
+    		/* Passa os par√¢metros para o controlador de entidade da visao */
     		this.getEntityParam().getParentParam().setTypeName(null);
     		this.getEntityParam().setTypeName(typeName);
     		this.getEntityParam().setId(id);
@@ -94,7 +94,7 @@ public class RetrieveBean extends CrudBasicBean
             prepareCurrentEntity(prepareCurrentEntityKey());
         }catch(ProcessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* VisualizaÁ„o REJEITADA */
+        	/* Visualiza√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a create
@@ -104,41 +104,41 @@ public class RetrieveBean extends CrudBasicBean
 
 	
 	/**
-     * Este mÈtodo prepara a entidade correntemente visualizada, 
+     * Este m√©todo prepara a entidade correntemente visualizada, 
      * baseando-se na chave passada.<br>
-     * O mapa de processos ativos È consultado e n„o for encontrado o processo,
-     * um novo processo È criado.  
+     * O mapa de processos ativos √© consultado e n√£o for encontrado o processo,
+     * um novo processo √© criado.  
 	 * @throws BusinessException 
      */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void prepareCurrentEntity(String currentEntityKey) throws BusinessException, Exception
 	{
         if(processes.containsKey(currentEntityKey)){
-        	log.debug("Utilizando o processo j· ativo");
+        	log.debug("Utilizando o processo j√° ativo");
         	currentEntity = ((RetrieveProcess)processes.get(currentEntityKey)).retrieveEntity();
     	}else{
     		
     		log.debug("Iniciando um novo processo Retrieve");
     		RetrieveProcess retrieveProcess = (RetrieveProcess) this.getApplicationBean().getProcessManager().createProcessByName(RetrieveProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
     		try{
-    			/* Preenche os par‚metros */
+    			/* Preenche os par√¢metros */
     			retrieveProcess.setEntityType(Class.forName(this.getEntityParam().getTypeName()));
     			retrieveProcess.setEntityId(this.getEntityParam().getId());
     			
-    			/* Obtem a entidade Delete , a tentativa causar· um throw
-    			 * e o processo responder· com a mensage de DELETE_DENIED
+    			/* Obtem a entidade Delete , a tentativa causar√° um throw
+    			 * e o processo responder√° com a mensage de DELETE_DENIED
     			 */
     			currentEntity = retrieveProcess.retrieveEntity();
     			
     			/* Lucio 20090408 - Atualiza o tipo da entidade de acordo com o objeto obtido */
     			this.getEntityParam().setTypeName(currentEntity.getInfo().getType().getName());
     			
-    			/* Lucio 20110712 - Atualiza a lista das ˙ltimas entidades visualizadas 
-    			 * TODO OTIMIZAR Este Bean n„o armazena o processo e cria o mesmo trÍs vezes
-    			 * para n„o fazer buffer de entidade alterada no banco :) */
+    			/* Lucio 20110712 - Atualiza a lista das √∫ltimas entidades visualizadas 
+    			 * TODO OTIMIZAR Este Bean n√£o armazena o processo e cria o mesmo tr√™s vezes
+    			 * para n√£o fazer buffer de entidade alterada no banco :) */
     			this.lastViews.remove(currentEntity);
     			this.lastViews.add(0, currentEntity);
-    			/* MantÈm somente os ˙ltimos 20 registros*/
+    			/* Mant√©m somente os √∫ltimos 20 registros*/
     			if(this.lastViews.size()>=20) this.lastViews.remove(19);
     			
     			log.debug("Novo processo criado com sucesso");
@@ -147,8 +147,8 @@ public class RetrieveBean extends CrudBasicBean
     			/* Passa o erro pra frente */
     			throw e;
     		}finally{
-    			/* O processo nunca È re-aproveitado para sempre pegar as atualizaÁıes do BD.
-    			 * O RetrieveBean n„o possui aÁıes */
+    			/* O processo nunca √© re-aproveitado para sempre pegar as atualiza√ß√µes do BD.
+    			 * O RetrieveBean n√£o possui a√ß√µes */
    				log.debug("Novo processo sendo finalizado");
    				retrieveProcess.finish();
     		}
@@ -167,7 +167,7 @@ public class RetrieveBean extends CrudBasicBean
 	
     
 	/**
-     * Este mÈtodo È respons·vel por compor a chave de criaÁ„o da entidade usando
+     * Este m√©todo √© respons√°vel por compor a chave de cria√ß√£o da entidade usando
      * o tipo da entidade e o id da entidade. 
      * @return Retorna uma chave com entityType+entityId.
      */
@@ -177,31 +177,31 @@ public class RetrieveBean extends CrudBasicBean
 	}
     
 	/**
-	 * Verifica se a atual vis„o possui uma propriedade de SELECT_ONE_ACTIVE 
+	 * Verifica se a atual vis√£o possui uma propriedade de SELECT_ONE_ACTIVE 
 	 */
 	public boolean isSelectOneActive(){return currentParams!=null && currentParams.get(URL_PARAM_SELECT_ONE_DEST)!=null;}
 	
 	/**
-	 * Este mÈtodo analisa o propriedade que est· definida para ser selecionada;
-	 * Analisa a atual entidade da coleÁ„o;
+	 * Este m√©todo analisa o propriedade que est√° definida para ser selecionada;
+	 * Analisa a atual entidade da cole√ß√£o;
 	 * Pega o valor da propriedade na atual entidade.
 	 * @return Retorna o valor da propriedade da entidade
 	 * @throws BusinessException
 	 * @throws Exception
 	 */
 	public String getSelectPropertyValue() throws BusinessException, Exception{
-		/* Obtem o valor da propriedade que ser· retornado pela tela de pesquisa */
+		/* Obtem o valor da propriedade que ser√° retornado pela tela de pesquisa */
 		if(currentEntity == null)
-			throw new Exception("A entidade corrente n„o est· preparada. Execute pelo menos uma vez o mÈtodo getNextCurrentEntity()");
+			throw new Exception("A entidade corrente n√£o est√° preparada. Execute pelo menos uma vez o m√©todo getNextCurrentEntity()");
 		
-		/* Verifica se h· um nome v·lido */
+		/* Verifica se h√° um nome v√°lido */
 		String propName = this.currentParams.get(URL_PARAM_SELECT_PROPERTY);
 		if(StringUtils.isEmpty(propName))
 			return "";
 		
 		IProperty prop = currentEntity.getProperty(propName);
 		
-		/* Verifica se a propriedade possui uma m·scara para retorna-la sem a m·scara */
+		/* Verifica se a propriedade possui uma m√°scara para retorna-la sem a m√°scara */
 		if(prop.getInfo().isHasEditMask())
 			return prop.getValue().getAsObject().toString();
 		else

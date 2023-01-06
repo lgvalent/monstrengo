@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/public/basic/templates/simpleProcess.xhtml">
+	<ui:param name="icon" value="../../pages/admin/img/menu.png" />
+	<ui:param name="title" value="Configurações do sistema" />
+	<ui:param name="description" value="Aqui você pode definir as opções de segurança e consultar as auditorias do sistema" />
+	<ui:define name="content">
+		<ui:include src="/public/basic/tiles/linkRunProcess.xhtml">
+           <ui:param name="process" value="#{menuBean.processInfoMap.ChangePasswordProcess}"/>
+		</ui:include>
+		<br/>
+		<ui:include src="/public/basic/tiles/linkRunProcess.xhtml">
+           <ui:param name="process" value="#{menuBean.processInfoMap.OverwritePasswordProcess}"/>
+		</ui:include>
+		<br/>
+		<ui:include src="/public/basic/tiles/linkRunProcess.xhtml">
+           <ui:param name="process" value="#{menuBean.processInfoMap.CreateSecurityStructureProcess}"/>
+		</ui:include>
+	</ui:define>
+	<ui:define name="actions">
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ApplicationUser}"/>
+		</ui:include><br/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.SecurityGroup}"/>
+		</ui:include><br/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.RightCrud}"/>
+		</ui:include><br/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.RightProcess}"/>
+		</ui:include><br/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ApplicationEntity}"/>
+           <ui:param name="noShowCreate" value="True"/>
+		</ui:include><br/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ApplicationProcess}"/>
+           <ui:param name="noShowCreate" value="True"/>
+		</ui:include><br/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.ApplicationModule}"/>
+           <ui:param name="noShowCreate" value="True"/>
+		</ui:include>
+		<hr/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.AuditCrudRegister}"/>
+           <ui:param name="noShowCreate" value="True"/>
+		</ui:include><br/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.AuditProcessRegister}"/>
+           <ui:param name="noShowCreate" value="True"/>
+		</ui:include><br/>
+		<ui:include src="/public/basic/tiles/linkCreateQueryEntity.xhtml">
+           <ui:param name="entityMetadata" value="#{menuBean.infoMap.AuditServiceRegister}"/>
+           <ui:param name="noShowCreate" value="True"/>
+		</ui:include><br/>
+	</ui:define>
+</ui:composition>
+</html>
+	

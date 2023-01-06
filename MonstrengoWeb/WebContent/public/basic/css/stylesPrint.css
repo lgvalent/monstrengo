@@ -1,6 +1,6 @@
-/* Este estilo permite definir componentes que n„o ser„o exibidos durante a impress„o
-   do documento, isto porque, durante a impress„o a media='print' e n„o 'screen', podendo
-   o programador definir os estilos de tela e os estilos de impress„o */
+/* Este estilo permite definir componentes que n√£o ser√£o exibidos durante a impress√£o
+   do documento, isto porque, durante a impress√£o a media='print' e n√£o 'screen', podendo
+   o programador definir os estilos de tela e os estilos de impress√£o */
 .noprint{
 	display: none;	
 }
@@ -47,7 +47,7 @@ input [type="text"]:disabled,textarea:disabled,input [type="password"]:disabled
 	width: 100%;
 }
 
-/* Formata o conte˙do do header.jsp */
+/* Formata o conte√∫do do header.jsp */
 .header {
 	color: #39508C;
 	font-size: smaller;
@@ -60,21 +60,21 @@ input [type="text"]:disabled,textarea:disabled,input [type="password"]:disabled
 	text-align: center;
 }
 
-/* Formata o tÌtulo superior das telas CRUD 'VocÍ est· visualizando a entidade TAL' */
+/* Formata o t√≠tulo superior das telas CRUD 'Voc√™ est√° visualizando a entidade TAL' */
 .title {
 	color: #000099;
 	font-weight: bold;
 	font-size: small;
 }
 
-/* Formata o tÌtulo superior das telas CRUD 'VocÍ est· visualizando a entidade TAL' */
+/* Formata o t√≠tulo superior das telas CRUD 'Voc√™ est√° visualizando a entidade TAL' */
 .propertyLabel {
 	color: #000000;
 	font-weight: normal;
 	font-size: smaller;
 }
 
-/* Utilizado para a descriÁ„o das propriedades de uma entidade nas telas CRUD */
+/* Utilizado para a descri√ß√£o das propriedades de uma entidade nas telas CRUD */
 .description { /*color: #FF7F00;*/
 	color: #606060;
 	font-size: small;
@@ -88,7 +88,7 @@ input [type="text"]:disabled,textarea:disabled,input [type="password"]:disabled
 	font-size: small;
 }
 
-/* Formata o tÌtulo das telas de menu com uma imagem (Ìcone) lateral esquerdo */
+/* Formata o t√≠tulo das telas de menu com uma imagem (√≠cone) lateral esquerdo */
 .titleMenu {
 	color: #000099;
 	font-size: large;
@@ -160,11 +160,11 @@ input [type="text"]:disabled,textarea:disabled,input [type="password"]:disabled
 	padding-left: 10px; 
 }
 
-/* Estes estilos SelectOne e SelectOneSubmit s„o utilizados pelos
-  javaScript para determinar se executa ou n„o o for.submit(). Assim,
-  o programador pode escolher em situaÁıes que o submit() n„o È
-  bem vindo devido ‡s validaÁıes do faces, como no Create.jsp onde,
-  inicialmente h· v·rios canopi*/
+/* Estes estilos SelectOne e SelectOneSubmit s√£o utilizados pelos
+  javaScript para determinar se executa ou n√£o o for.submit(). Assim,
+  o programador pode escolher em situa√ß√µes que o submit() n√£o √©
+  bem vindo devido √†s valida√ß√µes do faces, como no Create.jsp onde,
+  inicialmente h√° v√°rios canopi*/
 .queryInputSelectOne {
 	background-color: #FFFFFF;
 	cursor: pointer;
@@ -313,7 +313,7 @@ input [type="text"]:disabled,textarea:disabled,input [type="password"]:disabled
 	font-size: smaller;
 }
 
-/**estilo da tabela filtro avanÁado**/
+/**estilo da tabela filtro avan√ßado**/
 .tableCollectionAdvancedQuery {
 	color: #006600;
 	border: thin solid #D9F2E5;
@@ -374,7 +374,7 @@ ul {
 	font-size: smaller;
 }
 
-/* Estilos relacionados ao RelatÛrio*/
+/* Estilos relacionados ao Relat√≥rio*/
 .reportHeader {
 	font-size: 9pt;
 	font-family: arial;
@@ -390,7 +390,7 @@ ul {
 	text-align: center;
 }
 
-/** estilo da tabela relatÛrio avanÁado **/
+/** estilo da tabela relat√≥rio avan√ßado **/
 .tableCollectionAdvancedReport {
 	color: #660000;
 	border: thin solid #FFE5E5;

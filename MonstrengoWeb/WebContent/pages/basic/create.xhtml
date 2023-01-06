@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -16,7 +16,7 @@
 		<h:inputHidden immediate="true" id="currentEntityKey"
 			value="#{createBean.currentEntityKey}"
 			validator="#{createBean.validateCurrentEntityKey}" />
-		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e force a reconstrução quando necessário -->
+		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e force a reconstruÃ§Ã£o quando necessÃ¡rio -->
 		<h:inputHidden immediate="true"
 			binding="#{createBean.inputCurrentEntityKey}" />
 			
@@ -36,15 +36,15 @@
 				</span>
 				<hr/>
 				<p:commandButton value="Gravar"
-					onclick="javascript:return confirm('Confirma gravar as alterações?')"
+					onclick="javascript:return confirm('Confirma gravar as alteraÃ§Ãµes?')"
 					action="#{createBean.actionUpdate}" ajax="false"/>
 				<p:commandButton value="Cancelar"
-					onclick="javascript:if(confirm('Confirma abandonar as alterações?'))window.close();" />
+					onclick="javascript:if(confirm('Confirma abandonar as alteraÃ§Ãµes?'))window.close();" />
 				<p:commandButton value="Limpar" onclick="this.value='Aguarde...'"
-					title="Limpa os dados, descartando as alterações realizadas até aqui"
+					title="Limpa os dados, descartando as alteraÃ§Ãµes realizadas atÃ© aqui"
 					action="#{createBean.doReloadEntity}" ajax="false"/>
 				<p:commandButton value="Validar" onclick="this.value='Validando...'"
-					title="Submete os dados digitados até aqui para uma validação"
+					title="Submete os dados digitados atÃ© aqui para uma validaÃ§Ã£o"
 					action="#{createBean.doValidateEntity}" immediate="false" ajax="false"/>
 			</f:facet>
 			

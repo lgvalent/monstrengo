@@ -4,7 +4,7 @@ import br.com.orionsoft.monstrengo.view.jsf.EditBasicBean;
 
 
 /**
- * Bean que controla a p·gina de ediÁ„o de um municipio.
+ * Bean que controla a p√°gina de edi√ß√£o de um municipio.
  * 
  * @author Lucio
  * @version 20060115

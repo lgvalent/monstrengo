@@ -11,7 +11,7 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 
 /**
- * Bean que controla a p·gina de ediÁ„o de uma entidade Crud.
+ * Bean que controla a p√°gina de edi√ß√£o de uma entidade Crud.
  * 
  * @author Lucio
  * @version 20060115
@@ -22,37 +22,37 @@ public class EditBasicBean extends BeanSessionBasic
 	private static final long serialVersionUID = 1L;
 
 	/* Dados internos */
-    /** Armazena os processos das entidades que est„o atualmente em ediÁ„o */
+    /** Armazena os processos das entidades que est√£o atualmente em edi√ß√£o */
     @SuppressWarnings("rawtypes")
 	private UpdateProcess process = null;
     private IEntity<?> entity=null;
     
-    // Outros Beans que s„o utilizados
+    // Outros Beans que s√£o utilizados
     private EntityBean entityBean;
     
     /**
-     * Prepara os par‚metros que foram fornecidos e est„o disponiveis no Faces.
+     * Prepara os par√¢metros que foram fornecidos e est√£o disponiveis no Faces.
      *  
      * @throws Exception
      */
     public void loadEntityParams() throws Exception
     {
-        log.debug("Lendo par‚metros para o editBean");
-        // N„o possui par‚metros prÛprios.
+        log.debug("Lendo par√¢metros para o editBean");
+        // N√£o possui par√¢metros pr√≥prios.
         
-        // Solicita que seu filho prepare os par‚metros
+        // Solicita que seu filho prepare os par√¢metros
         this.entityBean.loadEntityParams();
     }
   
     /**
-     * Action que prepara a visualizaÁ„o
+     * Action que prepara a visualiza√ß√£o
      * e controla o fluxo de tela. 
      * @return
      */
     public String actionEdit() throws Exception
     {
         log.debug("::Iniciando actionEdit");
-    	// Prepara os par‚metros fornecidos
+    	// Prepara os par√¢metros fornecidos
         this.loadEntityParams();
         
         try{
@@ -61,7 +61,7 @@ public class EditBasicBean extends BeanSessionBasic
             prepareCurrentEntity();
         }catch(ProcessException e){
         	FacesUtils.addErrorMsgs(e.getErrorList());
-        	/* EdiÁ„o REJEITADA */
+        	/* Edi√ß√£o REJEITADA */
             return FacesUtils.FACES_VIEW_FAILURE;
         }
         // Redireciona a Edit
@@ -90,10 +90,10 @@ public class EditBasicBean extends BeanSessionBasic
     		process = null;
     		entity = null;
     		
-    		log.debug("::Fim actionSave(). Redirecionando para a vis„o VIEW.");
+    		log.debug("::Fim actionSave(). Redirecionando para a vis√£o VIEW.");
         	return RetrieveBean.FACES_VIEW_RETRIEVE;
     	}else{
-    		log.debug("::Fim actionSave(). Hoveram erros, voltando para a vis„o EDIT.");
+    		log.debug("::Fim actionSave(). Hoveram erros, voltando para a vis√£o EDIT.");
     		FacesUtils.addErrorMsgs(process.getMessageList());
     		return "";
     	}
@@ -122,9 +122,9 @@ public class EditBasicBean extends BeanSessionBasic
     	return entity;
 	}
     /**
-     * Define a chave da entidade que est· correntemente sendo editada pelo bean.<br>
-     * A cada definiÁ„o desta chave. O processo respons·vel pela entidade È
-     * localizado e a entidade corrente È obtida. 
+     * Define a chave da entidade que est√° correntemente sendo editada pelo bean.<br>
+     * A cada defini√ß√£o desta chave. O processo respons√°vel pela entidade √©
+     * localizado e a entidade corrente √© obtida. 
      * @return
      */
 	public void setEntity(IEntity<?> currentEntity) {
@@ -132,7 +132,7 @@ public class EditBasicBean extends BeanSessionBasic
 	}
 
 	/**
-     * Este mÈtodo prepara a entidade correntemente em ediÁ„o, 
+     * Este m√©todo prepara a entidade correntemente em edi√ß√£o, 
      * baseando-se nos parametros capturados pelo EntityBean.<br>
 	 * @throws BusinessException 
      */
@@ -143,25 +143,25 @@ public class EditBasicBean extends BeanSessionBasic
         	log.debug("prepareCurrentEntity:");
     
         if (process != null){
-        	log.debug("Utilizando o processo j· ativo");
+        	log.debug("Utilizando o processo j√° ativo");
         	entity = process.retrieveEntity();
     	}else{
-        	log.debug("Iniciando um novo processo de EdiÁ„o");
+        	log.debug("Iniciando um novo processo de Edi√ß√£o");
         	process = (UpdateProcess<?>)this.getApplicationBean().getProcessManager().createProcessByName(UpdateProcess.PROCESS_NAME, this.getUserSessionBean().getUserSession());
             
-        	/* Preenche os par‚metros */
+        	/* Preenche os par√¢metros */
         	process.setEntityType(entityBean.getEntity().getInfo().getType());
             process.setEntityId(entityBean.getEntity().getId());
             
             try{
-                /* Obtem a entidade de ediÁ„o , a tentativa causar· um throw
-                 * e o processo responder· com a mensage de UPDATE_DENIED
+                /* Obtem a entidade de edi√ß√£o , a tentativa causar√° um throw
+                 * e o processo responder√° com a mensage de UPDATE_DENIED
                  */
             	entity = process.retrieveEntity();
-            	/* Coloca o processo de ediÁ„o como processo ativo */
+            	/* Coloca o processo de edi√ß√£o como processo ativo */
 	        	log.debug("Novo processo criado com sucesso");
             }catch(BusinessException e){
-	        	log.debug("Finalizando o processo pela ocorrÍncia de algum erro");
+	        	log.debug("Finalizando o processo pela ocorr√™ncia de algum erro");
             	process.finish();
             	process = null;
             	/* Passa o erro pra frente */

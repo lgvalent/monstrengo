@@ -19,9 +19,9 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 
 /**
- * Bean que controla a p·gina de criaÁ„o de uma entidade Crud.
- * Par‚metro de URL necess·rio: <br>
- * entityType: nome completo da classe da entidade que ser· criada uma nova inst‚ncia.
+ * Bean que controla a p√°gina de cria√ß√£o de uma entidade Crud.
+ * Par√¢metro de URL necess√°rio: <br>
+ * entityType: nome completo da classe da entidade que ser√° criada uma nova inst√¢ncia.
  * 
  * @author Juliana e Tatiana
  * @version 20060213
@@ -31,36 +31,36 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 {
 	private static final long serialVersionUID = 1L;
 
-	/** Armazena os processos das entidades que est„o atualmente ativas */
+	/** Armazena os processos das entidades que est√£o atualmente ativas */
     protected Map<String, IProcess> processes = new HashMap<String, IProcess>();
-	/** Armazena os direitos j· consultados das entidades que est„o atualmente ativas */
+	/** Armazena os direitos j√° consultados das entidades que est√£o atualmente ativas */
     protected Map<String, Map<String, Boolean>> rights = new HashMap<String, Map<String, Boolean>>();
 
     protected IEntity<?> currentEntity=null;
 	
 	/** 
-	 * Faz a validaÁ„o da entidade corrente antes de restaurar a vis„o. 
+	 * Faz a valida√ß√£o da entidade corrente antes de restaurar a vis√£o. 
 	 */
 	public void validateCurrentEntityKey(
 			FacesContext facesContext,
 			UIComponent component, Object newValue)
 			throws BusinessException, Exception{
 		
-		log.debug("Validando a entidade a ser manipulada pela vis„o corrente");
+		log.debug("Validando a entidade a ser manipulada pela vis√£o corrente");
         this.prepareCurrentEntity((String) newValue);
 	}
 	
 	/** 
 	 * Fornece um link entre o backing Bean e o componente
-	 * respons·vel pelo armazenamento da chave da entidade correntemente
+	 * respons√°vel pelo armazenamento da chave da entidade correntemente
 	 * utilizada.<br>
-	 * Durante a aÁ„o actionCancel() este valor precisa ser invalidado, porque 
-	 * sen„o, na prÛxima construÁ„o da vis„o o JSF vai considerar que o valor
+	 * Durante a a√ß√£o actionCancel() este valor precisa ser invalidado, porque 
+	 * sen√£o, na pr√≥xima constru√ß√£o da vis√£o o JSF vai considerar que o valor
 	 * da view atualmente instanciado e armazenado no componente interno do
 	 * JSF HtmlInputHidden pode ser utilizado. Anulando o valor, na 
-	 * prÛxima vez que a vis„o È renderizada, o valor currentEntityKey È novamente
-	 * obtido por getCurrentEntityKey(), ent„o, o processo de verificaÁ„o de chamada
-	 * por link e necessidade de doReload s„o acionados.  
+	 * pr√≥xima vez que a vis√£o √© renderizada, o valor currentEntityKey √© novamente
+	 * obtido por getCurrentEntityKey(), ent√£o, o processo de verifica√ß√£o de chamada
+	 * por link e necessidade de doReload s√£o acionados.  
 	 */
 	public HtmlInputHidden inputCurrentEntityKey;
     public HtmlInputHidden getInputCurrentEntityKey(){
@@ -73,9 +73,9 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
     	log.debug("setInputCurrentEntityKey");
     	this.inputCurrentEntityKey = inputCurrentEntityKey;
 
-    	log.debug("Verificando se a requisiÁ„o atual se originou de um link ou URL");
+    	log.debug("Verificando se a requisi√ß√£o atual se originou de um link ou URL");
 		if (this.checkLinkRequest()){
-			log.debug("RequisiÁ„o originada de um link. Lendo os atuais par‚metros");
+			log.debug("Requisi√ß√£o originada de um link. Lendo os atuais par√¢metros");
 			loadEntityParams(); 
 			this.prepareCurrentEntity(prepareCurrentEntityKey());
 		}
@@ -85,9 +85,9 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
     protected String currentEntityKey="";
 	public String getCurrentEntityKey() throws Exception {
 		
-		log.debug("Verificando se a requisiÁ„o atual se originou de um link ou URL");
+		log.debug("Verificando se a requisi√ß√£o atual se originou de um link ou URL");
 		if (this.checkLinkRequest()){
-			log.debug("RequisiÁ„o originada de um link. Lendo os atuais par‚metros");
+			log.debug("Requisi√ß√£o originada de um link. Lendo os atuais par√¢metros");
 			loadEntityParams(); 
 			this.prepareCurrentEntity(prepareCurrentEntityKey());
 		}
@@ -100,7 +100,7 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 		this.currentEntityKey = currentEntityKey;
 	}
 
-	/** Trata os par‚metros da requisiÁ„o necess·rios para o bean */
+	/** Trata os par√¢metros da requisi√ß√£o necess√°rios para o bean */
 	private EntityParam entityParam = new EntityParam(this);
 	public EntityParam getEntityParam(){return entityParam;}
 	
@@ -110,29 +110,29 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 	}
 	
 	/**
-     * Carrega os par‚metros pertinente aos Bean da atual transaÁ„o.   
-     * Antes de recarregar os par‚metros, o Bean sofre um reset() para 
-     * que os par‚metros atuais sejam limpos e dados processados sejam 
+     * Carrega os par√¢metros pertinente aos Bean da atual transa√ß√£o.   
+     * Antes de recarregar os par√¢metros, o Bean sofre um reset() para 
+     * que os par√¢metros atuais sejam limpos e dados processados sejam 
      * descarregados.
      */
     public void loadEntityParams() throws Exception
     {
-        log.debug("Lendo par‚metros da entidade do editBean");
+        log.debug("Lendo par√¢metros da entidade do editBean");
         
-        // Causa um reset para que os novos par‚metros entrem em aÁ„o
+        // Causa um reset para que os novos par√¢metros entrem em a√ß√£o
         this.doReset();
 
-        /* Solocitando os par‚metros de entidade sejam processados */
+        /* Solocitando os par√¢metros de entidade sejam processados */
         this.getEntityParam().loadParams();
         
     }
   
     public void doReset() throws BusinessException, Exception{
-        // Limpa os atuais par‚metros
+        // Limpa os atuais par√¢metros
     }
 	
     /**
-     * Obtem a chave da entidade que est· currentemente sendo manipulada pelo bean
+     * Obtem a chave da entidade que est√° currentemente sendo manipulada pelo bean
      * @return
      */
     public IEntity<?> getCurrentEntity() {
@@ -140,11 +140,11 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 	}
 
 	/**
-	 * Este mÈtodo implementa as atividades b·sicas de preparaÁ„o dos direitos
-	 * CRUD que o atual operador possui sobre a entidade que ser· manipulada 
-	 * pela vis„o.<br>
-	 * Todas as classes descendentes devem, <b>antes de qualquer cÛdigo</b> na implementaÁ„o
-	 * do seu mÈtodo prepareCurrentEntity(), executar super.prepareCurrentEntity().
+	 * Este m√©todo implementa as atividades b√°sicas de prepara√ß√£o dos direitos
+	 * CRUD que o atual operador possui sobre a entidade que ser√° manipulada 
+	 * pela vis√£o.<br>
+	 * Todas as classes descendentes devem, <b>antes de qualquer c√≥digo</b> na implementa√ß√£o
+	 * do seu m√©todo prepareCurrentEntity(), executar super.prepareCurrentEntity().
 	 */
 	public void prepareCurrentEntity(String currentEntityKey) throws BusinessException, Exception{
 		if(log.isDebugEnabled())
@@ -154,29 +154,29 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 		
 		this.prepareCrudRights(currentEntityKey);
 		
-        /* Prepara o repositÛrio de par‚metro para a atual entidade */
+        /* Prepara o reposit√≥rio de par√¢metro para a atual entidade */
         this.prepareCurrentParams(currentEntityKey);
 	}
 	
 	/**
-	 * Este mÈtodo permite que antes de alguma aÁ„o, o cache de processos ativos seja
+	 * Este m√©todo permite que antes de alguma a√ß√£o, o cache de processos ativos seja
 	 * consultado e um determinado processo seja removido para iniciar uma
-	 * nova inst‚ncia.<br>
-	 * Este mÈtodo foi implementado porque ao entrar em uma tela de ediÁ„o, o processo
+	 * nova inst√¢ncia.<br>
+	 * Este m√©todo foi implementado porque ao entrar em uma tela de edi√ß√£o, o processo
 	 * fica em cache com a entidade. O operador podia abrir outros processos e realizar 
-	 * alguma alteraÁ„o na entidade. No entanto, ao retornar para a tela de
-	 * ediÁ„o, a mesma exibia a entidade que estava em cache e n„o a nova entidade
+	 * alguma altera√ß√£o na entidade. No entanto, ao retornar para a tela de
+	 * edi√ß√£o, a mesma exibia a entidade que estava em cache e n√£o a nova entidade
 	 * que foi gravada no banco por outro processo.<br>
-	 * Agora È possÌvel consultar e limpar este cache forÁando a recarga da entidade antes de uma
-	 * determinada operaÁ„o..
+	 * Agora √© poss√≠vel consultar e limpar este cache for√ßando a recarga da entidade antes de uma
+	 * determinada opera√ß√£o..
 	 */
 	public void removeFromCache(String currentEntityKey){
 		if(log.isDebugEnabled())
 			log.debug("Localizando e removendo do cache o processo:" + currentEntityKey);
 
-        /* Verifica se h· algum processo ativo para a chave passada */
+        /* Verifica se h√° algum processo ativo para a chave passada */
         if(processes.containsKey(currentEntityKey)){
-        	log.debug("Uma inst‚ncia do processo foi encontrada. Removendo-o do cache e finalizando-o.");
+        	log.debug("Uma inst√¢ncia do processo foi encontrada. Removendo-o do cache e finalizando-o.");
         	try {
 				processes.remove(currentEntityKey).finish();
 			} catch (ProcessException e) {
@@ -186,40 +186,40 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 	}
 	
 	/**
-	 * Este mÈtodo implementa as atividades b·sicas de cancelamento do processo
-	 * atual da vis„o. Os dados b·sicos s„o limpos. A vis„o seguinte È sugerida para "close".<br>
-	 * Todas as classes descendentes devem, <b>depois de qualquer cÛdigo</b> na implementaÁ„o
-	 * do seu mÈtodo actionCancel(), executar <b>return super.actionCancel()</b>.
+	 * Este m√©todo implementa as atividades b√°sicas de cancelamento do processo
+	 * atual da vis√£o. Os dados b√°sicos s√£o limpos. A vis√£o seguinte √© sugerida para "close".<br>
+	 * Todas as classes descendentes devem, <b>depois de qualquer c√≥digo</b> na implementa√ß√£o
+	 * do seu m√©todo actionCancel(), executar <b>return super.actionCancel()</b>.
 	 */
     public String actionCancel() throws Exception{
         log.debug("::Iniciando actionCancel");
     	
-        /* TODO CORRIGIR por ser uma aÁ„o imediata o actionCancel nao
+        /* TODO CORRIGIR por ser uma a√ß√£o imediata o actionCancel nao
     	 * popula o componente currentEntityKey na segunda vez consecutiva 
-    	 * em que ele È executado. Assim, o processo n„o È finalizado nem 
-    	 * retirado da lista e fica ativo. Tentar ver como forÁar o FACES
+    	 * em que ele √© executado. Assim, o processo n√£o √© finalizado nem 
+    	 * retirado da lista e fica ativo. Tentar ver como for√ßar o FACES
     	 * a popular o valor ou pelo menos o submmitedVAlue para poder
     	 * identificar a entidade corrente e finalizar seu processo */
         log.debug("Finalizando o processo e removendo da lista de processo ativos e direitos ativos");
         rights.remove(currentEntityKey);
     	IProcess proc = processes.remove(currentEntityKey);
-		/* Verifica se o processo foi encontrado, pois pode acontecer da sess„o ser invalidada,
-		 * os processos distruÌdos e o operador posteriormente apertar cancel. */
+		/* Verifica se o processo foi encontrado, pois pode acontecer da sess√£o ser invalidada,
+		 * os processos distru√≠dos e o operador posteriormente apertar cancel. */
     	if(proc!=null)
 			proc.finish();
 		else{
-	    	log.debug("ERRO: Processo n„o encontrado para ser finalizado: " + currentEntityKey);
-	    	FacesUtils.addErrorMsg("ERRO: Processo n„o encontrado para ser finalizado: " + currentEntityKey);
+	    	log.debug("ERRO: Processo n√£o encontrado para ser finalizado: " + currentEntityKey);
+	    	FacesUtils.addErrorMsg("ERRO: Processo n√£o encontrado para ser finalizado: " + currentEntityKey);
 		}
 		
     	proc=null;
 
-    	/* Quando h· v·rias chamadas por link de uma vis„o e a ˙ltima aÁ„o da vis„o foi uma
-         * aÁ„o com immediate=true, o JSF n„o recebe nenhuma aÁ„o e 
-         * tende a renderizar sempre a mesma vis„o sem validar os par‚metros da requisiÁ„o
-         * atual. Anulando um valor de um componente da vis„o durante a actionCancel, que 
-         * È definida como immediate=true, o JSF ser· forÁado a processar os par‚metros
-         * da prÛxima requisiÁ„o.*/
+    	/* Quando h√° v√°rias chamadas por link de uma vis√£o e a √∫ltima a√ß√£o da vis√£o foi uma
+         * a√ß√£o com immediate=true, o JSF n√£o recebe nenhuma a√ß√£o e 
+         * tende a renderizar sempre a mesma vis√£o sem validar os par√¢metros da requisi√ß√£o
+         * atual. Anulando um valor de um componente da vis√£o durante a actionCancel, que 
+         * √© definida como immediate=true, o JSF ser√° for√ßado a processar os par√¢metros
+         * da pr√≥xima requisi√ß√£o.*/
     	log.debug("Anulando o atual valor do componente interno do JSF: currentEntityKey");
     	if(inputCurrentEntityKey!=null)
     		inputCurrentEntityKey.setValue(null);
@@ -231,7 +231,7 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
     }
 	
 	
-    // Direitos de aÁıes CRUD dentro desta vis„o
+    // Direitos de a√ß√µes CRUD dentro desta vis√£o
     private boolean canCreate = false;
     private boolean canRetrieve = false;
     private boolean canUpdate = false;
@@ -239,16 +239,16 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
     private boolean canQuery = false;
 	
     /** 
-     * Verifica se o user tem permiss„o de acionar os comandos CRUD
-     * que ser„o renderizados nesta vis„o de listagem  
+     * Verifica se o user tem permiss√£o de acionar os comandos CRUD
+     * que ser√£o renderizados nesta vis√£o de listagem  
      * @throws ClassNotFoundException 
      */
     private void prepareCrudRights(String currentEntityKey) throws BusinessException, ClassNotFoundException{
    	 	
-    	log.debug("Verificando se os direitos j· est„o preparados para a entidade corrente");
+    	log.debug("Verificando se os direitos j√° est√£o preparados para a entidade corrente");
     	Map<String, Boolean> right;
     	if(rights.containsKey(currentEntityKey)){
-        	log.debug("Utilizando o direitos j· ativo");
+        	log.debug("Utilizando o direitos j√° ativo");
         	right = rights.get(currentEntityKey);
     	}else{
         	log.debug("Preparando os direitos");
@@ -278,23 +278,23 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 	public boolean isCanQuery(){return canQuery;}
 	public void setCanQuery(boolean canQuery){this.canQuery = canQuery;}
 	
-    /** Armazena os par‚metros relacionados a atual vis„o e as entidades que est„o atualmente ativas */
+    /** Armazena os par√¢metros relacionados a atual vis√£o e as entidades que est√£o atualmente ativas */
     protected Map<String, Map<String, String>> params = new HashMap<String, Map<String, String>>();
     protected Map<String, String> currentParams = null;
     
     /** 
-     * Prepara o repositÛrio para a atual vis„o.
-     * As visıes poder„o armazenar os par„metros recebidos das
-     * requisiÁıes nesta estrutura, para posterior recuperaÁ„o. 
+     * Prepara o reposit√≥rio para a atual vis√£o.
+     * As vis√µes poder√£o armazenar os par√£metros recebidos das
+     * requisi√ß√µes nesta estrutura, para posterior recupera√ß√£o. 
      */
     private void prepareCurrentParams(String currentEntityKey){
    	 	
-    	log.debug("Preparando o repositÛrio de par„metros da vis„o");
+    	log.debug("Preparando o reposit√≥rio de par√£metros da vis√£o");
     	if(params.containsKey(currentEntityKey)){
-        	log.debug("Utilizando repositÛrio j· preparado");
+        	log.debug("Utilizando reposit√≥rio j√° preparado");
         	currentParams = params.get(currentEntityKey);
     	}else{
-        	log.debug("RepositÛrio n„o encontrado. Criando um novo para a atual vis„o");
+        	log.debug("Reposit√≥rio n√£o encontrado. Criando um novo para a atual vis√£o");
     		currentParams = new HashMap<String,String>();
     		params.put(currentEntityKey, currentParams);
     	}
@@ -307,8 +307,8 @@ public abstract class CrudBasicBean extends BeanSessionBasic implements ICrudBas
 	 * CONTROLE DE ETIQUETAS INTEGRADO AOS BEANS CRUD 
 	 ***************************************************/
 	/**
-	 * Esta referÍncia permite que os Beans do CRUD enviem mensagens ao controlador
-	 * da vis„o de etiquetas. COmo por exemplo, apÛs um Bean Crud inserir uma etiqueta
+	 * Esta refer√™ncia permite que os Beans do CRUD enviem mensagens ao controlador
+	 * da vis√£o de etiquetas. COmo por exemplo, ap√≥s um Bean Crud inserir uma etiqueta
 	 * ele avisar ao labelBean que deve recarregar a lista e evitar que o operador veja a
 	 * lista desatualizada
 	 * 

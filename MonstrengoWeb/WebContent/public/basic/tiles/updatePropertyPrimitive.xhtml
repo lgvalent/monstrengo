@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
     xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<!-- Uma variável 'propertyPrimitive' (IProperty) deve ser fornecida para esta visão -->
+<!-- Uma variÃ¡vel 'propertyPrimitive' (IProperty) deve ser fornecida para esta visÃ£o -->
 <!-- USO
 	<ui:include src="/public/basic/tiles/updatePropertyPrimitive.xhtml">
            <ui:param name="propertyPrimitive" value="#{currentProperty}"/>
@@ -126,7 +126,7 @@
 	</h:selectBooleanCheckbox>
 </h:panelGroup>
 
-<!-- Exibe informações sobre a máscara do campo -->
+<!-- Exibe informaÃ§Ãµes sobre a mÃ¡scara do campo -->
 <h:panelGroup
 	rendered="#{propertyPrimitive.info.hasEditMask and !propertyPrimitive.info.isBoolean()}">
 	<h:outputLabel value="#{propertyPrimitive.info.editMask}"

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -6,8 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-	<title>Relatório da pesquisa</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>RelatÃ³rio da pesquisa</title>
 	<link href="../../public/basic/css/styles.css" rel="stylesheet" type="text/css"
 		media="screen" />
 	<link href="../../public/basic/css/stylesPrint.css" rel="stylesheet"
@@ -33,27 +33,27 @@
 					<h:inputHidden id="currentEntityKey" immediate="true"
 						value="#{queryBean.currentEntityKey}"
 						validator="#{queryBean.validateCurrentEntityKey}" />
-					<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forçe a reconstrução quando necessário -->
+					<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forÃ§e a reconstruÃ§Ã£o quando necessÃ¡rio -->
 					<h:inputHidden immediate="true"
 						binding="#{queryBean.inputCurrentEntityKey}" />
 
 					<h:commandLink action="#{queryBean.actionExport}">
 						<h:outputText value="Salvar" style="text-align: center;"
-							title="Clique aqui para realizar o download do relatório" />
+							title="Clique aqui para realizar o download do relatÃ³rio" />
 					</h:commandLink>
 				</h:form>
 			</h:panelGrid>
 
 			<h:panelGrid>
 				<h:outputText
-					value="Usuário: #{userSessionBean.userSession.user.object}"
+					value="UsuÃ¡rio: #{userSessionBean.userSession.user.object}"
 					style="text-align: center;" />
 			</h:panelGrid>
 		</h:panelGroup>
 	</h:panelGrid>
 
 	<h:panelGrid columns="2" styleClass="reportTitle">
-		<h:outputText value="Relatório de #{queryBean.info.label}:" />
+		<h:outputText value="RelatÃ³rio de #{queryBean.info.label}:" />
 		<h:outputText
 			value="Foram selecionados #{queryBean.currentProcess.userReport.pageParam.itemsCount} registros." />
 
@@ -69,7 +69,7 @@
 			style="text-align:left; font-size: smaller;">
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="Condições:" style="font-size: smaller;" />
+					<h:outputText value="CondiÃ§Ãµes:" style="font-size: smaller;" />
 				</f:facet>
 				<h:outputText value="#{item}" rendered="#{item.active}" />
 			</h:column>
@@ -81,7 +81,7 @@
 			style="text-align:left; font-size: smaller;">
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="Ordenação:" style="font-size: smaller;" />
+					<h:outputText value="OrdenaÃ§Ã£o:" style="font-size: smaller;" />
 				</f:facet>
 				<h:outputText value="#{item}" rendered="#{item.active}" />
 			</h:column>

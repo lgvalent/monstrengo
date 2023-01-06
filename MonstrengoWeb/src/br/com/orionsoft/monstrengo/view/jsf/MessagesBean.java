@@ -14,10 +14,10 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanRequestBasic;
 
 /**
- * Esta classe fornece alguns recursos mais avançados para
- * exibição de imagens.
+ * Esta classe fornece alguns recursos mais avanÃ§ados para
+ * exibiÃ§Ã£o de imagens.
  * Como:
- * - Pegar somente a última mensagem e não a lista inteira
+ * - Pegar somente a Ãºltima mensagem e nÃ£o a lista inteira
  * - Pegar a lista de mensagems como uma lista para ser exibida em componentes table
  * 
  * @author Lucio 20060216
@@ -52,7 +52,7 @@ public class MessagesBean extends BeanRequestBasic
 	}
 	
 	/**
-	 * Este método é útil quando a primeira mensagem é exibida num painel e as demais em outra
+	 * Este mÃ©todo Ã© Ãºtil quando a primeira mensagem Ã© exibida num painel e as demais em outra
 	 * @return
 	 */
 	public List<FacesMessage> getFromSecondMessage(){
@@ -67,8 +67,8 @@ public class MessagesBean extends BeanRequestBasic
 			for(Iterator it_=it;it_.hasNext();)
 				result.add((FacesMessage) it_.next());
 		}catch(NoSuchElementException e){
-			/* Se não tiver items na lista esta exceção é disparada
-			 * porem nada deve ser feitos, somente uma lista vazia será
+			/* Se nÃ£o tiver items na lista esta exceÃ§Ã£o Ã© disparada
+			 * porem nada deve ser feitos, somente uma lista vazia serÃ¡
 			 * retornada */
 		}
 		

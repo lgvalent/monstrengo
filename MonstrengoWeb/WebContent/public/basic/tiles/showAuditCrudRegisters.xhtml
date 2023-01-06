@@ -1,22 +1,22 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<!-- Uma variável 'entity' (IEntity) deve ser fornecida para esta visão -->
+<!-- Uma variÃ¡vel 'entity' (IEntity) deve ser fornecida para esta visÃ£o -->
 <!-- USO
 		<ui:include src="/public/basic/tiles/showAuditCrudRegisters.xhtml">
             <ui:param name="entityList" value="#{backBean.result}"/>
 		</ui:include>
  -->
-<p:dataTable emptyMessage="Nenhuma alteração foi registrada" rendered="#{entityList.isEmpty()}"/>
+<p:dataTable emptyMessage="Nenhuma alteraÃ§Ã£o foi registrada" rendered="#{entityList.isEmpty()}"/>
 
 <p:dataTable value="#{entityList.list}" var='item' rendered="#{!entityList.isEmpty()}" >
-	<p:column headerText="Ação">
-		<h:outputText value="Criação"
+	<p:column headerText="AÃ§Ã£o">
+		<h:outputText value="CriaÃ§Ã£o"
 			rendered="#{item.propertiesMap.created.value.asBoolean}" />
-		<h:outputText value="Alteração"
+		<h:outputText value="AlteraÃ§Ã£o"
 			rendered="#{item.propertiesMap.updated.value.asBoolean}" />
 	</p:column>
 

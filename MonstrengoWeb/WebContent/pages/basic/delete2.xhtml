@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -6,16 +6,16 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="/public/basic/templates/simpleProcess.xhtml">
-	<ui:param name="title" value="Exclusão de um registro" />
+	<ui:param name="title" value="ExclusÃ£o de um registro" />
 	<ui:param name="icon" value="../../public/basic/img/delete_b.png" />
-	<ui:param name="description" value="Esta operação não pode ser revertida e será registrada na auditoria do sistema.&lt;br/&gt;Você deverá fornecer uma justifica que ajude a lembrar a razão pela qual este registro está sendo excluído." />
+	<ui:param name="description" value="Esta operaÃ§Ã£o nÃ£o pode ser revertida e serÃ¡ registrada na auditoria do sistema.&lt;br/&gt;VocÃª deverÃ¡ fornecer uma justifica que ajude a lembrar a razÃ£o pela qual este registro estÃ¡ sendo excluÃ­do." />
 	<ui:define name="content">
 		<!-- Sincroniza a atual entidade manipulada pela view -->
 		<h:inputHidden immediate="true" id="currentEntityKey" value="#{deleteBean.currentEntityKey}" validator="#{deleteBean.validateCurrentEntityKey}" />
-		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forçe a reconstrução quando necessário -->
+		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forÃ§e a reconstruÃ§Ã£o quando necessÃ¡rio -->
 		<h:inputHidden immediate="true" binding="#{deleteBean.inputCurrentEntityKey}" />
 
-		<h:outputText styleClass="title" value="Você está excluindo um registro de &lt;i&gt;#{deleteBean.currentEntity.info.label}&lt;i/&gt;:" escape="false" />
+		<h:outputText styleClass="title" value="VocÃª estÃ¡ excluindo um registro de &lt;i&gt;#{deleteBean.currentEntity.info.label}&lt;i/&gt;:" escape="false" />
 		<br/>
 
 		<h:dataTable value="#{deleteBean.currentEntity.groupsProperties}" var='group' width="100%">
@@ -56,7 +56,7 @@
 	</ui:define>
 	<ui:define name="actions">
 		<h:commandButton value="Cancelar" action="#{deleteBean.actionCancel}" immediate="true"/>
-		<h:commandButton value="Confirmar" onclick="javascript:return confirm('Confirma a exclusão do registro?')" action="#{deleteBean.actionConfirm}" />
+		<h:commandButton value="Confirmar" onclick="javascript:return confirm('Confirma a exclusÃ£o do registro?')" action="#{deleteBean.actionConfirm}" />
 	</ui:define>
 </ui:composition>
 </html>

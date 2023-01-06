@@ -4,7 +4,7 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.view.jsf.bean.BeanRequestBasic;
 
 /**
- * bean em construção. Era um protótipo de centralizador das ações do sistemas
+ * bean em construÃ§Ã£o. Era um protÃ³tipo de centralizador das aÃ§Ãµes do sistemas
  * 
  * _@jsf.bean name="actionBean" scope="session" 
  */

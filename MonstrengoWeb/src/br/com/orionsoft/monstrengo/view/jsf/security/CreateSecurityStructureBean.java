@@ -14,9 +14,9 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
  * Bean que controla a view que executa o processo que cria
- * a estrutura básica de segurança para um operador.
- * Muito útil também quando uma entidade ou processo são inseridos no sistema
- * e o mesmo precisa ser registrado na estrutura de controle de segurança.
+ * a estrutura bÃ¡sica de seguranÃ§a para um operador.
+ * Muito Ãºtil tambÃ©m quando uma entidade ou processo sÃ£o inseridos no sistema
+ * e o mesmo precisa ser registrado na estrutura de controle de seguranÃ§a.
  *  
  * @jsf.bean name="createSecurityStructureBean" scope="session"
  */
@@ -25,7 +25,7 @@ import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 public class CreateSecurityStructureBean extends BeanSessionBasic implements IRunnableProcessView
 {
  
-    /** Define a view JSF que é ativada para a visão RETRIEVE */
+    /** Define a view JSF que Ã© ativada para a visÃ£o RETRIEVE */
 	public static final String FACES_VIEW = "/pages/admin/securityCreateSecurityStructure?faces-redirect=true";
 
 	private String login;
@@ -55,7 +55,7 @@ public class CreateSecurityStructureBean extends BeanSessionBasic implements IRu
 
     	if (process.runCreate()){
         	// Adiciona as mensagens de info no Faces
-        	FacesUtils.addInfoMsg("Processo executado com sucesso. Veja as ações abaixo para maiores detalhes.");
+        	FacesUtils.addInfoMsg("Processo executado com sucesso. Veja as aÃ§Ãµes abaixo para maiores detalhes.");
         	FacesUtils.addInfoMsgs(process.getMessageList());
 
         	// Definir o fluxo de tela de SUCESSO

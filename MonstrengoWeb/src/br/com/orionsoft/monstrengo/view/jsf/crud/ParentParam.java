@@ -10,8 +10,8 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.IBasicBean;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Esta classe È respons·vel pela manipulaÁ„o dos par‚metros aceitos
- * pelas requisiÁıes que definem uma entidade pai.
+ * Esta classe √© respons√°vel pela manipula√ß√£o dos par√¢metros aceitos
+ * pelas requisi√ß√µes que definem uma entidade pai.
  * 
  * @author Lucio 20060206
  */
@@ -22,7 +22,7 @@ public class ParentParam
     public static final String URL_PARAM_PARENT_ID = "parentId";
     public static final String URL_PARAM_PARENT_PROPERTY = "parentProperty";
     
-    /** Par‚metros get/set */
+    /** Par√¢metros get/set */
     private String typeName = "";
     private long id = IDAO.ENTITY_UNSAVED;
     private String property= "";
@@ -30,15 +30,15 @@ public class ParentParam
     /** Objetos preparados */
     private IEntity entity = null;
     
-    /** Define o objeto Bean que È pai deste objeto 
-     * para utilizar as rotinas de comunicaÁ„o com
-     * a sess„o e requisiÁ„o correntes. 
+    /** Define o objeto Bean que √© pai deste objeto 
+     * para utilizar as rotinas de comunica√ß√£o com
+     * a sess√£o e requisi√ß√£o correntes. 
      */
     private IBasicBean ownerBean;
     
     
     /**
-     * Construtor com a obrigaÁ„o de fornecer um owner para
+     * Construtor com a obriga√ß√£o de fornecer um owner para
      * ser utilizado internamente pela classe.
      * @param ownerBean Define o bean dono desta classe
      */
@@ -64,15 +64,15 @@ public class ParentParam
     }
     
     /**
-     * Carrega os par‚metros pertinente aos Bean da atual transaÁ„o.   
-     * Antes de recarregar os par‚metros, o Bean sofre um reset() para 
-     * que os par‚metros atuais sejam limpos e dados processados sejam 
+     * Carrega os par√¢metros pertinente aos Bean da atual transa√ß√£o.   
+     * Antes de recarregar os par√¢metros, o Bean sofre um reset() para 
+     * que os par√¢metros atuais sejam limpos e dados processados sejam 
      * descarregados.
      */
     public void loadParams()
     {
-    	log.debug("Lendo os par‚metros da requisiÁ„o");
-        // Causa um reset para que os novos par‚metros entrem em aÁ„o
+    	log.debug("Lendo os par√¢metros da requisi√ß√£o");
+        // Causa um reset para que os novos par√¢metros entrem em a√ß√£o
         this.reset();
 
         if (FacesUtils.isNotNull(ownerBean.getRequestParams().get(URL_PARAM_PARENT_TYPE)))
@@ -91,18 +91,18 @@ public class ParentParam
     }
 
     /**
-     * Limpa todos os par‚metros anteriormente carregados,
-     * voltando seu valor padr„o.
-     * Os dados processados internos tambÈm s„o marcados para
-     * Se ocorrer alguma mudanÁa nos par‚metros,
-     * o controlador da View dever· se resetar.
-     * Para isto, os objetos preparados dever„o
-     * ser destruÌdos 
+     * Limpa todos os par√¢metros anteriormente carregados,
+     * voltando seu valor padr√£o.
+     * Os dados processados internos tamb√©m s√£o marcados para
+     * Se ocorrer alguma mudan√ßa nos par√¢metros,
+     * o controlador da View dever√° se resetar.
+     * Para isto, os objetos preparados dever√£o
+     * ser destru√≠dos 
      */
     private void reset()
     {
-    	log.debug("Resetando os par‚metros atuais");
-        // Limpa os par‚metros
+    	log.debug("Resetando os par√¢metros atuais");
+        // Limpa os par√¢metros
         this.typeName = "";
         this.id = IDAO.ENTITY_UNSAVED;
         this.property = "";

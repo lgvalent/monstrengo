@@ -12,9 +12,9 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.view.jsf.bean.ApplicationBean;
 
 /**
- * Esta classe define o conversor genÈrico de uma IEntity. ⁄til para usar com o componentes Primes
- * que trabalham diretamente com valores IEntity e n„o mais os primitivos.
- * o par‚metro value="" È necess·rio, pois sen„o ele o Prime usa o o conversor para TUDO!@! 
+ * Esta classe define o conversor gen√©rico de uma IEntity. √ötil para usar com o componentes Primes
+ * que trabalham diretamente com valores IEntity e n√£o mais os primitivos.
+ * o par√¢metro value="" √© necess√°rio, pois sen√£o ele o Prime usa o o conversor para TUDO!@! 
  * @author lucio
  * @version 01012012
  */
@@ -24,7 +24,7 @@ public class IEntityConverterCopy implements Converter{
 	/**
 	 * O valor submetido para o conversor deve ser o nome da classe da entidade e o seu id.
 	 * Exemplo: 'br.com.MyClass:1'
-	 * Use uma express„o: #{IEntity.info.type.name}:#{IEntity.id}    
+	 * Use uma express√£o: #{IEntity.info.type.name}:#{IEntity.id}    
 	 */
 	public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue) {
 	        if (submittedValue.trim().equals("")) {  
@@ -37,7 +37,7 @@ public class IEntityConverterCopy implements Converter{
 	            	String className = values[0];
 	            	long entityId = Long.parseLong(values[1]);
 	            	
-	            	/* Verifica se a entidade a ser convertida existe. Sen„o, cria uma vazia */
+	            	/* Verifica se a entidade a ser convertida existe. Sen√£o, cria uma vazia */
 	            	if(entityId != IDAO.ENTITY_UNSAVED){
 	            		return UtilsCrud.retrieve(applicationBean.getProcessManager().getServiceManager(), Class.forName(className), entityId, null);
 	            	}else{
@@ -45,7 +45,7 @@ public class IEntityConverterCopy implements Converter{
 	            	}
 	            	
 	            } catch(Exception exception) {  
-	                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de convers„o. Use como valor do componente uma express„o: #{IEntity.info.type.name}:#{IEntity.id}", "O valor submetido n„o pode ser convertido para IEntity. Utilize este Converter somente para esta interface." + exception.getMessage()));  
+	                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de convers√£o. Use como valor do componente uma express√£o: #{IEntity.info.type.name}:#{IEntity.id}", "O valor submetido n√£o pode ser convertido para IEntity. Utilize este Converter somente para esta interface." + exception.getMessage()));  
 	            }  
 	        }  
 	    }  

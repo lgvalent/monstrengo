@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<!-- Uma variável 'paramEntityList' (ProcessParamEntityList) deve ser fornecida para esta visão -->
+<!-- Uma variÃ¡vel 'paramEntityList' (ProcessParamEntityList) deve ser fornecida para esta visÃ£o -->
 <!-- USO
 	<ui:include src="/public/basic/tiles/processParamEntityListSuggest.xhtml">
            <ui:param name="paramEntityList" value="#{currentProperty}"/>
@@ -23,7 +23,7 @@
 	onfocus="setActiveComponent(this)"
 	forceSelection="true">
 </p:autoComplete>
-<p:watermark id="water#{paramEntityList.value.info.type.simpleName}" value="Pesquise aqui um registro de  #{paramEntityList.value.info.label}" for="findParamEntityList#{paramEntityList.value.info.type.simpleName}"/>
+<p:watermark id="water#{paramEntityList.value.info.type.simpleName}" value="Pesquise aqui um registro de #{paramEntityList.value.info.label}" for="findParamEntityList#{paramEntityList.value.info.type.simpleName}"/>
 
 <p:commandButton id="add#{paramEntityList.value.info.type.simpleName}" value="+" ajax="true" update="dataTableList#{paramEntityList.value.info.type.simpleName}" styleClass="btn#{paramEntityList.value.info.type.simpleName}">
 	<p:collector id="collector#{paramEntityList.value.info.type.simpleName}"  value="#{paramEntityList.value.runEntity}"
@@ -47,12 +47,14 @@
 				removeFrom="#{paramEntityList.value.collection}" />
 		</p:commandLink>
 		<h:selectBooleanCheckbox value="#{col.selected}"/>
-		<h:outputText value="#{col}:" title="#{col.info.hint}" />
+		<h:outputLink tabindex="-1"	value="javascript:linkRetrieve('#{col.info.type.name}',#{col.id})">
+			<h:outputText value="#{col}" title="#{col.info.hint}" />
+		</h:outputLink>
 	</p:column>
 	<f:facet name="footer">
 		#{paramEntityList.value.size} registros
 		| <p:commandLink value="Limpar" title="Remove todos os registros da lista" action="#{paramEntityList.value.clear}"  update="dataTableList#{paramEntityList.value.info.type.simpleName}" />
-		| <p:commandLink value="Todos" title="Adiciona todos os registros disponíveis para esta lista" action="#{paramEntityList.value.addAll(paramEntityList.fullList)}" update="dataTableList#{paramEntityList.value.info.type.simpleName}" />
+		| <p:commandLink value="Todos" title="Adiciona todos os registros disponÃ­veis para esta lista" action="#{paramEntityList.value.addAll(paramEntityList.fullList)}" update="dataTableList#{paramEntityList.value.info.type.simpleName}" />
     </f:facet>
 </p:dataTable>
 

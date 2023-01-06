@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -6,8 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-	<title>Relatório de auditoria: #{checkAuditCrudBean.entity}</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>RelatÃ³rio de auditoria: #{checkAuditCrudBean.entity}</title>
 	<link href="../../public/basic/css/styles.css" rel="stylesheet" type="text/css"
 		media="screen" />
 	<link href="../../public/basic/css/stylesPrint.css" rel="stylesheet"
@@ -22,7 +22,7 @@
 <h:body>
 	<p:accordionPanel multiple="true">
 		<p:tab
-			title="Auditoria de alterações em &lt;i&gt;#{checkAuditCrudBean.entity.info.label}: #{checkAuditCrudBean.entity}&lt;/i&gt;">
+			title="Auditoria de alteraÃ§Ãµes em &lt;i&gt;#{checkAuditCrudBean.entity.info.label}: #{checkAuditCrudBean.entity}&lt;/i&gt;">
 			<ui:include src="/public/basic/tiles/showAuditCrudRegisters.xhtml">
 				<ui:param name="entityList" value="#{checkAuditCrudBean.result}" />
 			</ui:include>
@@ -34,7 +34,7 @@
 					<h:panelGroup rendered="#{!prop.property.info.collection}">
 						<h:outputLink
 							value="javascript:linkCheckAuditCrud('#{prop.property.info.type.name}', #{prop.property.value.id})"
-							title="Clique aqui para realizar uma investigação completa nesta entidade">
+							title="Clique aqui para realizar uma investigaÃ§Ã£o completa nesta entidade">
 							<h:graphicImage value="../../public/basic/img/checkAuditCrud.png"
 								title="Verifica quem criou e alterou este registro"
 								style="border:0" />
@@ -52,7 +52,7 @@
 							<h:column>
 								<h:outputLink
 									value="javascript:linkCheckAuditCrud('#{results.entity.info.type.name}', #{results.entity.id})"
-									title="Clique aqui para realizar uma investigação completa nesta entidade">
+									title="Clique aqui para realizar uma investigaÃ§Ã£o completa nesta entidade">
 									<h:graphicImage value="../../public/basic/img/checkAuditCrud.png"
 										title="Verifica quem criou e alterou este registro"
 										style="border:0"/>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -15,14 +15,14 @@
 			<h:graphicImage value="../../public/basic/img/create.png"
 				title="Criar novo registro de #{entity.label}" style="border:0" />
 		</h:outputLink>
-	 	<h:graphicImage value="../../public/basic/img/create_d.png" title="Você não possui direitos para criar um novo registro" style="border:0" rendered="#{!menuBean.crudMap.get(entity.type.simpleName).canCreate}" />
+	 	<h:graphicImage value="../../public/basic/img/create_d.png" title="VocÃª nÃ£o possui direitos para criar um novo registro" style="border:0" rendered="#{!menuBean.crudMap.get(entity.type.simpleName).canCreate}" />
 		
 		<h:outputLink value="javascript:linkQuery('#{entity.type.name}')"
 		rendered="#{menuBean.crudMap.get(entity.type.simpleName).canQuery}">
 			<h:graphicImage value="../../public/basic/img/query.png"
 				title="Abrir pesquisa de #{entity.label}" style="border:0" />
 		</h:outputLink>
-		<h:graphicImage value="../../public/basic/img/query_d.png" title="Você não possui direitos para visualizar esta entidade" style="border:0" rendered="#{!menuBean.crudMap.get(entity.type.simpleName).canQuery}"/>
+		<h:graphicImage value="../../public/basic/img/query_d.png" title="VocÃª nÃ£o possui direitos para visualizar esta entidade" style="border:0" rendered="#{!menuBean.crudMap.get(entity.type.simpleName).canQuery}"/>
 		<h:outputText value="#{entity.label}" />
 		
 		<span style="padding-left: 20px; font-size: smaller;"><br/>#{entity.hint}</span>

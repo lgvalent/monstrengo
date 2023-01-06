@@ -5,7 +5,7 @@ import java.util.Map;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Esta classe possui as funcionalidades b·sicas de um Bean com o escopo SESSION.
+ * Esta classe possui as funcionalidades b√°sicas de um Bean com o escopo SESSION.
  * 
  * @author Lucio
  * @version 2005/11/08
@@ -14,7 +14,7 @@ public abstract class BeanSessionBasic extends BasicBean
 {
     
 	
-	/** Este mÈtodo obtem os par‚metros da atual requisiÁ„o utilizando as funÁıes Utils.  
+	/** Este m√©todo obtem os par√¢metros da atual requisi√ß√£o utilizando as fun√ß√µes Utils.  
      */  
     public Map getRequestParams()
     {
@@ -24,18 +24,18 @@ public abstract class BeanSessionBasic extends BasicBean
     public static final String URL_PARAM_LINK_REQUEST = "link";
 
     /**
-     * Este mÈtodo identifica se na atual requisiÁ„o foi recebido um
-     * parametro link=true que identifica que a requisiÁ„o foi iniciada
-     * por um link em uma pagina e n„o por um mÈtodo Action.
-     * Isto porque, quando a requisiÁ„o È feita por URL, os par‚metros da
-     * requisiÁ„o s„o passados pela URL e os beans de sess„o nao ficam 
+     * Este m√©todo identifica se na atual requisi√ß√£o foi recebido um
+     * parametro link=true que identifica que a requisi√ß√£o foi iniciada
+     * por um link em uma pagina e n√£o por um m√©todo Action.
+     * Isto porque, quando a requisi√ß√£o √© feita por URL, os par√¢metros da
+     * requisi√ß√£o s√£o passados pela URL e os beans de sess√£o nao ficam 
      * sabendo para atualizar seus parametros internos.
-     * Para detectar esta situaÁ„o, sempre È verificado na requisiÁ„o atual
-     * se tem um par‚metro "link=true" presente.
+     * Para detectar esta situa√ß√£o, sempre √© verificado na requisi√ß√£o atual
+     * se tem um par√¢metro "link=true" presente.
      */
     public boolean checkLinkRequest() {
     	if(log.isDebugEnabled())
-    		log.debug("Par‚metros da requisiÁ„o:" + this.getRequestParams().toString());
+    		log.debug("Par√¢metros da requisi√ß√£o:" + this.getRequestParams().toString());
         return FacesUtils.isNotNull(this.getRequestParams().get(URL_PARAM_LINK_REQUEST)); 
     }
 }

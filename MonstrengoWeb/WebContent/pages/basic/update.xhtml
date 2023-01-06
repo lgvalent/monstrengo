@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:include src="/public/basic/tiles/head.xhtml">
-     <ui:param name="pageTitle" value="Edição:#{updateBean.currentEntity}"/>
+     <ui:param name="pageTitle" value="EdiÃ§Ã£o:#{updateBean.currentEntity}"/>
 </ui:include>
 
 <h:body>
@@ -16,7 +16,7 @@
 		<h:inputHidden immediate="true" id="currentEntityKey"
 			value="#{updateBean.currentEntityKey}"
 			validator="#{updateBean.validateCurrentEntityKey}" />
-		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forçe a reconstrução quando necessário -->
+		<!-- Fornece um acesso para que o BEAN invalide um valor da view JSF e forÃ§e a reconstruÃ§Ã£o quando necessÃ¡rio -->
 		<h:inputHidden immediate="true"
 			binding="#{updateBean.inputCurrentEntityKey}" />
 		
@@ -37,17 +37,17 @@
 				</span>
 				<hr/>
 				<p:commandButton value="Gravar"
-					onclick="javascript:return confirm('Confirma gravar as alterações?')"
+					onclick="javascript:return confirm('Confirma gravar as alteraÃ§Ãµes?')"
 					action="#{updateBean.actionUpdate}" ajax="false" />
 				<p:commandButton value="Cancelar"
 					action="#{updateBean.actionCancel}"
 					onclick="this.value='Aguarde...'" immediate="true" ajax="false" />
 				<p:commandButton value="Recarregar"
 					onclick="this.value='Aguarde...'"
-					title="Recarrega os dados, descartando as alterações realizadas até aqui"
+					title="Recarrega os dados, descartando as alteraÃ§Ãµes realizadas atÃ© aqui"
 					action="#{updateBean.doReloadEntity}" immediate="true" ajax="false" />
 				<p:commandButton value="Validar" onclick="this.value='Validando...'"
-					title="Submete os dados digitados até aqui para uma validação"
+					title="Submete os dados digitados atÃ© aqui para uma validaÃ§Ã£o"
 					action="#{updateBean.doValidateEntity}" immediate="false"
 					ajax="false" />
 			</f:facet>

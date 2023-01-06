@@ -11,8 +11,8 @@ import br.com.orionsoft.monstrengo.view.jsf.bean.IBasicBean;
 import br.com.orionsoft.monstrengo.view.jsf.util.FacesUtils;
 
 /**
- * Esta classe È respons·vel pela manipulaÁ„o dos par‚metros aceitos
- * pelas requisiÁıes que definem uma entidade com ou sem pai.
+ * Esta classe √© respons√°vel pela manipula√ß√£o dos par√¢metros aceitos
+ * pelas requisi√ß√µes que definem uma entidade com ou sem pai.
  * 
  * @author Lucio 20060206
  */
@@ -22,21 +22,21 @@ public class EntityParam
 	public static final String URL_PARAM_ENTITY_TYPE = "entityType";
     public static final String URL_PARAM_ENTITY_ID = "entityId";
 
-    /** Par‚metros get/set */
+    /** Par√¢metros get/set */
     private String typeName = null;
     private long id = IDAO.ENTITY_UNSAVED;
     
     /** Objetos preparados */
     private ParentParam parentParam;
 
-    /** Define o objeto Bean que È pai deste objeto 
-     * para utilizar as rotinas de comunicaÁ„o com
-     * a sess„o e requisiÁ„o correntes. 
+    /** Define o objeto Bean que √© pai deste objeto 
+     * para utilizar as rotinas de comunica√ß√£o com
+     * a sess√£o e requisi√ß√£o correntes. 
      */
     private IBasicBean ownerBean;
     
     /**
-     * Construtor com a obrigaÁ„o de fornecer um owner para
+     * Construtor com a obriga√ß√£o de fornecer um owner para
      * ser utilizado internamente pela classe.
      * @param ownerBean Define o bean dono desta classe
      */
@@ -50,30 +50,30 @@ public class EntityParam
 
 
     /**
-     * Carrega os par‚metros pertinente aos Bean da atual transaÁ„o.   
-     * Antes de recarregar os par‚metros, o Bean sofre um reset() para 
-     * que os par‚metros atuais sejam limpos e dados processados sejam 
+     * Carrega os par√¢metros pertinente aos Bean da atual transa√ß√£o.   
+     * Antes de recarregar os par√¢metros, o Bean sofre um reset() para 
+     * que os par√¢metros atuais sejam limpos e dados processados sejam 
      * descarregados.
      */
     public void loadParams() throws Exception
     {
-    	log.debug("Lendo os par‚metros da requisiÁ„o");
-    	// Causa um reset para que os novos par‚metros entrem em aÁ„o
+    	log.debug("Lendo os par√¢metros da requisi√ß√£o");
+    	// Causa um reset para que os novos par√¢metros entrem em a√ß√£o
         this.doReset();
 
-    	log.debug("Solicitando que o parentParam leia seus par‚metros da requisiÁ„o");
+    	log.debug("Solicitando que o parentParam leia seus par√¢metros da requisi√ß√£o");
         this.parentParam.loadParams();
 
-        // Verifica se o pai preparou para pegar os par‚metros do Pai
+        // Verifica se o pai preparou para pegar os par√¢metros do Pai
         if(this.parentParam.isHasParent())
         {
-        	log.debug("parentParam encontrou par‚metros e os tratou. Sincronizando dados do parentParam com entityParam");
-        	// Pega os par‚metros do pai
-            // Atualiza os par‚metros atuais, de acordo com a propriedade do pai
-            // para manter a consistÍncia do tipo e id da entidade atual.
-            // Quando a propriedade do pai for uma coleÁ„o de objetos,
-            // n„o ser· possÌvel pegar o Id, pois uma coleÁ„o n„o possui 
-        	// um ˙nico Id. PorÈm, o tipo da coleÁ„o È possÌvel de ser pego.
+        	log.debug("parentParam encontrou par√¢metros e os tratou. Sincronizando dados do parentParam com entityParam");
+        	// Pega os par√¢metros do pai
+            // Atualiza os par√¢metros atuais, de acordo com a propriedade do pai
+            // para manter a consist√™ncia do tipo e id da entidade atual.
+            // Quando a propriedade do pai for uma cole√ß√£o de objetos,
+            // n√£o ser√° poss√≠vel pegar o Id, pois uma cole√ß√£o n√£o possui 
+        	// um √∫nico Id. Por√©m, o tipo da cole√ß√£o √© poss√≠vel de ser pego.
             try
             {
                 IProperty prop = this.parentParam.getEntity().getProperty(this.parentParam.getProperty()); 
@@ -99,9 +99,9 @@ public class EntityParam
             } 
         	
         }else{
-        	log.debug("parentParam n„o encontrou par‚metros. Lendo os par‚metros sobre a entidade");
+        	log.debug("parentParam n√£o encontrou par√¢metros. Lendo os par√¢metros sobre a entidade");
         	
-        	// Pega os par‚metros da requisiÁ„o
+        	// Pega os par√¢metros da requisi√ß√£o
         	if (FacesUtils.isNotNull(ownerBean.getRequestParams().get(URL_PARAM_ENTITY_TYPE)))
         	{
         		this.typeName = ownerBean.getRequestParams().get(URL_PARAM_ENTITY_TYPE).toString();
@@ -115,18 +115,18 @@ public class EntityParam
     }
 
     /**
-     * Limpa todos os par‚metros anteriormente carregados,
-     * voltando seu valor padr„o.
-     * Os dados processados internos tambÈm s„o marcados para
-     * Se ocorrer alguma mudanÁa nos par‚metros,
-     * o controlador da View dever· se resetar.
-     * Para isto, os objetos preparados dever„o
-     * ser destruÌdos 
+     * Limpa todos os par√¢metros anteriormente carregados,
+     * voltando seu valor padr√£o.
+     * Os dados processados internos tamb√©m s√£o marcados para
+     * Se ocorrer alguma mudan√ßa nos par√¢metros,
+     * o controlador da View dever√° se resetar.
+     * Para isto, os objetos preparados dever√£o
+     * ser destru√≠dos 
      */
     public void doReset()
     {
-    	log.debug("Resetando os par‚metros atuais");
-        // Limpa os par‚metros
+    	log.debug("Resetando os par√¢metros atuais");
+        // Limpa os par√¢metros
         this.typeName = null;
         this.id = IDAO.ENTITY_UNSAVED;
         

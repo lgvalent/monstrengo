@@ -24,7 +24,7 @@ public class SqlQueryBean extends BeanSessionBasic implements IRunnableProcessVi
 {
 	private static final long serialVersionUID = 1L;
 
-	/** Define a view JSF que È ativada para a vis„o QUERY */
+	/** Define a view JSF que √© ativada para a vis√£o QUERY */
 	public static final String VIEW_NAME = "sqlQueryBean";
 	public static final String FACES_VIEW_QUERY = "/pages/basic/sqlQuery?faces-redirect=true";
 
@@ -49,7 +49,7 @@ public class SqlQueryBean extends BeanSessionBasic implements IRunnableProcessVi
 	}
 
 	/**
-	 * Action que constrÛi a lista e redireciona a view para "list". 
+	 * Action que constr√≥i a lista e redireciona a view para "list". 
 	 * @return
 	 */
 	public void doExecute() throws Exception
