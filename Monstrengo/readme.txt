@@ -1,26 +1,26 @@
 MONSTRENGO
 
-⁄ltima revis„o: 2019/01/31
+√öltima revis√£o: 2019/01/31
 Revisor: Lucio
 
-DescriÁ„o da estrutura b·sica do projeto:
+Descri√ß√£o da estrutura b√°sica do projeto:
 -----------------------------------------
 
-Este documento apresenta in˙meros tÛpicos que devem estar
-Ìntegros para que o projeto possa ser compilado, executado e
-encontre todas as classes e recursos necess·rios.
+Este documento apresenta in√∫meros t√≥picos que devem estar
+√≠ntegros para que o projeto possa ser compilado, executado e
+encontre todas as classes e recursos necess√°rios.
 
-Os projetos seguem um estrutura b·sica de diretÛrios.
+Os projetos seguem um estrutura b√°sica de diret√≥rios.
 -----------------------------------------------------
  +Basedir
- +--bin                      // Armazena as informaÁıes que ser„o distribuÌdas por um JAR
+ +--bin                      // Armazena as informa√ß√µes que ser√£o distribu√≠das por um JAR
  |  - *.class                // As classes compiladas
- |  - *.info.xml             // Arquivos de descriÁ„o das entidades do sistema
- +--src                      // Armazena o cÛdigo fonte
+ |  - *.info.xml             // Arquivos de descri√ß√£o das entidades do sistema
+ +--src                      // Armazena o c√≥digo fonte
  +--test                     // Armazena as classes de teste que testam o src
- -applicationContext.xml     // Arquivo de configuraÁ„o dos Beans do Spring. ContÈm, de forma integrada, toda a configuraÁ„o da aplicaÁ„o, quais mÛdulos s„o usados e quais entidades ser„o manipuladas pela sess„o do hibernate.
- -build.xml                  // Define as tarefas de compilaÁ„o, hibernate, spring, jars e outras
- -readme.txt                 // Arquivo com a descriÁ„o do projeto
+ -applicationContext.xml     // Arquivo de configura√ß√£o dos Beans do Spring. Cont√©m, de forma integrada, toda a configura√ß√£o da aplica√ß√£o, quais m√≥dulos s√£o usados e quais entidades ser√£o manipuladas pela sess√£o do hibernate.
+ -build.xml                  // Define as tarefas de compila√ß√£o, hibernate, spring, jars e outras
+ -readme.txt                 // Arquivo com a descri√ß√£o do projeto
 
 Alguns detalhes importantes a serem observados nos recursos acima descritos
 ---------------------------------------------------------------------------
