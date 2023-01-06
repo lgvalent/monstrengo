@@ -32,9 +32,9 @@ public interface IEntityMetadata
     public boolean isHasSubEntities();
     
     /**
-     * Indica se os usu·rios poder„o executar as operaÁıes de criaÁ„o, recuperaÁ„o,
-     * atualizaÁ„o e exclus„o(CRUD) na entidade.
-     * @return true se a entidade for canCreate, canRetrieve, canUpdate, canDelete, false caso contr·rio.
+     * Indica se os usu√°rios poder√£o executar as opera√ß√µes de cria√ß√£o, recupera√ß√£o,
+     * atualiza√ß√£o e exclus√£o(CRUD) na entidade.
+     * @return true se a entidade for canCreate, canRetrieve, canUpdate, canDelete, false caso contr√°rio.
      */
     public boolean getCanCreate();
     public boolean getCanRetrieve();
@@ -49,14 +49,14 @@ public interface IEntityMetadata
     public IPropertyMetadata getPropertyMetadata(String propertyName) throws MetadataException;
     
     /**
-     * Retorna uma lista indexada das propriedades, obedecendo ao Ìndice
+     * Retorna uma lista indexada das propriedades, obedecendo ao √≠ndice
      * definido nos metadados de cada propriedade.
      * @return
      */
     public IPropertyMetadata[] getProperties();
     
     /**
-     * Retorna uma lista indexada das propriedades, obedecendo ao Ìndice
+     * Retorna uma lista indexada das propriedades, obedecendo ao √≠ndice
      * definido nos metadados de cada propriedade. Somente as propriedades
      * definidas como InQueryGrid.
      * @return
@@ -65,23 +65,23 @@ public interface IEntityMetadata
     public IPropertyMetadata[] getPropertiesInQueryGrid();
     
     /**
-     * Este mÈtodo È ˙til para obter quantos elementos temos no propertiesInQueryGrid().
-     * Este informaÁ„o vem do atributo length, que n„o segue o padr„o JavaBeans get/set.
-     * Este mÈtodo segue este padr„o e facilita a utilizaÁ„o da estrutura de metadados
+     * Este m√©todo √© √∫til para obter quantos elementos temos no propertiesInQueryGrid().
+     * Este informa√ß√£o vem do atributo length, que n√£o segue o padr√£o JavaBeans get/set.
+     * Este m√©todo segue este padr√£o e facilita a utiliza√ß√£o da estrutura de metadados
      * em frameworks como o JSF.
-     * @return o n˙mero de propriedades da entidade que s„o exibidas numa tela de listagem.
+     * @return o n√∫mero de propriedades da entidade que s√£o exibidas numa tela de listagem.
      * @author lucio
      * @since 20110830
      */
     public int getPropertiesInQueryGridSize();
 
     /**
-     * Este mÈtodo È ˙til para obter o tamanho da lista 
+     * Este m√©todo √© √∫til para obter o tamanho da lista 
      * de propriedades antes de construir a lista.
-     * Como o mÈtodo #getProperties() retorna uma Array,
-     * o tamanho dela sÛ È obtido pelo mÈtodo length(), onde 
-     * o padr„o JavaBean n„o È seguido. No atual mÈtodo o par„do
-     * get È seguido.  
+     * Como o m√©todo #getProperties() retorna uma Array,
+     * o tamanho dela s√≥ √© obtido pelo m√©todo length(), onde 
+     * o padr√£o JavaBean n√£o √© seguido. No atual m√©todo o par√£do
+     * get √© seguido.  
      * 
      * @return Retorna o tamanho da lista de propriedades.
      */
@@ -91,8 +91,8 @@ public interface IEntityMetadata
     
     /**
      * Obtem a lista de grupos que agrupam as propriedades
-     * da entidade em grupos que facilitam a visualizaÁ„o
-     * das informaÁıes da entidade
+     * da entidade em grupos que facilitam a visualiza√ß√£o
+     * das informa√ß√µes da entidade
      * @since 20060413
      */
     public List<IGroupMetadata> getGroups();

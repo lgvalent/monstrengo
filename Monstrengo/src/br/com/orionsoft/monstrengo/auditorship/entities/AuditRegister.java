@@ -29,7 +29,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 public abstract class AuditRegister
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no cÛdigo e evitar erro de digitaÁ„o. */
+     * serem usadas no c√≥digo e evitar erro de digita√ß√£o. */
     public static final String APPLICATION_USER = "applicationUser";
     public static final String DESCRIPTION = "description";
     public static final String TERMINAL = "terminal";
@@ -117,8 +117,8 @@ public abstract class AuditRegister
     }
     
     /**
-     * Propriedade n„o persistida que indica que o tipo de registro atualmente
-     * instanciada È AuditCrudRegister.
+     * Propriedade n√£o persistida que indica que o tipo de registro atualmente
+     * instanciada √© AuditCrudRegister.
      */
     @Transient
     public boolean isCrudRegister() {
@@ -126,10 +126,10 @@ public abstract class AuditRegister
     }
 
     /**
-     * Propriedade n„o persistida.
+     * Propriedade n√£o persistida.
      * 
-     * @return Se a pessoa for do tipo AuditCrudRegister, retorna uma inst‚ncia de
-     *         AuditCrudRegister, sen„o retorna null.
+     * @return Se a pessoa for do tipo AuditCrudRegister, retorna uma inst√¢ncia de
+     *         AuditCrudRegister, sen√£o retorna null.
      */
     @Transient
     public AuditCrudRegister getAsCrudRegister() {
@@ -140,8 +140,8 @@ public abstract class AuditRegister
 
 
     /**
-     * Propriedade n„o persistida que indica que o tipo de registro atualmente
-     * instanciada È AuditProcessRegister.
+     * Propriedade n√£o persistida que indica que o tipo de registro atualmente
+     * instanciada √© AuditProcessRegister.
      */
     @Transient
     public boolean isProcessRegister() {
@@ -149,10 +149,10 @@ public abstract class AuditRegister
     }
 
     /**
-     * Propriedade n„o persistida.
+     * Propriedade n√£o persistida.
      * 
-     * @return Se a pessoa for do tipo AuditProcessRegister, retorna uma inst‚ncia de
-     *         AuditProcessRegister, sen„o retorna null.
+     * @return Se a pessoa for do tipo AuditProcessRegister, retorna uma inst√¢ncia de
+     *         AuditProcessRegister, sen√£o retorna null.
      */
     @Transient
     public AuditProcessRegister getAsProcessRegister() {

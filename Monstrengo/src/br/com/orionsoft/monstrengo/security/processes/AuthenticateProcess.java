@@ -14,11 +14,11 @@ import br.com.orionsoft.monstrengo.security.services.AuthenticateService;
  * <p><b>Procedimentos:</b>
  * <br>Definir o login: <i>setLogin(String)</i>
  * <br>Definir o password: <i>setPassword(String)</i>
- * <br>Executar o mÈtodo <i>runAuthenticate()</i>.
- * <br>Se o mÈtodo concluir com sucesso:
- * <li>Uma sess„o de usu·rio est· pronta e pode ser obtida por <i>getUserSession</i>. 
- * <br>Sen„o:
- * <li>O erro È fornecido por <i>getErroList</i>.</b> 
+ * <br>Executar o m√©todo <i>runAuthenticate()</i>.
+ * <br>Se o m√©todo concluir com sucesso:
+ * <li>Uma sess√£o de usu√°rio est√° pronta e pode ser obtida por <i>getUserSession</i>. 
+ * <br>Sen√£o:
+ * <li>O erro √© fornecido por <i>getErroList</i>.</b> 
  * 
  * @author Lucio
  * @version 30/09/2005
@@ -57,7 +57,7 @@ public class AuthenticateProcess extends ProcessBasic
         super.beforeRun();
     	try
         {
-            // Executar o serviÁo de autenticaÁ„o
+            // Executar o servi√ßo de autentica√ß√£o
             ServiceData sd = new ServiceData(AuthenticateService.SERVICE_NAME, null);
             sd.getArgumentList().setProperty(AuthenticateService._1_LOGIN_STR, login);
             sd.getArgumentList().setProperty(AuthenticateService._2_PASSWORD_STR, password);
@@ -67,8 +67,8 @@ public class AuthenticateProcess extends ProcessBasic
             
             IEntity user = (IEntity) sd.getOutputData(0);
             
-            // Cria a UserSession com o usu·rio validado
-            // TODO IMPLEMENTAR Usar o UserSessionManager para criar as sessıes
+            // Cria a UserSession com o usu√°rio validado
+            // TODO IMPLEMENTAR Usar o UserSessionManager para criar as sess√µes
             userSession = new UserSession(user, terminal);
             
             // Registra na auditoria

@@ -83,7 +83,7 @@ public interface IMetadataHandle {
     public boolean getPropertyAllowSubQuery(String propertyName) throws MetadataException;
 
     /**
-     * Busca a lista que dever· ser mostrada na ediÁ„o. 
+     * Busca a lista que dever√° ser mostrada na edi√ß√£o. 
      * @param propertyName = propriedade a ser pesquisada
      * @return lista de elementos
      */
@@ -97,7 +97,7 @@ public interface IMetadataHandle {
 
     
     /**
-     * Obtem o Ìndice do grupo ao qual esta propriedade pertence   
+     * Obtem o √≠ndice do grupo ao qual esta propriedade pertence   
      * @since 20060413
      */
     public int getPropertyGroup(String propertyName) throws MetadataException;
@@ -106,8 +106,8 @@ public interface IMetadataHandle {
 
     /**
      * Define para o gerenciador de metadados preparar os metadados de uma determinada entidade.
-     * Este mÈtodo n„o permite escolher entre pegar o valor padr„o ou do banco. Ele utiliza um algoritmo 
-     * para buscar no banco e se n„o achar, busca no .properties
+     * Este m√©todo n√£o permite escolher entre pegar o valor padr√£o ou do banco. Ele utiliza um algoritmo 
+     * para buscar no banco e se n√£o achar, busca no .properties
      * @param entityClass
      * @throws MetadataException
      */
@@ -115,8 +115,8 @@ public interface IMetadataHandle {
     
     /**
      * Define para o gerenciador de metadados preparar os metadados de uma determinada entidade e possibilita
-     * indicar o modo de operaÁ„o.
-     * Este mÈtodo permite escolher entre pegar o valor padr„o SEMPRE ou n„o.
+     * indicar o modo de opera√ß√£o.
+     * Este m√©todo permite escolher entre pegar o valor padr√£o SEMPRE ou n√£o.
      * @param entityClass
      * @throws MetadataException
      */

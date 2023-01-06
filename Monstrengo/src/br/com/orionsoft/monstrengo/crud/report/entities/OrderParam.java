@@ -23,8 +23,8 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IPropertyMetadata;
 import br.com.orionsoft.monstrengo.crud.services.OrderCondiction;
 
 /**
- * Esta classe mantem os os parâmetros de ordenação
- * que serão utilizados pelo processo de pesquisa.
+ * Esta classe mantem os os parÃ¢metros de ordenaÃ§Ã£o
+ * que serÃ£o utilizados pelo processo de pesquisa.
  * Created on 08/03/2006
  * @author 
  */
@@ -33,7 +33,7 @@ public class OrderParam extends ReportParam
     private List<OrderCondiction> condictions;
     private OrderCondiction newCondiction;
     
-	// Parâmetros que devem ser fornecidos como entrada
+	// ParÃ¢metros que devem ser fornecidos como entrada
     private String orderExpression = "";
 
     public OrderParam(UserReport userReport) throws BusinessException{
@@ -59,7 +59,7 @@ public class OrderParam extends ReportParam
 				condiction.setOrderDirection(bean.getOrderDirection());
 				condiction.setPropertyPath(bean.getPropertyPath());
 				
-				/* Adiciona a condição na lista */
+				/* Adiciona a condiÃ§Ã£o na lista */
 				this.getCondictions().add(condiction);
 			}
 		}
@@ -99,18 +99,18 @@ public class OrderParam extends ReportParam
 	public List<OrderCondiction> getCondictions() {return condictions;}
 
 	public void addNewCondiction() throws BusinessException{
-		/*Adicionando a nova condição preenchida na lista de condições */
+		/*Adicionando a nova condiÃ§Ã£o preenchida na lista de condiÃ§Ãµes */
 		this.condictions.add(this.newCondiction);
 		
-		/* Guarda o ponteiro para a condição que será subtituída
+		/* Guarda o ponteiro para a condiÃ§Ã£o que serÃ¡ subtituÃ­da
 		 * para posteriormente copiar as propriedades dela para 
-		 * a nova condição */
+		 * a nova condiÃ§Ã£o */
 		OrderCondiction oldCondiction = this.newCondiction; 
 
-		/*Limpando a nova condição para esperar por novos parãmetros */
+		/*Limpando a nova condiÃ§Ã£o para esperar por novos parÃ£metros */
 		this.newCondiction = new OrderCondiction(this.getUserReport().getEntityManager(), this.getUserReport().getEntityType());
 		
-		/* Copia as propriedades da condiçao anterior para a
+		/* Copia as propriedades da condiÃ§ao anterior para a
 		 * que foi criada logo acima */
 		this.newCondiction.setOrderDirection(oldCondiction.getOrderDirection());
 		this.newCondiction.setPropertyPath(oldCondiction.getPropertyPath());
@@ -130,13 +130,13 @@ public class OrderParam extends ReportParam
 
 	public List<SelectItem> getListOrderDirection(){
 		List<SelectItem> result = new ArrayList<SelectItem>(2);
-		result.add(new SelectItem(OrderCondiction.ORDER_ASC, "Ascendente «"));
-		result.add(new SelectItem(OrderCondiction.ORDER_DESC, "Descendente »"));
+		result.add(new SelectItem(OrderCondiction.ORDER_ASC, "Ascendente Â«"));
+		result.add(new SelectItem(OrderCondiction.ORDER_DESC, "Descendente Â»"));
 		return result;
 	}
 
 	/**
-	 * Este protetor é necessário porque uma entidade A pode referenciar uma entidade B, 
+	 * Este protetor Ã© necessÃ¡rio porque uma entidade A pode referenciar uma entidade B, 
 	 * que por sua vez, possui uma referencia pra A. 
 	 */
 	private Map<String, Integer> deadLockProtect = new HashMap<String, Integer>();
@@ -152,7 +152,7 @@ public class OrderParam extends ReportParam
 					/* Limpa o protetor de over flow*/
 					deadLockProtect.clear();
 					
-					/* Adiciona a entidade atual na lista de proteção de overflowa */
+					/* Adiciona a entidade atual na lista de proteÃ§Ã£o de overflowa */
 					deadLockProtect.put(this.getUserReport().getEntityType().getSimpleName()+propInfo.getName(), 0);
 					
 					/* Constroi o caminho para a propriedae atual */
@@ -160,7 +160,7 @@ public class OrderParam extends ReportParam
 				}
 			}
 
-			/* Reordena a lista por ordem alfabética */
+			/* Reordena a lista por ordem alfabÃ©tica */
 			Collections.<SelectItem>sort(listPropertyPathBuffer, new Comparator<SelectItem>(){
 				public int compare(SelectItem o1, SelectItem o2) {
 					return o1.getLabel().compareTo(o2.getLabel());
@@ -171,7 +171,7 @@ public class OrderParam extends ReportParam
 	}
 		
 	private void buildPropertyPath(List<SelectItem> list,IPropertyMetadata  propInfo, String actualPath, String actualLabel,Integer stackLevelId) throws EntityException{
-		/* Coloca o separador entre as propriedades se não for a primeira */
+		/* Coloca o separador entre as propriedades se nÃ£o for a primeira */
 		if(!actualPath.equals(""))
 			actualPath += IDAO.PROPERTY_SEPARATOR;
 		actualPath += propInfo.getName();
@@ -185,20 +185,20 @@ public class OrderParam extends ReportParam
 			/* Adiciona a atual propriedade na lista de resultados */
 			list.add(new SelectItem(actualPath, actualLabel));
 		
-		/* Verifica se atual propriedade é uma subClass para buscar suas subPropriedades */
+		/* Verifica se atual propriedade Ã© uma subClass para buscar suas subPropriedades */
 		if(propInfo.isEntity()){
 			/* Obtem os metadados da entidade corrente */
 			IEntityMetadata entInfo = this.getUserReport().getEntityManager().getEntityMetadata(propInfo.getType());
 			
 			/* Obtem os metadados da entidade referenciada pela propriedade e
-			 * Constrói o caminho (PropertyPath) de navagação entre as propriedades RECURSIVAMENTE */
+			 * ConstrÃ³i o caminho (PropertyPath) de navagaÃ§Ã£o entre as propriedades RECURSIVAMENTE */
 			for(IPropertyMetadata propInfo_: entInfo.getProperties()){
-				/* Verifica no protetor de workflow se esta entidade já foi referenciada
-				 * em un nível anterior ao atual. Pois entidades no mesmo nível, ou posterioir, poderáo ser
+				/* Verifica no protetor de workflow se esta entidade jÃ¡ foi referenciada
+				 * em un nÃ­vel anterior ao atual. Pois entidades no mesmo nÃ­vel, ou posterioir, poderÃ¡o ser
 				 * referenciadas */
 				Integer stackItem = deadLockProtect.get(entInfo.getType().getSimpleName()+propInfo_.getName()); 
 				if((stackItem == null) || (stackItem.compareTo(stackLevelId)>-1)){
-					/* Adiciona a entidade atual na lista de proteção de overflowa */
+					/* Adiciona a entidade atual na lista de proteÃ§Ã£o de overflowa */
 					deadLockProtect.put(entInfo.getType().getSimpleName()+propInfo_.getName(), stackLevelId);
 					
 					if(OrderCondiction.checkVersionSupport(propInfo_))

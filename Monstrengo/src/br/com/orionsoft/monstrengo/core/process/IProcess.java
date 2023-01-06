@@ -17,7 +17,7 @@ public interface IProcess
 	public String getProcessName();
     
     /**
-     * Identificador atribuído pelo gerenciador para cada instância de processo
+     * Identificador atribuÃ­do pelo gerenciador para cada instÃ¢ncia de processo
      * criada.
      * 
      * @return
@@ -25,29 +25,29 @@ public interface IProcess
 	public long getPid();
     
     /**
-     * Sinal de inicialização do processo. <br>
-     * Este método é útilizado para que o processo realize algumas atividades
-     * durante sua inicialização. Como por exemplo: ao iniciar o processo precisa
-     * iniciar algumas listas, ou propriedades de acordo com o nível do operador que
-     * o invocou. Este tipo de inicialização não poderia ser realizado no construtor
-     * do processo, pois neste momento ele ainda não se encontra integrado com a arquitetura
-     * do sistema, ou seja, suas depêndencias ainda não foram injetadas.
+     * Sinal de inicializaÃ§Ã£o do processo. <br>
+     * Este mÃ©todo Ã© Ãºtilizado para que o processo realize algumas atividades
+     * durante sua inicializaÃ§Ã£o. Como por exemplo: ao iniciar o processo precisa
+     * iniciar algumas listas, ou propriedades de acordo com o nÃ­vel do operador que
+     * o invocou. Este tipo de inicializaÃ§Ã£o nÃ£o poderia ser realizado no construtor
+     * do processo, pois neste momento ele ainda nÃ£o se encontra integrado com a arquitetura
+     * do sistema, ou seja, suas depÃªndencias ainda nÃ£o foram injetadas.
      */
 	public void start() throws ProcessException;
     
 	/**
-	 * Método de finalização do processo.<br>
-	 * Ùtil para realizar algumas limpezas de variáveis ou listas.
+	 * MÃ©todo de finalizaÃ§Ã£o do processo.<br>
+	 * Ã™til para realizar algumas limpezas de variÃ¡veis ou listas.
      * 
-     * TODO CORREÇÂO Remover da interface este throws. O problema que ele influencia
-     * TODOS os métodos .finish() que atualmente estão com try{} 
+     * TODO CORREÃ‡Ã‚O Remover da interface este throws. O problema que ele influencia
+     * TODOS os mÃ©todos .finish() que atualmente estÃ£o com try{} 
 	 */
 	public void finish() throws ProcessException;
     
     /**
-     * Armazena as mensagens que são produzidas pelo métodos run() do processo.
-     * Podem ser mensagens de informações ou ainda de erros que ocorreram durante a
-     * execução. 
+     * Armazena as mensagens que sÃ£o produzidas pelo mÃ©todos run() do processo.
+     * Podem ser mensagens de informaÃ§Ãµes ou ainda de erros que ocorreram durante a
+     * execuÃ§Ã£o. 
      * @return
      */
 	public MessageList getMessageList();
@@ -56,14 +56,14 @@ public interface IProcess
     public void setProcessManager(IProcessManager ProcessManager);
     
     /**
-     * Armazena alguns dados de tempo de execução do processo. 
+     * Armazena alguns dados de tempo de execuÃ§Ã£o do processo. 
      * @return
      */
     public IProcessInfo getProcessInfo();
 
     /**
-     * Referencia a sessão do operador que invocou o processo.
-     * Útil para obter os dados e diretiso do operador.
+     * Referencia a sessÃ£o do operador que invocou o processo.
+     * Ãštil para obter os dados e diretiso do operador.
      * @return
      */
     public UserSession getUserSession();

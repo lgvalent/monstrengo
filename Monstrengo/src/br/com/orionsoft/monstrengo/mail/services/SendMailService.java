@@ -35,20 +35,20 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.mail.entities.EmailAccount;
 
 /**
- * ServiÁo que envia e-mail para usu·rios do sistema
+ * Servi√ßo que envia e-mail para usu√°rios do sistema
  * <p>
  * <b>Argumentos:</b><br>
- * IN_EMAIL_ACCOUNT_OPT: Possui as configuraÁıes da conta que enviar· os e-mails. Se omitido, ser· usada a conta marcada como default<br> 
+ * IN_EMAIL_ACCOUNT_OPT: Possui as configura√ß√µes da conta que enviar√° os e-mails. Se omitido, ser√° usada a conta marcada como default<br> 
  * IN_RECIPIENT_LIST_OPT: Lista com os e-mails de destino.<br>
  * IN_RECIPIENT_OPT: Um e-mail de destino.<br>
- * IN_SUBJECT: TÌtulo da mensagem.<br>
+ * IN_SUBJECT: T√≠tulo da mensagem.<br>
  * IN_MESSAGE: Mensagem a ser enviada.<br>
  * 
  * <p>
  * <b>Procedimentos:</b><br>
- * 1) ObtÈm as configuraÁıes da conta de e-mail;<br>
- * 2) Prepara as configuraÁıes de e-mail;
- * 3) Envia as mensagens para os destinat·rios indicados na lista de e-mails.
+ * 1) Obt√©m as configura√ß√µes da conta de e-mail;<br>
+ * 2) Prepara as configura√ß√µes de e-mail;
+ * 3) Envia as mensagens para os destinat√°rios indicados na lista de e-mails.
  * 
  * 
  * @author andre
@@ -77,7 +77,7 @@ public class SendMailService extends ServiceBasic {
 	@SuppressWarnings("unchecked")
 	public void execute(ServiceData serviceData) throws ServiceException {
 		try {
-			/* ObtÈm os par‚metros */
+			/* Obt√©m os par√¢metros */
 			List<String> inRecipientList = serviceData.getArgumentList().containsProperty(IN_RECIPIENT_LIST_OPT)?(List<String>)serviceData.getArgumentList().getProperty(IN_RECIPIENT_LIST_OPT):null;
 			String inRecipient = serviceData.getArgumentList().containsProperty(IN_RECIPIENT_OPT)?(String)serviceData.getArgumentList().getProperty(IN_RECIPIENT_OPT):null;
 			EmailAccount inEmailAccount = serviceData.getArgumentList().containsProperty(IN_EMAIL_ACCOUNT_OPT)?(EmailAccount)serviceData.getArgumentList().getProperty(IN_EMAIL_ACCOUNT_OPT):null;
@@ -86,18 +86,18 @@ public class SendMailService extends ServiceBasic {
 			List<MimeBodyPart> inMimeBodyPartList = serviceData.getArgumentList().containsProperty(IN_MIME_BODY_PART_LIST_OPT)?(List<MimeBodyPart>)serviceData.getArgumentList().getProperty(IN_MIME_BODY_PART_LIST_OPT):null;
 			List<String> inFilePathList = serviceData.getArgumentList().containsProperty(IN_FILE_PATH_LIST_OPT)?(List<String>)serviceData.getArgumentList().getProperty(IN_FILE_PATH_LIST_OPT):null;
 			
-			/* Verifica se foi fornecida uma conta, sen„o, seleciona a marcada como padr„o */
+			/* Verifica se foi fornecida uma conta, sen√£o, seleciona a marcada como padr√£o */
 			if(inEmailAccount == null){
 				IEntityList<EmailAccount> emailAccounts = UtilsCrud.list(this.getServiceManager(), EmailAccount.class, EmailAccount.USE_AS_DEFAULT + "=true", serviceData);
 				
 				if(emailAccounts.isEmpty()){
-					throw new ServiceException(MessageList.createSingleInternalError(new Exception("Nenhuma conta de email foi fornecida e n„o foi encontrada nenhuma cadastrada e marcada como default.")));
+					throw new ServiceException(MessageList.createSingleInternalError(new Exception("Nenhuma conta de email foi fornecida e n√£o foi encontrada nenhuma cadastrada e marcada como default.")));
 				}
 				
 				inEmailAccount = emailAccounts.get(0).getObject();
 			}
-			// Pegando uma porta personalizada ou a padr„o
-			// Permite a definiÁ„o hostname.com:2525
+			// Pegando uma porta personalizada ou a padr√£o
+			// Permite a defini√ß√£o hostname.com:2525
 			String[] hostAndPort = inEmailAccount.getHost().split(":");
 			
 			
@@ -107,13 +107,13 @@ public class SendMailService extends ServiceBasic {
 			properties.put("mail.smtp.port", hostAndPort.length>1?hostAndPort[1]:"25");
 			properties.put("mail.from", inEmailAccount.getSenderMail());
 			
-			//obtendo as configuraÁıes adicionais da conta
+			//obtendo as configura√ß√µes adicionais da conta
 			if(StringUtils.isNotEmpty(inEmailAccount.getProperties())){
 				for(String prop: inEmailAccount.getProperties().split(";")){
 					properties.put(prop.split("=")[0],prop.split("=")[1]);
 				}
 			}
-			//se estiver utilizando autenticaÁ„o
+			//se estiver utilizando autentica√ß√£o
 			Authenticator authenticator = null;
 			if (StringUtils.isNotBlank(inEmailAccount.getUser()) && StringUtils.isNotBlank(inEmailAccount.getPassword())){
 				authenticator = new MyAuthenticator(inEmailAccount.getUser(),inEmailAccount.getPassword());
@@ -123,7 +123,7 @@ public class SendMailService extends ServiceBasic {
 			if(log.isDebugEnabled())
 				session.setDebug(true);
 			
-			//Semp usa a lista de e-mail para enviar os emails,  mas verifica se ela existe para colocar o unit·rio dentro dela
+			//Semp usa a lista de e-mail para enviar os emails,  mas verifica se ela existe para colocar o unit√°rio dentro dela
 			if(inRecipientList ==null)
 				inRecipientList = new ArrayList<String>();
 			
@@ -133,7 +133,7 @@ public class SendMailService extends ServiceBasic {
 			for (String recipientMail : inRecipientList) {
 				MimeMessage message = new MimeMessage(session);
 
-				// setando o endereÁo de e-mail e o nome para assinatura
+				// setando o endere√ßo de e-mail e o nome para assinatura
 				message.setFrom(new InternetAddress(inEmailAccount
 						.getSenderMail(), inEmailAccount.getSenderName()));
 				// sentando o e-mail de destino
@@ -176,10 +176,10 @@ public class SendMailService extends ServiceBasic {
 			/* Inclui a mensagem de OK */
 			//TODO - colocar mensagens
 		}catch (AuthenticationFailedException e) {
-			throw new ServiceException(MessageList.createSingleInternalError(new Exception("Falha na autenticaÁ„o. Verifique se o nome do usu·rio e senha da conta de email est„o corretos.")));
+			throw new ServiceException(MessageList.createSingleInternalError(new Exception("Falha na autentica√ß√£o. Verifique se o nome do usu√°rio e senha da conta de email est√£o corretos.")));
 		} catch (BusinessException e) {
-			/* O ServiÁo n„o precisa adicionar mensagem local. O Manager j·
-			 indica qual srv falhou e os par‚metros.*/
+			/* O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√°
+			 indica qual srv falhou e os par√¢metros.*/
 			throw new ServiceException(e.getErrorList());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

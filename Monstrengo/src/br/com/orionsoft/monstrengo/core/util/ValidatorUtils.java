@@ -6,12 +6,12 @@ import org.apache.commons.lang.StringUtils;
  * Esta classe possui os geradores de digitos de CPF e CNPJ. No entanto, seria interessante
  * definir uma interface PropertyValidator que outras classe pudessem implementar e dentro dos metadados
  * pudesse referenciar estes validadores.
- * Para ficar um mecanismo din‚mico, poderia sempre fornecer para esta classe validadora a inst‚ncia
+ * Para ficar um mecanismo din√¢mico, poderia sempre fornecer para esta classe validadora a inst√¢ncia
  * da entidade e o nome da propriedade que se deseja validar. Desta forma, propriedades co-relacionadas
  * poderiam ser validadas como DataNascimento maior que hoje, data de abertura do contrato antes da data 
  * de inicio de atividade de um empresa.
  * Tambem estah em mente, toda entidade talvez uma classe validadora. Esta classe seria responsavel por
- * fazer todas as validaÁoes de uma entidade.
+ * fazer todas as valida√ßoes de uma entidade.
  * 
  * @author lucio
  *
@@ -20,7 +20,7 @@ public class ValidatorUtils {
 
 
 	/**
-	 * Verifica se o CPF È v·lido calculando o digito e comparando com o informado. 
+	 * Verifica se o CPF √© v√°lido calculando o digito e comparando com o informado. 
 	 * @param cpf
 	 * @return
 	 */
@@ -31,9 +31,9 @@ public class ValidatorUtils {
 		 return dv.equals(dvCPF(numCpf));
 	}
 	
-	/** Calcula o DÌgito verificador de um CPF passado sem o dÌgito.
+	/** Calcula o D√≠gito verificador de um CPF passado sem o d√≠gito.
      *
-     * @param   strCPF n˙mero de CPF a ser validado
+     * @param   strCPF n√∫mero de CPF a ser validado
      * @return  DV do CPF
      */
     public static String dvCPF (String cpf) {
@@ -59,10 +59,10 @@ public class ValidatorUtils {
             d2 = d2 + ( 11 - nCount ) * digitoCPF;
         };
         
-        //Primeiro resto da divis„o por 11.
+        //Primeiro resto da divis√£o por 11.
         resto = (d1 % 11);
         
-        //Se o resultado for 0 ou 1 o digito È 0 caso contr·rio o digito È 11 menos o resultado anterior.
+        //Se o resultado for 0 ou 1 o digito √© 0 caso contr√°rio o digito √© 11 menos o resultado anterior.
         if (resto < 2)
             digito1 = 0;
         else
@@ -70,16 +70,16 @@ public class ValidatorUtils {
         
         d2 += 2 * digito1;
         
-        //Segundo resto da divis„o por 11.
+        //Segundo resto da divis√£o por 11.
         resto = (d2 % 11);
         
-        //Se o resultado for 0 ou 1 o digito È 0 caso contr·rio o digito È 11 menos o resultado anterior.
+        //Se o resultado for 0 ou 1 o digito √© 0 caso contr√°rio o digito √© 11 menos o resultado anterior.
         if (resto < 2)
             digito2 = 0;
         else
             digito2 = 11 - resto;
         
-        //Digito verificador do CPF que est· sendo validado.
+        //Digito verificador do CPF que est√° sendo validado.
         //String nDigVerific = strCpf.substring (strCpf.length()-2, strCpf.length());
         
         //Concatenando o primeiro resto com o segundo.
@@ -89,7 +89,7 @@ public class ValidatorUtils {
     }
 
 	/**
-	 * Verifica se o CNPJ È v·lido calculando o digito e comparando com o informado. 
+	 * Verifica se o CNPJ √© v√°lido calculando o digito e comparando com o informado. 
 	 * @param cnpj
 	 * @return
 	 */
@@ -100,9 +100,9 @@ public class ValidatorUtils {
 		 return dv.equals(dvCNPJ(numCnpj));
 	}
 	
-    /** Realiza a validaÁ„o do CNPJ.
+    /** Realiza a valida√ß√£o do CNPJ.
      *
-     * @param   strCNPJ n˙mero de CNPJ a ser validado
+     * @param   strCNPJ n√∫mero de CNPJ a ser validado
      * @return  DV do CNPJ
      */
     public static String dvCNPJ(String cnpj)
@@ -131,10 +131,10 @@ public class ValidatorUtils {
             }
         }
         
-        //Primeiro resto da divis„o por 11.
+        //Primeiro resto da divis√£o por 11.
         resto = (d1 % 11);
         
-        //Se o resultado for 0 ou 1 o digito È 0 caso contr·rio o digito È 11 menos o resultado anterior.
+        //Se o resultado for 0 ou 1 o digito √© 0 caso contr√°rio o digito √© 11 menos o resultado anterior.
         if (resto < 2)
             digito1 = 0;
         else
@@ -142,10 +142,10 @@ public class ValidatorUtils {
         
         d2 += 2 * digito1;
         
-        //Segundo resto da divis„o por 11.
+        //Segundo resto da divis√£o por 11.
         resto = (d2 % 11);
         
-        //Se o resultado for 0 ou 1 o digito È 0 caso contr·rio o digito È 11 menos o resultado anterior.
+        //Se o resultado for 0 ou 1 o digito √© 0 caso contr√°rio o digito √© 11 menos o resultado anterior.
         if (resto < 2)
             digito2 = 0;
         else

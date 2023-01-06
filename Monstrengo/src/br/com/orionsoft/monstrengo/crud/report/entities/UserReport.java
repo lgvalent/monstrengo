@@ -39,9 +39,9 @@ import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
  * Esta classe mantem todas as estruturas e funcionalidades
- * de um gerador de relatÛrio.
- * Este gerador disponibilizar estruturas de definiÁ„o
- * de condiÁıes de filtros, ordenaÁ„o e seleÁ„o dos resultados.
+ * de um gerador de relat√≥rio.
+ * Este gerador disponibilizar estruturas de defini√ß√£o
+ * de condi√ß√µes de filtros, ordena√ß√£o e sele√ß√£o dos resultados.
  * 
  * <p><b>Procedimentos:</b>
  * <br>Definir o tipo da entidade: <i>setEntityType(Class)</i>
@@ -85,11 +85,11 @@ public class UserReport
     
     /**
      * Obtem a entidade persistida baseado no Tipo e Id fornecidos.
-     * Verifica se a visualizaÁ„o ser· possÌvel, sen„o lanÁa uma exceÁ„o.  
-     * Se a entidade ainda n„o foi obtidade pelo processo, o serviÁo
-     * È excutado e os valores da auditoria s„o preparados.
-     * Caso a entidade j· esteja preparada, ela È retornada. 
-     * @return Uma entidade pronta para a visualizaÁ„o.
+     * Verifica se a visualiza√ß√£o ser√° poss√≠vel, sen√£o lan√ßa uma exce√ß√£o.  
+     * Se a entidade ainda n√£o foi obtidade pelo processo, o servi√ßo
+     * √© excutado e os valores da auditoria s√£o preparados.
+     * Caso a entidade j√° esteja preparada, ela √© retornada. 
+     * @return Uma entidade pronta para a visualiza√ß√£o.
      * @throws BusinessException
      */
     public void runQuery() throws ProcessException
@@ -102,44 +102,44 @@ public class UserReport
 
     		sd.getArgumentList().getProperties().put(QueryService.IN_QUERY_HQLWHERE, this.getHqlWhereParam().getHqlWhereCompiled());
 
-    		log.debug("Verificando se h· condiÁıes definidas");
+    		log.debug("Verificando se h√° condi√ß√µes definidas");
     		if(this.getCondictionParam().isHasCondictions()){
-    			log.debug("Aplicando os par‚metros de CondiÁıes");
+    			log.debug("Aplicando os par√¢metros de Condi√ß√µes");
     			sd.getArgumentList().getProperties().put(QueryService.IN_QUERY_CONDICTIONS, this.getCondictionParam().getCondictions());
     		}
 
-			log.debug("Verificando se h· uma entidade pai definida");
+			log.debug("Verificando se h√° uma entidade pai definida");
     		if (this.getParentParam().isHasParent()){
-    			log.debug("Aplicando os par‚metros de parent");
+    			log.debug("Aplicando os par√¢metros de parent");
     			
     			sd.getArgumentList().getProperties().put(QueryService.IN_PARENT_CLASS_OPT, this.getParentParam().getType());
     			sd.getArgumentList().getProperties().put(QueryService.IN_PARENT_ID_OPT, this.getParentParam().getId());
     			sd.getArgumentList().getProperties().put(QueryService.IN_PARENT_PROPERTY_OPT, this.getParentParam().getProperty());
     		}
     		
-			log.debug("Verificando se h· uma express„o de ordem definida");
+			log.debug("Verificando se h√° uma express√£o de ordem definida");
     		if(this.getOrderParam().isHasExpression()){
-    			log.debug("Aplicando a express„o de Ordem");
+    			log.debug("Aplicando a express√£o de Ordem");
     			sd.getArgumentList().getProperties().put(QueryService.IN_ORDER_EXPRESSION_OPT, this.getOrderParam().getOrderExpression());
     		}
     		
-			log.debug("Verificando se h· condiÁıes de ordem definidas");
+			log.debug("Verificando se h√° condi√ß√µes de ordem definidas");
     		if(this.getOrderParam().isHasCondictions()){
-    			log.debug("Aplicando as condiÁıes Ordem");
+    			log.debug("Aplicando as condi√ß√µes Ordem");
     			sd.getArgumentList().getProperties().put(QueryService.IN_ORDER_CONDICTIONS_OPT, this.getOrderParam().getCondictions());
     		}
     		
-    		log.debug("Aplicando os par‚metros de PaginaÁ„o");
+    		log.debug("Aplicando os par√¢metros de Pagina√ß√£o");
     		sd.getArgumentList().getProperties().put(QueryService.IN_MAX_RESULT_OPT, this.getPageParam().getPageSize());
     		sd.getArgumentList().getProperties().put(QueryService.IN_FIRST_RESULT_OPT, this.getPageParam().getFirstItemIndexPage());
     		
     		this.getEntityManager().getServiceManager().execute(sd);
     		
     		if (sd.getMessageList().isTransactionSuccess()){
-    			/* Define a coleÁ„o a ser exibida */
+    			/* Define a cole√ß√£o a ser exibida */
     			entityCollection = sd.getFirstOutput();
     			
-    			/* Atualiza os dados da paginaÁ„o  */
+    			/* Atualiza os dados da pagina√ß√£o  */
     			pageParam.setItemsCount(((Long) sd.getOutputData(QueryService.OUT_LIST_SIZE)).intValue());
     			
     			/* Atualiza o dado do tempo de consulta */
@@ -151,11 +151,11 @@ public class UserReport
     		
     	} catch (BusinessException e)
     	{
-    		/* Converte a exceÁ„o em uma ProcessException */
+    		/* Converte a exce√ß√£o em uma ProcessException */
     		throw new ProcessException(e.getErrorList());
     	} catch (Exception e)
     	{
-    		/* Converte a exceÁ„o em uma ProcessException */
+    		/* Converte a exce√ß√£o em uma ProcessException */
     		throw new ProcessException(MessageList.createSingleInternalError(e));
     	}
     }
@@ -250,13 +250,13 @@ public class UserReport
 
     
 	/**
-	 * Buffer dols totalizadores da lista de propriedades selecionados que È atualizada a cada getBuildResult();
+	 * Buffer dols totalizadores da lista de propriedades selecionados que √© atualizada a cada getBuildResult();
 	 */
 	private Double[] selectedResultTotal;
 	public Double[] getSelectedResultTotal(){return this.selectedResultTotal;}
 
 	/**
-	 * Buffer da lista de propriedades selecionados que È atualizada a cada getBuildResult();
+	 * Buffer da lista de propriedades selecionados que √© atualizada a cada getBuildResult();
 	 */
 	private ResultCondiction[] selectedResult;
 	public ResultCondiction[] getSelectedResult(){return this.selectedResult;}
@@ -264,7 +264,7 @@ public class UserReport
 	public String[][] getBuildResult(){
     	try
     	{
-    		/* Para otimizar, a lista de propriedades visiveis È criada uma unica vez */
+    		/* Para otimizar, a lista de propriedades visiveis √© criada uma unica vez */
     		this.selectedResult = this.getResultParam().getSelectedCondictions();
     		
     		/* Prepara a lista de totalizadores  */
@@ -273,19 +273,19 @@ public class UserReport
     			selectedResultTotal[i] = 0.0;
     		
     		/* Cria um vetor bidimensional com o tamanho de 
-    		 * Entidade total da pesquisa atual x n˙m. de propriedades selecionadas
+    		 * Entidade total da pesquisa atual x n√∫m. de propriedades selecionadas
     		 */
     		int entitiesCount = this.getPageParam().getItemsCount();
     		int propertiesCount = this.getSelectedResult().length;
     		String[][] resultArray = new String[entitiesCount][propertiesCount];
     		
-    		/* Define umas p·ginas maiores para agilizar o processo do relatÛrio*/
+    		/* Define umas p√°ginas maiores para agilizar o processo do relat√≥rio*/
     		this.getPageParam().setPageSize(200);
     		
 			int currentEntity =0 ;
     		// Para cada p?gina	
     		for(int p=PageParam.FIRST_PAGE_INDEX; p<=this.getPageParam().getPageCount();p++){ 
-    			// Define a p·gina atual e pede para o processo busca-la
+    			// Define a p√°gina atual e pede para o processo busca-la
     			this.getPageParam().setPage(p);
     			this.runQuery();
     			IEntityCollection<?> entities = this.getEntityCollection(); 
@@ -297,10 +297,10 @@ public class UserReport
     				for(ResultCondiction condiction: selectedResult){
     					String propertyValue = CrudExpression.propertyPathToValue(entity, condiction.getPropertyPath());
 
-    					/* Terminou de percorrer o Path, ent„o pega o valor da popriedade encontrada */
+    					/* Terminou de percorrer o Path, ent√£o pega o valor da popriedade encontrada */
 				        resultArray[currentEntity][currentProperty] = propertyValue;
 				        
-				        /* Verifica se a propriedade que foi pega acima È nume?ica para somar no seu totalizador */
+				        /* Verifica se a propriedade que foi pega acima √© nume?ica para somar no seu totalizador */
 				        if(condiction.getPropertyInfo().isNumber()&&StringUtils.isNotEmpty(propertyValue)&& !condiction.getPropertyPath().endsWith(IDAO.PROPERTY_ID_NAME)){
 				        	propertyValue = propertyValue.replace(".", "").replace(",", ".");
 
@@ -309,7 +309,7 @@ public class UserReport
 				        	}
 				        }
 
-    					/* Sendo nula ou nao a propriedade j·h foi pega e passa para a prÛxima */
+    					/* Sendo nula ou nao a propriedade j√°h foi pega e passa para a pr√≥xima */
 				        currentProperty++;
 				     }
     				
@@ -317,7 +317,7 @@ public class UserReport
     			}
     		}
     		
-    		/* Elimina dÌgitos decimais incorretos colocando no maximo 4 casas decimais */
+    		/* Elimina d√≠gitos decimais incorretos colocando no maximo 4 casas decimais */
     		for (int i=0; i<selectedResultTotal.length; i++)
     			selectedResultTotal[i] = Math.round(selectedResultTotal[i]*10000)/10000.0;
     		
@@ -332,12 +332,12 @@ public class UserReport
     }
 	
     /**
-     * Este mÈtodo executa o query utilizando.
-     * Verifica se a visualizaÁ„o ser· possÌvel, sen„o lanÁa uma exceÁ„o.  
-     * Se a entidade ainda n„o foi obtidade pelo processo, o serviÁo
-     * È excutado e os valores da auditoria s„o preparados.
-     * Caso a entidade j· esteja preparada, ela È retornada. 
-     * @return Uma entidade pronta para a visualizaÁ„o.
+     * Este m√©todo executa o query utilizando.
+     * Verifica se a visualiza√ß√£o ser√° poss√≠vel, sen√£o lan√ßa uma exce√ß√£o.  
+     * Se a entidade ainda n√£o foi obtidade pelo processo, o servi√ßo
+     * √© excutado e os valores da auditoria s√£o preparados.
+     * Caso a entidade j√° esteja preparada, ela √© retornada. 
+     * @return Uma entidade pronta para a visualiza√ß√£o.
      * @throws BusinessException
      */
     public String[][] getBuildResult2() throws ProcessException
@@ -345,15 +345,15 @@ public class UserReport
     	try
     	{
     		//////////////////////////////////////////////////////////////////////////////////////////
-    		// Prepara a cl·sula SELECT somente com os campos marcados no resultado
+    		// Prepara a cl√°sula SELECT somente com os campos marcados no resultado
     		//////////////////////////////////////////////////////////////////////////////////////////
-    		/* Para otimizar, a lista de propriedades visiveis È criada uma unica vez */
+    		/* Para otimizar, a lista de propriedades visiveis √© criada uma unica vez */
     		this.selectedResult = this.getResultParam().getSelectedCondictions();
 			String querySelect = "";
 			{boolean firstFound = false;
 			for(ResultCondiction condiction: selectedResult){
 				
-				/* Verifica se j· foi encontrada a primeira express„o para colocar a virgula antes */
+				/* Verifica se j√° foi encontrada a primeira express√£o para colocar a virgula antes */
 				if(firstFound)
 					querySelect += ", ";
 
@@ -362,7 +362,7 @@ public class UserReport
 				else
 					querySelect += IDAO.ENTITY_ALIAS_HQL + IDAO.PROPERTY_SEPARATOR + condiction.getPropertyPath();
 				
-				/* ApÛs a primeira execuÁ„o, marca que a primeira j· foi para permitir inserir virgula antes das demais expressoes */
+				/* Ap√≥s a primeira execu√ß√£o, marca que a primeira j√° foi para permitir inserir virgula antes das demais expressoes */
 				if(!firstFound) firstFound = true;
 			}}
 
@@ -371,7 +371,7 @@ public class UserReport
 			for(ResultCondiction condiction: selectedResult){
 				
 				if(!condiction.getPropertyInfo().isCollection()){
-					/* Verifica se j· foi encontrada a primeira express„o para colocar a virgula antes */
+					/* Verifica se j√° foi encontrada a primeira express√£o para colocar a virgula antes */
 					if(firstFound)
 						hqlWHere += ", ";
 					else
@@ -379,13 +379,13 @@ public class UserReport
 
 					hqlWHere += IDAO.ENTITY_ALIAS_HQL + IDAO.PROPERTY_SEPARATOR + condiction.getPropertyPath();
 
-					/* ApÛs a primeira execuÁ„o, marca que a primeira j· foi para permitir inserir virgula antes das demais expressoes */
+					/* Ap√≥s a primeira execu√ß√£o, marca que a primeira j√° foi para permitir inserir virgula antes das demais expressoes */
 					if(!firstFound) firstFound = true;
 				}
 			}}
     		
     		//////////////////////////////////////////////////////////////////////////////////////////
-    		// Executa a query com os atuais par‚metros de query e com o select
+    		// Executa a query com os atuais par√¢metros de query e com o select
     		//////////////////////////////////////////////////////////////////////////////////////////
 			
     		ServiceData sd = new ServiceData(QueryService.SERVICE_NAME, null);
@@ -395,34 +395,34 @@ public class UserReport
 
     		sd.getArgumentList().getProperties().put(QueryService.IN_QUERY_HQLWHERE, hqlWHere);
 
-    		log.debug("Verificando se h· condiÁıes definidas");
+    		log.debug("Verificando se h√° condi√ß√µes definidas");
     		if(this.getCondictionParam().isHasCondictions()){
-    			log.debug("Aplicando os par‚metros de CondiÁıes");
+    			log.debug("Aplicando os par√¢metros de Condi√ß√µes");
     			sd.getArgumentList().getProperties().put(QueryService.IN_QUERY_CONDICTIONS, this.getCondictionParam().getCondictions());
     		}
 
-			log.debug("Verificando se h· uma entidade pai definida");
+			log.debug("Verificando se h√° uma entidade pai definida");
     		if (this.getParentParam().isHasParent()){
-    			log.debug("Aplicando os par‚metros de parent");
+    			log.debug("Aplicando os par√¢metros de parent");
     			
     			sd.getArgumentList().getProperties().put(QueryService.IN_PARENT_CLASS_OPT, this.getParentParam().getType());
     			sd.getArgumentList().getProperties().put(QueryService.IN_PARENT_ID_OPT, this.getParentParam().getId());
     			sd.getArgumentList().getProperties().put(QueryService.IN_PARENT_PROPERTY_OPT, this.getParentParam().getProperty());
     		}
     		
-			log.debug("Verificando se h· uma express„o de ordem definida");
+			log.debug("Verificando se h√° uma express√£o de ordem definida");
     		if(this.getOrderParam().isHasExpression()){
-    			log.debug("Aplicando a express„o de Ordem");
+    			log.debug("Aplicando a express√£o de Ordem");
     			sd.getArgumentList().getProperties().put(QueryService.IN_ORDER_EXPRESSION_OPT, this.getOrderParam().getOrderExpression());
     		}
     		
-			log.debug("Verificando se h· condiÁıes de ordem definidas");
+			log.debug("Verificando se h√° condi√ß√µes de ordem definidas");
     		if(this.getOrderParam().isHasCondictions()){
-    			log.debug("Aplicando as condiÁıes Ordem");
+    			log.debug("Aplicando as condi√ß√µes Ordem");
     			sd.getArgumentList().getProperties().put(QueryService.IN_ORDER_CONDICTIONS_OPT, this.getOrderParam().getCondictions());
     		}
     		
-    		log.debug("Aplicando os par‚metros de PaginaÁ„o");
+    		log.debug("Aplicando os par√¢metros de Pagina√ß√£o");
     		sd.getArgumentList().getProperties().put(QueryService.IN_MAX_RESULT_OPT, this.getPageParam().getPageSize());
     		sd.getArgumentList().getProperties().put(QueryService.IN_FIRST_RESULT_OPT, this.getPageParam().getFirstItemIndexPage());
     		
@@ -430,7 +430,7 @@ public class UserReport
     		
     		List<Object[]> list = null; 
     		if (sd.getMessageList().isTransactionSuccess()){
-    			/* Define a coleÁ„o a ser exibida */
+    			/* Define a cole√ß√£o a ser exibida */
         		list = sd.getOutputData(QueryService.OUT_OBJECT_LIST);
     			entityCollection = (IEntityCollection<?>) sd.getFirstOutput();
     		}
@@ -440,7 +440,7 @@ public class UserReport
 
     		
     		//////////////////////////////////////////////////////////////////////////////////////////
-    		// Analisa o resultado para montar a saÌda
+    		// Analisa o resultado para montar a sa√≠da
     		//////////////////////////////////////////////////////////////////////////////////////////
     		
     		/* Prepara a lista de totalizadores  */
@@ -449,7 +449,7 @@ public class UserReport
     			selectedResultTotal[i] = 0.0;
     		
     		/* Cria um vetor bidimensional com o tamanho de 
-    		 * Entidade total da pesquisa atual x n˙m. de propriedades selecionadas
+    		 * Entidade total da pesquisa atual x n√∫m. de propriedades selecionadas
     		 */
     		int entitiesCount = this.getPageParam().getItemsCount();
     		int propertiesCount = this.getSelectedResult().length;
@@ -474,11 +474,11 @@ public class UserReport
 
     	} catch (BusinessException e)
     	{
-    		/* Converte a exceÁ„o em uma ProcessException */
+    		/* Converte a exce√ß√£o em uma ProcessException */
     		throw new ProcessException(e.getErrorList());
     	} catch (Exception e)
     	{
-    		/* Converte a exceÁ„o em uma ProcessException */
+    		/* Converte a exce√ß√£o em uma ProcessException */
     		throw new ProcessException(MessageList.createSingleInternalError(e));
     	}
     	
@@ -487,7 +487,7 @@ public class UserReport
 	/**
 	 * Cria 
 	 * @param modelLabelEntityId
-	 * @param addressLabelGroupId Opcional. Define o grupo no qual a etiqueta ser· inserida
+	 * @param addressLabelGroupId Opcional. Define o grupo no qual a etiqueta ser√° inserida
 	 * @throws BusinessException
 	 */
     public void runCreateLabels(long modelLabelEntityId, long addressLabelGroupId) throws BusinessException{
@@ -496,7 +496,7 @@ public class UserReport
 		
 		// Para cada p?gina	
 		for(int p=PageParam.FIRST_PAGE_INDEX; p<=this.getPageParam().getPageCount();p++){ 
-			// Define a p·gina atual e pede para o processo busca-la
+			// Define a p√°gina atual e pede para o processo busca-la
 			this.getPageParam().setPage(p);
 			this.runQuery();
 			IEntityCollection<?> entities = this.getEntityCollection(); 
@@ -523,16 +523,16 @@ public class UserReport
 	public void setDescription(String description) {this.description = description;}
 
 	public void saveReport() throws BusinessException{
-		/* Verifica se o atual UserReportBean j· foi persistido */
+		/* Verifica se o atual UserReportBean j√° foi persistido */
 		if(this.getUserReportBean().getId() != IDAO.ENTITY_UNSAVED){
-			/* Verifica se o nome do relatÛrio foi mudado
-			 * para ent„o criar um novo e n„o exluir o velho, 
-			 * mas se o nome ainda È o mesmo, o velho ser·
+			/* Verifica se o nome do relat√≥rio foi mudado
+			 * para ent√£o criar um novo e n√£o exluir o velho, 
+			 * mas se o nome ainda √© o mesmo, o velho ser√°
 			 * apagado */
 			if(this.getName().equals(this.getUserReportBean().getName())){
-				/* Verifica se este relatÛrio ainda existe no banco, pois
-				 * pode ter sido excluÌdo do banco enquanto o mesmo estava ativo
-				 * na memÛria */
+				/* Verifica se este relat√≥rio ainda existe no banco, pois
+				 * pode ter sido exclu√≠do do banco enquanto o mesmo estava ativo
+				 * na mem√≥ria */
 				try{
 					IEntity<?> userReportEntity = UtilsCrud.retrieve(this.getEntityManager().getServiceManager(), UserReportBean.class, this.getUserReportBean().getId(), null);
 
@@ -549,7 +549,7 @@ public class UserReport
 			this.userReportBean = null;
 		}
 		
-		/* Adiciona os Params no atual Bean vazio (vazio pois È novo ou porque foi limpo pela rotina de cima */
+		/* Adiciona os Params no atual Bean vazio (vazio pois √© novo ou porque foi limpo pela rotina de cima */
 		this.getUserReportBean().setName(this.getName());
 		this.getUserReportBean().setDescription(this.getDescription());
 		this.getUserReportBean().setDate(Calendar.getInstance());
@@ -568,7 +568,7 @@ public class UserReport
 	}
 	
 	public void deleteReport(long userReportId) throws BusinessException{
-		/* Verifica se o atual UserReportBean j· foi persistido */
+		/* Verifica se o atual UserReportBean j√° foi persistido */
 		if(this.getUserReportBean().getId() != IDAO.ENTITY_UNSAVED){
 			IEntity<?> userReportEntity = this.getEntityManager().getEntity(this.getUserReportBean());
 			/* Se SIM: Excluir todos os PARAMS dele do Banco de dados e definir seu Id como -1 (Unsaved) */
@@ -579,15 +579,15 @@ public class UserReport
 	public void restoreReport(long userReportBeanId) throws BusinessException{
 		IEntity<?> userReportEntity = UtilsCrud.retrieve(this.getEntityManager().getServiceManager(), UserReportBean.class, userReportBeanId, null);
 
-		/* Verifica se o UserReportBean È da mesma entidade da atual inst‚ncia
-		 * do UserReport, pois se for de entidades diferentes n„o ser· possivel
+		/* Verifica se o UserReportBean √© da mesma entidade da atual inst√¢ncia
+		 * do UserReport, pois se for de entidades diferentes n√£o ser√° possivel
 		 * usar o atual UserReport para manipular os dados armazenados no Bean */
 		if(!this.getEntityType().getName().equals(((UserReportBean)userReportEntity.getObject()).getApplicationEntity().getClassName()))
 			throw new BusinessException(MessageList.create(UserReport.class, "ENTITY_TYPE_INCOMPATIBLE", this.getEntityType().getName(), ((UserReportBean)userReportEntity.getObject()).getApplicationEntity().getClassName()));
 		
 		this.clear();
 		
-		/* Adiciona os Params no atual Bean vazio (vazio pois È novo ou porque foi limpo pela rotina de cima */
+		/* Adiciona os Params no atual Bean vazio (vazio pois √© novo ou porque foi limpo pela rotina de cima */
 		this.userReportBean = (UserReportBean) userReportEntity.getObject();
 		
 		this.setName(this.getUserReportBean().getName());
@@ -623,11 +623,11 @@ public class UserReport
 	}
 
 	/**
-	 * Se este mÈtodo receber um userId=-1 ele listar· todos os relatÛrios que n„o possuem um operador definido.
+	 * Se este m√©todo receber um userId=-1 ele listar√° todos os relat√≥rios que n√£o possuem um operador definido.
 	 * 
 	 * @param svcManager
 	 * @param userId
-	 * @return Lista de relatÛrios que pertencen a um operador ou que n„o possua operador definido
+	 * @return Lista de relat√≥rios que pertencen a um operador ou que n√£o possua operador definido
 	 * @throws BusinessException
 	 */
 	public static IEntityList<UserReportBean> listUserReportByUser(IServiceManager svcManager, long userId) throws BusinessException{
@@ -647,7 +647,7 @@ public class UserReport
 
 	/**
 	/**
-	 * Se este mÈtodo receber um userId=-1 ele listar· todos os relatÛrios que n„o possuem um operador definido.
+	 * Se este m√©todo receber um userId=-1 ele listar√° todos os relat√≥rios que n√£o possuem um operador definido.
 	 * 
 	 * @param svcManager
 	 * @param entityType
@@ -687,9 +687,9 @@ public class UserReport
 		
 	}
 
-	/** Prove um mÈtodo null-protected para ser usado somente dentro do
-	 * prÛprio bean e pelas classes param, pois de fora o Bean n„o È visivel, todas as propriedades
-	 * devem ser definidas diretamente no UserReport, atÈ mesmo o nome do relatÛrio
+	/** Prove um m√©todo null-protected para ser usado somente dentro do
+	 * pr√≥prio bean e pelas classes param, pois de fora o Bean n√£o √© visivel, todas as propriedades
+	 * devem ser definidas diretamente no UserReport, at√© mesmo o nome do relat√≥rio
 	 * @throws BusinessException
 	 */
 	public UserReportBean  getUserReportBean() throws BusinessException

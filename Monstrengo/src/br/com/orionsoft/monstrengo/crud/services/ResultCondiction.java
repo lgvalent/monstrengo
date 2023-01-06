@@ -18,9 +18,9 @@ public class ResultCondiction
 	private Integer resultIndex;
 
 	/** Contador manual de ids do objeto.
-	 * Utilizado enquanto esta classe n„o for
-	 * mantida pelo mecanismo de persitÍncia e for 
-	 * necess·ria a identificaÁ„o das inst„ncias de condiÁıes */
+	 * Utilizado enquanto esta classe n√£o for
+	 * mantida pelo mecanismo de persit√™ncia e for 
+	 * necess√°ria a identifica√ß√£o das inst√£ncias de condi√ß√µes */
 	private static long idCounter = 0;
 	private long retrieveNextId(){return idCounter++;}
 	
@@ -30,7 +30,7 @@ public class ResultCondiction
 		this.propertyPathLabel = propertyPathLabel;
 		this.visible = visible;
 		
-		/* Define um UID Sequencial que identifique esta condiÁ„o */
+		/* Define um UID Sequencial que identifique esta condi√ß√£o */
 		this.id = retrieveNextId();
 	}
 	
@@ -45,11 +45,11 @@ public class ResultCondiction
 	public IPropertyMetadata getPropertyInfo() {return propertyInfo;}
 
 	/**
-	 * Permite definir a propriedade da condiÁ„o utilizando 
+	 * Permite definir a propriedade da condi√ß√£o utilizando 
 	 * o nome da propriedade.
-	 * A entidade atualmente definida ser· consultada para
+	 * A entidade atualmente definida ser√° consultada para
 	 * obter a propriedade pelo nome.
-	 * Este mÈtodo aceita caminhos do tipo:
+	 * Este m√©todo aceita caminhos do tipo:
 	 * prop1.prop2.prop3.prop4
 	 * @return
 	 */
@@ -58,19 +58,19 @@ public class ResultCondiction
 	public String getPropertyPathLabel() {return propertyPathLabel;}
 
 	/**
-	 * Retorna somente o nome da ˙ltima propriedade do caminho
+	 * Retorna somente o nome da √∫ltima propriedade do caminho
 	 * @return
 	 */
 	public String getPropertyLabel() {
-		/* Pega o Ìndice do ˙ltimo separador*/
+		/* Pega o √≠ndice do √∫ltimo separador*/
 		int lastPropertyBegin = this.propertyPathLabel.lastIndexOf(ReportParam.PROPERTY_PATH_LABEL_SEPARATOR);
 		
-		/* Se o separador n„o existe, ent„o o propertyPath referencia uma propriedade direta da entidade.
-		 * Assim define o inÌcio da cÛpia para o Ìndice */
+		/* Se o separador n√£o existe, ent√£o o propertyPath referencia uma propriedade direta da entidade.
+		 * Assim define o in√≠cio da c√≥pia para o √≠ndice */
 		if(lastPropertyBegin==-1)
 			lastPropertyBegin = 0;
 		else
-			/* Copia removendo o sÌmbolo de separaÁ„o */
+			/* Copia removendo o s√≠mbolo de separa√ß√£o */
 			lastPropertyBegin += ReportParam.PROPERTY_PATH_LABEL_SEPARATOR.length();
 		
 		return StringUtils.substring(this.propertyPathLabel, lastPropertyBegin);
@@ -85,13 +85,13 @@ public class ResultCondiction
 	}
 
 	/**
-	 * Verifica se a atual propriedade j· È suportada pela implementaÁ„o
+	 * Verifica se a atual propriedade j√° √© suportada pela implementa√ß√£o
 	 * desta classe. Assim, outras classe podem verifica primeiro se
-	 * a propriedade poder· ou n„o ser suportada 
+	 * a propriedade poder√° ou n√£o ser suportada 
 	 * @param prop Metadados da propriedades
 	 */
 	public static boolean checkVersionSupport(IPropertyMetadata prop) {
-		/* N„o exibe propriedades definidas como invisÌveis para pesquisa */
+		/* N√£o exibe propriedades definidas como invis√≠veis para pesquisa */
 		if(!prop.isVisible())
 			return false;
 		else

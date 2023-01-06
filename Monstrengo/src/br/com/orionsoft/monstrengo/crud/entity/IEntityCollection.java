@@ -15,16 +15,16 @@ import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 
 /**
- * Define a interface de uma coleÁ„o de entidades;
- * Internamente, s„o manipuladas duas listas:
+ * Define a interface de uma cole√ß√£o de entidades;
+ * Internamente, s√£o manipuladas duas listas:
  * Uma de entidades e uma de objetos;
- * cada operaÁ„o È refletida nas duas listas, assim,
- * a lista de objetos, muitas vezes persistida, refletir·
- * as operaÁıes realizadas na lista de entidades (calculada).
- * <b>IMPORTANTE: N„o utilizar a interface Iterator para percorrer
- * a lista, pois est· percorrer· a lista de entidade, e caso, uma 
- * operaÁ„o iterator.remove() seja executada, ela n„o refletir· 
- * a remoÁ„o na lista real de objetos n„o encapsulados dentro
+ * cada opera√ß√£o √© refletida nas duas listas, assim,
+ * a lista de objetos, muitas vezes persistida, refletir√°
+ * as opera√ß√µes realizadas na lista de entidades (calculada).
+ * <b>IMPORTANTE: N√£o utilizar a interface Iterator para percorrer
+ * a lista, pois est√° percorrer√° a lista de entidade, e caso, uma 
+ * opera√ß√£o iterator.remove() seja executada, ela n√£o refletir√° 
+ * a remo√ß√£o na lista real de objetos n√£o encapsulados dentro
  * da interface IEntity.</b>
  * @author Lucio
  * @version 20060317
@@ -44,10 +44,10 @@ public interface IEntityCollection<T> extends Collection<IEntity<T>>
     public abstract IEntityManager getEntityManager();
     
     /**
-     * Retorna uma coleÁ„o de objetos baseada nos objetos que se encontram
+     * Retorna uma cole√ß√£o de objetos baseada nos objetos que se encontram
      * encapsulados dentro dos elementos IEntity.
-     * <p>⁄til principalmente na camada de persistÍncia. Onde o 
-     * importante È o objeto e n„o a entidade. 
+     * <p>√ötil principalmente na camada de persist√™ncia. Onde o 
+     * importante √© o objeto e n√£o a entidade. 
      * 
      * @see IEntity#getObject()
      * 
@@ -56,10 +56,10 @@ public interface IEntityCollection<T> extends Collection<IEntity<T>>
     public abstract Collection<T> getObjectCollection();
 
     /**
-     * Retorna uma coleÁ„o de IEntity que se encontra
+     * Retorna uma cole√ß√£o de IEntity que se encontra
      * encapsulada dentro da class que implementa esta interface.
-     * <p>⁄til principalmente na camada de vis„o para pode pegar a coleÁ„o de entidades
-     * sem distinguir se È um SET ou uma LIST. 
+     * <p>√ötil principalmente na camada de vis√£o para pode pegar a cole√ß√£o de entidades
+     * sem distinguir se √© um SET ou uma LIST. 
      * 
      * @since 20120105 Lucio
      * 
@@ -68,17 +68,17 @@ public interface IEntityCollection<T> extends Collection<IEntity<T>>
     public abstract Collection<IEntity<T>> getCollection();
 
     /**
-     * Este mÈtodo È ˙til para obter o tamanho da coleÁ„o 
-     * obedecendo o padr„o JavaBean,
-     * j· que o tamanho sÛ È fornecido por size e n„o por getSize 
+     * Este m√©todo √© √∫til para obter o tamanho da cole√ß√£o 
+     * obedecendo o padr√£o JavaBean,
+     * j√° que o tamanho s√≥ √© fornecido por size e n√£o por getSize 
      * segundo a interface java.utils.Collection. 
      * @return
      */
     public int getSize();
     
 	/**
-	 * Este mÈtodo retorna um array com os items ordenados pelos
-	 * id das entidades. Foi necess·rio porque a cada conversao de uma
+	 * Este m√©todo retorna um array com os items ordenados pelos
+	 * id das entidades. Foi necess√°rio porque a cada conversao de uma
 	 * collection para um array, a ordem dos items era indeterminada
 	 * o que impraticava utilizar este metodo em uma lista de interface, pois
 	 * os items ficavam mudando de ordem toda hora que a interface era atualizada.
@@ -89,15 +89,15 @@ public interface IEntityCollection<T> extends Collection<IEntity<T>>
     public Object[] getArray();
 
     /**
-     * Este mÈtodo retorna o primeiro elemento da lista.
-     * Ele È muito utilizado quando se realiza ums consulta
+     * Este m√©todo retorna o primeiro elemento da lista.
+     * Ele √© muito utilizado quando se realiza ums consulta
      * e se espera apenas um elemento. 
      * @return
      */
     public IEntity<T> getFirst();
     
     /**
-     * Este mÈtodo permite definir um id que ser· utilizado
+     * Este m√©todo permite definir um id que ser√° utilizado
      * pelos metodos runXxx();
      * O valor definido pelo setRunId prevalece sobre a entidade que
      * tiver sido definida pelo setRunEntity 
@@ -106,7 +106,7 @@ public interface IEntityCollection<T> extends Collection<IEntity<T>>
     public Long getRunId();
     public void setRunId(Long runId);
     /**
-     * Este mÈtodo permite definir uma entidade que ser· utilizado
+     * Este m√©todo permite definir uma entidade que ser√° utilizado
      * pelos metodos runXxx();
      * O valor definido pelo setRunId prevalece sobre a entidade que
      * tiver sido definida pelo setRunEntity 
@@ -116,25 +116,25 @@ public interface IEntityCollection<T> extends Collection<IEntity<T>>
     public void setRunEntity(IEntity<T> runEntity);
     /**
      * Localiza a entidade com o id igual ao runId.
-     * Adiciona ela na coleÁ„o, caso ela j· n„o se encontre.
-     * @return Retorna true se a adiÁ„o foi realizada com sucesso.
+     * Adiciona ela na cole√ß√£o, caso ela j√° n√£o se encontre.
+     * @return Retorna true se a adi√ß√£o foi realizada com sucesso.
      * @throws BusinessException
      * @since 20060317
      */
     public boolean runAdd() throws BusinessException ;
     /**
-     * Percorre a coleÁ„o comparando os ids das entidades
-     * com o runId, se encontrar, remove a entidade da coleÁ„o, 
-     * sen„o  retorna false;
-     * @return Retorna true se removeu e false se n„o encontrou.
+     * Percorre a cole√ß√£o comparando os ids das entidades
+     * com o runId, se encontrar, remove a entidade da cole√ß√£o, 
+     * sen√£o  retorna false;
+     * @return Retorna true se removeu e false se n√£o encontrou.
      * @throws BusinessException
      * @since 20060317
      */
     public boolean runRemove() throws BusinessException ;
 
     /**
-     * Percorre a coleÁ„o verificando as entidades
-     * que est„o selecionadas (isSelected()==true);
+     * Percorre a cole√ß√£o verificando as entidades
+     * que est√£o selecionadas (isSelected()==true);
      * @throws BusinessException
      * @since 20060317
      */
@@ -142,10 +142,10 @@ public interface IEntityCollection<T> extends Collection<IEntity<T>>
 
     
     /**
-     * Este mÈtodo cria uma lista de entidades em forma de uma lista de seleÁ„o. Muito
-     * ˙til quando algum processo quer gerar exibir uma lista de possÌveis entidades
+     * Este m√©todo cria uma lista de entidades em forma de uma lista de sele√ß√£o. Muito
+     * √∫til quando algum processo quer gerar exibir uma lista de poss√≠veis entidades
      * 
-     * @return Retorna uma lista de itens de seleÁ„o preenchido com as entidades atuais da lista.
+     * @return Retorna uma lista de itens de sele√ß√£o preenchido com as entidades atuais da lista.
      * @throws EntityException
      * @since 20070607
      */
@@ -161,11 +161,11 @@ public interface IEntityCollection<T> extends Collection<IEntity<T>>
 	public void setIds(Long[] ids, ServiceData serviceDataOwner) throws BusinessException;
 	
 	/**
-	 * Este mÈtodo percorre a coleÁ„o identificando se o id passado se encontra na lista.<br>
-	 * Muito ˙til quando se tem uma coleÁ„o vindas do banco e deseja verificar se um determinado
-	 * objeto (id) est· nesta coleÁ„o.<br>
-	 * Como um objeto n„o persistido possui um id = -1, este mÈtodo n„o ser· ˙il
-	 * para verificar se uma entidade n„o persistida j· se encontra na coleÁ„o.
+	 * Este m√©todo percorre a cole√ß√£o identificando se o id passado se encontra na lista.<br>
+	 * Muito √∫til quando se tem uma cole√ß√£o vindas do banco e deseja verificar se um determinado
+	 * objeto (id) est√° nesta cole√ß√£o.<br>
+	 * Como um objeto n√£o persistido possui um id = -1, este m√©todo n√£o ser√° √∫il
+	 * para verificar se uma entidade n√£o persistida j√° se encontra na cole√ß√£o.
 	 * 
 	 *  @author Lucio
 	 *  @since 20070913

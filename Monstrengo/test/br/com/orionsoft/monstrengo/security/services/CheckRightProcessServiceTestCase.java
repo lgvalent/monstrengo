@@ -19,13 +19,13 @@ import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 import br.com.orionsoft.monstrengo.security.services.CheckRightProcessService;
 
 /**
- * ServiÁo para testar o servico CheckRightProcessService, que, dado um id de usu·rio e um
- * id de processo, verifica se o primeiro tem direito a execuÁ„o da operaÁ„o.
+ * Servi√ßo para testar o servico CheckRightProcessService, que, dado um id de usu√°rio e um
+ * id de processo, verifica se o primeiro tem direito a execu√ß√£o da opera√ß√£o.
  * 
  * <p><b>Procedimento:</b>
- * <br>Criar usu·rios, grupos e setar direitos de acesso ‡ eles.
- * <br>Invocar o servico para direitos permitidos, n„o permitidos e inexistentes.
- * <br>Apagar os usu·rios, grupos e direitos criados no banco.
+ * <br>Criar usu√°rios, grupos e setar direitos de acesso √† eles.
+ * <br>Invocar o servico para direitos permitidos, n√£o permitidos e inexistentes.
+ * <br>Apagar os usu√°rios, grupos e direitos criados no banco.
  * <br>
  * @author Marcia
  * @version 2005/10/27
@@ -47,29 +47,29 @@ public class CheckRightProcessServiceTestCase extends ServiceBasicTest
         List<IEntity> rights = new ArrayList<IEntity>();
         
         try{
-        // Criando usu·rios
-        // Esse usu·rio pertence ao grupo1 e ao grupo 2
+        // Criando usu√°rios
+        // Esse usu√°rio pertence ao grupo1 e ao grupo 2
         IEntity user = UtilsCrud.create(this.serviceManager, ApplicationUser.class, null);
         user.setPropertyValue(ApplicationUser.LOGIN, "marcia");
         user.setPropertyValue(ApplicationUser.PASSWORD, "marcia");
         UtilsCrud.update(this.serviceManager, user, null);
         users.add(0, user);
         
-        // Esse usu·rio pertence ao grupo1
+        // Esse usu√°rio pertence ao grupo1
         IEntity user2 = UtilsCrud.create(this.serviceManager, ApplicationUser.class, null);
         user2.setPropertyValue(ApplicationUser.LOGIN, "blabla");
         user2.setPropertyValue(ApplicationUser.PASSWORD, "blabla");
         UtilsCrud.update(this.serviceManager, user2, null);
         users.add(1, user2);
         
-        // Esse usu·rio pertence ao grupo 2
+        // Esse usu√°rio pertence ao grupo 2
         IEntity user3 = UtilsCrud.create(this.serviceManager, ApplicationUser.class, null);
         user3.setPropertyValue(ApplicationUser.LOGIN, "aro");
         user3.setPropertyValue(ApplicationUser.PASSWORD, "aro");
         UtilsCrud.update(this.serviceManager, user3, null);
         users.add(2, user3);
         
-        // Criando grupos e associando aos usu·rios
+        // Criando grupos e associando aos usu√°rios
         IEntity group = UtilsCrud.create(this.serviceManager, SecurityGroup.class, null);
         group.setPropertyValue(SecurityGroup.NAME, "group1");
         UtilsCrud.update(this.serviceManager, group, null);
@@ -195,7 +195,7 @@ public class CheckRightProcessServiceTestCase extends ServiceBasicTest
 ////            {
 ////                UtilsCrud.delete(this.serviceManager, user);
 ////            }
-////            // Deletando os usu·rios
+////            // Deletando os usu√°rios
 ////            
 ////            // Deletando os grupos
 ////            System.out.println("Deletando " + groups.size() + "Groups.");

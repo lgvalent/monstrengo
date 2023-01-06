@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * <p>Esta classe implementa as rotinas úteis para serem usadas nas classes que 
+ * <p>Esta classe implementa as rotinas Ãºteis para serem usadas nas classes que 
  * manipulam metadados.<p>
  * 
  * @author Lucio
@@ -14,20 +14,20 @@ public class MetadataUtils
     
     /**
      * <p>Obtem todos os campos declarados na classe informada e nas suas 
-     * subclasses, excluindo o objeto básíco.<p>
-     * <p>O objeto básico é identificado por aquele que seu antecessor é <code>Object</code>.<p>
+     * subclasses, excluindo o objeto bÃ¡sÃ­co.<p>
+     * <p>O objeto bÃ¡sico Ã© identificado por aquele que seu antecessor Ã© <code>Object</code>.<p>
      * 
      * @param klazz
      * @return
      * 
-     * @deprecated Não é aconselhado usar Fields para beans, mas PropertyDescriptors
+     * @deprecated NÃ£o Ã© aconselhado usar Fields para beans, mas PropertyDescriptors
      */
     public static final Field[] getFields(Class<?> klazz)
     {
         Field[] result=null;
         
-        // Verifica se a superclasse do atual objeto é Object, isto indica
-        // que a classe atual é a básica, comum a todas as entidades de negócio.
+        // Verifica se a superclasse do atual objeto Ã© Object, isto indica
+        // que a classe atual Ã© a bÃ¡sica, comum a todas as entidades de negÃ³cio.
         if(klazz != Object.class){
             
             // Pega os campos da superClasse (RECURSIVAMENTE)
@@ -37,13 +37,13 @@ public class MetadataUtils
             Field[] fields = klazz.getDeclaredFields();
 
             // Concatena os campos encontrados
-            // Calcula o tamanho útil pra criar uma lista otimizada
+            // Calcula o tamanho Ãºtil pra criar uma lista otimizada
             int size=0;
             if (superFields != null) size+=superFields.length;
             if (fields != null)
             {
                 size+=fields.length;
-                // Não conta os campos Státicos e Abstratos
+                // NÃ£o conta os campos StÃ¡ticos e Abstratos
                 for(Field field: fields)
                     if (Modifier.isStatic(field.getModifiers())||
                        (Modifier.isAbstract(field.getModifiers())))
@@ -53,7 +53,7 @@ public class MetadataUtils
             // Cria a lista com o tamanho otimizado
             result = new Field[size];
             
-            // Copia os conteúdos das listas para o resulado
+            // Copia os conteÃºdos das listas para o resulado
             int index=0;
             if (superFields != null) 
                 for(Field superField: superFields)

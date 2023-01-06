@@ -2,8 +2,8 @@ package br.com.orionsoft.monstrengo.core.util;
 
 
 /**
- * Esta classe possui alguns c醠culos 鷗eis a outros m骴ulos, como o c醠culo 
- * de d韌ito verificador para determinada String em m骴ulo 10 e 11.
+ * Esta classe possui alguns c谩lculos 煤teis a outros m贸dulos, como o c谩lculo 
+ * de d铆gito verificador para determinada String em m贸dulo 10 e 11.
  * 
  * @author andre
  *
@@ -11,8 +11,8 @@ package br.com.orionsoft.monstrengo.core.util;
 public class MathUtils {
 
 	/**
-     * Calcula o DV m骴ulo 11 do c骴igo de barra
-     * Para resto 0,1,10 assume d韌ito 1.
+     * Calcula o DV m贸dulo 11 do c贸digo de barra
+     * Para resto 0,1,10 assume d铆gito 1.
      * @param campo o campo a ser calculado
      * @return uma String contendo o DV
      */
@@ -34,8 +34,8 @@ public class MathUtils {
     }
 
 	/**
-     * Calcula o DV m骴ulo 11 do c骴igo de barra
-     * Para resto 0,1 assume d韌ito 0.
+     * Calcula o DV m贸dulo 11 do c贸digo de barra
+     * Para resto 0,1 assume d铆gito 0.
      * @param campo o campo a ser calculado
      * @return uma String contendo o DV
      */
@@ -57,7 +57,7 @@ public class MathUtils {
     }
 
     /**
-     * Calcula o DV m骴ulo 10 da linha digit醰el.
+     * Calcula o DV m贸dulo 10 da linha digit谩vel.
      * 
      * @param campo
      *            o campo a ser calculado

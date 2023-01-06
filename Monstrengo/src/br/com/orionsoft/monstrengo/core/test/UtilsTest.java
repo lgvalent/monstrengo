@@ -27,7 +27,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDaoManager;
  */public class UtilsTest
 {
     /**
-     * Exibe no console de saÌda as propriedades e os valores de um entidade.
+     * Exibe no console de sa√≠da as propriedades e os valores de um entidade.
      * @throws PropertyValueException 
      * @throws EntityException 
      */
@@ -44,7 +44,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDaoManager;
     }
     
     /**
-     * Este mÈtodo retorna a lista de TODAS as entidades do sistemas.
+     * Este m√©todo retorna a lista de TODAS as entidades do sistemas.
      * @return
      */
     public static final List<Class> getAllBusinessEntity(IDaoManager daoManager) throws Exception
@@ -69,7 +69,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDaoManager;
         String[] beans = ctx.getBeanDefinitionNames();
         for (String str:beans)
         {
-            // Identifica qual atende ao padr„o "*DAO"
+            // Identifica qual atende ao padr√£o "*DAO"
             if (str.endsWith("DAO"))
             {
                 // Obtem o Bean Dao
@@ -118,8 +118,8 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDaoManager;
     }
     
     /**
-     * Lista os Ìndices e nomes das impressoras para auxiliar na montagem de
-     * testes qe utilizam impress„o e precisam identificar em qual impressora 
+     * Lista os √≠ndices e nomes das impressoras para auxiliar na montagem de
+     * testes qe utilizam impress√£o e precisam identificar em qual impressora 
      * imprimir os testes
      */
     public static final void showPrinters(){

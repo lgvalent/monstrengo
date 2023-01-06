@@ -20,15 +20,15 @@ import br.com.orionsoft.monstrengo.crud.services.CheckDependencesEntityService.D
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
- * Este processo controla a remoÁ„o de uma entidade do sistema.
+ * Este processo controla a remo√ß√£o de uma entidade do sistema.
  * 
  * <p><b>Procedimentos:</b>
  * <br>Definir o tipo da entidade: <i>setEntityType(Class)</i>
  * <br>Definir o id da entidade: <i>setEntityId(long)</i>
  * <br>Verificar se a entidade pode ser deletada: <i>boolean mayDelete()</i>
  * <br>Obter a entidade por <i>(IEntity) retrieveEntity()</i>.
- * <li>Realizar ediÁıes pela interface com o usu·rio.
- * <br>Gravar as alteraÁıes por <i>runDelete()</i>.
+ * <li>Realizar edi√ß√µes pela interface com o usu√°rio.
+ * <br>Gravar as altera√ß√µes por <i>runDelete()</i>.
  * 
  * @author Andre 2006/02/03
  * @version 20070810 Juliana
@@ -61,7 +61,7 @@ public class DeleteProcess <T> extends ProcessBasic
             String justification = this.justification + ":'"+ this.retrieveEntity().toString() + "'";  
             
             /*
-             *  Executa a validaÁ„o apÛs a confirmaÁ„o da exclus„o da entidade.
+             *  Executa a valida√ß√£o ap√≥s a confirma√ß√£o da exclus√£o da entidade.
              */
             if(this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().contains(entity))
             	   this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterDelete(entity, this.getUserSession(), null); 
@@ -71,7 +71,7 @@ public class DeleteProcess <T> extends ProcessBasic
                     this.retrieveEntity(), 
                     null);
             
-            // Registra a auditoria da atualizaÁ„o
+            // Registra a auditoria da atualiza√ß√£o
             UtilsAuditorship.auditDelete(this.getProcessManager().getServiceManager(), 
                     this.getUserSession(),
                     entityType,
@@ -95,7 +95,7 @@ public class DeleteProcess <T> extends ProcessBasic
         }
     }
 
-    // Verifica se o user tem permiss„o de ediÁ„o.
+    // Verifica se o user tem permiss√£o de edi√ß√£o.
     public boolean mayDelete() throws BusinessException
     {
         return UtilsSecurity.checkRightDelete(this.getProcessManager().getServiceManager(), this.entityType, this.getUserSession(), null);
@@ -103,11 +103,11 @@ public class DeleteProcess <T> extends ProcessBasic
     
     /**
      * Obtem a entidade persistida baseado no Tipo e Id fornecidos.
-     * Verifica se a ediÁ„o ser· possÌvel, sen„o lanÁa uma exceÁ„o.  
-     * Se a entidade ainda n„o foi obtidade pelo processo, o serviÁo
-     * È executado e os valores da auditoria s„o preparados.
-     * Caso a entidade j· esteja preparada, ela È retornada. 
-     * @return Uma entidade pronta para a ediÁ„o.
+     * Verifica se a edi√ß√£o ser√° poss√≠vel, sen√£o lan√ßa uma exce√ß√£o.  
+     * Se a entidade ainda n√£o foi obtidade pelo processo, o servi√ßo
+     * √© executado e os valores da auditoria s√£o preparados.
+     * Caso a entidade j√° esteja preparada, ela √© retornada. 
+     * @return Uma entidade pronta para a edi√ß√£o.
      * @throws BusinessException
      */
     public IEntity<T> retrieveEntity() throws BusinessException
@@ -115,38 +115,38 @@ public class DeleteProcess <T> extends ProcessBasic
         // Verificar se pode editar a entidade
         if (this.mayDelete())
         {    
-            // Se ainda n„o est· pronta a entidade, prepara-a
+            // Se ainda n√£o est√° pronta a entidade, prepara-a
             if (entity == null)
             {
-            	// Cria uma entidade tempor·ria para ser validade pelo dvo
+            	// Cria uma entidade tempor√°ria para ser validade pelo dvo
             	IEntity<T> entityTemp = UtilsCrud.retrieve(this.getProcessManager().getServiceManager(),
                                             entityType,
                                             entityId, 
                                             null);
             	
-            	// Se houver algum problema, uma exceÁ„o ser· levantada aqui
+            	// Se houver algum problema, uma exce√ß√£o ser√° levantada aqui
             	if(this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().contains(entityTemp))
             		this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entityTemp).beforeDelete(entityTemp, this.getUserSession(), null);
             	
-            	// Se nada aconteceu, È porque est· tudo OK e a entidade poder· prosseguir para sua exclus„o.
+            	// Se nada aconteceu, √© porque est√° tudo OK e a entidade poder√° prosseguir para sua exclus√£o.
             	entity = entityTemp;
             }
             
             return entity;
         }
 
-        // N„o possui direitos de editar este tipo de entidade
+        // N√£o possui direitos de editar este tipo de entidade
         throw new ProcessException(MessageList.create(DeleteProcess.class, "DELETE_DENIED", getUserSession().getUserLogin(), this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel() + ":" + this.entityId));
     }
     
     /**
      * Verifica se a entidade a ser deletada afeta outras entidades que 
-     * a possuem como uma propriedade. Isto È, se existem outras entidades dependentes
-     * (restriÁ„o de chave estrangeira) que devem ser excluidas primeiro
+     * a possuem como uma propriedade. Isto √©, se existem outras entidades dependentes
+     * (restri√ß√£o de chave estrangeira) que devem ser excluidas primeiro
      * 
-     * @return true, se existe a estrutura (DependecesBean)que contÈm a entidade afetada, 
+     * @return true, se existe a estrutura (DependecesBean)que cont√©m a entidade afetada, 
      * a propriedade pela qual esta entidade se relaciona, e a lista de entidades que 
-     * est„o ligadas a essa propriedade . 
+     * est√£o ligadas a essa propriedade . 
      * 
      * @version 20070207
      */
@@ -154,8 +154,8 @@ public class DeleteProcess <T> extends ProcessBasic
     	super.beforeRun();
     	
     	try {
-    		/*ForÁa a recarga da entidade para limpar as referÍncias de seus dependentes
-    		 * que foram excluÌdos */
+    		/*For√ßa a recarga da entidade para limpar as refer√™ncias de seus dependentes
+    		 * que foram exclu√≠dos */
     		this.entity = null;
 
     		/*limpa a lista de dependentes*/
@@ -165,7 +165,7 @@ public class DeleteProcess <T> extends ProcessBasic
     		
     		super.getProcessManager().getServiceManager().execute(sdCheckDependences);
     		
-    		/* Popula a lista de entidades dependentes (dependencesBean) se o serviÁo retornar 
+    		/* Popula a lista de entidades dependentes (dependencesBean) se o servi√ßo retornar 
     		 * um resultado diferente de vazio*/
     		if(!sdCheckDependences.getOutputData().isEmpty()){
     			for(Object obj:sdCheckDependences.getOutputData()){
@@ -185,7 +185,7 @@ public class DeleteProcess <T> extends ProcessBasic
     }
 
 	/**
-     * Justificativa para a Auditoria, do motivo da exclus„o da entidade
+     * Justificativa para a Auditoria, do motivo da exclus√£o da entidade
      */
     public String getJustification(){return justification;}
     public void setJustification(String justification){this.justification = justification;}
@@ -204,9 +204,9 @@ public class DeleteProcess <T> extends ProcessBasic
 	public List<DependencesBean> getDependencesBean() {return dependencesBean;}
 	
     /**
-     * Este mÈtodo percorre a lista de dependÍncias e TENTA exluir 
+     * Este m√©todo percorre a lista de depend√™ncias e TENTA exluir 
      * as dependencias marcadas.
-     * @return true, se deu tudo certo e excluiu tudo, false se alguma dependencia n„o foi excluida.  
+     * @return true, se deu tudo certo e excluiu tudo, false se alguma dependencia n√£o foi excluida.  
      * @version 20071407
      */
     @SuppressWarnings("unchecked")
@@ -220,8 +220,8 @@ public class DeleteProcess <T> extends ProcessBasic
                 throw new ProcessException(MessageList.create(DeleteProcess.class, "JUSTIFICATION_FAILURE", this.justification));
     		
     		/* Primeiro percorre todas as dependencias marcadas 
-    		 * criando seus processos de remoÁ„o e verificando
-    		 * se elas n„o possuem dependencias */
+    		 * criando seus processos de remo√ß√£o e verificando
+    		 * se elas n√£o possuem dependencias */
     		for(DependencesBean dependence: this.dependencesBean){
     			for(IEntity<?> entity: dependence.getEntityList()){
     				if(entity.isSelected()){
@@ -236,12 +236,12 @@ public class DeleteProcess <T> extends ProcessBasic
     						return false;
     					}
     					
-    					/* Verifica se h· dependencias que n„o poder„o ser excluidas por ter dependencia */
+    					/* Verifica se h√° dependencias que n√£o poder√£o ser excluidas por ter dependencia */
     					if(process.getDependencesBean().size()>0){
     						this.getMessageList().add(new BusinessMessage(DeleteProcess.class, "DEPENDENCE_HAS_DEPENDENCE", process.retrieveEntity().getInfo().getLabel(), process.retrieveEntity()));
     					}
     					
-    					/* Coloca o processo na lista de processos finais que ser„o 
+    					/* Coloca o processo na lista de processos finais que ser√£o 
     					 * executados se tudo der certo ou finalizados */
    						processes.add(process);
     				}
@@ -249,11 +249,11 @@ public class DeleteProcess <T> extends ProcessBasic
     		}
     		
     		/* Verifica se alguma dependencia possui outras dependencias e
-    		 * ocorreu alguns erros na preparaÁ„o dos processos de remoÁ„o */
+    		 * ocorreu alguns erros na prepara√ß√£o dos processos de remo√ß√£o */
     		if(!this.getMessageList().isTransactionSuccess())
     			return false;
     		
-    		/* Se deu tudo certo. Ent„o executa as exclusoes */
+    		/* Se deu tudo certo. Ent√£o executa as exclusoes */
     		for(DeleteProcess<T> process: processes)
     			if(!process.runDelete()){
     				this.getMessageList().addAll(process.getMessageList());

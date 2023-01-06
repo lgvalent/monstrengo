@@ -7,16 +7,16 @@ import br.com.orionsoft.monstrengo.crud.entity.dvo.IDvo;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.IDvoManager;
 
 /**
- * Esta classe oferece as funcionalidades b·sicas para a implementaÁ„o
- * dos serviÁos que ser„o registrados e executados pelo IDvoManager.
+ * Esta classe oferece as funcionalidades b√°sicas para a implementa√ß√£o
+ * dos servi√ßos que ser√£o registrados e executados pelo IDvoManager.
  *
  * @author Sergio
  */
 
 public abstract class DvoBasic<T> implements IDvo<T> {
 	   /***
-       * Manipulador de Log para ser utilizado pelas implementaÁıes dos
-       * serviÁos.
+       * Manipulador de Log para ser utilizado pelas implementa√ß√µes dos
+       * servi√ßos.
        */
 	    protected Logger log = LogManager.getLogger(getClass());
 
@@ -24,7 +24,7 @@ public abstract class DvoBasic<T> implements IDvo<T> {
 
 	    /***
 	     *
-	     * Retorna o gerenciador de DVO no qual este DVO est· registrado.
+	     * Retorna o gerenciador de DVO no qual este DVO est√° registrado.
 	     *
 	     */
 		public IDvoManager getDvoManager(){

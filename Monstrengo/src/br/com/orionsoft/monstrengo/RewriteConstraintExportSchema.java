@@ -37,7 +37,7 @@ public class RewriteConstraintExportSchema {
 			File fileIn = new File(fileName);
 			BufferedReader in = new BufferedReader(new FileReader(fileIn));
 			
-			/* Prepara o arquivo de saída */
+			/* Prepara o arquivo de saÃ­da */
 			File fileOut = new File(fileName+ "-temp");
 			fileOut.delete();
 			fileOut.createNewFile();
@@ -48,8 +48,8 @@ public class RewriteConstraintExportSchema {
 				linha = modificarLinhaDropForeignKey(linha);
 				linha = modificarLinhaContrainst(linha);
 				/* Coloca o ; no final e quebra de linha, 
-				 * pois o hibernate não coloca e o BufferedReader 
-				 * remove o fim de linha e só retorna a linha útil
+				 * pois o hibernate nÃ£o coloca e o BufferedReader 
+				 * remove o fim de linha e sÃ³ retorna a linha Ãºtil
 				 */
 				out.write(linha + ";\n");
 				System.out.println(modificarLinhaContrainst(linha));
@@ -74,7 +74,7 @@ public class RewriteConstraintExportSchema {
 	private String modificarLinhaContrainst(String linha){
 		String result = "";
 		if(linha.contains(ADD_CONSTRAINT)){
-			//System.exit(0); // Pára a execução para poder visualizar as primeiras linhas no Log
+			//System.exit(0); // PÃ¡ra a execuÃ§Ã£o para poder visualizar as primeiras linhas no Log
 			int alterTableEndIndex = linha.indexOf(ALTER_TABLE) + ALTER_TABLE.length();
 			int addIndexStartIndex = linha.indexOf(ADD_INDEX);
 			int addConstraintEndIndex = linha.indexOf(ADD_CONSTRAINT) + ADD_CONSTRAINT.length();
@@ -84,8 +84,8 @@ public class RewriteConstraintExportSchema {
 			String propertyName = linha.substring(addConstraintEndIndex, foreignKeyStartIndex-1);
 			String newConstraintName = tableName + "_" + propertyName;
 			
-			/* Verifica se o novo identificador não ultrapassa 60 caracteres
-			 * Se ultrapassar, corta à esquerda (o início) do novo 
+			/* Verifica se o novo identificador nÃ£o ultrapassa 60 caracteres
+			 * Se ultrapassar, corta Ã  esquerda (o inÃ­cio) do novo 
 			 * nome */
 			if(newConstraintName.length()>MAX_LENGTH_CONSTRAINT_ID){
 				newConstraintName = newConstraintName.substring(newConstraintName.length()-MAX_LENGTH_CONSTRAINT_ID);
@@ -115,8 +115,8 @@ public class RewriteConstraintExportSchema {
 			String propertyName = linha.substring(dropForeignKeyEndIndex);
 			String newForeignKeyName = tableName + "_" + propertyName;
 			
-			/* Verifica se o novo identificador não ultrapassa 60 caracteres
-			 * Se ultrapassar, corta à esquerda (o início) do novo 
+			/* Verifica se o novo identificador nÃ£o ultrapassa 60 caracteres
+			 * Se ultrapassar, corta Ã  esquerda (o inÃ­cio) do novo 
 			 * nome */
 			if(newForeignKeyName.length()>MAX_LENGTH_CONSTRAINT_ID){
 				newForeignKeyName = newForeignKeyName.substring(newForeignKeyName.length()-MAX_LENGTH_CONSTRAINT_ID);

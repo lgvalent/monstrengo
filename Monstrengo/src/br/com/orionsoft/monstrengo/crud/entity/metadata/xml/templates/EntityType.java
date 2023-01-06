@@ -51,7 +51,7 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.xml.templates.PropertyTy
  * 
  * 
  */
-@XmlRootElement(name="entity") //<--INSERIDO PELO LUCIO. Como o elemento root xsd:element usa um type para inferência, o JaxB gera o EntityType, mas não definir ele como Root e nem coloca no nome "entity"
+@XmlRootElement(name="entity") //<--INSERIDO PELO LUCIO. Como o elemento root xsd:element usa um type para inferÃªncia, o JaxB gera o EntityType, mas nÃ£o definir ele como Root e nem coloca no nome "entity"
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "EntityType", propOrder = {
     "group"

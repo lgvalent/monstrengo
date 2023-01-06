@@ -11,7 +11,7 @@ import br.com.orionsoft.monstrengo.security.processes.CreateSecurityStructurePro
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
- * Esta classe testa a criaÁ„o e manutenÁ„o de um operador e grupo pelo login, groupName e allowAll (true,false). 
+ * Esta classe testa a cria√ß√£o e manuten√ß√£o de um operador e grupo pelo login, groupName e allowAll (true,false). 
  *
  */
 public class CreateSecurityStructureProcessTestCase extends ProcessBasicTest
@@ -35,7 +35,7 @@ public class CreateSecurityStructureProcessTestCase extends ProcessBasicTest
                 
             System.out.println(":Pid=" + auth.getPid());
             
-            //usu·rio m j· existe no banco
+            //usu√°rio m j√° existe no banco
             auth.setLogin("admin");
             auth.setGroupName("admin");
             auth.setAllowAll(true);
@@ -66,7 +66,7 @@ public class CreateSecurityStructureProcessTestCase extends ProcessBasicTest
                 
             System.out.println(":Pid=" + auth.getPid());
             
-            //usu·rio m j· existe no banco
+            //usu√°rio m j√° existe no banco
             auth.setLogin("admin");
             auth.setPassword("admin");
             

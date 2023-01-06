@@ -14,18 +14,18 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IPropertyMetadata;
  */
 public interface IGroupMetadata {
 	
-    /** Comparadores usados na criaÁ„o de listas ordenadas das propriedades de uma entidade.
-     *  Pode-se ordernar a lista por INDEX, GROUP ou LABEL (alfabÈtica) */
+    /** Comparadores usados na cria√ß√£o de listas ordenadas das propriedades de uma entidade.
+     *  Pode-se ordernar a lista por INDEX, GROUP ou LABEL (alfab√©tica) */
 	public static Comparator<IGroupMetadata> COMPARATOR_INDEX = new Comparator<IGroupMetadata>(){public int compare(IGroupMetadata arg0, IGroupMetadata arg1){return  new Integer(arg0.getIndex()).compareTo(arg1.getIndex());}};
 
 	public static final int GROUP_NOT_DEFINED = -1;
 	public int getIndex();
 	
 	/**
-	 * … necess·rio este set() na interface, porque depois que um grupo
-	 * È criado, ele poder· ter seu Ìndice readequado para ficar
-	 * em uma ordem sequencial e facilitar a construÁ„o de Arrays[] corretos,
-	 * ou seja, sem Ìndices nulos 
+	 * √â necess√°rio este set() na interface, porque depois que um grupo
+	 * √© criado, ele poder√° ter seu √≠ndice readequado para ficar
+	 * em uma ordem sequencial e facilitar a constru√ß√£o de Arrays[] corretos,
+	 * ou seja, sem √≠ndices nulos 
 	 * @param index
 	 */
 	public void setIndex(int index);
@@ -39,7 +39,7 @@ public interface IGroupMetadata {
 
     public List<IPropertyMetadata> getProperties();
     /**
-     * Este mÈtodo È util para comparar e localizar grupos em listas
+     * Este m√©todo √© util para comparar e localizar grupos em listas
      * e evitar que uma lista contenha um mesmo grupo mais de uma vez
      */
     public boolean equals(Object o);

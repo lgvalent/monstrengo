@@ -10,7 +10,7 @@ import br.com.orionsoft.monstrengo.crud.processes.DeleteProcess;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * Esta classe testa se o usu·rio tem direito de editar tal propriedade.  
+ * Esta classe testa se o usu√°rio tem direito de editar tal propriedade.  
  * 
  * @author estagio
  */
@@ -23,7 +23,7 @@ public class DeleteProcessTestCase extends ProcessBasicTest
     }
 
     /**
-     * Este mÈtodo testa o caminho normal se todos os dados
+     * Este m√©todo testa o caminho normal se todos os dados
      * estiverem corretos.
      */
     public void testRunEdit()
@@ -55,7 +55,7 @@ public class DeleteProcessTestCase extends ProcessBasicTest
             
             //deleta entidade
             
-            //deve dar erro se n„o houver uma justificativa para a exclus„o ou se a String tiver tamanho menor que 5
+            //deve dar erro se n√£o houver uma justificativa para a exclus√£o ou se a String tiver tamanho menor que 5
             //delUsr1.setJustification("123");
             delUsr2.setJustification("Deletando para teste");
             
@@ -65,7 +65,7 @@ public class DeleteProcessTestCase extends ProcessBasicTest
             //UtilsTest.showEntityProperties(entity);
             
             if (delUsr2.runDelete()){
-                // Pega os valores anteriores ‡ ediÁ„o e grava-os novamente
+                // Pega os valores anteriores √† edi√ß√£o e grava-os novamente
                 System.out.println(entity.getProperty(ApplicationUser.LOGIN).getValue().getOldValue());
                 entity.setPropertyValue(ApplicationUser.LOGIN, (entity.getProperty(ApplicationUser.LOGIN).getValue().getOldValue()));
                 //delUsr1.runUpdate();
@@ -87,14 +87,14 @@ public class DeleteProcessTestCase extends ProcessBasicTest
 //            editUsr2.setEntityType(this.getUserSession().getUser().getInfo().getType());
 //            editUsr2.setEntityId(this.getUserSession().getUser().getId());
 //
-//            //testa mayEdit() para user2, que deve ser false, pois n„o possui permiss„o alguma
+//            //testa mayEdit() para user2, que deve ser false, pois n√£o possui permiss√£o alguma
 //            System.out.println("assertFalse user2 - deve dar false (mayEdit) - " + editUsr2.mayEdit());
 //            assertFalse(editUsr2.mayEdit());
 //            
 //            System.out.println("OK para user2");
 
 //            if (delUsr1.runUpdate()){
-//            	// Pega os valores anteriores ‡ ediÁ„o e grava-os novamente
+//            	// Pega os valores anteriores √† edi√ß√£o e grava-os novamente
 //                System.out.println(entity.getProperty(ApplicationUser.LOGIN).getValue().getOldValue());
 //            	entity.setPropertyValue(ApplicationUser.LOGIN, (entity.getProperty(ApplicationUser.LOGIN).getValue().getOldValue()));
 //            	delUsr1.runUpdate();
@@ -110,7 +110,7 @@ public class DeleteProcessTestCase extends ProcessBasicTest
 
             Assert.assertTrue(false);
         }
-//      n„o È possÌvel deletar usu·rio, pois est· vinculado ao registro (deletar direto do banco) 
+//      n√£o √© poss√≠vel deletar usu√°rio, pois est√° vinculado ao registro (deletar direto do banco) 
 //      finally{
 //      BasicStructureRigth.destroyRigths();
 //      }

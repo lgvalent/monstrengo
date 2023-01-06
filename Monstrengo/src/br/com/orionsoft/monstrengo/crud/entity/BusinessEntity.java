@@ -27,9 +27,9 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 /**
  * <p>
- * Esta classe re˙ne as funÁıes b·sicas comuns ‡ todas as entidades do sistema.
- * Todas as entidades de negÛcio devem descender desta classe. Contudo, para
- * haver uma ligaÁ„o da classe de negÛcio com seus metadados o mÈtodo
+ * Esta classe re√∫ne as fun√ß√µes b√°sicas comuns √† todas as entidades do sistema.
+ * Todas as entidades de neg√≥cio devem descender desta classe. Contudo, para
+ * haver uma liga√ß√£o da classe de neg√≥cio com seus metadados o m√©todo
  * <code>init()</code> deve ser executado.
  * <p>
  *
@@ -45,16 +45,16 @@ public class BusinessEntity<T> implements IEntity<T> {
 
 	private IEntityManager entityManager;
 
-	private boolean selected = true; // Uma entidade vem por padr„o selecionada. Isto pode causar problema nos processos que permite que o operador marque entidade para determiando processo
+	private boolean selected = true; // Uma entidade vem por padr√£o selecionada. Isto pode causar problema nos processos que permite que o operador marque entidade para determiando processo
 
 	public BusinessEntity(Object object, IEntityMetadata entityMetadata, IEntityManager entityManager)
 			throws EntityException {
-		/* Verifica se o objeto È do mesmo tipo da entidade */
+		/* Verifica se o objeto √© do mesmo tipo da entidade */
 		if (!entityMetadata.getType().isAssignableFrom(object.getClass()))
 			throw new EntityException(MessageList.create(BusinessEntity.class, "INCOMPATIBLE_TYPE", object.getClass(),
 					entityMetadata.getType()));
 
-		// Armazena o manipulador de serviÁo
+		// Armazena o manipulador de servi√ßo
 		this.object = object;
 
 		// Armazena a estrutura de metadados da classe
@@ -74,7 +74,7 @@ public class BusinessEntity<T> implements IEntity<T> {
 
 	}
 
-	// ImplementaÁ„o da interface IEntity
+	// Implementa√ß√£o da interface IEntity
 	public IProperty getProperty(String propertyName) throws EntityException {
 		try {
 			checkPropertyName(propertyName);
@@ -126,7 +126,7 @@ public class BusinessEntity<T> implements IEntity<T> {
 	private IProperty[] propertiesArray = null;
 
 	/**
-	 * Este mÈtodo retorna todas as propriedades da entidade de forma ordenada,
+	 * Este m√©todo retorna todas as propriedades da entidade de forma ordenada,
 	 * baseando-se no index do metadado de cada propriedade.
 	 */
 	public IProperty[] getProperties() {
@@ -135,7 +135,7 @@ public class BusinessEntity<T> implements IEntity<T> {
 			propertiesArray = new IProperty[properties.size()];
 
 			for (IProperty prop : properties.values()) {
-				/* Grava a prop na posiÁ„o do indice. */
+				/* Grava a prop na posi√ß√£o do indice. */
 				propertiesArray[prop.getInfo().getIndex()] = prop;
 			}
 		}
@@ -144,7 +144,7 @@ public class BusinessEntity<T> implements IEntity<T> {
 	}
 
 	/**
-	 * Este mÈtodo retorna todas as propriedades da entidade de forma ordenada,
+	 * Este m√©todo retorna todas as propriedades da entidade de forma ordenada,
 	 * baseando-se no metadado propertiesInQueryGrid().
 	 */
 	IProperty[] propertiesInQueryGridArray = null;
@@ -155,7 +155,7 @@ public class BusinessEntity<T> implements IEntity<T> {
 
 			int i = 0;
 			for (IPropertyMetadata prop : info.getPropertiesInQueryGrid()) {
-				/* Grava a prop na posiÁ„o do indice. */
+				/* Grava a prop na posi√ß√£o do indice. */
 				propertiesInQueryGridArray[i++] = this.getPropertiesMap().get(prop.getName());
 			}
 		}
@@ -173,14 +173,14 @@ public class BusinessEntity<T> implements IEntity<T> {
 	}
 
 	/**
-	 * Este flag foi criado para permitir identificar quando o operador tentou inserir um id inv·lido.<br>
+	 * Este flag foi criado para permitir identificar quando o operador tentou inserir um id inv√°lido.<br>
 	 * No entanto o id -1 continua indicando que se trata de uma nova entidade.<br>
-	 * Criado um flag idErro para indicar ao ToString() que houve um id inv·lido e que È para gerar um toString();  
+	 * Criado um flag idErro para indicar ao ToString() que houve um id inv√°lido e que √© para gerar um toString();  
 	 */
 	private boolean idError = false;
 	public void setId(long id) throws EntityException {
 		try {
-			/* Se for um id vazio, ent„o cria um objeto vazio */
+			/* Se for um id vazio, ent√£o cria um objeto vazio */
 			if (id == 0 || id == IDAO.ENTITY_UNSAVED) {
 				this.object = UtilsCrud.create(this.getEntityManager().getServiceManager(), this.info.getType(), null).getObject();
 			} else if (id != this.getId()) {
@@ -189,28 +189,28 @@ public class BusinessEntity<T> implements IEntity<T> {
 			}
 			
 			/* Solicita para cada propriedade da entidade
-			 * para limpar possÌveis BUFFERS.
+			 * para limpar poss√≠veis BUFFERS.
 			 * Isto acontecia com as propertyValue.entityList que eram 
 			 * bufferizadas e ao trocar o Id do objeto, os buffers do antigo
-			 * continuava e as novas operaÁıes eram executadas sobre os
+			 * continuava e as novas opera√ß√µes eram executadas sobre os
 			 * buffers, mas na hora de update, o novo objeto era gravado 
-			 * sem as alteraÁıes realizadas */
+			 * sem as altera√ß√µes realizadas */
 			for (IProperty prop : properties.values()) {
 				// Cria uma nova propriedade para ser ser coloca na lista
 				prop.getValue().flush();
 			}
 			
-			/* Indica que n„o possui problema no id */
+			/* Indica que n√£o possui problema no id */
 			idError = false;
 		} catch (BusinessException e) {
 			/*
-			 * Caso ocorra algum erro, ent„o anula a stual inst‚ncia
+			 * Caso ocorra algum erro, ent√£o anula a stual inst√¢ncia
 			 * da entidade, criando uma nova vazia e propaga o erro
 			 */
 			try {
 				this.object = UtilsCrud.create(this.getEntityManager().getServiceManager(), this.info.getType(), null).getObject();
 			} catch (BusinessException e1) {
-				/* Se ocorre um erro neste momento adiciona a mensagem a lista que ser· propagada logo a seguir */
+				/* Se ocorre um erro neste momento adiciona a mensagem a lista que ser√° propagada logo a seguir */
 				e.getErrorList().addAll(e1.getErrorList());
 			}
 
@@ -231,9 +231,9 @@ public class BusinessEntity<T> implements IEntity<T> {
 			
 			/* Lucio: 20070913 - Dispara um runtime exception caso ocorra algum erro ao pegar o id da entidade. Uma
 			 * vez que todas as entidades OBRIGATORIAMENTE devem ter este ID, um erro neste local
-			 * sÛ poder· ser consequencia de bug que dever· ser resolvido.
-			 * A exceÁ„o n„o foi jogada pra cima para facilitar os mÈtodos que simplesmente
-			 * precisam do IEntity.getId() sem necessitar de tratar exceÁ„o.*/
+			 * s√≥ poder√° ser consequencia de bug que dever√° ser resolvido.
+			 * A exce√ß√£o n√£o foi jogada pra cima para facilitar os m√©todos que simplesmente
+			 * precisam do IEntity.getId() sem necessitar de tratar exce√ß√£o.*/
 			throw new RuntimeException(e.getMessage());
 		}
 	}
@@ -244,9 +244,9 @@ public class BusinessEntity<T> implements IEntity<T> {
 
 	/**
 	 * Com o novo recurso de setId(), o operador pode
-	 * fornecer um Id inexistente. Com isto, È importante
-	 * informar que o Id n„o existe. Para isto, utiliza-se
-	 * este mÈtodo toString().
+	 * fornecer um Id inexistente. Com isto, √© importante
+	 * informar que o Id n√£o existe. Para isto, utiliza-se
+	 * este m√©todo toString().
 	 */
 	public String toString() {
 		if (idError)
@@ -277,7 +277,7 @@ public class BusinessEntity<T> implements IEntity<T> {
 	IGroupProperties[] groupsProperties = null;
 
 	public IGroupProperties[] getGroupsProperties() throws EntityException {
-		/* Verifica se o buffer de grupos j· n„o est· pronto */
+		/* Verifica se o buffer de grupos j√° n√£o est√° pronto */
 		if (groupsProperties == null) {
 			/* Criando o o buffer de grupos */
 			groupsProperties = new IGroupProperties[this.getInfo().getGroups().size()];
@@ -305,7 +305,7 @@ public class BusinessEntity<T> implements IEntity<T> {
 	}
 
 	/**
-	 * Compara se uma entidade È igual a outra
+	 * Compara se uma entidade √© igual a outra
 	 */
 	public boolean equals(Object arg0) {
 		try {

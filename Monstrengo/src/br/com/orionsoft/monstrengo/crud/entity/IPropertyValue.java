@@ -4,15 +4,10 @@ package br.com.orionsoft.monstrengo.crud.entity;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import br.com.orionsoft.monstrengo.crud.entity.IEntity;
-import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
-import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
-import br.com.orionsoft.monstrengo.crud.entity.IEntitySet;
-import br.com.orionsoft.monstrengo.crud.entity.IProperty;
-import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 
@@ -25,7 +20,7 @@ public interface IPropertyValue {
 
     public IProperty getPropetyOwner();
     
-    // Esta propriedade n„o pÙde se chamar null ou empty, d· conflito com o JSF
+    // Esta propriedade n√£o p√¥de se chamar null ou empty, d√° conflito com o JSF
     public boolean isValueNull();
     public boolean isModified();
     public void setModified(boolean value);
@@ -37,11 +32,11 @@ public interface IPropertyValue {
     public void setId(Long id, ServiceData serviceDataOwner) throws PropertyValueException;
 
     /**
-  	 * Este mÈtodo permite acrescentar uma lista de ids (de entidade ou enum) de uma sÛ vez na coleÁ„o.<br>
-  	 * <b>OBSERVA«√O</b> Quando estiver dentro de um serviÁo È ideal que utilize o mÈtodo setIds(Long[], ServiceData)
-  	 * para preservar a sess„o e transaÁ„o do serviÁo.<br>
-  	 * Muito ˙til para gerar uma lista de seleÁ„o com id<=>valor e utilizar os mÈtodos de preenchimento
-  	 * e seleÁ„o de interfaces.
+  	 * Este m√©todo permite acrescentar uma lista de ids (de entidade ou enum) de uma s√≥ vez na cole√ß√£o.<br>
+  	 * <b>OBSERVA√á√ÉO</b> Quando estiver dentro de um servi√ßo √© ideal que utilize o m√©todo setIds(Long[], ServiceData)
+  	 * para preservar a sess√£o e transa√ß√£o do servi√ßo.<br>
+  	 * Muito √∫til para gerar uma lista de sele√ß√£o com id<=>valor e utilizar os m√©todos de preenchimento
+  	 * e sele√ß√£o de interfaces.
   	 *  
   	 * @throws PropertyValueException 
   	 * 
@@ -76,6 +71,9 @@ public interface IPropertyValue {
     public Calendar getAsCalendar() throws PropertyValueException;
     public void setAsCalendar(Calendar value) throws PropertyValueException;
 
+    public Date getAsDate() throws PropertyValueException;
+    public void setAsDate(Date value) throws PropertyValueException;
+
     public <T> T getAsObject() throws PropertyValueException;
     public void setAsObject(Object object) throws PropertyValueException;
 
@@ -101,8 +99,8 @@ public interface IPropertyValue {
 
     /** 
      * Diz para a propriedade limpar os seus buffers pois pode haver um novo objeto
-	 * na entidade. Isto È utilizando principalmente quando a entidade È trocada
-	 * pelo mÈtodo IEntity.setId(lLong). E evita que o novo objeto trabalhe com 
+	 * na entidade. Isto √© utilizando principalmente quando a entidade √© trocada
+	 * pelo m√©todo IEntity.setId(lLong). E evita que o novo objeto trabalhe com 
 	 * antigos dados.
 	 * @since 20071018
 	 * @author lucio 20071018
@@ -110,8 +108,8 @@ public interface IPropertyValue {
 	public void flush();
 	
 	/**
-	 * Restaura o valor anterior a modificaÁ„o se o mesmo recebeu um novo valor.
-	 * @return True se houve uma restauraÁ„o e False se a propriedade n„o tinha sido modificada.
+	 * Restaura o valor anterior a modifica√ß√£o se o mesmo recebeu um novo valor.
+	 * @return True se houve uma restaura√ß√£o e False se a propriedade n√£o tinha sido modificada.
 	 * @author lucio 20100411
 	 */
 	public boolean restoreOldValue() throws PropertyValueException;

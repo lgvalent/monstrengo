@@ -36,29 +36,29 @@ public class QueryCondiction
 
 	private int initOperator = INIT_AND;
 	private boolean openPar = false;
-	private Operator operator = new Operator(Operator.EQUAL); /* » necess·rio inicializar um operador v·lido para n„o dar nullpointer no getOperatorId()*/
+	private Operator operator = new Operator(Operator.EQUAL); /* √à necess√°rio inicializar um operador v√°lido para n√£o dar nullpointer no getOperatorId()*/
 	private String value1 = "";
 	private String value2 = "";
 	private boolean closePar = false;
 
 	/** Contador manual de ids do objeto.
-	 * Utilizado enquanto esta classe n„o for
-	 * mantida pelo mecanismo de persitÍncia e for 
-	 * necess·ria a identificaÁ„o das inst„ncias de condiÁıes */
+	 * Utilizado enquanto esta classe n√£o for
+	 * mantida pelo mecanismo de persit√™ncia e for 
+	 * necess√°ria a identifica√ß√£o das inst√£ncias de condi√ß√µes */
 	private static long idCounter = 0;
 	private long retrieveNextId(){return idCounter++;}
 	
 	public QueryCondiction(IEntityManager entityManager, Class<?> entityType) throws BusinessException{
-		/* Armazena o gerenciador de entidades para us·-lo mais tarde */
+		/* Armazena o gerenciador de entidades para us√°-lo mais tarde */
 		this.entityManager = entityManager;
 
 		/* Prepara os metadados da entidade */
 		this.entityType = entityType;
 		
-		/* Define a propriedade padr„o inicial de pesquisa */
+		/* Define a propriedade padr√£o inicial de pesquisa */
 		this.setPropertyPath(IDAO.PROPERTY_ID_NAME);
 		
-		/* Define um UID Sequencial que identifique esta condiÁ„o */
+		/* Define um UID Sequencial que identifique esta condi√ß√£o */
 		this.id = retrieveNextId();
 	}
 	
@@ -113,16 +113,16 @@ public class QueryCondiction
 	@SuppressWarnings("unchecked")
 	public String getValue1Description() throws BusinessException{
 		String result = "";
-		/* Prepara a descriÁ„o dos valores atuais das condiÁıes */
-		/* Verifica se È ENUM */
+		/* Prepara a descri√ß√£o dos valores atuais das condi√ß√µes */
+		/* Verifica se √© ENUM */
 		if(this.getPropertyInfo().isEnum()){
 			Class c = this.getPropertyInfo().getType();
 			result = Enum.valueOf(c, this.getValue1()).toString();
 		}else
-		/* Verifica se a propriedade È do tipo Entidade */
+		/* Verifica se a propriedade √© do tipo Entidade */
 		if(this.getPropertyInfo().isEntity()){
 			/* Verifica se foram definidos os value 1 e 2 para preencher suas
-			 * descriÁıes com os dados da entidade */
+			 * descri√ß√µes com os dados da entidade */
 			if(!StringUtils.isEmpty(this.getValue1())){
 				result = UtilsCrud.retrieve(this.entityManager.getServiceManager(), 
 						this.getPropertyInfo().getType(),
@@ -137,16 +137,16 @@ public class QueryCondiction
 	@SuppressWarnings("unchecked")
 	public String getValue2Description() throws BusinessException{
 		String result = "";
-		/* Prepara a descriÁ„o dos valores atuais das condiÁıes */
-		/* Verifica se È ENUM */
+		/* Prepara a descri√ß√£o dos valores atuais das condi√ß√µes */
+		/* Verifica se √© ENUM */
 		if(this.getPropertyInfo().isEnum()){
 			Class c = this.getPropertyInfo().getType();
 			result = Enum.valueOf(c, this.getValue2()).toString();
 		}else
-		/* Verifica se a propriedade È do tipo Entidade */
+		/* Verifica se a propriedade √© do tipo Entidade */
 		if(this.getPropertyInfo().isEntity()){
 			/* Verifica se foram definidos os value 1 e 2 para preencher suas
-			 * descriÁıes com os dados da entidade */
+			 * descri√ß√µes com os dados da entidade */
 			if(!StringUtils.isEmpty(this.getValue2())){
 				result = UtilsCrud.retrieve(this.entityManager.getServiceManager(), 
 						this.getPropertyInfo().getType(),
@@ -159,11 +159,11 @@ public class QueryCondiction
 	}
 
 	/**
-	 * Permite definir a propriedade da condiÁ„o utilizando 
+	 * Permite definir a propriedade da condi√ß√£o utilizando 
 	 * o nome da propriedade.
-	 * A entidade atualmente definida ser· consultada para
+	 * A entidade atualmente definida ser√° consultada para
 	 * obter a propriedade pelo nome.
-	 * Este mÈtodo aceita caminhos do tipo:
+	 * Este m√©todo aceita caminhos do tipo:
 	 * prop1.prop2.prop3.prop4
 	 * @return
 	 */
@@ -173,19 +173,19 @@ public class QueryCondiction
 		if(StringUtils.isEmpty(propertyPath))
 			this.propertyInfo = null;
 		else{
-			/* Define o propertyPath. O propertyPathLabel È construÌdo durante o parser */
+			/* Define o propertyPath. O propertyPathLabel √© constru√≠do durante o parser */
 			this.propertyPath = propertyPath;
 			this.propertyPathLabel = "";
 			
-			/* Prepara o flag que indica a presenÁa de uma propriedade Entity Calculada 
-			 * que È utilizado na montagem da HQL */
+			/* Prepara o flag que indica a presen√ßa de uma propriedade Entity Calculada 
+			 * que √© utilizado na montagem da HQL */
 			this.calculatedFlag = false;
 
-			/* Inicia a busca das propriedades pela atual entidade da condiÁ„o */
+			/* Inicia a busca das propriedades pela atual entidade da condi√ß√£o */
 			Class<?> entity = this.entityType;
 
 			/* Inicia o parser para identificar qual entidade
-			 * È a ˙ltima do caminho e pegar seu tipo */
+			 * √© a √∫ltima do caminho e pegar seu tipo */
 			String[] props = StringUtils.split(propertyPath,IDAO.PROPERTY_SEPARATOR);
 	        for (String prop: props)
 	        {
@@ -198,29 +198,29 @@ public class QueryCondiction
 				else
 					this.propertyPathLabel += ReportParam.PROPERTY_PATH_LABEL_SEPARATOR + this.propertyInfo.getLabel();
 				
-				/* Verifica se n„o for primitivo obtem o tipo da entidade 
-				 * para que na proxima iteraÁ„o os dados desta entidade seja
+				/* Verifica se n√£o for primitivo obtem o tipo da entidade 
+				 * para que na proxima itera√ß√£o os dados desta entidade seja
 				 * buscado e o caminho das propriedades continue sendo percorrido
 				 * hierarquicamente */
 				if(this.propertyInfo.isEntity()){
 					entity = this.propertyInfo.getType();
 					
-					/* Ativa o flag Calculated que ser· utilizado na montagem da HQL.
-					 * Assim, a funÁ„o de montagem ir· identificar que h· propriedades
-					 * calculadas no caminho e que deve deixar a aplicaÁ„o da express„p 
-					 * do operador para ser 'impressa' no meio da funÁ„o de tratamento do caminho 
+					/* Ativa o flag Calculated que ser√° utilizado na montagem da HQL.
+					 * Assim, a fun√ß√£o de montagem ir√° identificar que h√° propriedades
+					 * calculadas no caminho e que deve deixar a aplica√ß√£o da express√£p 
+					 * do operador para ser 'impressa' no meio da fun√ß√£o de tratamento do caminho 
 					 * Ex: (entity.prop1 in (select propCalculatedType from pCT as pCT where ... OPERADOR ...)*/
 					if(this.propertyInfo.isCalculated())
 						this.calculatedFlag |= true; 
 				}else{
-					/* Se for primitivo, significa que È a ˙ltima propriedade do caminho
-					 * e j· poder· receber um valor assim forÁa um BREAK no for */
+					/* Se for primitivo, significa que √© a √∫ltima propriedade do caminho
+					 * e j√° poder√° receber um valor assim for√ßa um BREAK no for */
 					break;
 				}
 				
-				/* Ao terminar este laÁo o this.propertyInfo apontar· para a ˙ltima propriedade
-				 * primitiva do caminho, o this.propertyPath estar· definido para ser usado na HQL.
-				 * E o flag de presenÁa de propriedade calculada no path est·ra ativo ou inativo
+				/* Ao terminar este la√ßo o this.propertyInfo apontar√° para a √∫ltima propriedade
+				 * primitiva do caminho, o this.propertyPath estar√° definido para ser usado na HQL.
+				 * E o flag de presen√ßa de propriedade calculada no path est√°ra ativo ou inativo
 				 */
 	        }
 		}
@@ -270,7 +270,7 @@ public class QueryCondiction
 	}
 
 	/**
-	 * Indica se durante a an·lise do propertyPath foi detectado que h·
+	 * Indica se durante a an√°lise do propertyPath foi detectado que h√°
 	 * propriedades calculadas para serem tratadas
 	 */
 	private boolean calculatedFlag = false;
@@ -291,67 +291,67 @@ public class QueryCondiction
 			log.debug("value2:" + value2);
 		}
 		
-		/* VERIFICA SE A CONDI«¬O J¡ … SUPORTADA PELA ATUAL IMPLEMENTA«√O */
+		/* VERIFICA SE A CONDI√á√ÇO J√Å √â SUPORTADA PELA ATUAL IMPLEMENTA√á√ÉO */
 		if(!checkVersionSupport(this.propertyInfo)){
-			log.debug("Propriedade n„o suporta pela atual implementaÁ„o");
+			log.debug("Propriedade n√£o suporta pela atual implementa√ß√£o");
 			return "";
 		}
 		
 		
-		/* Inicia a lista de propriedades que ser· utilizada
-		 * para criar a cl·usula WHERE e tratar coleÁıes e
-		 * propriedades calculadas de especializaÁ„o do tipo asMyClass
+		/* Inicia a lista de propriedades que ser√° utilizada
+		 * para criar a cl√°usula WHERE e tratar cole√ß√µes e
+		 * propriedades calculadas de especializa√ß√£o do tipo asMyClass
 		 */
 		String[] props = StringUtils.split(propertyPath,".");
 		
 		/* OBTEM CLAUSULA WHERE */
 		String result = funcaoRosa(entityAlias, this.entityType, props, 0, this.calculatedFlag);
 		
-		/* APLICAR A PARENTIZA«¬O DEFINIDA */
+		/* APLICAR A PARENTIZA√á√ÇO DEFINIDA */
 		if(this.openPar) result = "(" + result;
 		if(this.closePar) result += ")";
 		
 		if(log.isDebugEnabled())
-			log.debug("Express„o:" + result);
+			log.debug("Express√£o:" + result);
 		
-//		System.out.println("Express„o:" + result);
+//		System.out.println("Express√£o:" + result);
 		
 		return result;
 	}
 	
 	/**
-	 * Trata a aplicaÁ„o dos operadores e do operador SOME() para conjunto
-	 * definindo de ser· composta uma expressao:
+	 * Trata a aplica√ß√£o dos operadores e do operador SOME() para conjunto
+	 * definindo de ser√° composta uma expressao:
 	 * - prop1.prop2.prop3 op value;
-	 * Onde prop2 È uma coleÁ„o.
+	 * Onde prop2 √© uma cole√ß√£o.
 	 * - entity IN( SELECT entity_ FROM this.entityType.simpleName entity_ INNER JOIN entity_prop2 entities WHERE entities +  funcaoAzul(prop3  op value)
 	 * Exemplo de uso:
 	 * - applicationUser.groups.name = 'admin'
 	 * - entity IN (SELEC entity_ FROM ApplicationUser entity_ INNER JOIN entity_.groups entities WHERE entities.nome = 'admin');
 	 *   
-	 * @param entityAlias Apelido que ser· aplicado na parte da express„o gerada 
-	 * em cada iteraÁ„o. Por exemplo: 'entity', '.prop1', '.prop2', etc 
-	 * @param entityType Tipo da entidade da propriedade atual que È utilizado
+	 * @param entityAlias Apelido que ser√° aplicado na parte da express√£o gerada 
+	 * em cada itera√ß√£o. Por exemplo: 'entity', '.prop1', '.prop2', etc 
+	 * @param entityType Tipo da entidade da propriedade atual que √© utilizado
 	 * para obter os metadados da propriedade atual no Gerenciador de Entidades
-	 * @param props Vetor com os nomes das proriedades que compıe a express„o
+	 * @param props Vetor com os nomes das proriedades que comp√µe a express√£o
 	 * separada por pontos do tipo 'prop1.prop2.prop3'
-	 * @param propIndex Õndice da propriedade atualmente em an·lise
-	 * @param calculatedFlag Indica se na express„o existe alguma propriedades
-	 * que È do tipo IEntity e È calculada para que sej· construÌda a express„o
+	 * @param propIndex √çndice da propriedade atualmente em an√°lise
+	 * @param calculatedFlag Indica se na express√£o existe alguma propriedades
+	 * que √© do tipo IEntity e √© calculada para que sej√° constru√≠da a express√£o
 	 * IN(SELECT FROM WHERE) que permite traduzir um campo calculado em uma Hql
-	 * @return Esta funÁ„o È recursiva e retorna a express„o construida recursivamente
+	 * @return Esta fun√ß√£o √© recursiva e retorna a express√£o construida recursivamente
 	 */
 	private String funcaoRosa(String entityAlias, Class<?> entityType, String[] props, int propIndex, boolean calculatedFlag) throws BusinessException {
         IPropertyMetadata prop=null;
 		/* Verifica se existe a propriedade atual,
-		 * ou seja, se n„o È a ˙ltima chamda ‡ esta funÁ„o para somente 
+		 * ou seja, se n√£o √© a √∫ltima chamda √† esta fun√ß√£o para somente 
 		 * colocar o operador e valor*/
 		if(propIndex < props.length)
 			/*SIM: Define flagHierarquia = FALSE; */
 			/* Obtem os metadados da propriedade ATUAL */
 			prop = this.entityManager.getEntityMetadata(entityType).getPropertyMetadata(props[propIndex]);		
 
-	    /* Verifica se o indice da propriedade atual j· passou da ˙ltima propriedade
+	    /* Verifica se o indice da propriedade atual j√° passou da √∫ltima propriedade
 	     * para desativar o tratamento de propriedades calculadas*/
 		if(propIndex == props.length){
 			/*SIM: Define flagHierarquia = FALSE; */
@@ -360,16 +360,16 @@ public class QueryCondiction
 
 		/* Verifica o flag de h op valueierarquia? */
 		if(calculatedFlag)
-			/* ATIVO: O operador È usado dentro de AZUL    hierarquia(expr OP expr)*/
+			/* ATIVO: O operador √© usado dentro de AZUL    hierarquia(expr OP expr)*/
 	        return entityAlias + funcaoAzul(prop, props, propIndex, calculatedFlag);
-		/* INATIVO: Nao tem hierarquia, logo a expressao È simples  expr1 OP expr1 */
+		/* INATIVO: Nao tem hierarquia, logo a expressao √© simples  expr1 OP expr1 */
 		else{
-			/* Verifica se entityAlias È a ˙ltima propriedade e n„o tem mais */
+			/* Verifica se entityAlias √© a √∫ltima propriedade e n√£o tem mais */
 			if(prop==null)
 				/* SIM: return `entityAlias`+ LARANJA +VERMELHO */
 				return entityAlias + funcaoLaranja(); 
 			else/* NAO: return `entityAlias`+ LARANJA +VERMELHO */
-				/* Verifica se a ˙ltima propriedade È uma coleÁ„o? */
+				/* Verifica se a √∫ltima propriedade √© uma cole√ß√£o? */
 				if((prop !=null) && prop.isEntity() && prop.isCollection())
 				/* SIM: return VERMELHO+LARANJA+`SOME(`+`entityAlias`+AZUL(entityType, props[],indiceAtual) +`)` */
 				return entityAlias  + " IN (SELECT entity_ FROM " + this.entityType.getSimpleName() + " entity_ INNER JOIN entity_." + props[propIndex] + " entities WHERE entities" + funcaoAzul(prop, props, propIndex+1, calculatedFlag) + ")";
@@ -381,12 +381,12 @@ public class QueryCondiction
 
 	private String funcaoAzul(IPropertyMetadata propInfo, String[] props, int propIndex, boolean calculatedFlag) throws BusinessException{
 		/* TODO CORRIGIR Estah sendo gerar HQL do tipo prop=1=1 ou prop=true=true */
-		/* J· passou do ultimo elemento? */
+		/* J√° passou do ultimo elemento? */
 		if(propIndex == props.length)
 			/* SIM: return ""; Finaliza a recursao retornando VAZIO */
 			return "";
 		else
-			/* NAO: A propriedade È do tipo ENTIDADE e CALCULADA? */
+			/* NAO: A propriedade √© do tipo ENTIDADE e CALCULADA? */
 			if(propInfo.isEntity() && propInfo.isCalculated())
 				/*	SIM: retorna ` in(	SELECT simpleName() 
 				 *				FROM  simpleName() as simpleName()
@@ -404,7 +404,7 @@ public class QueryCondiction
 
 	private String funcaoVermelho(String valueIn) {
 		/* TRATA O VALOR ENTRADO DE ACORDO COM O TIPO QUE A PROPRIEDADE ESPERA */
-		/* Limpa alguns caracteres especiais que n„o podem ser fornecidos pelo operador*/
+		/* Limpa alguns caracteres especiais que n√£o podem ser fornecidos pelo operador*/
 		valueIn = valueIn.replace("'", "").replace("\"", "");
 		
 		// Trata as propriedades primitivas String
@@ -419,15 +419,15 @@ public class QueryCondiction
 					if(propertyInfo.isCalendar()){
 						valueIn = CalendarUtils.formatToSQLDate(valueIn);
 						
-						/* Verifica se o valor passado pÙde ser convertido em uma data SQL v·lida */
+						/* Verifica se o valor passado p√¥de ser convertido em uma data SQL v√°lida */
 						if(StringUtils.isEmpty(valueIn)){
-							log.debug("Valor informado n„o È uma valor v·lido para calend·rio. Pegando a data atual");
+							log.debug("Valor informado n√£o √© uma valor v√°lido para calend√°rio. Pegando a data atual");
 							valueIn = CalendarUtils.formatDate(CalendarUtils.getCalendar());
 						}
 						
 						return "'" + valueIn + "'";
 					}else{
-						/* Provavelmente seja um tipo numÈrico */
+						/* Provavelmente seja um tipo num√©rico */
 						
 						/* Remove o separador de milhar (.) */
 						valueIn = valueIn.replace(".", "");
@@ -435,20 +435,20 @@ public class QueryCondiction
 						/* Converte o ponto flutuande brasileiro (,) por (.) */
 						valueIn = valueIn.replace(",", ".");
 						
-						/* Verifica se o valor n„o È numÈrico e n„o pode ser aplicado ‡ propriedade
-						 * a funÁ„o retorna vazio */
+						/* Verifica se o valor n√£o √© num√©rico e n√£o pode ser aplicado √† propriedade
+						 * a fun√ß√£o retorna vazio */
 						if(!StringUtils.isEmpty(valueIn))
 							if(!(NumberUtils.isNumber(valueIn)||(StringUtils.isNumeric(valueIn)))){
-								log.debug("Value1 informado n„o È numÈrico para ser aplicado");
+								log.debug("Value1 informado n√£o √© num√©rico para ser aplicado");
 								return "0";
 							}
 						
 						return valueIn;
 					}
 		}else
-			/* N„o È uma propriedade primitiva, È do tipo IEntity 
+			/* N√£o √© uma propriedade primitiva, √© do tipo IEntity 
 			 * Trata o valor que pode ter sido entrado como um Id 
-			 * de uma entidade ou para comapara com uma coleÁ„o de entidade 
+			 * de uma entidade ou para comapara com uma cole√ß√£o de entidade 
 			 */ 
 			if(propertyInfo.isEntity()){
 				// Se for uma entidade verifica se o o valor pode ser um id
@@ -456,7 +456,7 @@ public class QueryCondiction
 				
 				if(!StringUtils.isEmpty(valueIn)) {
 					if (!valueIn.toLowerCase().contains("from") && !valueIn.contains(",") && (!(NumberUtils.isNumber(valueIn)||(StringUtils.isNumeric(valueIn))))){
-						log.debug("Valor informado n„o È numÈrico para ser aplicado");
+						log.debug("Valor informado n√£o √© num√©rico para ser aplicado");
 						return "-1";
 					}
 				}
@@ -515,32 +515,32 @@ public class QueryCondiction
 		case Operator.NOT_BETWEEN:
 			return " not between " + strValue + " and " + funcaoVermelho(this.value2);
 		case Operator.IN:
-			return " in (" + this.value1 + ")"; // Lucio 20140404: N„o trata o valor, pois deve ser uma lista separada por ',' 
+			return " in (" + this.value1 + ")"; // Lucio 20140404: N√£o trata o valor, pois deve ser uma lista separada por ',' 
 		case Operator.NOT_IN:
-			return " not in (" + this.value1 + ")"; // Lucio 20140404: N„o trata o valor, pois deve ser uma lista separada por ','
+			return " not in (" + this.value1 + ")"; // Lucio 20140404: N√£o trata o valor, pois deve ser uma lista separada por ','
 		default:
 			throw new RuntimeException("Nenhum operador foi definido para o Id:" + operator.getId());
 		}
 	}
 
 	/**
-	 * Verifica se a atual propriedade j· È suportada pela implementaÁ„o
+	 * Verifica se a atual propriedade j√° √© suportada pela implementa√ß√£o
 	 * desta classe. Assim, outras classe podem verifica primeiro se
-	 * a propriedade poder· ou n„o ser suportada 
+	 * a propriedade poder√° ou n√£o ser suportada 
 	 * @param prop Metadados da propriedades
 	 */
 	public static boolean checkVersionSupport(IPropertyMetadata prop) {
-		/* TODO IMPLEMENTAR N„o permite consulta em propriedades coleÁ„o, porque a Condiction.java ainda n„o trata Collection */
-		/* ColeÁıes ainda n·o s·o suportadas porque o operador SOME() soh 
-		 * se aplica ‡ coleÁıes indexadas */
+		/* TODO IMPLEMENTAR N√£o permite consulta em propriedades cole√ß√£o, porque a Condiction.java ainda n√£o trata Collection */
+		/* Cole√ß√µes ainda n√°o s√°o suportadas porque o operador SOME() soh 
+		 * se aplica √† cole√ß√µes indexadas */
 		if(prop.isCollection())
 			return false;
 		else
-		/* N„o exibe propriedades definidas como invisÌveis para pesquisa */
+		/* N√£o exibe propriedades definidas como invis√≠veis para pesquisa */
 		if(!prop.isVisible())
 			return false;
 		else
-		/* N„o exibe propriedades primitivas calculadas */
+		/* N√£o exibe propriedades primitivas calculadas */
 		if(prop.isPrimitive() && prop.isCalculated())
 			return false;
 		
@@ -548,19 +548,19 @@ public class QueryCondiction
 	}
 
 	/**
-	 * Verifica se a valor fornecido poder· ser aplicado ‡ propriedade
+	 * Verifica se a valor fornecido poder√° ser aplicado √† propriedade
 	 * evitando assim que a propriedade seja inserida
 	 * @param prop Metadados da propriedades
 	 * @param value Valor entrado
 	 */
 	public static boolean checkValueSupport(IPropertyMetadata prop, String valueIn) {
-		/* Limpa alguns caracteres especiais que n„o podem ser fornecidos pelo operador*/
+		/* Limpa alguns caracteres especiais que n√£o podem ser fornecidos pelo operador*/
 		valueIn = valueIn.replace("'", "").replace("\"", "");
 		
 		// Trata as propriedades primitivas String
 		if(prop.isPrimitive()){
 			if(prop.isString() || prop.isEnum()){
-				/* Verifica se o valor È numÈrico e n„o deve ser aplicado ‡ propriedade
+				/* Verifica se o valor √© num√©rico e n√£o deve ser aplicado √† propriedade
 				 * do tipo string */
 				if(!StringUtils.isEmpty(valueIn))
 					if((NumberUtils.isNumber(valueIn)||(StringUtils.isNumeric(valueIn))) && !prop.isHasEditMask())
@@ -576,7 +576,7 @@ public class QueryCondiction
 						valueIn = CalendarUtils.formatToSQLDate(valueIn);
 						
 //						System.out.println(valueIn);
-						/* Verifica se o valor passado pÙde ser convertido em uma data SQL v·lida */
+						/* Verifica se o valor passado p√¥de ser convertido em uma data SQL v√°lida */
 						return !StringUtils.isEmpty(valueIn);
 					}else{
 						/* Remove o separador de milhar (.) */
@@ -585,9 +585,9 @@ public class QueryCondiction
 						/* Converte o ponto flutuande brasileiro (,) por (.) */
 						valueIn = valueIn.replace(",", ".");
 						
-						/* Verifica se o valor n„o È numÈrico e n„o pode ser aplicado ‡ propriedade
-						 * a funÁ„o retorna vazio
-						 * Lucio 27092007: Verifica se o numero inicia com ZERO pois n„o pode ser um ID. O Hibernate d· um erro quanto busca alguma coisa do tipo entity.id=074565454  
+						/* Verifica se o valor n√£o √© num√©rico e n√£o pode ser aplicado √† propriedade
+						 * a fun√ß√£o retorna vazio
+						 * Lucio 27092007: Verifica se o numero inicia com ZERO pois n√£o pode ser um ID. O Hibernate d√° um erro quanto busca alguma coisa do tipo entity.id=074565454  
 						 */
 						if(!StringUtils.isEmpty(valueIn) && (valueIn.charAt(0)!='0') && (valueIn.length() < 9))
 							if(NumberUtils.isNumber(valueIn)||(StringUtils.isNumeric(valueIn))){
@@ -597,15 +597,15 @@ public class QueryCondiction
 						return false;
 					}
 		}else
-			/* N„o È uma propriedade primitiva, È do tipo IEntity 
+			/* N√£o √© uma propriedade primitiva, √© do tipo IEntity 
 			 * Trata o valor que pode ter sido entrado como um Id 
-			 * de uma entidade ou para comapara com uma coleÁ„o de entidade 
+			 * de uma entidade ou para comapara com uma cole√ß√£o de entidade 
 			 */ 
 			if(prop.isEntity()){
-//				valueIn = StringUtils.trim(valueIn); Lucio 27092007: Pra que tirar espalo em branco, se o operador digitou È porque nao deve swer um id mesmo
+//				valueIn = StringUtils.trim(valueIn); Lucio 27092007: Pra que tirar espalo em branco, se o operador digitou √© porque nao deve swer um id mesmo
 				
 				/* Se for uma entidade verifica se o o valor pode ser um id
-				 * Lucio 27092007: Verifica se o numero inicia com ZERO pois n„o pode ser um ID. O Hibernate d· um erro quanto busca alguma coisa do tipo entity.id=074565454  
+				 * Lucio 27092007: Verifica se o numero inicia com ZERO pois n√£o pode ser um ID. O Hibernate d√° um erro quanto busca alguma coisa do tipo entity.id=074565454  
 				 */
 				if(!StringUtils.isEmpty(valueIn) && (valueIn.charAt(0)!='0') && (valueIn.length() < 9))
 					if(NumberUtils.isNumber(valueIn)||(StringUtils.isNumeric(valueIn))){

@@ -46,7 +46,7 @@ public class EntityMetadata implements IEntityMetadata
     private List<Class<?>> subEntities;
     private List<String> propertiesInQueryGrid;
     
-    // ImplementaÁ„o da interface IEntityMetadata
+    // Implementa√ß√£o da interface IEntityMetadata
     public String getName(){return type.getName();}
 
     public String getLabel(){return label;}
@@ -66,12 +66,12 @@ public class EntityMetadata implements IEntityMetadata
 
     
     /**
-     * <p>Este mÈtodo permite criar uma inst‚ncia da classe. 
-     * Como a classe implementa uma interface com somente mÈtodos <code>get</code>, este
-     * mÈtodo est·tico pertencente a prÛpria classe e pode acessar os campos privados. 
+     * <p>Este m√©todo permite criar uma inst√¢ncia da classe. 
+     * Como a classe implementa uma interface com somente m√©todos <code>get</code>, este
+     * m√©todo est√°tico pertencente a pr√≥pria classe e pode acessar os campos privados. 
      * 
      * @param entityName Nome completo da classe que representa a entidade. Ex.: <code>br.com.orionsoft.basico.cadastro.Endereco</code>
-     * @param metadaHandle Classe manipuladora de metadatas correntemente instanciada pela aplicaÁ„o.
+     * @param metadaHandle Classe manipuladora de metadatas correntemente instanciada pela aplica√ß√£o.
      * @return
      * @throws MetadataException 
      */
@@ -79,7 +79,7 @@ public class EntityMetadata implements IEntityMetadata
 			boolean defaultMode) throws MetadataException {
 		IMetadataHandle metadataHandle = entityManager.getMetadataHandle();
 
-		// Informa o Handle qual classe ser· pesquisada
+		// Informa o Handle qual classe ser√° pesquisada
 		metadataHandle.setEntityClass(entityClass, defaultMode);
 
 		// Prepara os metadados da ENTIDADE
@@ -103,7 +103,7 @@ public class EntityMetadata implements IEntityMetadata
 		// Prepara os metadados de cada PROPRIEDADE
 		for (PropertyDescriptor prop : props) {
 			/*
-			 * Remove a propriedade class do bean, herdada de Object pelo mÈtodo
+			 * Remove a propriedade class do bean, herdada de Object pelo m√©todo
 			 * getClass();
 			 */
 			if(!prop.getName().equals("class")){
@@ -115,33 +115,33 @@ public class EntityMetadata implements IEntityMetadata
 			}
 		}
 
-		// Re-arranja os Ìndices das propriedades, verificando CONFLITOS e
+		// Re-arranja os √≠ndices das propriedades, verificando CONFLITOS e
 		// INEXISTENCIA
 		PropertyMetadata.arrangePropertiesIndex(this.propertiesMetadata
 				.values());
 
 		/*
-		 * Prepara os grupos: LÍ os grupos dos metadados para j· definir suas
-		 * propriedades enquanto as propriedades s„o preparadas e seu grupo È
+		 * Prepara os grupos: L√™ os grupos dos metadados para j√° definir suas
+		 * propriedades enquanto as propriedades s√£o preparadas e seu grupo √©
 		 * identificado
 		 */
 		this.groups = metadataHandle.getEntityGroups();
 
 		// Prepara os GRUPOS de PROPRIEDADES
 		for (IPropertyMetadata prop : propertiesMetadata.values()) {
-			/* Define em qual grupo a propriedade ser· adicionada */
+			/* Define em qual grupo a propriedade ser√° adicionada */
 			if (prop.getGroup() == IGroupMetadata.GROUP_NOT_DEFINED) {
 
-				/* Procurando se o grupo GROUP_NOT_DEFINED j· foi criado */
+				/* Procurando se o grupo GROUP_NOT_DEFINED j√° foi criado */
 				IGroupMetadata groupNotDefined = null;
 				for (IGroupMetadata group : groups) {
 					/*
-					 * Verifica se o Ìndice do atual grupo È -1 ou se o nome
-					 * dele È nulo. Sendo nulo seu nome, significa que foi
+					 * Verifica se o √≠ndice do atual grupo √© -1 ou se o nome
+					 * dele √© nulo. Sendo nulo seu nome, significa que foi
 					 * retornado pelo metadata handle um grupo sem nome que
 					 * provavelmente estava no banco de dados. Grupos sem nome
-					 * s„o, geralmente, grupos NOT_DEFINED que foram persistidos
-					 * no banco com um Ìndice v·lido.
+					 * s√£o, geralmente, grupos NOT_DEFINED que foram persistidos
+					 * no banco com um √≠ndice v√°lido.
 					 */
 					if ((group.getIndex() == IGroupMetadata.GROUP_NOT_DEFINED)
 							|| StringUtils.isEmpty(group.getName())) {
@@ -180,16 +180,16 @@ public class EntityMetadata implements IEntityMetadata
 		}
 
 		/*
-		 * Ordena as propriedades dentro dos grupos e define o Ìndice v·lido
-		 * para o grupo GRUP_NOT_DEFINED. Assim, ele n„o vai ficar na ˙ltima
-		 * posiÁ„o da lista com Ìndice = -1 e sim com o Ìndice igual ao da
-		 * ˙ltima posiÁ„o (a sua)
+		 * Ordena as propriedades dentro dos grupos e define o √≠ndice v√°lido
+		 * para o grupo GRUP_NOT_DEFINED. Assim, ele n√£o vai ficar na √∫ltima
+		 * posi√ß√£o da lista com √≠ndice = -1 e sim com o √≠ndice igual ao da
+		 * √∫ltima posi√ß√£o (a sua)
 		 */
 		for (IGroupMetadata group : groups) {
 			Collections.<IPropertyMetadata> sort(group.getProperties(),
 					IPropertyMetadata.COMPARATOR_INDEX);
 
-			/* Verificando se È o ˙ltimo grupo para arrumar seu Ìndice */
+			/* Verificando se √© o √∫ltimo grupo para arrumar seu √≠ndice */
 			if (group.getIndex() == IGroupMetadata.GROUP_NOT_DEFINED)
 				group.setIndex(groups.size() - 1);
 		}
@@ -211,7 +211,7 @@ public class EntityMetadata implements IEntityMetadata
     public IPropertyMetadata[] getProperties()
     {
         // Cria uma lista ordenada com as propriedades
-        // Obs.: Nem todas propriedades tem um Ìndice definido.
+        // Obs.: Nem todas propriedades tem um √≠ndice definido.
         // Ver: PropertyMetadata.arrangePropertiesIndex()
         IPropertyMetadata[] props = new IPropertyMetadata[propertiesMetadata.size()];
 
@@ -255,17 +255,17 @@ public class EntityMetadata implements IEntityMetadata
              */
             IPropertyMetadata[] props = getProperties();
             
-            /* Verifica quantas propriedades s„o visiveis */
+            /* Verifica quantas propriedades s√£o visiveis */
             int length = 0;
             for(IPropertyMetadata prop: props){ 
                 if(prop.isVisible()) length++;
             }
             
-            /* Cria a lista interna que conter· somente as visÌveis */
+            /* Cria a lista interna que conter√° somente as vis√≠veis */
             propertiesInQueryGridBuffer = new IPropertyMetadata[length];
             int index = 0;
             
-            /* Adiciona no vetor somente as visÌveis */
+            /* Adiciona no vetor somente as vis√≠veis */
             for(IPropertyMetadata prop: props){
                 if(prop.isVisible()){
                 	propertiesInQueryGridBuffer[index] = prop;

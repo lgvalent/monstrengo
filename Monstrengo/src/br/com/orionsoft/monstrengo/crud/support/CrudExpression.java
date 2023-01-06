@@ -76,21 +76,21 @@ public class CrudExpression {
 			if(expression.charAt(expression.length()-1) != EXPRESSION_END)
 				throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_END_EXPRESSION", expression));
 			
-			/* Pega o conteudo da  express„o para ser analisada  
+			/* Pega o conteudo da  express√£o para ser analisada  
 			 * por exemplo: ApplicationUser[?].name*/
 			String entityOrFunctionName=StringUtils.substring(expression, EXPRESSION_BEGIN.length(), expression.length()-1);
 			result = entityOrFunction(entityOrFunctionName, mapEntities, entityManager);
 			
 		}catch(BusinessException e)
 		{
-			// "N„o foi possÌvel interpretar a express„o <b>{0}</b>. Mapra de entidades fornecido: <b>{1}</b>." 
+			// "N√£o foi poss√≠vel interpretar a express√£o <b>{0}</b>. Mapra de entidades fornecido: <b>{1}</b>." 
 			e.getErrorList().add(new BusinessMessage(CrudExpression.class, "ERROR_PARSING_EXPRESSION", expression, mapEntities));
 			
 			throw e;
 		}
 		
 		return result;
-		/* Verifica se tem um ? ou um n˙mero atÈ o prÛximo ']'  */
+		/* Verifica se tem um ? ou um n√∫mero at√© o pr√≥ximo ']'  */
 		/* SIM TEM NUMERO */
 		/* tranformar entitySimpleName em br.com.orionsoft....... */
 		/* Vai no crud com o br.com...... e o id e executa RETRIEVE */
@@ -107,7 +107,7 @@ public class CrudExpression {
 
 		String entityOrFunctionName="";
 		
-		/* Pega o nome da entidade ou funÁ„o */
+		/* Pega o nome da entidade ou fun√ß√£o */
 		while(i<expression.length() && (expression.charAt(i)!=EXPRESSION_ID_BEGIN) && (expression.charAt(i)!=EXPRESSION_FUNCTION_BEGIN)){
 			entityOrFunctionName += expression.charAt(i);
 			i++;
@@ -117,7 +117,7 @@ public class CrudExpression {
 		if (i==expression.length())
 			throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_ENTITY_FUNCTION_NAME_END", expression));
 		
-		/* Verifica se atÈ aqui achou um nome de Entity */
+		/* Verifica se at√© aqui achou um nome de Entity */
 		if (expression.charAt(i)==EXPRESSION_ID_BEGIN){
 			// Bula o _BEGIN 
 			i++;
@@ -125,7 +125,7 @@ public class CrudExpression {
 			String entityId="";
 			String entityPropertyPath="";
 
-			/* Trata a possÌvel recursivaidade de entityName[entityName[1].id]*/
+			/* Trata a poss√≠vel recursivaidade de entityName[entityName[1].id]*/
 			int stackChar = 1;
 			
 			/* Pega o id da entidade */
@@ -135,17 +135,17 @@ public class CrudExpression {
 				if (expression.charAt(i)==EXPRESSION_ID_BEGIN)
 					stackChar++;
 				else
-					/* Se achou um final decrementa a pilha atÈ ela chegar a zero */
+					/* Se achou um final decrementa a pilha at√© ela chegar a zero */
 					if(expression.charAt(i)==EXPRESSION_ID_END)
 						stackChar--;
 					
-				/* Evita de acrescentar no entityId o ˙ltimo ] */
+				/* Evita de acrescentar no entityId o √∫ltimo ] */
 				if(stackChar>0)
 					entityId += expression.charAt(i);
 				
 				i++;
 			}
-			/* Verifica se o final da express„o foi encontrado sem encontrar o caracter de encerramento, senao d· msg de expressao terminada incorretamente */
+			/* Verifica se o final da express√£o foi encontrado sem encontrar o caracter de encerramento, senao d√° msg de expressao terminada incorretamente */
 			if(i==expression.length())
 				throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_ENTITY_ID_END", expression));
 
@@ -161,7 +161,7 @@ public class CrudExpression {
 			return entityToValue(entityOrFunctionName, entityId, entityPropertyPath, mapEntities, entityManager);
 			
 		} 
-		/* Descobriu que È uma funÁ„o */
+		/* Descobriu que √© uma fun√ß√£o */
 		else if (expression.charAt(i)==EXPRESSION_FUNCTION_BEGIN){
 			// Bula o _BEGIN 
 			i++;
@@ -174,7 +174,7 @@ public class CrudExpression {
 				i++;
 			}
 			
-			/* Verifica se o final da funÁ„o foi encontrado sem encontrar o caracter de encerramento, senao d· msg de expressao terminada incorretamente */
+			/* Verifica se o final da fun√ß√£o foi encontrado sem encontrar o caracter de encerramento, senao d√° msg de expressao terminada incorretamente */
 			if(i==expression.length())
 				throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_ENTITY_FUNCTION_END", expression));
 			
@@ -190,31 +190,31 @@ public class CrudExpression {
 		String result = "";
 		if(entityId.length() == 1 && entityId.charAt(0) == EXPRESSION_ID_WILDCARD){
 			/* O Operador NAO forneceu o ID */
-			/* Obtem a entidade no Mapa de entidades passado pelo SImpleName da entidade encontrado na express„o */
+			/* Obtem a entidade no Mapa de entidades passado pelo SImpleName da entidade encontrado na express√£o */
 			IEntity entity = mapEntities.get(entitySimpleName);
 			
 			/* Verifica se foi encontrada no map a entidade com id coringa */
 			if(entity == null)
-				// "A express„o referencia a entidade <b>{0}</b>, porÈm n„o foi encontrada no mapa de entidades passado nenhuma entidade com este nome. Se a express„o utiliza alguma entidade do tipo Entity[?], lembre-se de forncer uma entidade deste tipo no mapa de entidades." 
+				// "A express√£o referencia a entidade <b>{0}</b>, por√©m n√£o foi encontrada no mapa de entidades passado nenhuma entidade com este nome. Se a express√£o utiliza alguma entidade do tipo Entity[?], lembre-se de forncer uma entidade deste tipo no mapa de entidades." 
 				throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_ENTITY_NOTFOUND_MAP",  entitySimpleName));
 			
 			/* Obtem o valor do caminho da propriedade na entidade encontrada no mapa */
 			result =  propertyPathToValue(entity, entityPropertyPath);
 			
 		}else{
-			/* Verifica se o entityId È um id NumÈrico ou uma outra express„o entityOrFunction */
+			/* Verifica se o entityId √© um id Num√©rico ou uma outra express√£o entityOrFunction */
 			if(!NumberUtils.isDigits(entityId)){
 				entityId = entityOrFunction(entityId, mapEntities, entityManager);
 				
-				// "O id <b>{0}</b> fornecido na express„o n„o È um id numÈrico v·lido. ForneÁa um id numÈrico v·lido para entidade que ser· carregado, ou use o coringa '?' no lugar do id para que o sistema obtenha do mapa de entidades a entidade referenciada." 
+				// "O id <b>{0}</b> fornecido na express√£o n√£o √© um id num√©rico v√°lido. Forne√ßa um id num√©rico v√°lido para entidade que ser√° carregado, ou use o coringa '?' no lugar do id para que o sistema obtenha do mapa de entidades a entidade referenciada." 
 //				throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_ENTITY_ID_INVALID", entityId));
 			}
 			
 			/* Monta a chave com simpleName e id*/
 			String simpleNameId = entitySimpleName + entityId;
 
-			/* O Operador forneceu o ID e ser· dado retrieve na entidade */
-			/* Verificar se o simpleName + id est„o no mapa */
+			/* O Operador forneceu o ID e ser√° dado retrieve na entidade */
+			/* Verificar se o simpleName + id est√£o no mapa */
 			IEntity entity = mapEntities.get(simpleNameId);
 
 			/* Se SIM, usa do mapa*/
@@ -223,12 +223,12 @@ public class CrudExpression {
 				result = propertyPathToValue(entity, entityPropertyPath);
 			}else{
 				/* Se NAO, pega o metadados */
-				/* Obtem os metadados da entidade pelo SImpleName da entidade encontrado na express„o */
+				/* Obtem os metadados da entidade pelo SImpleName da entidade encontrado na express√£o */
 				IEntityMetadata entityMetadata = entityManager.getEntitiesMetadata().get(entitySimpleName);
 				
 				/* Verifica se o nome da entidade foi encontrado no entityManager */
 				if(entityMetadata == null)
-					// "N„o foi possÌvel localizar uma entidade registrada no sistema com o nome simples de <b>{0}</b>. Verifique se o nome da entidade foi corretamente digitado na express„o." 
+					// "N√£o foi poss√≠vel localizar uma entidade registrada no sistema com o nome simples de <b>{0}</b>. Verifique se o nome da entidade foi corretamente digitado na express√£o." 
 					throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_ENTITY_NAME_NOTFOUND", entitySimpleName));
 				
 				entity = UtilsCrud.retrieve(entityManager.getServiceManager(),
@@ -237,7 +237,7 @@ public class CrudExpression {
 						null);
 				
 				/* Armazena no mapa a entidade buscada para depois nao precisar 
-				 *buscar denovo pois estar· no mapa com o id
+				 *buscar denovo pois estar√° no mapa com o id
 				 */
 				mapEntities.put(simpleNameId, entity);
 				
@@ -268,18 +268,18 @@ public class CrudExpression {
 		if(functionName.equals("abs")){
 			String param=functionParams;
 			
-			/* Verifica se o par‚metro OBRIGATORIO da funÁ„o BigDecimal n„o È vazio */
+			/* Verifica se o par√¢metro OBRIGATORIO da fun√ß√£o BigDecimal n√£o √© vazio */
 			if(functionParams == null || functionParams.equals("")){
 				throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_FUNCTION_PARAM_REQUIRED", "abs", "expression #{} or number"));
 			}else{
-				/* Verifica se ele n„o È numÈrico, ou seja, deve ser uma crudExpression
-				 * e obtÈm a entidade  #{extensiveMoney(Movimento[?].valor)} */
+				/* Verifica se ele n√£o √© num√©rico, ou seja, deve ser uma crudExpression
+				 * e obt√©m a entidade  #{extensiveMoney(Movimento[?].valor)} */
 				if(!NumberUtils.isNumber(functionParams.replace(".","").replace(",","."))){
 					param = entityOrFunction(functionParams, mapEntities, entityManager);
 				}
 				/* Verifica se na entidade achou algum valor */
 				if (!param.equals("")){
-					/* ObtÈm o extenso a partir do par‚metro recebido ou encontrado */
+					/* Obt√©m o extenso a partir do par√¢metro recebido ou encontrado */
 					result = param.replace("-","").replace("+","");
 				}
 			}
@@ -290,7 +290,7 @@ public class CrudExpression {
 		 * now(30)
 		 * now(dd/MM/yyyy)
 		 * now(',' dd 'de' MM 'de' yyyy, -30)
-		 * N¬O ACEITA --> now(30, dd/MM/yyyy)
+		 * N√ÇO ACEITA --> now(30, dd/MM/yyyy)
 		 */
 		if(functionName.equals("now")){
 			int incDays = 0;
@@ -315,7 +315,7 @@ public class CrudExpression {
 			/*
 			 * Permite:
 			 * #{extensiveNumber(1)} => "Um" 
-			 * #{extensiveNumber(12,50)} => "Doze vÌrgula cinquenta" 
+			 * #{extensiveNumber(12,50)} => "Doze v√≠rgula cinquenta" 
 			 * #{extensiveMoney(2,50)} => "Dois reais e cinquenta centavos" 
 			 * #{extensiveMoney(1)} => "Um real" 
 			 * #{extensiveMoney(Movimento[?].valor)} => "O valor por extenso" 
@@ -323,18 +323,18 @@ public class CrudExpression {
 			if(functionName.equals("extensiveNumber")){
 				String param=functionParams;
 				
-				/* Verifica se o par‚metro OBRIGATORIO da funÁ„o extensoReal n„o È vazio */
+				/* Verifica se o par√¢metro OBRIGATORIO da fun√ß√£o extensoReal n√£o √© vazio */
 				if(functionParams == null || functionParams.equals("")){
 					throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_FUNCTION_PARAM_REQUIRED", "extensiveNumber", "expression #{} or number"));
 				}else{
-					/* Verifica se ele n„o È numÈrico, ou seja, deve ser uma crudExpression
-					 * e obtÈm a entidade  #{extensiveMoney(Movimento[?].valor)} */
+					/* Verifica se ele n√£o √© num√©rico, ou seja, deve ser uma crudExpression
+					 * e obt√©m a entidade  #{extensiveMoney(Movimento[?].valor)} */
 					if(!NumberUtils.isNumber(functionParams.replace(".","").replace(",","."))){
 						param = entityOrFunction(functionParams, mapEntities, entityManager);
 					}
 					/* Verifica se na entidade achou algum valor */
 					if (!param.equals("")){
-						/* ObtÈm o extenso a partir do par‚metro recebido ou encontrado */
+						/* Obt√©m o extenso a partir do par√¢metro recebido ou encontrado */
 						result = ExtensiveNumberBr.getExtenso(new BigDecimal(param.replace(".","").replace(",",".")));
 					}
 				}
@@ -343,18 +343,18 @@ public class CrudExpression {
 				if(functionName.equals("extensiveMoney")){
 					String param=functionParams;
 					
-					/* Verifica se o par‚metro OBRIGATORIO da funÁ„o extensoReal n„o È vazio */
+					/* Verifica se o par√¢metro OBRIGATORIO da fun√ß√£o extensoReal n√£o √© vazio */
 					if(functionParams == null || functionParams.equals("")){
 						throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_FUNCTION_PARAM_REQUIRED", "extensiveMoney", "expression #{} or number"));
 					}else{
-						/* Verifica se ele n„o È numÈrico, ou seja, deve ser uma crudExpression
-						 * e obtÈm a entidade  #{extensiveMoney(Movimento[?].valor)} */
+						/* Verifica se ele n√£o √© num√©rico, ou seja, deve ser uma crudExpression
+						 * e obt√©m a entidade  #{extensiveMoney(Movimento[?].valor)} */
 						if(!NumberUtils.isNumber(functionParams.replace(".","").replace(",","."))){
 							param = entityOrFunction(functionParams, mapEntities, entityManager);
 						}
 						/* Verifica se na entidade achou algum valor */
 						if (!param.equals("")){
-							/* ObtÈm o extenso a partir do par‚metro recebido ou encontrado */
+							/* Obt√©m o extenso a partir do par√¢metro recebido ou encontrado */
 							result = ExtensiveMoneyBr.getExtenso(new BigDecimal(param.replace(".","").replace(",",".")));
 						}
 					}
@@ -365,14 +365,14 @@ public class CrudExpression {
 						String propertyPath=functionParams.substring(0,functionParams.indexOf(FUNCTION_PARAM_SEPARATOR));
 						String mask=functionParams.substring(functionParams.indexOf(FUNCTION_PARAM_SEPARATOR)+1, functionParams.length());
 						String propertyValue="";
-						/* Verifica se o conteudo da funÁ„o extensoReal n„o È vazio, e se
-						 * ele n„o È numÈrico, obtÈm a entidade */
+						/* Verifica se o conteudo da fun√ß√£o extensoReal n√£o √© vazio, e se
+						 * ele n√£o √© num√©rico, obt√©m a entidade */
 						if(!functionParams.equals("") && (!NumberUtils.isNumber(StringUtils.replaceChars(functionParams, ",", ".")))){
 							propertyValue = entityOrFunction(propertyPath, mapEntities, entityManager);
 						} 
 						
 						/* Verifica que tipo de dado foi retornado
-						 * para decidir qual funÁ„o de formataÁ„o utilizar */
+						 * para decidir qual fun√ß√£o de formata√ß√£o utilizar */
 						if(propertyValue.indexOf('/')>-1){
 							try
 							{
@@ -419,18 +419,18 @@ public class CrudExpression {
 			int collectionIndex=-1;
 			
 			if(StringUtils.isNotEmpty(propertyPath)){
-				/* Inicia a busca das propriedades pela atual entidade da condiÁ„o */
+				/* Inicia a busca das propriedades pela atual entidade da condi√ß√£o */
 				pathEntity = entity;
 				
 				/* Inicia o parser para identificar qual entidade
-				 * È a ˙ltima do caminho e pegar seu valor */
+				 * √© a √∫ltima do caminho e pegar seu valor */
 				/* pessoa.enderecoCorrespondencia.logadouro.nome */
 				String[] props = StringUtils.split(propertyPath,EXPRESSION_PROPERTY_SEPARATOR);
 				for (String prop: props){
 					
 					int collectionIndexBegin = prop.indexOf(EXPRESSION_ID_BEGIN);
 					int collectionIndexEnd = prop.indexOf(EXPRESSION_ID_END);
-					collectionIndex=-1; // Reinicia o Ìndice para evitar sobreposiÁ„o de valor por v·rias coleÁıes em um mesmo propertyPath: contrato.pessoa.socios[0].fisica.telefones[1] 
+					collectionIndex=-1; // Reinicia o √≠ndice para evitar sobreposi√ß√£o de valor por v√°rias cole√ß√µes em um mesmo propertyPath: contrato.pessoa.socios[0].fisica.telefones[1] 
 					
 					/* 2o. Verifica se no final do propertypath tem um [0] com o indice
 					 * do elemento de uma propriedade do tipo collection */
@@ -441,8 +441,8 @@ public class CrudExpression {
 					
 					/* 1o. Verifica se a propriedade existe para evitar THROWS e estourar a pilar*/
 					if(!pathEntity.getPropertiesMap().containsKey(prop)){
-						/* D· uma mensagem silenciosa na saida de informaÁ„o para indicar ao programador que o property path est· incorreto, caso
-						 * ele n„o tenha desejado esta situaÁ„o */
+						/* D√° uma mensagem silenciosa na saida de informa√ß√£o para indicar ao programador que o property path est√° incorreto, caso
+						 * ele n√£o tenha desejado esta situa√ß√£o */
 						if(log.isInfoEnabled()){
 							log.info(new BusinessMessage(CrudExpression.class, "ERROR_PARSING_PROPERTY_PATH", prop, pathEntity.getInfo().getType().getName()).getMessage());
 						}
@@ -453,8 +453,8 @@ public class CrudExpression {
 					/* Pega a propriedade atual para verificar seu tipo */
 					property = pathEntity.getProperty(prop);
 					
-					/* Verifica se n„o for primitivo obtem o tipo da entidade 
-					 * para que na proxima iteraÁ„o os dados desta entidade seja
+					/* Verifica se n√£o for primitivo obtem o tipo da entidade 
+					 * para que na proxima itera√ß√£o os dados desta entidade seja
 					 * buscado e o caminho das propriedades continue sendo percorrido
 					 * hierarquicamente */
 					if(property.getInfo().isEntity()){
@@ -462,18 +462,18 @@ public class CrudExpression {
 							if(collectionIndex>-1){
 								if(property.getInfo().isList()){
 									IEntityList entityList = property.getValue().getAsEntityList();
-									/* Verifica se È possivel aplicar o Ìndice fornecido na coleÁ„o */
+									/* Verifica se √© possivel aplicar o √≠ndice fornecido na cole√ß√£o */
 									if((entityList != null)&&(!entityList.isEmpty())&&(entityList.size()>collectionIndex))
-										/* Pega a entidade da coleÁ„o pelo Ìndice */
+										/* Pega a entidade da cole√ß√£o pelo √≠ndice */
 										pathEntity = entityList.get(collectionIndex);
 									else
 										return null;
 								}
 								else{
 									IEntityCollection entityColletion = property.getValue().getAsEntityCollection();
-									/* Verifica se È possivel aplicar o Ìndice fornecido na coleÁ„o */
+									/* Verifica se √© possivel aplicar o √≠ndice fornecido na cole√ß√£o */
 									if((entityColletion  != null)&&(!entityColletion .isEmpty())&&(entityColletion.size()>collectionIndex))
-										/* Pega a entidade da coleÁ„o pelo Ìndice */
+										/* Pega a entidade da cole√ß√£o pelo √≠ndice */
 										pathEntity = (IEntity) entityColletion.getArray()[collectionIndex];
 									else
 										return null;
@@ -481,12 +481,12 @@ public class CrudExpression {
 							}
 							
 						}else{
-							/* A propriedade atual È uma entidade, ent„o pega a entidade
+							/* A propriedade atual √© uma entidade, ent√£o pega a entidade
 							 * para continuar a percorrer o propetyPath */
 							pathEntity = property.getValue().getAsEntity();
 							
-							/* Verifica se o valor da propriedade que È uma entidade È NULO. Assim,
-							 * n„o h· entidade para continuar a percorre o path, ent„o p·ra o for
+							/* Verifica se o valor da propriedade que √© uma entidade √© NULO. Assim,
+							 * n√£o h√° entidade para continuar a percorre o path, ent√£o p√°ra o for
 							 * e deixar o return usar o result vazio */
 							if(pathEntity == null)
 								break;
@@ -496,18 +496,18 @@ public class CrudExpression {
 							if(collectionIndex>-1)
 								if(property.getInfo().isList()){
 									List primitiveList = property.getValue().getAsPrimitiveList();
-									/* Verifica se È possivel aplicar o Ìndice fornecido na coleÁ„o */
+									/* Verifica se √© possivel aplicar o √≠ndice fornecido na cole√ß√£o */
 									if((primitiveList != null)&&(!primitiveList.isEmpty())&&(primitiveList.size()>collectionIndex))
-										/* Pega a entidade da coleÁ„o pelo Ìndice */
+										/* Pega a entidade da cole√ß√£o pelo √≠ndice */
 										return new PropertyPathReturn(property, primitiveList.get(collectionIndex).toString());
 									else
 										return null;
 								}
 								else{
 									Collection primitiveCollection = property.getValue().getAsPrimitiveCollection();
-									/* Verifica se È possivel aplicar o Ìndice fornecido na coleÁ„o */
+									/* Verifica se √© possivel aplicar o √≠ndice fornecido na cole√ß√£o */
 									if((primitiveCollection != null)&&(!primitiveCollection.isEmpty())&&(primitiveCollection.size()>collectionIndex))
-										/* Pega a entidade da coleÁ„o pelo Ìndice */
+										/* Pega a entidade da cole√ß√£o pelo √≠ndice */
 										return new PropertyPathReturn(property, primitiveCollection.toArray()[collectionIndex].toString());
 									else
 										return null;
@@ -519,21 +519,21 @@ public class CrudExpression {
 				}
 				
 				/* Terminou de percorrer o Path.
-				 * Verifica se a ˙ltima propriedade do path È uma coleÁ„o e 
-				 * um indice foi passado, assim, uma entidade da coleÁ„o foi selecionada
+				 * Verifica se a √∫ltima propriedade do path √© uma cole√ß√£o e 
+				 * um indice foi passado, assim, uma entidade da cole√ß√£o foi selecionada
 				 * e armazenada na variavel pathEntity, logo, ela somente deve ser
 				 * impressa */
 				if(property.getInfo().isCollection()&& (collectionIndex>-1))
 					return new PropertyPathReturn(property, pathEntity.toString());
 				
-				/* ent„o pega o valor da popriedade encontrada */
+				/* ent√£o pega o valor da popriedade encontrada */
 				return new PropertyPathReturn(property, property.getValue().getAsString());
 			}
 			
 			return null;
 			
 		}catch(BusinessException e){
-			// "Erro ao tentar obter o valor da propriedade <b>{0}</b> da entidade {1}. Verifique se o caminho da propriedade est· correto." 
+			// "Erro ao tentar obter o valor da propriedade <b>{0}</b> da entidade {1}. Verifique se o caminho da propriedade est√° correto." 
 			e.getErrorList().add(new BusinessMessage(CrudExpression.class, "ERROR_PARSING_PROPERTY_PATH", propertyPath, entity));
 			throw e;
 		}
@@ -542,10 +542,10 @@ public class CrudExpression {
 	
 	
 	/**
-	 * Esta classe È utilizada para que o mÈtodo propertyPathToProperty retorne a
+	 * Esta classe √© utilizada para que o m√©todo propertyPathToProperty retorne a
 	 * propriedade interpretada e o valor obtido.
-	 * A propriedade pode ser uma coleÁ„o. Neste caso, o Ìndice, se fornecido,
-	 * j· foi analisado e o valor toString() do Ìndice j· foi retornado na
+	 * A propriedade pode ser uma cole√ß√£o. Neste caso, o √≠ndice, se fornecido,
+	 * j√° foi analisado e o valor toString() do √≠ndice j√° foi retornado na
 	 * propriedade value.
 	 * @author estagio
 	 *
@@ -580,18 +580,18 @@ public class CrudExpression {
 //			int collectionIndex=-1; 
 //			
 //			if(StringUtils.isNotEmpty(propertyPath)){
-//				/* Inicia a busca das propriedades pela atual entidade da condiÁ„o */
+//				/* Inicia a busca das propriedades pela atual entidade da condi√ß√£o */
 //				pathEntity = entity;
 //				
 //				/* Inicia o parser para identificar qual entidade
-//				 * È a ˙ltima do caminho e pegar seu valor */
+//				 * √© a √∫ltima do caminho e pegar seu valor */
 //				/* pessoa.enderecoCorrespondencia.logadouro.nome */
 //				String[] props = StringUtils.split(propertyPath,EXPRESSION_PROPERTY_SEPARATOR);
 //				for (String prop: props){
 //
 //					int collectionIndexBegin = prop.indexOf(EXPRESSION_ID_BEGIN);
 //					int collectionIndexEnd = prop.indexOf(EXPRESSION_ID_END);
-//					collectionIndex=-1; // Reinicia o Ìndice para evitar sobreposiÁ„o de valor por v·rias coleÁıes em um mesmo propertyPath: contrato.pessoa.socios[0].fisica.telefones[1] 
+//					collectionIndex=-1; // Reinicia o √≠ndice para evitar sobreposi√ß√£o de valor por v√°rias cole√ß√µes em um mesmo propertyPath: contrato.pessoa.socios[0].fisica.telefones[1] 
 //					
 //					if(collectionIndexBegin>-1 && collectionIndexEnd>-1){
 //						collectionIndex = Integer.parseInt(prop.substring(collectionIndexBegin+1, collectionIndexEnd)); 
@@ -600,8 +600,8 @@ public class CrudExpression {
 //					
 //					/* Verifica se a propriedade existe para evitar THROWS e estourar a pilar*/
 //					if(!pathEntity.getPropertiesMap().containsKey(prop)){
-//						/* D· uma mensagem silenciosa na saida de informaÁ„o para indicar ao programador que o property path est· incorreto, caso
-//						 * ele n„o tenha desejado esta situaÁ„o */
+//						/* D√° uma mensagem silenciosa na saida de informa√ß√£o para indicar ao programador que o property path est√° incorreto, caso
+//						 * ele n√£o tenha desejado esta situa√ß√£o */
 //						if(log.isInfoEnabled()){
 //							log.info(new BusinessMessage(CrudExpression.class, "ERROR_PARSING_PROPERTY_PATH", prop, pathEntity.getInfo().getType().getName()).getMessage());
 //						}
@@ -613,8 +613,8 @@ public class CrudExpression {
 //					property = pathEntity.getProperty(prop);
 //					
 //					
-//					/* Verifica se n„o for primitivo obtem o tipo da entidade 
-//					 * para que na proxima iteraÁ„o os dados desta entidade seja
+//					/* Verifica se n√£o for primitivo obtem o tipo da entidade 
+//					 * para que na proxima itera√ß√£o os dados desta entidade seja
 //					 * buscado e o caminho das propriedades continue sendo percorrido
 //					 * hierarquicamente */
 //					if(property.getInfo().isEntity()){
@@ -622,18 +622,18 @@ public class CrudExpression {
 //							if(collectionIndex>-1){
 //								if(property.getInfo().isList()){
 //									IEntityList entityList = property.getValue().getAsEntityList();
-//									/* Verifica se È possivel aplicar o Ìndice fornecido na coleÁ„o */
+//									/* Verifica se √© possivel aplicar o √≠ndice fornecido na cole√ß√£o */
 //									if((entityList != null)&&(!entityList.isEmpty())&&(entityList.size()>collectionIndex))
-//										/* Pega a entidade da coleÁ„o pelo Ìndice */
+//										/* Pega a entidade da cole√ß√£o pelo √≠ndice */
 //										pathEntity = entityList.get(collectionIndex);
 //									else
 //										return "";
 //								}
 //								else{
 //									IEntityCollection entityColletion = property.getValue().getAsEntityCollection();
-//									/* Verifica se È possivel aplicar o Ìndice fornecido na coleÁ„o */
+//									/* Verifica se √© possivel aplicar o √≠ndice fornecido na cole√ß√£o */
 //									if((entityColletion  != null)&&(!entityColletion .isEmpty())&&(entityColletion.size()>collectionIndex))
-//										/* Pega a entidade da coleÁ„o pelo Ìndice */
+//										/* Pega a entidade da cole√ß√£o pelo √≠ndice */
 //										pathEntity = (IEntity) entityColletion.getArray()[collectionIndex];
 //									else
 //										return "";
@@ -641,12 +641,12 @@ public class CrudExpression {
 //							}
 //									
 //						}else{
-//							/* A propriedade atual È uma entidade, ent„o pega a entidade
+//							/* A propriedade atual √© uma entidade, ent√£o pega a entidade
 //							 * para continuar a percorrer o propetyPath */
 //							pathEntity = property.getValue().getAsEntity();
 //
-//							/* Verifica se o valor da propriedade que È uma entidade È NULO. Assim,
-//							 * n„o h· entidade para continuar a percorre o path, ent„o p·ra o for
+//							/* Verifica se o valor da propriedade que √© uma entidade √© NULO. Assim,
+//							 * n√£o h√° entidade para continuar a percorre o path, ent√£o p√°ra o for
 //							 * e deixar o return usar o result vazio */
 //							if(pathEntity == null)
 //								break;
@@ -656,18 +656,18 @@ public class CrudExpression {
 //							if(collectionIndex>-1)
 //								if(property.getInfo().isList()){
 //									List primitiveList = property.getValue().getAsPrimitiveList();
-//									/* Verifica se È possivel aplicar o Ìndice fornecido na coleÁ„o */
+//									/* Verifica se √© possivel aplicar o √≠ndice fornecido na cole√ß√£o */
 //									if((primitiveList != null)&&(!primitiveList.isEmpty())&&(primitiveList.size()>collectionIndex))
-//										/* Pega a entidade da coleÁ„o pelo Ìndice */
+//										/* Pega a entidade da cole√ß√£o pelo √≠ndice */
 //										return primitiveList.get(collectionIndex).toString();
 //									else
 //										return "";
 //								}
 //								else{
 //									Collection primitiveCollection = property.getValue().getAsPrimitiveCollection();
-//									/* Verifica se È possivel aplicar o Ìndice fornecido na coleÁ„o */
+//									/* Verifica se √© possivel aplicar o √≠ndice fornecido na cole√ß√£o */
 //									if((primitiveCollection != null)&&(!primitiveCollection.isEmpty())&&(primitiveCollection.size()>collectionIndex))
-//										/* Pega a entidade da coleÁ„o pelo Ìndice */
+//										/* Pega a entidade da cole√ß√£o pelo √≠ndice */
 //										return primitiveCollection.toArray()[collectionIndex].toString();
 //									else
 //										return "";
@@ -679,21 +679,21 @@ public class CrudExpression {
 //				}
 //
 //				/* Terminou de percorrer o Path.
-//				 * Verifica se a ˙ltima propriedade do path È uma coleÁ„o e 
-//				 * um indice foi passado, assim, uma entidade da coleÁ„o foi selecionada
+//				 * Verifica se a √∫ltima propriedade do path √© uma cole√ß√£o e 
+//				 * um indice foi passado, assim, uma entidade da cole√ß√£o foi selecionada
 //				 * e armazenada na variavel pathEntity, logo, ela somente deve ser
 //				 * impressa */
 //				if(property.getInfo().isCollection()&& (collectionIndex>-1))
 //					return pathEntity.toString();
 //				
-//				/* ent„o pega o valor da popriedade encontrada */
+//				/* ent√£o pega o valor da popriedade encontrada */
 //				return property.getValue().getAsString();
 //			}
 //			
 //			return "";
 //			
 //		}catch(BusinessException e){
-//			// "Erro ao tentar obter o valor da propriedade <b>{0}</b> da entidade {1}. Verifique se o caminho da propriedade est· correto." 
+//			// "Erro ao tentar obter o valor da propriedade <b>{0}</b> da entidade {1}. Verifique se o caminho da propriedade est√° correto." 
 //			e.getErrorList().add(new BusinessMessage(CrudExpression.class, "ERROR_PARSING_PROPERTY_PATH", propertyPath, entity));
 //			throw e;
 //		}

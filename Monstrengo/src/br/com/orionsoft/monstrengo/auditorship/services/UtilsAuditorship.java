@@ -19,10 +19,10 @@ import br.com.orionsoft.monstrengo.security.entities.UserSession;
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
- * Esta classe fornece diversos mÈtodos ˙teis na manipulaÁ„o 
+ * Esta classe fornece diversos m√©todos √∫teis na manipula√ß√£o 
  * da auditoria.
- * <br>Seu principal objetivo È facilitar a obtenÁ„o de informaÁıes sobre o
- * sistema de auditoria, diminuindo o cÛdigo digitado. 
+ * <br>Seu principal objetivo √© facilitar a obten√ß√£o de informa√ß√µes sobre o
+ * sistema de auditoria, diminuindo o c√≥digo digitado. 
  * 
  * @author Lucio 2005/11/04
  * @version 2005/11/04
@@ -32,35 +32,35 @@ public class UtilsAuditorship
 {
     
     /**
-     * Este mÈtodo registra uma auditoria de uma entidade.
-     * Se n„o houver alteraÁıes n„o haver· descriÁ„o e nenhum registro
-     * ser· criado na auditoria. O retorno do mÈtodo ser· um objeto nulo. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param userSession Define a inst‚nciada atual sess„o do usu·rio. 
-     * @param entityType Define o tipo da entidade que ser· auditada.
-     * @param entityId Define o Id da inst‚ncia da entidade que ser· auditada.
-     * @param entityAuditValue Indica o objeto de controle de alteraÁ„o dos valores.
+     * Este m√©todo registra uma auditoria de uma entidade.
+     * Se n√£o houver altera√ß√µes n√£o haver√° descri√ß√£o e nenhum registro
+     * ser√° criado na auditoria. O retorno do m√©todo ser√° um objeto nulo. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param userSession Define a inst√¢nciada atual sess√£o do usu√°rio. 
+     * @param entityType Define o tipo da entidade que ser√° auditada.
+     * @param entityId Define o Id da inst√¢ncia da entidade que ser√° auditada.
+     * @param entityAuditValue Indica o objeto de controle de altera√ß√£o dos valores.
      * @return Retorna uma entidade do tipo IEntity do registro auditado, ou nulo se 
-     * n„o houve auditoria.
+     * n√£o houve auditoria.
      * @throws BusinessException
      * @since 2005/11/04
      */
     public static final IEntity auditUpdate(IServiceManager svcMgr, UserSession userSession, EntityAuditValue entityAuditValue, ServiceData serviceDataOwner) throws BusinessException
     {
         
-        // Prepara a DescriÁ„o da auditoria
+        // Prepara a Descri√ß√£o da auditoria
         String description="";
         if (entityAuditValue != null)
             description = entityAuditValue.retrieveAuditDescription();
         
-        // Se n„o houver alteraÁıes n„o grava registro
+        // Se n√£o houver altera√ß√µes n√£o grava registro
         if (StringUtils.isEmpty(description)) 
         	return null;
 
         // Prepara as entidades persistidas de appProcess e appEntity 
         IEntity appEntity = UtilsSecurity.retrieveEntity(svcMgr, entityAuditValue.getEntity().getInfo().getType(), serviceDataOwner);
         
-        // Executa o serviÁo 
+        // Executa o servi√ßo 
         ServiceData sdA = new ServiceData(AuditorCrudService.SERVICE_NAME, serviceDataOwner);
         sdA.getArgumentList().setProperty(AuditorCrudService.IN_USER_SESSION, userSession);
         sdA.getArgumentList().setProperty(AuditorCrudService.IN_APPLICATION_ENTITY, appEntity);
@@ -74,12 +74,12 @@ public class UtilsAuditorship
     }
     
     /**
-     * Este mÈtodo registra uma auditoria de criaÁao de uma entidade.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param userSession Define a inst‚nciada atual sess„o do usu·rio. 
+     * Este m√©todo registra uma auditoria de cria√ßao de uma entidade.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param userSession Define a inst√¢nciada atual sess√£o do usu√°rio. 
      * @param entity Define a entidade que acabou de ser criada e sera registrada na auditoria
      * @return Retorna uma entidade do tipo IEntity do registro auditado, ou nulo se 
-     * n„o houve auditoria.
+     * n√£o houve auditoria.
      * @throws BusinessException
      * @since 2006/02/03
      * @version 2007/04/10
@@ -87,13 +87,13 @@ public class UtilsAuditorship
     public static final IEntity auditCreate(IServiceManager svcMgr, UserSession userSession, IEntity entity, ServiceData serviceDataOwner) throws BusinessException
     {
         
-        // Prepara a DescriÁ„o da auditoria
+        // Prepara a Descri√ß√£o da auditoria
         String description=entity.toString();
         
         // Prepara as entidades persistidas de appProcess e appEntity 
         IEntity appEntity = UtilsSecurity.retrieveEntity(svcMgr, entity.getInfo().getType(), serviceDataOwner);
         
-        // Executa o serviÁo 
+        // Executa o servi√ßo 
         ServiceData sdA = new ServiceData(AuditorCrudService.SERVICE_NAME, serviceDataOwner);
         sdA.getArgumentList().setProperty(AuditorCrudService.IN_USER_SESSION, userSession);
         sdA.getArgumentList().setProperty(AuditorCrudService.IN_APPLICATION_ENTITY, appEntity);
@@ -107,12 +107,12 @@ public class UtilsAuditorship
     }
     
     /**
-     * Este mÈtodo registra uma auditoria de uma entidade. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param userSession Define a inst‚nciada atual sess„o do usu·rio. 
-     * @param entityType Define o tipo da entidade que ser· auditada.
-     * @param entityId Define o Id da inst‚ncia da entidade que ser· auditada.
-     * @param justification Define a descriÁ„o adicional da auditoria.
+     * Este m√©todo registra uma auditoria de uma entidade. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param userSession Define a inst√¢nciada atual sess√£o do usu√°rio. 
+     * @param entityType Define o tipo da entidade que ser√° auditada.
+     * @param entityId Define o Id da inst√¢ncia da entidade que ser√° auditada.
+     * @param justification Define a descri√ß√£o adicional da auditoria.
      * @return Retorna uma entidade do tipo IEntity do registro auditado.
      * @throws BusinessException
      * @since 2005/11/04
@@ -123,7 +123,7 @@ public class UtilsAuditorship
         // Prepara as entidades persistidas de appProcess e appEntity 
         IEntity appEntity = UtilsSecurity.retrieveEntity(svcMgr, entityType, serviceDataOwner);
         
-        // Executa o serviÁo 
+        // Executa o servi√ßo 
         ServiceData sdA = new ServiceData(AuditorCrudService.SERVICE_NAME, serviceDataOwner);
         sdA.getArgumentList().setProperty(AuditorCrudService.IN_USER_SESSION, userSession);
         sdA.getArgumentList().setProperty(AuditorCrudService.IN_APPLICATION_ENTITY, appEntity);
@@ -137,11 +137,11 @@ public class UtilsAuditorship
     }
 
     /**
-     * Este mÈtodo registra uma auditoria de uma entidade. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param userSession Define a inst‚nciada atual sess„o do usu·rio. 
-     * @param process Define a inst‚ncia do processo que ser· auditado.
-     * @param params Define a descriÁ„o adicional da auditoria.
+     * Este m√©todo registra uma auditoria de uma entidade. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param userSession Define a inst√¢nciada atual sess√£o do usu√°rio. 
+     * @param process Define a inst√¢ncia do processo que ser√° auditado.
+     * @param params Define a descri√ß√£o adicional da auditoria.
      * @return Retorna uma entidade do tipo IEntity do registro auditado.
      * @throws BusinessException
      * @since 2005/11/04
@@ -152,7 +152,7 @@ public class UtilsAuditorship
         // Prepara as entidades persistidas de appProcess e appEntity 
         IEntity appProcess = UtilsCrud.retrieve(process.getProcessManager().getServiceManager(), ApplicationProcess.class, process.getProcessInfo().getId(), serviceDataOwner);
         
-        // Executa o serviÁo 
+        // Executa o servi√ßo 
         ServiceData sdA = new ServiceData(AuditorProcessService.SERVICE_NAME, serviceDataOwner);
         sdA.getArgumentList().setProperty(AuditorProcessService.USER_SESSION, process.getUserSession());
         sdA.getArgumentList().setProperty(AuditorProcessService.IN_APPLICATION_PROCESS, appProcess);
@@ -164,11 +164,11 @@ public class UtilsAuditorship
     }
 
     /**
-     * Este mÈtodo registra uma auditoria para um serviÁo. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param userSession Define a inst‚nciada atual sess„o do usu·rio. 
-     * @param serviceData Define a inst‚ncia do processo que ser· auditado.
-     * @param params Define a descriÁ„o adicional da auditoria.
+     * Este m√©todo registra uma auditoria para um servi√ßo. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param userSession Define a inst√¢nciada atual sess√£o do usu√°rio. 
+     * @param serviceData Define a inst√¢ncia do processo que ser√° auditado.
+     * @param params Define a descri√ß√£o adicional da auditoria.
      * @return Retorna uma entidade do tipo IEntity do registro auditado.
      * @throws BusinessException
      * @since 2005/11/04
@@ -178,7 +178,7 @@ public class UtilsAuditorship
     {
         
         
-        // Executa o serviÁo 
+        // Executa o servi√ßo 
         ServiceData sdA = new ServiceData(AuditorServiceService.SERVICE_NAME, serviceDataOwner);
         sdA.getArgumentList().setProperty(AuditorServiceService.IN_SERVICE_DATA, serviceData);
         sdA.getArgumentList().setProperty(AuditorServiceService.IN_APPLICATION_USER_OPT, applicationUser);

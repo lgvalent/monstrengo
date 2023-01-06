@@ -15,8 +15,8 @@ import org.apache.commons.lang.StringUtils;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 
 /**
- * Classe que fornece mÈtodos utilit·rios para tratamento de datas,
- *  como por exemplo a diferenÁa de dias entre duas datas.
+ * Classe que fornece m√©todos utilit√°rios para tratamento de datas,
+ *  como por exemplo a diferen√ßa de dias entre duas datas.
  * @author Antonio Alvefs 2005/12/19
  * @version 20060418
  */
@@ -29,7 +29,7 @@ public class CalendarUtils {
 	public static final String defaultTime = "HH:mm";
 
 	/**
-     * Retorna uma inst‚ncia de Calendar sem dados de hor·rio.
+     * Retorna uma inst√¢ncia de Calendar sem dados de hor√°rio.
      * @param Date date
      * @return Calendar
      */
@@ -46,9 +46,9 @@ public class CalendarUtils {
     }
 
     /**
-     * Retorna uma inst‚ncia de Calendar sem dados de hor·rio.
+     * Retorna uma inst√¢ncia de Calendar sem dados de hor√°rio.
      * @param year - Ano.
-     * @param month - MÍs.
+     * @param month - M√™s.
      * @param date - Dia.
      * @return Calendar.
      */
@@ -60,9 +60,9 @@ public class CalendarUtils {
     }
 
     /**
-     * Retorna uma inst‚ncia de Calendar somente com os dados do hor·rio.
+     * Retorna uma inst√¢ncia de Calendar somente com os dados do hor√°rio.
      * @param year - Ano.
-     * @param month - MÍs.
+     * @param month - M√™s.
      * @param date - Dia.
      * @return Calendar.
      */
@@ -76,7 +76,7 @@ public class CalendarUtils {
     }
 
     /**
-     * Retorna uma inst‚ncia de Calendar sem dados de hor·rios.
+     * Retorna uma inst√¢ncia de Calendar sem dados de hor√°rios.
      * @param date
      * @return Calendar
      */
@@ -89,7 +89,7 @@ public class CalendarUtils {
     }
 
     /**
-     * Retorna uma inst‚ncia de Calendar sem dados de hor·rio
+     * Retorna uma inst√¢ncia de Calendar sem dados de hor√°rio
      * @return Retorna um Calendar com HH:mm:ss = 00:00:00
      */
     public static Calendar getCalendar() {
@@ -100,8 +100,8 @@ public class CalendarUtils {
     }
     
     /**
-     * Retorna o primeiro dia do mÍs corrente.
-     * ⁄til para dataInicial de relatÛrios
+     * Retorna o primeiro dia do m√™s corrente.
+     * √ötil para dataInicial de relat√≥rios
      * @author lucio 20120822
      * @return
      */
@@ -112,8 +112,8 @@ public class CalendarUtils {
     }
 
     /**
-     * Retorna o ˙ltimo dia do mÍs corrente
-     * ⁄til para dataFinal de relatÛrios
+     * Retorna o √∫ltimo dia do m√™s corrente
+     * √ötil para dataFinal de relat√≥rios
      * @author lucio 20120822
      * @return
      */
@@ -125,7 +125,7 @@ public class CalendarUtils {
 
     /**
      * Retorna o primeiro dia do ano corrente.
-     * ⁄til para dataInicial de relatÛrios
+     * √ötil para dataInicial de relat√≥rios
      * @author lucio 20131016
      * @return
      */
@@ -137,8 +137,8 @@ public class CalendarUtils {
     }
 
     /**
-     * Retorna o ˙ltimo dia do ano corrente
-     * ⁄til para dataFinal de relatÛrios
+     * Retorna o √∫ltimo dia do ano corrente
+     * √ötil para dataFinal de relat√≥rios
      * @author lucio 20131016
      * @return
      */
@@ -150,7 +150,7 @@ public class CalendarUtils {
     }
 
     /**
-     * Retorna uma inst‚ncia de Calendar somente com os dados do hor·rio
+     * Retorna uma inst√¢ncia de Calendar somente com os dados do hor√°rio
      * @return Retorna um Calendar com HH:mm:ss = 00:00:00
      */
     public static Calendar getCalendarTime() {
@@ -162,11 +162,11 @@ public class CalendarUtils {
     /**
      * Retorna um Calendar adicionando a quantidade ao campo especificado. Aceita valores negativos.
      *
-     * @param data - uma inst‚ncia de <code>Calendar</code>.
+     * @param data - uma inst√¢ncia de <code>Calendar</code>.
      * @param campo - um campo de Calendar.
      * @param quantidade - a quantidade a ser acrescentada/diminuida de <code>campo</code>.
-     * @return uma nova inst‚ncia de <code>Calendar</code>.
-     * @deprecated Esta funÁ„o deve ser substituida pela Calendar.roll() e Calendar.add().
+     * @return uma nova inst√¢ncia de <code>Calendar</code>.
+     * @deprecated Esta fun√ß√£o deve ser substituida pela Calendar.roll() e Calendar.add().
      */
     public static Calendar roll(Calendar data, int campo, int quantidade) {
         Calendar temp = (Calendar) data.clone();
@@ -181,10 +181,10 @@ public class CalendarUtils {
     }
 
     /**
-     * Calcula a diferenÁa de dias entre duas datas.
+     * Calcula a diferen√ßa de dias entre duas datas.
      * @param arg0
      * @param arg1
-     * @return DiferenÁa. Positivo se arg0 for maior que arg1. Negativo se arg1 for maior que arg0. Zero se forem iguais.
+     * @return Diferen√ßa. Positivo se arg0 for maior que arg1. Negativo se arg1 for maior que arg0. Zero se forem iguais.
      */
     public static long diffDay(Calendar arg0, Calendar arg1) {
         long diferenca = 0;
@@ -204,10 +204,10 @@ public class CalendarUtils {
     }
 
     /**
-     * Calcula a diferenÁa de horas em minutos entre duas datas.
+     * Calcula a diferen√ßa de horas em minutos entre duas datas.
      * @param arg0 Data inicial
      * @param arg1 Data final
-     * @return DiferenÁa. Positivo se arg1 for maior que arg0. Negativo se arg0 for maior que arg1. Zero se forem iguais.
+     * @return Diferen√ßa. Positivo se arg1 for maior que arg0. Negativo se arg0 for maior que arg1. Zero se forem iguais.
      */
     public static long diffTime(Calendar arg0, Calendar arg1) {
         long diferenca = 0;
@@ -219,31 +219,31 @@ public class CalendarUtils {
     }
 
     /**
-     * Formata um data em um padr„o prÈ-definido.<br>
+     * Formata um data em um padr√£o pr√©-definido.<br>
      * O Brasileiro: "dd/MM/yyyy"
      * @param calendar
-     * @return Uma string com a data formatada no padr„o da funÁ„o
+     * @return Uma string com a data formatada no padr√£o da fun√ß√£o
      * @since 2006/01/04
      */
     public static String formatDate(Calendar calendar){
 
-    	/*Verifica se o calendar È null, se n„o,
-    	 *chama o mÈtodo formatDate(calendar.getTime());
+    	/*Verifica se o calendar √© null, se n√£o,
+    	 *chama o m√©todo formatDate(calendar.getTime());
     	 */
     	if(calendar == null) return "";
     	return formatDate(calendar.getTime());
     }
 
     /**
-     * Formata um data em um padr„o prÈ-definido.<br>
+     * Formata um data em um padr√£o pr√©-definido.<br>
      * O Brasileiro: "dd/MM/yyyy"
      * @param date
-     * @return Uma string com a data formatada no padr„o da funÁ„o
+     * @return Uma string com a data formatada no padr√£o da fun√ß√£o
      * @since 2006/01/04
      */
     public static String formatDate(Date date){
 
-    	/*Verifica se o date È null*/
+    	/*Verifica se o date √© null*/
     	if(date == null) return "";
 
     	// TODO IMPLEMENTAR fazer com que calendar Utils obtenha formato de um arquivo externo
@@ -253,36 +253,36 @@ public class CalendarUtils {
     }
 
     /**
-     * Formata um data em um padr„o definido pelo operador.<br>
+     * Formata um data em um padr√£o definido pelo operador.<br>
      *
      * @param format: String com o formato desejado -
-     * 				  consulte a documentaÁ„o: (SimpleDateFormat) http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html
-     * 		  calendar: par‚metro do tipo Calendar
-     * @return Uma string com a data formatada no padr„o da funÁ„o
+     * 				  consulte a documenta√ß√£o: (SimpleDateFormat) http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html
+     * 		  calendar: par√¢metro do tipo Calendar
+     * @return Uma string com a data formatada no padr√£o da fun√ß√£o
      * @since 2006/08/14
      */
     public static String formatDate(String format, Calendar calendar){
 
-    	/*Verifica se o calendar È null*/
+    	/*Verifica se o calendar √© null*/
     	if(calendar == null) return "";
 
     	return formatDate(format, calendar.getTime());
     }
 
     /**
-     * Formata um data em um padr„o definido pelo operador.<br>
-     * O mÈtodo SimpleDateFormat retorna a data formatada de acordo com
-     * padr„o passado pela String format.
+     * Formata um data em um padr√£o definido pelo operador.<br>
+     * O m√©todo SimpleDateFormat retorna a data formatada de acordo com
+     * padr√£o passado pela String format.
      *
-     * consulte a documentaÁ„o: (SimpleDateFormat) http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html
+     * consulte a documenta√ß√£o: (SimpleDateFormat) http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html
      *
      * @param date
-     * @return Uma string com a data formatada no padr„o da funÁ„o
+     * @return Uma string com a data formatada no padr√£o da fun√ß√£o
      * @since 2006/08/14
      */
     public static String formatDate(String format, Date date){
 
-    	/*Verifica se o date È null*/
+    	/*Verifica se o date √© null*/
     	if(date == null) return "";
 
     	// TODO IMPLEMENTAR fazer com que calendar Utils obtenha formato de um arquivo externo
@@ -292,29 +292,29 @@ public class CalendarUtils {
     }
 
     /**
-     * Formata um data em um padr„o prÈ-definido.<br>
+     * Formata um data em um padr√£o pr√©-definido.<br>
      * O Brasileiro: "dd/MM/yyyy hh:mm:ss"
      * @param calendar
-     * @return Uma string com a data formatada no padr„o da funÁ„o
+     * @return Uma string com a data formatada no padr√£o da fun√ß√£o
      * @since 20060418
      */
     public static String formatDateTime(Calendar calendar){
-    	/*Verifica se o calendar È null*/
+    	/*Verifica se o calendar √© null*/
     	if(calendar == null) return "";
 
     	return formatDateTime(calendar.getTime());
     }
 
     /**
-     * Formata um data em um padr„o prÈ-definido.<br>
+     * Formata um data em um padr√£o pr√©-definido.<br>
      * O Brasileiro: "dd/MM/yyyy hh:mm:ss"
      * @param date
-     * @return Uma string com a data formatada no padr„o da funÁ„o
+     * @return Uma string com a data formatada no padr√£o da fun√ß√£o
      * @since 20060418
      */
     public static String formatDateTime(Date date){
 
-    	/*Verifica se o date È null*/
+    	/*Verifica se o date √© null*/
     	if(date == null) return "";
 
     	// TODO IMPLEMENTAR fazer com que calendar Utils obtenha formato de um arquivo externo
@@ -324,29 +324,29 @@ public class CalendarUtils {
     }
 
     /**
-     * Formata um data em um padr„o prÈ-definido.<br>
+     * Formata um data em um padr√£o pr√©-definido.<br>
      * O Brasileiro: "dd/MM/yyyy hh:mm:ss"
      * @param calendar
-     * @return Uma string com a hora formatada no padr„o da funÁ„o
+     * @return Uma string com a hora formatada no padr√£o da fun√ß√£o
      * @since 20060418
      */
     public static String formatTime(Calendar calendar){
-    	/*Verifica se o calendar È null*/
+    	/*Verifica se o calendar √© null*/
     	if(calendar == null) return "";
 
     	return formatTime(calendar.getTime());
     }
 
     /**
-     * Formata um data em um padr„o prÈ-definido.<br>
+     * Formata um data em um padr√£o pr√©-definido.<br>
      * O Brasileiro: "dd/MM/yyyy hh:mm:ss"
      * @param date
-     * @return Uma string com a hora formatada no padr„o da funÁ„o
+     * @return Uma string com a hora formatada no padr√£o da fun√ß√£o
      * @since 20060418
      */
     public static String formatTime(Date date){
 
-    	/*Verifica se o date È null*/
+    	/*Verifica se o date √© null*/
     	if(date == null) return "";
 
     	// TODO IMPLEMENTAR fazer com que calendar Utils obtenha formato de um arquivo externo
@@ -441,17 +441,17 @@ public class CalendarUtils {
     }
 
     /**
-     * Este funÁ„o È ˙til para a comparaÁ„o de outras datas
-     * e identificaÁ„o se as datas s„o v·lidas, ou seja, se
-     * s„o maiores de 1900. Isto porque, em alguns casos, as datas
-     * s„o lidas de arquivos ou bancos de dados com valores: <br>
+     * Este fun√ß√£o √© √∫til para a compara√ß√£o de outras datas
+     * e identifica√ß√£o se as datas s√£o v√°lidas, ou seja, se
+     * s√£o maiores de 1900. Isto porque, em alguns casos, as datas
+     * s√£o lidas de arquivos ou bancos de dados com valores: <br>
      * 0000-00-00<br>
      * 1899-01-01<br>
-     * A funÁ„o usa uma campo privado para evitar m˙ltiplas
-     * inst‚nciaÁıes. H· somente uma instanciaÁ„o e depois a mesma
-     * È reutilizada.
+     * A fun√ß√£o usa uma campo privado para evitar m√∫ltiplas
+     * inst√¢ncia√ß√µes. H√° somente uma instancia√ß√£o e depois a mesma
+     * √© reutilizada.
      *
-     * @return Retorna uma data base v·lida 01/01/1900;
+     * @return Retorna uma data base v√°lida 01/01/1900;
      * @since 2006/01/04
      */
     public static Date getBaseDate(){
@@ -479,11 +479,11 @@ public class CalendarUtils {
     }
 
     /**
-     * Este mÈtodo tenta tratar uma data fornecida
+     * Este m√©todo tenta tratar uma data fornecida
      * completa (dd/MM/yyyy) ou incompleta (dd, MM, yyyy, dd/MM, MM/yyyy) <br>
      * e gerar uma data no formato do banco de dados:<br>
      * yyyy-MM-dd, MM-dd, yyyy-MM<br>
-     * O restultado poder· ser utilizado em consultas SQL que buscam por data:<br>
+     * O restultado poder√° ser utilizado em consultas SQL que buscam por data:<br>
      * where fieldDate like "%yyyy-MM%" e etc.
      * @param date
      * @return
@@ -491,7 +491,7 @@ public class CalendarUtils {
      */
     public static String formatToSQLDate(String date){
         String result="";
-        /* Limpa alguns caracteres especiais que n„o podem ser fornecidos pelo operador*/
+        /* Limpa alguns caracteres especiais que n√£o podem ser fornecidos pelo operador*/
         date = date.replace("'", "").replace("\"", "");
 
         /* Trata entradas sem / do tipo dd, MM ou yyyy sozinhos */
@@ -506,13 +506,13 @@ public class CalendarUtils {
                 if(8<=date.length() && date.length()<=10){
                     // Tenta formatar o filtro fornecido como uma data COMPLETA
                     Date date_ = parseDate(date);
-                    // Formata a data no padr„o do banco
+                    // Formata a data no padr√£o do banco
                     result = new SimpleDateFormat("yyyy-MM-dd").format(date_);
                 }else
                     /* DATA DIA / MES  1/1 01/1 1/01 01/01 */
                     result = StringUtils.substringAfter(date, "/") + "-" + StringUtils.substringBefore(date, "/");
             }catch(Exception e){
-                /* Retorna vazio se n„o conseguiu formatar a data entrada */
+                /* Retorna vazio se n√£o conseguiu formatar a data entrada */
             }
         }
 
@@ -520,26 +520,26 @@ public class CalendarUtils {
     }
 
     /**
-     * Este mÈtodo tenta tratar uma data fornecida
+     * Este m√©todo tenta tratar uma data fornecida
      * completa (dd/MM/yyyy) ou incompleta (dd, MM, yyyy, dd/MM, MM/yyyy) <br>
      * e gerar uma data no formato do banco de dados:<br>
      * yyyy-MM-dd, MM-dd, yyyy-MM<br>
-     * O restultado poder· ser utilizado em consultas SQL que buscam por data:<br>
+     * O restultado poder√° ser utilizado em consultas SQL que buscam por data:<br>
      * where fieldDate like "%yyyy-MM%" e etc.
      * @param date
      * @return
      * @since 20060224
      */
     public static String formatToSQLDate(Calendar date){
-    	/*Verifica se o date È null*/
+    	/*Verifica se o date √© null*/
     	if(date == null) return "";
 
     	return new SimpleDateFormat("yyyy-MM-dd").format(date.getTime());
     }
 
     /**
-     * Este mÈtodo formata uma data com hora do tipo Calendar
-     * para um formato padr„o yyyy-MM-dd HH:mm
+     * Este m√©todo formata uma data com hora do tipo Calendar
+     * para um formato padr√£o yyyy-MM-dd HH:mm
      * @param dateTime
      * @return Retorna uma string do tipo '2007-08-28 23:59'
      * @author lucio
@@ -550,14 +550,14 @@ public class CalendarUtils {
     }
 
     /**
-	 * ConstrÛi uma lista de opÁıes de meses do ano.
+	 * Constr√≥i uma lista de op√ß√µes de meses do ano.
 	 * @return
 	 */
     public static List<SelectItem> getMonths(){
     	List<SelectItem> months = new ArrayList<SelectItem>(12);
 		months.add(new SelectItem(Calendar.JANUARY, "Janeiro"));
 		months.add(new SelectItem(Calendar.FEBRUARY, "Fevereiro"));
-		months.add(new SelectItem(Calendar.MARCH, "MarÁo"));
+		months.add(new SelectItem(Calendar.MARCH, "Mar√ßo"));
 		months.add(new SelectItem(Calendar.APRIL, "Abril"));
 		months.add(new SelectItem(Calendar.MAY, "Maio"));
 		months.add(new SelectItem(Calendar.JUNE, "Junho"));
@@ -571,10 +571,10 @@ public class CalendarUtils {
 	}
     
     /**
-     * Calcula a diferenÁa de meses entre duas datas,
+     * Calcula a diferen√ßa de meses entre duas datas,
      * que podem ser de anos distintos mas consecutivos.
      * Exemplo: quantidade de meses entre 01/07/2007 e 01/03/2008
-     * È igual a 8 meses.
+     * √© igual a 8 meses.
      */
     public static int diffMonth(Calendar arg0, Calendar arg1){
     	int diferenca = 0;

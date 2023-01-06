@@ -25,7 +25,7 @@ public class ParentCondictionBean
 	public static final String APPLICATION_ENTITY = "applicatinoEntity";
 	public static final String USER_REPORT = "userReport";
 
-    /** Par‚metros get/set */
+    /** Par√¢metros get/set */
     private long id = IDAO.ENTITY_UNSAVED;
     
     private String property;

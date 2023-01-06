@@ -59,7 +59,7 @@ public class ReportBeanTestCase extends ProcessBasicTest
         try
         {	
         	/* Teste do orderIndex no OrderCondiction */
-//        	System.out.println(":Testando instanciação de classe abstrata");
+//        	System.out.println(":Testando instanciaÃ§Ã£o de classe abstrata");
 //    		IEntity userReportEntity = UtilsCrud.create(this.processManager.getServiceManager(), UserReportBean.class, null);
 //    		List orders =  ((UserReportBean) userReportEntity.getObject()).getOrderCondictions();
 //    		
@@ -94,7 +94,7 @@ public class ReportBeanTestCase extends ProcessBasicTest
 //            Assert.assertTrue(true);
         	
         	/* Teste do orderIndex no QueryCondiction */
-        	System.out.println(":Testando instanciação de classe abstrata");
+        	System.out.println(":Testando instanciaÃ§Ã£o de classe abstrata");
     		IEntity userReportEntity = UtilsCrud.create(this.processManager.getServiceManager(), UserReportBean.class, null);
     		List querys =  ((br.com.orionsoft.monstrengo.crud.report.entities.UserReportBean) userReportEntity.getObject()).getQueryCondictions();
     		

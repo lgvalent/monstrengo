@@ -17,7 +17,7 @@ public class Application implements IApplication {
 
     protected Logger log = LogManager.getLogger(getClass());
 
-    /** Define a lista com o nome dos pacotes dos m骴ulos instalados */
+    /** Define a lista com o nome dos pacotes dos m贸dulos instalados */
     String[] modulesPackages;
 
     public String[] getModulesPackages() {return modulesPackages;}
@@ -29,14 +29,14 @@ public class Application implements IApplication {
 				return str;
 		}
 
-		throw new RuntimeException("Nenhum m骴ulo foi registrado para a classe:" + klazz.getName() + ". Verifique se esta classe pertence a algum m骴ulo registrado no applicatonContext.xml");
+		throw new RuntimeException("Nenhum m贸dulo foi registrado para a classe:" + klazz.getName() + ". Verifique se esta classe pertence a algum m贸dulo registrado no applicatonContext.xml");
 	}
 	@SuppressWarnings("unchecked")
 	public <T> List<Class<? extends T>> findModulesClasses(Class<T>... classes){
 		List<Class<? extends T>> result = new ArrayList<Class<? extends T>>();
 		/* Prepara as entidades que implementam IRunnableEntityProcess */
 		for (String module : modulesPackages){
-			log.info("Procurando " + classes[0].getSimpleName() + (classes.length==2?", "+classes[1].getSimpleName():"") + " no m骴ulo: " + module);
+			log.info("Procurando " + classes[0].getSimpleName() + (classes.length==2?", "+classes[1].getSimpleName():"") + " no m贸dulo: " + module);
 			for(String className: AnnotationUtils.findClassesNames(module, classes)){
 				log.info("   Encontrado: " + className);
 						try {

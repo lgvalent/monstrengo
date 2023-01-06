@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <entity
     xmlns="http://orionsoft.net.br/entityMetadata" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd"
 	name="ApplicationUser"
 	label="Operador do sistema"
-	description="Ao cadastrar um novo operador será atribuida uma senha inicial igual ao login do operador. O operador poderá alterar sua senha pelo atalho 'Alterar Senha' na tela inicial."
+	description="Ao cadastrar um novo operador serÃ¡ atribuida uma senha inicial igual ao login do operador. O operador poderÃ¡ alterar sua senha pelo atalho 'Alterar Senha' na tela inicial."
 	colorName="red" 
 	crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY"
 	propertiesInQueryGrid="id inactive name login"
 	runQueryOnOpen="true"
 	>
 
-	<group name="g0" label="Informações de Autenticação" colorName="green">
+	<group name="g0" label="InformaÃ§Ãµes de AutenticaÃ§Ã£o" colorName="green">
 		<property xsi:type="PropertyNumericType" 
 		    name="id" 
 			label="id"
@@ -24,7 +24,7 @@
 			name="name"
 			label="Nome Completo" 
 			hint="Define o nome completo do operador" 
-			description="Define o nome do operador que será exibido em algumas impressões e outras áreas do sistema" 
+			description="Define o nome do operador que serÃ¡ exibido em algumas impressÃµes e outras Ã¡reas do sistema" 
 			colorName="#F00"
 			required="true"
 			/>
@@ -33,7 +33,7 @@
 			name="login"
 			label="Login" 
 			hint="Define o login do operador" 
-			description="O login é um nome curto usado para junto com a senha para realizar a autenticação no sistema" 
+			description="O login Ã© um nome curto usado para junto com a senha para realizar a autenticaÃ§Ã£o no sistema" 
 			colorName="#F00"
 			required="true"
 			/>
@@ -41,8 +41,8 @@
 		<property xsi:type="PropertyBooleanType" 
 			name="inactive"
 			label="Inativo" 
-			hint="Define se operador atual está inativo" 
-			description="Operadores inativos não poderão acessar o Sistema" 
+			hint="Define se operador atual estÃ¡ inativo" 
+			description="Operadores inativos nÃ£o poderÃ£o acessar o Sistema" 
 			colorName="#0F0"
 			/>
 
@@ -54,20 +54,20 @@
 			required="true"
 			/>
 	</group>
-	<group name="g1" label="Informações de grupos de direitos do operador"  colorName="navy" >
+	<group name="g1" label="InformaÃ§Ãµes de grupos de direitos do operador"  colorName="navy" >
 		<property xsi:type="PropertyEntityType" 
 		    name="securityGroups" 
-			label="Grupos de segurança"
-			hint="Indica os grupos de segurança que aos quais operador pertence" 
+			label="Grupos de seguranÃ§a"
+			hint="Indica os grupos de seguranÃ§a que aos quais operador pertence" 
 			colorName="green"
 			required="true" 
 			/>
-			<!-- toString="Você é o #{entity.enderecoCorrespondencia.logradouro} na cidade #{entity.enderecoCorrespondencia.municipio.nome}"  -->
+			<!-- toString="VocÃª Ã© o #{entity.enderecoCorrespondencia.logradouro} na cidade #{entity.enderecoCorrespondencia.municipio.nome}"  -->
 	</group>
 </entity>
 <!--
 
- <group id="1">Informações de grupos de direitos do operador</group>
+ <group id="1">InformaÃ§Ãµes de grupos de direitos do operador</group>
 
  <propertyBoolean name="id"/>
  
@@ -77,15 +77,15 @@
 
 
 .label=Operador do sistema
-.description=Ao cadastrar um novo operador será atribuida uma senha inicial igual ao login do operador. O operador poderá alterar sua senha pelo atalho "Alterar Senha" na tela inicial.
+.description=Ao cadastrar um novo operador serÃ¡ atribuida uma senha inicial igual ao login do operador. O operador poderÃ¡ alterar sua senha pelo atalho "Alterar Senha" na tela inicial.
 .canCreate=true
 .canRetrieve=true
 .canUpdate=true
 .canDelete=true
 .runQueryOnOpen=true
 
-group.0.name=Informações de autenticação
-group.1.name=Informações de grupos de direitos do operador
+group.0.name=InformaÃ§Ãµes de autenticaÃ§Ã£o
+group.1.name=InformaÃ§Ãµes de grupos de direitos do operador
 
 id.index=0
 id.readOnly=true
@@ -94,7 +94,7 @@ id.group=0
 name.index=1
 name.label=Nome completo
 name.hint=Define o nome completo do operador
-name.description=Define o nome do operador que será exibido em algumas impressões e outras áreas do sistema
+name.description=Define o nome do operador que serÃ¡ exibido em algumas impressÃµes e outras Ã¡reas do sistema
 name.visible=true
 name.required=true
 name.readOnly=false
@@ -112,8 +112,8 @@ login.group=0
 
 inactive.index=3
 inactive.label=Inativo
-inactive.hint=Define se operador atual está inativo
-inactive.description=Operadores inativos não poderão acessar o Sistema
+inactive.hint=Define se operador atual estÃ¡ inativo
+inactive.description=Operadores inativos nÃ£o poderÃ£o acessar o Sistema
 inactive.visible=true
 inactive.required=false
 inactive.readOnly=false
@@ -129,8 +129,8 @@ password.size=20
 password.group=0
 
 securityGroups.index=5
-securityGroups.label=Grupos de segurança
-securityGroups.hint=Indica os grupos de segurança que aos quais operador pertence
+securityGroups.label=Grupos de seguranÃ§a
+securityGroups.hint=Indica os grupos de seguranÃ§a que aos quais operador pertence
 securityGroups.type=br.com.orionsoft.monstrengo.security.entities.SecurityGroup
 securityGroups.isSet=true
 securityGroups.required=true

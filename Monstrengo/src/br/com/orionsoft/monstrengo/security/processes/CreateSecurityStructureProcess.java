@@ -1,27 +1,30 @@
 package br.com.orionsoft.monstrengo.security.processes;
 
+import br.com.orionsoft.monstrengo.core.annotations.ProcessMetadata;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
+import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.security.services.CreateSecurityStructureService;
 
 /**
  * Este processo permite criar/manter um operador
  * utilizando o seu login e nome de seu grupo.
  * 
- * Se o operador, grupo ou direitos j· existirem os
- * existentes ser„o utilizados.
+ * Se o operador, grupo ou direitos j√° existirem os
+ * existentes ser√£o utilizados.
  * 
  * <p><b>Procedimentos:</b>
  * <br>Definir o login: <i>setLogin(String)</i>
  * <br>Definir o grupo: <i>setGroup(String)</i>
- * <br>Definir o direito padr„o: <i>setAllowAll(boolean)</i>
- * <br>Executar o mÈtodo <i>runCreate()</i>.
- * <br>Se o mÈtodo concluir com sucesso:
- * <li>O operador estar· cadastrado com seu grupo e com os direitos definidos para todas
+ * <br>Definir o direito padr√£o: <i>setAllowAll(boolean)</i>
+ * <br>Executar o m√©todo <i>runCreate()</i>.
+ * <br>Se o m√©todo concluir com sucesso:
+ * <li>O operador estar√° cadastrado com seu grupo e com os direitos definidos para todas
  * as entidades e processos. 
- * <br>Sen„o:
- * <li>O erro È fornecido por <i>getErroList</i>.</b> 
+ * <br>Sen√£o:
+ * <li>O erro √© fornecido por <i>getErroList</i>.</b> 
  * 
  * @author Lucio 20060501
  * @version 20060501
@@ -30,7 +33,8 @@ import br.com.orionsoft.monstrengo.security.services.CreateSecurityStructureServ
  * @spring.property name="processManager" ref="ProcessManager"
  *
  */
-public class CreateSecurityStructureProcess extends ProcessBasic
+@ProcessMetadata(label="Criar ou atualizar estrutura de metadados e de seguran√ßa do sistema", hint="Cria ou atualiza a estrutura de metadados e de seguran√ßa do sistema", description="Este processo permite criar novos usu√°rios e grupos de seguran√ßa ao mesmo tempo que cria ou atualiza as estruturas de seguran√ßa e de metadados de acordo com a atual configura√ß√£o de m√≥dulos da aplica√ß√£o, caso a aplica√ß√£o tenha sido atualizada recentemente")
+public class CreateSecurityStructureProcess extends ProcessBasic implements IRunnableEntityProcess 
 {
     public static final String PROCESS_NAME = "CreateSecurityStructureProcess";
     
@@ -56,7 +60,7 @@ public class CreateSecurityStructureProcess extends ProcessBasic
 
         try
         {
-            // Executar o serviÁo de autenticaÁ„o
+            // Executar o servi√ßo de autentica√ß√£o
             ServiceData sd = new ServiceData(CreateSecurityStructureService.SERVICE_NAME, null);
             sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_USER_LOGIN, login);
             sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_GROUP_NAME, groupName);
@@ -64,10 +68,10 @@ public class CreateSecurityStructureProcess extends ProcessBasic
             sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_PROCESS_MANAGER, this.getProcessManager());
             this.getProcessManager().getServiceManager().execute(sd);
             
-        	/* Adiciona as mensagens do serviÁo no processo */
+        	/* Adiciona as mensagens do servi√ßo no processo */
         	this.getMessageList().addAll(sd.getMessageList());
             
-        	/* Verifica se o serviÁo concluiu com sucesso */ 
+        	/* Verifica se o servi√ßo concluiu com sucesso */ 
         	if(!sd.getMessageList().isTransactionSuccess())
             	return false;
             
@@ -79,6 +83,12 @@ public class CreateSecurityStructureProcess extends ProcessBasic
         
         return false;
     }
+
+	@Override
+	public boolean runWithEntity(IEntity<?> entity) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
 

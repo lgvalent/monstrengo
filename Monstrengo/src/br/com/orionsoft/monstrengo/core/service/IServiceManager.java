@@ -8,9 +8,9 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityManager;
 
 
 /**
- * Gerenciador que mantém o registro de todos os serviços existentes e 
- * controla transações. Existe uma única instância desse gerenciador
- * na aplicação e todos os serviços possuem referência e são executados por ele.
+ * Gerenciador que mantÃ©m o registro de todos os serviÃ§os existentes e 
+ * controla transaÃ§Ãµes. Existe uma Ãºnica instÃ¢ncia desse gerenciador
+ * na aplicaÃ§Ã£o e todos os serviÃ§os possuem referÃªncia e sÃ£o executados por ele.
  *  
  * @author Lucio
  */

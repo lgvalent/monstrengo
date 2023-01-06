@@ -15,14 +15,14 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
- * Este processo controla a criaÁ„o de uma entidade do sistema.
+ * Este processo controla a cria√ß√£o de uma entidade do sistema.
  * 
  * <p><b>Procedimentos:</b>
  * <br>Definir o tipo da entidade: <i>setEntityType(Class)</i>
  * <br>Verificar se a entidade pode ser criada: <i>boolean mayCreate()</i>
  * <br>Obter a entidade por <i>(IEntity) retrieveEntity()</i>.
- * <li>Realizar ediÁıes pela interface com o usu·rio.
- * <br>Gravar as alteraÁıes por <i>runUpdate()</i>.
+ * <li>Realizar edi√ß√µes pela interface com o usu√°rio.
+ * <br>Gravar as altera√ß√µes por <i>runUpdate()</i>.
  * 
  * @author Juliana e Tatiana 20060203
  * @version 20060203
@@ -43,45 +43,42 @@ public class CreateProcess <T> extends ProcessBasic {
     public String getProcessName(){return PROCESS_NAME;}
     
     public boolean runUpdate(){
-        super.beforeRun();
+    	super.beforeRun();
 
-        try{
-        	// Se houver algum problema, uma exceÁ„o ser· levantada aqui
-        	if(this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().contains(entity)){
-				this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterCreate(entity, this.getUserSession(), null);
+    	try{
+    		if(this.runValidate()){
+    			// Grava a entidade
+    			UtilsCrud.update(this.getProcessManager().getServiceManager(),
+    					entity, 
+    					null);
 
-				this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterUpdate(entity, this.getUserSession(), null);
-        	}
-        	
-            // Grava a entidade
-            UtilsCrud.update(this.getProcessManager().getServiceManager(),
-                             entity, 
-                             null);
-            
-            // Registra a auditoria da criaÁ„o
-            UtilsAuditorship.auditCreate(this.getProcessManager().getServiceManager(), 
-                                         this.getUserSession(),
-                                         entity,
-                                         null);
-            
-            // Grava a mensagem de sucesso
-            this.getMessageList().add(new BusinessMessage(BusinessMessage.TYPE_INFO, CreateProcess.class, "CREATE_SUCCESS", this.entity.getInfo().getLabel() + ":" + this.entity.toString()));
-            
-            /* N„o Libera a entidade atual pois precisa pegar qual
-             * foi o id atribuÌdo */
-//            entity = null;
-            return true;
-        }
-        catch(BusinessException e){
-            // Gravando a mensagem de falha
-            e.getErrorList().add(new BusinessMessage(CreateProcess.class, "CREATE_FAILURE", this.entity.getInfo().getLabel() + ": " + this.entity.toString()));
-            // Armazenando a lista de erros;
-            this.getMessageList().addAll(e.getErrorList());
-            return false;
-        }
+    			// Registra a auditoria da cria√ß√£o
+    			UtilsAuditorship.auditCreate(this.getProcessManager().getServiceManager(), 
+    					this.getUserSession(),
+    					entity,
+    					null);
+
+    			// Grava a mensagem de sucesso
+    			this.getMessageList().add(new BusinessMessage(BusinessMessage.TYPE_INFO, CreateProcess.class, "CREATE_SUCCESS", this.entity.getInfo().getLabel() + ":" + this.entity.toString()));
+
+    			/* N√£o Libera a entidade atual pois precisa pegar qual
+    			 * foi o id atribu√≠do */
+    			//            entity = null;
+    			return true;
+    		}
+
+    		return false;
+    	}
+    	catch(BusinessException e){
+    		// Gravando a mensagem de falha
+    		e.getErrorList().add(new BusinessMessage(CreateProcess.class, "CREATE_FAILURE", this.entity.getInfo().getLabel() + ": " + this.entity.toString()));
+    		// Armazenando a lista de erros;
+    		this.getMessageList().addAll(e.getErrorList());
+    		return false;
+    	}
     }
 
-    // Verifica se o user tem permiss„o de criaÁ„o.
+    // Verifica se o user tem permiss√£o de cria√ß√£o.
     public boolean mayCreate() throws BusinessException
     {
         return UtilsSecurity.checkRightCreate(this.getProcessManager().getServiceManager(), this.entityType, this.getUserSession(), null);
@@ -89,17 +86,17 @@ public class CreateProcess <T> extends ProcessBasic {
     
     /**
      * Obtem a entidade persistida baseado no Tipo e Id fornecidos.
-     * Verifica se a criaÁ„o ser· possÌvel, sen„o lanÁa uma exceÁ„o.  
-     * Se a entidade ainda n„o foi obtidade pelo processo, o serviÁo
-     * È excutado.
-     * Caso a entidade j· esteja preparada, ela È retornada. 
-     * @return Uma entidade pronta para a ediÁ„o.
+     * Verifica se a cria√ß√£o ser√° poss√≠vel, sen√£o lan√ßa uma exce√ß√£o.  
+     * Se a entidade ainda n√£o foi obtidade pelo processo, o servi√ßo
+     * √© excutado.
+     * Caso a entidade j√° esteja preparada, ela √© retornada. 
+     * @return Uma entidade pronta para a edi√ß√£o.
      * @throws BusinessException
      */
     public IEntity<T> retrieveEntity() throws BusinessException{
         // Verificar se pode editar a entidade
         if (this.mayCreate()){    
-            // Se ainda n„o est· pronta a entidade, prepara-a
+            // Se ainda n√£o est√° pronta a entidade, prepara-a
             if (entity == null){
             	ServiceData sdC = new ServiceData(CreateService.SERVICE_NAME, null);
                 sdC.getArgumentList().setProperty(CreateService.IN_ENTITY_TYPE, entityType);
@@ -109,14 +106,14 @@ public class CreateProcess <T> extends ProcessBasic {
 
                 this.getProcessManager().getServiceManager().execute(sdC);
 
-            	// Cria uma entidade tempor·ria para ser validade pelo dvo
+            	// Cria uma entidade tempor√°ria para ser validade pelo dvo
             	IEntity<T> entityTemp = sdC.getFirstOutput();
             	
-            	// Se houver algum problema, uma exceÁ„o ser· levantada aqui
+            	// Se houver algum problema, uma exce√ß√£o ser√° levantada aqui
             	if(this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().contains(entityTemp))
                     	this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entityTemp).beforeCreate(entityTemp, this.getUserSession(), null);
 
-            	// Se nada aconteceu, È porque est· tudo OK e a entidade poder· prosseguir para sua exclus„o.
+            	// Se nada aconteceu, √© porque est√° tudo OK e a entidade poder√° prosseguir para sua exclus√£o.
             	entity = entityTemp;
                 
             }
@@ -124,7 +121,7 @@ public class CreateProcess <T> extends ProcessBasic {
             return entity;
         }
 
-        // N„o possui direitos de editar este tipo de entidade
+        // N√£o possui direitos de editar este tipo de entidade
         throw new ProcessException(MessageList.create(CreateProcess.class, "CREATE_DENIED", getUserSession().getUserLogin(), this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel()));
         
     }
@@ -138,8 +135,8 @@ public class CreateProcess <T> extends ProcessBasic {
     }
 
 	/**
-	 * Este mÈtodo anula a atual inst‚ncia da entidade do processo e recarrega novamente
-	 * sem as alteraÁıes realizadas atÈ aqui.
+	 * Este m√©todo anula a atual inst√¢ncia da entidade do processo e recarrega novamente
+	 * sem as altera√ß√µes realizadas at√© aqui.
 	 * @return
 	 * @throws BusinessException 
 	 * @since 20060322
@@ -147,16 +144,16 @@ public class CreateProcess <T> extends ProcessBasic {
 	public void runReload() throws BusinessException{
         super.beforeRun();
 
-        /* Anula a atual inst‚ncia */
+        /* Anula a atual inst√¢ncia */
 		entity = null;
 		/* Recarrega */
 		retrieveEntity();
 	}
 
     /**
-     * Este mÈtodo permite executar uma validaÁ„o no DVO antes de 
-     * confirmar propriamente o update. Assim, o operador poder·
-     * verificar possÌveis erros de validaÁ„o sem confirmar um Update 
+     * Este m√©todo permite executar uma valida√ß√£o no DVO antes de 
+     * confirmar propriamente o update. Assim, o operador poder√°
+     * verificar poss√≠veis erros de valida√ß√£o sem confirmar um Update 
      * @return
      * @throws BusinessException 
      * @since 20080113
@@ -164,7 +161,7 @@ public class CreateProcess <T> extends ProcessBasic {
     public boolean runValidate(){
         super.beforeRun();
         
-        // solicitando a validaÁ„o da entidade pelo DvoManager
+        // solicitando a valida√ß√£o da entidade pelo DvoManager
         try {
 			if(this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().contains(entity)){
 				this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterCreate(entity, this.getUserSession(), null);

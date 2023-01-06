@@ -14,13 +14,13 @@ import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 
 /**
- * ServiÁo de gravaÁ„o de entidades.
+ * Servi√ßo de grava√ß√£o de entidades.
  * 
  *<p><b>Argumento:</b>
- *<br>IN_ENTITY: Entidade que ser· gravada(nova/atualizada).
+ *<br>IN_ENTITY: Entidade que ser√° gravada(nova/atualizada).
  *  
  *<p><b>Procedimento:</b>
- *<br> Obtem o Dao respons·vel pelo tipo da entidade.
+ *<br> Obtem o Dao respons√°vel pelo tipo da entidade.
  *<br> Solicita para o Dao gravar o objeto da entidade.
  * 
  * @author Marcia
@@ -37,30 +37,30 @@ public class UpdateService extends ServiceBasic {
     }
     
     public void execute(ServiceData serviceData) throws ServiceException{
-        log.debug("Iniciando execuÁ„o do servico UpdateService");
+        log.debug("Iniciando execu√ß√£o do servico UpdateService");
         
 //      IDAO dao;
         try{
-            // Obtendo os par‚metros
+            // Obtendo os par√¢metros
             IEntity<?> entity = (IEntity<?>) serviceData.getArgumentList().getProperty(IN_ENTITY);
             
             /*  Lucio 20100615: Esta validacao foi passada para o processo
-            // Verificando se a entidade que ser· gravada È uma NOVA ou uma ATUALIZA«¬O
+            // Verificando se a entidade que ser√° gravada √© uma NOVA ou uma ATUALIZA√á√ÇO
             if(entity.getId()==IDAO.ENTITY_UNSAVED){
-                // solicitando a validaÁ„o da entidade pelo DvoManager
+                // solicitando a valida√ß√£o da entidade pelo DvoManager
                 if(this.getServiceManager().getEntityManager().getDvoManager().contains(entity))
                 	this.getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterCreate(entity, serviceData);
             }
             
-            // solicitando a validaÁ„o da entidade pelo DvoManager
+            // solicitando a valida√ß√£o da entidade pelo DvoManager
             if(this.getServiceManager().getEntityManager().getDvoManager().contains(entity))
             	this.getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterUpdate(entity, serviceData);
             */
 //          Lucio 08/11/2006
-//          Usava os DAOS para obter os dados, porem cada DAO gera uma sess„o particular diferente da sess„o 
-//          j· gerada para o serviÁo. Agora eu pego a atual sess„o do serviÁo e dela solicito o UPDATE
+//          Usava os DAOS para obter os dados, porem cada DAO gera uma sess√£o particular diferente da sess√£o 
+//          j√° gerada para o servi√ßo. Agora eu pego a atual sess√£o do servi√ßo e dela solicito o UPDATE
 
-//            log.debug("Obtendo o dao correspondente ‡ entidade");
+//            log.debug("Obtendo o dao correspondente √† entidade");
 //            dao = daoManager.getDaoByEntity(entity.getInfo().getType());
 //            
 //            log.debug("Gravando o objeto da entidade");
@@ -69,8 +69,8 @@ public class UpdateService extends ServiceBasic {
             for (IProperty prop : entity.getProperties()){
             	if(!prop.getInfo().isCalculated()&&prop.getInfo().isEntity()&&!prop.getValue().isValueNull()){
         			/* 1o. Trata rotinas de usabilidade */
-        			/* Verifica se algum id ou entidade foi colocado no runId ou runEntity e n„o foi adicionado
-        			 * na lista porque o operador geralmente esquece de clicar em Adicionar na tela e o item n„o vai para a coleÁ„o*/
+        			/* Verifica se algum id ou entidade foi colocado no runId ou runEntity e n√£o foi adicionado
+        			 * na lista porque o operador geralmente esquece de clicar em Adicionar na tela e o item n√£o vai para a cole√ß√£o*/
         			if(prop.getInfo().isCollection()){
         				if((prop.getValue().getAsEntityCollection().getRunId() != null))
         					prop.getValue().getAsEntityCollection().runAdd();	
@@ -84,14 +84,14 @@ public class UpdateService extends ServiceBasic {
             			/* Verifica propriedades EditShowEmbedded para salvar os elementos primeiros */
             			if(prop.getInfo().isCollection()&&prop.getInfo().isEditShowEmbedded()){
             				for(IEntity<?> entityOneToMany: prop.getValue().getAsEntityCollection()){
-            					/* Lucio 10/12/2007: Somente grava se o id È -1, pois, por enquanto,
-            					 * as telas crud n„o permitem editar as subentidades. E ao gravar 
-            					 * uma sub entidade j· gravada, o hibernate est· reclamento de
+            					/* Lucio 10/12/2007: Somente grava se o id √© -1, pois, por enquanto,
+            					 * as telas crud n√£o permitem editar as subentidades. E ao gravar 
+            					 * uma sub entidade j√° gravada, o hibernate est√° reclamento de
             					 * NonUniqueObjectException */
             					if(entityOneToMany.getId() == IDAO.ENTITY_UNSAVED){
-            						/* Lucio 20110719: Se usar mappedBy e n„o @JoinColumn o hibernate n„o define o valor na entidade 
-            						 * destino que est· na coleÁ„o. Assim, a entidade È salva, mas fica sem dono.
-            						 * Verifica se est· sendo usado mappedBy pra fazer a injeÁ„o do pai manualmente */
+            						/* Lucio 20110719: Se usar mappedBy e n√£o @JoinColumn o hibernate n√£o define o valor na entidade 
+            						 * destino que est√° na cole√ß√£o. Assim, a entidade √© salva, mas fica sem dono.
+            						 * Verifica se est√° sendo usado mappedBy pra fazer a inje√ß√£o do pai manualmente */
             						OneToMany oneToMany = AnnotationUtils.findAnnotation(OneToMany.class, entity.getInfo().getType(), prop.getInfo().getName());
             						if((oneToMany!=null) && (oneToMany.mappedBy()!=null) && (!oneToMany.mappedBy().equals(""))){
             							entityOneToMany.setPropertyValue(oneToMany.mappedBy(), entity);
@@ -106,26 +106,26 @@ public class UpdateService extends ServiceBasic {
             }
             /* 20090331 Lucio - Usava-se session.saveOrUpdate(), mas ao gravar um novo socio
              * data um erro: Batch update returned unexpected row count from update [0]; actual row count: 0; expected: 1
-             * lendo os forums achei esta opÁao .merge(obj) que segundo a API coloca o atual objeto na atual sessao. Quando a sessao
+             * lendo os forums achei esta op√ßao .merge(obj) que segundo a API coloca o atual objeto na atual sessao. Quando a sessao
              * for commitada ela decide se grava o obj ou atualiza. Precisa ser testado ainda se no influenciar o resto do sistema.
              */
             if(entity.getId() == IDAO.ENTITY_UNSAVED)
             	serviceData.getCurrentSession().save(entity.getObject());
             else
             	serviceData.getCurrentSession().merge(entity.getObject());
-            /* 20090402 Lucio - O erro de Bacth Update era causado devido a uma restriÁao de chave estrangeira do banco na tabela
+            /* 20090402 Lucio - O erro de Bacth Update era causado devido a uma restri√ßao de chave estrangeira do banco na tabela
              * basic_socio.juridica -> basic_juridica.id, sendo que na nova politica de persistencia definimos SINGLE_TABLE, o correto eh
              * basic_socio.juridica -> basic_pessoa.id. O mesmo acontecia com basic_socio.fisica.
              */
 //            serviceData.getCurrentSession().saveOrUpdate(entity.getObject()); 
         } catch (BusinessException e){
             log.fatal(e.getErrorList());
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
         catch (Exception e){
             log.fatal(e.getMessage());
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(MessageList.createSingleInternalError(e));
         }
     }

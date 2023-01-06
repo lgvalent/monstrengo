@@ -11,19 +11,19 @@ import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 
 /**
- * Esta classe oferece as funcionalidades básicas para a implementação
- * dos serviços que serão registrados e executados pelo ServiceManager.
+ * Esta classe oferece as funcionalidades bÃ¡sicas para a implementaÃ§Ã£o
+ * dos serviÃ§os que serÃ£o registrados e executados pelo ServiceManager.
  * 
- * Em todos os serviços deverá ser injetada uma referência para o gerenciador de serviços
- * (ServiceManager). O Spring com JavaDoc e xDcolet é usado para isto.
+ * Em todos os serviÃ§os deverÃ¡ ser injetada uma referÃªncia para o gerenciador de serviÃ§os
+ * (ServiceManager). O Spring com JavaDoc e xDcolet Ã© usado para isto.
  * 
  * @author Lucio
  */
 public abstract class ServiceBasic implements IService
 {
     /**
-     * Manipulador de Log para ser utilizado pelas implementações dos
-     * serviços. 
+     * Manipulador de Log para ser utilizado pelas implementaÃ§Ãµes dos
+     * serviÃ§os. 
      */
     protected Logger log = LogManager.getLogger(getClass());
     
@@ -46,7 +46,7 @@ public abstract class ServiceBasic implements IService
     }
     
     /**
-     * Método útil para adição de mensagens sem ter que conhecer que as mensagens são
+     * MÃ©todo Ãºtil para adiÃ§Ã£o de mensagens sem ter que conhecer que as mensagens sÃ£o
      * armazenadas no serviceData 
      * @param serviceData
      * @param messages

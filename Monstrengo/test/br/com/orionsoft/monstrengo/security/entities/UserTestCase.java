@@ -21,7 +21,7 @@ import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 
 /**
  * Esse classe testa o relacionamento entre as classes user e group, verificando
- * se com a exclus„o de um group, implica na exclus„o do relacionamento com user 
+ * se com a exclus√£o de um group, implica na exclus√£o do relacionamento com user 
  * na tabela de relacionamentos
  * @author marcia
  *
@@ -39,7 +39,7 @@ public class UserTestCase extends ServiceBasicTest
     {
         try
         {
-            // Criando e setando duas inst‚ncias de ApplicationUser
+            // Criando e setando duas inst√¢ncias de ApplicationUser
             IEntity user = UtilsCrud.create(this.serviceManager, ApplicationUser.class, null);
             user.setPropertyValue(ApplicationUser.LOGIN, "marcia");
             user.setPropertyValue(ApplicationUser.PASSWORD, "senha");
@@ -52,11 +52,11 @@ public class UserTestCase extends ServiceBasicTest
             
             IEntityCollection enl;
 
-            // Criando e setando uma inst‚ncia de SecurityGroup
+            // Criando e setando uma inst√¢ncia de SecurityGroup
             IEntity group = UtilsCrud.create(this.serviceManager, SecurityGroup.class, null);
             group.setPropertyValue(SecurityGroup.NAME, "TESTE");
 
-            // Relacionando os usu·rios ao grupo recÈm criado
+            // Relacionando os usu√°rios ao grupo rec√©m criado
             enl = group.getProperty(SecurityGroup.USERS).getValue().getAsEntityCollection();
             enl.add(user);
             enl.add(user2);
@@ -66,11 +66,11 @@ public class UserTestCase extends ServiceBasicTest
             
             IEntityCollection enl2;
             
-            // Criando e setando uma inst‚ncia de SecurityGroup
+            // Criando e setando uma inst√¢ncia de SecurityGroup
             IEntity group2 = UtilsCrud.create(this.serviceManager, SecurityGroup.class, null);
             group2.setPropertyValue(SecurityGroup.NAME, "CADASTRO");
 
-            // Relacionando um dos usu·rios ao grupo recÈm criado
+            // Relacionando um dos usu√°rios ao grupo rec√©m criado
             // assim user pertence a dois grupos
             enl2 = group2.getProperty(SecurityGroup.USERS).getValue().getAsEntityCollection();
             enl2.add(user);
@@ -88,13 +88,13 @@ public class UserTestCase extends ServiceBasicTest
             IEntityCollection userGroups = usr.getProperty(ApplicationUser.SECURITY_GROUPS).getValue().getAsEntityCollection();
             System.out.println("userGroup " + userGroups.size());
             
-            // Como user pertencia a dois grupos, apesar da exclus„o de um, ele ainda
+            // Como user pertencia a dois grupos, apesar da exclus√£o de um, ele ainda
             // possui um relacionamento com o outro grupo.
             Assert.assertFalse(userGroups.isEmpty());
             
             IEntity usr2 = UtilsCrud.retrieve(this.serviceManager, user2.getInfo().getType(), user2.getId(), null);
             
-            // Testar multiplas condiÁıes
+            // Testar multiplas condi√ß√µes
             ServiceData sd = new ServiceData(ListService.SERVICE_NAME, null);
             sd.getArgumentList().setProperty(ListService.CLASS, SecurityGroup.class);
             
@@ -102,11 +102,11 @@ public class UserTestCase extends ServiceBasicTest
             IEntityCollection userGroups2 = usr2.getProperty(ApplicationUser.SECURITY_GROUPS).getValue().getAsEntityCollection();
             System.out.println("userGroup " + userGroups2.size());
             
-            // Como user pertencia a dois grupos, apesar da exclus„o de um, ele ainda
+            // Como user pertencia a dois grupos, apesar da exclus√£o de um, ele ainda
             // possui um relacionamento com o outro grupo.
             Assert.assertFalse(userGroups.isEmpty());
             
-            // Como user2 pertencia a um grupo, com a exclus„o do grupo teste, ele nao 
+            // Como user2 pertencia a um grupo, com a exclus√£o do grupo teste, ele nao 
             // possui mais um relacionamento com grupo.
             Assert.assertTrue(userGroups2.isEmpty());
             

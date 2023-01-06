@@ -20,16 +20,16 @@ public class ExtensiveMoneyBr {
          {"centavo", "centavos"},
          {"", ""},
          {"mil", "mil"},
-         {"milhão", "milhões"},
-         {"bilhão", "bilhões"},
-         {"trilhão", "trilhões"},
-         {"quatrilhão", "quatrilhões"},
-         {"quintilhão", "quintilhões"},
-         {"sextilhão", "sextilhões"},
-         {"septilhão", "septilhões"}
+         {"milhÃ£o", "milhÃµes"},
+         {"bilhÃ£o", "bilhÃµes"},
+         {"trilhÃ£o", "trilhÃµes"},
+         {"quatrilhÃ£o", "quatrilhÃµes"},
+         {"quintilhÃ£o", "quintilhÃµes"},
+         {"sextilhÃ£o", "sextilhÃµes"},
+         {"septilhÃ£o", "septilhÃµes"}
          };
    private String Numeros[][] = {
-         {"zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez",
+         {"zero", "um", "dois", "trÃªs", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez",
          "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"},
          {"vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"},
          {"cem", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seiscentos",
@@ -68,9 +68,9 @@ public class ExtensiveMoneyBr {
 
 
    /**
-    *  Setando o atributo do número para colocá-lo por extenso em moeda
+    *  Setando o atributo do nÃºmero para colocÃ¡-lo por extenso em moeda
     *
-    *@param  dec  Novo valor para o Número
+    *@param  dec  Novo valor para o NÃºmero
     */
    public void setNumber(BigDecimal dec) {
 	  // Converte para inteiro e absoluto arredondando os centavos
@@ -104,7 +104,7 @@ public class ExtensiveMoneyBr {
    }
 
    /**
-    *  Descrição do Método
+    *  DescriÃ§Ã£o do MÃ©todo
     */
    public void show() {
       Iterator valores = nro.iterator();
@@ -117,9 +117,9 @@ public class ExtensiveMoneyBr {
 
 
    /**
-    *  Descrição do Método
+    *  DescriÃ§Ã£o do MÃ©todo
     *
-    *@return    Descrição do Valor Retornado
+    *@return    DescriÃ§Ã£o do Valor Retornado
     */
    public String toString() {
       StringBuffer buf = new StringBuffer();
@@ -128,7 +128,7 @@ public class ExtensiveMoneyBr {
       int ct;
 
       for (ct = nro.size() - 1; ct > 0; ct--) {
-         // Se ja existe texto e o atual não é zero
+         // Se ja existe texto e o atual nÃ£o Ã© zero
          if (buf.length() > 0 && ! ehGrupoZero(ct)) {
             buf.append(" e ");
          }
@@ -180,10 +180,10 @@ public class ExtensiveMoneyBr {
 
 
    /**
-    *  Descrição do Método
+    *  DescriÃ§Ã£o do MÃ©todo
     *
-    *@param  ps  Descrição do Parâmetro
-    *@return     Descrição do Valor Retornado
+    *@param  ps  DescriÃ§Ã£o do ParÃ¢metro
+    *@return     DescriÃ§Ã£o do Valor Retornado
     */
    private boolean temMaisGrupos(int ps) {
       for (; ps > 0; ps--) {
@@ -197,10 +197,10 @@ public class ExtensiveMoneyBr {
 
 
    /**
-    *  Descrição do Método
+    *  DescriÃ§Ã£o do MÃ©todo
     *
-    *@param  ps  Descrição do Parâmetro
-    *@return     Descrição do Valor Retornado
+    *@param  ps  DescriÃ§Ã£o do ParÃ¢metro
+    *@return     DescriÃ§Ã£o do Valor Retornado
     */
    private boolean ehUltimoGrupo(int ps) {
       return (ps > 0) && ((Integer)nro.get(ps)).intValue() != 0 && !temMaisGrupos(ps - 1);
@@ -208,9 +208,9 @@ public class ExtensiveMoneyBr {
 
 
    /**
-    *  Descrição do Método
+    *  DescriÃ§Ã£o do MÃ©todo
     *
-    *@return     Descrição do Valor Retornado
+    *@return     DescriÃ§Ã£o do Valor Retornado
     */
    private boolean ehUnicoGrupo() {
       if (nro.size() <= 3)
@@ -235,11 +235,11 @@ public class ExtensiveMoneyBr {
    }
    
    /**
-    *  Descrição do Método
+    *  DescriÃ§Ã£o do MÃ©todo
     *
-    *@param  numero  Descrição do Parâmetro
-    *@param  escala  Descrição do Parâmetro
-    *@return         Descrição do Valor Retornado
+    *@param  numero  DescriÃ§Ã£o do ParÃ¢metro
+    *@param  escala  DescriÃ§Ã£o do ParÃ¢metro
+    *@return         DescriÃ§Ã£o do Valor Retornado
     */
    private String numToString(int numero, int escala) {
       int unidade = (numero % 10);

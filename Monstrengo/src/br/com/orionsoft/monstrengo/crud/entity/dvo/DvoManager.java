@@ -21,7 +21,7 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityManager;
 
 /**
  * Classe que implementa a interface IDvoManager. 
- * … respons·vel por gerenciar os dvo's, pois possui mÈtodos 
+ * √â respons√°vel por gerenciar os dvo's, pois possui m√©todos 
  * que permitem registrar, remover
  * 
  * 
@@ -47,15 +47,15 @@ public class DvoManager implements IDvoManager {
 	public void setApplication(IApplication application) {this.application = application;}
     
 	/**
-	 * Este mÈtodo cria a lista de DAOs e busca todas as entidades anotadas no sistema
+	 * Este m√©todo cria a lista de DAOs e busca todas as entidades anotadas no sistema
 	 * para criar um dao manipulador para esta entidade.
-	 * A lista de DAOs auxilia o restante da arquitetura a saber quantas entidades s„o mantidas, ou seja,
-	 * quantas entidades s„o CRUD
+	 * A lista de DAOs auxilia o restante da arquitetura a saber quantas entidades s√£o mantidas, ou seja,
+	 * quantas entidades s√£o CRUD
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void init(){
 		if(dvos != null)
-			throw new RuntimeException("DvoManager j· iniciado anteriormente. O mÈtodo init() n„o pode ser executado.");
+			throw new RuntimeException("DvoManager j√° iniciado anteriormente. O m√©todo init() n√£o pode ser executado.");
 
 		dvos = new HashMap<String, IDvo<?>>();
 
@@ -77,7 +77,7 @@ public class DvoManager implements IDvoManager {
 		return dvos;
 	}
 	/**
-     * Obtem a inst‚ncia do Dvo respons·vel para tratar a classe de objetos passada.
+     * Obtem a inst√¢ncia do Dvo respons√°vel para tratar a classe de objetos passada.
      * 
      * @param dvos Classe do objeto que se requer o Dvo.
      */
@@ -93,7 +93,7 @@ public class DvoManager implements IDvoManager {
 		return (IDvo<T>) dvos.get(entityTypeKey);
 	}
 	/**
-	 * MÈtodo de inicializaÁ„o, usado para registrar o atual Dvo
+	 * M√©todo de inicializa√ß√£o, usado para registrar o atual Dvo
 	 * no seu respectivo gerenciador de Dvo's. 
 	 * @throws DvoException
 	 */
@@ -101,7 +101,7 @@ public class DvoManager implements IDvoManager {
 	public <T> void registerDvo(IDvo<T> dvo) throws DvoException {
 		final String entityTypeKey = dvo.getEntityType().getName();
         
-		/* Verifica se o dvo que quer ser registrado j· se encontra na lista de dvos ativos */
+		/* Verifica se o dvo que quer ser registrado j√° se encontra na lista de dvos ativos */
 		if (dvos.containsKey(entityTypeKey))
         {
 			throw new DvoException(MessageList.create(DvoManager.class, "DUPLICATED_DVO", entityTypeKey));
@@ -114,7 +114,7 @@ public class DvoManager implements IDvoManager {
 	}
 	
 	/**
-	 * MÈtodo usado para remover o atual Dvo da lista de dvos ativos no seu gerenciador de Dvo's. 
+	 * M√©todo usado para remover o atual Dvo da lista de dvos ativos no seu gerenciador de Dvo's. 
 	 */ 
 	public <T> void unregisterDvo(IDvo<T> dvo) throws DvoException {
 		final String entityTypeKey = dvo.getEntityType().getName();

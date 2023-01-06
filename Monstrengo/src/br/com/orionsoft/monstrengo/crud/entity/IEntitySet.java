@@ -10,8 +10,8 @@ public interface IEntitySet<T> extends IEntityCollection<T>, Set<IEntity<T>>
     /**
      * Cria uma lista de Objetos baseada nos objetos que se encontram
      * encapsulados dentro de IEntity.
-     * <p>Útil principalmente na camada de persistência. Onde o 
-     * importante é o objeto e não a entidade. 
+     * <p>Ãštil principalmente na camada de persistÃªncia. Onde o 
+     * importante Ã© o objeto e nÃ£o a entidade. 
      * 
      * @see IEntity#getObject()
      * 

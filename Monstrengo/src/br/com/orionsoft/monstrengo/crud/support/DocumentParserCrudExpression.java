@@ -25,8 +25,8 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityManager;
 public class DocumentParserCrudExpression {
 	
 	/**
-	 * Este mÈtodo usado para compilar expressıes CRUDs de entidades que n„o utilizam entidades din‚micas,
-	 * ou seja, cujo o modelo de documentos n„o est„o vinculados a entidades
+	 * Este m√©todo usado para compilar express√µes CRUDs de entidades que n√£o utilizam entidades din√¢micas,
+	 * ou seja, cujo o modelo de documentos n√£o est√£o vinculados a entidades
 	 * @param str
 	 * @param entityManager
 	 * @return
@@ -39,7 +39,7 @@ public class DocumentParserCrudExpression {
 	}
 	
 	/**
-	 * Este mÈtodo usado para compilar expressıes CRUDs que referenciam uma entidade din‚mica.
+	 * Este m√©todo usado para compilar express√µes CRUDs que referenciam uma entidade din√¢mica.
 	 * @param str
 	 * @param sourceEntity
 	 * @param entityManager
@@ -55,8 +55,8 @@ public class DocumentParserCrudExpression {
 	}
 	
 	/**
-	 * Este mÈtodo usado para compilar expressıes CRUDs que referenciam mais de uma entidade din‚mica.
-	 * As entidades din‚micamente referenciadas na express„o ser„o buscadas no mapEntities.
+	 * Este m√©todo usado para compilar express√µes CRUDs que referenciam mais de uma entidade din√¢mica.
+	 * As entidades din√¢micamente referenciadas na express√£o ser√£o buscadas no mapEntities.
 	 * @param str
 	 * @param mapEntities
 	 * @param entityManager
@@ -78,7 +78,7 @@ public class DocumentParserCrudExpression {
 					i++;
 				}
 				
-				/* Verifica se o while anterior parou porque achou o inicio da express„o */
+				/* Verifica se o while anterior parou porque achou o inicio da express√£o */
 				if(StringUtils.substring(str, i, i+expBeginLength+1).equals(CrudExpression.EXPRESSION_BEGIN)){
 					String expression = "";
 					
@@ -88,7 +88,7 @@ public class DocumentParserCrudExpression {
 						i++;
 					}
 					
-					/* Verifica se o while anterior parou porque achou o final da express„o */
+					/* Verifica se o while anterior parou porque achou o final da express√£o */
 					if (i<str.length()){
 						/* Adiciona o '}' na expressao */
 						expression += str.charAt(i);
@@ -99,7 +99,7 @@ public class DocumentParserCrudExpression {
 					result.append(CrudExpression.expressionToValue(expression, mapEntities, entityManager));
 				}
 				else
-				/* Verifica se o while anterior parou porque n„o seria possivel iniciar uma expressoa com o restante de caractere da string */
+				/* Verifica se o while anterior parou porque n√£o seria possivel iniciar uma expressoa com o restante de caractere da string */
 				if ((i+expBeginLength)>=str.length()){ 
 					result.append(str.charAt(i));
 					i++;
@@ -110,7 +110,7 @@ public class DocumentParserCrudExpression {
 			
 		}catch(BusinessException e)
 		{
-			// "N„o foi possÌvel executar o parsing da string <b>{0}</b>." 
+			// "N√£o foi poss√≠vel executar o parsing da string <b>{0}</b>." 
 			e.getErrorList().add(new BusinessMessage(DocumentParserCrudExpression.class, "ERROR_PARSING_STRING", str));
 			throw e;
 		}
@@ -119,8 +119,8 @@ public class DocumentParserCrudExpression {
 	}
 	
 	/**
-	 * Este mÈtodo analisa streams de entrada de textos planos. 
-	 * Textos planos s„o todos arquivos que podem ser abertos por
+	 * Este m√©todo analisa streams de entrada de textos planos. 
+	 * Textos planos s√£o todos arquivos que podem ser abertos por
 	 * editores de texto e continuam legiveis, como html, xml, txt.
 	 *  
 	 */
@@ -134,7 +134,7 @@ public class DocumentParserCrudExpression {
 			
 			/* Percorre todo stream de entrada */
 			while((line = input.readLine()) != null){
-				/* Escreve o byte de saÌda */
+				/* Escreve o byte de sa√≠da */
 				result.write(parseString(line, mapEntities, entityManager).getBytes());
 				/* Recoloca a quebra de linha */
 				result.write("\n".getBytes());
@@ -142,11 +142,11 @@ public class DocumentParserCrudExpression {
 			
 		}catch(IOException e){
 			BusinessException be = new BusinessException(MessageList.createSingleInternalError(e));
-			// "N„o foi possÌvel executar o parsing da string <b>{0}</b>." 
+			// "N√£o foi poss√≠vel executar o parsing da string <b>{0}</b>." 
 			be.getErrorList().add(new BusinessMessage(DocumentParserCrudExpression.class, "ERROR_PARSING_DOCUMENT", plainTextStream));
 			throw be;
 		}catch(BusinessException e){
-			// "N„o foi possÌvel executar o parsing da string <b>{0}</b>." 
+			// "N√£o foi poss√≠vel executar o parsing da string <b>{0}</b>." 
 			e.getErrorList().add(new BusinessMessage(DocumentParserCrudExpression.class, "ERROR_PARSING_DOCUMENT", plainTextStream));
 			throw e;
 		}

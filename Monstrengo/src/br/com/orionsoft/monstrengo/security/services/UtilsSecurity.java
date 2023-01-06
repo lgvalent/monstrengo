@@ -20,10 +20,10 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 
 /**
- * Esta classe fornece diversos mÈtodos ˙teis na manipulaÁ„o 
- * das entidades de seguranÁa.
- * <br>Seu principal objetivo È facilitar a obtenÁ„o de informaÁıes sobre o
- * sistema de seguranÁa, diminuindo o cÛdigo digitado. 
+ * Esta classe fornece diversos m√©todos √∫teis na manipula√ß√£o 
+ * das entidades de seguran√ßa.
+ * <br>Seu principal objetivo √© facilitar a obten√ß√£o de informa√ß√µes sobre o
+ * sistema de seguran√ßa, diminuindo o c√≥digo digitado. 
  * 
  * @author Lucio 2005/10/26
  * @version 2005/11/04
@@ -31,15 +31,15 @@ import br.com.orionsoft.monstrengo.security.entities.UserSession;
  */
 public class UtilsSecurity
 {
-    /* Credencial de usu·rio WEB de internet utilizado para autenticar
-     * os processo web que n„o precisam de um usu·rio especÌfico, mas que usam
-     * toda a infraestrutura de seguranÁa */
+    /* Credencial de usu√°rio WEB de internet utilizado para autenticar
+     * os processo web que n√£o precisam de um usu√°rio espec√≠fico, mas que usam
+     * toda a infraestrutura de seguran√ßa */
 	private static ApplicationUser applicationUserWeb = null; 
 	public static ApplicationUser getApplicationUserWeb(){
 		if(applicationUserWeb!=null)
 			return applicationUserWeb;
 		
-        // Retorna os dados do usu·rio web (login, password)
+        // Retorna os dados do usu√°rio web (login, password)
     	ApplicationUser user = new ApplicationUser();
     	user.setLogin("Internet");
     	user.setPassword("Internet");
@@ -49,11 +49,11 @@ public class UtilsSecurity
 
 	
 	/**
-     * Este mÈtodo recupera um processo do mÛdulo de seguranÁa atravÈs do nome e obtÈm uma entidade. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param process Define a inst‚ncia do processo que ser· pesquisado o Id.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna uma entidade do tipo IEntity do processo definido no mÛdulo de seguranÁa.
+     * Este m√©todo recupera um processo do m√≥dulo de seguran√ßa atrav√©s do nome e obt√©m uma entidade. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param process Define a inst√¢ncia do processo que ser√° pesquisado o Id.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna uma entidade do tipo IEntity do processo definido no m√≥dulo de seguran√ßa.
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -71,11 +71,11 @@ public class UtilsSecurity
     }
     
     /**
-     * Este mÈtodo recupera um processo do mÛdulo de seguranÁa atravÈs do nome e obtÈm o id. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param process Define a inst‚ncia do processo que ser· pesquisado o Id.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna o Id do processo definido no mÛdulo de seguranÁa.
+     * Este m√©todo recupera um processo do m√≥dulo de seguran√ßa atrav√©s do nome e obt√©m o id. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param process Define a inst√¢ncia do processo que ser√° pesquisado o Id.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna o Id do processo definido no m√≥dulo de seguran√ßa.
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -85,11 +85,11 @@ public class UtilsSecurity
     }
     
     /**
-     * Este mÈtodo recupera uma entidade do mÛdulo de seguranÁa atravÈs do nome. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param entityType Define o tipo da entidade que ser· pesquisado o Id.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna uma entidade do tipo entidade da aplicaÁ„o definido no mÛdulo de seguranÁa.
+     * Este m√©todo recupera uma entidade do m√≥dulo de seguran√ßa atrav√©s do nome. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param entityType Define o tipo da entidade que ser√° pesquisado o Id.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna uma entidade do tipo entidade da aplica√ß√£o definido no m√≥dulo de seguran√ßa.
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -109,11 +109,11 @@ public class UtilsSecurity
     }
     
     /**
-     * Este mÈtodo recupera uma entidade do mÛdulo de seguranÁa atravÈs do nome e obtÈm o seu id. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param entityType Define o tipo da entidade que ser· pesquisado o Id.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna o Id da entidade definido no mÛdulo de seguranÁa.
+     * Este m√©todo recupera uma entidade do m√≥dulo de seguran√ßa atrav√©s do nome e obt√©m o seu id. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param entityType Define o tipo da entidade que ser√° pesquisado o Id.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna o Id da entidade definido no m√≥dulo de seguran√ßa.
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -123,13 +123,13 @@ public class UtilsSecurity
     }
     
     /**
-     * Esse mÈtodo È um atalho para o serviÁo de checagem de direitos sobre processos  
+     * Esse m√©todo √© um atalho para o servi√ßo de checagem de direitos sobre processos  
      * 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel
-     * @param process Define a inst‚ncia do processo ‡ ser verificado
-     * @param userSession Define a inst‚ncia da sess„o do usu·rio que est· tentando executar o processo
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna "true" se o usu·rio possui direito de execuÁ„o do processo e "false" caso contr·rio. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel
+     * @param process Define a inst√¢ncia do processo √† ser verificado
+     * @param userSession Define a inst√¢ncia da sess√£o do usu√°rio que est√° tentando executar o processo
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna "true" se o usu√°rio possui direito de execu√ß√£o do processo e "false" caso contr√°rio. 
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -146,16 +146,16 @@ public class UtilsSecurity
     }
 
     /**
-     * Esse mÈtodo È um atalho para o serviÁo de checagem de direitos crud sobre entidades
-     * Checa as permissıes de criaÁ„o, recuperaÁ„o, atualizaÁ„o e exclus„o de uma entidade
+     * Esse m√©todo √© um atalho para o servi√ßo de checagem de direitos crud sobre entidades
+     * Checa as permiss√µes de cria√ß√£o, recupera√ß√£o, atualiza√ß√£o e exclus√£o de uma entidade
      * 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel
-     * @param entityType Define o tipo da entidade ‡ ser verificada
-     * @param userSession Define a sess„o do usu·rio para verificaÁ„o se este possui ou n„o direitos  
-     *          CRUD de uma inst‚ncia do tipo de entidade especificado
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna um map contendo como chave o nome da operaÁ„o e como valor se o usu·rio possui 
-     *          ou n„o direito de executar a operaÁ„o.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel
+     * @param entityType Define o tipo da entidade √† ser verificada
+     * @param userSession Define a sess√£o do usu√°rio para verifica√ß√£o se este possui ou n√£o direitos  
+     *          CRUD de uma inst√¢ncia do tipo de entidade especificado
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna um map contendo como chave o nome da opera√ß√£o e como valor se o usu√°rio possui 
+     *          ou n√£o direito de executar a opera√ß√£o.
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -180,15 +180,15 @@ public class UtilsSecurity
     }
     
     /**
-     * Esse mÈtodo È um atalho para o serviÁo de checagem de direitos crud sobre entidades, 
-     * Checa apenas a permiss„o de criaÁ„o de uma entidade
+     * Esse m√©todo √© um atalho para o servi√ßo de checagem de direitos crud sobre entidades, 
+     * Checa apenas a permiss√£o de cria√ß√£o de uma entidade
      * 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel
-     * @param entityType Define o tipo da entidade ‡ ser verificada
-     * @param userSession Define a sess„o do usu·rio para verificaÁ„o se este possui ou n„o direitos  
-     *          criar uma inst‚ncia do tipo de entidade especificado
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna "true" se o usu·rio possui direito de criaÁ„o da entidade e "false" caso contr·rio
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel
+     * @param entityType Define o tipo da entidade √† ser verificada
+     * @param userSession Define a sess√£o do usu√°rio para verifica√ß√£o se este possui ou n√£o direitos  
+     *          criar uma inst√¢ncia do tipo de entidade especificado
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna "true" se o usu√°rio possui direito de cria√ß√£o da entidade e "false" caso contr√°rio
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -198,15 +198,15 @@ public class UtilsSecurity
     }
     
     /**
-     * Esse mÈtodo È um atalho para o serviÁo de checagem de direitos crud sobre entidades
-     * Checa apenas a permiss„o de recuperaÁ„o de uma entidade
+     * Esse m√©todo √© um atalho para o servi√ßo de checagem de direitos crud sobre entidades
+     * Checa apenas a permiss√£o de recupera√ß√£o de uma entidade
      * 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel
-     * @param entityType Define o tipo da entidade ‡ ser verificada
-     * @param userSession Define a sess„o do usu·rio para verificaÁ„o se este possui ou n„o direitos  
-     *          recuperar uma inst‚ncia do tipo de entidade especificado
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna "true" se o usu·rio possui direito de recuperaÁ„o da entidade e "false" caso contr·rio
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel
+     * @param entityType Define o tipo da entidade √† ser verificada
+     * @param userSession Define a sess√£o do usu√°rio para verifica√ß√£o se este possui ou n√£o direitos  
+     *          recuperar uma inst√¢ncia do tipo de entidade especificado
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna "true" se o usu√°rio possui direito de recupera√ß√£o da entidade e "false" caso contr√°rio
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -216,15 +216,15 @@ public class UtilsSecurity
     }
 
     /**
-     * Esse mÈtodo È um atalho para o serviÁo de checagem de direitos crud sobre entidades
-     * Checa apenas a permiss„o de atualizaÁ„o de uma entidade
+     * Esse m√©todo √© um atalho para o servi√ßo de checagem de direitos crud sobre entidades
+     * Checa apenas a permiss√£o de atualiza√ß√£o de uma entidade
      * 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel
-     * @param entiData tyType Define o tipo da entidade ‡ ser verificada
-     * @param userSession Define a sess„o do usu·rio para verificaÁ„o se este possui ou n„o direitos  
-     *          atualizar uma inst‚ncia do tipo de entidade especificado
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna "true" se o usu·rio possui direito de atualizaÁ„o da entidade e "false" caso contr·rio
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel
+     * @param entiData tyType Define o tipo da entidade √† ser verificada
+     * @param userSession Define a sess√£o do usu√°rio para verifica√ß√£o se este possui ou n√£o direitos  
+     *          atualizar uma inst√¢ncia do tipo de entidade especificado
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna "true" se o usu√°rio possui direito de atualiza√ß√£o da entidade e "false" caso contr√°rio
      * @throws BusinessException
      * @since 2005/11/04
      * 
@@ -235,15 +235,15 @@ public class UtilsSecurity
     }
 
     /**
-     * Esse mÈtodo È um atalho para o serviÁo de checagem de direitos crud sobre entidades
-     * Checa apenas a permiss„o de exclus„o de uma entidade
+     * Esse m√©todo √© um atalho para o servi√ßo de checagem de direitos crud sobre entidades
+     * Checa apenas a permiss√£o de exclus√£o de uma entidade
      * 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel
-     * @param entityType Define o tipo da entidade ‡ ser verificada
-     * @param userSession Define a sess„o do usu·rio para verificaÁ„o se este possui ou n„o direitos  
-     *          excluir uma inst‚ncia do tipo de entidade especificado atravÈs do parametro entityId
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna "true" se o usu·rio possui direito de exclus„o da entidade e "false" caso contr·rio
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel
+     * @param entityType Define o tipo da entidade √† ser verificada
+     * @param userSession Define a sess√£o do usu√°rio para verifica√ß√£o se este possui ou n√£o direitos  
+     *          excluir uma inst√¢ncia do tipo de entidade especificado atrav√©s do parametro entityId
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna "true" se o usu√°rio possui direito de exclus√£o da entidade e "false" caso contr√°rio
      * @throws BusinessException
      * @since 2005/11/04
      */
@@ -253,15 +253,15 @@ public class UtilsSecurity
     }
     
     /**
-     * Esse mÈtodo È um atalho para o serviÁo de checagem de direitos crud sobre entidades
-     * Checa apenas a permiss„o de pesquisa de uma entidade
+     * Esse m√©todo √© um atalho para o servi√ßo de checagem de direitos crud sobre entidades
+     * Checa apenas a permiss√£o de pesquisa de uma entidade
      * 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel
-     * @param entityType Define o tipo da entidade ‡ ser verificada
-     * @param userSession Define a sess„o do usu·rio para verificaÁ„o se este possui ou n„o direitos  
-     *          excluir uma inst‚ncia do tipo de entidade especificado atravÈs do parametro entityId
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna "true" se o usu·rio possui direito de pesquisar da entidade e "false" caso contr·rio
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel
+     * @param entityType Define o tipo da entidade √† ser verificada
+     * @param userSession Define a sess√£o do usu√°rio para verifica√ß√£o se este possui ou n√£o direitos  
+     *          excluir uma inst√¢ncia do tipo de entidade especificado atrav√©s do parametro entityId
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna "true" se o usu√°rio possui direito de pesquisar da entidade e "false" caso contr√°rio
      * @throws BusinessException
      * @since 2005/11/04
      */

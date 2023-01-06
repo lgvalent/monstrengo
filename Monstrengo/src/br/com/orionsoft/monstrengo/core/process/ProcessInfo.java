@@ -6,8 +6,8 @@ import br.com.orionsoft.monstrengo.core.process.IProcess;
 import br.com.orionsoft.monstrengo.core.process.IProcessInfo;
 
 /**
- * Esta classe armazena diversas informações sobre um processo.
- * Estas informações podem ser usadas pela interface quanto pelo
+ * Esta classe armazena diversas informaÃ§Ãµes sobre um processo.
+ * Estas informaÃ§Ãµes podem ser usadas pela interface quanto pelo
  * gerenciador de processo
  * 
  * @author Lucio

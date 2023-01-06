@@ -13,8 +13,8 @@ public interface IEntityList<T> extends IEntityCollection<T>{
 	/**
 	 * Cria uma lista de Objetos baseada nos objetos que se encontram
 	 * encapsulados dentro de IEntity.
-	 * <p>⁄til principalmente na camada de persistÍncia. Onde o 
-	 * importante È o objeto e n„o a entidade. 
+	 * <p>√ötil principalmente na camada de persist√™ncia. Onde o 
+	 * importante √© o objeto e n√£o a entidade. 
 	 * 
 	 * @see IEntity#getObject()
 	 * 
@@ -25,9 +25,9 @@ public interface IEntityList<T> extends IEntityCollection<T>{
 	public abstract List<T> getObjectList();
 	
 	/**
-	 * Este mÈtodo retorna uma lista que implementa a interface java.util.List.<br>
-	 * Foi necess·rio porque a IEntityList n„o implementa mais esta interface para que o JSF
-	 * n„o tente manupular ela como uma lista e perca os recursos extras adicionados como
+	 * Este m√©todo retorna uma lista que implementa a interface java.util.List.<br>
+	 * Foi necess√°rio porque a IEntityList n√£o implementa mais esta interface para que o JSF
+	 * n√£o tente manupular ela como uma lista e perca os recursos extras adicionados como
 	 * get/setRunId().
 	 * 
 	 * @author lucio
@@ -38,25 +38,25 @@ public interface IEntityList<T> extends IEntityCollection<T>{
 	public abstract IEntity<T> get(int index);
 
 	/**
-	 * adiciona todos os elementos de uma coleÁ„o a partir de uma determinada posiÁ„o
-	 * @param index Ìndice onde o primeiro elemento ser· inserido
-	 * @param c coleÁ„o de elementos ‡ ser inserido
+	 * adiciona todos os elementos de uma cole√ß√£o a partir de uma determinada posi√ß√£o
+	 * @param index √≠ndice onde o primeiro elemento ser√° inserido
+	 * @param c cole√ß√£o de elementos √† ser inserido
 	 * @return
 	 */
 	public abstract boolean addAll(int index, Collection<? extends IEntity<T>> c);
 
 	/**
-	 * Substitui o elemento contido na posiÁ„o especificada da lista pela 
+	 * Substitui o elemento contido na posi√ß√£o especificada da lista pela 
 	 * entidade fornecida
-	 * @param index posiÁ„o do elemento a ser substituido
-	 * @param element elemento que substituir· o valor original.
+	 * @param index posi√ß√£o do elemento a ser substituido
+	 * @param element elemento que substituir√° o valor original.
 	 * @return
 	 */
 	public abstract IEntity<T>set(int index, IEntity<T>element);
 
 	/**
-	 * Adiciona o elemento fornecido na posiÁ„o especificada
-	 * @param index posiÁ„o a ser inserido
+	 * Adiciona o elemento fornecido na posi√ß√£o especificada
+	 * @param index posi√ß√£o a ser inserido
 	 * @param element elemento a ser inserido
 	 */
 	public abstract void add(int index, IEntity<T>element);

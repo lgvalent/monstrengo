@@ -15,13 +15,13 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 
 /**
- * ServiÁo de registro de auditoria de alteraÁıes Crud.
+ * Servi√ßo de registro de auditoria de altera√ß√µes Crud.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_USER_SESSION: Inst‚ncia da atual sess„o do usu·rio.
- * <br> IN_APPLICATION_ENTITY: Entidade de seguranÁa que indica a entidade do sistema que ser· auditada.
- * <br> IN_ENTITY_ID: Identificador da inst‚ncia da entidade que ser· auditada (LONG).
- * <br> IN_DESCRIPTION_STR: DescriÁ„o adicional que ser· registrada na auditoria.
+ * <br> IN_USER_SESSION: Inst√¢ncia da atual sess√£o do usu√°rio.
+ * <br> IN_APPLICATION_ENTITY: Entidade de seguran√ßa que indica a entidade do sistema que ser√° auditada.
+ * <br> IN_ENTITY_ID: Identificador da inst√¢ncia da entidade que ser√° auditada (LONG).
+ * <br> IN_DESCRIPTION_STR: Descri√ß√£o adicional que ser√° registrada na auditoria.
  * 
  * <p><b>Procedimento:</b>
  * <br>Cria um novo registro da auditoria.
@@ -41,19 +41,19 @@ public class AuditorCrudService extends ServiceBasic
     
     public static String SERVICE_NAME = "AuditorCrudService";
     
-    /** Inst‚ncia da atual sess„o do usu·rio. */
+    /** Inst√¢ncia da atual sess√£o do usu√°rio. */
     public static String IN_USER_SESSION = "userSession";
-    /** Entidade de seguranÁa que indica a entidade do sistema que ser· auditada (IEntity)*/
+    /** Entidade de seguran√ßa que indica a entidade do sistema que ser√° auditada (IEntity)*/
     public static String IN_APPLICATION_ENTITY = "applicationEntity";
-    /** Identificador da inst‚ncia da entidade que ser· auditada (LONG). */
+    /** Identificador da inst√¢ncia da entidade que ser√° auditada (LONG). */
     public static String IN_ENTITY_ID = "entityId";
-    /** Indica se a operaÁ„o que est· sendo efetuada È de criaÁ„o. (Boolean) */
+    /** Indica se a opera√ß√£o que est√° sendo efetuada √© de cria√ß√£o. (Boolean) */
     public static String IN_CREATED_BOOL_OPT = "created";
-    /** Indica se a operaÁ„o que est· sendo efetuada È de atualizaÁ„o. (Boolean) */
+    /** Indica se a opera√ß√£o que est√° sendo efetuada √© de atualiza√ß√£o. (Boolean) */
     public static String IN_UPDATED_BOOL_OPT = "updated";
-    /** Indica se a operaÁ„o que est· sendo efetuada È de exclus„o. (Boolean) */
+    /** Indica se a opera√ß√£o que est√° sendo efetuada √© de exclus√£o. (Boolean) */
     public static String IN_DELETED_BOOL_OPT = "deleted";
-    /** DescriÁ„o adicional que ser· registrada na auditoria. (String) */
+    /** Descri√ß√£o adicional que ser√° registrada na auditoria. (String) */
     public static String IN_DESCRIPTION_STR = "description";
     
     @SuppressWarnings("static-access")
@@ -61,7 +61,7 @@ public class AuditorCrudService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo AuditorCrudService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo AuditorCrudService");
             // Pega os argumentos
             UserSession userSession = (UserSession) serviceData.getArgumentList().getProperty(IN_USER_SESSION);
             IEntity appEntity = (IEntity) serviceData.getArgumentList().getProperty(IN_APPLICATION_ENTITY);
@@ -82,11 +82,11 @@ public class AuditorCrudService extends ServiceBasic
                 deleted = (Boolean) serviceData.getArgumentList().getProperty(IN_DELETED_BOOL_OPT); 
 
             if (!(created || updated || deleted))
-                throw new BusinessException(MessageList.createSingleInternalError(new Exception("Nenhuma operaÁ„o crud foi definida")));
+                throw new BusinessException(MessageList.createSingleInternalError(new Exception("Nenhuma opera√ß√£o crud foi definida")));
             // Cria um novo registro
             IEntity register = UtilsCrud.create(this.getServiceManager(), AuditCrudRegister.class, serviceData);
 
-            /* Limita o tamanho da descriÁ„o para o tamanho do banco, evitando erros do tipo:
+            /* Limita o tamanho da descri√ß√£o para o tamanho do banco, evitando erros do tipo:
              * Data truncation: Data too long for column 'description' at row 1 */
             description = StringUtils.substring(description, 0, register.getProperty(AuditCrudRegister.DESCRIPTION).getInfo().getSize());
 
@@ -114,7 +114,7 @@ public class AuditorCrudService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

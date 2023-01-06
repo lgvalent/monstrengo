@@ -33,7 +33,7 @@ public class ProcessParamEntity<E> extends ProcessParamBasic<IEntity<E>> {
 
 	@SuppressWarnings("unchecked")
 	public List<IEntity<E>> getList(String filter) {
-		// A lista È criada depois com o tamanho j· otimizado
+		// A lista √© criada depois com o tamanho j√° otimizado
 		try{
 			List<?> result = this.getProcess().getProcessManager().getServiceManager().getEntityManager().queryEntities(this.entityType, filter, staticHqlWhereFilter, 10).getList();
 			
@@ -47,7 +47,7 @@ public class ProcessParamEntity<E> extends ProcessParamBasic<IEntity<E>> {
 
 	@SuppressWarnings("unchecked")
 	public List<IEntity<E>> getList() {
-		// A lista È criada depois com o tamanho j· otimizado
+		// A lista √© criada depois com o tamanho j√° otimizado
 		try{
 			List<?> result = this.getProcess().getProcessManager().getServiceManager().getEntityManager().queryEntities(this.entityType, "", staticHqlWhereFilter, 50).getList();
 			

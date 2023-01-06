@@ -1,13 +1,12 @@
 package br.com.orionsoft.monstrengo.security.entities;
 
-import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
 /**
- * Esta classe mantem as informaÁıes sobre um operador
- * autenticado. O processo de autenticaÁ„o cria uma instancia
- * desta classe quando um operador È v·lido e autenticado.
+ * Esta classe mantem as informa√ß√µes sobre um operador
+ * autenticado. O processo de autentica√ß√£o cria uma instancia
+ * desta classe quando um operador √© v√°lido e autenticado.
  * @author Lucio
  * @version 20060304
  */
@@ -30,8 +29,8 @@ public class UserSession
     public void setTerminal(String terminal){this.terminal = terminal;}
     
     /**
-     * @return Retorna, de uma forma mais facilitada, o login do usu·rio autenticado por esta classe de sess„o
-     * @throws EntityException LanÁa qualquer erro que ocorrer ao tentar obter o valor da propriedade 
+     * @return Retorna, de uma forma mais facilitada, o login do usu√°rio autenticado por esta classe de sess√£o
+     * @throws EntityException Lan√ßa qualquer erro que ocorrer ao tentar obter o valor da propriedade 
      * @since 20060304
      */
     public String getUserLogin() throws EntityException{

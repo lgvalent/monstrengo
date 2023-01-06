@@ -26,42 +26,42 @@ import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
  */
 
 /**
- * Classe utilit·ria para manipulaÁ„o e escolha de impressoras.
+ * Classe utilit√°ria para manipula√ß√£o e escolha de impressoras.
  * @author Lucio
  * @version 20060618
  */
 public class PrintUtils {
 
     public static int DEFAULT_PRINTER_INDEX = -1;
-    /* Permite definir que nada ser· impresso */
+    /* Permite definir que nada ser√° impresso */
     public static int PRINTER_INDEX_NO_PRINT = -2;
     
     
 	/**
-     * Recebe um Ìndice de um impressora e obtem o
-     * serviÁo de impress„o com o Ìndice correspondente.<br>
-     * Verifica se o Ìndice passado È PRINTER_INDEX_DEFAULT
-     * para pegar a impressora definida como padr„o no sistema
+     * Recebe um √≠ndice de um impressora e obtem o
+     * servi√ßo de impress√£o com o √≠ndice correspondente.<br>
+     * Verifica se o √≠ndice passado √© PRINTER_INDEX_DEFAULT
+     * para pegar a impressora definida como padr√£o no sistema
      */
     public static PrintService getPrintService(int printerIndex) {
 		if(printerIndex==DEFAULT_PRINTER_INDEX)
         	return PrintServiceLookup.lookupDefaultPrintService();
         
-		/* Obtem a lista de todas as impressoras disponÌveis no sistema */
+		/* Obtem a lista de todas as impressoras dispon√≠veis no sistema */
 		PrintService[] services = PrintServiceLookup.lookupPrintServices(DocFlavor.INPUT_STREAM.AUTOSENSE, null);
 		
-		/* Verifica se o Ìndice da impressora È v·lido */
+		/* Verifica se o √≠ndice da impressora √© v√°lido */
 		if(((services.length-1)<printerIndex) || (printerIndex == PRINTER_INDEX_NO_PRINT))
-			throw new  RuntimeException("N„o h· nenhum serviÁo de impress„o para a impressora de Ìndice " + printerIndex + ".");
+			throw new  RuntimeException("N√£o h√° nenhum servi√ßo de impress√£o para a impressora de √≠ndice " + printerIndex + ".");
 
         return services[printerIndex];
     }
 
 	/**
-     * Recebe um Ìndice de um impressora e cria um
-     * trabalho de impress„o para a impressora de Ìndice correspondente.<br>
-     * Verifica se o Ìndice passado È PRINTER_INDEX_DEFAULT
-     * para pegar a impressora definida como padr„o no sistema
+     * Recebe um √≠ndice de um impressora e cria um
+     * trabalho de impress√£o para a impressora de √≠ndice correspondente.<br>
+     * Verifica se o √≠ndice passado √© PRINTER_INDEX_DEFAULT
+     * para pegar a impressora definida como padr√£o no sistema
      */
     public static DocPrintJob createDocPrintJob(int printerIndex, String jobName) {
     	DocPrintJob result = getPrintService(printerIndex).createPrintJob();
@@ -70,30 +70,30 @@ public class PrintUtils {
     }
 
     /**
-     * Cria uma lista de opÁıes de impressoras disponÌveis no computador local.<br>
-     * Como padr„o, escolhe a impressora default. No entanto, em alguns sistemas,
-     * pode n„o haver uma impressora default definida. Assim, este mÈtodo
-     * escolher· a primeira da lista, se houver.
+     * Cria uma lista de op√ß√µes de impressoras dispon√≠veis no computador local.<br>
+     * Como padr√£o, escolhe a impressora default. No entanto, em alguns sistemas,
+     * pode n√£o haver uma impressora default definida. Assim, este m√©todo
+     * escolher√° a primeira da lista, se houver.
      */
     public static List<SelectItem> retrievePrinters() {
     	List<SelectItem> result = new ArrayList<SelectItem>();
     	
-    	/* Obtem a impressora padr„o e coloca a impressora padr„o no inÌcio da lista
-    	 * Lucio = 22/11/207: Pode n„o haver defaultPrinter, o que retornar· um null */
+    	/* Obtem a impressora padr√£o e coloca a impressora padr√£o no in√≠cio da lista
+    	 * Lucio = 22/11/207: Pode n√£o haver defaultPrinter, o que retornar√° um null */
     	PrintService printDefaultService = PrintServiceLookup.lookupDefaultPrintService();
     	
     	/* Verifica se achou alguma impressora instalada */
     	if(printDefaultService != null){
-    		result.add(new SelectItem(PRINTER_INDEX_NO_PRINT, "N„o enviar para impressora"));
+    		result.add(new SelectItem(PRINTER_INDEX_NO_PRINT, "N√£o enviar para impressora"));
     		result.add(new SelectItem(DEFAULT_PRINTER_INDEX, printDefaultService.getName()));
     	}else
-    		/* N„o pode ficar sem item de escolha */
-    		result.add(new SelectItem(DEFAULT_PRINTER_INDEX, "(Nenhuma impressora instalada no servidor ou sem impressora padr„o definida)"));
+    		/* N√£o pode ficar sem item de escolha */
+    		result.add(new SelectItem(DEFAULT_PRINTER_INDEX, "(Nenhuma impressora instalada no servidor ou sem impressora padr√£o definida)"));
     	
 		int printerIndex = 0;
 		PrintService[] services = PrintServiceLookup.lookupPrintServices(DocFlavor.INPUT_STREAM.AUTOSENSE, null);
 		for(PrintService printService: services){
-			/* Adiciona todas as impressoras, menos a padr„o que j· foi adicionada */
+			/* Adiciona todas as impressoras, menos a padr√£o que j√° foi adicionada */
 			/* Lucio 02/06/08: printDefaultService pode ser null. Colocada o null safe*/
 			if((printDefaultService != null) && !printService.getName().equals(printDefaultService.getName()))
 				result.add(new SelectItem(printerIndex, printService.getName()));
@@ -105,14 +105,14 @@ public class PrintUtils {
     }
     
     /**
-     * Imprime um documento do Jasper, j· compilador e preenchido na impressora definida pelo 
+     * Imprime um documento do Jasper, j√° compilador e preenchido na impressora definida pelo 
      * printerIndex.<br>
      * @throws JRException 
      */
     public static void printJasper(JasperPrint print, int printerIndex) throws JRException {
     	
 		PrintService service;
-    	/* Se o Ìndice da impressora È NO_PRINT, n„o imprime nada*/
+    	/* Se o √≠ndice da impressora √© NO_PRINT, n√£o imprime nada*/
 		if(printerIndex==PRINTER_INDEX_NO_PRINT)
     		return;
     	
@@ -131,7 +131,7 @@ public class PrintUtils {
     }
     
     /**
-     * Imprime um documento do Jasper, j· compilador e preenchido em um Stream PDF.<br>
+     * Imprime um documento do Jasper, j√° compilador e preenchido em um Stream PDF.<br>
      * @throws JRException 
      * @author lucio 20080611
      */
@@ -141,7 +141,7 @@ public class PrintUtils {
     }
     
     /**
-     * Imprime um documento do Jasper, j· compilador e preenchido na impressora definida pelo 
+     * Imprime um documento do Jasper, j√° compilador e preenchido na impressora definida pelo 
      * printerIndex.<br>
      * @throws JRException 
      */

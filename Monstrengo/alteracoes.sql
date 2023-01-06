@@ -16,7 +16,7 @@ ALTER TABLE `auditorship_service`
   CHANGE description `description` varchar(1000) DEFAULT NULL;
 
 
--- Lucio 21/05/2012: Tabela auditoria de serviÁos
+-- Lucio 21/05/2012: Tabela auditoria de servi√ßos
 CREATE TABLE  `auditorship_service` (
 		  `id` bigint(20) NOT NULL AUTO_INCREMENT,
 		  `serviceName` varchar(50) DEFAULT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE  `auditorship_service` (
 		  CONSTRAINT `auditorship_service_ibfk_1` FOREIGN KEY (`applicationUser`) REFERENCES `security_process` (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Lucio 17/01/2012: Uma conta de email pode ser marcada como Padr„o
+-- Lucio 17/01/2012: Uma conta de email pode ser marcada como Padr√£o
 ALTER TABLE `framework_email_account` 
 ADD useAsDefault bit;
 UPDATE `framework_email_account` 
@@ -38,7 +38,7 @@ set useAsDefault = false;
 -- Lucio 21/11/2011: Adeus Application
 DROP TABLE security_process_runnable_entities;
 
--- Lucio 21/07/2011: Novas propriedades padrıes label, hint, description, colorName nos metadados
+-- Lucio 21/07/2011: Novas propriedades padr√µes label, hint, description, colorName nos metadados
 ALTER TABLE `security_entity` 
 ADD `colorName` VARCHAR( 50 );
 
@@ -117,7 +117,7 @@ create table security_entity_property (
 
 
 -- 05/06/2007 - Lucio: novas propriedades para o ApplicationProcess
--- Deve ser executado com a atualizaÁ„o da classe ApplicatinProcess e ProcessMetadataAnnotation
+-- Deve ser executado com a atualiza√ß√£o da classe ApplicatinProcess e ProcessMetadataAnnotation
 ALTER TABLE `security_process`
 ADD `label` varchar(100),
 ADD `hint` varchar(255),
@@ -133,7 +133,7 @@ CREATE TABLE security_process_runnable_entities(
   );
 
 -- Lucio 29/12/2006 
--- Nova propriedade da entidade. label: um nome mais amig·vel da entidade
+-- Nova propriedade da entidade. label: um nome mais amig√°vel da entidade
 ALTER TABLE security_entity
   ADD label varchar(50);
   
@@ -141,7 +141,7 @@ UPDATE security_entity
   SET label=name;
 
 -- Lucio 11/12/2006 
--- AlteraÁ„o no modelo de etiquetas
+-- Altera√ß√£o no modelo de etiquetas
 ALTER TABLE framework_label_model
   ADD envelope tinyint(1);
   
@@ -149,7 +149,7 @@ UPDATE framework_label_model
   SET envelope = 0;
 
 -- Lucio 11/12/2006 
--- AlteraÁ„o no modelo de etiquetas
+-- Altera√ß√£o no modelo de etiquetas
 ALTER TABLE framework_label_model
   DROP labelType,
   DROP linesLabel,
@@ -206,7 +206,7 @@ ALTER TABLE `framework_label_address`
   REFERENCES `security_entity` ( `id` ); 
 
 -- Tatiana 29/08/2006 Novo campo com o nome completo do operador 
---                    para exibiÁ„o em impressoes
+--                    para exibi√ß√£o em impressoes
 alter table security_user
 add name varchar(50);
 

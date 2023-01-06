@@ -19,7 +19,7 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.util.AnnotationUtils;
 
 /**
- * Classe gerenciadora de daos que armazena todos os daos da aplicaÁ„o
+ * Classe gerenciadora de daos que armazena todos os daos da aplica√ß√£o
  * e pode localizar o dao correspondente a uma determinada classe.
  * 
  * @author Marcia
@@ -32,7 +32,7 @@ public class DaoManager implements IDaoManager
 {
 	protected Logger log = LogManager.getLogger(getClass());
 
-	// Lista de Daos disponÌveis e registrados
+	// Lista de Daos dispon√≠veis e registrados
 	private Map<String, IDAO<?>> daos = null;
 
 	private Properties hibernateProperties;
@@ -53,21 +53,21 @@ public class DaoManager implements IDaoManager
 	
 	public AnnotationConfiguration getConfiguration() {return configuration;}
 	/**
-	 * Este mÈtodo cria a lista de DAOs e busca todas as entidades anotadas no sistema
+	 * Este m√©todo cria a lista de DAOs e busca todas as entidades anotadas no sistema
 	 * para criar um dao manipulador para esta entidade.
-	 * A lista de DAOs auxilia o restante da arquitetura a saber quantas entidades s„o mantidas, ou seja,
-	 * quantas entidades s„o CRUD
+	 * A lista de DAOs auxilia o restante da arquitetura a saber quantas entidades s√£o mantidas, ou seja,
+	 * quantas entidades s√£o CRUD
 	 */
 	public void init(){
 		if(daos != null)
-			throw new RuntimeException("DaoManager j· inciado anteriormente. O mÈtodo init() n„o pode ser executado.");
+			throw new RuntimeException("DaoManager j√° inciado anteriormente. O m√©todo init() n√£o pode ser executado.");
 
 		daos = new HashMap<String, IDAO<?>>();
 
 		/* Prepara as entidades anotadas com @Entity */
 		List<String> annotatedClassesNames = new ArrayList<String>();
 		for (String module : this.getApplication().getModulesPackages()){
-			log.info("Registrando o mÛdulo da aplicaÁ„o: " + module);
+			log.info("Registrando o m√≥dulo da aplica√ß√£o: " + module);
 			annotatedClassesNames.addAll(AnnotationUtils.findAnnotatedClassesNames(module, Entity.class, Embeddable.class));
 		}
 		
@@ -83,7 +83,7 @@ public class DaoManager implements IDaoManager
 		
 		configuration.setProperties(hibernateProperties);
 
-		/* Aplica a nova f·brica de sess„o */
+		/* Aplica a nova f√°brica de sess√£o */
 		try {
 			sessionFactory = configuration.buildSessionFactory();
 		} catch (Exception e1) {
@@ -130,7 +130,7 @@ public class DaoManager implements IDaoManager
 
 		this.getDaos().put(clas.getSimpleName(), dao);
 
-		/* Verifica se a classe do DAO È extendida e se registra como uma extens„o */
+		/* Verifica se a classe do DAO √© extendida e se registra como uma extens√£o */
 		Class<?> superClas = clas.getSuperclass();
 		if(superClas != Object.class){
 			if(!subEntities.containsKey(superClas)){
@@ -156,7 +156,7 @@ public class DaoManager implements IDaoManager
 	}
 
 	/**
-	 * Obtem a inst‚ncia do DAO respons·vel para tratar a classe de objetos passada.
+	 * Obtem a inst√¢ncia do DAO respons√°vel para tratar a classe de objetos passada.
 	 * 
 	 * @param daos Classe do objeto que se requer o Dao.
 	 */
@@ -170,7 +170,7 @@ public class DaoManager implements IDaoManager
 		}
 	}    
 	/**
-	 * Obtem a inst‚ncia do DAO respons·vel para tratar a classe de objetos passada.
+	 * Obtem a inst√¢ncia do DAO respons√°vel para tratar a classe de objetos passada.
 	 * 
 	 * @param daos Classe do objeto que se requer o Dao.
 	 * @since 20060203

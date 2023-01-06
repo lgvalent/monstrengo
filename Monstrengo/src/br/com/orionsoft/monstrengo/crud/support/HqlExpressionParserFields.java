@@ -42,12 +42,12 @@ public class HqlExpressionParserFields {
 	}
 	
 	/**
-	 * Este mÈtodo analisa o documento em busca de campos que s„o 
-	 * identificados pela express„o:
+	 * Este m√©todo analisa o documento em busca de campos que s√£o 
+	 * identificados pela express√£o:
 	 * @{fieldType, fieldName, defaultValue}
 	 * @param expressionSource
 	 * @return Retorna um mapa com os nomes dos campos encontrados. 
-	 * Se o mapa estiver vazio È porque nenhum campo foi encontrado
+	 * Se o mapa estiver vazio √© porque nenhum campo foi encontrado
 	 * @throws BusinessException
 	 */
 	public static Map<String, HqlExpressionField> findFields(final String expressionSource) throws BusinessException{
@@ -66,7 +66,7 @@ public class HqlExpressionParserFields {
 						i++;
 					}
 
-					/* Verifica se o while anterior parou porque achou o inicio da express„o */
+					/* Verifica se o while anterior parou porque achou o inicio da express√£o */
 					if(StringUtils.substring(expressionSource, i, i+expBeginLength).equals(FIELD_EXPRESSION_BEGIN)){
 
 						String fieldTypeName = "";
@@ -80,7 +80,7 @@ public class HqlExpressionParserFields {
 							i++;
 						}
 
-						/* Verifica se o while anterior parou porque achou o separador de par‚metros */
+						/* Verifica se o while anterior parou porque achou o separador de par√¢metros */
 						if (expressionSource.charAt(i) == FIELD_EXPRESSION_PARAM_SEPARATOR){
 							/* Pula o separador */
 							i++; 
@@ -91,13 +91,13 @@ public class HqlExpressionParserFields {
 								i++;
 							}
 
-							/* Verifica se o while anterior parou porque achou o separador de par‚metros */
+							/* Verifica se o while anterior parou porque achou o separador de par√¢metros */
 							if (expressionSource.charAt(i) == FIELD_EXPRESSION_PARAM_SEPARATOR){
 								/* Pula o separador */
 								i++; 
 
-								/* Pega o valor padr„o controlando a presenÁa de subExpressıes que podem estar no valor padr„o e que usem os mesmos
-								 * sÌmbolos de { e } */
+								/* Pega o valor padr√£o controlando a presen√ßa de subExpress√µes que podem estar no valor padr√£o e que usem os mesmos
+								 * s√≠mbolos de { e } */
 								while (i<expressionSource.length() && expressionSource.charAt(i) != FIELD_EXPRESSION_END){ 
 
 									fieldDefaultValue += expressionSource.charAt(i);
@@ -110,16 +110,16 @@ public class HqlExpressionParserFields {
 							}
 						}else
 							if (expressionSource.charAt(i) == FIELD_EXPRESSION_END){
-								/* N„o faz nada, tudo terminou normal*/
+								/* N√£o faz nada, tudo terminou normal*/
 								/* Pula o end */
 								i++; 
 							}else					
-								/* Verifica se o while anterior parou porque achou o final da express„o */
+								/* Verifica se o while anterior parou porque achou o final da express√£o */
 								if (i==expressionSource.length()){
 									throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_END_EXPRESSION", fieldName));
 								}
 
-						/* Trata os espaÁos em branco nas laterais */
+						/* Trata os espa√ßos em branco nas laterais */
 						fieldTypeName = StringUtils.strip(fieldTypeName);
 						fieldName = StringUtils.strip(fieldName);
 						fieldDefaultValue = StringUtils.strip(fieldDefaultValue);
@@ -141,14 +141,14 @@ public class HqlExpressionParserFields {
 									fieldType = Calendar.class;
 
 
-						/* Verifica se o campo j· est· no mapa, para n„o substitui o primeiro
-						 * valor padr„o encontrado */
+						/* Verifica se o campo j√° est√° no mapa, para n√£o substitui o primeiro
+						 * valor padr√£o encontrado */
 						if(!mapFields.containsKey(fieldName))
 							/* Adiciono no mapa o campo que foi encontrado */
 							mapFields.put(fieldName, new HqlExpressionField(fieldType, fieldName, fieldDefaultValue));
 
 					}else
-						/* Verifica se o while anterior parou porque n„o seria possivel iniciar uma expressao com o restante de caractere da string */
+						/* Verifica se o while anterior parou porque n√£o seria possivel iniciar uma expressao com o restante de caractere da string */
 						if ((i+expBeginLength)>=expressionSource.length()){ 
 //							result.append(documentSource.charAt(i));
 							i++;
@@ -160,7 +160,7 @@ public class HqlExpressionParserFields {
 
 			}catch(BusinessException e)
 			{
-				// "N„o foi possÌvel executar o parsing da string <b>{0}</b>." 
+				// "N√£o foi poss√≠vel executar o parsing da string <b>{0}</b>." 
 				e.getErrorList().add(new BusinessMessage(HqlExpressionParserFields.class, "ERROR_PARSING_STRING", expressionSource));
 				throw e;
 			}
@@ -174,7 +174,7 @@ public class HqlExpressionParserFields {
 	 * 
 	 * @param expressionSource
 	 * @param fieldsValues
-	 * @return Retorna o documento com os campos j· substituidos pelos seus respectivos valores
+	 * @return Retorna o documento com os campos j√° substituidos pelos seus respectivos valores
 	 * @throws BusinessException
 	 */
 	public static String replaceFields(final String expressionSource, final Map<String,HqlExpressionField> fieldsValues) throws BusinessException{
@@ -193,7 +193,7 @@ public class HqlExpressionParserFields {
 					i++;
 				}
 				
-				/* Verifica se o while anterior parou porque achou o inicio da express„o */
+				/* Verifica se o while anterior parou porque achou o inicio da express√£o */
 				if(StringUtils.substring(expressionSource, i, i+expBeginLength).equals(FIELD_EXPRESSION_BEGIN)){
 					
 					String fieldName = "";
@@ -206,7 +206,7 @@ public class HqlExpressionParserFields {
 						i++;
 					}
 					
-					/* Verifica se o while anterior parou porque achou o separador de par‚metros */
+					/* Verifica se o while anterior parou porque achou o separador de par√¢metros */
 					if (expressionSource.charAt(i) == FIELD_EXPRESSION_PARAM_SEPARATOR){
 						/* Pula o separador */
 						i++; 
@@ -217,13 +217,13 @@ public class HqlExpressionParserFields {
 							i++;
 						}
 						
-						/* Verifica se o while anterior parou porque achou o separador de par‚metros */
+						/* Verifica se o while anterior parou porque achou o separador de par√¢metros */
 						if (expressionSource.charAt(i) == FIELD_EXPRESSION_PARAM_SEPARATOR){
 							/* Pula o separador */
 							i++; 
 							
-							/* Pega o valor padr„o controlando a presenÁa de subExpressıes que podem estar no valor padr„o e que usem os mesmos
-							 * sÌmbolos de { e } */
+							/* Pega o valor padr√£o controlando a presen√ßa de subExpress√µes que podem estar no valor padr√£o e que usem os mesmos
+							 * s√≠mbolos de { e } */
 							while (i<expressionSource.length() && expressionSource.charAt(i) != FIELD_EXPRESSION_END){ 
 								
 								i++;
@@ -236,22 +236,22 @@ public class HqlExpressionParserFields {
 						
 					}else
 						if (expressionSource.charAt(i) == FIELD_EXPRESSION_END){
-							/* N„o faz nada, tudo terminou normal*/
+							/* N√£o faz nada, tudo terminou normal*/
 							/* Pula o end */
 							i++; 
 						}else					
-							/* Verifica se o while anterior parou porque achou o final da express„o */
+							/* Verifica se o while anterior parou porque achou o final da express√£o */
 							if (i==expressionSource.length()){
 								throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_END_EXPRESSION", fieldName));
 							}
 					
-					/* Trata os espaÁos em branco nas laterais */
+					/* Trata os espa√ßos em branco nas laterais */
 					fieldName = StringUtils.strip(fieldName);
 
 					String fieldValue;
 					HqlExpressionField fieldInfo = fieldsValues.get(fieldName);
 					
-					/* Se o tipo for numÈrico */
+					/* Se o tipo for num√©rico */
 					if(fieldInfo.getType() == Double.class)
 						fieldValue = fieldInfo.getValue().replace(".", "").replace(",","."); 
 					/* Se o tipo for Calendar */
@@ -262,12 +262,11 @@ public class HqlExpressionParserFields {
 						fieldValue = fieldInfo.getValue(); 
 					
 					/* Adiciono no mapa o campo que foi encontrado */
-					System.out.println("FIELD VALUE: " + fieldValue);
 					result.append(fieldValue);
 					
 				}else
 				
-				/* Verifica se o while anterior parou porque n„o seria possivel iniciar uma expressao com o restante de caractere da string */
+				/* Verifica se o while anterior parou porque n√£o seria possivel iniciar uma expressao com o restante de caractere da string */
 				if ((i+expBeginLength)>=expressionSource.length()){ 
 					result.append(expressionSource.charAt(i));
 					i++;
@@ -278,7 +277,7 @@ public class HqlExpressionParserFields {
 			
 		}catch(BusinessException e)
 		{
-			// "N„o foi possÌvel executar o parsing da string <b>{0}</b>." 
+			// "N√£o foi poss√≠vel executar o parsing da string <b>{0}</b>." 
 			e.getErrorList().add(new BusinessMessage(HqlExpressionParserFields.class, "ERROR_PARSING_STRING", expressionSource));
 			throw e;
 		}
@@ -314,7 +313,7 @@ public class HqlExpressionParserFields {
 //	
 //	
 //	Map<String, String> map2 = new HashMap();
-//	map2.put("oi", "Ol·");
+//	map2.put("oi", "Ol√°");
 //	map2.put("ei", "Mundo");
 //	
 //	List<Entry> entry = new ArrayList<Entry>();
@@ -331,7 +330,7 @@ public class HqlExpressionParserFields {
 //	String documentSource = "@{oi,value} oi @{ei,#{oi}}";
 //	Map<String, String> map = DocumentParserFields.findFields(documentSource);
 //	
-//	map.put("oi", "Ol·");
+//	map.put("oi", "Ol√°");
 ////	map.put("ei", "Mundo");
 //	
 //	System.out.println(DocumentParserFields.replaceFields(documentSource, map)); 

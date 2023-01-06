@@ -11,10 +11,10 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 
 /**
- * Esta classe manipula a lÛgica de auditoria de uma entidade.
+ * Esta classe manipula a l√≥gica de auditoria de uma entidade.
  * A classe analisa a propriedade de uma entidade para armazenar
- * o valor de comparaÁ„o que ser· utilizado no final processo para auditar
- * as alteraÁıes ocorridas na entidade.
+ * o valor de compara√ß√£o que ser√° utilizado no final processo para auditar
+ * as altera√ß√µes ocorridas na entidade.
  * 
  * @author Lucio 2005/11/25
  *
@@ -28,18 +28,18 @@ public class PropertyAuditValue
     private static final String OLD_VALUE_NEW_VALUE_DIVIDER = "->";
 
     /**
-     * ConstrÛi um valor para ser auditado posteriormente.
-     * @param prop Propriedades que ser· auditada.
+     * Constr√≥i um valor para ser auditado posteriormente.
+     * @param prop Propriedades que ser√° auditada.
      * @param process TODO
      * @throws BusinessException
      */
     public PropertyAuditValue(IProperty prop) throws BusinessException
     {
-        // Armazena qual a propriedade que ser· monitorada para a auditoria
+        // Armazena qual a propriedade que ser√° monitorada para a auditoria
         this.property = prop;
       
-        // Analisa o valor atual e armazena para posterior comparaÁ„o e
-        // detecÁ„o de alteraÁıes
+        // Analisa o valor atual e armazena para posterior compara√ß√£o e
+        // detec√ß√£o de altera√ß√µes
         this.oldValue = prepareValue();
       
     }
@@ -49,9 +49,9 @@ public class PropertyAuditValue
         Object result = null;
         
         
-        /* Se for calculado e somente leitura, ent„o este campo, na verdade, depende totalmente de outro e nunca
-         * ser· alterado, sua mudanÁa na verdade sempre È o resultado da alteraÁ„o de outra propriedade. Logo,
-         * n„o se deve registrar auditoria desta propriedade  */
+        /* Se for calculado e somente leitura, ent√£o este campo, na verdade, depende totalmente de outro e nunca
+         * ser√° alterado, sua mudan√ßa na verdade sempre √© o resultado da altera√ß√£o de outra propriedade. Logo,
+         * n√£o se deve registrar auditoria desta propriedade  */
         if (property.getInfo().isCalculated()&&property.getInfo().isReadOnly()){
         	result = null;
         }
@@ -84,32 +84,32 @@ public class PropertyAuditValue
     }
 
     /**
-     * Este mÈtodo analisa a propriedade atual com outra propriedade 
+     * Este m√©todo analisa a propriedade atual com outra propriedade 
      * e seu valore anterior e atual e verifica se houve
-     * alguma alteraÁ„o.
+     * alguma altera√ß√£o.
      *  
-     * @param prop Propriedade da entidade que ser· analisada
-     * @return Valor da propriedade que ser· usado para comparaÁ„o ou vazio 
+     * @param prop Propriedade da entidade que ser√° analisada
+     * @return Valor da propriedade que ser√° usado para compara√ß√£o ou vazio 
      * @throws BusinessException 
      */
     public String retrieveAuditDescriptionIfChanged() throws BusinessException
     {
-    	// Define a classificaÁ„o b·sica de um propriedade para a auditoria
+    	// Define a classifica√ß√£o b√°sica de um propriedade para a auditoria
     	boolean isCollection = property.getInfo().isCollection();
     	
     	
-    	// ConstrÛi o atual valor da propriedade para ser comparado com 
-    	// o oldValue construÌdo no construtor da classe (inÌcio)
+    	// Constr√≥i o atual valor da propriedade para ser comparado com 
+    	// o oldValue constru√≠do no construtor da classe (in√≠cio)
     	Object newValue = prepareValue();
     	
-    	// Prepara informaÁıes sobre a propriedade que ser„o montadas
-    	// na descriÁ„o da auditoria
+    	// Prepara informa√ß√µes sobre a propriedade que ser√£o montadas
+    	// na descri√ß√£o da auditoria
     	String propName = property.getInfo().getName();
     	String result = propName;
     	
     	// Linha exemplo:
     	// nome='Marcia';numeroPessoas=3;telefones.id=+[1,2]-[3]
-    	// Define se o tipo da propriedade n„o È um n˙mero nem id para ent„o receber aspas.  
+    	// Define se o tipo da propriedade n√£o √© um n√∫mero nem id para ent√£o receber aspas.  
     	String aspas = "";
     	
     	if (! (property.getInfo().isNumber() || property.getInfo().isEntity()))
@@ -118,14 +118,14 @@ public class PropertyAuditValue
     	}
     	else 
     	{
-    		// Se for entidade, n„o recebe aspas, mas recebe uma descriÁ„o adicional 
+    		// Se for entidade, n√£o recebe aspas, mas recebe uma descri√ß√£o adicional 
     		// no nome da propriedade ".id"
     		if (property.getInfo().isEntity())
     		{
     			result += ".id";
     		}
     	}
-    	// Monta o inÌcio do resultado: prop= ou prop.id=
+    	// Monta o in√≠cio do resultado: prop= ou prop.id=
     	result += "=";
     	try{
     		
@@ -139,7 +139,7 @@ public class PropertyAuditValue
     			
     			// Verifica os valores removidos
     			// Pega a lista velha e busca cada item na lista nova
-    			// Os que n„o estiverem foram removidos
+    			// Os que n√£o estiverem foram removidos
     			for(Object obj: oldCollection)
     			{
     				// agrupa os valores removidos
@@ -151,7 +151,7 @@ public class PropertyAuditValue
     			
     			// Verifica os valores adicionados
     			// Pega a lista nova e busca cada item na lista velha
-    			// Os que n„o estiverem foram adicionados
+    			// Os que n√£o estiverem foram adicionados
     			for(Object obj: newCollection)
     			{
     				// agrupa os valores adicionados
@@ -164,28 +164,28 @@ public class PropertyAuditValue
     			// Monta a String resultado
     			if (removedValues != "")
     			{
-    				// remove a ˙ltima vÌrgula
+    				// remove a √∫ltima v√≠rgula
     				StringUtils.stripEnd(removedValues, ",");
     				result += "-[" + removedValues.length() + "]";
     			}
     			if (addedValues != "")
     			{
-    				// remove a ˙ltima vÌrgula
+    				// remove a √∫ltima v√≠rgula
     				StringUtils.stripEnd(addedValues, ",");
     				result += "+[" + addedValues + "]";
     			}
     			
-    			// Verifica se houve alguma mudanÁa, sen„o resulta null
+    			// Verifica se houve alguma mudan√ßa, sen√£o resulta null
     			if ((removedValues == "") && (addedValues == "")) 
     			{
     				result = null;
     			}
     			
     		}
-    		// se n„o for uma lista
+    		// se n√£o for uma lista
     		else
     		{
-    			// Verifica se houve alguma mudanÁa e trata se o antigo valor e' nulo
+    			// Verifica se houve alguma mudan√ßa e trata se o antigo valor e' nulo
     			if (oldValue==null && newValue!=null)
     			{
     				/* Registrando o valor anterior */
@@ -212,7 +212,7 @@ public class PropertyAuditValue
 
    				}
    				else
-   					// Sen„o, retorna null
+   					// Sen√£o, retorna null
    					result = null;
     		}
     		

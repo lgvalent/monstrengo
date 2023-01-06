@@ -8,9 +8,9 @@ import br.com.orionsoft.monstrengo.core.process.IProcess;
 
 
 /**
- * Esta interface define alguns dados de tempo de execuÁ„o de um processo.
- * As informaÁıes aqui contidas s„o ˙teis na implementaÁ„o de visualizadores
- * de processos que motram quais processos e porque eles est„o sendo executados.
+ * Esta interface define alguns dados de tempo de execu√ß√£o de um processo.
+ * As informa√ß√µes aqui contidas s√£o √∫teis na implementa√ß√£o de visualizadores
+ * de processos que motram quais processos e porque eles est√£o sendo executados.
  * @author lucio
  *
  */
@@ -19,11 +19,11 @@ public interface IProcessInfo {
     public abstract IProcess getProcessOwner();
 
     /**
-     * Armazena o id que identifica o processo na mÛdulo de controle de
-     * seguranÁa.<br>
-     * Os dados sobre todos os processos s„o persistidos pela entidade
+     * Armazena o id que identifica o processo na m√≥dulo de controle de
+     * seguran√ßa.<br>
+     * Os dados sobre todos os processos s√£o persistidos pela entidade
      * ApplicationProcess.class.
-     * Com este id È mais f·cil recuperar os dados do processo persistido. 
+     * Com este id √© mais f√°cil recuperar os dados do processo persistido. 
      * @return
      */
     public abstract long getId();

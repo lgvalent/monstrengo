@@ -5,7 +5,7 @@ import br.com.orionsoft.monstrengo.core.process.IProcess;
 
 
 /**
- * Esta interface define os mÈtodos que um par‚metro de um processo.
+ * Esta interface define os m√©todos que um par√¢metro de um processo.
  * 
  * @author lucio
  */

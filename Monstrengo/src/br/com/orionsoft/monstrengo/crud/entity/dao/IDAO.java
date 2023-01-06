@@ -38,20 +38,20 @@ public interface IDAO<T>
      */
     public abstract void update(Object obj, Session session) throws DAOException, HibernateException;
     /**
-     * Busca todos os registros no banco de dados que atendam ‡ condiÁ„o de pesquisa
-     * @return Lista de objetos que atendam ‡ condiÁ„o de pesquisa
-     * @param condicao Esta condiÁ„o È composta das expressıes que ser„o utilizadas
-     * na cl·usula WHERE.<br>
-     * Utilize o alias entity (IDAO.ENTITY_ALIAS_HQL) antes das propriedades para evitar montagem de SQL inv·lidas. 
-     * N„o forneÁa cl·usulas SELECT, FROM ou WHERE nesta condiÁ„o.<br>
-     * Na condiÁ„o pode ser utilizada em seu final a clausua ORDER BY que define a ordem
+     * Busca todos os registros no banco de dados que atendam √† condi√ß√£o de pesquisa
+     * @return Lista de objetos que atendam √† condi√ß√£o de pesquisa
+     * @param condicao Esta condi√ß√£o √© composta das express√µes que ser√£o utilizadas
+     * na cl√°usula WHERE.<br>
+     * Utilize o alias entity (IDAO.ENTITY_ALIAS_HQL) antes das propriedades para evitar montagem de SQL inv√°lidas. 
+     * N√£o forne√ßa cl√°usulas SELECT, FROM ou WHERE nesta condi√ß√£o.<br>
+     * Na condi√ß√£o pode ser utilizada em seu final a clausua ORDER BY que define a ordem
      * de listagem dos objetosa. 
      */
     public abstract List<T> getList(String condicao) throws DAOException;
 
     /**
     * Busca todos registros no banco de dados 
-    * @return Lista de objetos que atendam ‡ condiÁ„o de pesquisa
+    * @return Lista de objetos que atendam √† condi√ß√£o de pesquisa
     */
     public abstract List<T> getList() throws DAOException;
 

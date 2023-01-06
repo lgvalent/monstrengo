@@ -60,7 +60,7 @@ public class DeleteCascadeTest extends DaoBasicTest
 //        
 //        IDAO municipioDao = this.daoManager.getDaoByEntity(Municipio.class);
 //        Municipio municipio = (Municipio)municipioDao.create();
-//        municipio.setNome("Maring·");
+//        municipio.setNome("Maring√°");
 //        municipio.setUf(uf);
 //        municipioDao.update(municipio);
 //        
@@ -70,7 +70,7 @@ public class DeleteCascadeTest extends DaoBasicTest
 //        municipioDao.update(municipio2);
 //
 //        Municipio municipio3 = (Municipio)municipioDao.create();
-//        municipio3.setNome("S„o Paulo");
+//        municipio3.setNome("S√£o Paulo");
 //        municipio3.setUf(uf2);
 //        municipioDao.update(municipio3);
 //

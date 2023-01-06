@@ -6,45 +6,45 @@ ADAPTAR:========================================================================
 08103782'
 
 Runnable:=========================================================================================
-Antes de implementar um Runnable, leia este documento. Ele ir· te ajudar a lembrar dos detalhes que
-envolvem a implantaÁ„o de um novo processo come esta caracterÌstica.
+Antes de implementar um Runnable, leia este documento. Ele ir√° te ajudar a lembrar dos detalhes que
+envolvem a implanta√ß√£o de um novo processo come esta caracter√≠stica.
 
-Vamos precisar de trÍs componentes para implementar a caracterÌstica Runnable em um processo de negÛcio.
+Vamos precisar de tr√™s componentes para implementar a caracter√≠stica Runnable em um processo de neg√≥cio.
 	1) Um processo que implemente a interface IRunnableEntityProcess;
 	2) Um controlador runnable para o processo: IRunnableEntityProcessController (RunnableEntityProcessControllerBasic);
-	3) Uma vis„o que implemente a interface IRunnableProcessView;
+	3) Uma vis√£o que implemente a interface IRunnableProcessView;
 
 1) Processo Runnable
-  Um processo È Runnable quando ele implementa a interface IRunnableEntityProcess e possui um controlador implementado.
-  Ao definir um processo como Runnable lembre-se de definir os metadados do processo utilizando as anotaÁıes.
-  Exemplo: @ProcessMetadataAnnotation(label="Redefinir a senha de um operador", hint="Permite redefinir a senha de um operador sem conhecer a sua atual senha", description="Permite redefinir a senha de um operador sem conhecer a sua atual senha. ⁄til para os administradores redefinirem a senha esquecida de um operador")
+  Um processo √© Runnable quando ele implementa a interface IRunnableEntityProcess e possui um controlador implementado.
+  Ao definir um processo como Runnable lembre-se de definir os metadados do processo utilizando as anota√ß√µes.
+  Exemplo: @ProcessMetadataAnnotation(label="Redefinir a senha de um operador", hint="Permite redefinir a senha de um operador sem conhecer a sua atual senha", description="Permite redefinir a senha de um operador sem conhecer a sua atual senha. √ötil para os administradores redefinirem a senha esquecida de um operador")
 		   public class OverwritePasswordProcess extends ProcessBasic implements IRunnableEntityProcess{
 		   ...
 		   }
-  Abaixo est· um exemplo de implementaÁ„o do mÈtodo definido pela interface IRunnableEntityProcess
+  Abaixo est√° um exemplo de implementa√ß√£o do m√©todo definido pela interface IRunnableEntityProcess
   
   	/*==============================================================================
 	 * IRunnableEntityProcess	
 	 *==============================================================================*/
 	
-	/** ImplementaÁ„o fictÌcia */
+	/** Implementa√ß√£o fict√≠cia */
 	public boolean runWithEntity(IEntity entity) {
         super.beforeRun();
 
         boolean result = false;
 		
-		/* Verifica se a entidade È compatÌvel */
+		/* Verifica se a entidade √© compat√≠vel */
 		if(entity.getInfo().getType() == ApplicationUser.class){
 			try {
-				/* ExtraÌ os par‚metros da entidade que s„o ˙teis para o atual processo */
+				/* Extra√≠ os par√¢metros da entidade que s√£o √∫teis para o atual processo */
 				this.login = entity.getProperty(ApplicationUser.LOGIN).getValue().getAsString();
 
-				/* Preenche algumas opÁıes padrıes do processo caso seja chamado por runWithEntity() */
+				/* Preenche algumas op√ß√µes padr√µes do processo caso seja chamado por runWithEntity() */
 				this.dataInicial = '01/01/1900';
 				this.dataFinal = '31/12/2008';
 
-				/* Executa alguma aÁ„o para que o processo j· exiba algum resultado
-				 * na primeira exibiÁ„o */
+				/* Executa alguma a√ß√£o para que o processo j√° exiba algum resultado
+				 * na primeira exibi√ß√£o */
 				result = runListar();
 				
 			} catch (BusinessException e) {
@@ -62,41 +62,41 @@ Vamos precisar de trÍs componentes para implementar a caracterÌstica Runnable em
   
   
 2) Controlador Runnable
-  Ao iniciar a execuÁ„o de um processo de negÛcio, o sistema fornece uma inst‚ncia individual para cada operador.
-  Assim, haver· v·rias inst‚ncias de um mesmo processo em execuÁ„o no sistema.
-  O ProcessManager È respons·vel por identificar o processo solicitado e instanci·-lo.
-  TambÈm È cargo do ProcessManager, verificar se um determinado processo È ou n„o Runnable.
-  Isto È possÌvel, porque o ProcessManager mantÈm o registro de todos os controladores de processo existentes.
+  Ao iniciar a execu√ß√£o de um processo de neg√≥cio, o sistema fornece uma inst√¢ncia individual para cada operador.
+  Assim, haver√° v√°rias inst√¢ncias de um mesmo processo em execu√ß√£o no sistema.
+  O ProcessManager √© respons√°vel por identificar o processo solicitado e instanci√°-lo.
+  Tamb√©m √© cargo do ProcessManager, verificar se um determinado processo √© ou n√£o Runnable.
+  Isto √© poss√≠vel, porque o ProcessManager mant√©m o registro de todos os controladores de processo existentes.
   Cada processo Runnable deve ter um controlador implementado para ele.
-  Este controlador È respons·vel por verificar se um processo pode ou n„o ser executado a partir de uma determinada entidade.
-  Isto porque, uma entidade pode estar em um estado que impede a execuÁ„o de um processo sobre ela.
-  Exemplo: Um operador inativo n„o pode ter sua senha trocada. Isto j· È indicado pelo controlador OverwritePasswordProcessController;  
+  Este controlador √© respons√°vel por verificar se um processo pode ou n√£o ser executado a partir de uma determinada entidade.
+  Isto porque, uma entidade pode estar em um estado que impede a execu√ß√£o de um processo sobre ela.
+  Exemplo: Um operador inativo n√£o pode ter sua senha trocada. Isto j√° √© indicado pelo controlador OverwritePasswordProcessController;  
 
 
-3) Bean de vis„o que implementa a interface IRunnableProcessView
-  - metodo 'public String getViewName()' que retorne o nome da vis„o que est· registrado no arquivo facesConfig.xml.
-    Exemplo: Para a classe ListarPosicaoContratoBean o mÈtodo getViewName() retorna:
+3) Bean de vis√£o que implementa a interface IRunnableProcessView
+  - metodo 'public String getViewName()' que retorne o nome da vis√£o que est√° registrado no arquivo facesConfig.xml.
+    Exemplo: Para a classe ListarPosicaoContratoBean o m√©todo getViewName() retorna:
              listarPosicaoContratoBean
              Assim, no arquivo facesConfig.xml temos:
 		<managed-bean>
 			<managed-bean-name>listarPosicaoContratoBean</managed-bean-name>
 		...
 		
-  - mÈtodo 'public String getRunnableEntityProcessName()' que retorna o nome do processo que È manipulado por esta vis„o. O gerenciador de vis„o do usu·rio 'UserSessionBean' controla todas as visıes que s„o instanciadas para este usu·rio.
-    Quando um processo compatÌ≠vel com uma entidade È identificado, o gerenciador pega o nome do processo e tenta buscar qual vis„o manipula ele.
-    Para isto, o gerenciador remove a sufixo 'Process' do nome do processo e coloca o sufixo 'Bean' e busca uma vis„o com este nome.
-    A busca È realizar pelo mÈtodo utilit·rio do Faces, como ser· mostrado no exemplo a seguir.
-    Este mÈtodo foi utilizado, porque um processo na camada inferior n„o pode referenciar uma vis„o especÌ≠fica na camada superior.
-    Uma vez que podemos ter v·rias tecnologias de vis„o para um mesmo processo.
-    Futuramente, o gerenciador, ao identificar um processo compatÌ≠vel dever· solicitar ao gerenciador de interface atual uma vis„o compatÌ≠vel com o processo.
-    E isto ser· possÌ≠vel, porque as visıes possuem o nome do processo que elas manipulam.
-    A implementaÁ„o atual resolve a quest„o de que o JSFaces n„o fornece todas as views cadastradas no facesConfig.xml.
-    O JSFaces vai construindo por demanda cada vis„o referenciada. No entanto, ele fornece um mÈtodo que permite pesquisar se uma determinada vis„o est· configurada ou n„o:
+  - m√©todo 'public String getRunnableEntityProcessName()' que retorna o nome do processo que √© manipulado por esta vis√£o. O gerenciador de vis√£o do usu√°rio 'UserSessionBean' controla todas as vis√µes que s√£o instanciadas para este usu√°rio.
+    Quando um processo compat√≠¬≠vel com uma entidade √© identificado, o gerenciador pega o nome do processo e tenta buscar qual vis√£o manipula ele.
+    Para isto, o gerenciador remove a sufixo 'Process' do nome do processo e coloca o sufixo 'Bean' e busca uma vis√£o com este nome.
+    A busca √© realizar pelo m√©todo utilit√°rio do Faces, como ser√° mostrado no exemplo a seguir.
+    Este m√©todo foi utilizado, porque um processo na camada inferior n√£o pode referenciar uma vis√£o espec√≠¬≠fica na camada superior.
+    Uma vez que podemos ter v√°rias tecnologias de vis√£o para um mesmo processo.
+    Futuramente, o gerenciador, ao identificar um processo compat√≠¬≠vel dever√° solicitar ao gerenciador de interface atual uma vis√£o compat√≠¬≠vel com o processo.
+    E isto ser√° poss√≠¬≠vel, porque as vis√µes possuem o nome do processo que elas manipulam.
+    A implementa√ß√£o atual resolve a quest√£o de que o JSFaces n√£o fornece todas as views cadastradas no facesConfig.xml.
+    O JSFaces vai construindo por demanda cada vis√£o referenciada. No entanto, ele fornece um m√©todo que permite pesquisar se uma determinada vis√£o est√° configurada ou n√£o:
 	
 	Exemplo:
 		FacesContext context = FacesContext.getCurrentInstance();
 		ValueBinding value = context.getApplication().createValueBinding("#{" + viewName+ "}");
 		return (IRunnableProcessView)  value.getValue(context);
 
-  - mÈtodo 'public String runWithEntity(IEntity entity)' que invoca o processo e executa o mÈtodo process.runWithEntity com a entidade selecionada.
+  - m√©todo 'public String runWithEntity(IEntity entity)' que invoca o processo e executa o m√©todo process.runWithEntity com a entidade selecionada.
 

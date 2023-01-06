@@ -29,21 +29,21 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IMetadataHandle;
 public interface IEntityManager {
 
     /**
-     * Este mÈtodo cria uma entidade de negÛcio baseado no objeto fornecido.
+     * Este m√©todo cria uma entidade de neg√≥cio baseado no objeto fornecido.
      *
      * @param object
-     *            Objeto persistido que ser· transformado em uma entidade de
-     *            negÛcio.
-     * @return Retorna uma entidade de negÛcio com seus dados e metadados.
+     *            Objeto persistido que ser√° transformado em uma entidade de
+     *            neg√≥cio.
+     * @return Retorna uma entidade de neg√≥cio com seus dados e metadados.
      * @throws EntityException
      */
     public abstract <T> IEntity<T> getEntity(Object object) throws EntityException;
 
     /**
-     * Este mÈtodo retorna uma inst‚ncia do metadado da classe solicitada
-     * obtendo o valor padr„o definido nos arquivos .properties criados pelo
-     * programado. Para isto, o MetadataHandle È operado em um modo especial para retornar os 
-     * valores padrıes e n„o os valores que ele pode encontrar no banco. 
+     * Este m√©todo retorna uma inst√¢ncia do metadado da classe solicitada
+     * obtendo o valor padr√£o definido nos arquivos .properties criados pelo
+     * programado. Para isto, o MetadataHandle √© operado em um modo especial para retornar os 
+     * valores padr√µes e n√£o os valores que ele pode encontrar no banco. 
      * 
      * @return
      * @throws EntityException
@@ -51,8 +51,8 @@ public interface IEntityManager {
     public abstract IEntityMetadata getEntityMetadataDefaults(Class<?> entityClass) throws EntityException;
 
     /**
-     * Este mÈtodo retorna uma inst‚ncia do metadado da classe solicitada. 
-     * Ele utiliza o map do mÈtodo getEntitiesMetadata para localizar a entidade.
+     * Este m√©todo retorna uma inst√¢ncia do metadado da classe solicitada. 
+     * Ele utiliza o map do m√©todo getEntitiesMetadata para localizar a entidade.
      *
      * @return
      * @throws EntityException
@@ -60,18 +60,18 @@ public interface IEntityManager {
     public abstract IEntityMetadata getEntityMetadata(Class<?> entityClass) throws EntityException;
 
     /**
-     * Este mÈtodo permite limpar o cache de metadados que È mantido
-     * pelo entity manager. Assim, quando houver alguma alteraÁ„o
-     * dos metados no banco, os mesmos poder„o ser recarregados
-     * pois este mÈtodo limpa as atuais inst‚ncias e forÁa uma
+     * Este m√©todo permite limpar o cache de metadados que √© mantido
+     * pelo entity manager. Assim, quando houver alguma altera√ß√£o
+     * dos metados no banco, os mesmos poder√£o ser recarregados
+     * pois este m√©todo limpa as atuais inst√¢ncias e for√ßa uma
      * recarga.
      * @since 20070510
      */
     public void refreshEntitiesMetadata();
 
     /**
-     * Este mÈtodo retorna uma map com inst‚ncia de todos os metadado das
-     * classes registradas no sistema. O mapa È criado somente uma vez
+     * Este m√©todo retorna uma map com inst√¢ncia de todos os metadado das
+     * classes registradas no sistema. O mapa √© criado somente uma vez
      * e fica bufferizado para futuras chamadas
      *
      * @return
@@ -80,35 +80,35 @@ public interface IEntityManager {
     public abstract Map<String,IEntityMetadata> getEntitiesMetadata() throws EntityException;
 
     /**
-     * <p>Este mÈtodo converte um conjunto de objetos em um conjunto de entidade.
-     * <p>… realizada somente uma busca de metadados para todo o conjunto.
+     * <p>Este m√©todo converte um conjunto de objetos em um conjunto de entidade.
+     * <p>√â realizada somente uma busca de metadados para todo o conjunto.
      *
-     * @param classObj Tipo da classe de objetos que est„o na lista.
-     * @param set Conjunto de objetos persistidos que ser· transformada em um conjunto de entidade de negÛcio.
+     * @param classObj Tipo da classe de objetos que est√£o na lista.
+     * @param set Conjunto de objetos persistidos que ser√° transformada em um conjunto de entidade de neg√≥cio.
      *
-     * @return Retorna uma lista de entidade de negÛcio com seus dados e metadados.
+     * @return Retorna uma lista de entidade de neg√≥cio com seus dados e metadados.
      *
      * @throws EntityException
      */
     public abstract <T> IEntitySet<T> getEntitySet(Set<T> set, Class<T> classObj) throws EntityException;
 
     /**
-     * <p>Este mÈtodo converte uma lista de objetos em uma lista de entidade.
-     * <p>… realizada somente uma busca de metadados para toda a lista.
+     * <p>Este m√©todo converte uma lista de objetos em uma lista de entidade.
+     * <p>√â realizada somente uma busca de metadados para toda a lista.
      *
-     * @param classObj Tipo da classe de objetos que est„o na lista.
-     * @param list Lista de objetos persistidos que ser· transformada em uma lista de entidade de negÛcio.
+     * @param classObj Tipo da classe de objetos que est√£o na lista.
+     * @param list Lista de objetos persistidos que ser√° transformada em uma lista de entidade de neg√≥cio.
      *
-     * @return Retorna uma lista de entidade de negÛcio com seus dados e metadados.
+     * @return Retorna uma lista de entidade de neg√≥cio com seus dados e metadados.
      *
      * @throws EntityException
      */
     public abstract <T> IEntityList<T> getEntityList(List<T> list, Class<T> classObj) throws EntityException;
 
     /**
-     * Este mÈtodo cria uma lista de entidades em forma de uma lista de seleÁ„o. Muito
-     * ˙til quando algum processo quer gerar exibir uma lista de possÌveis entidades.<br>
-     * Quando a entidade È enum o sistema n„o busca os objetos no banco, mas sim na lista
+     * Este m√©todo cria uma lista de entidades em forma de uma lista de sele√ß√£o. Muito
+     * √∫til quando algum processo quer gerar exibir uma lista de poss√≠veis entidades.<br>
+     * Quando a entidade √© enum o sistema n√£o busca os objetos no banco, mas sim na lista
      * de valores constantes de class enum.
      *
      * @param classObj
@@ -119,11 +119,11 @@ public interface IEntityManager {
     public abstract List<SelectItem> getEntitySelectItems(Class<?> classObj, String hqlWhereExp) throws EntityException;
 
     /**
-     * Este mÈtodo cria uma lista de entidades em forma de uma lista de seleÁ„o. Muito
-     * ˙til quando algum processo quer gerar exibir uma lista de possÌveis entidades.<br>
-     * Quando a entidade È enum o sistema n„o busca os objetos no banco, mas sim na lista
+     * Este m√©todo cria uma lista de entidades em forma de uma lista de sele√ß√£o. Muito
+     * √∫til quando algum processo quer gerar exibir uma lista de poss√≠veis entidades.<br>
+     * Quando a entidade √© enum o sistema n√£o busca os objetos no banco, mas sim na lista
      * de valores constantes de class enum.
-     * Um filtro È fornecido para se buscar em todas as propriedades da entidade
+     * Um filtro √© fornecido para se buscar em todas as propriedades da entidade
      * utilizando o QueryService
      *
      * @param classObj
@@ -142,7 +142,7 @@ public interface IEntityManager {
     public abstract IDaoManager getDaoManager();
 
     /**
-     * Indica o gerenciador de validaÁıes que È utilizado por este gerenciador de entidades.
+     * Indica o gerenciador de valida√ß√µes que √© utilizado por este gerenciador de entidades.
      * @param DvoManager
      */
     public abstract IDvoManager getDvoManager();
@@ -150,7 +150,7 @@ public interface IEntityManager {
         
     /**
      * Retorna a lista de metadados das subentidades de uma entidade.<br>
-     * Isto È observado na classe {@link Contrato} e suas subclasses {@link ContratoFinanceiro}, {@link ContratoSindicato}.  
+     * Isto √© observado na classe {@link Contrato} e suas subclasses {@link ContratoFinanceiro}, {@link ContratoSindicato}.  
      * @throws EntityException 
      */
     public List<IEntityMetadata> getSubEntitiesMetadata(Class<?> entityClass) throws EntityException;

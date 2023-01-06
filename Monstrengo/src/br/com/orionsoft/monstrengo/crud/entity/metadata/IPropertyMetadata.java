@@ -18,15 +18,15 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IPropertyMetadata;
  */
 public interface IPropertyMetadata
 {
-    /** Comparadores usados na criaÁ„o de listas ordenadas das propriedades de uma entidade.
-     *  Pode-se ordernar a lista por INDEX, GROUP ou LABEL (alfabÈtica) */
+    /** Comparadores usados na cria√ß√£o de listas ordenadas das propriedades de uma entidade.
+     *  Pode-se ordernar a lista por INDEX, GROUP ou LABEL (alfab√©tica) */
 	public static Comparator<IPropertyMetadata> COMPARATOR_INDEX = new Comparator<IPropertyMetadata>(){public int compare(IPropertyMetadata arg0, IPropertyMetadata arg1){return  new Integer(arg0.getIndex()).compareTo(arg1.getIndex());}};
     public static Comparator<IPropertyMetadata> COMPARATOR_GROUP = new Comparator<IPropertyMetadata>(){public int compare(IPropertyMetadata arg0, IPropertyMetadata arg1){return  new Integer(arg0.getGroup()).compareTo(arg1.getGroup());}};
     public static Comparator<IPropertyMetadata> COMPARATOR_LABEL = new Comparator<IPropertyMetadata>(){public int compare(IPropertyMetadata arg0, IPropertyMetadata arg1){return  arg0.getLabel().compareTo(arg1.getLabel());}};
 
     public IEntityMetadata getEntity();
 
-    // IdentificaÁ„o do tipo do campo //
+    // Identifica√ß√£o do tipo do campo //
     public boolean isNumber();
 
     public boolean isBigDecimal();
@@ -77,37 +77,37 @@ public interface IPropertyMetadata
     public List<SelectItem> getEnumValuesList();
 
     /**
-     * Define se esta propriedade È anotada como @Embedded
+     * Define se esta propriedade √© anotada como @Embedded
      */
     public boolean isEmbedded();
     /**
-     * Define se na tela de ediÁ„o, dever· ser usado um comboBox para listar o possÌveis valores para a proriedade
-     * atual. A lista de valores no valuesList do metadados È utilizada. Se for um Entity, ent„o a lista de entidades cadastradas no banco È utilizadas.
+     * Define se na tela de edi√ß√£o, dever√° ser usado um comboBox para listar o poss√≠veis valores para a proriedade
+     * atual. A lista de valores no valuesList do metadados √© utilizada. Se for um Entity, ent√£o a lista de entidades cadastradas no banco √© utilizadas.
      * @return
      */
     public boolean isEditShowList();
 
     
     /**
-     * Define como as telas de ediÁ„o ir„o se comportar ao lidar com 
-     * propriedades do tipo IEntity. Se estiver true, dever· ser incluÌda uma seÁ„o 
-     * embutida para preenchimento dos dados da subEntidade. Sen„o, o operador
-     * poder· buscar a entidade na lista
+     * Define como as telas de edi√ß√£o ir√£o se comportar ao lidar com 
+     * propriedades do tipo IEntity. Se estiver true, dever√° ser inclu√≠da uma se√ß√£o 
+     * embutida para preenchimento dos dados da subEntidade. Sen√£o, o operador
+     * poder√° buscar a entidade na lista
      * @return
      */
     public boolean isEditShowEmbedded();
 
 
 	/**
-	 * Esta propriedade permite definir para as m·quinas de pesquisas que
+	 * Esta propriedade permite definir para as m√°quinas de pesquisas que
 	 * esta propriedade pode ser utilizada como uma entidade
-	 * e suas propriedades podem ser analisadas nas pesquisas autom·ticas.
+	 * e suas propriedades podem ser analisadas nas pesquisas autom√°ticas.
 	 * Exemplo: Ao pesquisar numa tabela de contrato, a propriedade pessoa
 	 * pode ser definida como allowSubQuery para que tudo que for pesquisado
 	 * em contrato seja pesquisado nas propriedades da propriedade pessoa
 	 * automaticamente.
-	 * Foi necess·rio criar este mecanismo porque se for utilizado todos
-	 * os campos para subqueries os gerenciados n„o conseguem terminar a
+	 * Foi necess√°rio criar este mecanismo porque se for utilizado todos
+	 * os campos para subqueries os gerenciados n√£o conseguem terminar a
 	 * pesquisa.
 	 *
 	 * @return

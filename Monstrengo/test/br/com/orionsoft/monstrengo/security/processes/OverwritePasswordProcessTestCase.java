@@ -28,7 +28,7 @@ public class OverwritePasswordProcessTestCase extends ProcessBasicTest
                 
             System.out.println(":Pid=" + auth.getPid());
             
-            //usu·rio m j· existe no banco
+            //usu√°rio m j√° existe no banco
             auth.setLogin("user");
             auth.setNewPassword("resu");
             
@@ -43,7 +43,7 @@ public class OverwritePasswordProcessTestCase extends ProcessBasicTest
             
             System.out.println(":Pid=" + auth.getPid());
             
-            //usu·rio m j· existe no banco
+            //usu√°rio m j√° existe no banco
             auth.setLogin("user");
             auth.setNewPassword("user");
             

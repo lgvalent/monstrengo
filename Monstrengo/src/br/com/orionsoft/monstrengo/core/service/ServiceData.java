@@ -16,8 +16,8 @@ import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
 /**
- * Esta classe padroniza a execuÁ„o de um serviÁo. S„o fornecidos
- * argumentos de entrada, dados de entrada, dados de saÌda e
+ * Esta classe padroniza a execu√ß√£o de um servi√ßo. S√£o fornecidos
+ * argumentos de entrada, dados de entrada, dados de sa√≠da e
  * lista de erros ou mensagens. 
  * 
  * @author Lucio
@@ -25,22 +25,22 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
  */
 public class ServiceData
 {
-    //  Nome do serviÁo que ser· invocado
+    //  Nome do servi√ßo que ser√° invocado
     private String serviceName;
     //  Lista de argumentos
     private ValueObject argumentList = new ValueObject();
-    //  ColeÁ„o de objetos de entrada que poder„o ser usados na execuÁ„o do serviÁo
+    //  Cole√ß√£o de objetos de entrada que poder√£o ser usados na execu√ß√£o do servi√ßo
     private List<Object> inputData = new ArrayList<Object>(1);
-    //  ColeÁ„o de objetos de saÌda resultantes do processamento do serviÁo
+    //  Cole√ß√£o de objetos de sa√≠da resultantes do processamento do servi√ßo
     private List<Object> outputData = new ArrayList<Object>(1);
     //  Lista de erros ou mensagens
     private MessageList messageList = new MessageList();
-    // Permite o serviÁo enviar mensagens direto para a interface
+    // Permite o servi√ßo enviar mensagens direto para a interface
     private Status status = new Status();
-    // Indica quando o j· existe uma transaÁ„o ativa 
+    // Indica quando o j√° existe uma transa√ß√£o ativa 
     private boolean transactionStarted = false;
     
-    // Indica quando j· existe uma sess„o ativa 
+    // Indica quando j√° existe uma sess√£o ativa 
     private Session currentSession = null;
 
     private ServiceData serviceDataOwner=null;
@@ -62,8 +62,8 @@ public class ServiceData
     }
 
     /**
-     * Indica se j· existe uma transaÁ„o iniciada por serviÁos anteriormente
-     * executados na pilha de execuÁ„o. 
+     * Indica se j√° existe uma transa√ß√£o iniciada por servi√ßos anteriormente
+     * executados na pilha de execu√ß√£o. 
      * @return 
      */
     public boolean isTransactionStarted()
@@ -72,8 +72,8 @@ public class ServiceData
     }
     
     /**
-     * Define se uma transaÁ„o est· iniciada para evitar que m˙ltiplas transaÁıes
-     * sejam iniciadas em uma mesma pilha de execuÁ„o.  
+     * Define se uma transa√ß√£o est√° iniciada para evitar que m√∫ltiplas transa√ß√µes
+     * sejam iniciadas em uma mesma pilha de execu√ß√£o.  
      * @param hasActiveTransaction
      */
     public void setTransactionStarted(boolean transactionStarted)
@@ -82,7 +82,7 @@ public class ServiceData
     }
     
     /**
-     * ConstrÛi a estrutura de dados para um determinado serviÁo.
+     * Constr√≥i a estrutura de dados para um determinado servi√ßo.
      */
     public ServiceData(String serviceName, ServiceData serviceDataOwner)
     {
@@ -91,7 +91,7 @@ public class ServiceData
         this.serviceDataOwner = serviceDataOwner;
     }
     /**
-     * Obtem o nome do serviÁo.
+     * Obtem o nome do servi√ßo.
      */
     public String getServiceName() {
         return serviceName;
@@ -110,7 +110,7 @@ public class ServiceData
         argumentList.getProperties().putAll(value.getProperties());
     }
     /**
-     * Obtem a coleÁ„o de objetos de saÌda.
+     * Obtem a cole√ß√£o de objetos de sa√≠da.
      */
     public List<Object> getInputData() {
         return inputData;
@@ -127,13 +127,13 @@ public class ServiceData
     public Object getInputData(int index) throws BusinessException 
     {
         if (index > (inputData.size() - 1)) {
-            throw new BusinessException(MessageList.createSingleInternalError(new Exception("N„o foi possÌvel acessar o objeto de saÌda com Ìndice "
+            throw new BusinessException(MessageList.createSingleInternalError(new Exception("N√£o foi poss√≠vel acessar o objeto de sa√≠da com √≠ndice "
                     + index + ".")));
         }
         return inputData.get(index);
     }
     /**
-     * Obtem a coleÁ„o de objetos de saÌda.
+     * Obtem a cole√ß√£o de objetos de sa√≠da.
      */
     public List<Object> getOutputData() {
         return outputData;
@@ -148,7 +148,7 @@ public class ServiceData
     }
 
     /**
-     * Adiciona um objeto na lista de saÌda.
+     * Adiciona um objeto na lista de sa√≠da.
      */
     public void addOutputData(ValueObject valueObject) {
         outputData.add(valueObject);
@@ -159,8 +159,8 @@ public class ServiceData
     @SuppressWarnings("unchecked")
 	public <T> T getOutputData(int index)throws BusinessException {
         if (index > (outputData.size() - 1)) {
-            throw new BusinessException(MessageList.createSingleInternalError(new Exception("N„o existe o Ìndice "
-                    + index + " na lista de dados de saÌda.")));
+            throw new BusinessException(MessageList.createSingleInternalError(new Exception("N√£o existe o √≠ndice "
+                    + index + " na lista de dados de sa√≠da.")));
         }
         return (T) outputData.get(index);
     }
@@ -171,9 +171,9 @@ public class ServiceData
         return messageList;
     }
     
-    /**  Permite que os serviÁos escrevam mensagens dentro desta propriedade, e estas
+    /**  Permite que os servi√ßos escrevam mensagens dentro desta propriedade, e estas
      * mensagens sejam passadas imediatamente para a interface. Utilizado para indicar
-     * o atual progresso do serviÁo, quando o serviÁo È demorado.
+     * o atual progresso do servi√ßo, quando o servi√ßo √© demorado.
      */
     public Status getStatus()
     {
@@ -181,9 +181,9 @@ public class ServiceData
     }
    
     /**
-     * Este mÈtodo analisa os par‚metros do serviÁo e formata uma string que mostra os nomes
-     * e os valores destes par‚metros.
-     * Muito ˙til quando o toString do Calendar, por exemplo, resulta em uma coisa de difÌcil leitura.
+     * Este m√©todo analisa os par√¢metros do servi√ßo e formata uma string que mostra os nomes
+     * e os valores destes par√¢metros.
+     * Muito √∫til quando o toString do Calendar, por exemplo, resulta em uma coisa de dif√≠cil leitura.
      * @param serviceData
      * @return
      * @author Lucio

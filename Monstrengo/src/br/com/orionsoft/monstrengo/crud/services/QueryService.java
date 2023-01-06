@@ -25,49 +25,49 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 import br.com.orionsoft.monstrengo.crud.entity.metadata.IPropertyMetadata;
 
 /**
- * Este serviÁo, pesquisa uma entidade baseando-se em um
- * filtro fornecido. Inicialmente, este filtro È um conte˙do que ser· procurado 
- * em v·rios campos da entidade e subentidade.
+ * Este servi√ßo, pesquisa uma entidade baseando-se em um
+ * filtro fornecido. Inicialmente, este filtro √© um conte√∫do que ser√° procurado 
+ * em v√°rios campos da entidade e subentidade.
  * 
  * <p><b>Argumentos:</b>
- * <br> IN_ENTITY_TYPE: A classe das entidades que ser„o listadas.
- * <br> IN_QUERY_SELECT: Uma string com uma lista ou funÁ„o de agregaÁ„o 
- *                       para ser usada na cl·usula SELECT da HQL. Se esta opÁ„o for utilizada,
- *                       a lista de entidade retornada ser· nula e o resultado da pesquisa
- *                       ser· armazenado na lista de saida do select (OUT_OBJECT_LIST).
- *                       Esta lista ser· uma lista onde cada item È um vetor que contem 
+ * <br> IN_ENTITY_TYPE: A classe das entidades que ser√£o listadas.
+ * <br> IN_QUERY_SELECT: Uma string com uma lista ou fun√ß√£o de agrega√ß√£o 
+ *                       para ser usada na cl√°usula SELECT da HQL. Se esta op√ß√£o for utilizada,
+ *                       a lista de entidade retornada ser√° nula e o resultado da pesquisa
+ *                       ser√° armazenado na lista de saida do select (OUT_OBJECT_LIST).
+ *                       Esta lista ser√° uma lista onde cada item √© um vetor que contem 
  *                       as propriedades selecionadas.
  * <br>
- * <br> IN_QUERY_FILTER: Uma string com um conte˙do a ser procurado.
- * <br> IN_QUERY_CONDICTIONS: Uma lista do tipo QueryCondictions com cl·usulas de seleÁ„o QueryCondiction.
- * <br> IN_QUERY_HQLWHERE: Uma string com uma express„o HQL j· usando o alias 'entity.' para ser aplicada diretamente na cl·usula WHERE.
+ * <br> IN_QUERY_FILTER: Uma string com um conte√∫do a ser procurado.
+ * <br> IN_QUERY_CONDICTIONS: Uma lista do tipo QueryCondictions com cl√°usulas de sele√ß√£o QueryCondiction.
+ * <br> IN_QUERY_HQLWHERE: Uma string com uma express√£o HQL j√° usando o alias 'entity.' para ser aplicada diretamente na cl√°usula WHERE.
  * <br>
  * <br> IN_PARENT_CLASS_OPT: A classe pai que possui algum relacionamento com a classe atual.
  * <br> IN_PARENT_ID_OPT: O id da classe pai que possui algum relacionamento com a classe atual.
  * <br> IN_PARENT_PROPERTY_OPT: A propriedade da classe pai que se relaciona com a classe atual.  
  * <br>
- * <br> IN_ORDER_EXPRESSION_OPT: Uma express„o de ordenaÁ„o do tipo "PropertyName ASC, PropertyName DESC".  
- * <br> IN_ORDER_CONDICTIONS_OPT: Uma lista do tipo OrderCondictions com cl·usulas de ordenaÁ„o OrderCondiction.  
+ * <br> IN_ORDER_EXPRESSION_OPT: Uma express√£o de ordena√ß√£o do tipo "PropertyName ASC, PropertyName DESC".  
+ * <br> IN_ORDER_CONDICTIONS_OPT: Uma lista do tipo OrderCondictions com cl√°usulas de ordena√ß√£o OrderCondiction.  
  * <br>
- * <br> IN_MAX_RESULT_OPT: Um n˙mero inteiro que define o n˙mero de registros que devem ser retornados pela consulta.  
- * <br> IN_FIRST_RESULT_OPT: Um n˙mero inteiro que define o registro inicial da coleÁ„o que ser· retornada pela consulta.  
+ * <br> IN_MAX_RESULT_OPT: Um n√∫mero inteiro que define o n√∫mero de registros que devem ser retornados pela consulta.  
+ * <br> IN_FIRST_RESULT_OPT: Um n√∫mero inteiro que define o registro inicial da cole√ß√£o que ser√° retornada pela consulta.  
  *  
  * <p><b>Procedimento:</b>
- * <br>Utilizando o filtro, monta as expressıes de busca para todas as propriedades da entidade.
- * <br>Verifica se tem uma entidade pai e monta a junÁ„o das duas entidades.
- * <br>Aplica as expressıes montadas.
+ * <br>Utilizando o filtro, monta as express√µes de busca para todas as propriedades da entidade.
+ * <br>Verifica se tem uma entidade pai e monta a jun√ß√£o das duas entidades.
+ * <br>Aplica as express√µes montadas.
  * <br>Realiza a pesquisa.
- * <br>Realiza outra pesquisa para obter o total da coleÁ„o da pesquisa n„o paginada.
- * <br>Converte a coleÁ„o de objetos em uma coleÁ„o de entidades.
+ * <br>Realiza outra pesquisa para obter o total da cole√ß√£o da pesquisa n√£o paginada.
+ * <br>Converte a cole√ß√£o de objetos em uma cole√ß√£o de entidades.
  * 
  * <p><b>Retorno:</b>
- * <br>Se nenhum filtro for fornecido ser· retornada uma coleÁ„o vazia.
+ * <br>Se nenhum filtro for fornecido ser√° retornada uma cole√ß√£o vazia.
  * <br><b>OUT_ENTITY_LIST</b>: Retorna a lista de entidades (IEntityList).
- * <br><b>OUT_LIST_SIZE</b>: Retorna a tamanho total da lista n„o paginada (Integer).
+ * <br><b>OUT_LIST_SIZE</b>: Retorna a tamanho total da lista n√£o paginada (Integer).
  * <br><b>OUT_QUERY_TIME</b>: Retorna o tempo de demora da consulta em milissegundos (Long).
- * <br><b>OUT_SELECT_LIST</b>: Retorna uma lista de objetos resultantes da seleÁ„o personalizada de propriedade pela opÁ„o IN_QUERY_SELECT.<br>
- *                             Se o select tiver somente uma propriedade o resultado È uma List(Object>;<br>
- *                             Se o select tiver mais de uma propriedade o resultado È uma List(Object[]>;<br>
+ * <br><b>OUT_SELECT_LIST</b>: Retorna uma lista de objetos resultantes da sele√ß√£o personalizada de propriedade pela op√ß√£o IN_QUERY_SELECT.<br>
+ *                             Se o select tiver somente uma propriedade o resultado √© uma List(Object>;<br>
+ *                             Se o select tiver mais de uma propriedade o resultado √© uma List(Object[]>;<br>
  *                              
  * 
  * @author Lucio
@@ -106,16 +106,16 @@ public class QueryService extends ServiceBasic
     {
         try
         {
-        	log.debug("Iniciando a execuÁ„o do serviÁo QueryService");
-        	// ObtÈm os par‚metros
+        	log.debug("Iniciando a execu√ß√£o do servi√ßo QueryService");
+        	// Obt√©m os par√¢metros
         	Class<?> inEntityType = (Class<?>) serviceData.getArgumentList().getProperty(IN_ENTITY_TYPE);
 
-        	// ObtÈm os par‚metros OPCIONAIS
+        	// Obt√©m os par√¢metros OPCIONAIS
     		String inQueryFilter = "";
         	if(serviceData.getArgumentList().containsProperty(IN_QUERY_FILTER))
         		inQueryFilter = (String) serviceData.getArgumentList().getProperty(IN_QUERY_FILTER);
 
-            // ObtÈm os par‚metros OPCIONAIS
+            // Obt√©m os par√¢metros OPCIONAIS
             String inQuerySelect = "";
             if(serviceData.getArgumentList().containsProperty(IN_QUERY_SELECT))
                 inQuerySelect = (String) serviceData.getArgumentList().getProperty(IN_QUERY_SELECT);
@@ -174,24 +174,24 @@ public class QueryService extends ServiceBasic
         		getEntityCondictions(inEntityType, inQueryFilter, condictions);
         	}
         	
-        	/* Verifica se foi fornecida uma lista de condiÁıes */
+        	/* Verifica se foi fornecida uma lista de condi√ß√µes */
         	if((inQueryCondictions!=null)&&inQueryCondictions.size()>0) {
-        		log.debug("Utilizando as condiÁıes informadas");
+        		log.debug("Utilizando as condi√ß√µes informadas");
         		condictions.addAll(inQueryCondictions);
         		
         		/* Para ficar assim: filter and|or (expr1 and|or expr2 and|or expr3) */
-        		log.debug("Define as parametrizaÁıes dos parÍnteses");
-        		// TODO CORRIGIR N„o funcionou, gera uma express„o 'and (entity.valor=25) and entity.valor=24)'
+        		log.debug("Define as parametriza√ß√µes dos par√™nteses");
+        		// TODO CORRIGIR N√£o funcionou, gera uma express√£o 'and (entity.valor=25) and entity.valor=24)'
         		//inQueryCondictions.get(0).setOpenPar(true);
         		//inQueryCondictions.get(inQueryCondictions.size()-1).setClosePar(true);
         		
         	}
 
-        	/* Tenta realizar a pesquisa se tiver condiÁıes filtradas ou um Pai definido */
+        	/* Tenta realizar a pesquisa se tiver condi√ß√µes filtradas ou um Pai definido */
         	String fromExpression = " from " + inEntityType.getName() + " " + IDAO.ENTITY_ALIAS_HQL;
         	String whereExpression = "";
         	
-        	/* Verifica se possui um pai para incluÌ-lo na clausua FROM 
+        	/* Verifica se possui um pai para inclu√≠-lo na clausua FROM 
         	 * Estrutuda da consulta:
         	 * SELECT entity FROM entity, parent WHERE (entity in elements(parent.property) and parent.id=1) and (expr1 or expr2)*/
         	if(inParentClass!=null && inParentId!=IDAO.ENTITY_UNSAVED){
@@ -199,42 +199,42 @@ public class QueryService extends ServiceBasic
         		whereExpression += " where (" + IDAO.ENTITY_ALIAS_HQL +" in elements(parent." + inParentProperty + ") and parent.id=" + inParentId + ")";
         	}
 
-        	/* Identifica se a primeira express„o v·lida foi produzida 
-        	 * para n„o gerar os blocos iniciais de " where " ou " and (" */
+        	/* Identifica se a primeira express√£o v√°lida foi produzida 
+        	 * para n√£o gerar os blocos iniciais de " where " ou " and (" */
         	boolean firstAlreadyFound = false;
-    		/* Utilizado para n„o inserir operadores na primeira express„o e
-    		 * inserir operadores AND e OR Òo inÌcio das demais expressıes*/
+    		/* Utilizado para n√£o inserir operadores na primeira express√£o e
+    		 * inserir operadores AND e OR √±o in√≠cio das demais express√µes*/
         	String initOp;
     		
-        	/* Utilizando para indicar o inÌcio de um parÍntese de condiÁıes
-        	 * que s„o openPar mas que n„o geraram express„o */
+        	/* Utilizando para indicar o in√≠cio de um par√™ntese de condi√ß√µes
+        	 * que s√£o openPar mas que n√£o geraram express√£o */
         	String initPar="";
         	
-        	/* Percorre todas as condiÁıes, verifica qual È a primeira condiÁ„o que
-        	 * n„o resultar· em uma cl·usula vazia e trata a inicializaÁ„o correta 
-        	 * dos parÍnteses mesmo quando a condiÁ„o n„o gera uma expressao HQL */
+        	/* Percorre todas as condi√ß√µes, verifica qual √© a primeira condi√ß√£o que
+        	 * n√£o resultar√° em uma cl√°usula vazia e trata a inicializa√ß√£o correta 
+        	 * dos par√™nteses mesmo quando a condi√ß√£o n√£o gera uma expressao HQL */
         	for(QueryCondiction cond: condictions){
         		
-        		/* Verifica se a condiÁ„o est· ativa */
+        		/* Verifica se a condi√ß√£o est√° ativa */
         		if(cond.isActive()){
-        			/* Pega a express„o HQL da condiÁ„o */ 
+        			/* Pega a express√£o HQL da condi√ß√£o */ 
         			String str = cond.retrieveHqlExpression(IDAO.ENTITY_ALIAS_HQL);
 
-        			/* Verifica se È a primeira Express„o, ou seja, n„o precisa de um operador inicial. Exemplo: '(expre)' e n„o 'and (express)' */
+        			/* Verifica se √© a primeira Express√£o, ou seja, n√£o precisa de um operador inicial. Exemplo: '(expre)' e n√£o 'and (express)' */
         			if(firstAlreadyFound){
         				if(cond.getInitOperator() == QueryCondiction.INIT_AND)
         					initOp = " and " + initPar;
         				else
         					initOp = " or " + initPar;
         			}else{
-        				/* Achou uma condiÁ„o v·lida e inicia o bloco logo apÛs o pai */
-        				/* Verifica se existem condiÁıes do pai para iniciar corretamente 
+        				/* Achou uma condi√ß√£o v√°lida e inicia o bloco logo ap√≥s o pai */
+        				/* Verifica se existem condi√ß√µes do pai para iniciar corretamente 
         				 * o bloco WHERE ou continuar o bloco do Pai */
         				if(inParentClass!=null && inParentId!=IDAO.ENTITY_UNSAVED)
         					/* Continua o bloco do PAI: (CONDICOES_PAI) and ( */
         					whereExpression += " and ("  + initPar;
         				else
-        					/* Inicia um bloco Where pois n„o h· PAI */
+        					/* Inicia um bloco Where pois n√£o h√° PAI */
         					whereExpression += " where " + initPar;
 
         				initOp = "";
@@ -244,17 +244,17 @@ public class QueryService extends ServiceBasic
         			whereExpression += initOp + str;
 
         			/* Depois do primeiro uso limpa o 
-        			 * parÍntese inicial */
+        			 * par√™ntese inicial */
         			initPar = "";
 
         		}else{
-        			/* Tratar as condiÁıes com openPar e closePar que n„o geram express„o HQL */
+        			/* Tratar as condi√ß√µes com openPar e closePar que n√£o geram express√£o HQL */
         			if(cond.isOpenPar())
-        				/* H· um problema se a primeira condiÁ„o n„o gerar uma express„o e for
-        				 * uma openPar. O resultado È: (where expre2 or expr3 ... 
-        				 * Assim, se a condiÁ„o n„o gerar uma express„o e o primeiro elemento
-        				 * v·lido ainda n„o foi encontrado, o parentese e definido para ser inserido no
-        				 * inicio da express„o depois do " where " ou " and (" */
+        				/* H√° um problema se a primeira condi√ß√£o n√£o gerar uma express√£o e for
+        				 * uma openPar. O resultado √©: (where expre2 or expr3 ... 
+        				 * Assim, se a condi√ß√£o n√£o gerar uma express√£o e o primeiro elemento
+        				 * v√°lido ainda n√£o foi encontrado, o parentese e definido para ser inserido no
+        				 * inicio da express√£o depois do " where " ou " and (" */
         				if(firstAlreadyFound)
         					whereExpression += "(";
         				else
@@ -265,9 +265,9 @@ public class QueryService extends ServiceBasic
         		}
         	}
         	
-        	/* TODO CORRIGIR Quando È gerado uma clausula das propriedades da 
-        	 * entidade (expr1 OR expr2 OR expr3) e nenhuma condiÁ„o gera 
-        	 * uma express„o o resultado final È (), o que È inv·lido */
+        	/* TODO CORRIGIR Quando √© gerado uma clausula das propriedades da 
+        	 * entidade (expr1 OR expr2 OR expr3) e nenhuma condi√ß√£o gera 
+        	 * uma express√£o o resultado final √© (), o que √© inv√°lido */
     		
         	/* Fecha o bloco AND se tiver um pai  (parent) and (condictions) + hqlWhere */
     		if(condictions.size()>0)
@@ -276,57 +276,57 @@ public class QueryService extends ServiceBasic
 
         	/* Verifica se foi fornecido uma HQL_WHERE */
         	if(!StringUtils.isEmpty(inQueryHqlWhere)) {
-        		/* Verifica se j· foi iniciada um clausua where para decidir se poe um AND ou inicia um WHERE */
+        		/* Verifica se j√° foi iniciada um clausua where para decidir se poe um AND ou inicia um WHERE */
         		if((inParentClass!=null && inParentId!=IDAO.ENTITY_UNSAVED) || condictions.size()>0)
         			/* Continua o bloco do PAI: (CONDICOES_PAI) and ( */
         			whereExpression += " and ";
         		else
-        			/* Inicia um bloco Where pois n„o h· PAI */
+        			/* Inicia um bloco Where pois n√£o h√° PAI */
         			whereExpression += " where ";
 
             	/* Percorre a entidade e obtem as clausulas Where de pesquisa das propriedades da entidade */
         		whereExpression += inQueryHqlWhere;
         	}
         	
-        	/* Trata a opÁ„o IN_ORDER_EXPRESSION_OPT */
+        	/* Trata a op√ß√£o IN_ORDER_EXPRESSION_OPT */
         	if(!StringUtils.isEmpty(inOrderExpression)){
         		whereExpression += " order by " + inOrderExpression;
         	}
 
         	if((inOrderCondictions != null) && (!inOrderCondictions.isEmpty())){
-            	/* Verifica se h· alguma condiÁ„o marcada, pois se n„o tiver condiÁıes 
-            	 * marcada o from expression n„o pode ser iniciado */
+            	/* Verifica se h√° alguma condi√ß√£o marcada, pois se n√£o tiver condi√ß√µes 
+            	 * marcada o from expression n√£o pode ser iniciado */
         		boolean hasOrderCondictionChecked = false;
         		for(OrderCondiction orderCondiction: inOrderCondictions)
         			if(orderCondiction.isActive()){hasOrderCondictionChecked = true; break;}
 
         		if(hasOrderCondictionChecked){
         			if(StringUtils.isEmpty(inOrderExpression))
-        				/* Inicia uma nova express„o */
+        				/* Inicia uma nova express√£o */
         				whereExpression += " order by ";
         			else
-        				/* Continua a express„o j· iniciada */
+        				/* Continua a express√£o j√° iniciada */
         				whereExpression += ",";
 
         			for(OrderCondiction order: inOrderCondictions)
         				if(order.isActive())
         					whereExpression += " " + order.retrieveHqlExpression(IDAO.ENTITY_ALIAS_HQL) + ",";
 
-        			/* Remove a ˙ltima vÌrgula */
+        			/* Remove a √∫ltima v√≠rgula */
         			whereExpression = StringUtils.stripEnd(whereExpression, ",");
             	}
         	}
         	
         	
-            /* Valida a cl·usula SELECT */
+            /* Valida a cl√°usula SELECT */
             String selectExpression;
             if(StringUtils.isEmpty(inQuerySelect))
                 selectExpression = IDAO.ENTITY_ALIAS_HQL + fromExpression;
             else{
-                /* Por questıes de compatibilidade È verificado se a cl·usula inQuerySelect veio com 
-                 * o comando from definido pelo programador ou ser· necess·rio utilizar a j· criada.
-                 * Lembrando que a fromExpression pode conter implicitJoins para o parent. Se ela n„o
-                 * for usada aqui e usada a do operador, a pesquisa com Parent n„o montar· uma SQL v·lida */
+                /* Por quest√µes de compatibilidade √© verificado se a cl√°usula inQuerySelect veio com 
+                 * o comando from definido pelo programador ou ser√° necess√°rio utilizar a j√° criada.
+                 * Lembrando que a fromExpression pode conter implicitJoins para o parent. Se ela n√£o
+                 * for usada aqui e usada a do operador, a pesquisa com Parent n√£o montar√° uma SQL v√°lida */
             	if(inQuerySelect.toLowerCase().contains("from "))
             		selectExpression = inQuerySelect;
             	else
@@ -334,31 +334,31 @@ public class QueryService extends ServiceBasic
             }
             
         	if(log.isDebugEnabled())
-        		log.debug("Express„o:" + selectExpression + whereExpression);
+        		log.debug("Express√£o:" + selectExpression + whereExpression);
 
         	List outObjectList = null;
         	try {
         		log.debug("Executando a consulta");
         		Query query = serviceData.getCurrentSession().createQuery("select " + selectExpression + whereExpression);
         		
-        		/* Verifica se o par‚metro maxResult foi passado para aplica-lo*/
+        		/* Verifica se o par√¢metro maxResult foi passado para aplica-lo*/
         		if(inMaxResult>-1)
         			query.setMaxResults(inMaxResult);
-        		/* Verifica se o par‚metro firstResult foi passado para aplica-lo*/
+        		/* Verifica se o par√¢metro firstResult foi passado para aplica-lo*/
         		if(inFirstResult>-1)
         			query.setFirstResult(inFirstResult);
         		
         		outObjectList = query.list();
         		
-        		/* Verifica se foi utilizada paginaÁ„o para obter o tamanho total
-        		 * da lista n„o paginada */
-        		log.debug("Calculando o n˙mero de items da pesquisa");
+        		/* Verifica se foi utilizada pagina√ß√£o para obter o tamanho total
+        		 * da lista n√£o paginada */
+        		log.debug("Calculando o n√∫mero de items da pesquisa");
         		if(inMaxResult>-1){
-        			/* Quando se pesquisa uma entidade que È uma superclasse, o Hibernate realiza a pesquisa em todas as tabelas
+        			/* Quando se pesquisa uma entidade que √© uma superclasse, o Hibernate realiza a pesquisa em todas as tabelas
         			 * que representam as subclasses (caso as subclasses estejam definidas para armazenamento em tabelas separadas).
         			 * Exemplo: Pesquisar AuditRegister, faz com que o hibernate pesquise na tabela AuditCrudRegister e AuditProcessRegister.
         			 * Desta forma, o hibernate obtem dois totalizadores (count(*)), um para cada tabela.
-        			 * Para saber o total de registros È necess·rio somar os constadores
+        			 * Para saber o total de registros √© necess√°rio somar os constadores
         			 */ 
         			outItemsCount = 0l;
         			List<Long> itemsCountList = serviceData.getCurrentSession().createQuery("select count(*)" + fromExpression + whereExpression).list();
@@ -377,7 +377,7 @@ public class QueryService extends ServiceBasic
         		log.debug("Foram encontrados " + outObjectList.size() + " elementos");
         	
             /* Verifica se um select personalizado foi utilizado.
-             * Se n„o: Constroi uma lista de entidades
+             * Se n√£o: Constroi uma lista de entidades
              * Se sim: Deixa a lista de entidades nula e constroi uma lista de objetos */
             IEntityList<?> outEntityList = null;
                if(StringUtils.isEmpty(inQuerySelect))
@@ -396,7 +396,7 @@ public class QueryService extends ServiceBasic
         }
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
 
@@ -408,13 +408,13 @@ public class QueryService extends ServiceBasic
     	if(!propOwnerName.equals(""))
     		propOwnerName += ".";
     	
-    	//Verifica se a propriedade n„o È calculada, pois propriedade calculada 
-		//n„o È persistida e n„o È possivel realizar pesquisa por ela.
+    	//Verifica se a propriedade n√£o √© calculada, pois propriedade calculada 
+		//n√£o √© persistida e n√£o √© possivel realizar pesquisa por ela.
 		if (!prop.isCalculated()){
 			// Trata as propriedades primitivas String
 			if(prop.isPrimitive()){
 				if(prop.isString()){
-					/* Limpa alguns caracteres especiais que n„o podem ser fornecidos pelo operador*/
+					/* Limpa alguns caracteres especiais que n√£o podem ser fornecidos pelo operador*/
 					String strFilter = filter.replace("'", "").replace("\"", "");
 					
 					/* Trata os asteriscos que podem ser fornecidos pelo operador */
@@ -426,12 +426,12 @@ public class QueryService extends ServiceBasic
 					if(prop.isCalendar()){
 						String dateFilter= CalendarUtils.formatToSQLDate(filter);
 
-						/* Se o filtro pÙde ser convertido para uma data SQL ele È aplicado ao campo */
+						/* Se o filtro p√¥de ser convertido para uma data SQL ele √© aplicado ao campo */
 						if(!dateFilter.equals(""))
 							wheres.add(propOwnerName + prop.getName() + " like '%" + dateFilter + "%'");
 					}else
-					// Trata as propriedades NUM…RICA INTEIROS int, long
-					// Trata as propriedades NUM…RICA double, bigdeciaml
+					// Trata as propriedades NUM√âRICA INTEIROS int, long
+					// Trata as propriedades NUM√âRICA double, bigdeciaml
 					if(NumberUtils.isNumber(filter.replace(",", "."))||StringUtils.isNumeric(filter)){
 						String numberFilter = filter.replace(",", ".");
 
@@ -454,14 +454,14 @@ public class QueryService extends ServiceBasic
 							wheres.add(propOwnerName + prop.getName() + " = " + numberFilter);
 					}
 			}else
-			// Trata as propriedades que s„o entidades
+			// Trata as propriedades que s√£o entidades
 			if(prop.isEntity() && !prop.isCollection())
 			{
 				if(StringUtils.isNumeric(filter))
 					wheres.add(propOwnerName + prop.getName() + ".id = " + filter);
 
 	
-				/* Verifica se ainda n„o atingiu a profundidade m·xima 
+				/* Verifica se ainda n√£o atingiu a profundidade m√°xima 
 				 * para continuar a pesquisar recursivamentes nas entidades */
 				if(queryLevel >0 )
 					/* Desce RECURSIVAMENTE para pesquisar dentro das entidades
@@ -475,19 +475,19 @@ public class QueryService extends ServiceBasic
     public void getEntityWhere(Class<?> classEnt, String filter, List<String> wheres, String propOwnerName, int queryLevel) throws EntityException{
     	/* Verifica se a propriedade atual possui uma propriedade pai.
     	 * Exemplo: Pessoa.enderecoCorrespondencia aponta para uma classe do tipo Endereco, logo, 
-    	 * ao pesquisar a classe pessoa, È possivel pesquisar tambÈm as propriedades da entidade
-    	 * Endereco relacionada ao objeto Pessoa. Assim, a propriedade enderecoCorrespondencia ser· 
-    	 * a propOwner da entidade Endereco, isto porque, na composiÁ„o da HQL È necess·rio construir
-    	 * uma express„o assim: entity.enderecoCorrespondencia.nome like "" */
+    	 * ao pesquisar a classe pessoa, √© possivel pesquisar tamb√©m as propriedades da entidade
+    	 * Endereco relacionada ao objeto Pessoa. Assim, a propriedade enderecoCorrespondencia ser√° 
+    	 * a propOwner da entidade Endereco, isto porque, na composi√ß√£o da HQL √© necess√°rio construir
+    	 * uma express√£o assim: entity.enderecoCorrespondencia.nome like "" */
     	
     
     	// Obtem os metadados da entidade
 		IEntityMetadata md = this.getServiceManager().getEntityManager().getEntityMetadata(classEnt);
 		
-		// Prepara as condiÁıes para todas as propriedades da classe
+		// Prepara as condi√ß√µes para todas as propriedades da classe
 		for(IPropertyMetadata prop: md.getProperties()){
-			//Verifica se a propriedade n„o È calculada, pois propriedade calculada 
-			//n„o È persistida e n„o È possivel realizar pesquisa por ela.
+			//Verifica se a propriedade n√£o √© calculada, pois propriedade calculada 
+			//n√£o √© persistida e n√£o √© possivel realizar pesquisa por ela.
 			getPropWhere(prop, filter, wheres, propOwnerName, queryLevel);
 		}
     	
@@ -500,13 +500,13 @@ public class QueryService extends ServiceBasic
 		//marca a condiction como sendo a primeira
 		boolean isFirst = true;
 		QueryCondiction cond = null;
-		// Prepara as condiÁıes para todas as propriedades da classe
+		// Prepara as condi√ß√µes para todas as propriedades da classe
 		for(IPropertyMetadata prop: md.getProperties()){
-			/* Verifica se a propriedade poder· ser interpetrada pela Condiction */
+			/* Verifica se a propriedade poder√° ser interpetrada pela Condiction */
 			if(QueryCondiction.checkVersionSupport(prop) && QueryCondiction.checkValueSupport(prop, filter)){
 				cond = new QueryCondiction(this.getServiceManager().getEntityManager(), classEnt);
 				
-				/* Verificando se a coleÁ„oFechando o parÍntese do ˙ltimo elemento da coleÁ„o */
+				/* Verificando se a cole√ß√£oFechando o par√™ntese do √∫ltimo elemento da cole√ß√£o */
 				if(isFirst){
 					cond.setOpenPar(isFirst);
 					isFirst = false;
@@ -522,7 +522,7 @@ public class QueryService extends ServiceBasic
 						if(prop.isCalendar())
 							cond.setOperatorId(Operator.LIKE);
 						else
-							/* NumÈrico ou boolean */
+							/* Num√©rico ou boolean */
 							cond.setOperatorId(Operator.EQUAL);
 				}else
 					/* do tipo Entity */
@@ -534,19 +534,19 @@ public class QueryService extends ServiceBasic
 				
 			}
 
-			/* Trata um primeiro nÌvel para acessar as propriedades string 
+			/* Trata um primeiro n√≠vel para acessar as propriedades string 
 			 * TODO IMPLEMENTAR Recursividade para percorrer todas as propriedades que tiverem definidas como
 			 * isAllowSubQuery */
 			if(prop.isEntity() && QueryCondiction.checkVersionSupport(prop) && prop.isAllowSubQuery()){
 				IEntityMetadata mdProp = this.getServiceManager().getEntityManager().getEntityMetadata(prop.getType());
 				
-				// Prepara as condiÁıes para todas as propriedades da classe
+				// Prepara as condi√ß√µes para todas as propriedades da classe
 				for(IPropertyMetadata subProp: mdProp.getProperties()){
-					/* Verifica se a propriedade poder· ser interpetrada pela Condiction */
+					/* Verifica se a propriedade poder√° ser interpetrada pela Condiction */
 					if(subProp.isString() && QueryCondiction.checkVersionSupport(subProp) && QueryCondiction.checkValueSupport(subProp, filter)){
 						cond = new QueryCondiction(this.getServiceManager().getEntityManager(), classEnt);
 						
-						/* Verificando se a coleÁ„oFechando o parÍntese do ˙ltimo elemento da coleÁ„o */
+						/* Verificando se a cole√ß√£oFechando o par√™ntese do √∫ltimo elemento da cole√ß√£o */
 						if(isFirst){
 							cond.setOpenPar(isFirst);
 							isFirst = false;
@@ -566,17 +566,17 @@ public class QueryService extends ServiceBasic
 			
 		}
 		
-		/* Verificando se tem items na coleÁ„o que foi 
-		 * criado pelo 'for' acima. Sen„o cria uma clausula nula
+		/* Verificando se tem items na cole√ß√£o que foi 
+		 * criado pelo 'for' acima. Sen√£o cria uma clausula nula
 		 * para que nenhum registro seja exibido */
 		if(cond != null){
-    		/* Fechando o parÍntese do ˙ltimo elemento da coleÁ„o */
+    		/* Fechando o par√™ntese do √∫ltimo elemento da cole√ß√£o */
 			cond.setClosePar(true);
 		}else{
-			/* Cria um condiÁ„o nula que forÁar· um resultado vazio caso o filtro n„o seja aplicado a nenhum propriedade
+			/* Cria um condi√ß√£o nula que for√ßar√° um resultado vazio caso o filtro n√£o seja aplicado a nenhum propriedade
 			 * da entidade. Isto porque, em uma entidade que possui somente campos numericos e o operador digita uma string, 
-			 * a pesquisa n„o aplica a condiÁ„o string a nenhum campo e o sistema retora todos os registros, pois
-			 * nenhum filto foi aplicado. Assim, È criado este filtro do tipo OR FALSE=TRUE  
+			 * a pesquisa n√£o aplica a condi√ß√£o string a nenhum campo e o sistema retora todos os registros, pois
+			 * nenhum filto foi aplicado. Assim, √© criado este filtro do tipo OR FALSE=TRUE  
 			 */
 			cond = new QueryCondiction(this.getServiceManager().getEntityManager(), classEnt, IDAO.PROPERTY_ID_NAME, Operator.EQUAL, IDAO.ENTITY_UNSAVED+"", "" );
 			condictions.add(cond);

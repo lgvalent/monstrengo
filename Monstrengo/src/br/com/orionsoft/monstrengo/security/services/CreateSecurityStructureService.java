@@ -21,20 +21,20 @@ import br.com.orionsoft.monstrengo.security.entities.RightProcess;
 import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 
 /**
- * ServiÁo para criar ou manutenir os direitos de um operador e do grupo especificado.<br>
+ * Servi√ßo para criar ou manutenir os direitos de um operador e do grupo especificado.<br>
  *
- * Antes de iniciar a criaÁ„o dos direitos o serviÁo executa outro serviÁo para
- * verificar atualizaÁıes nas estruturas do sistema como novos MÛdulos, Entidades ou Processos.
+ * Antes de iniciar a cria√ß√£o dos direitos o servi√ßo executa outro servi√ßo para
+ * verificar atualiza√ß√µes nas estruturas do sistema como novos M√≥dulos, Entidades ou Processos.
  *
- * Esta classe prepara a estrutura b·sica para a criaÁ„o de users, groups e rights, definindo
- * as permissıes sobre os processos e o CRUD.
+ * Esta classe prepara a estrutura b√°sica para a cria√ß√£o de users, groups e rights, definindo
+ * as permiss√µes sobre os processos e o CRUD.
  *
  * <p><b>Procedimento:</b><br>
- * Mantem as estruturas b·sicas do sistema.<br>
+ * Mantem as estruturas b√°sicas do sistema.<br>
  * Busca ou cria o operador solicitado.<br>
  * Busca ou cria o grupo solicitado.<br>
  * Liga o operador ao grupo e cria seus direitos.<br>
- * <b>N„o retorna nada;</b><br>
+ * <b>N√£o retorna nada;</b><br>
  *
  * @author Lucio 20060427
  * @version 20060501 Lucio
@@ -61,7 +61,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do servico CreateSecurityStructureService");
+            log.debug("Iniciando a execu√ß√£o do servico CreateSecurityStructureService");
 
             this.addInfoMessage(serviceData, "SERVICE_START");
 
@@ -76,7 +76,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
 
             IProcessManager inProcessManager = (IProcessManager) serviceData.getArgumentList().getProperty(IN_PROCESS_MANAGER);
 
-            //cadastra entidades e processos no banco caso n„o estejam cadastrados
+            //cadastra entidades e processos no banco caso n√£o estejam cadastrados
         	ServiceData service = new ServiceData(ManageSecurityStructureService.SERVICE_NAME, serviceData);
         	service.getArgumentList().setProperty(ManageSecurityStructureService.IN_RESTORE_DEFAULT_OPT, true);
         	service.getArgumentList().setProperty(ManageSecurityStructureService.IN_PROCESS_MANAGER, inProcessManager);
@@ -97,14 +97,14 @@ public class CreateSecurityStructureService extends ServiceBasic {
         catch (BusinessException e)
         {
         	e.printStackTrace();
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }
 
     private IEntity<ApplicationUser> manageUser(String userLogin, ServiceData ownerSD) throws BusinessException{
     	if(log.isDebugEnabled())
-    		log.debug("Procurando se o operador j· existe:" + userLogin);
+    		log.debug("Procurando se o operador j√° existe:" + userLogin);
 
     	this.addInfoMessage(ownerSD, "USER_FIND", userLogin);
 
@@ -117,7 +117,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
         IEntity<ApplicationUser> user=null;
 
         if(users.isEmpty()){
-        	log.debug("Operador n„o encontrado. Cadastrando...");
+        	log.debug("Operador n√£o encontrado. Cadastrando...");
         	this.addInfoMessage(ownerSD, "USER_INSERT");
         	user = UtilsCrud.create(this.getServiceManager(), ApplicationUser.class, ownerSD);
         	user.setPropertyValue(ApplicationUser.NAME, userLogin);
@@ -131,7 +131,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
 
 
         }else{
-        	log.debug("Operador j· cadastrado. Retornando a referÍncia...");
+        	log.debug("Operador j√° cadastrado. Retornando a refer√™ncia...");
         	this.addInfoMessage(ownerSD, "USER_FOUND");
             user = users.getFirst();
         }
@@ -141,7 +141,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
 
     private IEntity<SecurityGroup> manageGroup(String groupName, ServiceData ownerSD) throws BusinessException{
     	if(log.isDebugEnabled())
-    		log.debug("Procurando se o grupo j· existe:" + groupName);
+    		log.debug("Procurando se o grupo j√° existe:" + groupName);
 
     	this.addInfoMessage(ownerSD, "GROUP_FIND", groupName);
 
@@ -154,7 +154,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
         IEntity<SecurityGroup> group=null;
 
         if(groups.isEmpty()){
-        	log.debug("Grupo n„o encontrado. Cadastrando...");
+        	log.debug("Grupo n√£o encontrado. Cadastrando...");
         	this.addInfoMessage(ownerSD, "GROUP_INSERT");
         	group = UtilsCrud.create(this.getServiceManager(), SecurityGroup.class, ownerSD);
         	group.setPropertyValue(SecurityGroup.NAME, groupName);
@@ -164,7 +164,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
 
 
         }else{
-        	log.debug("Grupo j· cadastrado. Retornando a referÍncia...");
+        	log.debug("Grupo j√° cadastrado. Retornando a refer√™ncia...");
         	this.addInfoMessage(ownerSD, "GROUP_FOUND");
             group = groups.getFirst();
         }
@@ -184,13 +184,13 @@ public class CreateSecurityStructureService extends ServiceBasic {
     	log.debug("Atribuindo os direitos para as entidades. Permitir tudo?" + allAllowed);
     	for (IEntity<ApplicationEntity> ent : entities){
     		/*
-    		 * Aqui n„o est· sendo usado DefineRightCrudService porque os direitos de cada
-    		 * entidade s„o adicionados no vetor rights do tipoIEntity
-    		 * Isso È feito para que depois de construir os usu·rios, grupos e direitos
-    		 * no Banco de Dados, seja possÌvel apag·-los.
+    		 * Aqui n√£o est√° sendo usado DefineRightCrudService porque os direitos de cada
+    		 * entidade s√£o adicionados no vetor rights do tipoIEntity
+    		 * Isso √© feito para que depois de construir os usu√°rios, grupos e direitos
+    		 * no Banco de Dados, seja poss√≠vel apag√°-los.
     		 */
         	if(log.isDebugEnabled())
-        		log.debug("Verificando se o direito j· existe para " + ent.toString());
+        		log.debug("Verificando se o direito j√° existe para " + ent.toString());
 
         	ServiceData sd = new ServiceData(ListService.SERVICE_NAME, ownerSD);
             sd.getArgumentList().setProperty(ListService.CLASS, RightCrud.class);
@@ -201,13 +201,13 @@ public class CreateSecurityStructureService extends ServiceBasic {
 
     		IEntity<RightCrud> rightCrud = null;
         	if(rigths.isEmpty()){
-        		log.debug("Direito n„o existente. Cadastrando...");
-        		/* Define a ligaÁ„o do novo direito entre Grupo e Entity */
+        		log.debug("Direito n√£o existente. Cadastrando...");
+        		/* Define a liga√ß√£o do novo direito entre Grupo e Entity */
         		rightCrud = UtilsCrud.create(this.getServiceManager(), RightCrud.class, ownerSD); //direito CRUD
         		rightCrud.setPropertyValue(RightCrud.SECURITY_GROUP, group);
         		rightCrud.setPropertyValue(RightCrud.APPLICATION_ENTITY, ent);
         	}else{
-        		log.debug("Direito j· existente.");
+        		log.debug("Direito j√° existente.");
         		rightCrud = rigths.getFirst();
         	}
         	try {
@@ -220,8 +220,8 @@ public class CreateSecurityStructureService extends ServiceBasic {
         		rightCrud.setPropertyValue(RightCrud.UPDATE_ALLOWED, allAllowed && entityMetadata.getCanUpdate());
         		rightCrud.setPropertyValue(RightCrud.QUERY_ALLOWED, allAllowed && entityMetadata.getCanQuery());
         	} catch (Exception e) {
-        		// TODO Lucio 20120515: Se deu ClassNotFound, a classe j· n„o existe mais. Acho que o ManageSecurityStructureService
-        		// deveria remover entidades n„o mais usadas. Contudo, o sistema pode estar sendo executado com um banco mais completo :(
+        		// TODO Lucio 20120515: Se deu ClassNotFound, a classe j√° n√£o existe mais. Acho que o ManageSecurityStructureService
+        		// deveria remover entidades n√£o mais usadas. Contudo, o sistema pode estar sendo executado com um banco mais completo :(
 //        		throw new ServiceException(MessageList.createSingleInternalError(e));
         	}
 
@@ -236,7 +236,7 @@ public class CreateSecurityStructureService extends ServiceBasic {
     	log.debug("Atribuindo os direitos para os processos. Permitir tudo?" + allAllowed);
     	for (IEntity<ApplicationProcess> proc : processes){
         	if(log.isDebugEnabled())
-        		log.debug("Verificando se o direito j· existe para " + proc.toString());
+        		log.debug("Verificando se o direito j√° existe para " + proc.toString());
 
         	ServiceData sd = new ServiceData(ListService.SERVICE_NAME, ownerSD);
             sd.getArgumentList().setProperty(ListService.CLASS, RightProcess.class);
@@ -247,13 +247,13 @@ public class CreateSecurityStructureService extends ServiceBasic {
 
     		IEntity<RightProcess> rightProcess = null;
         	if(procs.isEmpty()){
-        		log.debug("Direito n„o existente. Cadastrando...");
-        		/* Define a ligaÁ„o do novo direito entre Grupo e Entity */
+        		log.debug("Direito n√£o existente. Cadastrando...");
+        		/* Define a liga√ß√£o do novo direito entre Grupo e Entity */
         		rightProcess = UtilsCrud.create(this.getServiceManager(), RightProcess.class, ownerSD);
         		rightProcess.setPropertyValue(RightProcess.SECURITY_GROUP, group);
         		rightProcess.setPropertyValue(RightProcess.APPLICATION_PROCESS, proc);
         	}else{
-        		log.debug("Direito j· existente.");
+        		log.debug("Direito j√° existente.");
         		rightProcess = procs.getFirst();
         	}
 

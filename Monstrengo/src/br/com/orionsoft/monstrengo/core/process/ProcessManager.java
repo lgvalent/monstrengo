@@ -56,14 +56,14 @@ public class ProcessManager implements IProcessManager {
 	public void setApplication(IApplication application) {this.application = application;}
 	
 	/**
-	 * Este mÈtodo cria a lista de DAOs e busca todas as entidades anotadas no sistema
+	 * Este m√©todo cria a lista de DAOs e busca todas as entidades anotadas no sistema
 	 * para criar um dao manipulador para esta entidade.
-	 * A lista de DAOs auxilia o restante da arquitetura a saber quantas entidades s„o mantidas, ou seja,
-	 * quantas entidades s„o CRUD
+	 * A lista de DAOs auxilia o restante da arquitetura a saber quantas entidades s√£o mantidas, ou seja,
+	 * quantas entidades s√£o CRUD
 	 */
 	public void init(){
 		if(controllers != null)
-			throw new RuntimeException("ProcessManager j· inciado anteriormente. O mÈtodo init() n„o pode ser executado.");
+			throw new RuntimeException("ProcessManager j√° inciado anteriormente. O m√©todo init() n√£o pode ser executado.");
 		
 		controllers = new HashMap<String , IRunnableEntityProcessController>();
 		
@@ -115,7 +115,7 @@ public class ProcessManager implements IProcessManager {
             // Define o ID persistido
             result.getProcessInfo().setId(UtilsSecurity.retrieveProcessId(this.serviceManager, result.getProcessName(), null));
 
-            // Define a sess„o do usu·rio
+            // Define a sess√£o do usu√°rio
             result.setUserSession(userSession);
             
             //Starta o processo
@@ -148,8 +148,8 @@ public class ProcessManager implements IProcessManager {
 
 	public boolean mayExecuteProcess(String processName, UserSession userSession) throws ProcessException
 	{
-		/* Verifica se tem uma sess„o, pois existem processos que s„o executados antes que uma
-		 * sess„o de operador esteja autenticada, como por exemplo: AuthenticateProcess*/
+		/* Verifica se tem uma sess√£o, pois existem processos que s√£o executados antes que uma
+		 * sess√£o de operador esteja autenticada, como por exemplo: AuthenticateProcess*/
 		if(userSession == null)
 			return true;
 		
@@ -158,7 +158,7 @@ public class ProcessManager implements IProcessManager {
 			return UtilsSecurity.checkRightProcess(this.getServiceManager(), processName, userSession, null);
 		} catch (BusinessException e)
 		{
-			// Converte a exceÁ„o
+			// Converte a exce√ß√£o
 			throw new ProcessException(e.getErrorList());
 		}
 	}
@@ -176,14 +176,14 @@ public class ProcessManager implements IProcessManager {
 			return result;
 		}
 		
-		/* N„o achou no buffer, ent„o realiza a busca completa e bufferiza posteriormente */
+		/* N√£o achou no buffer, ent√£o realiza a busca completa e bufferiza posteriormente */
 		result = new ArrayList<IRunnableEntityProcessController>();	
 
 		List<Class<?>> ancestorClasses = ClassUtils.getAllHierarchy(entityClass);
 		
 		/* Percorre todos os controladores, depois todas as classes de cada controlador e depois
-		 * todas as classes da hierarquia da entidade atual. Se algo cruzar, o controlador È apto para a entidade 
-		 * e uma entrada de processo È criada para exibir os dados sobre o processo que pode ser disparado */
+		 * todas as classes da hierarquia da entidade atual. Se algo cruzar, o controlador √© apto para a entidade 
+		 * e uma entrada de processo √© criada para exibir os dados sobre o processo que pode ser disparado */
 		for(IRunnableEntityProcessController controller: controllers.values()){
 			boolean controllerCompatible = false;
 			for(Class<?> controllerClass: controller.getRunnableEntities()){
@@ -218,14 +218,14 @@ public class ProcessManager implements IProcessManager {
 			return result;
 		}
 		
-		/* N„o achou no buffer, ent„o realiza a busca completa e bufferiza posteriormente */
+		/* N√£o achou no buffer, ent√£o realiza a busca completa e bufferiza posteriormente */
 		result = new ArrayList<IRunnableEntityCollectionProcessController>();	
 
 		List<Class<?>> ancestorClasses = ClassUtils.getAllHierarchy(entityClass);
 		
 		/* Percorre todos os controladores, depois todas as classes de cada controlador e depois
-		 * todas as classes da hierarquia da entidade atual. Se algo cruzar, o controlador È apto para a entidade 
-		 * e uma entrada de processo È criada para exibir os dados sobre o processo que pode ser disparado */
+		 * todas as classes da hierarquia da entidade atual. Se algo cruzar, o controlador √© apto para a entidade 
+		 * e uma entrada de processo √© criada para exibir os dados sobre o processo que pode ser disparado */
 		for(IRunnableProcessController controller: controllers.values()){
 			boolean controllerCompatible = false;
 			if(controller instanceof IRunnableEntityCollectionProcessController){
@@ -260,7 +260,7 @@ public class ProcessManager implements IProcessManager {
 			for(IRunnableEntityProcessController controller: getRunnableEntityProcessesControllers(entity.getInfo().getType())){
 				/* Verifica se o operador possui direito de acesso ao processo */
 				if(UtilsSecurity.checkRightProcess(this.getServiceManager(), controller.getProcessClass().getSimpleName(), userSession, null)){
-					/* Ainda verifica se o processo poder· ser executado com os atuais dados da entidade */
+					/* Ainda verifica se o processo poder√° ser executado com os atuais dados da entidade */
 					RunnableProcessEntry entry = new RunnableProcessEntry(controller.getProcessClass());
 
 					entry.setDisabled(!controller.canRunWithEntity(entity));
@@ -274,7 +274,7 @@ public class ProcessManager implements IProcessManager {
 
 		} catch (BusinessException e)
 		{
-			// Converte a exceÁ„o
+			// Converte a exce√ß√£o
 			throw new ProcessException(e.getErrorList());
 		}
 	}
@@ -290,10 +290,10 @@ public class ProcessManager implements IProcessManager {
 			for(IRunnableEntityCollectionProcessController controller: getRunnableEntityCollectionProcessesControllers(info.getType())){
 				/* Verifica se o operador possui direito de acesso ao processo */
 				if(UtilsSecurity.checkRightProcess(this.getServiceManager(), controller.getProcessClass().getSimpleName(), userSession, null)){
-					/* Ainda verifica se o processo poder· ser executado com os atuais dados da entidade */
+					/* Ainda verifica se o processo poder√° ser executado com os atuais dados da entidade */
 					RunnableProcessEntry entry = new RunnableProcessEntry(controller.getProcessClass());
 
-					/* Para coleÁıes n„o È verificada uma prÈ-condiÁ„o para execuÁ„o em lote, pois a coleÁ„o pode n„o estar pronta */
+					/* Para cole√ß√µes n√£o √© verificada uma pr√©-condi√ß√£o para execu√ß√£o em lote, pois a cole√ß√£o pode n√£o estar pronta */
 					entry.setDisabled(false);
 					if(entry.isDisabled())
 						entry.setMessage(controller.getMessage());
@@ -305,7 +305,7 @@ public class ProcessManager implements IProcessManager {
 
 		} catch (BusinessException e)
 		{
-			// Converte a exceÁ„o
+			// Converte a exce√ß√£o
 			throw new ProcessException(e.getErrorList());
 		}
 	}
@@ -328,7 +328,7 @@ public class ProcessManager implements IProcessManager {
 	}
 	
 	/**
-	 * Recebe como parametro uma instancia do tipo IRunnableEntityProcessController e tenta remover essa inst‚ncia.
+	 * Recebe como parametro uma instancia do tipo IRunnableEntityProcessController e tenta remover essa inst√¢ncia.
 	 */
 	public void unregisterController(IRunnableEntityProcessController controller) throws ProcessException {
 		final String processName = controller.getProcessClass().getSimpleName();

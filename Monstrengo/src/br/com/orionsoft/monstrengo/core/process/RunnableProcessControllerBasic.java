@@ -1,7 +1,5 @@
 package br.com.orionsoft.monstrengo.core.process;
 
-import br.com.orionsoft.monstrengo.core.process.IProcessManager;
-import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcessController;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 
 

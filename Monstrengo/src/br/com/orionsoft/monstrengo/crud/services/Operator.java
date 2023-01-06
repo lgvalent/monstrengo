@@ -6,7 +6,7 @@ import java.util.List;
 import br.com.orionsoft.monstrengo.crud.services.Operator;
 
 /**
- *	Esta classe representa os operadores que fazem as restriÁıes numa busca Hql.
+ *	Esta classe representa os operadores que fazem as restri√ß√µes numa busca Hql.
  * 	Cada operador possui um id, label e simbol.
  * 
  */
@@ -42,8 +42,8 @@ public class Operator
 	public String getSymbol(){return symbol;}
 	public void setSymbol(String symbol){this.symbol = symbol;}
 	
-	/** Indica que o atual operador n„o necessita da entrada de valores
-	 * para realizar sua operaÁ„o como È o caso dos operadores NULL e NOT_NULL. 
+	/** Indica que o atual operador n√£o necessita da entrada de valores
+	 * para realizar sua opera√ß√£o como √© o caso dos operadores NULL e NOT_NULL. 
 	 */
 	public boolean isNoValueNeeded(){
 		switch (this.id) {
@@ -55,7 +55,7 @@ public class Operator
 	}
 
 	/** Indica que o atual operador necessita de pelo menos uma entrada de valor
-	 * para realizar sua operaÁ„o como È o caso da maioria dos operadores. 
+	 * para realizar sua opera√ß√£o como √© o caso da maioria dos operadores. 
 	 */
 	public boolean isOneValueNeeded(){
 		switch (this.id) {
@@ -67,7 +67,7 @@ public class Operator
 	}
 
 	/** Indica que o atual operador necessita da entrada de dois valores
-	 * para realizar sua operaÁ„o como È o caso dos operadores BETWEEN e NOT_BETWEEN. 
+	 * para realizar sua opera√ß√£o como √© o caso dos operadores BETWEEN e NOT_BETWEEN. 
 	 */
 	public boolean isTwoValueNeeded(){
 		switch (this.id) {
@@ -78,8 +78,8 @@ public class Operator
 		}
 	}
 
-	/* Construtor padr„o 
-	 * TODO IMPLEMENTAR colocar a descriÁ„o dos operadores em arquivos externos de texto */
+	/* Construtor padr√£o 
+	 * TODO IMPLEMENTAR colocar a descri√ß√£o dos operadores em arquivos externos de texto */
 	public Operator(int operatorId){
 		switch (operatorId) {
 		case EQUAL:
@@ -104,25 +104,25 @@ public class Operator
 			fillOperator(this, LIKE, "contenha", "$");
 			break;
 		case NOT_LIKE:
-			fillOperator(this, NOT_LIKE, "n„o contenha", "!$");
+			fillOperator(this, NOT_LIKE, "n√£o contenha", "!$");
 			break;
 		case NULL:
 			fillOperator(this, NULL, "vazio", "?");
 			break;
 		case NOT_NULL:
-			fillOperator(this, NOT_NULL, "n„o vazio", "!?");
+			fillOperator(this, NOT_NULL, "n√£o vazio", "!?");
 			break;
 		case BETWEEN:
 			fillOperator(this, BETWEEN, "entre", "[]");
 			break;
 		case NOT_BETWEEN:
-			fillOperator(this, NOT_BETWEEN, "n„o est· entre", "][");
+			fillOperator(this, NOT_BETWEEN, "n√£o est√° entre", "][");
 			break;
 		case IN:
-			fillOperator(this, IN, "est· contido", "(,,)");
+			fillOperator(this, IN, "est√° contido", "(,,)");
 			break;
 		case NOT_IN:
-			fillOperator(this, NOT_IN, "n„o est· contido", "),,(");
+			fillOperator(this, NOT_IN, "n√£o est√° contido", "),,(");
 			break;
 
 		default:

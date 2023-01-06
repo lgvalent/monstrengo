@@ -16,8 +16,6 @@ import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import br.com.orionsoft.monstrengo.security.entities.ApplicationProcess;
-
 /**
  * @hibernate.class table="security_module"
  */
@@ -26,7 +24,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationProcess;
 public class ApplicationModule 
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no cÛdigo e evitar erro de digitaÁ„o. */
+     * serem usadas no c√≥digo e evitar erro de digita√ß√£o. */
     public static final String NAME = "name";
     public static final String PROCESSES = "processes";
     public static final String ENTITIES = "entities";
@@ -52,9 +50,9 @@ public class ApplicationModule
     public void setName(String nome){this.name = nome;}
     
     /**
-     * O mÛdulo se relaciona com v·rios processos. Para isto, cada
-     * processo receber· uma coluna "applicationModule" que identifica 
-     * seu mÛdulo.
+     * O m√≥dulo se relaciona com v√°rios processos. Para isto, cada
+     * processo receber√° uma coluna "applicationModule" que identifica 
+     * seu m√≥dulo.
      * 
      * @hibernate.set cascade="all" lazy="false" 
      * @hibernate.collection-key-column name="applicationModule" index="applicationModule"
@@ -68,9 +66,9 @@ public class ApplicationModule
     public void setProcesses(Set<ApplicationProcess> processes) {this.processes = processes;}
     
     /**
-     * O mÛdulo se relaciona com v·rias entidades. Para isto, cada
-     * entidade receber· uma coluna "applicationModule" que identifica 
-     * seu mÛdulo.
+     * O m√≥dulo se relaciona com v√°rias entidades. Para isto, cada
+     * entidade receber√° uma coluna "applicationModule" que identifica 
+     * seu m√≥dulo.
      * 
      * @hibernate.set cascade="all" lazy="false" 
      * @hibernate.collection-key-column name="applicationModule" index="applicationModule"

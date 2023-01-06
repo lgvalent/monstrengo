@@ -35,7 +35,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 public class UserReportBean 
 {
     /* Constantes com os nomes das propriedades da classe para
-     * serem usadas no código e evitar erro de digitação. */
+     * serem usadas no cÃ³digo e evitar erro de digitaÃ§Ã£o. */
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";
     public static final String DATE = "date";
@@ -95,7 +95,7 @@ public class UserReportBean
 	public void setDate(Calendar date) {this.date = date;}
 	
     /**
-     * Um relatório se relaciona com vários beans de condições de pesquisa.
+     * Um relatÃ³rio se relaciona com vÃ¡rios beans de condiÃ§Ãµes de pesquisa.
      * 
      * @hibernate.list cascade="all" lazy="false" 
      * @hibernate.collection-key-column name="userReport" index="userReport"
@@ -110,7 +110,7 @@ public class UserReportBean
     public void setQueryCondictions(List<QueryCondictionBean> queryCondictions) {this.queryCondictions = queryCondictions;}
     
     /**
-     * Um relatório se relaciona com vários beans de condições de ordenação.
+     * Um relatÃ³rio se relaciona com vÃ¡rios beans de condiÃ§Ãµes de ordenaÃ§Ã£o.
      * 
      * @hibernate.list cascade="all" lazy="false" 
      * @hibernate.collection-key-column name="userReport" index="userReport"
@@ -125,7 +125,7 @@ public class UserReportBean
     public void setOrderCondictions(List <OrderCondictionBean>orderCondictions) {this.orderCondictions = orderCondictions;}
 
     /**
-     * Um relatório se relaciona com vários beans de condições de ordenação.
+     * Um relatÃ³rio se relaciona com vÃ¡rios beans de condiÃ§Ãµes de ordenaÃ§Ã£o.
      * 
      * @hibernate.set cascade="all" lazy="false" 
      * @hibernate.collection-key-column name="userReport" index="userReport"

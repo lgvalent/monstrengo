@@ -7,9 +7,9 @@ import br.com.orionsoft.monstrengo.crud.report.entities.UserReport;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 
 /**
- * Esta classe mantem os os par‚metros de criaÁ„o de
- * filtros que ser„o utilizados pelo processo de pesquisa.
- * Durante a persistencia deste par‚metros È utilizado uma propriedade
+ * Esta classe mantem os os par√¢metros de cria√ß√£o de
+ * filtros que ser√£o utilizados pelo processo de pesquisa.
+ * Durante a persistencia deste par√¢metros √© utilizado uma propriedade
  * diretamente do UserReportBean
  * 
  * @author 

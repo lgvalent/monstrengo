@@ -17,17 +17,17 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 
 /**
  * Esta classe realiza testes em todos os Daos registrados.
- * <p>Utilizando o <b>Dao Manager</b>, a lista de Daos é obtida.
- * <p>Para cada Dao, os métodos <b>Create</b>, <b>Update</b>, <b>Retrieve</b> e <b>Delete</b> são executados.
- * <p>Para preencher um objeto de forma genérica são obtidas suas propriedades do tipo
- * String e é atribuído um valor padrão.  
+ * <p>Utilizando o <b>Dao Manager</b>, a lista de Daos Ã© obtida.
+ * <p>Para cada Dao, os mÃ©todos <b>Create</b>, <b>Update</b>, <b>Retrieve</b> e <b>Delete</b> sÃ£o executados.
+ * <p>Para preencher um objeto de forma genÃ©rica sÃ£o obtidas suas propriedades do tipo
+ * String e Ã© atribuÃ­do um valor padrÃ£o.  
  * 
  * @author estagio
  *
  */
 public class DaoBasicTestCase extends DaoBasicTest {
 
-	//Para alterar o número de Objetos a serem testados, mudar esta constante 
+	//Para alterar o nÃºmero de Objetos a serem testados, mudar esta constante 
 	private final int NUMERO_TESTES = 2;  
 	
 //	public static void main(String[] args) {
@@ -55,22 +55,22 @@ public class DaoBasicTestCase extends DaoBasicTest {
 			System.out.println("=====>" + c.getEntityType().getReturnedClass());
 		}
 										
-		// Obtém a lista de DAOs e percorre a lista de DAOs
+		// ObtÃ©m a lista de DAOs e percorre a lista de DAOs
 		for (IDAO dao : daoManager.getDaos().values()){
 			
 			try {
-				//Obtém a classe correspondente ao DAO 
+				//ObtÃ©m a classe correspondente ao DAO 
 				Class classDAO = dao.getEntityClass();
 				System.out.println("Class - " + classDAO);
 				
-				//Obtém os campos de uma classe em um array
+				//ObtÃ©m os campos de uma classe em um array
 				fields = classDAO.getDeclaredFields(); 
 				
-				//Não instancia objetos de classe abstrata
+				//NÃ£o instancia objetos de classe abstrata
 				if (!Modifier.isAbstract(dao.getEntityClass().getModifiers())){
 					
-					List listaObjetos = new ArrayList(); //Lista dos Objetos que serão criados
-					//cria determinado número de Objetos e os testa
+					List listaObjetos = new ArrayList(); //Lista dos Objetos que serÃ£o criados
+					//cria determinado nÃºmero de Objetos e os testa
 					for (int i = 0; i < NUMERO_TESTES; i++){
 					
 						//Cria objeto do tipo Object
@@ -82,9 +82,9 @@ public class DaoBasicTestCase extends DaoBasicTest {
 							System.out.println("Type - " + fields[j].getType());
 						
 							/*
-							 * Se o campo atual for do tipo String e não for uma CONSTANTE,
+							 * Se o campo atual for do tipo String e nÃ£o for uma CONSTANTE,
 							 * populo (preencher) os campos do Objeto do tipo String com 
-							 * uma string de "Teste" através do PropertyUtils.setProperty()
+							 * uma string de "Teste" atravÃ©s do PropertyUtils.setProperty()
 							 */
 							if ((fields[j].getType() == java.lang.String.class) && 
 								(!java.lang.reflect.Modifier.isStatic(fields[j].getModifiers()))){
@@ -92,8 +92,8 @@ public class DaoBasicTestCase extends DaoBasicTest {
 								System.out.println("STRING - " + fields[j].getName());
 
 								/*
-								 * Usando dao.getEntityClass().cast(objDao)), passo o retorno como parâmetro direto,
-								 * assim não atribuo o resultado a uma variável Object, usando um objeto do tipo da classe 
+								 * Usando dao.getEntityClass().cast(objDao)), passo o retorno como parÃ¢metro direto,
+								 * assim nÃ£o atribuo o resultado a uma variÃ¡vel Object, usando um objeto do tipo da classe 
 								 * que realmente queria (com o cast())  
 								 */
 								PropertyUtils.setProperty(dao.getEntityClass().cast(objDao), fields[j].getName(), "Teste" + i);
@@ -103,14 +103,14 @@ public class DaoBasicTestCase extends DaoBasicTest {
 						}//for
 					
 						/*
-						 * Após popular o Objeto com as Strings de Teste, 
-						 * o Objeto é armazenado na Lista
+						 * ApÃ³s popular o Objeto com as Strings de Teste, 
+						 * o Objeto Ã© armazenado na Lista
 						 */
 //						listaObjetos.add(i, objDao);
 						
 					}//for
 					
-					//Método de Testes
+					//MÃ©todo de Testes
 					testDAOs(listaObjetos, dao);
 				
 				}//if
@@ -130,17 +130,17 @@ public class DaoBasicTestCase extends DaoBasicTest {
 	} //fim de testA
 	
 	/**
-	 * Este Método Testa os métodos <b>update()</b>, <b>retrieve()</b>, <b>getList()</b>, 
-	 * <b>getList("String condição")</b> e <b>delete()</b> da classe DaoBasic.
-	 * <p>O método retrieve() é testado implicitamente na chamada de update() e delete().
-	 * <p>Os Objetos a serem testados estão armazenados na Lista que passa como parâmetro, 
-	 * assim, as iterações são feitas a partir do tamanho desta Lista.
+	 * Este MÃ©todo Testa os mÃ©todos <b>update()</b>, <b>retrieve()</b>, <b>getList()</b>, 
+	 * <b>getList("String condiÃ§Ã£o")</b> e <b>delete()</b> da classe DaoBasic.
+	 * <p>O mÃ©todo retrieve() Ã© testado implicitamente na chamada de update() e delete().
+	 * <p>Os Objetos a serem testados estÃ£o armazenados na Lista que passa como parÃ¢metro, 
+	 * assim, as iteraÃ§Ãµes sÃ£o feitas a partir do tamanho desta Lista.
 	 */
 	private void testDAOs(List listaObj, IDAO _dao){
 		/*
-		 * Como a classe é genérica, não sabemos o DAO que está passando pelo teste, assim, 
-		 * obtemos o id através do PropertyUtils.getProperty(), passando como parâmetro 
-		 * a classe do Objeto e uma String "id" para identificar o método que queremos usar 
+		 * Como a classe Ã© genÃ©rica, nÃ£o sabemos o DAO que estÃ¡ passando pelo teste, assim, 
+		 * obtemos o id atravÃ©s do PropertyUtils.getProperty(), passando como parÃ¢metro 
+		 * a classe do Objeto e uma String "id" para identificar o mÃ©todo que queremos usar 
 		 */
 		Object _objDao;
 		Long _id;
@@ -158,16 +158,16 @@ public class DaoBasicTestCase extends DaoBasicTest {
 			
 			//getList()
 			/*
-			 * A Lista retornada pelo Banco de Dados (listaBanco) pode ser maior ou igual à Lista de Objetos
-			 * criada no programa, caso contrário existe um erro 
+			 * A Lista retornada pelo Banco de Dados (listaBanco) pode ser maior ou igual Ã  Lista de Objetos
+			 * criada no programa, caso contrÃ¡rio existe um erro 
 			 */
 			List listaBanco = _dao.getList();
 			Assert.assertTrue(listaBanco.size() >= listaObj.size());
 			listaBanco.clear(); //limpa a lista de objetos, para que possa ser usada novamente
 			
-			//getList(String condição)
+			//getList(String condiÃ§Ã£o)
 			/*
-			 * Obtenho apenas os Objetos que se correspondem ao parâmetro que será passado, e a Lista 
+			 * Obtenho apenas os Objetos que se correspondem ao parÃ¢metro que serÃ¡ passado, e a Lista 
 			 * retornada pelo Banco de Dados (listaBanco) agora deve ser a mesma que foi inserida
 			 * anteriormente com o comando update()
 			 */
@@ -189,7 +189,7 @@ public class DaoBasicTestCase extends DaoBasicTest {
 //				assertNull(_dao.retrieve(idBanco.get(k)));		
 			}
             }catch(Exception e){
-                System.err.println("ocorreu uma exceção no delete!");
+                System.err.println("ocorreu uma exceÃ§Ã£o no delete!");
 
                 Assert.assertTrue(false);
             }

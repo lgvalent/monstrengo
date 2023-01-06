@@ -27,11 +27,11 @@ import br.com.orionsoft.monstrengo.crud.labels.entities.AddressLabel;
 import br.com.orionsoft.monstrengo.crud.labels.entities.ModelLabel;
 
 /**
- * Esta classe gera um relatÛrio Jasper com as etiquetas e modelos passados.
- * O relatÛrio JRXML j· existe em um arquivo com os componentes b·sicos que ser„o
- * manipulados para configurar as etiquetas de acordo com os par‚metros do modelo.
- * Toda a configuraÁ„o È realizada utilizando as classes JRDesing que permitem, por
- * TypeCast, manipular propriedades de todos elementos do relatÛrios. Desde a p·gina, 
+ * Esta classe gera um relat√≥rio Jasper com as etiquetas e modelos passados.
+ * O relat√≥rio JRXML j√° existe em um arquivo com os componentes b√°sicos que ser√£o
+ * manipulados para configurar as etiquetas de acordo com os par√¢metros do modelo.
+ * Toda a configura√ß√£o √© realizada utilizando as classes JRDesing que permitem, por
+ * TypeCast, manipular propriedades de todos elementos do relat√≥rios. Desde a p√°gina, 
  * bands, e outros.
  *  
  * @author Lucio
@@ -49,9 +49,9 @@ public class JasperPrintLabel {
 	
 	public static void print(List<AddressLabel> labels, ModelLabel modelLabel, int printerIndex)throws BusinessException{
 		try {
-			/* Verifica se a lista de etiqueta n„o est· vazia */
+			/* Verifica se a lista de etiqueta n√£o est√° vazia */
 			if(!labels.isEmpty()){
-				/* Verificando quantas etiquetas est„o selecionadas 
+				/* Verificando quantas etiquetas est√£o selecionadas 
 				 * para otimizar o vetor na memoria para o tamanho exato */
 				int selected = 0;
 				for(AddressLabel label: labels)
@@ -67,7 +67,7 @@ public class JasperPrintLabel {
 				/* Prepara o dataSource de beans com a lista de etiquetas */
 				JRDataSource jrds = new JRBeanCollectionDataSource(printLabels);
 				
-				/* LÍ o modelo de etiqueta no arquivo XML */	
+				/* L√™ o modelo de etiqueta no arquivo XML */	
 				JasperDesign design = JRXmlLoader.load(JasperPrintLabel.class.getResourceAsStream(LABEL_XML));
 				
 				/* Define as propriedades das MARGENS LEFT/TOP */
@@ -76,7 +76,7 @@ public class JasperPrintLabel {
 				design.setBottomMargin(0);
 				design.setRightMargin(0);
 				
-				/* Define as propriedades da P¡GINA */
+				/* Define as propriedades da P√ÅGINA */
 				design.setPageHeight(Math.round(modelLabel.getPageHeight()*CMM_PIXEL_FACTOR));
 				design.setPageWidth(Math.round(modelLabel.getPageWidth()*CMM_PIXEL_FACTOR));
 				
@@ -87,7 +87,7 @@ public class JasperPrintLabel {
 					design.setColumnSpacing(Math.round(modelLabel.getHorizontalDistance()*CMM_PIXEL_FACTOR));
 
 				/* Calcula a altura da linha de texto de acordo com o tamanho da fonte.
-				 * Esta fÛrmula funciona atÈ o tamanho de 35 */
+				 * Esta f√≥rmula funciona at√© o tamanho de 35 */
 				int lineTextHeight = modelLabel.getFontSize()+(modelLabel.getFontSize()/10)+1;
 				
 				for(int i=0;i<5;i++){
@@ -114,7 +114,7 @@ public class JasperPrintLabel {
 				
 				JasperPrint print = JasperFillManager.fillReport(report, null, jrds);
 		    	
-				/* Define os par‚metros de impress„o envelor=>LANDSCAPE ou PORTRAIT */
+				/* Define os par√¢metros de impress√£o envelor=>LANDSCAPE ou PORTRAIT */
 				PrintRequestAttributeSet requestAttributeSet = new HashPrintRequestAttributeSet();
 				if(modelLabel.isEnvelope())
 					requestAttributeSet.add(OrientationRequested.LANDSCAPE);
@@ -135,9 +135,9 @@ public class JasperPrintLabel {
 
 	public static void makePdf(List<AddressLabel> labels, ModelLabel modelLabel, OutputStream outputStream)throws BusinessException{
 		try {
-			/* Verifica se a lista de etiqueta n„o est· vazia */
+			/* Verifica se a lista de etiqueta n√£o est√° vazia */
 			if(!labels.isEmpty()){
-				/* Verificando quantas etiquetas est„o selecionadas 
+				/* Verificando quantas etiquetas est√£o selecionadas 
 				 * para otimizar o vetor na memoria para o tamanho exato */
 				int selected = 0;
 				for(AddressLabel label: labels)
@@ -153,7 +153,7 @@ public class JasperPrintLabel {
 				/* Prepara o dataSource de beans com a lista de etiquetas */
 				JRDataSource jrds = new JRBeanCollectionDataSource(printLabels);
 				
-				/* LÍ o modelo de etiqueta no arquivo XML */	
+				/* L√™ o modelo de etiqueta no arquivo XML */	
 				JasperDesign design = JRXmlLoader.load(JasperPrintLabel.class.getResourceAsStream(LABEL_XML));
 				
 				/* Define as propriedades das MARGENS LEFT/TOP */
@@ -162,7 +162,7 @@ public class JasperPrintLabel {
 				design.setBottomMargin(0);
 				design.setRightMargin(0);
 				
-				/* Define as propriedades da P¡GINA */
+				/* Define as propriedades da P√ÅGINA */
 				design.setPageHeight(Math.round(modelLabel.getPageHeight()*CMM_PIXEL_FACTOR));
 				design.setPageWidth(Math.round(modelLabel.getPageWidth()*CMM_PIXEL_FACTOR));
 				
@@ -173,7 +173,7 @@ public class JasperPrintLabel {
 					design.setColumnSpacing(Math.round(modelLabel.getHorizontalDistance()*CMM_PIXEL_FACTOR));
 
 				/* Calcula a altura da linha de texto de acordo com o tamanho da fonte.
-				 * Esta fÛrmula funciona atÈ o tamanho de 35 */
+				 * Esta f√≥rmula funciona at√© o tamanho de 35 */
 				int lineTextHeight = modelLabel.getFontSize()+(modelLabel.getFontSize()/10)+1;
 				
 				for(int i=0;i<5;i++){
@@ -200,7 +200,7 @@ public class JasperPrintLabel {
 				
 				JasperPrint print = JasperFillManager.fillReport(report, null, jrds);
 		    	
-				/* Define os par‚metros de impress„o envelor=>LANDSCAPE ou PORTRAIT */
+				/* Define os par√¢metros de impress√£o envelor=>LANDSCAPE ou PORTRAIT */
 				PrintRequestAttributeSet requestAttributeSet = new HashPrintRequestAttributeSet();
 				if(modelLabel.isEnvelope())
 					requestAttributeSet.add(OrientationRequested.LANDSCAPE);
@@ -219,7 +219,7 @@ public class JasperPrintLabel {
 	}
 
 	public static void printRules(int printerIndex){
-		// TODO impress„o da rÈgua na folha de etiquetas
+		// TODO impress√£o da r√©gua na folha de etiquetas
 	}	
 
 	
@@ -270,7 +270,7 @@ public class JasperPrintLabel {
 		endereco.setLine2("Lucio Geronimo Valentin Pereira");
 		endereco.setLine3("Rua Cezar Lattes, 263");
 		endereco.setLine4("Casa / Jardim Alvorada");
-		endereco.setLine5("CEP: 87.035-070 - Maring·/Pr ");
+		endereco.setLine5("CEP: 87.035-070 - Maring√°/Pr ");
 		
 		List<AddressLabel> etiquetas = new ArrayList<AddressLabel>();
 		

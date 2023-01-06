@@ -11,14 +11,14 @@ import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
 /**
- * ServiÁo de recuperaÁ„o de entidades.
+ * Servi√ßo de recupera√ß√£o de entidades.
  * 
  *<p><b>Argumentos:</b>
  *<br>IN_CLASS: Class da entidade a ser recuperada.
- *<br>ID_LONG: O identificador unit·rio da entidade.
+ *<br>ID_LONG: O identificador unit√°rio da entidade.
  *  
  *<p><b>Procedimento:</b>
- *<br>Obtem o Dao respons·vel pela classe.
+ *<br>Obtem o Dao respons√°vel pela classe.
  *<br>Obtem o objeto com o respectivo Id.
  *<br>Converte o objeto em uma entidade.
  *<br><b>Retorna uma entidade com seu objeto e metadados.</b> 
@@ -38,17 +38,17 @@ public class RetrieveService extends ServiceBasic {
         IEntity<?> result = null;
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo RetrieveService");
-            // Obtem os par‚metros
+            log.debug("Iniciando a execu√ß√£o do servi√ßo RetrieveService");
+            // Obtem os par√¢metros
             Class<?> classObj = (Class<?>) serviceData.getArgumentList().getProperty(CLASS); 
             Long id = (Long) serviceData.getArgumentList().getProperty(ID_LONG);
 
 //            Lucio 03/11/2006
-//            Usava os DAOS para obter os dados, porem cada DAO gera uma sess„o particular diferente da sess„o 
-//            j· gerada para o serviÁo. Agora eu pego a atual sess„o do serviÁo e dela solicito o RETRIEVE
+//            Usava os DAOS para obter os dados, porem cada DAO gera uma sess√£o particular diferente da sess√£o 
+//            j√° gerada para o servi√ßo. Agora eu pego a atual sess√£o do servi√ßo e dela solicito o RETRIEVE
 //            if (log.isDebugEnabled())
-//            log.debug("Obtendo o dao correspondente ‡ entidade" + classObj);
-//            // Obtem o Dao respons·vel e o objeto
+//            log.debug("Obtendo o dao correspondente √† entidade" + classObj);
+//            // Obtem o Dao respons√°vel e o objeto
 //            dao = daoManager.getDaoByEntity(classObj);
 //            
 //            log.debug("Recuperando o objeto correspondente e transformando num IEntidade");
@@ -67,7 +67,7 @@ public class RetrieveService extends ServiceBasic {
 
         } catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         } catch (HibernateException e) {
             // Trata o erro de hibernate

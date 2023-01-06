@@ -16,8 +16,8 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 
 /**
- * Gerencia todos os processos que s„o instanciados pelo usu·rio.
- * Poder· haver controle para que quando a aplicaÁ„o for terminada, este
+ * Gerencia todos os processos que s√£o instanciados pelo usu√°rio.
+ * Poder√° haver controle para que quando a aplica√ß√£o for terminada, este
  * gerenciador possa finalizar (abortar) os processos atualmente instanciados.
  * 
  * @author Lucio
@@ -26,9 +26,9 @@ import br.com.orionsoft.monstrengo.security.entities.UserSession;
 public interface IProcessManager extends IManager {
 
     /**
-     * Obtem uma nova inst‚ncia do Processo com o nome fornecido.
-     * Os beans processos n„o s„o <i>singleton</i>.
-     * @param processName Nome do serviÁo procurado.
+     * Obtem uma nova inst√¢ncia do Processo com o nome fornecido.
+     * Os beans processos n√£o s√£o <i>singleton</i>.
+     * @param processName Nome do servi√ßo procurado.
      * @param userSession 
      */
     public abstract IProcess createProcessByName(String processName, UserSession userSession) throws ProcessException;
@@ -37,11 +37,11 @@ public interface IProcessManager extends IManager {
     public abstract void setServiceManager(IServiceManager serviceManager);
 
     /**
-     * Verifica se o atual usu·rio possui direitos de execuÁ„o
+     * Verifica se o atual usu√°rio possui direitos de execu√ß√£o
      * sobre o processo
      * @param processName Nome identificador do processo.
-     * @param userSession Sess„o do operador atualmente autenticado.
-     * @return Se o operador tiver direito de execuÁ„o ser· retornado true sen„o false.
+     * @param userSession Sess√£o do operador atualmente autenticado.
+     * @return Se o operador tiver direito de execu√ß√£o ser√° retornado true sen√£o false.
      * @throws ProcessException
      */
     public abstract boolean mayExecuteProcess(String processName, UserSession userSession) throws ProcessException;
@@ -56,7 +56,7 @@ public interface IProcessManager extends IManager {
 	/**
 	 * Obtem uma lista com os controladores dos processos que podem ser executados a partir de uma
 	 * determinada classe de entidade.<br>
-	 * @param entityClass classe de entidade com a qual se deseja pesquisar os processos compatÌveis 
+	 * @param entityClass classe de entidade com a qual se deseja pesquisar os processos compat√≠veis 
 	 * @return
 	 * @throws ProcessException
 	 */
@@ -66,11 +66,11 @@ public interface IProcessManager extends IManager {
 	 * Obtem uma lista com a entrada de processos que podem ser executados a partir de um determinado tipo
 	 * de entidade.<br>
 	 * Os {@link IRunnableEntityProcess} fornecem uma lista de tipos de entidades com as quais
-	 * eles s„o compatÌveis. Esta lista de entidades È mantida dentro do controlador e È construida dinamicamente.<br>
-	 * Caso um controlador de processo indique que n„o È possÌvel executar o processo neste momento,
-	 * ({@link IRunnableEntityProcessController.canRunWithEntity}) a entidade do processo retornada n„o estar· com isSelected() definido.<br>  
-	 * @param entity Entidade com a qual se deseja pesquisar os processos compatÌveis 
-	 * @param userSession Sess„o do operador para verificar a quais processos ele tem direito de acessar
+	 * eles s√£o compat√≠veis. Esta lista de entidades √© mantida dentro do controlador e √© construida dinamicamente.<br>
+	 * Caso um controlador de processo indique que n√£o √© poss√≠vel executar o processo neste momento,
+	 * ({@link IRunnableEntityProcessController.canRunWithEntity}) a entidade do processo retornada n√£o estar√° com isSelected() definido.<br>  
+	 * @param entity Entidade com a qual se deseja pesquisar os processos compat√≠veis 
+	 * @param userSession Sess√£o do operador para verificar a quais processos ele tem direito de acessar
 	 * @return
 	 * @throws ProcessException
 	 */
@@ -78,21 +78,21 @@ public interface IProcessManager extends IManager {
 	
 	
     /**
-	 * Obtem uma lista com os controladores dos processos est„o habilitados para execuÁ„o com coleÁ„o de entidades.<br>
-	 * @param entityClass classe de entidade com a qual se deseja pesquisar os processos compatÌveis 
+	 * Obtem uma lista com os controladores dos processos est√£o habilitados para execu√ß√£o com cole√ß√£o de entidades.<br>
+	 * @param entityClass classe de entidade com a qual se deseja pesquisar os processos compat√≠veis 
 	 * @return
 	 * @throws ProcessException
 	 */
     public List<IRunnableEntityCollectionProcessController> getRunnableEntityCollectionProcessesControllers(Class<?> entityClass) throws ProcessException;
 	
 	/**
-	 * Obtem uma lista com a entrada de processos que podem ser executados a partir de uma coleÁ„o de entidade.<br>
+	 * Obtem uma lista com a entrada de processos que podem ser executados a partir de uma cole√ß√£o de entidade.<br>
 	 * Os {@link IRunnableEntityCollectionProcess} fornecem uma lista de tipos de entidades com as quais
-	 * eles s„o compatÌveis. Esta lista de entidades È mantida dentro do controlador e È construida dinamicamente.<br>
-	 * Caso um controlador de processo indique que n„o È possÌvel executar o processo neste momento,
-	 * ({@link IRunnableEntityCollectionProcessController.canRunWithEntity}) a entidade do processo retornada n„o estar· com isSelected() definido.<br>  
-	 * @param entity Entidade com a qual se deseja pesquisar os processos compatÌveis 
-	 * @param userSession Sess„o do operador para verificar a quais processos ele tem direito de acessar
+	 * eles s√£o compat√≠veis. Esta lista de entidades √© mantida dentro do controlador e √© construida dinamicamente.<br>
+	 * Caso um controlador de processo indique que n√£o √© poss√≠vel executar o processo neste momento,
+	 * ({@link IRunnableEntityCollectionProcessController.canRunWithEntity}) a entidade do processo retornada n√£o estar√° com isSelected() definido.<br>  
+	 * @param entity Entidade com a qual se deseja pesquisar os processos compat√≠veis 
+	 * @param userSession Sess√£o do operador para verificar a quais processos ele tem direito de acessar
 	 * @return
 	 * @throws ProcessException
 	 */
@@ -100,13 +100,13 @@ public interface IProcessManager extends IManager {
 	
 
     /**
-     * Registra uma inst‚ncia de um RunnableEntityProcessController que possibilita ao gerenciador de processo
-     * controlar quantos processos possuem esta caracterÌstica de RunnableEntity.
+     * Registra uma inst√¢ncia de um RunnableEntityProcessController que possibilita ao gerenciador de processo
+     * controlar quantos processos possuem esta caracter√≠stica de RunnableEntity.
      */
     public void registerController(IRunnableEntityProcessController controller) throws ProcessException;
     
     /**
-     * Revome uma inst‚ncia do tipo RunnableEntityProcessController da lista de Controladores ativos.
+     * Revome uma inst√¢ncia do tipo RunnableEntityProcessController da lista de Controladores ativos.
      */
     public void unregisterController(IRunnableEntityProcessController controller) throws ProcessException;    
     

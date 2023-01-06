@@ -14,11 +14,11 @@ import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 
 /**
- * Esta interface abstrai as funções gerais de uma entidade de negócio.
- * São fornecidos métodos de acesso às propriedades, aos metadados e ainda
- * possibilita executar procedimentos como <code>update()</code> e <code>delete()</code>. Estes últimos
- * devem ser implementados utilizando o serviço CRUD que foi utilizado para 
- * criar a instância da atual classe.<br>
+ * Esta interface abstrai as funÃ§Ãµes gerais de uma entidade de negÃ³cio.
+ * SÃ£o fornecidos mÃ©todos de acesso Ã s propriedades, aos metadados e ainda
+ * possibilita executar procedimentos como <code>update()</code> e <code>delete()</code>. Estes Ãºltimos
+ * devem ser implementados utilizando o serviÃ§o CRUD que foi utilizado para 
+ * criar a instÃ¢ncia da atual classe.<br>
  * 
  * @author Lucio
  * @version 20060413
@@ -26,8 +26,8 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 public interface IEntity<T>
 {
     /**
-     * <p>Este método faz uma busca por uma entidade usando uma string de busca.</p>
-     * TODO Ele é útil para diretamente da tela ter uma referência a IEntity e poder buscar
+     * <p>Este mÃ©todo faz uma busca por uma entidade usando uma string de busca.</p>
+     * TODO Ele Ã© Ãºtil para diretamente da tela ter uma referÃªncia a IEntity e poder buscar
      * Mas seria interessante isto estar em um futuro IProcessParam 
      * 
      * @return
@@ -35,8 +35,8 @@ public interface IEntity<T>
     public List<IEntity<T>> find(String queryString) throws EntityException;
 
 	/**
-     * <p>Este método retorna o objeto que é manipulado como entidade.
-     * Com este objeto é possível obter os valores e as propriedades
+     * <p>Este mÃ©todo retorna o objeto que Ã© manipulado como entidade.
+     * Com este objeto Ã© possÃ­vel obter os valores e as propriedades
      * implementadas.</p> 
      * 
      * @return
@@ -44,8 +44,8 @@ public interface IEntity<T>
     public T getObject();
     
     /**
-     * Ao setar o id da entidade, é feito um retrieve para buscar no banco a entidade 
-     * correspondente ao id passado como parâmetro.
+     * Ao setar o id da entidade, Ã© feito um retrieve para buscar no banco a entidade 
+     * correspondente ao id passado como parÃ¢metro.
      * @param long id 
      * @throws EntityException
      */
@@ -63,7 +63,7 @@ public interface IEntity<T>
     public String toString();
 
     /**
-     * <p>Fornece uma lista com as propriedades indexadas pelo índice definido
+     * <p>Fornece uma lista com as propriedades indexadas pelo Ã­ndice definido
      * no metadado da propriedade.<p>
      * 
      * @return Lista indexada das propriedades.
@@ -84,9 +84,9 @@ public interface IEntity<T>
     
     /**
      * Esta propriedade pode ser utilizada quando a entidade 
-     * faz parte de uma coleção de entidades e que algumas podem
-     * ser marcadas como selecionadas e outras não, antes da aplicação de
-     * determinados processos. Como também poderá ser usada para outros fins.
+     * faz parte de uma coleÃ§Ã£o de entidades e que algumas podem
+     * ser marcadas como selecionadas e outras nÃ£o, antes da aplicaÃ§Ã£o de
+     * determinados processos. Como tambÃ©m poderÃ¡ ser usada para outros fins.
      * @return 
      * @since 20060315
      */

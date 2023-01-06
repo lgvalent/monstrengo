@@ -3,9 +3,9 @@ package br.com.orionsoft.monstrengo.core;
 import br.com.orionsoft.monstrengo.core.IApplication;
 
 /**
- * Esta interface define os mÈtodos que um gerenciador padr„o da aplicaÁ„o
- * precisa ter para se integrar ‡ arquitetura.
- * Implementando esta interface, o gerenciado poder· obter metadados da aplicaÁ„o geral
+ * Esta interface define os m√©todos que um gerenciador padr√£o da aplica√ß√£o
+ * precisa ter para se integrar √† arquitetura.
+ * Implementando esta interface, o gerenciado poder√° obter metadados da aplica√ß√£o geral
  * e futuramente se integrar a outros Gerenciados
  * 
  * @author lucio

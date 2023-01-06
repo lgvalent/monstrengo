@@ -34,7 +34,7 @@ public interface IDaoManager extends IManager{
     public abstract void unregisterDao(IDAO<?> dao) throws DAOException;
 
     /**
-     * Obtem a inst‚ncia do DAO respons·vel para tratar a classe de objetos passada.
+     * Obtem a inst√¢ncia do DAO respons√°vel para tratar a classe de objetos passada.
      * 
      * @param daos Classe do objeto que se requer o Dao.
      * @throws DAOException 
@@ -42,7 +42,7 @@ public interface IDaoManager extends IManager{
     public abstract <E> IDAO<E> getDaoByEntity(String entityClassName) throws DAOException;
 
     /**
-     * Obtem a inst‚ncia do DAO respons·vel para tratar a classe de objetos passada.
+     * Obtem a inst√¢ncia do DAO respons√°vel para tratar a classe de objetos passada.
      * 
      * @param daos Classe do objeto que se requer o Dao.
      * @throws DAOException 
@@ -52,10 +52,10 @@ public interface IDaoManager extends IManager{
 
     /**
      * Obtem uma lista de todas as subEntidades que estende uma classe.
-     * ⁄til para que o EntityManager descubra quem s„o as subEntidade de um classe e integre
-     * esta informaÁ„o nos metadados da entidade estendida, o que permitir· que uma tela de cadastro
-     * da entidade extendida forneÁa opÁ„o de cadastros de suas subentidades.
-     * Antes, isto era indicado nos metadados das entidades (.properties), mas È uma informaÁ„o que pode ser gerada
+     * √ötil para que o EntityManager descubra quem s√£o as subEntidade de um classe e integre
+     * esta informa√ß√£o nos metadados da entidade estendida, o que permitir√° que uma tela de cadastro
+     * da entidade extendida forne√ßa op√ß√£o de cadastros de suas subentidades.
+     * Antes, isto era indicado nos metadados das entidades (.properties), mas √© uma informa√ß√£o que pode ser gerada
      * automaticamente ao se registrar um dao de uma classe.
      * 
      * @param klazz Classe do objeto que se requer as subentidades registradas.
@@ -66,8 +66,8 @@ public interface IDaoManager extends IManager{
      */
     public abstract List<Class<?>> getSubEntities(Class<?> klazz) throws DAOException;
 
-    /** Permite ao ServiceManager e outros acessarem a f·brica de sess„o do DaoManager para construir
-	 * suas sessıes. Isto foi criado porque o ServiceManager controla as transaÁıes ah doc.
+    /** Permite ao ServiceManager e outros acessarem a f√°brica de sess√£o do DaoManager para construir
+	 * suas sess√µes. Isto foi criado porque o ServiceManager controla as transa√ß√µes ah doc.
 	 * @return
 	 */
 	public abstract SessionFactory getSessionFactory();

@@ -16,18 +16,18 @@ import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 
 /**
- * Este servico retorna todos os registros de alteraÁıes que ocorreram numa
+ * Este servico retorna todos os registros de altera√ß√µes que ocorreram numa
  * determinada entidade. 
  * 
  * <p><b>Argumento:</b>
- * <br> IN_ENTITY_TYPE Define o tipo da entidade que ser· analisada.
- * <br> IN_ENTITY_ID Define o Id da inst‚ncia da entidade que ser· analisada.
+ * <br> IN_ENTITY_TYPE Define o tipo da entidade que ser√° analisada.
+ * <br> IN_ENTITY_ID Define o Id da inst√¢ncia da entidade que ser√° analisada.
  * 
  * <p><b>Procedimento:</b>
  * <br>Busca no banco a entidade a ser analisada.
- * <br>Cria a consulta atravÈs da API Criteria do hibernate
+ * <br>Cria a consulta atrav√©s da API Criteria do hibernate
  * <br>Transforma a lista de objetos retornado pela consulta e transforma numa lista de EntityList.
- * <br><b>Retorna uma lista de registros (IEntityList) de registros de auditoria que satisfazem a condiÁ„o.
+ * <br><b>Retorna uma lista de registros (IEntityList) de registros de auditoria que satisfazem a condi√ß√£o.
  * 
  * @author marcia 2005/11/30
  * @version 20060707
@@ -52,7 +52,7 @@ public class CheckAuditCrudService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo CheckAuditCrudService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo CheckAuditCrudService");
             // Pega os argumentos
             Class entityType = (Class) serviceData.getArgumentList().getProperty(IN_ENTITY_TYPE);
             long entityId = (Long) serviceData.getArgumentList().getProperty(IN_ENTITY_ID);
@@ -70,7 +70,7 @@ public class CheckAuditCrudService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
         catch (HibernateException e)

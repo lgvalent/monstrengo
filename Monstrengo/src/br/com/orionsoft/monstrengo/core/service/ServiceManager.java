@@ -19,9 +19,9 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityManager;
 
 /**
- * Gerenciador que mantÈm o registro de todos os serviÁos existentes e
- * controla transaÁıes. Existe uma ˙nica inst‚ncia desse gerenciador
- * na aplicaÁ„o e todos os serviÁos possuem referÍncia a ele.
+ * Gerenciador que mant√©m o registro de todos os servi√ßos existentes e
+ * controla transa√ß√µes. Existe uma √∫nica inst√¢ncia desse gerenciador
+ * na aplica√ß√£o e todos os servi√ßos possuem refer√™ncia a ele.
  *
  * @author Lucio
  *
@@ -38,8 +38,8 @@ public class ServiceManager implements IServiceManager
     private Map<String, IService> services;
     
     /**
-     * Mantem uma referÍncia para o gerenciador de entidades e seus metadados.
-     * Os serviÁos poder„o solicitar convers„o de Object para IEntity, e ainda,
+     * Mantem uma refer√™ncia para o gerenciador de entidades e seus metadados.
+     * Os servi√ßos poder√£o solicitar convers√£o de Object para IEntity, e ainda,
      * List para IEntityList.
      */
     private IEntityManager entityManager;
@@ -53,25 +53,25 @@ public class ServiceManager implements IServiceManager
     public void setEntityManager(IEntityManager entityManager){this.entityManager = entityManager;}
 
 	/**
-	 * Este mÈtodo cria a lista de ServiÁos, buscando todas as classes que
+	 * Este m√©todo cria a lista de Servi√ßos, buscando todas as classes que
 	 * implementam a interface IService, instanciando e registrando.
 	 */
 	@SuppressWarnings("unchecked")
 	public void init(){
 		if(services != null)
-			throw new RuntimeException("ServiceManager j· iniciado anteriormente. O mÈtodo init() n„o pode ser executado.");
+			throw new RuntimeException("ServiceManager j√° iniciado anteriormente. O m√©todo init() n√£o pode ser executado.");
 		
 		services  = new HashMap<String, IService>();
 		
 		/* Prepara as entidades que implementam IService */
 		for (Class<? extends IService> klazz: this.getApplication().findModulesClasses(IService.class)){
-			log.info("Registrando ServiÁo: " + klazz.getSimpleName());
+			log.info("Registrando Servi√ßo: " + klazz.getSimpleName());
 			try {
 				IService service = (IService) klazz.newInstance();
 				service.setServiceManager(this);
-				/* Solicita ao serviÁo que ele se registre.
-				 * Este mÈtodo pode ser utilizado pelo serviÁo para preparar alguma estrutura 
-				 * interna necess·ria */
+				/* Solicita ao servi√ßo que ele se registre.
+				 * Este m√©todo pode ser utilizado pelo servi√ßo para preparar alguma estrutura 
+				 * interna necess√°ria */
 				service.registerService();
 			} catch (Exception e) {
 				throw new RuntimeException(e);
@@ -80,14 +80,14 @@ public class ServiceManager implements IServiceManager
 	}
 
 	/**
-     * Obtem a inst‚ncia do ServiÁo com o nome fornecido.
+     * Obtem a inst√¢ncia do Servi√ßo com o nome fornecido.
      *
-     * @param serviceName Nome do serviÁo procurado.
+     * @param serviceName Nome do servi√ßo procurado.
      */
     public IService getServiceByName(String serviceName) throws ServiceException
     {
         if(log.isDebugEnabled())
-           log.debug("Obtendo o serviÁo pelo nome: " + serviceName);
+           log.debug("Obtendo o servi√ßo pelo nome: " + serviceName);
 
         if (!services.containsKey(serviceName))
         {
@@ -100,19 +100,19 @@ public class ServiceManager implements IServiceManager
     public void registerService(IService service) throws Exception
     {
 
-    	// Verifica se h· serviÁo duplicado
+    	// Verifica se h√° servi√ßo duplicado
     	if (services.containsKey(service.getServiceName()))
-    		throw new Exception("ServiceManager.registerService(): ServiÁo duplicado." + service.getServiceName());
+    		throw new Exception("ServiceManager.registerService(): Servi√ßo duplicado." + service.getServiceName());
 
     	services.put(service.getServiceName(), service);
     }
 
     /**
-     * Este mÈtodo executa um determinado serviÁo e controla a quest„o de sessıes e transaÁıes do
-     * mecanismo de persistÍncia (hibernate). <br>
-     * Quando um serviÁo inicia uma transaÁ„o, somente no tÈrmino da execuÁ„o deste serviÁo È que
-     * a transaÁ„o ser· confirmada (commit). Os demais serviÁos que podem ser invocados dentro deste serviÁo
-     * utilizar„o a transaÁ„o ativa.
+     * Este m√©todo executa um determinado servi√ßo e controla a quest√£o de sess√µes e transa√ß√µes do
+     * mecanismo de persist√™ncia (hibernate). <br>
+     * Quando um servi√ßo inicia uma transa√ß√£o, somente no t√©rmino da execu√ß√£o deste servi√ßo √© que
+     * a transa√ß√£o ser√° confirmada (commit). Os demais servi√ßos que podem ser invocados dentro deste servi√ßo
+     * utilizar√£o a transa√ß√£o ativa.
      */
     public void execute(ServiceData serviceData) throws ServiceException
     {
@@ -120,72 +120,72 @@ public class ServiceManager implements IServiceManager
         Transaction currentTransaction=null;
 
         if(log.isDebugEnabled())
-            log.debug("::Executando o serviÁo: " + serviceData.getServiceName() + "\n Par‰metros:" + serviceData.toString());
+            log.debug("::Executando o servi√ßo: " + serviceData.getServiceName() + "\n Par√§metros:" + serviceData.toString());
 
         try
         {
-            log.debug("Procurando o serviÁo que ser· invocado");
+            log.debug("Procurando o servi√ßo que ser√° invocado");
             service = getServiceByName(serviceData.getServiceName());
 
             prepareSession(serviceData);
 
-            log.debug("Verificando se È necess·rio criar um nova transaÁ„o para o atual serviÁo");
+            log.debug("Verificando se √© necess√°rio criar um nova transa√ß√£o para o atual servi√ßo");
             if(service.isTransactional() && !checkTransactionStarted(serviceData))
             {
-                log.debug("Indicando que uma transaÁ„o foi ativada para o atual serviÁo");
+                log.debug("Indicando que uma transa√ß√£o foi ativada para o atual servi√ßo");
                 serviceData.setTransactionStarted(true);
 
-                log.debug("Iniciando uma transaÁ„o");
+                log.debug("Iniciando uma transa√ß√£o");
                 currentTransaction=serviceData.getCurrentSession().beginTransaction();
 
-                log.debug("::Executando o serviÁo dentro de uma transaÁ„o");
+                log.debug("::Executando o servi√ßo dentro de uma transa√ß√£o");
                 service.execute(serviceData);
 
-                log.debug("::Verificando se o serviÁo foi finalizado com sucesso");
+                log.debug("::Verificando se o servi√ßo foi finalizado com sucesso");
                 if(serviceData.getMessageList().isTransactionSuccess())
                 {
                    log.debug("Executando COMMIT...");
                    commitTransaction(service, currentTransaction);
                  }else{
-                   log.debug("Alguma operaÁ„o interna do serviÁo falhou. Executando ROLLBACK...");
+                   log.debug("Alguma opera√ß√£o interna do servi√ßo falhou. Executando ROLLBACK...");
                    rollbackTransaction(service, currentTransaction);
                  }
 
-                 log.debug("::Fim da execuÁ„o com transaÁ„o: " + service.getServiceName());
+                 log.debug("::Fim da execu√ß√£o com transa√ß√£o: " + service.getServiceName());
             }
             else
             {
-                log.debug("::Executando o serviÁo sem criar uma nova transaÁ„o");
+                log.debug("::Executando o servi√ßo sem criar uma nova transa√ß√£o");
                 service.execute(serviceData);
-                log.debug("::Fim da execuÁ„o sem transaÁ„o: " + service.getServiceName());
+                log.debug("::Fim da execu√ß√£o sem transa√ß√£o: " + service.getServiceName());
             }
         }
         catch (ServiceException e)
         {
-            log.debug("O serviÁo falhou. Executando ROLLBACK...");
+            log.debug("O servi√ßo falhou. Executando ROLLBACK...");
             if(service!=null && currentTransaction!=null)
             	rollbackTransaction(service, currentTransaction);
 
-            log.debug("Tratando erro ocorrido no serviÁo " + serviceData.getServiceName() + ". Erro:" + e.getMessage());
+            log.debug("Tratando erro ocorrido no servi√ßo " + serviceData.getServiceName() + ". Erro:" + e.getMessage());
             e.getErrorList().addAll(MessageList.create(ServiceException.class, "ERROR_EXECUTING_SERVICE", serviceData.getServiceName(), serviceData.toString()));
 
             throw new ServiceException(e.getErrorList());
         } catch (Exception e)
         {
-            log.debug("O serviÁo falhou. Executando ROLLBACK...");
+            log.debug("O servi√ßo falhou. Executando ROLLBACK...");
             if(service!=null && currentTransaction!=null)
             	rollbackTransaction(service, currentTransaction);
 
-            log.debug("Tratando erro geral ocorrido durante a execuÁ„o do serviÁo " + serviceData.getServiceName() + ". Erro:" + e.getMessage());
+            log.debug("Tratando erro geral ocorrido durante a execu√ß√£o do servi√ßo " + serviceData.getServiceName() + ". Erro:" + e.getMessage());
             throw new ServiceException(MessageList.createSingleInternalError(e));
         }
         finally
         {
-            // Se for o primeiro serviÁo a ser executado, fecha a sessao
+            // Se for o primeiro servi√ßo a ser executado, fecha a sessao
             if (serviceData.getServiceDataOwner()==null)
                 try
                 {
-                    log.debug("Finalizando a sess„o");
+                    log.debug("Finalizando a sess√£o");
                     if (serviceData.getCurrentSession()!=null)
                     	serviceData.getCurrentSession().close();
                 } catch (HibernateException e)
@@ -196,8 +196,8 @@ public class ServiceManager implements IServiceManager
     }
 
     /**
-     * Este mÈtodo analisa a atual pilha de execuÁ„o dos serviÁos
-     * para ver se alguma transaÁ„o j· foi iniciada.
+     * Este m√©todo analisa a atual pilha de execu√ß√£o dos servi√ßos
+     * para ver se alguma transa√ß√£o j√° foi iniciada.
      *
      * @param serviceData
      * @return
@@ -206,44 +206,44 @@ public class ServiceManager implements IServiceManager
     {
 
         if(log.isDebugEnabled())
-            log.debug("Pegando o pai do atual serviÁo:" + serviceData.getServiceName());
+            log.debug("Pegando o pai do atual servi√ßo:" + serviceData.getServiceName());
         serviceData = serviceData.getServiceDataOwner();
 
-        log.debug("Analisando todos os pais e a existÍncia de uma transaÁ„o ativa");
+        log.debug("Analisando todos os pais e a exist√™ncia de uma transa√ß√£o ativa");
         while (serviceData != null)
         {
-            log.debug("Verificando se o pai selecionado iniciou uma transaÁ„o");
+            log.debug("Verificando se o pai selecionado iniciou uma transa√ß√£o");
             if (serviceData.isTransactionStarted())
             {
                 if(log.isDebugEnabled())
-                    log.debug("Um pai com uma transaÁ„o ativa foi encontrado:" + serviceData.getServiceName());
+                    log.debug("Um pai com uma transa√ß√£o ativa foi encontrado:" + serviceData.getServiceName());
                 return true;
             }
             if(log.isDebugEnabled())
-            	log.debug("Andando na pilha de serviÁos em execuÁ„o: " + serviceData.getServiceName());
+            	log.debug("Andando na pilha de servi√ßos em execu√ß√£o: " + serviceData.getServiceName());
             serviceData = serviceData.getServiceDataOwner();
         }
 
-        log.debug("Nenhum pai foi encontrado com uma transaÁ„o ativa");
+        log.debug("Nenhum pai foi encontrado com uma transa√ß√£o ativa");
         return false;
     }
 
     /**
-     * Verifica se ja existe alguma sess„o criada disponÌvel no serviceData.
-     * Caso n„o exista cria uma nova e o adiciona no serviceData.
+     * Verifica se ja existe alguma sess√£o criada dispon√≠vel no serviceData.
+     * Caso n√£o exista cria uma nova e o adiciona no serviceData.
      * @param serviceData
      */
     private void prepareSession(ServiceData serviceData)
     {
-        log.debug("Verificando a necessidade de criar uma sess„o");
+        log.debug("Verificando a necessidade de criar uma sess√£o");
 
-        // Cria a sess„o somente para o primeiro Service Data chamado
-        // Os demais, copiam a sess„o do seu pai.
+        // Cria a sess√£o somente para o primeiro Service Data chamado
+        // Os demais, copiam a sess√£o do seu pai.
         if (serviceData.getServiceDataOwner() == null)
         {
             try
             {
-                log.debug("Criando uma nova sess„o");
+                log.debug("Criando uma nova sess√£o");
                 serviceData.setCurrentSession(this.getEntityManager().getDaoManager().getSessionFactory().openSession());
 
                 /* Lucio 23/04/2009
@@ -254,16 +254,16 @@ public class ServiceManager implements IServiceManager
                  */
                  serviceData.getCurrentSession().setFlushMode(FlushMode.ALWAYS);
                  /* Lucio 19/09/2006
-                  * Isto define para o hibernate somente executar um flush de entidades que est„o
-                  * na memÛria e que n„o foram para o banco quando houver uma operaÁ„o commit.
+                  * Isto define para o hibernate somente executar um flush de entidades que est√£o
+                  * na mem√≥ria e que n√£o foram para o banco quando houver uma opera√ß√£o commit.
                   * Isto porque, quando se relacionava alguns objetos transientes e ia executar
                   * alguma busca, ele tentava um flush e dava erro porque durante o flush ele encontrou
                   * objetos relacionados com outros objetos transientes */
                 //serviceData.getCurrentSession().setFlushMode(FlushMode.COMMIT);
                 /* Lucio 03/11/2006
-                 * Volta a configuraÁ„o AUTO, porque durante o retorno de arquivos do banco
-                 * algumas entidades eram criadas e depois os sub-serviÁos executavam retrieve
-                 * pelo id da entidade, no entanto ela ainda n„o tinha sido flushada */
+                 * Volta a configura√ß√£o AUTO, porque durante o retorno de arquivos do banco
+                 * algumas entidades eram criadas e depois os sub-servi√ßos executavam retrieve
+                 * pelo id da entidade, no entanto ela ainda n√£o tinha sido flushada */
                 //serviceData.getCurrentSession().setFlushMode(FlushMode.AUTO);
             } catch (HibernateException e)
             {
@@ -272,16 +272,16 @@ public class ServiceManager implements IServiceManager
         }
         else
         {
-            log.debug("Usando a sess„o do serviÁo antecessor");
+            log.debug("Usando a sess√£o do servi√ßo antecessor");
             serviceData.setCurrentSession(serviceData.getServiceDataOwner().getCurrentSession());
         }
 
     }
 
     /**
-     * Tenta realizar a operaÁ„o commit para a transaÁ„o informada
-     * @param service ServiÁo atuamente em execuÁ„o
-     * @param transaction TransaÁao correntemente ativa
+     * Tenta realizar a opera√ß√£o commit para a transa√ß√£o informada
+     * @param service Servi√ßo atuamente em execu√ß√£o
+     * @param transaction Transa√ßao correntemente ativa
      */
     private void commitTransaction(IService service, Transaction transaction) throws ServiceException{
         log.debug("Iniciando COMMIT...");
@@ -301,9 +301,9 @@ public class ServiceManager implements IServiceManager
     }
 
     /**
-     * Tenta realizar a operaÁ„o rollback para a transaÁ„o informada
-     * @param service ServiÁo atuamente em execuÁ„o
-     * @param transaction TransaÁao correntemente ativa
+     * Tenta realizar a opera√ß√£o rollback para a transa√ß√£o informada
+     * @param service Servi√ßo atuamente em execu√ß√£o
+     * @param transaction Transa√ßao correntemente ativa
      */
     private void rollbackTransaction(IService service, Transaction transaction) throws ServiceException{
         log.debug("Iniciando ROLLBACK...");

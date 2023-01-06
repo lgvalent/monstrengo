@@ -11,13 +11,13 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 
 /**
- * ServiÁo para obter a lista de entidades que est„o atualmente
+ * Servi√ßo para obter a lista de entidades que est√£o atualmente
  * registradas e podem ser manipuladas pelo sistema, e ainda, 
- * que utilizam processos b·sicos de CriaÁ„o, ObtenÁ„o, EdiÁ„o
- * e Exclus„o.
- * <br>Entidades registradas que s„o manipuladas por processos e
- * que n„o s„o definidas por <i>IEntityMetadata.{getCanCreate() | getCanRetrieve()
- * getCanUpdate() | getCanDelete()}</i> n„o s„o fornecidas por este serviÁo.
+ * que utilizam processos b√°sicos de Cria√ß√£o, Obten√ß√£o, Edi√ß√£o
+ * e Exclus√£o.
+ * <br>Entidades registradas que s√£o manipuladas por processos e
+ * que n√£o s√£o definidas por <i>IEntityMetadata.{getCanCreate() | getCanRetrieve()
+ * getCanUpdate() | getCanDelete()}</i> n√£o s√£o fornecidas por este servi√ßo.
  * 
  * <p><b>Procedimento:</b>
  * <br>Obtem a lista de DAOs pelo DaoManager.
@@ -43,7 +43,7 @@ public class GetCrudEntitiesService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo GetCrudEntitiesService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo GetCrudEntitiesService");
             // Pega os argumentos
             // Class classObj = (Class) serviceData.getArgumentList().getProperty(IN_CLASS);
 
@@ -59,7 +59,7 @@ public class GetCrudEntitiesService extends ServiceBasic
                 if (log.isDebugEnabled())
                     log.debug("Obtendo metadados da entidade " + dao.getEntityClassName());
                 // Verifica a entidade manipulada por cada DAO.
-                // Verifica atravÈs dos metadados da classe se a entidade È canCreate, canRetrieve, canUpdate, canDelete.
+                // Verifica atrav√©s dos metadados da classe se a entidade √© canCreate, canRetrieve, canUpdate, canDelete.
             	if(entidade.getCanCreate()||entidade.getCanRetrieve()||
             	   entidade.getCanUpdate()||entidade.getCanDelete())
                 {
@@ -68,7 +68,7 @@ public class GetCrudEntitiesService extends ServiceBasic
                     result.add(entidade);
                 }else{
                 	if (log.isDebugEnabled())
-                		log.debug("A entidade n„o È crud:" + dao.getEntityClassName());
+                		log.debug("A entidade n√£o √© crud:" + dao.getEntityClassName());
                 }
             }
             // Retorna uma lista de metadados de entidades;
@@ -76,7 +76,7 @@ public class GetCrudEntitiesService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

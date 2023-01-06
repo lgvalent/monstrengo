@@ -63,15 +63,15 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationEntityPropertyGr
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * TODO IMPLEMENTAR Definir propriedades dos processos tambÈm como label, hint,
+ * TODO IMPLEMENTAR Definir propriedades dos processos tamb√©m como label, hint,
  * description
  * 
- * Este bean È um singleton, e para ser usado, o mÈtodo setEntityClass(class)
- * deve ser executado. Este mÈtodo realiza todas as preparaÁıes de objetos,
- * mapas e listas que servir„o como fonte dos metadados solicitados. Os mÈtodos
+ * Este bean √© um singleton, e para ser usado, o m√©todo setEntityClass(class)
+ * deve ser executado. Este m√©todo realiza todas as prepara√ß√µes de objetos,
+ * mapas e listas que servir√£o como fonte dos metadados solicitados. Os m√©todos
  * getStrEntity(metadataName), getStrProperty(propertyName, metadataName) e
- * getEntityGroups() obtem o metadado solicitado, j· vericando se o metadado
- * est· no banco ou no resourceBundle.
+ * getEntityGroups() obtem o metadado solicitado, j√° vericando se o metadado
+ * est√° no banco ou no resourceBundle.
  * 
  * Created on 20/04/2005
  * 
@@ -86,18 +86,18 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 	/*
 	 *  Lucio 20110608: Daqui pra baixo seria a nova estrutura de Metadahandle.
-	 *  Atualmente o EntityManager referencia diretamente a classe EntityMetadata, que È uma implementaÁ„o de IEntityMetadata.
-	 *  Esta classe, por sua vez, È respons·vel por se auto-construir utilizando o metadahandle passado pra ela.
-	 *  O MetadaHandle atual, por sua vez, È respons·vel por pegar os metadados de .properties ou do banco de dados, pois ele possui uma referÍncia para o DaoManager.
-	 *  Assim, a classe EntityMetadata se auto constrÛi pegando os metadados do handle os demais metadados, os n„o persistÌveis (type, subEntities, etc) ela mesma gera.
+	 *  Atualmente o EntityManager referencia diretamente a classe EntityMetadata, que √© uma implementa√ß√£o de IEntityMetadata.
+	 *  Esta classe, por sua vez, √© respons√°vel por se auto-construir utilizando o metadahandle passado pra ela.
+	 *  O MetadaHandle atual, por sua vez, √© respons√°vel por pegar os metadados de .properties ou do banco de dados, pois ele possui uma refer√™ncia para o DaoManager.
+	 *  Assim, a classe EntityMetadata se auto constr√≥i pegando os metadados do handle os demais metadados, os n√£o persist√≠veis (type, subEntities, etc) ela mesma gera.
 	 *  
 	 *  NOVA PROPOSTA.
-	 *  Seguindo os padrıes e diminuindo o acoplamento, seria interessante dividir o serviÁo de obter metadados n„o persistÌveis e os persistÌveis.
-	 *  Mas esta responsabilidade deveria estar nos HANDLES e n„o no EntityMetadata.
-	 *  Pra ganhar tempo, vou simplesmente trocar seis por meia d˙zia. E fazer o handle pegar
-	 *  do .info.xml ao invÈs do .properties.
+	 *  Seguindo os padr√µes e diminuindo o acoplamento, seria interessante dividir o servi√ßo de obter metadados n√£o persist√≠veis e os persist√≠veis.
+	 *  Mas esta responsabilidade deveria estar nos HANDLES e n√£o no EntityMetadata.
+	 *  Pra ganhar tempo, vou simplesmente trocar seis por meia d√∫zia. E fazer o handle pegar
+	 *  do .info.xml ao inv√©s do .properties.
 	 *  
-	 *  As linhas que segem s„o protÛtipos da nova proposta e foram mantidas para economizar e guiar futuras implementaÁıes
+	 *  As linhas que segem s√£o prot√≥tipos da nova proposta e foram mantidas para economizar e guiar futuras implementa√ß√µes
 	 */
 	
 	private static final String XSD_SCHEMA_FILE_NAME = "entityMetadata.xsd"; 
@@ -118,12 +118,12 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			JAXBContext ctx = JAXBContext.newInstance(EntityType.class);
 			Unmarshaller unm = ctx.createUnmarshaller();
 			
-			/* Define o SCHEMA para forÁar uma validaÁ„o do arquivo e identificar erros do programador */
+			/* Define o SCHEMA para for√ßar uma valida√ß√£o do arquivo e identificar erros do programador */
 			SchemaFactory schf = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema"); 
 			Schema sch = schf.newSchema(new StreamSource(EntityType.class.getResourceAsStream(XSD_SCHEMA_FILE_NAME)));
 			unm.setSchema(sch);
 			
-			/* Este cÛdigo a princÌpio sÛ funcionou com o SCHEMA DEFINIDO Sen„o ele n„o busca nada!!! */
+			/* Este c√≥digo a princ√≠pio s√≥ funcionou com o SCHEMA DEFINIDO Sen√£o ele n√£o busca nada!!! */
 			return (EntityType) unm.unmarshal(entityClass.getResourceAsStream(entityClass.getSimpleName() + INFO_XML_FILE_EXTENSION));
 		} catch (Exception e) {
 			MessageList l = MessageList.create(MetadataHandleXmlImpl.class, "METADATA_NOT_READY", entityClass.getSimpleName());
@@ -209,10 +209,10 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 	
 	/**
-	 * Este mÈtodo È uma ideia de que o Handle deve retornar um IentityMetadata e n„o ser chamado TODA hora pra
-	 * pegar indicidualmente um metadado. Assim, d· pra fazer algumas otimizaÁıes. E fica, tipo, no padr„o
+	 * Este m√©todo √© uma ideia de que o Handle deve retornar um IentityMetadata e n√£o ser chamado TODA hora pra
+	 * pegar indicidualmente um metadado. Assim, d√° pra fazer algumas otimiza√ß√µes. E fica, tipo, no padr√£o
 	 * factory, para fabricar os metadados!!! Mas para isto, precisa alterar outras coisas
-	 * que precisam ser analisadas no EntityManager e onde È usado o MetadataHandle
+	 * que precisam ser analisadas no EntityManager e onde √© usado o MetadataHandle
 	 * @param entity
 	 * @return
 	 */
@@ -241,11 +241,11 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		Schema sch = schf.newSchema(new StreamSource(EntityType.class.getResourceAsStream("entityMetadata.xsd")));
 		unm.setSchema(sch);
 
-		/* Este cÛdigo sÛ funciona com o SCHEMA DEFINIDO Sen„o ele n„o busca nada!!! */
+		/* Este c√≥digo s√≥ funciona com o SCHEMA DEFINIDO Sen√£o ele n√£o busca nada!!! */
 		EntityType ent = (EntityType) unm.unmarshal(EntityType.class.getResourceAsStream("ApplicationUser.info.xml"));
 		System.out.println(ent.getGroup().get(0).getName());
 		
-////		/* Este cÛdigo funciona sem o SCHEMA */
+////		/* Este c√≥digo funciona sem o SCHEMA */
 //		JAXBElement<Entity> ent = unm.unmarshal(new StreamSource(Entity.class.getResourceAsStream("ApplicationUser.info.xml")), Entity.class);
 //		System.out.println(ent.getValue().getGroup().get(0).getName());
 		
@@ -298,7 +298,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 	}
 
 
-	// Lucio 20110608: Daqui pra baixo segue o cÛdigo seis por meia d˙zia
+	// Lucio 20110608: Daqui pra baixo segue o c√≥digo seis por meia d√∫zia
 	
 	// CONSTANTES
 	private static final String INDEX = "index";
@@ -382,8 +382,8 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		try {
 			/*
 			 * Busca no banco o objeto de metadados persistido referente a
-			 * entidade que est· sendo solicitada Obs.: O MetadataHandle
-			 * encontra-se numa camada inferior ao EntityManger, logo, ele n„o
+			 * entidade que est√° sendo solicitada Obs.: O MetadataHandle
+			 * encontra-se numa camada inferior ao EntityManger, logo, ele n√£o
 			 * pode usar os recursos de IEntity para buscar objetos e usa ,
 			 * entao, busca em baixo nivel pelo DAO
 			 */
@@ -397,14 +397,14 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 			/* Verifica se achou o objeto */
 			if (list!=null && !list.isEmpty()) {
-				/* Define o objeto que ser· utilizado pelo Handle para obter os
+				/* Define o objeto que ser√° utilizado pelo Handle para obter os
 				 * metadados solicitadas */
 				this.oApplicationEntity = (ApplicationEntity) list.get(0);
 
 				/*
 				 * Prepara os mapas contendo os metadados que podem ser
-				 * recuperados do banco. ⁄til para descobrir se um metadataName
-				 * solicitado est· no banco ou deve ser buscado no
+				 * recuperados do banco. √ötil para descobrir se um metadataName
+				 * solicitado est√° no banco ou deve ser buscado no
 				 * resourceBundle
 				 */
 				try {
@@ -419,7 +419,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 				/*
 				 * Prepara o mapa que contem todas as propriedades da entidade
-				 * com os metadados que est„o persistido no banco.
+				 * com os metadados que est√£o persistido no banco.
 				 */
 				List<ApplicationEntityProperty> listProp = oApplicationEntity
 						.getApplicationEntityProperty();
@@ -429,12 +429,12 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			} else {
 				if (log.isDebugEnabled())
 					log.debug("Os metadados da entidade " + this.entityName
-							+ " n„o foram encontrados no banco");
+							+ " n√£o foram encontrados no banco");
 				oApplicationEntity = null;
 			}
 		} catch (BusinessException e1) {
 			if (log.isDebugEnabled())
-				log.debug("Houve um erro ao executar o serviÁo: "
+				log.debug("Houve um erro ao executar o servi√ßo: "
 						+ e1.getMessage());
 			oApplicationEntity = null;
 		}
@@ -444,7 +444,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		try {
 			this.entityType = prepareEntityMetadataXml(entityClass);
 			
-			/* Prepara o mapa com todos as propriedades, pois no XML elas est„o hierarquicamente dentro de seus respectivos grupos */
+			/* Prepara o mapa com todos as propriedades, pois no XML elas est√£o hierarquicamente dentro de seus respectivos grupos */
 			for(PropertiesGroup g: entityType.getGroup()){
 				for(PropertyType p: g.getProperty()){
 					this.xmlPropertiesMap.put(p.getName(), p);
@@ -454,7 +454,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			if (log.isDebugEnabled())
 				log.debug("O arquivo de propriedades da classe "
 						+ this.entityName
-						+ " n„o foi processado. Verifique se no pacote da classe existe um arquivo '"
+						+ " n√£o foi processado. Verifique se no pacote da classe existe um arquivo '"
 						+ this.entityName + INFO_XML_FILE_EXTENSION + "'");
 			this.entityType = null;
 			e.printStackTrace();
@@ -462,7 +462,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 		/* BUNDLE DEFAULT */
 		/*
-		 * Se n„o encontrar o arquivo .properties relacionado ‡ classe, usa o
+		 * Se n√£o encontrar o arquivo .properties relacionado √† classe, usa o
 		 * arquivo default (MetadataDefaults.properties)
 		 */
 		// try{
@@ -475,7 +475,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		// catch(Exception e)
 		// {
 		// if (log.isDebugEnabled())
-		// log.debug("O arquivo de propriedades default n„o foi encontrado. Verifique se existe o arquivo: "
+		// log.debug("O arquivo de propriedades default n√£o foi encontrado. Verifique se existe o arquivo: "
 		// + MetadataHandleXmlImpl.class.getPackage().getName() + "." +
 		// XML_DOCUMENT_NAME_FOR_DEFAULTS_VALUES);
 		// this.xmlDocumentForDefaultsValues = null;
@@ -486,7 +486,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 					.getBundle(DEFAULT_BUNDLE_NAME);
 		} catch (MissingResourceException e) {
 			if (log.isDebugEnabled())
-				log.debug("O arquivo de propriedades default n„o foi encontrado");
+				log.debug("O arquivo de propriedades default n√£o foi encontrado");
 			defaultResourceBundle = null;
 		}
 
@@ -513,8 +513,8 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		try {
 			Object value = null;
 			/*
-			 * Verifica se o metadado solicitado È persistido e se foi definido
-			 * no banco. Metadados .canCreate e etc n„o s„o persistidos
+			 * Verifica se o metadado solicitado √© persistido e se foi definido
+			 * no banco. Metadados .canCreate e etc n√£o s√£o persistidos
 			 */
 			/* BANCO */
 			if (applicationEntityMetadataNameMap.containsKey(metadataName))
@@ -527,7 +527,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			else
 			/* BUNDLE */
 			if (this.entityType != null) {
-				/* Pega a Raiz do XML e tenta pegar o atributo solicitado, sen„o retorna NULL */
+				/* Pega a Raiz do XML e tenta pegar o atributo solicitado, sen√£o retorna NULL */
 				value = PropertyUtils.getPropertyValue(this.entityType, metadataName);
 				if(value != null)
 					return value.toString();
@@ -557,10 +557,10 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		checkReady();
 
 		/*
-		 * Gambi!!! O nome do metadado .index no banco È indexProperty, porque
-		 * 'index' È uma palavra reservada para os bancos de dados. Assim, no
-		 * banco, o metadado 'index' È chamado de 'indexProperty'. Para manter
-		 * esta correspondÍncia, sempre que o metadado 'index' È chamado, estas
+		 * Gambi!!! O nome do metadado .index no banco √© indexProperty, porque
+		 * 'index' √© uma palavra reservada para os bancos de dados. Assim, no
+		 * banco, o metadado 'index' √© chamado de 'indexProperty'. Para manter
+		 * esta correspond√™ncia, sempre que o metadado 'index' √© chamado, estas
 		 * linhas a baixo os converte em 'indexProperty': Tati e Lucio
 		 * 11/05/2007
 		 */
@@ -570,15 +570,15 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 		/* BANCO */
 		/*
-		 * Verifica se o propertyName esta no banco Se nao È defaultMode Se o
-		 * metadataName È um metadado persistido pelo banco Metadados .type e
-		 * etc n„o s„o persistidos
+		 * Verifica se o propertyName esta no banco Se nao √© defaultMode Se o
+		 * metadataName √© um metadado persistido pelo banco Metadados .type e
+		 * etc n√£o s√£o persistidos
 		 */
 		if (!defaultMode
 				&& applicationEntityPropertiesMap.containsKey(propertyName)
 				&& applicationEntityPropertyMetadataNameMap
 						.containsKey(dbMetadataName)) {
-			// verifica o valor: se nao È nulo, return valor
+			// verifica o valor: se nao √© nulo, return valor
 			Object value = null;
 			try {
 				/* Obtem a propriedade que tem os metadados */
@@ -600,7 +600,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		} else
 		/* XML */
 		if (this.entityType != null) {
-			/* Pega a propriedade no mapa montado durante a preparaÁ„o da classe */
+			/* Pega a propriedade no mapa montado durante a prepara√ß√£o da classe */
 			if(this.xmlPropertiesMap.containsKey(propertyName)){
 				
 				/* Busca o atributo para tentar pegar o metadados */
@@ -628,10 +628,10 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 	}
 
 	/**
-	 * Este mÈtodo obtem do arquivo de valores padrıes dos metadados
-	 * (MetadataDefault.properties) um valor padr„o para uma determinada chave
+	 * Este m√©todo obtem do arquivo de valores padr√µes dos metadados
+	 * (MetadataDefault.properties) um valor padr√£o para uma determinada chave
 	 * solicitada.<br>
-	 * Exemplo: Valores padrıes para EditMask. Nome_Simples_Classe + "." +
+	 * Exemplo: Valores padr√µes para EditMask. Nome_Simples_Classe + "." +
 	 * EDITMASK BigDecimal.editMask=%,.2f
 	 * 
 	 * @param keyName
@@ -640,16 +640,16 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 	private String getDefaultStr(String propertyName, String metadataName) {
 		try {
 			if (defaultResourceBundle != null) {
-				/* Retira possÌveis espaÁos em branco */
+				/* Retira poss√≠veis espa√ßos em branco */
 				String value = defaultResourceBundle.getString(propertyName
 						+ "." + metadataName);
 				value = StringUtils.stripEnd(value, " ");
 				return value;
 			}
-			/* Se n„o achou o default retorna um valor vazio */
+			/* Se n√£o achou o default retorna um valor vazio */
 			return "";
 		} catch (MissingResourceException e) {
-			/* Se n„o achou o default retorna um valor vazio */
+			/* Se n√£o achou o default retorna um valor vazio */
 			return "";
 		}
 	}
@@ -659,11 +659,11 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		try {
 			return getStrProperty(propertyName, LABEL);
 		} catch (MissingResourceException e) {
-			// Caso n„o encontre a Key procurada no arquivo de propriedade da
+			// Caso n√£o encontre a Key procurada no arquivo de propriedade da
 			// classe
-			// utiliza o nome da Key com a primeira letra em mai˙sculo. Assim,
+			// utiliza o nome da Key com a primeira letra em mai√∫sculo. Assim,
 			// propriedades
-			// como Class.nome, Class.id que n„o se encontre no arquivo, s„o
+			// como Class.nome, Class.id que n√£o se encontre no arquivo, s√£o
 			// 'deduzidas'.
 			return StringUtils.capitalize(propertyName);
 		}
@@ -692,17 +692,17 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, OVERRIDE_TYPE);
             return Class.forName(value);
 		} catch (Exception e) {
-			/* N„o faz nada aqui, deixa o mÈtodo continuar */
+			/* N√£o faz nada aqui, deixa o m√©todo continuar */
 		}
 
 		try {
-			/* Procura um generics em coleÁıes */
+			/* Procura um generics em cole√ß√µes */
 			if(getPropertyIsList(propertyName)||getPropertyIsSet(propertyName)){
 				return (Class<?>) PropertyUtils.getPropertyGenericsDeclaration(entityClass, propertyName).getActualTypeArguments()[0];
 			}
 			return PropertyUtils.getPropertyType(entityClass, propertyName);
 		} catch (NullPointerException e) {
-			// Se n„o encontrou o tipo declarado no arquivo resulta em nulo
+			// Se n√£o encontrou o tipo declarado no arquivo resulta em nulo
 			return e.getClass();
 		}
 	}
@@ -713,14 +713,14 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, REQUIRED);
 			return value.equals("true");
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	public boolean getPropertyReadOnly(String propertyName)
 			throws MetadataException {
-		/* Propriedade id sempre È READ-ONLY */
+		/* Propriedade id sempre √© READ-ONLY */
 		if(propertyName.equals(IDAO.PROPERTY_ID_NAME))
 			return true;
 		
@@ -728,14 +728,14 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, READONLY);
 			return value.equals("true");
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	public boolean getPropertyCalculated(String propertyName)
 			throws MetadataException {
-		/* Propriedade transient sempre È calculado */
+		/* Propriedade transient sempre √© calculado */
 		Transient anno = AnnotationUtils.findAnnotation(Transient.class, this.entityClass, propertyName);
 		if(anno!=null)
 			return true;
@@ -744,7 +744,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, CALCULATED);
 			return value.equals("true");
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
@@ -755,7 +755,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, VISIBLE);
 			return value.equals("true");
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return true;
 		}
 	}
@@ -766,10 +766,10 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		if(col!=null)
 			return col.length();
 		else{
-			/* Lucio 20110621 Size n„o È aplic·vel a todas as propriedades 
+			/* Lucio 20110621 Size n√£o √© aplic√°vel a todas as propriedades 
 			 * Logo sempre dava erro de busca ao buscar size pra uma propriedade
 			 * do tipo inteiro ou entity */
-//			// Se n„o encontrou a propriedade declarada retorna a padr„o
+//			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 //			String value = getDefaultStr(propertyType(propertyName).getSimpleName(),
 //			"size");
 //			if(value.isEmpty())
@@ -789,8 +789,8 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 					MetadataException.class, "INVALID_METADATA", value,
 					propertyName, MINIMUM, entityName));
 		} catch (MissingResourceException e) {
-			/* TODO Colocar no MetadataDefaults.properties os valores padrıes */
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			/* TODO Colocar no MetadataDefaults.properties os valores padr√µes */
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return 0.0;
 		}
 	}
@@ -806,8 +806,8 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 					MetadataException.class, "INVALID_METADATA", value,
 					propertyName, MAXIMUM, entityName));
 		} catch (MissingResourceException e) {
-			/* TODO Colocar no MetadataDefaults.properties os valores padrıes */
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			/* TODO Colocar no MetadataDefaults.properties os valores padr√µes */
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return 999999.0;
 		}
 	}
@@ -818,7 +818,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, COLORNAME);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return "";
 		}
 	}
@@ -829,7 +829,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, EDITMASK);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return getDefaultStr(propertyType(propertyName).getSimpleName(),
 					EDITMASK);
 		}
@@ -842,7 +842,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 			return editShowList.equals("true");
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
@@ -866,7 +866,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 //	@Override
 	public boolean getPropertyEditShowEmbedded(String propertyName)
 			throws MetadataException {
-		/* Verifica se a propriedade È @Embedded para forÁar o EditShowEmbedded */
+		/* Verifica se a propriedade √© @Embedded para for√ßar o EditShowEmbedded */
 		Embedded anno = AnnotationUtils.findAnnotation(Embedded.class, this.entityClass, propertyName);
 		if(anno!=null)
 			return true;
@@ -877,7 +877,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 			return value.equals("true");
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
@@ -889,13 +889,13 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 
 			return value.equals("true");
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	/**
-	 * Busca a lista que dever· ser mostrada na ediÁ„o.
+	 * Busca a lista que dever√° ser mostrada na edi√ß√£o.
 	 * 
 	 * @param propertyName
 	 *            = propriedade a ser pesquisada
@@ -907,7 +907,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String editList = getStrProperty(propertyName, VALUESLIST);
 			/*
 			 * Dada uma string, converte-a num array de string considerando que
-			 * os elementos est„o separados por vÌrgula.
+			 * os elementos est√£o separados por v√≠rgula.
 			 */
 			String[] list = StringUtils.split(editList, ",");
 			List<String> lista = new ArrayList<String>();
@@ -918,7 +918,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			}
 			return lista;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return new ArrayList<String>(0);
 		}
 	}
@@ -929,7 +929,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, DISPLAYFORMAT);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return getDefaultStr(propertyType(propertyName).getSimpleName(),
 					DISPLAYFORMAT);
 		}
@@ -941,7 +941,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, DEFAULTVALUE);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return getDefaultStr(propertyType(propertyName).getSimpleName(),
 					DEFAULTVALUE);
 		}
@@ -967,19 +967,19 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 //					MetadataException.class, "INVALID_METADATA", value,
 //					propertyName, INDEX, entityName));
 //		} catch (MissingResourceException e) {
-//			/* TODO Colocar no MetadataDefaults.properties os valores padrıes */
-//			// Se n„o encontrou a propriedade declarada retorna a padr„o
+//			/* TODO Colocar no MetadataDefaults.properties os valores padr√µes */
+//			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 //			return -1;
 //		}
 	}
 
-	/** TODO Est· percorrendo o grupo inteiro para achar a propriedade dentro do grupo
-	 * isto È extremamente CARO!!!!!
-	 * Mudar todo o contexto de GROUP e GROUP_INDEX das propriedades, j· que o XML
-	 * imprime uma hierarquia. O problema È no banco de dados, pois os metadados 
-	 * tambÈm est„o no banco.
+	/** TODO Est√° percorrendo o grupo inteiro para achar a propriedade dentro do grupo
+	 * isto √© extremamente CARO!!!!!
+	 * Mudar todo o contexto de GROUP e GROUP_INDEX das propriedades, j√° que o XML
+	 * imprime uma hierarquia. O problema √© no banco de dados, pois os metadados 
+	 * tamb√©m est√£o no banco.
 	 * Tem que alterar a estrutura e colocar tudo em ordem agora, com a nova estrutura do XML
-	 * J· que foi separada as propriedades vol·teis em XML e as n„o vol·teis em Annotations de JPA (@Column(length=20))
+	 * J√° que foi separada as propriedades vol√°teis em XML e as n√£o vol√°teis em Annotations de JPA (@Column(length=20))
 	 * 
 	 */
 	public int getPropertyGroup(String propertyName) throws MetadataException {
@@ -994,7 +994,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 		}
 
 		return IGroupMetadata.GROUP_NOT_DEFINED;
-		// Se n„o encontrou a propriedade declarada retorna a padr„o
+		// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 	}
 
 	public String getPropertyName(String propertyName) throws MetadataException {
@@ -1002,7 +1002,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrProperty(propertyName, NAME);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return propertyName;
 		}
 	}
@@ -1012,7 +1012,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrEntity(LABEL);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return entityName;
 		}
 	}
@@ -1022,7 +1022,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrEntity(HINT);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return "";
 		}
 	}
@@ -1032,7 +1032,7 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrEntity(DESCRIPTION);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return "";
 		}
 	}
@@ -1042,30 +1042,30 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrEntity(COLORNAME);
 			return value;
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return "";
 		}
 	}
 
 	/**
-	 * Indica se a entidade È do tipo canCreate
+	 * Indica se a entidade √© do tipo canCreate
 	 * 
-	 * @return true se a entidade for canCreate, false caso contr·rio
+	 * @return true se a entidade for canCreate, false caso contr√°rio
 	 * @throws MetadataException
 	 */
 	public boolean getEntityCanCreate() throws MetadataException {
 		try {
 			return getStrEntity(CRUD_OPERATIONS).contains(CrudOperationType.CREATE.name());
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	/**
-	 * Indica se a entidade È do tipo runQueryOnOpen
+	 * Indica se a entidade √© do tipo runQueryOnOpen
 	 * 
-	 * @return true se a entidade for runQueryOnOpen, false caso contr·rio
+	 * @return true se a entidade for runQueryOnOpen, false caso contr√°rio
 	 * @throws MetadataException
 	 */
 	public boolean getEntityRunQueryOnOpen() throws MetadataException {
@@ -1073,75 +1073,75 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			String value = getStrEntity(RUN_QUERY_ON_OPEN);
 			return Boolean.parseBoolean(value);
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	/**
-	 * Indica se a entidade È do tipo canRetrieve
+	 * Indica se a entidade √© do tipo canRetrieve
 	 * 
-	 * @return true se a entidade for canRetrieve, false caso contr·rio
+	 * @return true se a entidade for canRetrieve, false caso contr√°rio
 	 * @throws MetadataException
 	 */
 	public boolean getEntityCanRetrieve() throws MetadataException {
 		try {
 			return getStrEntity(CRUD_OPERATIONS).contains(CrudOperationType.RETRIEVE.name());
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	/**
-	 * Indica se a entidade È do tipo canUpdate
+	 * Indica se a entidade √© do tipo canUpdate
 	 * 
-	 * @return true se a entidade for canUpdate, false caso contr·rio
+	 * @return true se a entidade for canUpdate, false caso contr√°rio
 	 * @throws MetadataException
 	 */
 	public boolean getEntityCanUpdate() throws MetadataException {
 		try {
 			return getStrEntity(CRUD_OPERATIONS).contains(CrudOperationType.UPDATE.name());
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	/**
-	 * Indica se a entidade È do tipo canDelete
+	 * Indica se a entidade √© do tipo canDelete
 	 * 
-	 * @return true se a entidade for canDelete, false caso contr·rio
+	 * @return true se a entidade for canDelete, false caso contr√°rio
 	 * @throws MetadataException
 	 */
 	public boolean getEntityCanDelete() throws MetadataException {
 		try {
 			return getStrEntity(CRUD_OPERATIONS).contains(CrudOperationType.DELETE.name());
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	/**
-	 * Indica se a entidade È do tipo canQuery
+	 * Indica se a entidade √© do tipo canQuery
 	 * 
-	 * @return true se a entidade for canQuery, false caso contr·rio
+	 * @return true se a entidade for canQuery, false caso contr√°rio
 	 * @throws MetadataException
 	 */
 	public boolean getEntityCanQuery() throws MetadataException {
 		try {
 			return getStrEntity(CRUD_OPERATIONS).contains(CrudOperationType.QUERY.name());
 		} catch (MissingResourceException e) {
-			// Se n„o encontrou a propriedade declarada retorna a padr„o
+			// Se n√£o encontrou a propriedade declarada retorna a padr√£o
 			return false;
 		}
 	}
 
 	/**
-	 * Indica se a entidade È do tipo canDelete
+	 * Indica se a entidade √© do tipo canDelete
 	 * 
-	 * @return true se a entidade for canDelete, false caso contr·rio
+	 * @return true se a entidade for canDelete, false caso contr√°rio
 	 * @throws MetadataException
 	 */
 	
@@ -1169,9 +1169,9 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 				groups.add(group);	
 			}
 
-			/* Ordena os grupos pelo Ìndice, pois como È uma coleÁ„o persistida por SET, ele
-			 * n„o possui uma ordem deterministica. E o mecanismo de persistencia pode
-			 * recuperar a coleÁ„o em qualquer ordem */
+			/* Ordena os grupos pelo √≠ndice, pois como √© uma cole√ß√£o persistida por SET, ele
+			 * n√£o possui uma ordem deterministica. E o mecanismo de persistencia pode
+			 * recuperar a cole√ß√£o em qualquer ordem */
 			Collections.<IGroupMetadata>sort(groups, IGroupMetadata.COMPARATOR_INDEX);
 		}
 		
@@ -1180,13 +1180,13 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 			/* Pega todos os grupos do XML*/
 			int i = 0;
 			for(PropertiesGroup g: this.entityType.getGroup()){
-				/* Retira possÌveis espaÁos em branco */
+				/* Retira poss√≠veis espa√ßos em branco */
 				GroupMetadata group = new GroupMetadata(i++, g.getName());
 				group.setLabel(g.getLabel());
 				group.setHint(g.getHint());
 				group.setDescription(g.getDescription());
 				group.setColorName(g.getColorName());
-				/* Verifica se o grupo j· foi definido no BANCO */
+				/* Verifica se o grupo j√° foi definido no BANCO */
 				if(!groups.contains(group))
 					/* Cria e adiciona o grupo na lista de resultados */
 					groups.add(group);
@@ -1199,20 +1199,20 @@ public class MetadataHandleXmlImpl implements IMetadataHandle {
 //		do{
 //			try{
 //				if (xmlDocument != null){
-//					/* Retira possÌveis espaÁos em branco */
+//					/* Retira poss√≠veis espa√ßos em branco */
 //					String groupName = xmlDocument.getString(GROUP + "." + i + "." + NAME);
 //					groupName = StringUtils.stripEnd(groupName, " ");
 //
 //					GroupMetadata group = new GroupMetadata(i, groupName);
 //
-//					/* Verifica se o grupo j· foi definido no BANCO */
+//					/* Verifica se o grupo j√° foi definido no BANCO */
 //					if(!groups.contains(group))
 //						/* Cria e adiciona o grupo na lista de resultados */
 //						groups.add(group);
 //				}else
 //					getNext=false;
 //				
-//				/* Incrementa para tentar buscar o prÛximo grupo */
+//				/* Incrementa para tentar buscar o pr√≥ximo grupo */
 //				i++;
 //			}catch (MissingResourceException e){
 //				getNext = false;

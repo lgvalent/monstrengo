@@ -18,11 +18,11 @@ public class AuthenticationFilter implements Filter
 {
     private Logger log = Logger.getLogger(this.getClass());
 	/**
-     * Este par‚metro deve ser passado para o filtro quando o mesmo È 
-     * configurado no arquivo web.xml da aplicaÁ„o.
-     *  Se o filtro for ativado, detectando que a p·gina dever· ser
-     *  redirecionada para autenticaÁ„o do usu·rio, o filtro usar·
-     *  o valor definido neste par‚metros para redirecionar a p·gina.<br>
+     * Este par√¢metro deve ser passado para o filtro quando o mesmo √© 
+     * configurado no arquivo web.xml da aplica√ß√£o.
+     *  Se o filtro for ativado, detectando que a p√°gina dever√° ser
+     *  redirecionada para autentica√ß√£o do usu√°rio, o filtro usar√°
+     *  o valor definido neste par√¢metros para redirecionar a p√°gina.<br>
      *  Exemplo:<br>
      *  <filter>
 	 *	 <filter-name>FilterName</filter-name>
@@ -40,14 +40,14 @@ public class AuthenticationFilter implements Filter
 	public static final String REDIRECT_FILTER_PARAM = "redirect";
 	
 	/**
-	 * Nome do par‚metro usado para marcar uma sess„o como autenticada.
-	 * Este par‚metro da sess„o n„o È utilizado por mais ninguÈm. 
+	 * Nome do par√¢metro usado para marcar uma sess√£o como autenticada.
+	 * Este par√¢metro da sess√£o n√£o √© utilizado por mais ningu√©m. 
 	 */
 	public static final String AUTHENTICATED_SESSION_PARAM = "visit";
     
 	/**
-	 * Nome do par‚metro usado para marcar uma sess„o como autenticada.
-	 * Este par‚metro da sess„o n„o È utilizado por mais ninguÈm. 
+	 * Nome do par√¢metro usado para marcar uma sess√£o como autenticada.
+	 * Este par√¢metro da sess√£o n√£o √© utilizado por mais ningu√©m. 
 	 */
 	public static final String LOCAL_BEFORE_AUTHENTICATE_PARAM = "lbap";
 	
@@ -61,29 +61,29 @@ public class AuthenticationFilter implements Filter
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException
     {
-        log.debug("Filtrando requisiÁ„o de URL de entrada");
+        log.debug("Filtrando requisi√ß√£o de URL de entrada");
         HttpServletRequest httpRequest = (HttpServletRequest)request;
         HttpServletResponse httpResponse = (HttpServletResponse)response;
         HttpSession session = httpRequest.getSession();
         
-        log.debug("Verificando se a sess„o j· foi autenticada");
+        log.debug("Verificando se a sess√£o j√° foi autenticada");
         String visit = (String)session.getAttribute(AUTHENTICATED_SESSION_PARAM);
         
         if (visit == null)
         {
-            log.debug("Sess„o ainda n„o autenticada");
+            log.debug("Sess√£o ainda n√£o autenticada");
             if(log.isDebugEnabled())
-            	log.debug("Armazenando o local original da requisiÁ„o: ../.." + httpRequest.getPathInfo() + "?" + httpRequest.getQueryString());
+            	log.debug("Armazenando o local original da requisi√ß√£o: ../.." + httpRequest.getPathInfo() + "?" + httpRequest.getQueryString());
         	session.setAttribute(LOCAL_BEFORE_AUTHENTICATE_PARAM, "../.." + httpRequest.getPathInfo() + (httpRequest.getQueryString()==null?"":new String("?" + httpRequest.getQueryString())));
         	
-        	/* Exibe as informaÁıes de URL numa caixa de di·logo */
+        	/* Exibe as informa√ß√µes de URL numa caixa de di√°logo */
 //        	JOptionPane.showMessageDialog(null,"-PI"+ httpRequest.getPathInfo() + "-CP" + httpRequest.getContextPath() + "-PT" + httpRequest.getPathTranslated() + "- QR" + httpRequest.getQueryString() + "-RU" + httpRequest.getRequestURI() );
             
-        	log.debug("Redirecionando a requisiÁ„o n„o autenticada para a p·gina que definida no arquivo web.xml no param-filter");
+        	log.debug("Redirecionando a requisi√ß√£o n√£o autenticada para a p√°gina que definida no arquivo web.xml no param-filter");
             httpResponse.sendRedirect(filterConfig.getInitParameter(REDIRECT_FILTER_PARAM));
             return;
         }
-        log.debug("Sess„o j· autenticada. Continuando a requisiÁ„o no encanamento de filtros");
+        log.debug("Sess√£o j√° autenticada. Continuando a requisi√ß√£o no encanamento de filtros");
         chain.doFilter(request, response);
     }
     

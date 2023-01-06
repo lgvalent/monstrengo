@@ -23,7 +23,7 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 /**
  * Esta classe implementa atributos comuns
- * ‡s entidades EntitySet e EntityList
+ * √†s entidades EntitySet e EntityList
  *
  */
 public abstract class EntityCollection<T> implements IEntityCollection<T>
@@ -31,7 +31,7 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 	private Long runId=null;
 	
 	/* Esta entidade nunca deve ser nula, mas sim, uma entidade vazia, desta forma
-	 * no primeiro get que houver, se ela estiver nula ela È criada */
+	 * no primeiro get que houver, se ela estiver nula ela √© criada */
 	private IEntity<T> runEntity=null;
 	
 	public Long getRunId() {return runId;}
@@ -51,23 +51,23 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 	public void setRunEntity(IEntity<T> runEntity) {this.runEntity = runEntity;}
 
 	/**
-	 * Este mÈtodo utiliza as vari·veis runId e runEntity para executar suas operaÁıes
+	 * Este m√©todo utiliza as vari√°veis runId e runEntity para executar suas opera√ß√µes
 	 */
 	public boolean runAdd() throws BusinessException {
     	boolean result = false;
 
-    	/* Verifica se a entidade j· se encontra na lista */
+    	/* Verifica se a entidade j√° se encontra na lista */
 		for(IEntity<T> ent: this){
 			if((this.runId!=null) && ent.getId()==this.runId){
-    	    	/* A entidade j· se encontra na lista */
+    	    	/* A entidade j√° se encontra na lista */
     			result = true;
     			break;
     		}
     	}
 
 		if(!result){
-			/* A entidade ainda n„o se encontra na lista, adiciona ela */
-			/* Se foi definido um runId ent„o usa ele */
+			/* A entidade ainda n√£o se encontra na lista, adiciona ela */
+			/* Se foi definido um runId ent√£o usa ele */
 			if(this.runId != null)
 				this.runEntity  = (IEntity<T>) UtilsCrud.retrieve(this.getEntityManager().getServiceManager(), 
 						this.getInfo().getType(),
@@ -80,7 +80,7 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 			result = true;
 		}
 		
-    	/* Limpa as vari·veis de runId e runEntity */
+    	/* Limpa as vari√°veis de runId e runEntity */
     	prepareRunParams();
 
     	return result;
@@ -88,11 +88,11 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 
 
 	/**
-	 * Este mÈtodo utiliza as vari·veis runId e runEntity para executar suas operaÁıes
+	 * Este m√©todo utiliza as vari√°veis runId e runEntity para executar suas opera√ß√µes
 	 */
 	public boolean runRemove() throws BusinessException {
 		boolean result = false;
-		/* Verifica se o elemento est· na lista para removretrieveer */
+		/* Verifica se o elemento est√° na lista para removretrieveer */
 		for(IEntity<T> ent: this){
     		/* Compara pelos ids */
     		if((this.runId != null) && (ent.getId() == this.runId)){
@@ -111,15 +111,15 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
     			
     	}
 		
-		/* Limpa as vari·veis de runId e runEntity */
+		/* Limpa as vari√°veis de runId e runEntity */
 		prepareRunParams();
 		
-		/* O id n„o foi encontrado para remoÁ„o */
+		/* O id n√£o foi encontrado para remo√ß√£o */
 		return result;
 	}
 
 	/**
-	 * Este mÈtodo remove todas as entidades que est„o selecionadas na coleÁ„o
+	 * Este m√©todo remove todas as entidades que est√£o selecionadas na cole√ß√£o
 	 */
 	public void runRemoveSelected() throws BusinessException {
 		/* Verifica os elementos marcados */
@@ -144,9 +144,9 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 	}
 	
 	/**
-	 * Obtem a lista de valores dos id's dos objetos que est„o na lista.<br>
-     * Este mÈtodo È ˙til para que a prÛpria interface exiba uma lista
-     * de opÁ„o de entidades e defina na lista atual as entidades que foram
+	 * Obtem a lista de valores dos id's dos objetos que est√£o na lista.<br>
+     * Este m√©todo √© √∫til para que a pr√≥pria interface exiba uma lista
+     * de op√ß√£o de entidades e defina na lista atual as entidades que foram
      * marcadas. 
 	 */
 	public Long[] getIds() throws BusinessException
@@ -163,7 +163,7 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 					}
 				}
 				
-				/* Redimensiona o vetor para o espaÁo ˙til */
+				/* Redimensiona o vetor para o espa√ßo √∫til */
 				result = Arrays.copyOfRange(result, 0, i);
 			}
 			return result;
@@ -174,9 +174,9 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 	}
 
 	/**
-	 * A cada Id apresentado, o objeto È buscado no DAO respons·vel e armazenado.
-	 * <b>OBSERVA«√O</b> Quando estiver dentro de um serviÁo È ideal que utilize o mÈtodo setIds(Long[], ServiceData)
-	 * para preservar a sess„o e transaÁ„o do serviÁo.
+	 * A cada Id apresentado, o objeto √© buscado no DAO respons√°vel e armazenado.
+	 * <b>OBSERVA√á√ÉO</b> Quando estiver dentro de um servi√ßo √© ideal que utilize o m√©todo setIds(Long[], ServiceData)
+	 * para preservar a sess√£o e transa√ß√£o do servi√ßo.
 	 *  
 	 * @throws PropertyValueException 
 	 * 
@@ -191,7 +191,7 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 		/* Limpa as atuais entidades da lista para adicionar as entidades referenciadas pelos ids */ 
 		this.clear();
 
-		/* Obtem, pelo id, as entidades e coloca-as na atual coleÁ„o */ 
+		/* Obtem, pelo id, as entidades e coloca-as na atual cole√ß√£o */ 
 		for (int i = 0; i < ids.length; i++){
 			IEntity<T> entity = (IEntity<T>) UtilsCrud.retrieve(this.getEntityManager().getServiceManager(), this.getInfo().getType(), ids[i], serviceDataOwner);
 
@@ -201,10 +201,10 @@ public abstract class EntityCollection<T> implements IEntityCollection<T>
 	}
 	
     /**
-     * Este mÈtodo cria uma lista de entidades em forma de uma lista de seleÁ„o. Muito
-     * ˙til quando algum processo quer gerar exibir uma lista de possÌveis entidades
+     * Este m√©todo cria uma lista de entidades em forma de uma lista de sele√ß√£o. Muito
+     * √∫til quando algum processo quer gerar exibir uma lista de poss√≠veis entidades
      * 
-     * @return Retorna uma lista de itens de seleÁ„o preenchido com as entidades atuais da lista.
+     * @return Retorna uma lista de itens de sele√ß√£o preenchido com as entidades atuais da lista.
      * @throws EntityException
      * @since 20070607
      */

@@ -27,7 +27,7 @@ public class ChangePasswordProcessTestCase extends ProcessBasicTest
                 
             System.out.println(":Pid=" + auth.getPid());
             
-            //usu·rio m j· existe no banco
+            //usu√°rio m j√° existe no banco
             auth.setCurrentPassword("user");
             auth.setNewPassword("resu");
             
@@ -42,7 +42,7 @@ public class ChangePasswordProcessTestCase extends ProcessBasicTest
             
             System.out.println(":Pid=" + auth.getPid());
             
-            //usu·rio m j· existe no banco
+            //usu√°rio m j√° existe no banco
             auth.setCurrentPassword("resu");
             auth.setNewPassword("user");
             

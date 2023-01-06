@@ -27,9 +27,9 @@ public class CompileFieldsDocumentServiceTestCase extends ServiceBasicTest
 //			map.put("Campo 1", "123");
 			map.put("Campo 1", "21/01/20099999");
 			map.put("Nome da pessoa", "Arthur Lundgren Tecidos S/A");
-			map.put("Campo 2", "Valor padr„o2");
+			map.put("Campo 2", "Valor padr√£o2");
 			
-			String source = "Campo 1 @{Campo 1,Valor padr„o1} Campo 1 @{Campo 2,Valor padr„o2} Campo 1 @{Campo 1} Campo 1 @{Campo 2} Dono do contrato: @{ Nome da pessoa , #{ContratoSindicato[?].pessoa.nome} } ";
+			String source = "Campo 1 @{Campo 1,Valor padr√£o1} Campo 1 @{Campo 2,Valor padr√£o2} Campo 1 @{Campo 1} Campo 1 @{Campo 2} Dono do contrato: @{ Nome da pessoa , #{ContratoSindicato[?].pessoa.nome} } ";
 
             ServiceData serviceData = new ServiceData(CompileFieldsDocumentService.SERVICE_NAME, null);
             serviceData.getArgumentList().setProperty(CompileFieldsDocumentService.IN_DOCUMENT_SOURCE, source);

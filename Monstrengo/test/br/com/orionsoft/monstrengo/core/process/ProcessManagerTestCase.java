@@ -17,7 +17,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 
 /**
- * Teste que obtem a lista de TODOS os processos registrados no Spring através da execução de um serviço.
+ * Teste que obtem a lista de TODOS os processos registrados no Spring atravÃ©s da execuÃ§Ã£o de um serviÃ§o.
  */
 public class ProcessManagerTestCase extends ProcessBasicTest
 {
@@ -36,9 +36,9 @@ public class ProcessManagerTestCase extends ProcessBasicTest
 	 * 0:
 	 * Id=22
 	 * Nome=OverwritePasswordProcess
-	 * Módulo=br.com.orionsoft.monstrengo
-	 * Description=Este processo permite a alteração da senha de um operador sem exigir a senha atual. É útil para o administrador do sistema alterar a senha de um operador que perdeu ou esqueceu sua senha, mas que precisa renová-la.
-	 * Hint=Este processo permite a alteração da senha de um operador sem exigir a senha atual
+	 * MÃ³dulo=br.com.orionsoft.monstrengo
+	 * Description=Este processo permite a alteraÃ§Ã£o da senha de um operador sem exigir a senha atual. Ã‰ Ãºtil para o administrador do sistema alterar a senha de um operador que perdeu ou esqueceu sua senha, mas que precisa renovÃ¡-la.
+	 * Hint=Este processo permite a alteraÃ§Ã£o da senha de um operador sem exigir a senha atual
 	 * Label=Alterar senha de acesso de um operador
 	 * RunnableEntities=[Operador do sistema]
 	 * 997:FIM. 
@@ -107,7 +107,7 @@ public class ProcessManagerTestCase extends ProcessBasicTest
 
 			Assert.assertTrue(true);
 
-			/* Testando se o mapa de controladores é realmente READ ONLY */
+			/* Testando se o mapa de controladores Ã© realmente READ ONLY */
 			this.processManager.getControllers().put("oi", (IRunnableEntityProcessController) this.processManager.getControllers().values().toArray()[0]);
 			Assert.assertTrue(false);
 		}catch (Exception e) {

@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 
 /**
- * Esta classe mantém uma lista de entidades.
+ * Esta classe mantÃ©m uma lista de entidades.
  * 
  * @author marcia 2005/11/21
  * @version marcia-2005/11/28
@@ -30,12 +30,12 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
     private IEntityMetadata info;
     
     /**
-     * Constrói o conjunto de entidades baseado num conjunto de objetos. 
-     * Todos os objetos da lista original são convertidos no construtor.
-     * <p> O conjunto original é mantido para que operações de add e remove
+     * ConstrÃ³i o conjunto de entidades baseado num conjunto de objetos. 
+     * Todos os objetos da lista original sÃ£o convertidos no construtor.
+     * <p> O conjunto original Ã© mantido para que operaÃ§Ãµes de add e remove
      * sejam refletidas no conjunto original.
-     * <p> A conversão de Objeto para Entidade é otimizada, pois os metadados
-     * da classe já são indicados, não havendo a busca dos mesmos a cada conversão. 
+     * <p> A conversÃ£o de Objeto para Entidade Ã© otimizada, pois os metadados
+     * da classe jÃ¡ sÃ£o indicados, nÃ£o havendo a busca dos mesmos a cada conversÃ£o. 
      *  
      * @param objectList Lista de objetos, geralmente, persistidos.
      * @param info Metadados da entidade.
@@ -46,7 +46,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
     {
         this.entityManager = entityManager;
 
-        /* Verifica se a coleção está inicializada ou é nula */
+        /* Verifica se a coleÃ§Ã£o estÃ¡ inicializada ou Ã© nula */
         if(objectList==null)
         	this.objectList = new ArrayList<T>();
         else
@@ -143,7 +143,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
     {
     	list.add(arg0);
 
-    	// Reflete a atual operação na lista original
+    	// Reflete a atual operaÃ§Ã£o na lista original
     	return this.objectList.add(arg0.getObject());
     }
 
@@ -154,7 +154,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
     {
     	list.remove(arg0);
 
-    	// Reflete a atual operação na lista original
+    	// Reflete a atual operaÃ§Ã£o na lista original
     	return this.objectList.remove(((IEntity<?>)arg0).getObject());
     }
 
@@ -171,7 +171,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 	 */
     public boolean addAll(Collection<? extends IEntity<T>> arg0)
     {
-        // Reflete a atual operação na lista original
+        // Reflete a atual operaÃ§Ã£o na lista original
         for(IEntity<T> ent: arg0)
             this.objectList.add(ent.getObject());
         
@@ -183,7 +183,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 	 */
     public boolean removeAll(Collection<?> arg0)
     {
-        // Reflete a atual operação na lista original
+        // Reflete a atual operaÃ§Ã£o na lista original
         for(Object obj: arg0)
             this.objectList.remove(((IEntity<?>)obj).getObject());
 
@@ -195,14 +195,14 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 	 */
     public boolean retainAll(Collection<?> arg0)
     {
-        // Reflete a atual operação na lista original
+        // Reflete a atual operaÃ§Ã£o na lista original
         
-        //      Cria uma coleção
+        //      Cria uma coleÃ§Ã£o
         Collection<Object> col = new ArrayList<Object>(arg0.size()); 
         //      Adiciona todos os objetos
         for(Object obj: arg0)
             col.add(((IEntity<?>)obj).getObject());
-        //      Realiza a operação original
+        //      Realiza a operaÃ§Ã£o original
         this.objectList.retainAll(col);
 
         return list.retainAll(arg0);
@@ -213,7 +213,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 	 */
     public void clear()
     {
-        // Reflete a atual operação na lista original
+        // Reflete a atual operaÃ§Ã£o na lista original
         this.objectList.clear();
         
         list.clear();
@@ -269,13 +269,13 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 	 */
     public boolean addAll(int index, Collection<? extends IEntity<T>> c)
     {
-        // Reflete a atual operação na lista original
-        //      Cria uma coleção
+        // Reflete a atual operaÃ§Ã£o na lista original
+        //      Cria uma coleÃ§Ã£o
         Collection<T> col = new ArrayList<T>(c.size()); 
         //      Adiciona todos os objetos
         for(IEntity<T> obj: c)
             col.add(obj.getObject());
-        //      Realiza a operação original
+        //      Realiza a operaÃ§Ã£o original
         this.objectList.addAll(index, col);
 
         return list.addAll(index, c);
@@ -286,7 +286,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 	 */
     public IEntity<T> set(int index, IEntity<T> element)
     {
-        // Reflete a atual operação na lista original
+        // Reflete a atual operaÃ§Ã£o na lista original
         this.objectList.set(index, element.getObject());
         
         return list.set(index, element);
@@ -297,7 +297,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 	 */
     public void add(int index, IEntity<T> element)
     {
-        // Reflete a atual operação na lista original
+        // Reflete a atual operaÃ§Ã£o na lista original
         this.objectList.add(index, element.getObject());
         
         list.add(index, element);
@@ -308,7 +308,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 	 */
     public IEntity<T> remove(int index)
     {
-        // Reflete a atual operação na lista original
+        // Reflete a atual operaÃ§Ã£o na lista original
         this.objectList.remove(index);
         
         return list.remove(index);
@@ -364,15 +364,15 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
     
     
     /**
-     * Esta classe implementa o padrão PROXY que intermedia as operações sobre
-     * um Iterator da lista de entidade para refletir as remoções na lista de objetos.
-     * Ela guarda uma referência para a lista de entidade pai.<br>
-     * Ao ser criada ele cria um iterator da lista de IEntity. Este iterator será 
-     * o original. As operações recebidas serão refletidas nele. Contudo, ao ser
-     * executada uma operação de remoção, esta classe irá refletir a remoção
+     * Esta classe implementa o padrÃ£o PROXY que intermedia as operaÃ§Ãµes sobre
+     * um Iterator da lista de entidade para refletir as remoÃ§Ãµes na lista de objetos.
+     * Ela guarda uma referÃªncia para a lista de entidade pai.<br>
+     * Ao ser criada ele cria um iterator da lista de IEntity. Este iterator serÃ¡ 
+     * o original. As operaÃ§Ãµes recebidas serÃ£o refletidas nele. Contudo, ao ser
+     * executada uma operaÃ§Ã£o de remoÃ§Ã£o, esta classe irÃ¡ refletir a remoÃ§Ã£o
      * na lista original de objetos<br>.
-     * Sem esta classe, uma operação remove() no Iterator da IEntityList não
-     * é refletida no ObjectList.
+     * Sem esta classe, uma operaÃ§Ã£o remove() no Iterator da IEntityList nÃ£o
+     * Ã© refletida no ObjectList.
      *  
      * @author Lucio 20070911
      */
@@ -391,8 +391,8 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 		IEntity<T> lastNext = null;
 		public IEntity<T> next()
 		{
-			/* Guarda a referência da última entidade obtida no iterator
-			 * para refletir uma possível operação remove na lista original
+			/* Guarda a referÃªncia da Ãºltima entidade obtida no iterator
+			 * para refletir uma possÃ­vel operaÃ§Ã£o remove na lista original
 			 * de objetos */
 			lastNext = this.iterator.next();
 			
@@ -400,8 +400,8 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
 		}
 
 		/**
-		 * Realiza o operação remove no Iterator original
-		 * e reflete a operação na lista de objetos
+		 * Realiza o operaÃ§Ã£o remove no Iterator original
+		 * e reflete a operaÃ§Ã£o na lista de objetos
 		 */
 		public void remove()
 		{
@@ -431,7 +431,7 @@ public class EntityList<T> extends EntityCollection<T> implements IEntityList<T>
     		result += ", ";
     	}
 
-    	/*Retira a última vírgula se existir*/
+    	/*Retira a Ãºltima vÃ­rgula se existir*/
     	result = StringUtils.stripEnd(result, ", ");
 		result += "]"; 
     	return result;

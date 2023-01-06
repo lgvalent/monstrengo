@@ -16,8 +16,8 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 
 /**
- * Esta classe È o item da lista de etiquetas de endereÁamento
- * que est„o prontas para serem impressas. 
+ * Esta classe √© o item da lista de etiquetas de endere√ßamento
+ * que est√£o prontas para serem impressas. 
  * 
  * @hibernate.class table="framework_label_address_group"
  */
@@ -59,7 +59,7 @@ public class AddressLabelGroup {
 	public void setName(String name){this.name = name;}
 	
 	public String toString(){
-//		Lucio - 20090716 - Para ocupar menos espaÁo nas tabelas de visualizaÁ„o
+//		Lucio - 20090716 - Para ocupar menos espa√ßo nas tabelas de visualiza√ß√£o
 //		StringBuffer result = new StringBuffer(this.name);
 //
 //		if (this.applicationUser != null)

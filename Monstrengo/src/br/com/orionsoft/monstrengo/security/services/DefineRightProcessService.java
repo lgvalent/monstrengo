@@ -13,12 +13,12 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.entities.RightProcess;
 
 /**
- * ServiÁo para definir o direito de um grupo sobre um determinado processo.
+ * Servi√ßo para definir o direito de um grupo sobre um determinado processo.
  * 
  * <p><b>Procedimento:</b>
- * <br>Tentar obter o Direito j· instanciado.
- * <br>Se n„o conseguir cria um novo Direito.
- * <br>Define se o direito de execuÁ„o È permitido ou n„o.
+ * <br>Tentar obter o Direito j√° instanciado.
+ * <br>Se n√£o conseguir cria um novo Direito.
+ * <br>Define se o direito de execu√ß√£o √© permitido ou n√£o.
  * <br>
  * @author Lucio 21/10/2005
  * @version 21/10/2005
@@ -50,7 +50,7 @@ public class DefineRightProcessService extends ServiceBasic
             long processId = (Long) serviceData.getArgumentList().getProperty(PROCESS_ID);
             boolean executeAllowed = (Boolean) serviceData.getArgumentList().getProperty(EXECUTE_ALLOWED);
 
-            // TODO IMPLEMENTAR Usar um biblioteca mais eficiente para pesquisas de m˙ltiplas condiÁıes
+            // TODO IMPLEMENTAR Usar um biblioteca mais eficiente para pesquisas de m√∫ltiplas condi√ß√µes
             // Obtem o Direito que se relaciona com o GrupoId e ProcessId indicados
             ServiceData sl = new ServiceData(ListService.SERVICE_NAME, serviceData);
             sl.getArgumentList().setProperty(ListService.CLASS, RightProcess.class);
@@ -59,7 +59,7 @@ public class DefineRightProcessService extends ServiceBasic
             
             IEntityList entCol = (IEntityList) sl.getFirstOutput();
             
-            // Se este direito n„o existe, cria ele.
+            // Se este direito n√£o existe, cria ele.
             IEntity right;
             if (entCol.size() == 0)
             {
@@ -85,7 +85,7 @@ public class DefineRightProcessService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

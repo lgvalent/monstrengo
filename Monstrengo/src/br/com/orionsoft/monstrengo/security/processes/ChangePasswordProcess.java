@@ -2,11 +2,14 @@ package br.com.orionsoft.monstrengo.security.processes;
 
 import br.com.orionsoft.monstrengo.security.processes.ChangePasswordProcess;
 import br.com.orionsoft.monstrengo.auditorship.services.UtilsAuditorship;
+import br.com.orionsoft.monstrengo.core.annotations.ProcessMetadata;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
+import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.security.services.ChangePasswordService;
 
 /**
@@ -16,12 +19,12 @@ import br.com.orionsoft.monstrengo.security.services.ChangePasswordService;
  * <p><b>Procedimentos:</b>
  * <br>Definir o password atual: <i>setCurrentPassword(String)</i>
  * <br>Definir o novo password: <i>setNewPassword(String)</i>
- * <br>Definir a opÁ„o overwrite (opcional): <i>setOverwrite(boolean)</i>
- * <br>Executar o mÈtodo <i>runChange()</i>.
- * <br>Se o mÈtodo concluir com sucesso:
- * <li>A senha estar· alterada e j· valendo para a prÛxima autenticaÁ„o. 
- * <br>Sen„o:
- * <li>O erro È fornecido por <i>getErroList</i>.</b> 
+ * <br>Definir a op√ß√£o overwrite (opcional): <i>setOverwrite(boolean)</i>
+ * <br>Executar o m√©todo <i>runChange()</i>.
+ * <br>Se o m√©todo concluir com sucesso:
+ * <li>A senha estar√° alterada e j√° valendo para a pr√≥xima autentica√ß√£o. 
+ * <br>Sen√£o:
+ * <li>O erro √© fornecido por <i>getErroList</i>.</b> 
  * 
  * @author Lucio 
  * @version 20060511
@@ -30,7 +33,8 @@ import br.com.orionsoft.monstrengo.security.services.ChangePasswordService;
  * @spring.property name="processManager" ref="ProcessManager"
  *
  */
-public class ChangePasswordProcess extends ProcessBasic
+@ProcessMetadata(label="Alterar a senha do operador atualmente autenticado no sistema", hint="Permite que o usu√°rio atual altere sua senha de acesso ao sistema fornecendo a senha atual e a nova", description="Permite que o atual operador altere sua senha, fornecendo a senha atual e a nova. O sistema armazena as senhas criptografadas e somente o operador sabe a chave original.")
+public class ChangePasswordProcess extends ProcessBasic implements IRunnableEntityProcess
 {
     public static final String PROCESS_NAME = "ChangePasswordProcess";
     
@@ -54,11 +58,11 @@ public class ChangePasswordProcess extends ProcessBasic
         super.beforeRun();
         try
         {
-        	/* Verifica se o novo password e sua confirmaÁ„o batem */
+        	/* Verifica se o novo password e sua confirma√ß√£o batem */
         	if(!newPassword.equals(confirmNewPassword))
         		throw new ProcessException(MessageList.create(ChangePasswordProcess.class, "ERROR_CONFIRM_PASSWORD"));
         	
-            // Executar o serviÁo de autenticaÁ„o
+            // Executar o servi√ßo de autentica√ß√£o
             ServiceData sd = new ServiceData(ChangePasswordService.SERVICE_NAME, null);
             sd.getArgumentList().setProperty(ChangePasswordService.IN_LOGIN, this.getUserSession().getUserLogin());
             sd.getArgumentList().setProperty(ChangePasswordService.IN_CURRENT_PASSWORD, currentPassword);
@@ -81,5 +85,11 @@ public class ChangePasswordProcess extends ProcessBasic
         
         return false;
     }
+
+	@Override
+	public boolean runWithEntity(IEntity<?> entity) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

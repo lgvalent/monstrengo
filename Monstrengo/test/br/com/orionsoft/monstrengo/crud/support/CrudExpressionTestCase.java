@@ -31,7 +31,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 			Map<String, IEntity> mapEntities = new HashMap<String, IEntity>();
 			mapEntities.put(entity.getInfo().getType().getSimpleName(), entity);
 
-			/* È preciso adicionar ao mapa apenas as entidades em que n„o È especificado um id */
+			/* √© preciso adicionar ao mapa apenas as entidades em que n√£o √© especificado um id */
 			IEntity<ModelLabel> modelLabel = UtilsCrud.create(this.serviceManager, ModelLabel.class, null);
 			modelLabel.getObject().setPageHeight(210);
 			mapEntities.put(modelLabel.getInfo().getType().getSimpleName(), modelLabel);
@@ -134,7 +134,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 			System.out.println("==> " + CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));
 
 
-			try  //funÁ„o nao implementada
+			try  //fun√ß√£o nao implementada
 			{
 				expression = "#{noww()}";
 				System.out.println(CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));
@@ -145,7 +145,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 				Assert.assertTrue(true);
 			}
 			
-			try  //funÁ„o encerrada incorretamente
+			try  //fun√ß√£o encerrada incorretamente
 			{
 				expression = "#{now(}";
 				System.out.println(CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));
@@ -156,7 +156,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 				Assert.assertTrue(true);
 			}
 			
-			try  //express„o encerrada incorretamente
+			try  //express√£o encerrada incorretamente
 			{
 				expression = "#{now()";
 				System.out.println(CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));
@@ -167,7 +167,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 				Assert.assertTrue(true);
 			}
 			
-			try  //Id da express„o encerrado incorretamente
+			try  //Id da express√£o encerrado incorretamente
 			{
 				expression = "#{ApplicationUser[?.name}";
 				System.out.println(CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));
@@ -178,7 +178,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 				Assert.assertTrue(true);
 			}
 			
-			try  //id numÈrico inv·lido
+			try  //id num√©rico inv√°lido
 			{
 				expression = "#{ApplicationUser[-?].name}";
 				System.out.println(CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));
@@ -189,7 +189,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 				Assert.assertTrue(true);
 			}
 			
-			try  //express„o iniciada incorretamente.
+			try  //express√£o iniciada incorretamente.
 			{
 				expression = "-{ApplicationUser[?].name}";
 				System.out.println(CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));
@@ -233,7 +233,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 				Assert.assertTrue(true);
 			}
 			
-			try  //funÁ„o nao implementada
+			try  //fun√ß√£o nao implementada
 			{
 				expression = "#{extensiveNumberr(10)}";
 				System.out.println(CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));
@@ -244,7 +244,7 @@ public class CrudExpressionTestCase extends ServiceBasicTest{
 				Assert.assertTrue(true);
 			}
 			
-			try  //numero inv·lido
+			try  //numero inv√°lido
 			{
 				expression = "#{extensiveNumber(10,00.)}"; // Ele limpas os pontos e subtitui a virgula por ponto . CERTO
 				System.out.println(CrudExpression.expressionToValue(expression, mapEntities, this.serviceManager.getEntityManager()));

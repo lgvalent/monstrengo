@@ -10,7 +10,7 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.test.UtilsTest;
 
 /**
- * Classe que faz operações básicas em arquivos de upload
+ * Classe que faz operaÃ§Ãµes bÃ¡sicas em arquivos de upload
  * 
  * @author Andre
  *
@@ -18,20 +18,20 @@ import br.com.orionsoft.monstrengo.core.test.UtilsTest;
 public class UploadUtils
 {
     /**
-     * <p>O arquivo de upload não pode ser interpretado simplesmente como um objeto do tipo File;
-     * Por isso, passa-se o seu conteúdo para esta classe, como um InputStream, e então
-     * é feita uma cópia desse conteúdo em um arquivo do tipo File, que pode então ser manipulado
+     * <p>O arquivo de upload nÃ£o pode ser interpretado simplesmente como um objeto do tipo File;
+     * Por isso, passa-se o seu conteÃºdo para esta classe, como um InputStream, e entÃ£o
+     * Ã© feita uma cÃ³pia desse conteÃºdo em um arquivo do tipo File, que pode entÃ£o ser manipulado
      * facilmente. 
      * 
      * @param nomeArquivo - O nome a ser usado para salvar o arquivo
-     * @param input - InputStream que contém as informaçõe do arquivo de upload
-     * @return - Um objeto do tipo File, com o conteúdo do arquivo de upload
+     * @param input - InputStream que contÃ©m as informaÃ§Ãµe do arquivo de upload
+     * @return - Um objeto do tipo File, com o conteÃºdo do arquivo de upload
      */
     public static File salvarArquivo (String nomeArquivo, InputStream input){
         
         try
         {   
-            //cria ou abre um diretório padrão
+            //cria ou abre um diretÃ³rio padrÃ£o
             File diretorio = new File("upload");
             if (!diretorio.exists()){
                 diretorio.mkdir();
@@ -41,8 +41,8 @@ public class UploadUtils
             File arquivo = new File(diretorio, nomeArquivo);
             
             /*
-             * Primeiramente, obtém-se um InputStream com o arquivo do tipo UploadedFile 
-             * (com o método getInputStream()) e copia seu conteúdo para um Array de Bytes;
+             * Primeiramente, obtÃ©m-se um InputStream com o arquivo do tipo UploadedFile 
+             * (com o mÃ©todo getInputStream()) e copia seu conteÃºdo para um Array de Bytes;
              * Depois, copia o Array de Bytes para um arquivo do tipo File
              */
             

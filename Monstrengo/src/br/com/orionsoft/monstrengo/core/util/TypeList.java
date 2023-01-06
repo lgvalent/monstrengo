@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * TODO N√O-UTILIZADO classe criada para verificaÁ„o dos tipos de elementos de uma lista. 
- * Com o recurso de genericos do java 5 essa classe n„o tem mais utilidade.
+ * TODO N√ÉO-UTILIZADO classe criada para verifica√ß√£o dos tipos de elementos de uma lista. 
+ * Com o recurso de genericos do java 5 essa classe n√£o tem mais utilidade.
  * Created on 15/04/2005
  * @author marcia
  *

@@ -10,8 +10,8 @@ import br.com.orionsoft.monstrengo.core.test.ProcessBasicTest;
 import br.com.orionsoft.monstrengo.security.processes.AuthenticateProcess;
 
 /**
- * Esta classe testa a autenticaÁ„o de um usuario do sistema. Um usuario (m) j· existente no banco È autenticado
- * e outro (xxxxxxx) n„o existe no banco n„o pode ser autenticado. 
+ * Esta classe testa a autentica√ß√£o de um usuario do sistema. Um usuario (m) j√° existente no banco √© autenticado
+ * e outro (xxxxxxx) n√£o existe no banco n√£o pode ser autenticado. 
  *
  */
 public class AuthenticateProcessTestCase extends ProcessBasicTest
@@ -33,7 +33,7 @@ public class AuthenticateProcessTestCase extends ProcessBasicTest
                 
             System.out.println(":Pid=" + auth.getPid());
             
-            //usu·rio m j· existe no banco
+            //usu√°rio m j√° existe no banco
             auth.setLogin("admin");
             auth.setPassword("admin");
             
@@ -43,7 +43,7 @@ public class AuthenticateProcessTestCase extends ProcessBasicTest
             else
                 throw new BusinessException(auth.getMessageList());
             
-            /* Autenticar usu·rio sem verificar a senha */
+            /* Autenticar usu√°rio sem verificar a senha */
             auth.setLogin("admin");
             auth.setPassword("admin__");
             auth.setCheckPassword(false);
@@ -51,7 +51,7 @@ public class AuthenticateProcessTestCase extends ProcessBasicTest
             
             System.out.println("auth - " + auth.runAuthenticate());
             if (auth.runAuthenticate())
-            	System.out.println("OK- N„o verificou a senha errada");
+            	System.out.println("OK- N√£o verificou a senha errada");
             else
             	throw new BusinessException(auth.getMessageList());
             
@@ -66,7 +66,7 @@ public class AuthenticateProcessTestCase extends ProcessBasicTest
             if (auth.runAuthenticate())
             {
                 System.out.println("NOK");
-                throw new BusinessException(MessageList.createSingleInternalError(new Exception("N„o poderia autenticar usu·rio com login xxxxxx")));
+                throw new BusinessException(MessageList.createSingleInternalError(new Exception("N√£o poderia autenticar usu√°rio com login xxxxxx")));
             }
             System.out.println("OK");
             for(BusinessMessage er: auth.getMessageList())

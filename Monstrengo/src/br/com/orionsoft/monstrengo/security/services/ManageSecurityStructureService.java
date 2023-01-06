@@ -28,17 +28,17 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationProcess;
 import br.com.orionsoft.monstrengo.security.processes.OverwritePasswordProcess;
 
 /**
- * ServiÁo para cadastrar todas as entidades de seguranÁa da aplicaÁ„o correntemente
+ * Servi√ßo para cadastrar todas as entidades de seguran√ßa da aplica√ß√£o correntemente
  * instanciada.<br>
- * Ele tambÈm atualiza o label das entidades de acordo com a atual definiÁ„o nos metadados.<br>
- * Cria os registros no banco de todos os mÛdulos (framework, basic, financeiro, etc), 
+ * Ele tamb√©m atualiza o label das entidades de acordo com a atual defini√ß√£o nos metadados.<br>
+ * Cria os registros no banco de todos os m√≥dulos (framework, basic, financeiro, etc), 
  * bem como suas entidades e processos.
- * Este serviÁo È excencial para que a aplicaÁ„o funcione corretamente.
+ * Este servi√ßo √© excencial para que a aplica√ß√£o funcione corretamente.
  *  
  * <p><b>Procedimento:</b><br>
- * Mantem as entidades Crud disponÌveis no serviÁo GetCrudEntitiesService.<br>
- * Mantem os processos disponÌveis no serviÁo GetAllProcessService.<br>
- * <b>N„o retorna nada;</b><br>
+ * Mantem as entidades Crud dispon√≠veis no servi√ßo GetCrudEntitiesService.<br>
+ * Mantem os processos dispon√≠veis no servi√ßo GetAllProcessService.<br>
+ * <b>N√£o retorna nada;</b><br>
  * 
  * @author Lucio 2005/10/21
  * @version 2005/10/21
@@ -54,15 +54,15 @@ public class ManageSecurityStructureService extends ServiceBasic
         return SERVICE_NAME;
     }
     
-    /** Injeta a referÍncia do processManager atual, pois este desempenha o papel de RunnableProcessEntityController
-     * que mantÈm um registro de todos os controllers de processos que implementam a interface IRunnableProcessEntity
+    /** Injeta a refer√™ncia do processManager atual, pois este desempenha o papel de RunnableProcessEntityController
+     * que mant√©m um registro de todos os controllers de processos que implementam a interface IRunnableProcessEntity
      */
 
     public void execute(ServiceData serviceData) throws ServiceException 
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do servico ManagerSecurityStructureService");
+            log.debug("Iniciando a execu√ß√£o do servico ManagerSecurityStructureService");
             
             Boolean inRestoreDefault = false;
             if(serviceData.getArgumentList().containsProperty(IN_RESTORE_DEFAULT_OPT))
@@ -76,7 +76,7 @@ public class ManageSecurityStructureService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }
@@ -93,20 +93,20 @@ public class ManageSecurityStructureService extends ServiceBasic
         List<IEntityMetadata> entityList = sd.getFirstOutput();
         
         for (IEntityMetadata entityInfo : entityList){
-            // Verifica se o mÛdulo n„o est· cadastrado
+            // Verifica se o m√≥dulo n√£o est√° cadastrado
             //para cada entidade, verificar o modulo correspondente
             IEntity<ApplicationModule> module = manageModuleSecurity(entityInfo.getType(), serviceData);
             
             if (log.isDebugEnabled())
-                log.debug("Verificando se a entidade " + entityInfo.getLabel() + " j· est· cadastrada");
+                log.debug("Verificando se a entidade " + entityInfo.getLabel() + " j√° est√° cadastrada");
             
             sd = new ServiceData(ListService.SERVICE_NAME, serviceData);
-            //preenche propriedades do serviÁo
+            //preenche propriedades do servi√ßo
             sd.getArgumentList().setProperty(ListService.CLASS, ApplicationEntity.class);
             //processClass.getSimpleName - pega o nome do processo pra gravar no banco
             sd.getArgumentList().setProperty(ListService.CONDITION_OPT_STR, ApplicationEntity.CLASS_NAME +  "= '" + entityInfo.getType().getName() + "'");
             
-            //executa o serviÁo
+            //executa o servi√ßo
             this.getServiceManager().execute(sd);
             
             //verificando se foi encontrado alguma entidade cadastrado        	
@@ -114,9 +114,9 @@ public class ManageSecurityStructureService extends ServiceBasic
             IEntityList<ApplicationEntity> enl = sd.getFirstOutput();
             if (enl.isEmpty()){
                 if (log.isDebugEnabled())
-                    log.debug("Entidade " + entityInfo.getLabel() + " n„o encontrada, cadastrando...");
+                    log.debug("Entidade " + entityInfo.getLabel() + " n√£o encontrada, cadastrando...");
                 
-                //n„o encontrou, cadastra entidade
+                //n√£o encontrou, cadastra entidade
                 IEntity<ApplicationEntity> entity = UtilsCrud.create(this.getServiceManager(), ApplicationEntity.class, serviceData);
                 
                 fillApplicationEntity(entity, module, entityInfo);
@@ -135,20 +135,20 @@ public class ManageSecurityStructureService extends ServiceBasic
 
                 	fillApplicationEntityPropertyGroup(group, entity, groupMetadata);
 
-                    /* Liga o grupo atual ‡ entidade */
+                    /* Liga o grupo atual √† entidade */
                 	entity.getProperty(ApplicationEntity.APPLICATION_ENTITY_PROPERTY_GROUP).getValue().<ApplicationEntityPropertyGroup>getAsEntityList().add(group); 
 
                 	UtilsCrud.update(this.getServiceManager(), group, serviceData);
                 }
                 
-                //executa o serviÁo
+                //executa o servi√ßo
                 UtilsCrud.update(this.getServiceManager(), entity, serviceData);
 
                 if (log.isDebugEnabled())
                     log.debug("Entidade " + entityInfo.getLabel() + " cadastrada com sucesso");
                 
             }
-            else  //nao est· vazio
+            else  //nao est√° vazio
             {
                 if (log.isDebugEnabled())
                     log.debug("Entidade " + entityInfo.getLabel() + " ja cadastrada. Atualizando metadados...");
@@ -174,11 +174,11 @@ public class ManageSecurityStructureService extends ServiceBasic
                 }
 
                 /* Lucio 20110721: Pega as propriedades no banco pesquisando diretamente na tabela da
-                 * entidade, pois ApplicationEntity n„o vÍ propriedades e grupos */
+                 * entidade, pois ApplicationEntity n√£o v√™ propriedades e grupos */
                 IEntityList<ApplicationEntityPropertyGroup> entityGroups = UtilsCrud.list(this.getServiceManager(), ApplicationEntityPropertyGroup.class, "entity.applicationEntity.id = " + entity.getId(), serviceData);
                 IEntityList<ApplicationEntityProperty> entityProperties = UtilsCrud.list(this.getServiceManager(), ApplicationEntityProperty.class, "entity.applicationEntity.id = " + entity.getId(), serviceData);
                 
-                //detectar se as propriedades da entidade que estao no metadados est„o no banco
+                //detectar se as propriedades da entidade que estao no metadados est√£o no banco
                 //se encontrar e restoreDefault=true, atualizar propriedades
                 //se nao encontrar, criar a propriedade no banco
                 for(IPropertyMetadata prop: entityInfoDefault.getPropertiesMetadata().values()){
@@ -209,7 +209,7 @@ public class ManageSecurityStructureService extends ServiceBasic
                 	}
                 }
 
-                //detectar se os grupos das propriedades da entidade q estao no metadados est„o no banco
+                //detectar se os grupos das propriedades da entidade q estao no metadados est√£o no banco
                 //se encontrar e restoreDefault=true, atualizar os grupos
                 //se nao encontrar, criar o grupo no banco
                 for(IGroupMetadata groupMetadata: entityInfoDefault.getGroups()){
@@ -220,7 +220,7 @@ public class ManageSecurityStructureService extends ServiceBasic
                 			found=true;  
                 			
                 			if(restoreDefault){
-                                /* Encontrou no banco, restaurando os valores padrıes */
+                                /* Encontrou no banco, restaurando os valores padr√µes */
                             	fillApplicationEntityPropertyGroup(entGroup, entity, groupMetadata);
 
                             	UtilsCrud.update(this.getServiceManager(), entGroup, serviceData);
@@ -240,7 +240,7 @@ public class ManageSecurityStructureService extends ServiceBasic
                 }
                 
                 
-                //detectar se as propriedades da entidade q estao no banco est„o no metadados
+                //detectar se as propriedades da entidade q estao no banco est√£o no metadados
                 //se nao encontrar, deletar a propriedade no banco
                 for(Iterator<IEntity<ApplicationEntityProperty>> it = entityProperties.iterator(); it.hasNext();){ 
                 	IEntity<ApplicationEntityProperty> entProp = it.next();
@@ -261,7 +261,7 @@ public class ManageSecurityStructureService extends ServiceBasic
                 	}
                 }
                 
-                //detectar se os grupos das propriedades da entidade q estao no banco est„o no metadados
+                //detectar se os grupos das propriedades da entidade q estao no banco est√£o no metadados
                 //se nao encontrar, deletar o grupo da propriedade no banco
                 for(Iterator<IEntity<ApplicationEntityPropertyGroup>> it = entityGroups.iterator(); it.hasNext();){ 
                 	IEntity<ApplicationEntityPropertyGroup> entGroup = it.next();
@@ -284,7 +284,7 @@ public class ManageSecurityStructureService extends ServiceBasic
                 	}
                 }
                 
-            	//executa o serviÁo
+            	//executa o servi√ßo
             	UtilsCrud.update(this.getServiceManager(), entity, serviceData);
 
             	if (log.isDebugEnabled())
@@ -301,7 +301,7 @@ public class ManageSecurityStructureService extends ServiceBasic
         // Obtendo a lista de processos do sistema
         
         for (Class<?> processClass : processManager.getAllProcessesClasses()){
-            // Verifica se o mÛdulo n„o est· cadastrado
+            // Verifica se o m√≥dulo n√£o est√° cadastrado
             
             //para cada processo, verificar o modulo correspondente
             IEntity<ApplicationModule> module = manageModuleSecurity(processClass, serviceData);
@@ -312,12 +312,12 @@ public class ManageSecurityStructureService extends ServiceBasic
             //verifica se o processo esta cadastrado
             ServiceData sd = new ServiceData(ListService.SERVICE_NAME, serviceData);
             
-            //preenche propriedades do serviÁo
+            //preenche propriedades do servi√ßo
             sd.getArgumentList().setProperty(ListService.CLASS, ApplicationProcess.class);
             //processClass.getSimpleName - pega o nome do processo pra gravar no banco
             sd.getArgumentList().setProperty(ListService.CONDITION_OPT_STR, ApplicationProcess.NAME +  "= '" + processName + "'");
             
-            //executa o serviÁo
+            //executa o servi√ßo
             this.getServiceManager().execute(sd);
             
             //verificando se foi encontrado algum processo cadastrado        	
@@ -327,8 +327,8 @@ public class ManageSecurityStructureService extends ServiceBasic
             
             if (enl.size() == 0){
                 if (log.isDebugEnabled())
-                    log.debug("Processo " + processClass +" n„o encontrado, cadastrando.");
-                //n„o encontrou, cadastrar o processo
+                    log.debug("Processo " + processClass +" n√£o encontrado, cadastrando.");
+                //n√£o encontrou, cadastrar o processo
                 process = UtilsCrud.create(this.getServiceManager(), ApplicationProcess.class, serviceData);
 
 
@@ -348,7 +348,7 @@ public class ManageSecurityStructureService extends ServiceBasic
             //preenche os dados do processo
             process.getProperty(ApplicationProcess.NAME).getValue().setAsString(processName);
             
-            // Se tiver a anotaÁ„o com os metadados, pega os demais dados primitivos e descritivos 
+            // Se tiver a anota√ß√£o com os metadados, pega os demais dados primitivos e descritivos 
             if(processClass.isAnnotationPresent(ProcessMetadata.class)){
             	ProcessMetadata annotation = (ProcessMetadata) processClass.getAnnotation(ProcessMetadata.class);
             	process.getProperty(ApplicationProcess.LABEL).getValue().setAsString(annotation.label()); 
@@ -358,7 +358,7 @@ public class ManageSecurityStructureService extends ServiceBasic
 
             process.getProperty(ApplicationProcess.APPLICATION_MODULE).getValue().setAsEntity(module); //processo exige uma propriedade modulo
             
-            //executa o serviÁo
+            //executa o servi√ßo
             UtilsCrud.update(this.getServiceManager(), process, serviceData);
 
         }
@@ -366,36 +366,36 @@ public class ManageSecurityStructureService extends ServiceBasic
     
     private IEntity<ApplicationModule> manageModuleSecurity(Class<?> klazz, ServiceData serviceData) throws BusinessException 
     {
-    	/* Obtem o nome do mÛdulo de uma class */
+    	/* Obtem o nome do m√≥dulo de uma class */
     	String moduleName = this.getServiceManager().getApplication().extractModuleName(klazz);
     	
-        log.debug("Obtendo a lista de mÛdulos cadastrados do sistema.");
-        // Verifica se o mÛdulo n„o est· cadastrado
+        log.debug("Obtendo a lista de m√≥dulos cadastrados do sistema.");
+        // Verifica se o m√≥dulo n√£o est√° cadastrado
         ServiceData sd = new ServiceData(ListService.SERVICE_NAME, serviceData);
-        //preenche propriedades do serviÁo
+        //preenche propriedades do servi√ßo
         sd.getArgumentList().setProperty(ListService.CLASS, ApplicationModule.class);
         sd.getArgumentList().setProperty(ListService.CONDITION_OPT_STR, ApplicationModule.NAME +  "='" + moduleName + "'");
         
-        //executa o serviÁo
+        //executa o servi√ßo
         this.getServiceManager().execute(sd);
         
         if (log.isDebugEnabled())
             log.debug("Verificando se o modulo " + moduleName + "ja foi cadastrado");
         
-        //verificando se foi encontrado algum mÛdulo cadastrado        	
+        //verificando se foi encontrado algum m√≥dulo cadastrado        	
         IEntityList<ApplicationModule> enl = sd.getFirstOutput();
         if (enl.isEmpty()){
 
             if (log.isDebugEnabled())
-                log.debug("Modulo " + moduleName + "n„o encontrado, cadastrando...");
+                log.debug("Modulo " + moduleName + "n√£o encontrado, cadastrando...");
 
-            //n„o encontrou, cadastrar o mÛdulo
+            //n√£o encontrou, cadastrar o m√≥dulo
             IEntity<ApplicationModule> module = UtilsCrud.create(this.getServiceManager(), ApplicationModule.class, serviceData);
 
-            //preenche os dados do mÛdulo
+            //preenche os dados do m√≥dulo
             module.getProperty(ApplicationModule.NAME).getValue().setAsString(moduleName);
             
-            //Grava o novo mÛdulo
+            //Grava o novo m√≥dulo
             UtilsCrud.update(this.getServiceManager(), module, serviceData);
 
             if (log.isDebugEnabled())
@@ -405,10 +405,10 @@ public class ManageSecurityStructureService extends ServiceBasic
         }
         
         if (log.isDebugEnabled())
-            log.debug("Modulo " + moduleName + "j· cadastrado");
+            log.debug("Modulo " + moduleName + "j√° cadastrado");
 
         //se encontrado
-        return enl.get(0); //pegar o primeiro da lista, que È uma entity
+        return enl.get(0); //pegar o primeiro da lista, que √© uma entity
         
     }
 

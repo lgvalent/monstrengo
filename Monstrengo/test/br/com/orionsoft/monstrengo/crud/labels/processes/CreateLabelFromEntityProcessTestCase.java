@@ -42,12 +42,12 @@ public class CreateLabelFromEntityProcessTestCase extends ProcessBasicTest
 			IEntity appEntity = UtilsSecurity.retrieveEntity(this.processManager.getServiceManager(), ApplicationUser.class, null);
 			IEntity entity = UtilsCrud.retrieve(this.processManager.getServiceManager(), ApplicationUser.class, 1, null);
 
-        	/* Cria um modelo de etiqueta temporário */
+        	/* Cria um modelo de etiqueta temporÃ¡rio */
 			IEntity labelEntity = UtilsCrud.create(this.processManager.getServiceManager(), ModelLabelEntity.class, null);
             labelEntity.setPropertyValue(ModelLabelEntity.NAME, "LabelTest");
             labelEntity.setPropertyValue(ModelLabelEntity.DESCRIPTION, "Primeiro teste de ModelLabelEntity");
             labelEntity.setPropertyValue(ModelLabelEntity.APPLICATION_ENTITY, appEntity);
-            labelEntity.setPropertyValue(ModelLabelEntity.LINE1, "Nome do usuário: #{ApplicationUser[?].name}");
+            labelEntity.setPropertyValue(ModelLabelEntity.LINE1, "Nome do usuÃ¡rio: #{ApplicationUser[?].name}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE2, "Login: #{ApplicationUser[?].login}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE3, "Senha: #{ApplicationUser[?].password}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE4, "Grupo: #{ApplicationUser[?].securityGroups}");
@@ -61,7 +61,7 @@ public class CreateLabelFromEntityProcessTestCase extends ProcessBasicTest
             
             Assert.assertTrue(process.getMessageList().isTransactionSuccess());
 
-            /* Testa se usando o mesmo processo não vai dar erro */
+            /* Testa se usando o mesmo processo nÃ£o vai dar erro */
             process.setEntityType(entity.getInfo().getType());
             process.setEntityId(entity.getId());
 //            process.setModelLabelEntity(labelEntity); // Esta labelEntity nao esta persistida, logo nao dah pra testar pelo getId();
@@ -87,12 +87,12 @@ public class CreateLabelFromEntityProcessTestCase extends ProcessBasicTest
 			IEntity appEntity = UtilsSecurity.retrieveEntity(this.processManager.getServiceManager(), ApplicationEntity.class, null);
 			IEntity entity = UtilsCrud.retrieve(this.processManager.getServiceManager(), ApplicationUser.class, 1, null);
 
-        	/* Cria um modelo de etiqueta temporário */
+        	/* Cria um modelo de etiqueta temporÃ¡rio */
 			IEntity labelEntity = UtilsCrud.create(this.processManager.getServiceManager(), ModelLabelEntity.class, null);
             labelEntity.setPropertyValue(ModelLabelEntity.NAME, "LabelTest");
             labelEntity.setPropertyValue(ModelLabelEntity.DESCRIPTION, "Primeiro teste de ModelLabelEntity");
             labelEntity.setPropertyValue(ModelLabelEntity.APPLICATION_ENTITY, appEntity);
-            labelEntity.setPropertyValue(ModelLabelEntity.LINE1, "Nome do usuário: #{ApplicationUser[?].name}");
+            labelEntity.setPropertyValue(ModelLabelEntity.LINE1, "Nome do usuÃ¡rio: #{ApplicationUser[?].name}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE2, "Login: #{ApplicationUser[?].login}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE3, "Senha: #{ApplicationUser[?].password}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE4, "Grupo: #{ApplicationUser[?].securityGroups}");

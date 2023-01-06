@@ -16,16 +16,16 @@ import br.com.orionsoft.monstrengo.crud.services.QueryCondiction;
 import br.com.orionsoft.monstrengo.crud.services.QueryService;
 
 /**
- * Este serviÁo retorna a lista de relatÛrios personalizados.
- * … possÌvel escolher uma Entidade e/ou um Operador disponÌvel.
+ * Este servi√ßo retorna a lista de relat√≥rios personalizados.
+ * √â poss√≠vel escolher uma Entidade e/ou um Operador dispon√≠vel.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_APPLICATION_USER_OPT: Usu·rio que ser· usada para filtrar a pesquisa de relatÛrios personalizados disponÌveis.
- * <br> IN_APPLICATION_ENTITY_OPT: Entidade que ser· usada para filtrar a pesquisa de relatÛrios personalizados disponÌveis.
+ * <br> IN_APPLICATION_USER_OPT: Usu√°rio que ser√° usada para filtrar a pesquisa de relat√≥rios personalizados dispon√≠veis.
+ * <br> IN_APPLICATION_ENTITY_OPT: Entidade que ser√° usada para filtrar a pesquisa de relat√≥rios personalizados dispon√≠veis.
  * 
  * <p><b>Procedimento:</b>
- * <br>Pesquisa no banco todos os relatÛrios personalizados cuja entidade e/ou operador satisfaÁa os par‚metros fornecidos.
- * <br><b>Retorna uma lista de itens de seleÁ„o com o id e nome dos relatÛrios.</b>
+ * <br>Pesquisa no banco todos os relat√≥rios personalizados cuja entidade e/ou operador satisfa√ßa os par√¢metros fornecidos.
+ * <br><b>Retorna uma lista de itens de sele√ß√£o com o id e nome dos relat√≥rios.</b>
  * 
  * 
  * @spring.bean id="ListUserReportService" init-method="registerService"
@@ -36,7 +36,7 @@ public class ListUserReportService extends ServiceBasic
     
     public static String SERVICE_NAME = "ListUserReportService";
     
-    /** Par‚metros da entidade */
+    /** Par√¢metros da entidade */
     public static String IN_APPLICATION_USER_ID_OPT = "applicationUserId";
     public static String IN_APPLICATION_ENTITY_ID_OPT = "applicationEntityId";
 
@@ -44,7 +44,7 @@ public class ListUserReportService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo ListUserReportService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo ListUserReportService");
             
             // Pega os argumentos
             long inApplicationUserId = IDAO.ENTITY_UNSAVED;
@@ -55,13 +55,13 @@ public class ListUserReportService extends ServiceBasic
             if(serviceData.getArgumentList().containsProperty(IN_APPLICATION_ENTITY_ID_OPT))
             	inApplicationEntityId = (Long) serviceData.getArgumentList().getProperty(IN_APPLICATION_ENTITY_ID_OPT);
 
-            log.debug("Buscando os relatÛrios");
-            /* Cria a lista de condiÁıes */
+            log.debug("Buscando os relat√≥rios");
+            /* Cria a lista de condi√ß√µes */
             List<QueryCondiction> condictions = new ArrayList<QueryCondiction>();
             
             QueryCondiction condiction = null; 
-            /* Verifica se foi passado um operador para selecionar o relatÛrios
-             * deste operador e os que n„o tÍm operador definidos (p˙blicos) */
+            /* Verifica se foi passado um operador para selecionar o relat√≥rios
+             * deste operador e os que n√£o t√™m operador definidos (p√∫blicos) */
             if(inApplicationUserId != IDAO.ENTITY_UNSAVED){
             	condiction = new QueryCondiction(this.getServiceManager().getEntityManager(),
             									UserReportBean.class,
@@ -106,7 +106,7 @@ public class ListUserReportService extends ServiceBasic
             /* Obtendo a lista de objetos UserReportBean selecionados no banco*/
             List<Object[]> beanList = (List<Object[]>) sd.getOutputData(QueryService.OUT_OBJECT_LIST);
             
-            /* Convertendo em uma lista de seleÁ„o List<SelectItem> */
+            /* Convertendo em uma lista de sele√ß√£o List<SelectItem> */
             List<SelectItem> result = new ArrayList<SelectItem>(beanList.size());
             for(Object[] bean: beanList){
             	result.add(new SelectItem(bean[0], bean[1].toString(), bean[2].toString()));
@@ -118,7 +118,7 @@ public class ListUserReportService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

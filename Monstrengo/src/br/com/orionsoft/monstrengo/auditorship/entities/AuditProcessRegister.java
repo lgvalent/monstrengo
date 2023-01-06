@@ -21,7 +21,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationProcess;
 public class AuditProcessRegister extends AuditRegister
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no código e evitar erro de digitação. */
+     * serem usadas no cÃ³digo e evitar erro de digitaÃ§Ã£o. */
     public static final String APPLICATION_PROCESS = "applicationProcess";
     
     private ApplicationProcess applicationProcess;

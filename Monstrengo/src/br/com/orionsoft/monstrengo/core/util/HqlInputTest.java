@@ -12,7 +12,7 @@ import org.junit.Test;
 import br.com.orionsoft.monstrengo.core.test.ServiceBasicTest;
 
 /**
- * Este teste fornece um formul·rio para a entrada de um HQL. 
+ * Este teste fornece um formul√°rio para a entrada de um HQL. 
  * @author marcia
  *
  */
@@ -39,7 +39,7 @@ public class HqlInputTest extends ServiceBasicTest
             {
                 select = JOptionPane.showInputDialog("Entre o select:", select);
                 className = JOptionPane.showInputDialog("Entre a classe:", className);
-                condition = JOptionPane.showInputDialog("Entre a condiÁ„o HQL:", condition);
+                condition = JOptionPane.showInputDialog("Entre a condi√ß√£o HQL:", condition);
                 Query query = this.serviceManager.getEntityManager().getDaoManager().getSessionFactory().openSession().createQuery("SELECT " + select + " FROM " + className + " entity WHERE " + condition);
                 List<Object[]> list = query.list();
 //                List list = executeList(className, condition);

@@ -15,7 +15,7 @@ import br.com.orionsoft.monstrengo.auditorship.entities.AuditRegister;
 public class AuditServiceRegister extends AuditRegister
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no código e evitar erro de digitação. */
+     * serem usadas no cÃ³digo e evitar erro de digitaÃ§Ã£o. */
     public static final String SERVICE_NAME = "serviceName";
     
     private String serviceName;

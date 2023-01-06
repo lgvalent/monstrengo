@@ -14,7 +14,7 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IEntityMetadata;
 /**
  * Esta classe mantem um conjunto de entidades.
  * Internamente ela armazena a lista de objetos persistidos
- * e vai convertendo estes objetos em IEntity<T> conforme haja a solicitação.
+ * e vai convertendo estes objetos em IEntity<T> conforme haja a solicitaÃ§Ã£o.
  * 
  * @author marcia 2005/11/21
  *
@@ -31,11 +31,11 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
     private IEntityMetadata info;
     
     /**
-     * Constrói o conjunto de entidades baseado num conjunto de objetos.
-     * <p> O conjunto original é mantido para que operações de add e remove
+     * ConstrÃ³i o conjunto de entidades baseado num conjunto de objetos.
+     * <p> O conjunto original Ã© mantido para que operaÃ§Ãµes de add e remove
      * sejam refletidas no conjunto original.
-     * <p> A conversão de Objeto para Entitdade é otimizada, pois os metadados
-     * da classe já é indicado, não havendo a busca do mesmo a cada conversão. 
+     * <p> A conversÃ£o de Objeto para Entitdade Ã© otimizada, pois os metadados
+     * da classe jÃ¡ Ã© indicado, nÃ£o havendo a busca do mesmo a cada conversÃ£o. 
      *  
      * @param objectSet Conjunto de objetos, geralmente, persistidos.
      * @param info Metadados da entidade.
@@ -48,7 +48,7 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
 
         this.objectSet = objectSet;
 
-        /* Verifica se a coleção está inicializada ou é nula */
+        /* Verifica se a coleÃ§Ã£o estÃ¡ inicializada ou Ã© nula */
         if(objectSet==null)
         	this.objectSet = new HashSet<T>();
         
@@ -93,8 +93,8 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
     }
     
     /**
-     * Este método retorna um array com os items ordenados pelos
-     * id das entidades. Foi necessário porque a cada conversao de uma
+     * Este mÃ©todo retorna um array com os items ordenados pelos
+     * id das entidades. Foi necessÃ¡rio porque a cada conversao de uma
      * collection para um array, a ordem dos items era indeterminada
      * o que impraticava utilizar este metodo em uma listam de interface, pois
      * os items ficavam mudando de ordem toda hora que a interface era atualizada.
@@ -119,7 +119,7 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
     {
     	set.add(arg0);
 
-    	// Reflete a atual operação no conjunto original
+    	// Reflete a atual operaÃ§Ã£o no conjunto original
        return objectSet.add(arg0.getObject());
     }
 
@@ -127,7 +127,7 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
     {
     	set.remove(arg0);
     	
-        // Reflete a atual operação no conjunto original
+        // Reflete a atual operaÃ§Ã£o no conjunto original
         return objectSet.remove(((IEntity<?>)arg0).getObject());
     }
 
@@ -138,7 +138,7 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
 
     public boolean addAll(Collection<? extends IEntity<T>> arg0)
     {
-        // Reflete a atual operação no conjunto original
+        // Reflete a atual operaÃ§Ã£o no conjunto original
         for(IEntity<T> ent: arg0)
             objectSet.add(ent.getObject());
         
@@ -147,7 +147,7 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
 
     public boolean removeAll(Collection<?> arg0)
     {
-        // Reflete a atual operação no conjunto original
+        // Reflete a atual operaÃ§Ã£o no conjunto original
         for(Object obj: arg0)
             objectSet.remove(((IEntity<?>)obj).getObject());
 
@@ -156,18 +156,18 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
 
     public boolean retainAll(Collection<?> arg0)
     {
-        // Reflete a atual operação no conjunto original
-        Collection<Object> col = new ArrayList<Object>(arg0.size()); // Cria uma coleção
+        // Reflete a atual operaÃ§Ã£o no conjunto original
+        Collection<Object> col = new ArrayList<Object>(arg0.size()); // Cria uma coleÃ§Ã£o
         for(Object obj: arg0)                                        // Adiciona todos os objetos
             col.add(((IEntity<?>)obj).getObject());
-        objectSet.retainAll(col);                                    // Realiza a operação original
+        objectSet.retainAll(col);                                    // Realiza a operaÃ§Ã£o original
 
         return set.retainAll(arg0);
     }
 
     public void clear()
     {
-        // Reflete a atual operação no conjunto original
+        // Reflete a atual operaÃ§Ã£o no conjunto original
         objectSet.clear();
         
         set.clear();
@@ -197,15 +197,15 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
         return new EntitySetIterator(set, this.getObjectSet());
     }
     /**
-     * Esta classe implementa o padrão PROXY que intermedia as operações sobre
-     * um Iterator da lista de entidade para refletir as remoções na lista de objetos.
-     * Ela guarda uma referência para a lista de entidade pai.<br>
-     * Ao ser criada ele cria um iterator da lista de IEntity<T>. Este iterator será 
-     * o original. As operações recebidas serão refletidas nele. Contudo, ao ser
-     * executada uma operação de remoção, esta classe irá refletir a remoção
+     * Esta classe implementa o padrÃ£o PROXY que intermedia as operaÃ§Ãµes sobre
+     * um Iterator da lista de entidade para refletir as remoÃ§Ãµes na lista de objetos.
+     * Ela guarda uma referÃªncia para a lista de entidade pai.<br>
+     * Ao ser criada ele cria um iterator da lista de IEntity<T>. Este iterator serÃ¡ 
+     * o original. As operaÃ§Ãµes recebidas serÃ£o refletidas nele. Contudo, ao ser
+     * executada uma operaÃ§Ã£o de remoÃ§Ã£o, esta classe irÃ¡ refletir a remoÃ§Ã£o
      * na lista original de objetos.<br>
-     * Sem esta classe, uma operação remove() no Iterator da IEntity<T>Set não
-     * é refletida no ObjectSet.
+     * Sem esta classe, uma operaÃ§Ã£o remove() no Iterator da IEntity<T>Set nÃ£o
+     * Ã© refletida no ObjectSet.
      *  
      * @author Lucio 20070911
      */
@@ -224,8 +224,8 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
 		IEntity<T> lastNext = null;
 		public IEntity<T> next()
 		{
-			/* Guarda a referência da última entidade obtida no iterator
-			 * para refletir uma possível operação remove na lista original
+			/* Guarda a referÃªncia da Ãºltima entidade obtida no iterator
+			 * para refletir uma possÃ­vel operaÃ§Ã£o remove na lista original
 			 * de objetos */
 			lastNext = this.iterator.next();
 			
@@ -233,8 +233,8 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
 		}
 
 		/**
-		 * Realiza o operação remove no Iterator original
-		 * e reflete a operação na lista de objetos
+		 * Realiza o operaÃ§Ã£o remove no Iterator original
+		 * e reflete a operaÃ§Ã£o na lista de objetos
 		 */
 		public void remove()
 		{
@@ -258,7 +258,7 @@ public class EntitySet<T> extends EntityCollection<T> implements IEntitySet<T>
     		result += ", ";
     	}
 
-    	/*Retira a última vírgula se existir*/
+    	/*Retira a Ãºltima vÃ­rgula se existir*/
     	result = StringUtils.stripEnd(result, ", ");
 		result += "]"; 
     	return result;

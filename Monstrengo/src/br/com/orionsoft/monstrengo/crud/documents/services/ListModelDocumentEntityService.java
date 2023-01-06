@@ -17,16 +17,16 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * Este serviÁo retorna a lista de modelos de documentos
+ * Este servi√ßo retorna a lista de modelos de documentos
  * para uma determinada entidade.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_ENTITY_TYPE_NAME: Nome do tipo da entidade que ser· usada para pesquisar os modelos de documentos disponÌveis.
- * <br> IN_APPLICATION_USER_OPT: Usu·rio que ser· usada para filtrar a pesquisa de modelos de documentos disponÌveis.
+ * <br> IN_ENTITY_TYPE_NAME: Nome do tipo da entidade que ser√° usada para pesquisar os modelos de documentos dispon√≠veis.
+ * <br> IN_APPLICATION_USER_OPT: Usu√°rio que ser√° usada para filtrar a pesquisa de modelos de documentos dispon√≠veis.
  * 
  * <p><b>Procedimento:</b>
  * <br>Pesquisa no banco todos os modelos de etiquetas para entidade cujo nome da entidade seja igual ao da entidade passada.
- * <br><b>Retorna uma lista de itens de seleÁ„o com o id e nome dos modelos.</b>
+ * <br><b>Retorna uma lista de itens de sele√ß√£o com o id e nome dos modelos.</b>
  * 
  * 
  * @spring.bean id="ListModelDocumentEntityService" init-method="registerService"
@@ -46,7 +46,7 @@ public class ListModelDocumentEntityService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo CreateLabelFromEntityService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo CreateLabelFromEntityService");
             // Pega os argumentos
             String inEntityTypeName = (String) serviceData.getArgumentList().getProperty(IN_ENTITY_TYPE_NAME);
             IEntity<ApplicationUser> inApplicationUser = null;
@@ -81,7 +81,7 @@ public class ListModelDocumentEntityService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

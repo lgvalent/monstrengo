@@ -3,10 +3,10 @@ package br.com.orionsoft.monstrengo.core.process;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
 
 /**
- * Esta interface define os mÈtodos que um process deve ter para que
- * o gerenciador de vis„o consiga descobrir quais processos s„o compatÌveis
- * (ou dependentes) de quais entidades. Possibilitando a geraÁ„o de links nas telas
- * de visualizaÁıes para o acionamento direto de processos.
+ * Esta interface define os m√©todos que um process deve ter para que
+ * o gerenciador de vis√£o consiga descobrir quais processos s√£o compat√≠veis
+ * (ou dependentes) de quais entidades. Possibilitando a gera√ß√£o de links nas telas
+ * de visualiza√ß√µes para o acionamento direto de processos.
  *  
  * @author lucio
  * @version 20140306
@@ -15,13 +15,13 @@ public interface IRunnableEntityCollectionProcess extends IProcess
 {
 	
 	/**
-     * Este mÈtodo possibilita que o processo seja invocado com base 
-     * nos dados de uma lista de inst‚ncia de uma entidade.<br>
-     * Ao implementar este mÈtodo, os processos dever„o verificar o tipo
+     * Este m√©todo possibilita que o processo seja invocado com base 
+     * nos dados de uma lista de inst√¢ncia de uma entidade.<br>
+     * Ao implementar este m√©todo, os processos dever√£o verificar o tipo
      * da entidade que foi fornecido e programar o seu comportamento de acordo
      * com a necessidade do programador.<br>
-     * Caso o processo n„o seja compatÌvel com a entidade fornecida, o mesmo
-     * dever· gerar uma mensagem de incompatibilidade. 
+     * Caso o processo n√£o seja compat√≠vel com a entidade fornecida, o mesmo
+     * dever√° gerar uma mensagem de incompatibilidade. 
      * 
      * @return
      */

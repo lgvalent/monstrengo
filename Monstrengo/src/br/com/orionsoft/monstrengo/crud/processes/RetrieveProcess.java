@@ -10,8 +10,8 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
- * Este processo controla a visualizaÁ„o de uma entidade do sistema.
- * Controlando tambÈm as permissıes.
+ * Este processo controla a visualiza√ß√£o de uma entidade do sistema.
+ * Controlando tamb√©m as permiss√µes.
  * 
  * <p><b>Procedimentos:</b>
  * <br>Definir o tipo da entidade: <i>setEntityType(Class)</i>
@@ -36,7 +36,7 @@ public class RetrieveProcess <T> extends ProcessBasic
     
     public String getProcessName(){return PROCESS_NAME;}
     
-    /** Verifica se o user tem permiss„o de visualizaÁ„o */
+    /** Verifica se o user tem permiss√£o de visualiza√ß√£o */
     public boolean mayView() throws BusinessException
     {
         return UtilsSecurity.checkRightRetrieve(this.getProcessManager().getServiceManager(), this.entityType, this.getUserSession(), null);
@@ -44,11 +44,11 @@ public class RetrieveProcess <T> extends ProcessBasic
     
     /**
      * Obtem a entidade persistida baseado no Tipo e Id fornecidos.
-     * Verifica se a visualizaÁ„o ser· possÌvel, sen„o lanÁa uma exceÁ„o.  
-     * Se a entidade ainda n„o foi obtidade pelo processo, o serviÁo
-     * È excutado e os valores da auditoria s„o preparados.
-     * Caso a entidade j· esteja preparada, ela È retornada. 
-     * @return Uma entidade pronta para a visualizaÁ„o.
+     * Verifica se a visualiza√ß√£o ser√° poss√≠vel, sen√£o lan√ßa uma exce√ß√£o.  
+     * Se a entidade ainda n√£o foi obtidade pelo processo, o servi√ßo
+     * √© excutado e os valores da auditoria s√£o preparados.
+     * Caso a entidade j√° esteja preparada, ela √© retornada. 
+     * @return Uma entidade pronta para a visualiza√ß√£o.
      * @throws BusinessException
      */
     public IEntity<T> retrieveEntity() throws BusinessException
@@ -56,7 +56,7 @@ public class RetrieveProcess <T> extends ProcessBasic
         // Verificar se pode editar a entidade
         if (this.mayView())
         {    
-            // Se ainda n„o est· pronta a entidade, prepara-a
+            // Se ainda n√£o est√° pronta a entidade, prepara-a
             if (entity == null)
             {
                 entity = UtilsCrud.retrieve(this.getProcessManager().getServiceManager(),
@@ -68,7 +68,7 @@ public class RetrieveProcess <T> extends ProcessBasic
             return entity;
         }
 
-        // N„o possui direitos de editar este tipo de entidade
+        // N√£o possui direitos de editar este tipo de entidade
         throw new ProcessException(MessageList.create(RetrieveProcess.class, "RETRIEVE_DENIED", getUserSession().getUserLogin(), this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel() + ":" + this.entityId));
         
     }

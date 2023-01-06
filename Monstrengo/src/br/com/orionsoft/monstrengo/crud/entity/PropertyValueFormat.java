@@ -5,13 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.swing.text.MaskFormatter;
 
 import org.apache.commons.lang.StringUtils;
 
-import br.com.orionsoft.monstrengo.crud.entity.IPropertyValue;
-import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 
 /**
@@ -61,7 +60,7 @@ public class PropertyValueFormat
         String mask = prop.getPropetyOwner().getInfo().getEditMask();
         try
         {
-            /* Cria uma nova inst‚ncia para permitir ter o newValue e oldValue*/
+            /* Cria uma nova inst√¢ncia para permitir ter o newValue e oldValue*/
         	Calendar cal = Calendar.getInstance();
             
             cal.setTime(new SimpleDateFormat(mask).parse(value));
@@ -75,7 +74,29 @@ public class PropertyValueFormat
     }
     
     /**
-     * Seta uma String que contÈm um ou v·rios valores em BigDecimal como um Objeto do tipo BigDecimal.
+     * Seta uma String formatada como data como um Objeto do tipo Calendar.
+     * 
+     * @param prop
+     * @param value - String com o valor a ser transformado
+     * @throws PropertyValueException
+     */
+    private static void stringToDate(IPropertyValue prop, String value) throws PropertyValueException{
+        String mask = prop.getPropetyOwner().getInfo().getEditMask();
+        try
+        {
+            /* Cria uma nova inst√¢ncia para permitir ter o newValue e oldValue*/
+        	Date date = new SimpleDateFormat(mask).parse(value);
+
+            prop.setAsDate(date);
+
+        } catch (ParseException e)
+        {
+            throw new PropertyValueException(MessageList.create(PropertyValueException.class, "INVALID_STRING_VALUE", prop.getAsObject(), mask));
+        }
+    }
+    
+    /**
+     * Seta uma String que cont√©m um ou v√°rios valores em BigDecimal como um Objeto do tipo BigDecimal.
      * 
      * @param prop
      * @param value - String com o valor a ser transformado
@@ -99,7 +120,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * Seta uma String que contÈm um valor boolean como um Objeto do tipo Boolean. 
+     * Seta uma String que cont√©m um valor boolean como um Objeto do tipo Boolean. 
      * 
      * @param prop
      * @param value - String com o valor a ser transformado
@@ -109,11 +130,11 @@ public class PropertyValueFormat
         String mask = prop.getPropetyOwner().getInfo().getEditMask();
         
         try{
-            //se n„o exitir a m·scara, seta o que est· no value
+            //se n√£o exitir a m√°scara, seta o que est√° no value
             if (StringUtils.isEmpty(mask)){
             	prop.setAsBoolean(Boolean.parseBoolean(value));
             }
-            else{ //sen„o usa a m·scara encontrada
+            else{ //sen√£o usa a m√°scara encontrada
                 String[] list = StringUtils.split(mask,",");
                 if (value.equals(list[0])){
                     prop.setAsBoolean(true);
@@ -129,7 +150,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * Seta uma String que contÈm um valor em Double como um objeto do tipo Double.
+     * Seta uma String que cont√©m um valor em Double como um objeto do tipo Double.
      * 
      * @param prop
      * @param value - String com o valor a ser transformado
@@ -145,7 +166,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * Seta uma String que contÈm um valor em Float como um objeto do tipo Float.
+     * Seta uma String que cont√©m um valor em Float como um objeto do tipo Float.
      * 
      * @param prop
      * @param value - String com o valor a ser transformado
@@ -161,7 +182,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * Seta uma String que conttÈm um valor em Long como um Objeto do tipo Long.
+     * Seta uma String que contt√©m um valor em Long como um Objeto do tipo Long.
      * 
      * @param prop
      * @param value - String com o valor a ser transformado
@@ -184,7 +205,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * <p>Este mÈtodo seta uma String que contÈm um valor especÌfico - String, Calendar, BigDecimal, Boolean, Double, Long - 
+     * <p>Este m√©todo seta uma String que cont√©m um valor espec√≠fico - String, Calendar, BigDecimal, Boolean, Double, Long - 
      * com seus respectivos Tipos.
      * 
      * @param prop
@@ -194,8 +215,8 @@ public class PropertyValueFormat
     public static void stringToValue(IPropertyValue prop, String value) throws PropertyValueException{
         try{
             
-            /* Verifica se o valor È nulo para gravar null
-             * E Verifica se È coleÁ„o para limpar a coleÁ„o */
+            /* Verifica se o valor √© nulo para gravar null
+             * E Verifica se √© cole√ß√£o para limpar a cole√ß√£o */
             if (value == null || value.equals("")){
             	if(prop.getPropetyOwner().getInfo().isCollection())
             		if(prop.getPropetyOwner().getInfo().isPrimitive())
@@ -211,6 +232,9 @@ public class PropertyValueFormat
             
             else if(prop.getPropetyOwner().getInfo().isCalendar())
                 stringToCalendar(prop, value);
+            
+            else if(prop.getPropetyOwner().getInfo().isDate())
+                stringToDate(prop, value);
             
             else if(prop.getPropetyOwner().getInfo().isBigDecimal())
                 stringToBigDecimal(prop, value);
@@ -236,7 +260,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * <p>ObtÈm a String correspondente ao Objeto 
+     * <p>Obt√©m a String correspondente ao Objeto 
      * 
      * @param prop
      * @return String correspondente
@@ -261,8 +285,8 @@ public class PropertyValueFormat
     }
     
     /**
-     * <p>ObtÈm uma String com a data (Calendar) correspondente.
-     * <p>Caso a m·scara esteja vazia, uma string vazia ser· retornada
+     * <p>Obt√©m uma String com a data (Calendar) correspondente.
+     * <p>Caso a m√°scara esteja vazia, uma string vazia ser√° retornada
      * pela classe SimpleDateFormat.
      * 
      * @param prop
@@ -274,14 +298,14 @@ public class PropertyValueFormat
     }
     
     /**
-     * <p>ObtÈm uma String com o valor BigDecimal correspondente.
+     * <p>Obt√©m uma String com o valor BigDecimal correspondente.
      * 
      * @param prop
      * @return uma String contendo um valor BigDecimal correspondente.
      * @throws PropertyValueException
      */
     private static String bigDecimalToString(IPropertyValue prop) throws PropertyValueException{
-    	/* Converte uma coleÁ„o de BigDecimal numa String separada por `;` */
+    	/* Converte uma cole√ß√£o de BigDecimal numa String separada por `;` */
     	if(prop.getPropetyOwner().getInfo().isCollection()){
         	Collection<BigDecimal> values =  prop.<BigDecimal>getAsPrimitiveCollection();
         	StringBuffer temp = new StringBuffer();
@@ -304,10 +328,10 @@ public class PropertyValueFormat
     }
     
     /**
-     * <p>ObtÈm um atributo boolean como uma string.
-     * <p>Se n„o houver uma m·scara prÈ-definida para o atributo, obtÈm a lista default,
-     * que contÈm [0]=sim e [1]=n„o.
-     * <p>Caso tambÈm n„o encontre o valor default, atribui ‡ String o valor padr„o do Java,
+     * <p>Obt√©m um atributo boolean como uma string.
+     * <p>Se n√£o houver uma m√°scara pr√©-definida para o atributo, obt√©m a lista default,
+     * que cont√©m [0]=sim e [1]=n√£o.
+     * <p>Caso tamb√©m n√£o encontre o valor default, atribui √† String o valor padr√£o do Java,
      * no caso, true ou false. 
      * 
      * @param prop
@@ -325,7 +349,7 @@ public class PropertyValueFormat
             if (prop.getAsBoolean())
                 return list[0]; //sim
             
-            return list[1]; //n„o
+            return list[1]; //n√£o
         }catch (IndexOutOfBoundsException e) {
             throw new PropertyValueException(MessageList.create(PropertyValueException.class, "INDEX_OUT_OF_RANGE", mask, prop.getPropetyOwner().getInfo().getLabel()));
         }catch (RuntimeException e){
@@ -334,7 +358,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * <p>ObtÈm uma String com o valor Double correspondente.
+     * <p>Obt√©m uma String com o valor Double correspondente.
      * 
      * @param prop
      * @return uma String com o valor Double correspondente.
@@ -350,7 +374,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * <p>ObtÈm uma String com o valor Float correspondente.
+     * <p>Obt√©m uma String com o valor Float correspondente.
      * 
      * @param prop
      * @return uma String com o valor Float correspondente.
@@ -366,7 +390,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * ObtÈm uma String com o valor Long correspondente.
+     * Obt√©m uma String com o valor Long correspondente.
      * 
      * @param prop
      * @return String com valor Long correspondente.
@@ -386,7 +410,7 @@ public class PropertyValueFormat
     }
     
     /**
-     * <p>Este mÈtodo retorna um valor - String, Calendar, BigDecimal, Boolean, Double, Long - 
+     * <p>Este m√©todo retorna um valor - String, Calendar, BigDecimal, Boolean, Double, Long - 
      * convertido em String.
      * 
      * @param prop
@@ -394,7 +418,7 @@ public class PropertyValueFormat
      * @throws PropertyValueException
      */
     public static String valueToString(IPropertyValue prop) throws PropertyValueException{
-        // Verifica se o valor È nulo para retornar uma String vazia
+        // Verifica se o valor √© nulo para retornar uma String vazia
         if (prop.getPropetyOwner().getValue().isValueNull())
             return "";
         

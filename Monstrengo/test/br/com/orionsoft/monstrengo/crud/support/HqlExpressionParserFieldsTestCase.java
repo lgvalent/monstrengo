@@ -24,7 +24,7 @@ public class HqlExpressionParserFieldsTestCase extends ServiceBasicTest{
 	public void testHqlExpressionParserFields(){
 		try
 		{
-			/* Teste apenas para conferir se os parametros estão sendo obtidos de maneira correta */
+			/* Teste apenas para conferir se os parametros estÃ£o sendo obtidos de maneira correta */
 			String expression = "@{Calendar , Data de inicio , 21/10/2007}";
 			System.out.println("==> " + HqlExpressionParserFields.findFields(expression));
 			

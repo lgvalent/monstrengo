@@ -12,15 +12,15 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.entities.RightCrud;
 
 /**
- * ServiÁo para definir o direito de um grupo sobre uma determinada entidade.
- * <br>Os direitos passados como argumentos para o serviÁos s„o opcionais.
- * Somente os direitos passados ser„o alterados pelo serviÁo.
+ * Servi√ßo para definir o direito de um grupo sobre uma determinada entidade.
+ * <br>Os direitos passados como argumentos para o servi√ßos s√£o opcionais.
+ * Somente os direitos passados ser√£o alterados pelo servi√ßo.
  * 
  * <p><b>Procedimento:</b>
- * <br>Tentar obter o Direito j· instanciado.
- * <br>Se n„o conseguir cria um novo Direito.
- * <br>Verifica os direitos que ser„o alterados.
- * <br>Define se os direitos s„o permitidos ou n„o.
+ * <br>Tentar obter o Direito j√° instanciado.
+ * <br>Se n√£o conseguir cria um novo Direito.
+ * <br>Verifica os direitos que ser√£o alterados.
+ * <br>Define se os direitos s√£o permitidos ou n√£o.
  * <br>
  * @author Lucio 26/10/2005
  * @version 26/10/2005
@@ -52,7 +52,7 @@ public class DefineRightCrudService extends ServiceBasic
     {
         try
         {
-            log.debug("Pegando os argumentos do serviÁo");
+            log.debug("Pegando os argumentos do servi√ßo");
             long groupId = (Long) serviceData.getArgumentList().getProperty(GROUP_ID);
             long entityId = (Long) serviceData.getArgumentList().getProperty(ENTITY_ID);
             
@@ -74,7 +74,7 @@ public class DefineRightCrudService extends ServiceBasic
             if (serviceData.getArgumentList().containsProperty(QUERY_ALLOWED)) 
                 queryAllowed = (Boolean) serviceData.getArgumentList().getProperty(QUERY_ALLOWED);
 
-            // TODO IMPLEMENTAR Usar um biblioteca mais eficiente para pesquisas de m˙ltiplas condiÁıes
+            // TODO IMPLEMENTAR Usar um biblioteca mais eficiente para pesquisas de m√∫ltiplas condi√ß√µes
             // Obtem o Direito que se relaciona com o GrupoId e ProcessId indicados
             ServiceData sl = new ServiceData(ListService.SERVICE_NAME, serviceData);
             sl.getArgumentList().setProperty(ListService.CLASS, RightCrud.class);
@@ -83,14 +83,14 @@ public class DefineRightCrudService extends ServiceBasic
             
             IEntityList entCol = (IEntityList) sl.getFirstOutput();
             
-            log.debug("Verificando se o direito j· existe");
+            log.debug("Verificando se o direito j√° existe");
             IEntity right;
             if (entCol.size() == 0)
             {
                 log.debug("Criando um novo direito");
                 right = UtilsCrud.create(this.getServiceManager(), RightCrud.class, serviceData);
                 
-                log.debug("Definindo suas novas propriedades b·sicas");
+                log.debug("Definindo suas novas propriedades b√°sicas");
                 right.getProperty(RightCrud.SECURITY_GROUP).getValue().setId(groupId, serviceData);
                 right.getProperty(RightCrud.APPLICATION_ENTITY).getValue().setId(entityId, serviceData);
             }
@@ -100,7 +100,7 @@ public class DefineRightCrudService extends ServiceBasic
                 right = entCol.get(0);
             }
 
-            log.debug("Definindo os direitos verificando se foi solicitada sua alteraÁ„o"); 
+            log.debug("Definindo os direitos verificando se foi solicitada sua altera√ß√£o"); 
             if (createAllowed != null)
                 right.getProperty(RightCrud.CREATE_ALLOWED).getValue().setAsBoolean(createAllowed);
             if (retrieveAllowed != null)
@@ -116,12 +116,12 @@ public class DefineRightCrudService extends ServiceBasic
             log.debug("Atualizando o direito");
             UtilsCrud.update(this.getServiceManager(), right, serviceData);
             
-//            throw new ServiceException(MessageList.createSingleInternalError(new Exception("TESTE de exceÁao CRUD")));
+//            throw new ServiceException(MessageList.createSingleInternalError(new Exception("TESTE de exce√ßao CRUD")));
             
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

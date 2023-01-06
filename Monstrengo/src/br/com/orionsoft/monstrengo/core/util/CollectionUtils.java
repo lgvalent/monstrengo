@@ -11,16 +11,16 @@ import org.apache.commons.beanutils.PropertyUtils;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 
 /**
- * TODO N√O-UTILIZADO classe n„o utilizada. Verificar a necessidade.
+ * TODO N√ÉO-UTILIZADO classe n√£o utilizada. Verificar a necessidade.
  * @author Marcia
  *
  */
 public class CollectionUtils
 {
     /**
-     * Esse mÈtodo procura um objeto especifico numa coleÁ„o, comparando a propriedade
+     * Esse m√©todo procura um objeto especifico numa cole√ß√£o, comparando a propriedade
      * id desse objeto com o id dos elementos da collection e o remove.
-     * @param col coleÁ„o de objetos a ser analisado
+     * @param col cole√ß√£o de objetos a ser analisado
      * @param obj objeto a ser removido
      * @return 
      */
@@ -48,9 +48,9 @@ public class CollectionUtils
     }
           
     /**
-     * Esse mÈtodo procura um objeto especifico numa coleÁ„o, comparando a propriedade
+     * Esse m√©todo procura um objeto especifico numa cole√ß√£o, comparando a propriedade
      * id desse objeto com o id dos elementos da collection.
-     * @param col coleÁ„o de objetos a ser analisado
+     * @param col cole√ß√£o de objetos a ser analisado
      * @param obj objeto a ser removido
      * @return 
      */

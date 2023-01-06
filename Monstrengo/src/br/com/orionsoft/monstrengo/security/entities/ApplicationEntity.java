@@ -17,10 +17,6 @@ import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import br.com.orionsoft.monstrengo.security.entities.ApplicationEntityProperty;
-import br.com.orionsoft.monstrengo.security.entities.ApplicationEntityPropertyGroup;
-import br.com.orionsoft.monstrengo.security.entities.ApplicationModule;
-
 /**
  * @hibernate.class table="security_entity"
  */
@@ -29,7 +25,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationModule;
 public class ApplicationEntity 
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no cÛdigo e evitar erro de digitaÁ„o. */
+     * serem usadas no c√≥digo e evitar erro de digita√ß√£o. */
     public static final String NAME = "name";
     public static final String LABEL = "label";
     public static final String CLASS_NAME = "className";
@@ -123,7 +119,7 @@ public class ApplicationEntity
      * @hibernate.collection-key foreign-key="applicationEntity"
      * @hibernate.collection-one-to-many class="br.com.orionsoft.monstrengo.security.entities.ApplicationEntityProperty"
      */
-    @Transient //Lucio desativando metadados no bancos, pois ainnda est· IMATURO e deixando lerdo os checkRightsCrud
+    @Transient //Lucio desativando metadados no bancos, pois ainnda est√° IMATURO e deixando lerdo os checkRightsCrud
     @OneToMany
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ForeignKey(name="applicationEntity") 
@@ -137,7 +133,7 @@ public class ApplicationEntity
      * @hibernate.collection-key foreign-key="applicationEntity"
      * @hibernate.collection-one-to-many class="br.com.orionsoft.monstrengo.security.entities.ApplicationEntityPropertyGroup"
      */
-    @Transient //Lucio desativando metadados no bancos, pois ainnda est· IMATURO
+    @Transient //Lucio desativando metadados no bancos, pois ainnda est√° IMATURO
     @OneToMany 
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ForeignKey(name="applicationEntity") 

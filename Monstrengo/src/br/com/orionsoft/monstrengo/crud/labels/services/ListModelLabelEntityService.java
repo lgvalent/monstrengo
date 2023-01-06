@@ -15,15 +15,15 @@ import br.com.orionsoft.monstrengo.crud.labels.entities.ModelLabelEntity;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
 
 /**
- * Este serviÁo retorna a lista de modelos de etiquetas
+ * Este servi√ßo retorna a lista de modelos de etiquetas
  * para uma determinada entidade.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_ENTITY_TYPE_NAME: Nome do tipo da entidade que ser· usada para pesquisar os modelos de etiquestas disponÌveis.
+ * <br> IN_ENTITY_TYPE_NAME: Nome do tipo da entidade que ser√° usada para pesquisar os modelos de etiquestas dispon√≠veis.
  * 
  * <p><b>Procedimento:</b>
  * <br>Pesquisa no banco todos os modelos de etiquetas para entidade cujo nome da entidade seja igual ao da entidade passada.
- * <br><b>Retorna uma lista de itens de seleÁ„o com o id e nome dos modelos.</b>
+ * <br><b>Retorna uma lista de itens de sele√ß√£o com o id e nome dos modelos.</b>
  * 
  * 
  * @spring.bean id="ListModelLabelEntityService" init-method="registerService"
@@ -41,7 +41,7 @@ public class ListModelLabelEntityService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo CreateLabelFromEntityService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo CreateLabelFromEntityService");
             // Pega os argumentos
             String inEntityTypeName = (String) serviceData.getArgumentList().getProperty(IN_ENTITY_TYPE_NAME);
 
@@ -66,7 +66,7 @@ public class ListModelLabelEntityService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

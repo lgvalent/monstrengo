@@ -10,8 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
-
-import br.com.orionsoft.monstrengo.security.entities.ApplicationModule;
 /**
  * @hibernate.class table="security_process"
  */
@@ -20,9 +18,9 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationModule;
 public class ApplicationProcess
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no código e evitar erro de digitação. */
+     * serem usadas no cÃ³digo e evitar erro de digitaÃ§Ã£o. */
     /**
-     * Nome do Processo. Variável do tipo String
+     * Nome do Processo. VariÃ¡vel do tipo String
      */
     public static final String NAME = "name";
     public static final String LABEL = "label";
@@ -30,7 +28,7 @@ public class ApplicationProcess
     public static final String DESCRIPTION = "description";
 
     /**
-     * Módulo ao qual o processo pertence. Variável do tipo br.com.orionsoft.monstrengo.security.entities.ApplicationModule
+     * MÃ³dulo ao qual o processo pertence. VariÃ¡vel do tipo br.com.orionsoft.monstrengo.security.entities.ApplicationModule
      */
     public static final String APPLICATION_MODULE = "applicationModule";
 

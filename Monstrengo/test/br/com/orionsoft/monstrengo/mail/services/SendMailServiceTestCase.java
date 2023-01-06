@@ -14,6 +14,7 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.test.ProcessBasicTest;
 import br.com.orionsoft.monstrengo.core.test.UtilsTest;
+import br.com.orionsoft.monstrengo.core.util.StringUtils;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.processes.CreateProcess;
 import br.com.orionsoft.monstrengo.mail.entities.EmailAccount;
@@ -29,7 +30,18 @@ public class SendMailServiceTestCase extends ProcessBasicTest{
 	 * @param args
 	 */
 	public static void main (String[] args) {
-		junit.textui.TestRunner.run(SendMailServiceTestCase.class);
+		String email = "getSenderMail()";
+		String assunto = "[Empresa com E-Mail inv√°lido ou inexistente] Documento de Cobran√ßa: ";
+			String emailTemp = "lgvalent@gmail.com; teosant73@gmail.com; andreaakimoto@gmail.com".split(";")[0];
+			if(SendMailService.validateEMail(emailTemp)){
+				email = emailTemp;
+				assunto = "Documento de Cobran√ßa: ";
+			}
+		
+		System.out.println(assunto + email);
+		
+		//junit.textui.TestRunner.run(SendMailServiceTestCase.class);
+		
 	}			
 		
 	
@@ -99,7 +111,7 @@ public class SendMailServiceTestCase extends ProcessBasicTest{
 			EmailAccount account = emailAccount.getObject();
 			EmailAccount account1 = createTestMail();
 			
-			/* Este servidor requer autenticaÁ„o. Mas o rafael liberou no Relay o ip da Agile e Uning· */
+			/* Este servidor requer autentica√ß√£o. Mas o rafael liberou no Relay o ip da Agile e Uning√° */
 			account.setUseAsDefault(true);
 			account.setHost(account1.getHost());
 			account.setSenderMail(account1.getSenderMail());
@@ -110,7 +122,7 @@ public class SendMailServiceTestCase extends ProcessBasicTest{
 			process.runUpdate();
 			process.finish();
 			
-			/* Chama o serviÁo sem passar uma conta para que use a marcada como useAsDefault */
+			/* Chama o servi√ßo sem passar uma conta para que use a marcada como useAsDefault */
 			ServiceData service = new ServiceData(SendMailService.SERVICE_NAME, null);
 			service.getArgumentList().setProperty(SendMailService.IN_MESSAGE, "TESTE AGILE");
 			service.getArgumentList().setProperty(SendMailService.IN_RECIPIENT_OPT, "lgvalent@gmail.com");

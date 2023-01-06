@@ -2,8 +2,6 @@ package br.com.orionsoft.monstrengo.security.entities;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
-import br.com.orionsoft.monstrengo.security.entities.UserSession;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoBasic;
@@ -21,8 +19,8 @@ public class ApplicationUserDvo extends DvoBasic<ApplicationUser> {
 	
 	public void afterCreate(IEntity<ApplicationUser> entity, UserSession userSession, ServiceData serviceDataOwner) throws DvoException {
     	/* Define a senha igual ao login novamente.
-    	 * Isto é útil para o cadastro de novos operadores.
-    	 * Os metadados devem alertar o operador desta situação. */
+    	 * Isto Ã© Ãºtil para o cadastro de novos operadores.
+    	 * Os metadados devem alertar o operador desta situaÃ§Ã£o. */
 		ApplicationUser oApplicationUser = entity.getObject();
 		oApplicationUser.setPassword(DigestUtils.md5Hex(oApplicationUser.getLogin()));
 	}

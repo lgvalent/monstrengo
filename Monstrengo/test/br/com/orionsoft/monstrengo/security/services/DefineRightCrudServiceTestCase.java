@@ -17,8 +17,8 @@ import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 import br.com.orionsoft.monstrengo.security.services.DefineRightCrudService;
 
 /**
- * Testa as permissıes de CRUD a partir de um ServiceData e verifica se as mesmas permissıes 
- * que foram setadas est„o gravadas no banco.
+ * Testa as permiss√µes de CRUD a partir de um ServiceData e verifica se as mesmas permiss√µes 
+ * que foram setadas est√£o gravadas no banco.
  *
  */
 public class DefineRightCrudServiceTestCase extends ServiceBasicTest
@@ -42,7 +42,7 @@ public class DefineRightCrudServiceTestCase extends ServiceBasicTest
             IEntityCollection entityCol = UtilsCrud.list(this.serviceManager, ApplicationEntity.class, null);
             IEntity entity = entityCol.getFirst();
             
-            // Testa as permissıes alternadamente true, false, true, false
+            // Testa as permiss√µes alternadamente true, false, true, false
             ServiceData sd = new ServiceData(DefineRightCrudService.SERVICE_NAME, null);
             sd.getArgumentList().setProperty(DefineRightCrudService.GROUP_ID, group.getId());
             sd.getArgumentList().setProperty(DefineRightCrudService.ENTITY_ID, entity.getId());
@@ -52,7 +52,7 @@ public class DefineRightCrudServiceTestCase extends ServiceBasicTest
             sd.getArgumentList().setProperty(DefineRightCrudService.DELETE_ALLOWED, false);
             this.serviceManager.execute(sd);
             
-            // Verifica se est· gravado alternadamente true, false, true, false
+            // Verifica se est√° gravado alternadamente true, false, true, false
             ServiceData sl = new ServiceData(ListService.SERVICE_NAME, null);
             sl.getArgumentList().setProperty(ListService.CLASS, RightCrud.class);
             sl.getArgumentList().setProperty(ListService.CONDITION_OPT_STR,  IDAO.ENTITY_ALIAS_HQL + "." + RightCrud.SECURITY_GROUP + ".id=" + group.getId() + " and " + IDAO.ENTITY_ALIAS_HQL + "." + RightCrud.APPLICATION_ENTITY + ".id=" + entity.getId());
@@ -64,7 +64,7 @@ public class DefineRightCrudServiceTestCase extends ServiceBasicTest
             Assert.assertTrue(rightCrud.getProperty(RightCrud.UPDATE_ALLOWED).getValue().getAsBoolean());
             Assert.assertFalse(rightCrud.getProperty(RightCrud.DELETE_ALLOWED).getValue().getAsBoolean());
             
-            // Testa as permissıes alternadamente false, true, false, true
+            // Testa as permiss√µes alternadamente false, true, false, true
             sd = new ServiceData(DefineRightCrudService.SERVICE_NAME, null);
             sd.getArgumentList().setProperty(DefineRightCrudService.GROUP_ID, group.getId());
             sd.getArgumentList().setProperty(DefineRightCrudService.ENTITY_ID, entity.getId());
@@ -74,7 +74,7 @@ public class DefineRightCrudServiceTestCase extends ServiceBasicTest
             sd.getArgumentList().setProperty(DefineRightCrudService.DELETE_ALLOWED, true);
             this.serviceManager.execute(sd);
             
-            // Verifica se est· gravado alternadamente false, true, false, true
+            // Verifica se est√° gravado alternadamente false, true, false, true
             sl = new ServiceData(ListService.SERVICE_NAME, null);
             sl.getArgumentList().setProperty(ListService.CLASS, RightCrud.class);
             sl.getArgumentList().setProperty(ListService.CONDITION_OPT_STR,  IDAO.ENTITY_ALIAS_HQL + "." + RightCrud.SECURITY_GROUP + ".id=" + group.getId() + " and " + IDAO.ENTITY_ALIAS_HQL + "." + RightCrud.APPLICATION_ENTITY + ".id=" + entity.getId());

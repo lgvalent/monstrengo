@@ -50,13 +50,13 @@ public class EntityManager implements IEntityManager
     public static final String MANAGER_NAME = "EntityManager";
 
     /**
-     * Cache dos metadados de entidades j· instanciados.
+     * Cache dos metadados de entidades j√° instanciados.
      */
     private Map<String, IEntityMetadata> entitiesMetadata = null;
 
     /**
      * Manipulador de metadados instanciado externamente e passado para o
-     * serviÁo.
+     * servi√ßo.
      */
     private IMetadataHandle metadataHandle;
 
@@ -67,12 +67,12 @@ public class EntityManager implements IEntityManager
     private IDvoManager dvoManager;
 
     /**
-     * Este mÈtodo cria uma entidade de negÛcio baseado no objeto fornecido.
+     * Este m√©todo cria uma entidade de neg√≥cio baseado no objeto fornecido.
      *
      * @param object
-     *            Objeto persistido que ser· transformado em uma entidade de
-     *            negÛcio.
-     * @return Retorna uma entidade de negÛcio com seus dados e metadados.
+     *            Objeto persistido que ser√° transformado em uma entidade de
+     *            neg√≥cio.
+     * @return Retorna uma entidade de neg√≥cio com seus dados e metadados.
      */
     public <T> IEntity<T> getEntity(Object object) throws EntityException
     {
@@ -90,8 +90,8 @@ public class EntityManager implements IEntityManager
     }
 
     /**
-     * Este mÈtodo retorna uma inst‚ncia do metadado da classe solicitada. Para
-     * otimizar, ele controla uma cache de metadados j· instanciados.
+     * Este m√©todo retorna uma inst√¢ncia do metadado da classe solicitada. Para
+     * otimizar, ele controla uma cache de metadados j√° instanciados.
      *
      * @return
      */
@@ -117,14 +117,14 @@ public class EntityManager implements IEntityManager
     }
 
     /**
-     * Este mÈtodo retorna uma inst‚ncia do metadado da classe solicitada. Para
-     * otimizar, ele controla uma cache de metadados j· instanciados.
+     * Este m√©todo retorna uma inst√¢ncia do metadado da classe solicitada. Para
+     * otimizar, ele controla uma cache de metadados j√° instanciados.
      * 
      * @return
      */
     public IEntityMetadata getEntityMetadata(Class<?> entityClass) throws EntityException
     {
-        // Tenta pegar uma inst‚ncia no cache
+        // Tenta pegar uma inst√¢ncia no cache
         IEntityMetadata result = this.getEntitiesMetadata().get(entityClass.getSimpleName());
 
         if(result==null)
@@ -135,8 +135,8 @@ public class EntityManager implements IEntityManager
     }
 
     /**
-     * Este mÈtodo retorna uma inst‚ncia do metadado da classe solicitada. Para
-     * otimizar, ele controla uma cache de metadados j· instanciados.
+     * Este m√©todo retorna uma inst√¢ncia do metadado da classe solicitada. Para
+     * otimizar, ele controla uma cache de metadados j√° instanciados.
      *
      * @return
      */
@@ -174,10 +174,10 @@ public class EntityManager implements IEntityManager
     }
     
     /**
-     * Este mÈtodo permite limpar o cache de metadados que È mantido
-     * pelo entity manager. Assim, quando houver alguma alteraÁ„o
-     * dos metados no banco, os mesmos poder„o ser recarregados
-     * utilizando este mÈtodo para limpar as atuais inst‚ncias.
+     * Este m√©todo permite limpar o cache de metadados que √© mantido
+     * pelo entity manager. Assim, quando houver alguma altera√ß√£o
+     * dos metados no banco, os mesmos poder√£o ser recarregados
+     * utilizando este m√©todo para limpar as atuais inst√¢ncias.
      */
     public void refreshEntitiesMetadata(){
     	if(this.entitiesMetadata != null){
@@ -187,13 +187,13 @@ public class EntityManager implements IEntityManager
     }
 
     /**
-     * <p>Este mÈtodo converte uma lista de objetos em uma lista de entidade.
-     * <p>… realizada somente uma busca de metadados para toda a lista.
+     * <p>Este m√©todo converte uma lista de objetos em uma lista de entidade.
+     * <p>√â realizada somente uma busca de metadados para toda a lista.
      *
-     * @param classObj Tipo da classe de objetos que est„o na lista.
-     * @param list Lista de objetos persistidos que ser· transformada em uma lista de entidade de negÛcio.
+     * @param classObj Tipo da classe de objetos que est√£o na lista.
+     * @param list Lista de objetos persistidos que ser√° transformada em uma lista de entidade de neg√≥cio.
      *
-     * @return Retorna uma lista de entidade de negÛcio com seus dados e metadados.
+     * @return Retorna uma lista de entidade de neg√≥cio com seus dados e metadados.
      *
      */
     public <T> IEntityList<T> getEntityList(List<T> list, Class<T> classObj) throws EntityException
@@ -207,7 +207,7 @@ public class EntityManager implements IEntityManager
             IEntityList<T> result = new EntityList<T>(list, entityMetadata, this);
 
             // Converte a lista de objetos para lista de IEntity
-            // !!! A lista È convertida pelo prÛprio objeto EntitySet
+            // !!! A lista √© convertida pelo pr√≥prio objeto EntitySet
             // for(Object obj: list)
             //    result.add(new BusinessEntity(obj, entityMetadata, this));
             // Converte a lista de objetos para lista de IEntity
@@ -223,13 +223,13 @@ public class EntityManager implements IEntityManager
     }
 
     /**
-     * <p>Este mÈtodo converte um conjunto de objetos em um cojunto de entidade.
-     * <p>… realizada somente uma busca de metadados para toda o conjunto.
+     * <p>Este m√©todo converte um conjunto de objetos em um cojunto de entidade.
+     * <p>√â realizada somente uma busca de metadados para toda o conjunto.
      *
-     * @param classObj Tipo da classe de objetos que est„o na lista.
-     * @param set Lista de objetos persistidos que ser· transformada em uma lista de entidade de negÛcio.
+     * @param classObj Tipo da classe de objetos que est√£o na lista.
+     * @param set Lista de objetos persistidos que ser√° transformada em uma lista de entidade de neg√≥cio.
      *
-     * @return Retorna uma lista de entidade de negÛcio com seus dados e metadados.
+     * @return Retorna uma lista de entidade de neg√≥cio com seus dados e metadados.
      *
      */
     public <T> IEntitySet<T> getEntitySet(Set<T> set, Class<T> classObj) throws EntityException
@@ -243,7 +243,7 @@ public class EntityManager implements IEntityManager
             IEntitySet<T> result = new EntitySet<T>(set, entityMetadata, this);
 
             // Converte a lista de objetos para lista de IEntity
-            // !!! A lista È convertida pelo prÛprio objeto EntitySet
+            // !!! A lista √© convertida pelo pr√≥prio objeto EntitySet
             // for(Object obj: set)
             //    result.add(new BusinessEntity(obj, entityMetadata, this));
 
@@ -269,19 +269,19 @@ public class EntityManager implements IEntityManager
 	public List<SelectItem> getEntitySelectItems(Class<?> classObj, String hqlWhereExp) throws EntityException {
 		List<SelectItem> result;
 		try {
-			/* Tenta definir uma ordem padr„o */
+			/* Tenta definir uma ordem padr√£o */
 			IEntityMetadata entMeta = this.getEntityMetadata(classObj);
 
-			// Obtem uma lista de entidades atravÈs do ListService da entidade
+			// Obtem uma lista de entidades atrav√©s do ListService da entidade
 			ServiceData listData = new ServiceData(ListService.SERVICE_NAME, null);
 			listData.getArgumentList().setProperty(ListService.CLASS, classObj);
 
-			/* Verificando se a propriedade n„o È uma collection */
+			/* Verificando se a propriedade n√£o √© uma collection */
 			IPropertyMetadata[] props = entMeta.getProperties();
 			int index = 0;
 			do{index++;}while(props[index].isCollection() && (index<props.length));
 			
-			/* Verifica se o while parou por n„o ter achado uma propriedade e define a .id como padr„o */
+			/* Verifica se o while parou por n√£o ter achado uma propriedade e define a .id como padr√£o */
 			if((index==props.length)) index = entMeta.getPropertyMetadata(IDAO.PROPERTY_ID_NAME).getIndex();
 				
 			/* Ordena pela segunda propriedade da classe */
@@ -306,7 +306,7 @@ public class EntityManager implements IEntityManager
 			/* Nao pode inserir um item vazio, porque senao darah a impressao
 			 * de que a lista achou algum item valido. Assim, ao verificar se a
 			 * lista stah vazia sempre havera um item, porem invalido  - Lucio 08/05/2007 */
-//			/* verifica se o resultado est· vazio para adicionar um item vazio*/
+//			/* verifica se o resultado est√° vazio para adicionar um item vazio*/
 //			if(result.isEmpty())
 //				result.add( new SelectItem(IDAO.ENTITY_UNSAVED, ""));
 
@@ -319,21 +319,21 @@ public class EntityManager implements IEntityManager
 	public List<SelectItem> queryEntitySelectItems(Class<?> classObj, String filter, int maxResult) throws EntityException {
 		List<SelectItem> result;
 		try {
-			/* Tenta definir uma ordem padr„o */
+			/* Tenta definir uma ordem padr√£o */
 			IEntityMetadata entMeta = this.getEntityMetadata(classObj);
 
-			// Obtem uma lista de entidades atravÈs do ListService da entidade
+			// Obtem uma lista de entidades atrav√©s do ListService da entidade
 			ServiceData queryData = new ServiceData(QueryService.SERVICE_NAME, null);
 			queryData.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, classObj);
 			queryData.getArgumentList().setProperty(QueryService.IN_QUERY_FILTER, filter);
 			queryData.getArgumentList().setProperty(QueryService.IN_MAX_RESULT_OPT, maxResult);
 
-			/* Verificando se a propriedade n„o È uma collection */
+			/* Verificando se a propriedade n√£o √© uma collection */
 			IPropertyMetadata[] props = entMeta.getProperties();
 			int index = 0;
 			do{index++;}while(props[index].isCollection() && (index<props.length));
 			
-			/* Verifica se o while parou por n„o ter achado uma propriedade e define a .id como padr„o */
+			/* Verifica se o while parou por n√£o ter achado uma propriedade e define a .id como padr√£o */
 			if((index==props.length)) index = entMeta.getPropertyMetadata(IDAO.PROPERTY_ID_NAME).getIndex();
 				
 			/* Ordena pela segunda propriedade da classe */
@@ -358,22 +358,22 @@ public class EntityManager implements IEntityManager
 	public IEntityList<?> queryEntities(Class<?> classObj, String filter, String staticHqlWhereFilter, int maxResult) throws EntityException {
 		IEntityList<?> result;
 		try {
-			/* Tenta definir uma ordem padr„o */
+			/* Tenta definir uma ordem padr√£o */
 			IEntityMetadata entMeta = this.getEntityMetadata(classObj);
 
-			// Obtem uma lista de entidades atravÈs do ListService da entidade
+			// Obtem uma lista de entidades atrav√©s do ListService da entidade
 			ServiceData queryData = new ServiceData(QueryService.SERVICE_NAME, null);
 			queryData.getArgumentList().setProperty(QueryService.IN_ENTITY_TYPE, classObj);
 			queryData.getArgumentList().setProperty(QueryService.IN_QUERY_FILTER, filter);
 			queryData.getArgumentList().setProperty(QueryService.IN_QUERY_HQLWHERE, staticHqlWhereFilter);
 			queryData.getArgumentList().setProperty(QueryService.IN_MAX_RESULT_OPT, maxResult);
 
-			/* Verificando se a propriedade n„o È uma collection */
+			/* Verificando se a propriedade n√£o √© uma collection */
 			IPropertyMetadata[] props = entMeta.getProperties();
 			int index = 0;
 			do{index++;}while(props[index].isCollection() && (index<props.length));
 			
-			/* Verifica se o while parou por n„o ter achado uma propriedade e define a .id como padr„o */
+			/* Verifica se o while parou por n√£o ter achado uma propriedade e define a .id como padr√£o */
 			if((index==props.length)) index = entMeta.getPropertyMetadata(IDAO.PROPERTY_ID_NAME).getIndex();
 				
 			/* Ordena pela segunda propriedade da classe */

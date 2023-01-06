@@ -13,8 +13,8 @@ import br.com.orionsoft.monstrengo.security.services.CreateSecurityStructureServ
 
 
 /**
- * Esta classe cria as diversas entidades do mÛdulo para que os testes do mÛdulo
- * possam ser executados sobre dados v·lidos.
+ * Esta classe cria as diversas entidades do m√≥dulo para que os testes do m√≥dulo
+ * possam ser executados sobre dados v√°lidos.
  * 
  * @author lucio 20070910
  *
@@ -29,7 +29,7 @@ public class PopularTabelas extends ServiceBasicTest {
 	 */
 	public static void main(String[] args) throws InitializationError
 	{
-//		new TestClassRunner(PopularTabelas.class).run(new RunNotifier());
+		junit.textui.TestRunner.run(PopularTabelas.class);
 	}
 	
 	@Before
@@ -44,10 +44,10 @@ public class PopularTabelas extends ServiceBasicTest {
 	
 	@Test
 	public void popular() throws ServiceException {
-        /* Um ProcessManager È utilizado para obter todos os processos disponÌveis no sistema atual */
+        /* Um ProcessManager √© utilizado para obter todos os processos dispon√≠veis no sistema atual */
 		IProcessManager processManager = (ProcessManager)ctx.getBean("ProcessManager");
 		
-        // Cria a estrutura b·sica da aplicaÁ„o para o admin
+        // Cria a estrutura b√°sica da aplica√ß√£o para o admin
         ServiceData sd = new ServiceData(CreateSecurityStructureService.SERVICE_NAME, null);
         sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_USER_LOGIN, "admin");
         sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_GROUP_NAME, "admin");
@@ -60,7 +60,7 @@ public class PopularTabelas extends ServiceBasicTest {
         	throw new ServiceException(sd.getMessageList());
         }
 
-        // Cria a estrutura b·sica da aplicaÁ„o para o user padr„o
+        // Cria a estrutura b√°sica da aplica√ß√£o para o user padr√£o
         sd = new ServiceData(CreateSecurityStructureService.SERVICE_NAME, null);
         sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_USER_LOGIN, "user");
         sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_GROUP_NAME, "user");

@@ -10,7 +10,7 @@ import br.com.orionsoft.monstrengo.crud.processes.CreateProcess;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * Esta classe testa se o usu·rio tem direito de criar tal entidade.  
+ * Esta classe testa se o usu√°rio tem direito de criar tal entidade.  
  * 
  * @author estagio
  * 
@@ -24,7 +24,7 @@ public class CreateProcessTestCase extends ProcessBasicTest
     }
 
     /**
-     * Este mÈtodo testa o caminho normal se todos os dados
+     * Este m√©todo testa o caminho normal se todos os dados
      * estiverem corretos.
      */
     public void testRunCreate()
@@ -50,7 +50,7 @@ public class CreateProcessTestCase extends ProcessBasicTest
             
             IEntity entity = createUsr1.retrieveEntity();
             
-            System.out.println(":Mostra antes da ediÁ„o");
+            System.out.println(":Mostra antes da edi√ß√£o");
             UtilsTest.showEntityProperties(entity);
 
             System.out.println(":Alterando alguma coisa com user1");
@@ -59,7 +59,7 @@ public class CreateProcessTestCase extends ProcessBasicTest
             System.out.println("OK para user1");
 
             if (createUsr1.runUpdate()){
-            	// Pega os valores anteriores ‡ ediÁ„o e grava-os novamente
+            	// Pega os valores anteriores √† edi√ß√£o e grava-os novamente
                 System.out.println(entity.getProperty(ApplicationUser.LOGIN).getValue().getOldValue());
             	entity.setPropertyValue(ApplicationUser.LOGIN, (entity.getProperty(ApplicationUser.LOGIN).getValue().getOldValue()));
             	System.out.println("OK");
@@ -74,7 +74,7 @@ public class CreateProcessTestCase extends ProcessBasicTest
 
             Assert.assertTrue(false);
         }
-//      n„o È possÌvel deletar usu·rio, pois est· vinculado ao registro (deletar direto do banco) 
+//      n√£o √© poss√≠vel deletar usu√°rio, pois est√° vinculado ao registro (deletar direto do banco) 
 //      finally{
 //      BasicStructureRigth.destroyRigths();
 //      }

@@ -34,29 +34,29 @@ public class DocumentParserTestCase extends ServiceBasicTest{
 			String str = "#{ApplicationUser[?].id} - #{ApplicationUser[?].name}";
 			System.out.println("==> " + DocumentParserCrudExpression.parseString(str, mapEntities, this.serviceManager.getEntityManager()));
 			
-			str = "Olá Sr.(a) #{ApplicationUser[?].name}, seu identificador é #{ApplicationUser[?].id}.";
+			str = "OlÃ¡ Sr.(a) #{ApplicationUser[?].name}, seu identificador Ã© #{ApplicationUser[?].id}.";
 			System.out.println("==> " + DocumentParserCrudExpression.parseString(str, mapEntities, this.serviceManager.getEntityManager()));
 
-			str = "Olá Sr.(a) #{ApplicationUser[?].name}, seu identificador está correto.";
+			str = "OlÃ¡ Sr.(a) #{ApplicationUser[?].name}, seu identificador estÃ¡ correto.";
 			System.out.println("==> " + DocumentParserCrudExpression.parseString(str, mapEntities, this.serviceManager.getEntityManager()));
 
-			str = "Olá Sr.(a).";
+			str = "OlÃ¡ Sr.(a).";
 			System.out.println("==> " + DocumentParserCrudExpression.parseString(str, mapEntities, this.serviceManager.getEntityManager()));
 
 			str = "";
 			System.out.println("==> " + DocumentParserCrudExpression.parseString(str, mapEntities, this.serviceManager.getEntityManager()));
 
-			str = "Olá Sr.(a) #{ApplicationUser[?].name}, hoje é dia #{now(dd 'de' MMMM 'de' yyyy)}.";
+			str = "OlÃ¡ Sr.(a) #{ApplicationUser[?].name}, hoje Ã© dia #{now(dd 'de' MMMM 'de' yyyy)}.";
 			System.out.println("==> " + DocumentParserCrudExpression.parseString(str, mapEntities, this.serviceManager.getEntityManager()));
 
-			/*	Expressão nao finalizada, porem interpreta todo o resto "name, seu identificador é #{ApplicationUser[?]"
-			 *  como o nome de uma propriedade não encontrada, entao retorna uma string vazia e dá um erro silencioso  (log.info)
+			/*	ExpressÃ£o nao finalizada, porem interpreta todo o resto "name, seu identificador Ã© #{ApplicationUser[?]"
+			 *  como o nome de uma propriedade nÃ£o encontrada, entao retorna uma string vazia e dÃ¡ um erro silencioso  (log.info)
 			 *  de propriedade nao encontrada */
-			str = "Olá Sr.(a) #{ApplicationUser[?].name}, seu identificador é #{ApplicationUser[?].id}.";
+			str = "OlÃ¡ Sr.(a) #{ApplicationUser[?].name}, seu identificador Ã© #{ApplicationUser[?].id}.";
 			System.out.println(DocumentParserCrudExpression.parseString(str, mapEntities, this.serviceManager.getEntityManager()));
 			
-			/*	Testa a recursividade de expressões #{ApplicationUser[ApplicationGroup[1].id]}" */
-			str = "Olá Sr.(a) #{ApplicationUser[SecurityGroup[1].id].name}.";
+			/*	Testa a recursividade de expressÃµes #{ApplicationUser[ApplicationGroup[1].id]}" */
+			str = "OlÃ¡ Sr.(a) #{ApplicationUser[SecurityGroup[1].id].name}.";
 			System.out.println(DocumentParserCrudExpression.parseString(str, mapEntities, this.serviceManager.getEntityManager()));
 			
 		} catch (BusinessException e)
@@ -76,19 +76,19 @@ public class DocumentParserTestCase extends ServiceBasicTest{
 			String str = "#{ApplicationUser[?].id} - \n #{ApplicationUser[?].name}";
 //			System.out.println("==> " + str + "\n==>"+ DocumentParserCrudExpression.parseDocument(new ByteArrayInputStream(str.getBytes()), mapEntities, this.serviceManager.getEntityManager()));
 
-			str = "Olá Sr.(a) #{ApplicationUser[?].name}, seu identificador é #{ApplicationUser[?].id}.";
+			str = "OlÃ¡ Sr.(a) #{ApplicationUser[?].name}, seu identificador Ã© #{ApplicationUser[?].id}.";
 			System.out.println("==> " + str + "\n==>"+ DocumentParserCrudExpression.parseDocument(new ByteArrayInputStream(str.getBytes()), mapEntities, this.serviceManager.getEntityManager()));
 
-			str = "Olá Sr.(a) #{ApplicationUser[?].name}, seu identificador está correto.";
+			str = "OlÃ¡ Sr.(a) #{ApplicationUser[?].name}, seu identificador estÃ¡ correto.";
 			System.out.println("==> " + str + "\n==>"+ DocumentParserCrudExpression.parseDocument(new ByteArrayInputStream(str.getBytes()), mapEntities, this.serviceManager.getEntityManager()));
 
-			str = "Olá Sr.(a).";
+			str = "OlÃ¡ Sr.(a).";
 			System.out.println("==> " + str + "\n==>"+ DocumentParserCrudExpression.parseDocument(new ByteArrayInputStream(str.getBytes()), mapEntities, this.serviceManager.getEntityManager()));
 
 			str = "";
 			System.out.println("==> " + DocumentParserCrudExpression.parseDocument(new ByteArrayInputStream(str.getBytes()), mapEntities, this.serviceManager.getEntityManager()));
 
-			str = "Olá Sr.(a) #{ApplicationUser[?].name}, hoje é dia #{now(dd 'de' MMMM 'de' yyyy)}.";
+			str = "OlÃ¡ Sr.(a) #{ApplicationUser[?].name}, hoje Ã© dia #{now(dd 'de' MMMM 'de' yyyy)}.";
 			System.out.println("==> " + DocumentParserCrudExpression.parseDocument(new ByteArrayInputStream(str.getBytes()), mapEntities, this.serviceManager.getEntityManager()));
 
 		} catch (BusinessException e)

@@ -22,12 +22,12 @@ import br.com.orionsoft.monstrengo.security.services.ChangePasswordService;
  * <p><b>Procedimentos:</b>
  * <br>Definir o login: <i>setLogin(String)</i>
  * <br>Definir o novo password: <i>setNewPassword(String)</i>
- * <br>Definir a confirmaÁ„o do novo password: <i>setConfirmNewPassword(String)</i>
- * <br>Executar o mÈtodo <i>runOverwrite()</i>.
- * <br>Se o mÈtodo concluir com sucesso:
- * <li>A senha estar· alterada e j· valendo para a prÛxima autenticaÁ„o. 
- * <br>Sen„o:
- * <li>O erro È fornecido por <i>getErroList</i>.</b> 
+ * <br>Definir a confirma√ß√£o do novo password: <i>setConfirmNewPassword(String)</i>
+ * <br>Executar o m√©todo <i>runOverwrite()</i>.
+ * <br>Se o m√©todo concluir com sucesso:
+ * <li>A senha estar√° alterada e j√° valendo para a pr√≥xima autentica√ß√£o. 
+ * <br>Sen√£o:
+ * <li>O erro √© fornecido por <i>getErroList</i>.</b> 
  * 
  * @author Lucio 
  * @version 20060511
@@ -35,7 +35,7 @@ import br.com.orionsoft.monstrengo.security.services.ChangePasswordService;
  * @spring.bean id="OverwritePasswordProcess" destroy-method="finish" singleton="false"
  * @spring.property name="processManager" ref="ProcessManager"
  */
-@ProcessMetadata(label="Redefinir a senha de um operador", hint="Permite redefinir a senha de um operador sem conhecer a sua atual senha", description="Permite redefinir a senha de um operador sem conhecer a sua atual senha. ⁄til para os administradores redefinirem a senha esquecida de um operador")
+@ProcessMetadata(label="Redefinir a senha de um operador", hint="Permite redefinir a senha de um operador sem conhecer a sua atual senha", description="Permite redefinir a senha de um operador sem conhecer a sua atual senha. √ötil para os administradores redefinirem a senha esquecida de um operador")
 public class OverwritePasswordProcess extends ProcessBasic implements IRunnableEntityProcess
 {
     public static final String PROCESS_NAME = "OverwritePasswordProcess";
@@ -61,11 +61,11 @@ public class OverwritePasswordProcess extends ProcessBasic implements IRunnableE
 
         try
         {
-        	/* Verifica se o novo password e sua confirmaÁ„o batem */
+        	/* Verifica se o novo password e sua confirma√ß√£o batem */
         	if(!newPassword.equals(confirmNewPassword))
         		throw new ProcessException(MessageList.create(ChangePasswordProcess.class, "ERROR_CONFIRM_PASSWORD"));
         	
-            // Executar o serviÁo de autenticaÁ„o
+            // Executar o servi√ßo de autentica√ß√£o
             ServiceData sd = new ServiceData(ChangePasswordService.SERVICE_NAME, null);
             sd.getArgumentList().setProperty(ChangePasswordService.IN_LOGIN, login);
             sd.getArgumentList().setProperty(ChangePasswordService.IN_NEW_PASSWORD, newPassword);
@@ -97,7 +97,7 @@ public class OverwritePasswordProcess extends ProcessBasic implements IRunnableE
 
         boolean result = false;
 		
-		/* Verifica se a entidade È compatÌvel */
+		/* Verifica se a entidade √© compat√≠vel */
 		if(entity.getInfo().getType() == ApplicationUser.class){
 			try {
 				this.login = entity.getProperty(ApplicationUser.LOGIN).getValue().getAsString();

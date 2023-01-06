@@ -20,7 +20,7 @@ public class UtilsCrudTestCase extends ServiceBasicTest
     }
 
     /**
-     * Testa os mÈtodos do UtilsCrud que pega objetos e n„o IEntity
+     * Testa os m√©todos do UtilsCrud que pega objetos e n√£o IEntity
      */
     @Test
     public void testCrudObject()

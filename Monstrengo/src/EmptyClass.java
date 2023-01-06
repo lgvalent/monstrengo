@@ -1,7 +1,7 @@
 
 /**
  * Esta classe foi criada para facilitar a importacao do projeto pelo 
- * Poseidon que espera um classe na raiz para importar os subdiretórios 
+ * Poseidon que espera um classe na raiz para importar os subdiretÃ³rios 
  * 
  * @author estagio
  *

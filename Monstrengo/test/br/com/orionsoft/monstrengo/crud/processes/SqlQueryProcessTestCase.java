@@ -30,7 +30,7 @@ public class SqlQueryProcessTestCase extends ProcessBasicTest
 	}
 	
 	/**
-	 * Este mÈtodo testa o caminho normal se todos os dados
+	 * Este m√©todo testa o caminho normal se todos os dados
 	 * estiverem corretos.
 	 */
 	@Test
@@ -45,7 +45,7 @@ public class SqlQueryProcessTestCase extends ProcessBasicTest
 			System.out.println(":Preparando o processo");
 			SqlQueryProcess queryProcess = (SqlQueryProcess) processManager.createProcessByName(SqlQueryProcess.PROCESS_NAME, this.getAdminSession());
 			
-			System.out.println(":Mostrando histÛrico anterior do operador");
+			System.out.println(":Mostrando hist√≥rico anterior do operador");
 			for(IEntity<AuditProcessRegister> h: queryProcess.getHistoryList()){
 				System.out.println("==>" + h.toString());
 			}
@@ -54,7 +54,7 @@ public class SqlQueryProcessTestCase extends ProcessBasicTest
 			
 			queryProcess.runQuery();
 			
-			Assert.assertFalse("Alguns usu·rios deveriam ser exibidos", queryProcess.getRowsFetched()==0);
+			Assert.assertFalse("Alguns usu√°rios deveriam ser exibidos", queryProcess.getRowsFetched()==0);
 			
 			System.out.println("Registros selecionados:" + queryProcess.getRowsFetched());
 			System.out.println("Dados:" + queryProcess.getRowsFetched());

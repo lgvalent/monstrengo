@@ -23,10 +23,10 @@ public class ProcessBasicTest extends ApplicationBasicTest
     protected ProcessManager processManager;
     
     /**
-     * Mantem uma sess·o autenticada do operador admin e user.<br>
+     * Mantem uma sess√°o autenticada do operador admin e user.<br>
      * admin: com direito a tudo;
      * user: com direitos restritos;
-     * … necess·rio que hajam estes operadores cadastrados no
+     * √â necess√°rio que hajam estes operadores cadastrados no
      * banco.
      * @since 20060417
      */
@@ -46,7 +46,7 @@ public class ProcessBasicTest extends ApplicationBasicTest
         super.setUp();
         processManager = (ProcessManager)ctx.getBean("ProcessManager");
         
-        /* Prepara a estrutura b·sica de operador */
+        /* Prepara a estrutura b√°sica de operador */
 		//autenticando usuario (admin com senha admin)
 		System.out.println("Autenticando usuario admin");
 		AuthenticateProcess authProc = (AuthenticateProcess) processManager.createProcessByName(AuthenticateProcess.PROCESS_NAME, null);
@@ -81,20 +81,20 @@ public class ProcessBasicTest extends ApplicationBasicTest
 	public UserSession getUserSession(){return userSession;}
     
     public void runManageSecurityStructure() throws ServiceException{
-        // Cria a estrutura b·sica da aplicaÁ„o
+        // Cria a estrutura b√°sica da aplica√ß√£o
         ServiceData sd = new ServiceData(ManageSecurityStructureService.SERVICE_NAME, null);
         this.processManager.getServiceManager().execute(sd);
     }
 
     /**
-     * Este mÈtodo cria/mantem duas estruturas de direitos:<br>
+     * Este m√©todo cria/mantem duas estruturas de direitos:<br>
      * 1-Administrador (admin): Com todos os direitos.<br>
-     * 2-Usu·rio padr„o (user): Com nenhum direito para acessos.<br>
-     * Estas estruturas poder„o utilizadas na execuÁ„o dos testes.<br>
-     * Utilize o mÈtodo this.getAdminSession() ou this.getUserSession();
+     * 2-Usu√°rio padr√£o (user): Com nenhum direito para acessos.<br>
+     * Estas estruturas poder√£o utilizadas na execu√ß√£o dos testes.<br>
+     * Utilize o m√©todo this.getAdminSession() ou this.getUserSession();
      */
     public void runCreateSecurityStructure() throws ServiceException{
-        // Cria a estrutura b·sica da aplicaÁ„o para o admin
+        // Cria a estrutura b√°sica da aplica√ß√£o para o admin
         ServiceData sd = new ServiceData(CreateSecurityStructureService.SERVICE_NAME, null);
         sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_USER_LOGIN, USER_1);
         sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_GROUP_NAME, USER_1);
@@ -102,7 +102,7 @@ public class ProcessBasicTest extends ApplicationBasicTest
 		sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_PROCESS_MANAGER, this.processManager);
         this.processManager.getServiceManager().execute(sd);
 
-        // Cria a estrutura b·sica da aplicaÁ„o para o user padr„o
+        // Cria a estrutura b√°sica da aplica√ß√£o para o user padr√£o
         sd = new ServiceData(CreateSecurityStructureService.SERVICE_NAME, null);
         sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_USER_LOGIN, USER_2);
         sd.getArgumentList().setProperty(CreateSecurityStructureService.IN_GROUP_NAME, USER_2);

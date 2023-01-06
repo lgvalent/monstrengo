@@ -20,7 +20,7 @@ import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 
 /**
- * ServiÁo de criaÁ„o de uma nova entidade.
+ * Servi√ßo de cria√ß√£o de uma nova entidade.
  * 
  * <p><b>Argumento:</b>
  * <br> IN_CLASS: A classe da entidade a ser criada.
@@ -29,7 +29,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
  * <br>Obtem o Dao da classe solicitada.
  * <br>Solicita ao Dao que crie um novo objeto do mesmo tipo.
  * <br>Converte o objeto em uma entidade.
- * <br>Preence os valores padrıes baseado nos metadados da entidade.
+ * <br>Preence os valores padr√µes baseado nos metadados da entidade.
  * <br><b>Retorna uma nova entidade;</b>
  * 
  * 
@@ -47,7 +47,7 @@ public class CreateService extends ServiceBasic {
 
     public void execute(ServiceData serviceData) throws ServiceException 
     {
-        log.debug("Iniciando execuÁ„o do servico CreateService");
+        log.debug("Iniciando execu√ß√£o do servico CreateService");
         try
         {
             // Pega os argumentos
@@ -57,13 +57,13 @@ public class CreateService extends ServiceBasic {
             if(serviceData.getArgumentList().containsProperty(IN_ENTITY_COPY_ID_OPT))
             	inEntityCopyId = (Long) serviceData.getArgumentList().getProperty(IN_ENTITY_COPY_ID_OPT);
 
-            log.debug("Verificando se a entidade È abstrata");
+            log.debug("Verificando se a entidade √© abstrata");
             if(Modifier.isAbstract(inEntityType.getModifiers()))
                 throw new ServiceException(MessageList.create(CreateService.class, "ERROR_ABSTRACT_CLASS", inEntityType.getSimpleName()));
 
-//          Cria uma inst‚ncia do objeto Java pelo DAO respons·vel
+//          Cria uma inst√¢ncia do objeto Java pelo DAO respons√°vel
             if (log.isDebugEnabled())
-                log.debug("Obtendo o dao correspondente ‡ entidade" + inEntityType);
+                log.debug("Obtendo o dao correspondente √† entidade" + inEntityType);
             
             IDAO<?> dao = this.getServiceManager().getEntityManager().getDaoManager().getDaoByEntity(inEntityType);
             
@@ -74,24 +74,24 @@ public class CreateService extends ServiceBasic {
             IEntity<?> result = this.getServiceManager().getEntityManager().getEntity(object);
             
             if(log.isDebugEnabled())
-            	log.debug("Prepearando a entidade de cÛpia: " + inEntityType.getName() + "[" + inEntityCopyId +"]");
-            /* Prepara uma entidade de cÛpia caso exista, para se caso n„o haver um
-             * valor padr„o, o valor da cÛpia seja utilizado */
+            	log.debug("Prepearando a entidade de c√≥pia: " + inEntityType.getName() + "[" + inEntityCopyId +"]");
+            /* Prepara uma entidade de c√≥pia caso exista, para se caso n√£o haver um
+             * valor padr√£o, o valor da c√≥pia seja utilizado */
 			IEntity<?> entityCopy = inEntityCopyId==null?null:UtilsCrud.retrieve(this.getServiceManager(), inEntityType, inEntityCopyId, serviceData);
             
             
-            log.debug("Percorrendo as propriedades da nova entidade para preencher o valor padr„o ou de cÛpia");
+            log.debug("Percorrendo as propriedades da nova entidade para preencher o valor padr√£o ou de c√≥pia");
             // Obtem o valor padrao de cada propriedade da entidade
-            // Ou se tiver uma entidade para copiar, efetua a cÛpia
+            // Ou se tiver uma entidade para copiar, efetua a c√≥pia
             for (IProperty prop : result.getProperties()){
             	
-            	/* N„o define valor padr„o para propriedades Calculadas */
+            	/* N√£o define valor padr√£o para propriedades Calculadas */
             	if(!prop.getInfo().isCalculated() && !prop.getInfo().isReadOnly()){
-            		/* Verifica se existe algum valor padr„o definido
-            		 * O valor padr„o sobrepıe a propriedade isOneToOne para n„o criar uma entidade */
+            		/* Verifica se existe algum valor padr√£o definido
+            		 * O valor padr√£o sobrep√µe a propriedade isOneToOne para n√£o criar uma entidade */
             		if(!StringUtils.isEmpty(prop.getInfo().getDefaultValue())){
-                		/* TODO IMPLEMENTAR Definir funÁıes b·sica 
-                		 *       para valores padrıes como:
+                		/* TODO IMPLEMENTAR Definir fun√ß√µes b√°sica 
+                		 *       para valores padr√µes como:
                 		 *       nowCalendar(): para pegar a data atual;
                 		 *       nowDate():
                 		 *       nowTime():
@@ -99,7 +99,7 @@ public class CreateService extends ServiceBasic {
             			try{
             				String defaultValue = prop.getInfo().getDefaultValue();
             				Object defaultObject = null;
-            				/*Trata valor padr„o para propriedades IEntity */
+            				/*Trata valor padr√£o para propriedades IEntity */
             				if(prop.getInfo().isEntity()){
             					try{
             						long entityId = Long.parseLong(defaultValue);
@@ -126,9 +126,9 @@ public class CreateService extends ServiceBasic {
             						defaultObject = CalendarUtils.getCalendarTime();
             				}
             				
-            				/* Verifica se o objeto padr„o foi tratado para setar
-            				 * como AsObject e evitar problemas de formataÁ„o 
-            				 * com o mÈtodo AsString */
+            				/* Verifica se o objeto padr√£o foi tratado para setar
+            				 * como AsObject e evitar problemas de formata√ß√£o 
+            				 * com o m√©todo AsString */
             				if(defaultObject != null)
             					prop.getValue().setAsObject(defaultObject);
             				else
@@ -141,13 +141,13 @@ public class CreateService extends ServiceBasic {
             			}
 
             		}else
-                		/* N„o h· um valor padr„o definido para a propriedade.
-                		 * Copia o valor da entidade cÛpia se esta foi informada.
+                		/* N√£o h√° um valor padr√£o definido para a propriedade.
+                		 * Copia o valor da entidade c√≥pia se esta foi informada.
                 		 */
                 		if(entityCopy!=null && prop.getValue().isValueNull())
                 			prop.getValue().setAsObject(entityCopy.getPropertyValue(prop.getInfo().getName()));
 
-            			/* Verifica se È um relacionamento EditShowEmbedded para j· criar a entidade dependente */
+            			/* Verifica se √© um relacionamento EditShowEmbedded para j√° criar a entidade dependente */
             			if(prop.getInfo().isEntity()&&prop.getInfo().isEditShowEmbedded()&&!prop.getInfo().isCollection()){
             				/* Criando a nova entidade */
             				IEntity<?> entityEmbedded = UtilsCrud.create(this.getServiceManager(), prop.getInfo().getType(), serviceData);
@@ -155,7 +155,7 @@ public class CreateService extends ServiceBasic {
         					prop.getValue().setAsEntity(entityEmbedded);
             			}
             		
-       				/* Default value n„o caracteriza uma modificaÁ„o! */
+       				/* Default value n√£o caracteriza uma modifica√ß√£o! */
             		prop.getValue().setModified(false);
             	}
             }
@@ -165,7 +165,7 @@ public class CreateService extends ServiceBasic {
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

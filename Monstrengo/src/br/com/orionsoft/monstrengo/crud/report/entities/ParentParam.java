@@ -10,8 +10,8 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
- * Esta classe È respons·vel pela manipulaÁ„o dos par‚metros aceitos
- * pelas requisiÁıes que definem uma entidade pai.
+ * Esta classe √© respons√°vel pela manipula√ß√£o dos par√¢metros aceitos
+ * pelas requisi√ß√µes que definem uma entidade pai.
  * 
  * @author 20060315
  */
@@ -22,7 +22,7 @@ public class ParentParam extends ReportParam
 		super(userReport);
 	}
 
-	/** Par‚metros get/set */
+	/** Par√¢metros get/set */
     private Class<?> type;
     private long id = -1;
     private String property;

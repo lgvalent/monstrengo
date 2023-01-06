@@ -13,10 +13,10 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationProcess;
 
 /**
  * Esta classe realiza testes sobre o ServiceManager.
- * Alguns erros s„o simulados para testar as caracterÌsticas Commit e Rollback.
- * ObservaÁ„o: Propriedades com Cascade habilitado n„o poder„o 
- * ser testadas, pois o erro de relacionamento n„o persistido n„o
- * acontecer·. 
+ * Alguns erros s√£o simulados para testar as caracter√≠sticas Commit e Rollback.
+ * Observa√ß√£o: Propriedades com Cascade habilitado n√£o poder√£o 
+ * ser testadas, pois o erro de relacionamento n√£o persistido n√£o
+ * acontecer√°. 
  * 
  * @author estagio 2006/01/02
  *
@@ -34,14 +34,14 @@ public class ServiceManagerTestCase extends ServiceBasicTest
     {
         try
         {
-            System.out.println(":Cria objetos com referÍncias n„o persistidas.");
+            System.out.println(":Cria objetos com refer√™ncias n√£o persistidas.");
             IEntity process = UtilsCrud.create(serviceManager, ApplicationProcess.class, null);
 
             IEntity module = UtilsCrud.create(serviceManager, ApplicationModule.class, null);
             
             process.setPropertyValue(ApplicationProcess.APPLICATION_MODULE,module);
             
-            System.out.println(":Tentando persistir uma entidade com uma referÍncia n„o persistida.");
+            System.out.println(":Tentando persistir uma entidade com uma refer√™ncia n√£o persistida.");
             UtilsCrud.update(serviceManager, process, null);
             
             Assert.assertTrue(false);

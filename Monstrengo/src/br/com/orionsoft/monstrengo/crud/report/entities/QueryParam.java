@@ -22,8 +22,8 @@ import br.com.orionsoft.monstrengo.crud.services.Operator;
 import br.com.orionsoft.monstrengo.crud.services.QueryCondiction;
 
 /**
- * Esta classe mantem os par‚metros de criaÁ„o de
- * condiÁıes que ser„o utilizados pelo processo de pesquisa.
+ * Esta classe mantem os par√¢metros de cria√ß√£o de
+ * condi√ß√µes que ser√£o utilizados pelo processo de pesquisa.
  * @author Lucio 20060328
  */
 public class QueryParam extends ReportParam
@@ -51,10 +51,10 @@ public class QueryParam extends ReportParam
 	}
 	
 	/**
-	 * Este mÈtodo recebe um conjunto de beans para serem aplicados 
-	 * como atuais par‚metros.
-	 * Primeiro È feita uma limpeza dos dados atuais internos do Param
-	 * Depois os dados dos Bean s„o importados para dentro dos dados do Param. 
+	 * Este m√©todo recebe um conjunto de beans para serem aplicados 
+	 * como atuais par√¢metros.
+	 * Primeiro √© feita uma limpeza dos dados atuais internos do Param
+	 * Depois os dados dos Bean s√£o importados para dentro dos dados do Param. 
 	 * @param queryCondictionBean
 	 * @throws BusinessException 
 	 */
@@ -74,7 +74,7 @@ public class QueryParam extends ReportParam
 				this.newCondiction.setValue2(bean.getValue2());
 				this.newCondiction.setPropertyPath(bean.getPropertyPath());
 				
-				/* Adiciona a condiÁ„o na lista */
+				/* Adiciona a condi√ß√£o na lista */
 				this.addNewCondiction();
 			}
 		}
@@ -106,18 +106,18 @@ public class QueryParam extends ReportParam
 	public QueryCondiction getNewCondiction() {return newCondiction;}
 	
 	public void addNewCondiction() throws BusinessException{
-		/*Adicionando a nova condiÁ„o preenchida na lista de condiÁıes */
+		/*Adicionando a nova condi√ß√£o preenchida na lista de condi√ß√µes */
 		this.condictions.add(this.newCondiction);
 		 
-		/* Guarda o ponteiro para a condiÁ„o que ser· subtituÌda
+		/* Guarda o ponteiro para a condi√ß√£o que ser√° subtitu√≠da
 		 * para posteriormente copiar as propriedades dela para 
-		 * a nova condiÁ„o */
+		 * a nova condi√ß√£o */
 		QueryCondiction oldCondiction = this.newCondiction; 
 
-		/*Limpando a nova condiÁ„o para esperar por novos par„metros */
+		/*Limpando a nova condi√ß√£o para esperar por novos par√£metros */
 		this.newCondiction = new QueryCondiction(this.getUserReport().getEntityManager(), this.getUserReport().getEntityType());
 		
-		/* Copia as propriedades da condiÁao anterior para a
+		/* Copia as propriedades da condi√ßao anterior para a
 		 * que foi criada logo acima */
 		this.newCondiction.setInitOperator(oldCondiction.getInitOperator());
 		this.newCondiction.setPropertyPath(oldCondiction.getPropertyPath());
@@ -146,7 +146,7 @@ public class QueryParam extends ReportParam
 	}
 	
 	/**
-	 * Este protetor È necess·rio porque uma entidade A pode referenciar uma entidade B, 
+	 * Este protetor √© necess√°rio porque uma entidade A pode referenciar uma entidade B, 
 	 * que por sua vez, possui uma referencia pra A. 
 	 */
 	private Map<String, Integer> deadLockProtect = new HashMap<String, Integer>();
@@ -162,7 +162,7 @@ public class QueryParam extends ReportParam
 					/* Limpa o protetor de over flow*/
 					deadLockProtect.clear();
 					
-					/* Adiciona a entidade atual na lista de proteÁ„o de overflowa */
+					/* Adiciona a entidade atual na lista de prote√ß√£o de overflowa */
 					deadLockProtect.put(this.getUserReport().getEntityType().getSimpleName()+propInfo.getName(), 0);
 					
 					/* Constroi o caminho para a propriedae atual */
@@ -170,7 +170,7 @@ public class QueryParam extends ReportParam
 				}
 			}
 
-			/* Reordena a lista por ordem alfabÈtica */
+			/* Reordena a lista por ordem alfab√©tica */
 			Collections.<SelectItem>sort(listPropertyPathBuffer, new Comparator<SelectItem>(){
 				public int compare(SelectItem o1, SelectItem o2) {
 					return o1.getLabel().compareTo(o2.getLabel());
@@ -181,7 +181,7 @@ public class QueryParam extends ReportParam
 	}
 		
 	private void buildPropertyPath(List<SelectItem> list,IPropertyMetadata  propInfo, String actualPath, String actualLabel,Integer stackLevelId) throws EntityException{
-		/* Coloca o separador entre as propriedades se n„o for a primeira */
+		/* Coloca o separador entre as propriedades se n√£o for a primeira */
 		if(!actualPath.equals(""))
 			actualPath += IDAO.PROPERTY_SEPARATOR;
 		actualPath += propInfo.getName();
@@ -192,20 +192,20 @@ public class QueryParam extends ReportParam
 		/* Adiciona a atual propriedade na lista de resultados */
 		list.add(new SelectItem(actualPath, actualLabel));
 		
-		/* Verifica se atual propriedade È uma subClass para buscar suas subPropriedades */
+		/* Verifica se atual propriedade √© uma subClass para buscar suas subPropriedades */
 		if(propInfo.isEntity()){
 			/* Obtem os metadados da entidade corrente */
 			IEntityMetadata entInfo = this.getUserReport().getEntityManager().getEntityMetadata(propInfo.getType());
 			
 			/* Obtem os metadados da entidade referenciada pela propriedade e
-			 * ConstrÛi o caminho (PropertyPath) de navagaÁ„o entre as propriedades RECURSIVAMENTE */
+			 * Constr√≥i o caminho (PropertyPath) de navaga√ß√£o entre as propriedades RECURSIVAMENTE */
 			for(IPropertyMetadata propInfo_: entInfo.getProperties()){
-				/* Verifica no protetor de workflow se esta entidade j· foi referenciada
-				 * em un nÌvel anterior ao atual. Pois entidades no mesmo nÌvel, ou posterioir, poder·o ser
+				/* Verifica no protetor de workflow se esta entidade j√° foi referenciada
+				 * em un n√≠vel anterior ao atual. Pois entidades no mesmo n√≠vel, ou posterioir, poder√°o ser
 				 * referenciadas */
 				Integer stackItem = deadLockProtect.get(entInfo.getType().getSimpleName()+propInfo_.getName()); 
 				if((stackItem == null) || (stackItem.compareTo(stackLevelId)>-1)){
-					/* Adiciona a entidade atual na lista de proteÁ„o de overflowa */
+					/* Adiciona a entidade atual na lista de prote√ß√£o de overflowa */
 					deadLockProtect.put(entInfo.getType().getSimpleName()+propInfo_.getName(), stackLevelId);
 					
 					if(QueryCondiction.checkVersionSupport(propInfo_))

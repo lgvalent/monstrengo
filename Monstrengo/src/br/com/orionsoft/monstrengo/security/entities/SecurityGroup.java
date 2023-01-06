@@ -21,10 +21,6 @@ import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
-import br.com.orionsoft.monstrengo.security.entities.RightCrud;
-import br.com.orionsoft.monstrengo.security.entities.RightProcess;
-
 /**
  * @hibernate.class table="security_group"
  */
@@ -33,7 +29,7 @@ import br.com.orionsoft.monstrengo.security.entities.RightProcess;
 public class SecurityGroup 
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no código e evitar erro de digitação. */
+     * serem usadas no cÃ³digo e evitar erro de digitaÃ§Ã£o. */
     /** String contendo o nome do grupo*/
     public static final String NAME = "name"; 
     /** Collection de elementos do tipo user pertencentes ao grupo*/

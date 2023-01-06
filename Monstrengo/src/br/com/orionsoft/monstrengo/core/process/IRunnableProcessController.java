@@ -7,16 +7,16 @@ import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
 /**
- * Esta interface È b·sica para todos os controladores de processos.
- * Esta interface define os mÈtodos b·sico que um process deve ter para que
- * o gerenciador de vis„o consiga descobrir quais processos s„o compatÌveis
- * (ou dependentes) de quais entidades. Possibilitando a geraÁ„o de links nas telas
- * de visualizaÁıes para o acionamento direto de processos.
- * TODO IMPLEMENTACAO Seria interessante que os processos tivessem algum mÈtodo que 
+ * Esta interface √© b√°sica para todos os controladores de processos.
+ * Esta interface define os m√©todos b√°sico que um process deve ter para que
+ * o gerenciador de vis√£o consiga descobrir quais processos s√£o compat√≠veis
+ * (ou dependentes) de quais entidades. Possibilitando a gera√ß√£o de links nas telas
+ * de visualiza√ß√µes para o acionamento direto de processos.
+ * TODO IMPLEMENTACAO Seria interessante que os processos tivessem algum m√©todo que 
  * verificasse.
- * TODO IMPLEMENTACAO Os processos CRUD poderia tambÈm utilizar esta interface. no entanto
- * eles seriam aplic·veis a todas as entidades. Exemplo: RUNNABLE_ENTITIES = {AllRunnableEntities.class}
- * Esta class AllRunnableEntities.class seria somente uma classe de par‚metro. :)  
+ * TODO IMPLEMENTACAO Os processos CRUD poderia tamb√©m utilizar esta interface. no entanto
+ * eles seriam aplic√°veis a todas as entidades. Exemplo: RUNNABLE_ENTITIES = {AllRunnableEntities.class}
+ * Esta class AllRunnableEntities.class seria somente uma classe de par√¢metro. :)  
  *  
  * @author lucio
  * @version 20140306
@@ -25,21 +25,21 @@ public interface IRunnableProcessController
 {
 	
     /**
-     * Algumas vezes, apesar de uma entidade ser compatÌvel com um processo, os atuais
-     * dados da entidade podem impedir que um processo seja aplicado ‡ ela.<br>
-     * <b>Como por exemplo:</b> Um processo GerarMensalidadeProcess n„o pode ser
-     * aplicado ‡ um contrato que esteja inativo.<br>
-     * Para executar um determinado processo È necess·rio que ele seja 
-     * compatÌvel com a entidade e que os dados atuais da entidade possibilitem 
-     * sua execuÁ„o. Assim, este mÈtodo deve ser implementado por todo processo que 
-     * analisa se uma entidade pode ou n„o ser utilizada por ele.
+     * Algumas vezes, apesar de uma entidade ser compat√≠vel com um processo, os atuais
+     * dados da entidade podem impedir que um processo seja aplicado √† ela.<br>
+     * <b>Como por exemplo:</b> Um processo GerarMensalidadeProcess n√£o pode ser
+     * aplicado √† um contrato que esteja inativo.<br>
+     * Para executar um determinado processo √© necess√°rio que ele seja 
+     * compat√≠vel com a entidade e que os dados atuais da entidade possibilitem 
+     * sua execu√ß√£o. Assim, este m√©todo deve ser implementado por todo processo que 
+     * analisa se uma entidade pode ou n√£o ser utilizada por ele.
      * 
-     * @return Se os atuais dados forem compatÌveis com o proceso È retornado <b>true</b>, sen„o <b>false</b>. 
+     * @return Se os atuais dados forem compat√≠veis com o proceso √© retornado <b>true</b>, sen√£o <b>false</b>. 
      */
 	public boolean canRunWithEntity(IEntity<?> entity) throws ProcessException;
 	
 	/**
-	 * Permite obter uma descriÁ„o do "Por que" que o mÈtodo canRunWithEntity n„o pode
+	 * Permite obter uma descri√ß√£o do "Por que" que o m√©todo canRunWithEntity n√£o pode
 	 * ser executado. 
 	 * @return
 	 */
@@ -51,7 +51,7 @@ public interface IRunnableProcessController
 	public boolean isHasMessage();
 	
 	/**
-	 * Obtem uma referÍncia do IProcessManager que gerencia este controller.
+	 * Obtem uma refer√™ncia do IProcessManager que gerencia este controller.
 	 */
 	public IProcessManager getProcessManager();
 	public void setProcessManager(IProcessManager processManager);

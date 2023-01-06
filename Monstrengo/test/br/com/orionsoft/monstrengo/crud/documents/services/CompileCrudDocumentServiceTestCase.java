@@ -38,7 +38,7 @@ public class CompileCrudDocumentServiceTestCase extends ServiceBasicTest
             labelEntity.setPropertyValue(ModelDocumentEntity.NAME, "LabelTest");
             labelEntity.setPropertyValue(ModelDocumentEntity.DESCRIPTION, "Primeiro teste de ModelDocumentEntity");
             labelEntity.setPropertyValue(ModelDocumentEntity.APPLICATION_ENTITY, appEntity);
-            labelEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Nome do usu·rio: #{ApplicationUser[?].name}");
+            labelEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Nome do usu√°rio: #{ApplicationUser[?].name}");
             
             ServiceData serviceData = new ServiceData(CompileCrudDocumentService.SERVICE_NAME, null);
             serviceData.getArgumentList().setProperty(CompileCrudDocumentService.IN_MODEL_DOCUMENT_ENTITY, labelEntity);

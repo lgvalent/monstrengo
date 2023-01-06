@@ -14,9 +14,9 @@ import br.com.orionsoft.monstrengo.crud.support.HqlExpressionParserFields;
 import br.com.orionsoft.monstrengo.crud.support.HqlExpressionParserFields.HqlExpressionField;
 
 /**
- * Esta classe mantem uma express„o HQLWhere 
+ * Esta classe mantem uma express√£o HQLWhere 
  * que pode ser usada na pesquisa
- * Durante a persistencia deste par‚metros È utilizado uma propriedade
+ * Durante a persistencia deste par√¢metros √© utilizado uma propriedade
  * diretamente do UserReportBean
  * 
  * @author Lucio 
@@ -29,8 +29,8 @@ public class HqlWhereParam extends ReportParam
     
     public String getHqlWhere(){return hqlWhere;}
     public void setHqlWhere(String hqlWhere){
-    	/* Cada vez que a express„o mudar, o mapa de campos dever· ser
-    	 * reconstruÌdo */
+    	/* Cada vez que a express√£o mudar, o mapa de campos dever√° ser
+    	 * reconstru√≠do */
     	if(!StringUtils.equals(this.hqlWhere, hqlWhere)){
     		this.hqlWhere = hqlWhere;
     		hqlFieldsMap = null;
@@ -43,11 +43,11 @@ public class HqlWhereParam extends ReportParam
     
     public Map<String, HqlExpressionField> getHqlFieldsMap() throws BusinessException
 	{
-    	/* Verifica se o mapa È nulo, pois se for, a express„o 
-    	 * dever· ser analisada e atraves do findFields, os campos
-    	 * ser„o procurados e o mapa ser· construido. Por limitaÁıes da interface.
-    	 * os elementos do mapa È acessados e alterados atravÈs de uma lista
-    	 * que È construÌda aqui tb */
+    	/* Verifica se o mapa √© nulo, pois se for, a express√£o 
+    	 * dever√° ser analisada e atraves do findFields, os campos
+    	 * ser√£o procurados e o mapa ser√° construido. Por limita√ß√µes da interface.
+    	 * os elementos do mapa √© acessados e alterados atrav√©s de uma lista
+    	 * que √© constru√≠da aqui tb */
     	if(hqlFieldsMap == null){
     		hqlFieldsMap  = HqlExpressionParserFields.findFields(hqlWhere);
     		
@@ -61,12 +61,12 @@ public class HqlWhereParam extends ReportParam
 	}
 
 	/**
-	 * Lista para facilitar o acesso e alteraÁ„o dos elementos do mapa na interface.
-	 * Esta lista È manutenida pelo mÈtodo getHqlFieldsMap().
+	 * Lista para facilitar o acesso e altera√ß√£o dos elementos do mapa na interface.
+	 * Esta lista √© manutenida pelo m√©todo getHqlFieldsMap().
 	 */
     public List<HqlExpressionField> hqlFieldsList = new ArrayList<HqlExpressionField>();
     public List<HqlExpressionField> getHqlFieldsList() throws BusinessException{
-    	/* Verifica se o mapa È nulo e a lista precisa ser RECONSTRUIDA */
+    	/* Verifica se o mapa √© nulo e a lista precisa ser RECONSTRUIDA */
     	if(hqlFieldsMap == null)
     		getHqlFieldsMap();
     	

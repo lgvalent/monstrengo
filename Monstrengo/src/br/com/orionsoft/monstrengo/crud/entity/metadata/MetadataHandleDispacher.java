@@ -97,7 +97,7 @@ public class MetadataHandleDispacher implements IMetadataHandle
 	public boolean getEntityCanRetrieve() throws MetadataException {
 		return getHandle().getEntityCanRetrieve();
 	}
-    /* Estes métodos permitem a injeção pelo Spring dos HandlesVerdadeiros */
+    /* Estes mÃ©todos permitem a injeÃ§Ã£o pelo Spring dos HandlesVerdadeiros */
 	
 	public boolean getEntityCanUpdate() throws MetadataException {
 		return getHandle().getEntityCanUpdate();

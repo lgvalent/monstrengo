@@ -11,10 +11,10 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IProperty;
 
 /**
- * Esta classe manipula a lÛgica de um valor de auditoria.
+ * Esta classe manipula a l√≥gica de um valor de auditoria.
  * A classe analisa as propriedades de uma entidade para armazenar
- * os valores de comparaÁ„o que ser„o utilizados no final processo para auditar
- * as alteraÁıes ocorridas na entidade.
+ * os valores de compara√ß√£o que ser√£o utilizados no final processo para auditar
+ * as altera√ß√µes ocorridas na entidade.
  * 
  * @author Lucio 2005/11/25
  *
@@ -26,28 +26,28 @@ public class EntityAuditValue
     private Map<String, PropertyAuditValue> propertiesAuditValues=null;
 
     /**
-     * ConstrÛi um valor para ser auditado posteriormente.
-     * @param prop Propriedades que ser· auditada.
+     * Constr√≥i um valor para ser auditado posteriormente.
+     * @param prop Propriedades que ser√° auditada.
      * @throws BusinessException
      */
     public EntityAuditValue(IEntity entity) throws BusinessException
     {
-        // Armazena qual a entidade que ser· monitorada para a auditoria
+        // Armazena qual a entidade que ser√° monitorada para a auditoria
         this.entity = entity;
       
-        // Analisa o valor atual e armazena para posterior comparaÁ„o e
-        // detecÁ„o de alteraÁıes
+        // Analisa o valor atual e armazena para posterior compara√ß√£o e
+        // detec√ß√£o de altera√ß√µes
         this.prepareAuditValues();
       
     }
     /**
-     * Este mÈtodo analisa a entidade e solicita a cada propriedade 
-     * que construa sua descriÁ„o de auditoria caso tenha ocorrido alguma
-     * alteraÁ„o.
+     * Este m√©todo analisa a entidade e solicita a cada propriedade 
+     * que construa sua descri√ß√£o de auditoria caso tenha ocorrido alguma
+     * altera√ß√£o.
      *  
-     * @return Um string descrevendo as alteraÁıes ocorridas na entidade. 
-     *         <p>Exemplo: nome_propriedade_n„o_numÈrica='valor_anterior';
-     *         nome_propriedade_numÈrica=valor_anterior;
+     * @return Um string descrevendo as altera√ß√µes ocorridas na entidade. 
+     *         <p>Exemplo: nome_propriedade_n√£o_num√©rica='valor_anterior';
+     *         nome_propriedade_num√©rica=valor_anterior;
      *         nome_propriedade_entidade.id=antigo_id;
      *         nome_propriedade_entidades.id=+[ids_adicionados]-[ids_removidos];  
      * @throws BusinessException 
@@ -60,13 +60,13 @@ public class EntityAuditValue
             // Compara os dois mapas para cada propriedade
             for(PropertyAuditValue prop: propertiesAuditValues.values())
             {
-                // Pega a descriÁ„o da alteraÁ„o da propriedade corrente
+                // Pega a descri√ß√£o da altera√ß√£o da propriedade corrente
                 String propAudit = prop.retrieveAuditDescriptionIfChanged();
                 
-                // Verifica se foi retornada alguma alteraÁ„o na propriedade
+                // Verifica se foi retornada alguma altera√ß√£o na propriedade
                 if (propAudit != null)
                 {
-                    // Adiciona a alteraÁ„o na descriÁ„o geral
+                    // Adiciona a altera√ß√£o na descri√ß√£o geral
                     result += propAudit + "; ";
                 }
             }
@@ -82,7 +82,7 @@ public class EntityAuditValue
 
     
     /**
-     * Este mÈtodo prepara as propriedades a serem auditadas.
+     * Este m√©todo prepara as propriedades a serem auditadas.
      * @throws BusinessException 
      */
     private void prepareAuditValues() throws BusinessException
@@ -107,7 +107,7 @@ public class EntityAuditValue
     
     }
 	/**
-	 * Permite ter acesso a entidade que È referenciada
+	 * Permite ter acesso a entidade que √© referenciada
 	 * @version Lucio 20090114 
 	 * @return
 	 */

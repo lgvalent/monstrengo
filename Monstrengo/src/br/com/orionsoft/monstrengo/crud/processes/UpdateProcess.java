@@ -18,15 +18,15 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
- * Este processo controla a ediÁ„o de uma entidade do sistema.
+ * Este processo controla a edi√ß√£o de uma entidade do sistema.
  * 
  * <p><b>Procedimentos:</b>
  * <br>Definir o tipo da entidade: <i>setEntityType(Class)</i>
  * <br>Definir o id da entidade: <i>setEntityId(long)</i>
  * <br>Verificar se a entidade pode ser editada: <i>boolean mayEdit()</i>
  * <br>Obter a entidade por <i>(IEntity) retrieveEntity()</i>.
- * <li>Realizar ediÁıes pela interface com o usu·rio.
- * <br>Gravar as alteraÁıes por <i>runUpdate()</i>.
+ * <li>Realizar edi√ß√µes pela interface com o usu√°rio.
+ * <br>Gravar as altera√ß√µes por <i>runUpdate()</i>.
  * 
  * @author Lucio 2005/09/30
  * @version 20060322
@@ -55,7 +55,7 @@ public class UpdateProcess <T> extends ProcessBasic
 
         try
         {
-            // depois que o operador concluiu a alteraÁao, solicita a validacao pelo DVO
+            // depois que o operador concluiu a altera√ßao, solicita a validacao pelo DVO
             if(this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().contains(entity))
             	this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterUpdate(entity, this.getUserSession(), null);
 
@@ -64,7 +64,7 @@ public class UpdateProcess <T> extends ProcessBasic
                              entity, 
                              null);
             
-            // Registra a auditoria da atualizaÁ„o
+            // Registra a auditoria da atualiza√ß√£o
             UtilsAuditorship.auditUpdate(this.getProcessManager().getServiceManager(), 
                                          this.getUserSession(),
                                          this.entityAuditValue, null);
@@ -92,7 +92,7 @@ public class UpdateProcess <T> extends ProcessBasic
         }
     }
 
-    // Verifica se o user tem permiss„o de ediÁ„o.
+    // Verifica se o user tem permiss√£o de edi√ß√£o.
     public boolean mayEdit() throws BusinessException
     {
         return UtilsSecurity.checkRightUpdate(this.getProcessManager().getServiceManager(), this.entityType, this.getUserSession(), null);
@@ -100,11 +100,11 @@ public class UpdateProcess <T> extends ProcessBasic
     
     /**
      * Obtem a entidade persistida baseado no Tipo e Id fornecidos.
-     * Verifica se a ediÁ„o ser· possÌvel, sen„o lanÁa uma exceÁ„o.  
-     * Se a entidade ainda n„o foi obtidade pelo processo, o serviÁo
-     * È excutado e os valores da auditoria s„o preparados.
-     * Caso a entidade j· esteja preparada, ela È retornada. 
-     * @return Uma entidade pronta para a ediÁ„o.
+     * Verifica se a edi√ß√£o ser√° poss√≠vel, sen√£o lan√ßa uma exce√ß√£o.  
+     * Se a entidade ainda n√£o foi obtidade pelo processo, o servi√ßo
+     * √© excutado e os valores da auditoria s√£o preparados.
+     * Caso a entidade j√° esteja preparada, ela √© retornada. 
+     * @return Uma entidade pronta para a edi√ß√£o.
      * @throws BusinessException
      */
     public IEntity<T> retrieveEntity() throws BusinessException
@@ -112,34 +112,34 @@ public class UpdateProcess <T> extends ProcessBasic
         // Verificar se pode editar a entidade
         if (this.mayEdit())
         {    
-            // Se ainda n„o est· pronta a entidade, prepara-a
+            // Se ainda n√£o est√° pronta a entidade, prepara-a
             if (entity == null)
             {
-            	// Cria uma entidade tempor·ria para ser validade pelo dvo
+            	// Cria uma entidade tempor√°ria para ser validade pelo dvo
             	IEntity<T> entityTemp = UtilsCrud.retrieve(this.getProcessManager().getServiceManager(),
                                             entityType,
                                             entityId, 
                                             null);
             	
-            	// Se houver algum problema, uma exceÁ„o ser· levantada aqui
+            	// Se houver algum problema, uma exce√ß√£o ser√° levantada aqui
             	if(this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().contains(entityTemp))
             		this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entityTemp).beforeUpdate(entityTemp, this.getUserSession(), null);
             	
-            	// Se nada aconteceu, È porque est· tudo OK e a entidade poder· prosseguir para sua exclus„o.
+            	// Se nada aconteceu, √© porque est√° tudo OK e a entidade poder√° prosseguir para sua exclus√£o.
             	entity = entityTemp;
                 
                 // Prepara a descricao inicial da auditoria para
-                // verificar o que ser· alterado
+                // verificar o que ser√° alterado
                 this.entityAuditValue = new EntityAuditValue(entity);
                 /* Lucio 22/11/06
                  * Verifica as propriedades oneToOne:
-                 *  1: podem estar nulas porque n„o foram cadastradas ainda
+                 *  1: podem estar nulas porque n√£o foram cadastradas ainda
                  *  2: preparar os valores da auditoria */
                 this.entityOneToOnePropertiesAuditValue = new ArrayList<EntityAuditValue>();
                 Collection<IProperty> col = entity.getPropertiesMap().values();
                 for(IProperty prop: col){
                 	if(prop.getInfo().isEntity()&&prop.getInfo().isEditShowEmbedded()&&!prop.getInfo().isCollection()){
-                		/* Verifica se a propriedade oneToOne È nula para cri·-la antes da auditoria */
+                		/* Verifica se a propriedade oneToOne √© nula para cri√°-la antes da auditoria */
                 		if(prop.getValue().isValueNull()){
                 			/* Criando a nova entidade */
                 			IEntity<?> entityOneToOne = UtilsCrud.create(this.getProcessManager().getServiceManager(), prop.getInfo().getType(), null);
@@ -151,7 +151,7 @@ public class UpdateProcess <T> extends ProcessBasic
                 		this.entityOneToOnePropertiesAuditValue.add(new EntityAuditValue(prop.getValue().getAsEntity()));
                 	}
 
-                	/* Lucio 20120821: Por padr„o, dos as entidades vem isSelected(), este trecho desmarca todas para que o operador
+                	/* Lucio 20120821: Por padr√£o, dos as entidades vem isSelected(), este trecho desmarca todas para que o operador
                 	 * marque as que ele deseja agir */
                 	if(prop.getInfo().isEntity()&&prop.getInfo().isCollection()){
                 		for(IEntity<?> entity:prop.getValue().getAsEntityCollection()){
@@ -164,14 +164,14 @@ public class UpdateProcess <T> extends ProcessBasic
             return entity;
         }
 
-        // N„o possui direitos de editar este tipo de entidade
+        // N√£o possui direitos de editar este tipo de entidade
         throw new ProcessException(MessageList.create(UpdateProcess.class, "UPDATE_DENIED", getUserSession().getUserLogin(), this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel() + ":" + this.entityId));
         
     }
     
     /**
-     * Este mÈtodo anula a atual inst‚ncia da entidade do processo e recarrega novamente
-     * sem as alteraÁıes realizadas atÈ aqui.
+     * Este m√©todo anula a atual inst√¢ncia da entidade do processo e recarrega novamente
+     * sem as altera√ß√µes realizadas at√© aqui.
      * @return
      * @throws BusinessException 
      * @since 20060322
@@ -179,16 +179,16 @@ public class UpdateProcess <T> extends ProcessBasic
     public void runReload() throws BusinessException{
         super.beforeRun();
 
-        /* Anula a atual inst‚ncia */
+        /* Anula a atual inst√¢ncia */
     	entity = null;
     	/* Recarrega */
     	retrieveEntity();
     }
     
     /**
-     * Este mÈtodo permite executar uma validaÁ„o no DVO antes de 
-     * confirmar propriamente o update. Assim, o operador poder·
-     * verificar possÌveis erros de validaÁ„o sem confirmar um Update 
+     * Este m√©todo permite executar uma valida√ß√£o no DVO antes de 
+     * confirmar propriamente o update. Assim, o operador poder√°
+     * verificar poss√≠veis erros de valida√ß√£o sem confirmar um Update 
      * @return
      * @throws BusinessException 
      * @since 20080113
@@ -196,7 +196,7 @@ public class UpdateProcess <T> extends ProcessBasic
     public boolean runValidate(){
         super.beforeRun();
         
-        // solicitando a validaÁ„o da entidade pelo DvoManager
+        // solicitando a valida√ß√£o da entidade pelo DvoManager
         try {
 			if(this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().contains(entity)){
 				this.getProcessManager().getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterUpdate(entity, this.getUserSession(), null);
@@ -219,7 +219,7 @@ public class UpdateProcess <T> extends ProcessBasic
         this.entityId = entityId;
     }
 
-    public Class<?> getEntityType()
+    public Class<T> getEntityType()
     {
         return entityType;
     }

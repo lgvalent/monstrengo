@@ -7,8 +7,8 @@ import br.com.orionsoft.monstrengo.crud.entity.dvo.IDvo;
 import br.com.orionsoft.monstrengo.crud.entity.dvo.IDvoManager;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUserDvo;
 /**
- * Esta classe oferece métodos básicos implementação
- * dos testes unitários.
+ * Esta classe oferece mÃ©todos bÃ¡sicos implementaÃ§Ã£o
+ * dos testes unitÃ¡rios.
  * 
  * @author Sergio
  */
@@ -39,7 +39,7 @@ public class DvoManagerTest extends TestCase {
 			System.out.println("Vou tentar registrar outro dvo sem remover o dvo que ja existe...");
 			System.out.println("Removendo o cara!");
 			dvoMgr.unregisterDvo(dvo);	
-			System.out.println("Map depois da remoção --> "+ dvoMgr.getDvos());
+			System.out.println("Map depois da remoÃ§Ã£o --> "+ dvoMgr.getDvos());
 			//***
 			System.out.println("O map esta atualmente: " + dvoMgr.getDvos());
 			

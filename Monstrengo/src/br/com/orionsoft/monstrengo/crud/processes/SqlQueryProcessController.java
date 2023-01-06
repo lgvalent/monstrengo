@@ -8,8 +8,8 @@ import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
 /**
- * Este controlador define as entidades que s„o compatÌveis com o processo 
- * de impress„o de GRCS.
+ * Este controlador define as entidades que s√£o compat√≠veis com o processo 
+ * de impress√£o de GRCS.
  * 
  * @author Lucio
  * @version 20121015
@@ -19,7 +19,7 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
  */
 public class SqlQueryProcessController extends RunnableProcessControllerBasic implements IRunnableEntityProcessController
 {
-    /** Informa para o gerenciador quais as entidades que s„o compatÌveis com este controlador */
+    /** Informa para o gerenciador quais as entidades que s√£o compat√≠veis com este controlador */
 	public static final Class<?>[] RUNNABLE_ENTITIES = {};
 	public Class<?>[] getRunnableEntities() {return RUNNABLE_ENTITIES;}
 

@@ -14,26 +14,26 @@ import br.com.orionsoft.monstrengo.security.entities.RightCrud;
 import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 
 /**
- * ServiÁo para verificar os direitos de criaÁ„o, exclus„o, e recuperaÁ„o de 
- * um usu·rio sobre uma determinada entidade.
+ * Servi√ßo para verificar os direitos de cria√ß√£o, exclus√£o, e recupera√ß√£o de 
+ * um usu√°rio sobre uma determinada entidade.
  * 
  * <b>Argumento:</b><br>
  * IN_USER_ID_OPT: O identificador do operador.<p>
- * IN_USER_OPT: Uma inst‚ncia de operador.<p>
+ * IN_USER_OPT: Uma inst√¢ncia de operador.<p>
  * IN_ENTITY_ID: O identificador da entidade que se deseja verifica o direito.<p>
  * 
  * <b>Procedimento:</b><br>
- * Obtem o operador pelo Id se o IN_USER_OPT n„o foi passado.<br>
+ * Obtem o operador pelo Id se o IN_USER_OPT n√£o foi passado.<br>
  * Percorre todos os grupo do operador.<br>
  * Percorre todos os direitos CRUD de todos os grupos do operador.<br>
  * <b>Retorna quatro resultados do tipo Boolean</b>
 
  * <p><b>Procedimento:</b>
- * <br>Obter todos os direitos relacionados ‡ entidade.
- * <br>Obtem todos os grupos do usu·rio.
- * <br>Verifica os direitos relacionados ao usu·rio atraves de seus grupos. 
- * <br>Caso algum dos grupos do usu·rio tenha direito a operaÁ„o, ser· retornado true
- * <br>caso contrario ser· retornado false.
+ * <br>Obter todos os direitos relacionados √† entidade.
+ * <br>Obtem todos os grupos do usu√°rio.
+ * <br>Verifica os direitos relacionados ao usu√°rio atraves de seus grupos. 
+ * <br>Caso algum dos grupos do usu√°rio tenha direito a opera√ß√£o, ser√° retornado true
+ * <br>caso contrario ser√° retornado false.
  * <br>
  * @author Marcia 2005/10/28
  * @version 20060329
@@ -58,7 +58,7 @@ public class CheckRightCrudService extends ServiceBasic
 
 	/**
 	 * Estas constantes definem o nome das chaves de mapas de direitos
-	 * cruds que armazenam a lista de direitos em uma estruturo de f·cil
+	 * cruds que armazenam a lista de direitos em uma estruturo de f√°cil
 	 * acesso.
 	 */
     public static String CAN_CREATE = "canCreate";
@@ -75,7 +75,7 @@ public class CheckRightCrudService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo CheckRightCrudService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo CheckRightCrudService");
             // Pega os argumentos
             Long userId = null;
         	if(serviceData.getArgumentList().containsProperty(IN_USER_ID_OPT))
@@ -87,11 +87,11 @@ public class CheckRightCrudService extends ServiceBasic
 
             long entityId = (Long) serviceData.getArgumentList().getProperty(IN_ENTITY_ID);
 
-            // Recuperando o usu·rio pelo id se n„o foi informado
+            // Recuperando o usu√°rio pelo id se n√£o foi informado
         	if(user==null)
         		user = (ApplicationUser) UtilsCrud.retrieve(this.getServiceManager(), ApplicationUser.class, userId, serviceData).getObject();
 
-            // Define o valor padr„o false caso n„o encontre o direito 
+            // Define o valor padr√£o false caso n√£o encontre o direito 
             boolean createAllowed = false;
             boolean retrieveAllowed = false;
             boolean updateAllowed = false;
@@ -104,10 +104,10 @@ public class CheckRightCrudService extends ServiceBasic
                 // Obtendo todos os direitos de processo do grupo
                 for (RightCrud right: (Set<RightCrud>) group.getRightsCrud())
                 {   
-                	/* Verificando no atual grupo se o direitro desejado j· foi encontrado */
+                	/* Verificando no atual grupo se o direitro desejado j√° foi encontrado */
                 	if(right.getApplicationEntity().getId()==entityId){
                         /* Prepara os metadados da entidade corrente para verificar
-                         * quais operaÁıes CRUD ela permite. Isto porque, as definiÁıes
+                         * quais opera√ß√µes CRUD ela permite. Isto porque, as defini√ß√µes
                          * de direitos de acessos dos metadados, definidos pelo programador,
                          * prevalecem sobre os direitos encontrados no banco de dados - Lucio 20081117 
                          * USAR O SIMPLE_NAME  para busca no mapa de metadados */
@@ -117,7 +117,7 @@ public class CheckRightCrudService extends ServiceBasic
                 		IEntityMetadata metadata = this.getServiceManager().getEntityManager().getEntitiesMetadata().get(right.getApplicationEntity().getName());
                 		
                 		if(metadata == null){
-                            /* Bloco que n„o leva em consideraÁ„o os metadados, caso metadata esteja NULL */
+                            /* Bloco que n√£o leva em considera√ß√£o os metadados, caso metadata esteja NULL */
                 			if (right.isCreateAllowed())
                                 createAllowed = true;
                             
@@ -133,7 +133,7 @@ public class CheckRightCrudService extends ServiceBasic
                             if (right.isQueryAllowed())
                                 queryAllowed = true;
                 		}else{
-                            /* Bloco que leva em consideraÁ„o os metadados*/
+                            /* Bloco que leva em considera√ß√£o os metadados*/
                             if (right.isCreateAllowed() && metadata.getCanCreate())
                                 createAllowed = true;
                             
@@ -151,18 +151,18 @@ public class CheckRightCrudService extends ServiceBasic
                 		}
                         
 
-                        /* O direiro foi encontrado e n„o procura mais neste grupo */
+                        /* O direiro foi encontrado e n√£o procura mais neste grupo */
                 		break;
                 	}
                 	
-            		/* Verifica se TODOS direitos TRUE j· foram encontrados
-            		 * para n„o pesquisa em outros grupos do usu·rio */
+            		/* Verifica se TODOS direitos TRUE j√° foram encontrados
+            		 * para n√£o pesquisa em outros grupos do usu√°rio */
                 	if(createAllowed && retrieveAllowed && updateAllowed && deleteAllowed && queryAllowed)
                 		break;
                 }
             }
 
-            // Adiciona o resultado na lista de resultado do serviÁo
+            // Adiciona o resultado na lista de resultado do servi√ßo
             serviceData.getOutputData().add(OUT_CREATE, createAllowed);
             serviceData.getOutputData().add(OUT_RETRIEVE, retrieveAllowed);
             serviceData.getOutputData().add(OUT_UPDATE, updateAllowed);
@@ -172,7 +172,7 @@ public class CheckRightCrudService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

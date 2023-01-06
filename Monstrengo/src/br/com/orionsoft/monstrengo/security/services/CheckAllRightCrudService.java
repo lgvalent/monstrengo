@@ -17,18 +17,18 @@ import br.com.orionsoft.monstrengo.security.entities.RightCrud;
 import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 
 /**
- * Este serviÁo obtem um mapa com o nome das entidades e
+ * Este servi√ßo obtem um mapa com o nome das entidades e
  * o direito CRUD do operador sobre cadaentida.<p>
  * 
  * <b>Argumento:</b><br>
  * IN_USER_ID_OPT: O identificador do operador.<p>
- * IN_USER_OPT: Uma inst‚ncia de operador.<p>
+ * IN_USER_OPT: Uma inst√¢ncia de operador.<p>
  * 
  * <b>Procedimento:</b><br>
- * Obtem o operador pelo Id se o IN_USER_OPT n„o foi passado.<br>
+ * Obtem o operador pelo Id se o IN_USER_OPT n√£o foi passado.<br>
  * Percorre todos os grupo do operador.<br>
  * Percorre todos os direitos de processos de todos os grupos.<br>
- * Armazena a permiss„o no mapa.<br>
+ * Armazena a permiss√£o no mapa.<br>
  * <b>Retorna um mapa com o nome simples da entidade e um mapa do direito CRUD: Map<String, Map<String,Boolean>></b>
  * <br>
  * @author Lucio 20060816
@@ -47,7 +47,7 @@ public class CheckAllRightCrudService extends ServiceBasic
     
     /**
      * Cria um mapa de direitos inicializando com todos os direitos FALSE.
-     * Utilizado aqui neste serviÁo e em outros serviÁos onde o resultado pode
+     * Utilizado aqui neste servi√ßo e em outros servi√ßos onde o resultado pode
      * ser complementado com novas entidades.
      * @return
      */
@@ -79,7 +79,7 @@ public class CheckAllRightCrudService extends ServiceBasic
         	if(serviceData.getArgumentList().containsProperty(IN_USER_OPT))
         		user = ((IEntity<ApplicationUser>) serviceData.getArgumentList().getProperty(IN_USER_OPT)).getObject();
 
-        	// Recuperando o usu·rio pelo id se n„o foi informado
+        	// Recuperando o usu√°rio pelo id se n√£o foi informado
         	if(user==null)
         		user = (ApplicationUser) UtilsCrud.retrieve(this.getServiceManager(), ApplicationUser.class, userId, serviceData).getObject();
 
@@ -93,21 +93,21 @@ public class CheckAllRightCrudService extends ServiceBasic
                 for (RightCrud right: (Set<RightCrud>) group.getRightsCrud())
                 {   
                 	
-                	/* Prepara o mapa CRUD. Qual instancia ser· utilizada: Uma nova ou uma jah criada anteriormente */
+                	/* Prepara o mapa CRUD. Qual instancia ser√° utilizada: Uma nova ou uma jah criada anteriormente */
                 	Map<String, Boolean> rightMap;
                 	if(result.containsKey(right.getApplicationEntity().getName()))
-                    	/* Mapa CRUD j· preparado em outra iteraÁ„o de grupo */
+                    	/* Mapa CRUD j√° preparado em outra itera√ß√£o de grupo */
                 		rightMap = result.get(right.getApplicationEntity().getName());
                 	else{
-                    	/* Primeira vez que encontrou a entidade, o mapa CRUD ser· criado e reutilizado nas prÛximas vezes */
+                    	/* Primeira vez que encontrou a entidade, o mapa CRUD ser√° criado e reutilizado nas pr√≥ximas vezes */
                 		rightMap = CheckAllRightCrudService.retrieveEmptyRightMap();
                     	/* Colocando  o novo mapa CRUD no mapa geral de entidades */
                 		result.put(right.getApplicationEntity().getName(), rightMap);
                 	}
                 	
                 	/* Preenchendo os direitos do mapa CRUD */
-                	/* Verificando se o direitro j· foi encontrado em outro grupo
-                	 * e j· se encontra no mapa. */
+                	/* Verificando se o direitro j√° foi encontrado em outro grupo
+                	 * e j√° se encontra no mapa. */
                 	Boolean allowed = rightMap.get(CheckRightCrudService.CAN_CREATE);
                 	rightMap.put(CheckRightCrudService.CAN_CREATE, allowed || right.isCreateAllowed());
 
@@ -124,13 +124,13 @@ public class CheckAllRightCrudService extends ServiceBasic
                 	rightMap.put(CheckRightCrudService.CAN_QUERY, allowed || right.isQueryAllowed());
                 }
             }
-            // Adiciona o resulta na lista de resultado do serviÁo
+            // Adiciona o resulta na lista de resultado do servi√ßo
             serviceData.getOutputData().add(result);
             
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

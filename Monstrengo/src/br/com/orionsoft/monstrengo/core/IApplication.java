@@ -4,15 +4,15 @@ import java.util.List;
 
 
 /**
- * Esta interface define todos os aspectos de gerenciamento e configuraÁ„o
- * b·sica de uma aplicaÁ„o.
- * Os managers devem ter uma referÍncia a esta interface indicando em qual aplicaÁ„o eles est„o trabalhando.
+ * Esta interface define todos os aspectos de gerenciamento e configura√ß√£o
+ * b√°sica de uma aplica√ß√£o.
+ * Os managers devem ter uma refer√™ncia a esta interface indicando em qual aplica√ß√£o eles est√£o trabalhando.
  * Isto permite que ele obtenham metadados e descubram algo que alterem o seu comportamento.
  * 
- * Inicialmente, o principal dado da aplicaÁ„o È a lista com o nome dos pacotes dos mÛdulos.
+ * Inicialmente, o principal dado da aplica√ß√£o √© a lista com o nome dos pacotes dos m√≥dulos.
  * Com esta lista, os gerenciados podem 'descobrir' classes a notadas e herdadas e instanciar automaticamente
  * seus objetos. Por exemplo, o DaoManager busca as @Entity e @Embeddable. O service manager precisa
- * saber os mÛdulos da aplicaÁ„o para procurar os @Service, e assim por diante.
+ * saber os m√≥dulos da aplica√ß√£o para procurar os @Service, e assim por diante.
  * 
  * @author Lucio
  * @since 20111121
@@ -20,15 +20,15 @@ import java.util.List;
 public interface IApplication {
     
 	 /**
-     * MantÈm uma lista com os nomes (package) dos mÛdulos que ser„o gerenciados pela aplicaÁ„o.
+     * Mant√©m uma lista com os nomes (package) dos m√≥dulos que ser√£o gerenciados pela aplica√ß√£o.
      * @return
      */
     public String[] getModulesPackages();
 	public void setModulesPackages(String[] modulesPackages);
 	
 	/**
-	 * Recebe uma classe e extrai o nome do mÛdulo que a classe pertence, baseando-se
-	 * nos nomes dos mÛdulos j· registrados
+	 * Recebe uma classe e extrai o nome do m√≥dulo que a classe pertence, baseando-se
+	 * nos nomes dos m√≥dulos j√° registrados
 	 * @param klazz
 	 * @return
 	 */

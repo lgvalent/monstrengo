@@ -85,7 +85,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     @Test
     public void testIsValueNull() throws PropertyValueException
     {
-    	System.out.println("testIsValueNull - inÌcio");
+    	System.out.println("testIsValueNull - in√≠cio");
     	Assert.assertFalse(propertyValueId.isValueNull());
         Assert.assertFalse(propertyValueLogin.isValueNull());
         Assert.assertTrue(propertyValueSenha.isValueNull());
@@ -95,7 +95,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     @Test
     public void testIsModified()
     {
-    	System.out.println("testIsModified - inÌcio");
+    	System.out.println("testIsModified - in√≠cio");
     	Assert.assertFalse(propertyValueId.isModified());
         Assert.assertFalse(propertyValueLogin.isModified());
         Assert.assertFalse(propertyValueSenha.isModified());
@@ -106,7 +106,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     public void testGetId()
     {
       try{
-    	  System.out.println("testGetId - inÌcio");
+    	  System.out.println("testGetId - in√≠cio");
     	  propertyValueId.getId();
           
           Assert.assertTrue(false);
@@ -123,7 +123,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     public void testSetId()
     {
         try{
-            System.out.println("testSetId - inÌcio");
+            System.out.println("testSetId - in√≠cio");
         	propertyValueId.setId(new Long(2));
             
             Assert.assertTrue(false);
@@ -140,7 +140,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     public void testSetAsBoolean()
     {
         try{
-        	System.out.println("testSetAsBoolean - inÌcio");
+        	System.out.println("testSetAsBoolean - in√≠cio");
         	propertyValueId.setAsBoolean(true);
             
             Assert.assertTrue(false);
@@ -157,7 +157,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     public void testGetAsBoolean()
     {
         try{
-        	System.out.println("testGetAsBoolean - inÌcio");
+        	System.out.println("testGetAsBoolean - in√≠cio");
         	propertyValueId.getAsBoolean();
             
             Assert.assertTrue(false);
@@ -174,7 +174,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     {
         try
         {
-        	System.out.println("testSetAsLong - inÌcio");
+        	System.out.println("testSetAsLong - in√≠cio");
         	propertyValueId.setAsLong(new Long(2));
             Assert.assertEquals(new Long(2), propertyValueId.getAsLong());
             System.out.println("testSetAsInt - fim");
@@ -190,7 +190,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     @Test
     public void testSetAsInteger(){
         try{
-            System.out.println("testSetAsInteger - inÌcio");
+            System.out.println("testSetAsInteger - in√≠cio");
             entityTest.getProperty("int_").getValue().setAsInteger(1);
             Assert.assertTrue(true);
             
@@ -204,7 +204,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     @Test
     public void testGetAsInteger(){
         try{
-            System.out.println("testGetAsInteger - inÌcio");
+            System.out.println("testGetAsInteger - in√≠cio");
             Assert.assertEquals(entityTest.getProperty("int_").getValue().getAsInteger().intValue(), INT);
             Assert.assertTrue(true);
             
@@ -220,7 +220,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     {
         try
         {
-        	System.out.println("testSetAsString - inÌcio");
+        	System.out.println("testSetAsString - in√≠cio");
         	propertyValueId.setAsString("3");
             Assert.assertEquals("3", propertyValueId.getAsString());
             
@@ -236,7 +236,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
             entityTest.getProperty("double_").getValue().setAsString("1,45");
             entityTest.getProperty("bigDecimal").getValue().setAsString("1.253,1");
             entityTest.getProperty("boolean_").getValue().setAsString("sim");
-            entityTest.getProperty("boolean_").getValue().setAsString("n„o");
+            entityTest.getProperty("boolean_").getValue().setAsString("n√£o");
             entityTest.getProperty("calendar").getValue().setAsString("31/01/2006");
             entityTest.getProperty("string").getValue().setAsString("myString");
             
@@ -249,10 +249,10 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
             Assert.assertTrue(false);
         }
 
-        // Teste de exceÁıes
+        // Teste de exce√ß√µes
         try
         {
-        	System.out.println("testSetAsString - inÌcio2 - deve dar exception pois tenta setar Id como String");
+        	System.out.println("testSetAsString - in√≠cio2 - deve dar exception pois tenta setar Id como String");
         	propertyValueId.setAsString("abc");
          
             //System.out.println("testSetAsString - DEVE DAR EXCEPTION - tenta setar um Inteiro como String");
@@ -272,7 +272,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     {
         try
         {
-        	System.out.println("testGetAsString - inÌcio");
+        	System.out.println("testGetAsString - in√≠cio");
         	Assert.assertEquals("10000", propertyValueId.getAsString());
             
             Assert.assertEquals("Login de teste", propertyValueLogin.getAsString());
@@ -281,14 +281,14 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
             
             /* 
              * descomentar as linhas abaixocaso queira verificar que as propriedades
-             * est„o sendo populadas e convertidas corretamente pelo setAsString e getAsString
+             * est√£o sendo populadas e convertidas corretamente pelo setAsString e getAsString
              */             
 //          entityTest.getProperty("int_").getValue().setAsString("1");
 //          entityTest.getProperty("long_").getValue().setAsString("1234567");
 //          entityTest.getProperty("double_").getValue().setAsString("1,45");
 //          entityTest.getProperty("bigDecimal").getValue().setAsString("1.253,1");
 //          entityTest.getProperty("boolean_").getValue().setAsString("sim");
-//          entityTest.getProperty("boolean_").getValue().setAsString("n„o");
+//          entityTest.getProperty("boolean_").getValue().setAsString("n√£o");
 //          entityTest.getProperty("calendar").getValue().setAsString("31/01/2006");
 //          entityTest.getProperty("string").getValue().setAsString("myString");
             
@@ -316,7 +316,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
         try
         {
             //causa um erro tentando colocar Date em Id
-        	System.out.println("tesSetAsDate - inÌcio - deve causar exceÁ„o pois tenta setar Id como Date");
+        	System.out.println("tesSetAsDate - in√≠cio - deve causar exce√ß√£o pois tenta setar Id como Date");
         	propertyValueId.setAsCalendar(Calendar.getInstance());
             
             Assert.assertTrue(false);
@@ -333,7 +333,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     {
         try
         {
-        	System.out.println("testGetAsDate - inÌcio - deve causar exceÁ„o pois tenta obter Id como Date");
+        	System.out.println("testGetAsDate - in√≠cio - deve causar exce√ß√£o pois tenta obter Id como Date");
         	propertyValueId.getAsCalendar();
             
             Assert.assertTrue(false);
@@ -350,14 +350,14 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     {
         try
         {
-        	System.out.println("testGetAsObject - inÌcio - testa o tipo da classe");        	
+        	System.out.println("testGetAsObject - in√≠cio - testa o tipo da classe");        	
         	Assert.assertEquals(Long.class, propertyValueId.getAsObject().getClass());
             Assert.assertEquals(String.class, propertyValueLogin.getAsObject().getClass());
             
             try
             {
-            	System.out.println("testGetAsObject - inÌcio - testa senha nula");
-            	// A senha È nula e null.getClass() gera um erro
+            	System.out.println("testGetAsObject - in√≠cio - testa senha nula");
+            	// A senha √© nula e null.getClass() gera um erro
             	Assert.assertEquals(String.class, propertyValueSenha.getAsObject().getClass());
                 Assert.assertTrue(false);
            }catch(Exception e){
@@ -367,12 +367,12 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
 
            
             Assert.assertTrue(true);
-            System.out.println("testGetAsObject - fim - SEM exception - para a comparaÁ„o entre os tipos das classes");
+            System.out.println("testGetAsObject - fim - SEM exception - para a compara√ß√£o entre os tipos das classes");
         }catch(BusinessException e)
         {
             Assert.assertTrue(false);
             UtilsTest.showMessageList(e.getErrorList());
-            System.out.println("testGetAsObject - fim - exception - o objeto n„o È do mesmo tipo");
+            System.out.println("testGetAsObject - fim - exception - o objeto n√£o √© do mesmo tipo");
         }
     }
 
@@ -380,7 +380,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     public void testSetAsObject()
     {
         try{
-        	System.out.println("testSetAsObject - inÌcio");
+        	System.out.println("testSetAsObject - in√≠cio");
         	String teste = propertyValueLogin.getAsString();
             Assert.assertNotNull(teste);
             Assert.assertTrue(true);
@@ -397,10 +397,10 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     @Test
     public void testGetAsEntity()
     {
-        // Testar exceÁıes
+        // Testar exce√ß√µes
         try
         {
-            System.out.println("testGetAsEntity - inÌcio");
+            System.out.println("testGetAsEntity - in√≠cio");
         	propertyValueLogin.getAsEntity();
             Assert.assertTrue(false);
             
@@ -415,10 +415,10 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     @Test
     public void testgetAsEntitySet()
     {
-        // Testar exceÁıes
+        // Testar exce√ß√µes
         try
         {
-        	System.out.println("testgetAsEntitySet - inÌcio");
+        	System.out.println("testgetAsEntitySet - in√≠cio");
         	propertyValueLogin.getAsEntitySet();
         	
             Assert.assertTrue(false);
@@ -436,12 +436,12 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     {
         try{
 
-            System.out.println("testGetOldValue - inÌcio");
-        	// Verifica quando ainda n„o houve modificaÁ„o
+            System.out.println("testGetOldValue - in√≠cio");
+        	// Verifica quando ainda n√£o houve modifica√ß√£o
             Assert.assertNull(propertyValueLogin.getOldValue());
             Assert.assertFalse(propertyValueLogin.isModified());
 
-            // Realiza uma modificaÁ„o
+            // Realiza uma modifica√ß√£o
             propertyValueLogin.setAsString("Lucio");
             
             Assert.assertTrue(propertyValueLogin.isModified());
@@ -460,7 +460,7 @@ public class EntityPropertyValueTestCase extends EntityBasicTest
     @Test
     public void testGetPropetyOwner()
     {
-    	System.out.println("testGetPropetyOwner - inÌcio - testa se n„o È null");
+    	System.out.println("testGetPropetyOwner - in√≠cio - testa se n√£o √© null");
     	Assert.assertNotNull(propertyValueLogin.getPropetyOwner());
         System.out.println("testGetPropetyOwner - fim");
     }

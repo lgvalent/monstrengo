@@ -4,8 +4,8 @@ import br.com.orionsoft.monstrengo.core.process.IProcess;
 import br.com.orionsoft.monstrengo.core.process.IProcessParam;
 
 /**
- * Classe que manipula os parâmetros de um processo.
- * Útil para marcar como requerido e integrar automaticamente com a visão.
+ * Classe que manipula os parÃ¢metros de um processo.
+ * Ãštil para marcar como requerido e integrar automaticamente com a visÃ£o.
  * 
  * FUTURO: Colocar metadados como label, hint, minValu, max, ETC para as telas automatizarem isto
  * 

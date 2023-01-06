@@ -22,7 +22,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
 public class AuditCrudRegister extends AuditRegister
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no código e evitar erro de digitação. */
+     * serem usadas no cÃ³digo e evitar erro de digitaÃ§Ã£o. */
     public static final String APPLICATION_ENTITY = "applicationEntity";
     public static final String ENTITY_ID = "entityId";
     public static final String CREATED = "created";

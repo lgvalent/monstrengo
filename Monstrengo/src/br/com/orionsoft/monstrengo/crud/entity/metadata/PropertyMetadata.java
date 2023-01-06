@@ -22,7 +22,7 @@ import br.com.orionsoft.monstrengo.core.util.ArrayUtils;
 
 /**
  * Esta classe armazena os metadados de uma propriedade de uma entidade. <br>
- * S„o fornecidos mÈtodos para identificaÁ„o dos tipos padrıes de um propriedade: <br>
+ * S√£o fornecidos m√©todos para identifica√ß√£o dos tipos padr√µes de um propriedade: <br>
  * isCalendar(); isDouble();... <br>
  * @author marcia
  * @version 20060109
@@ -58,11 +58,11 @@ public class PropertyMetadata implements IPropertyMetadataMutable
     private boolean embedded;
 
 
-    /* IMPLEMENTA«√O DA INTERFACE IPropertyMetada */
+    /* IMPLEMENTA√á√ÉO DA INTERFACE IPropertyMetada */
 
     public IEntityMetadata getEntity() {return this.entity;}
 
-    /* IdentificaÁ„o do tipo do campo */
+    /* Identifica√ß√£o do tipo do campo */
     public boolean isNumber(){return
     		isBigDecimal() ||
     		isDouble() ||
@@ -82,7 +82,7 @@ public class PropertyMetadata implements IPropertyMetadataMutable
     public boolean isEnum(){return type.isEnum();}
 
     /**
-     * Tipos primitivos como int, long e etc n„o possuem pacotes definidos.
+     * Tipos primitivos como int, long e etc n√£o possuem pacotes definidos.
      */
     public boolean isEntity(){return (!this.type.isPrimitive()&&this.type.getPackage()!=null)&&(!type.getPackage().getName().startsWith("java")&&!isEnum());}
     public boolean isPrimitive(){return !isEntity();}
@@ -149,7 +149,7 @@ public class PropertyMetadata implements IPropertyMetadataMutable
 
         /* Define o tipo do campo:
         Se achar definido no arquivo utiliza-o
-        Sen„o utiliza o tipo Java declarado */
+        Sen√£o utiliza o tipo Java declarado */
         this.type = metadataHandle.getPropertyType(propertyName);
         if (this.type == null){
         	try{
@@ -173,15 +173,15 @@ public class PropertyMetadata implements IPropertyMetadataMutable
         this.visible = metadataHandle.getPropertyVisible(propertyName);
         this.calculated = metadataHandle.getPropertyCalculated(propertyName);
 
-        /* Verifica se a classe implementa o mÈtodo set, ou seja, a propriedade
-           n„o È ReadOnly. Assim, o metadado n„o È ignorado */
+        /* Verifica se a classe implementa o m√©todo set, ou seja, a propriedade
+           n√£o √© ReadOnly. Assim, o metadado n√£o √© ignorado */
         if (property.getWriteMethod() == null)
             this.readOnly = true;
         else
             this.readOnly = metadataHandle.getPropertyReadOnly(propertyName);
 
         /* TODO CORRIGIR Foi colocado required false pra todos
-         * para nao dar problema na fase de implantaÁ„o do Sivamar*/
+         * para nao dar problema na fase de implanta√ß√£o do Sivamar*/
 //        this.required = false;
         this.required = metadataHandle.getPropertyRequired(propertyName);
         
@@ -200,8 +200,8 @@ public class PropertyMetadata implements IPropertyMetadataMutable
         this.isSet = metadataHandle.getPropertyIsSet(propertyName);
 
 
-        /* Para definir o Ìndice do campo, pesquisa-se o arquivo
-           Caso o arquivo n„o apresente, posteriormente ser· tratado o -1. */
+        /* Para definir o √≠ndice do campo, pesquisa-se o arquivo
+           Caso o arquivo n√£o apresente, posteriormente ser√° tratado o -1. */
         this.index = metadataHandle.getPropertyIndex(propertyName);
 
         this.group = metadataHandle.getPropertyGroup(propertyName);
@@ -213,53 +213,53 @@ public class PropertyMetadata implements IPropertyMetadataMutable
     }
 
     /**
-     * Este mÈtodo organiza os Ìndices das propriedades de forma a deix·-las
-     * ordenadas, mesmo as propriedades que n„o tiveram seus Ìndices definidos
+     * Este m√©todo organiza os √≠ndices das propriedades de forma a deix√°-las
+     * ordenadas, mesmo as propriedades que n√£o tiveram seus √≠ndices definidos
      * nos metadados.<br>
-     * Um vetor È criado para verifica concorrÍncia de Ìndices.
+     * Um vetor √© criado para verifica concorr√™ncia de √≠ndices.
      *
      * @param props
      * @throws MetadataException
      * @since 20060109
      */
     public static void arrangePropertiesIndex(Collection<IPropertyMetadata> props) throws MetadataException{
-        // Obs.: Nem todas propriedades tem um Ìndice definido.
-        // Pode ocorrer de os metadados n„o informar e estar o valor -1.
-        // Esta rotina trata esta situaÁ„o realocando os campos em uma
-        // ordem, obedecendo aos campos que conterem o Ìndice.
+        // Obs.: Nem todas propriedades tem um √≠ndice definido.
+        // Pode ocorrer de os metadados n√£o informar e estar o valor -1.
+        // Esta rotina trata esta situa√ß√£o realocando os campos em uma
+        // ordem, obedecendo aos campos que conterem o √≠ndice.
         IPropertyMetadata[] indexes = new IPropertyMetadata[props.size()];
 
         for(IPropertyMetadata prop_: props)
         {
-            /* converta para a classe local para ter acesso aos mÈtodos
+            /* converta para a classe local para ter acesso aos m√©todos
              * set()
              */
             PropertyMetadata prop = (PropertyMetadata) prop_;
 
             int index = prop.getIndex();
 
-            /* Verifica se o Ìndice da propriedade È v·lido */
+            /* Verifica se o √≠ndice da propriedade √© v√°lido */
             if(index > (indexes.length-1))
                throw new MetadataException(MessageList.create(PropertyMetadata.class, "INVALID_INDEX", index, prop.getName(), prop.getEntity().getName()));
 
-           // Verifica se a propriedade tem um Ìndice definido. Caso tenha,
-           // verifica se o indice da propriedade no array est· ocupado
+           // Verifica se a propriedade tem um √≠ndice definido. Caso tenha,
+           // verifica se o indice da propriedade no array est√° ocupado
            // se estiver pega o elemento do array e joga para a ultima
-           // posiÁ„o vazio do array e coloca a propriedade na posiÁ„o do
+           // posi√ß√£o vazio do array e coloca a propriedade na posi√ß√£o do
            // indice definido.
            if (index!= -1)
            {
-               // J· existe um valor na posiÁ„o do array para esse indice
-               // ent„o retira o valor e coloca-o numa posiÁ„o vazia
+               // J√° existe um valor na posi√ß√£o do array para esse indice
+               // ent√£o retira o valor e coloca-o numa posi√ß√£o vazia
                if (indexes[index] != null)
                {
                    int index2 = ArrayUtils.findFirstEmpty(indexes);
                    indexes[index2] = indexes[index];
 
-                   /* Grava o novo Ìndice */
+                   /* Grava o novo √≠ndice */
                    ((PropertyMetadata) indexes[index2]).index = index2;
                }
-               // Grava a prop na posiÁ„o do indice.
+               // Grava a prop na posi√ß√£o do indice.
                indexes[prop.getIndex()] = prop;
 
 
@@ -267,10 +267,10 @@ public class PropertyMetadata implements IPropertyMetadataMutable
            else
            {
                // Se nenhum indice existir simplesmente joga o valor numa
-               // posiÁ„o vazia
+               // posi√ß√£o vazia
                index = ArrayUtils.findFirstEmpty(indexes);
                indexes[index] = prop;
-               /* Grava o novo Ìndice */
+               /* Grava o novo √≠ndice */
                prop.index = index;
            }
 
@@ -280,12 +280,12 @@ public class PropertyMetadata implements IPropertyMetadataMutable
 	public List<SelectItem> getEnumValuesList() {
 		if(this.isEnum())
 		{
-			/* A lista È criada com o tamanho j· otimizado */
+			/* A lista √© criada com o tamanho j√° otimizado */
 			List<SelectItem> result = new ArrayList<SelectItem>(this.getType().getEnumConstants().length);
 
 			for(Object enumValue: this.getType().getEnumConstants())
-				/* Para a persistÍncia de ENUM no banco È utilizada a anotaÁ„o: @Enumerated(EnumType.STRING)
-				 * Assim, na pesquisa no banco deve-se utilizar enum.name(). POr isto, È criada uma lista 
+				/* Para a persist√™ncia de ENUM no banco √© utilizada a anota√ß√£o: @Enumerated(EnumType.STRING)
+				 * Assim, na pesquisa no banco deve-se utilizar enum.name(). POr isto, √© criada uma lista 
 				 * com o enum.name()
 				 */
 				result.add(new SelectItem(((Enum<?>) enumValue).name(), enumValue.toString()));

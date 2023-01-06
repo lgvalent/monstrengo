@@ -20,7 +20,7 @@ import org.hibernate.annotations.ForeignKey;
 public class ApplicationEntityProperty 
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no código e evitar erro de digitação. */
+     * serem usadas no cÃ³digo e evitar erro de digitaÃ§Ã£o. */
     public static final String INDEX_PROPERTY = "indexProperty";
     public static final String INDEX_GROUP = "indexGroup";
     public static final String NAME = "name";

@@ -13,19 +13,19 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * ServiÁo de alteraÁ„o da senha de um operador.<p>
+ * Servi√ßo de altera√ß√£o da senha de um operador.<p>
  * <b>Argumentos:</b><br>
- *  IN_LOGIN: O login do operador que trocar· a senha.<br>
- *  IN_CURRENT_PASSWORD: O password atual do operador, caso a opÁ„o IN_OVERWRITE_BOL n„o seja informada.<br>
+ *  IN_LOGIN: O login do operador que trocar√° a senha.<br>
+ *  IN_CURRENT_PASSWORD: O password atual do operador, caso a op√ß√£o IN_OVERWRITE_BOL n√£o seja informada.<br>
  *  IN_NEW_PASSWORD: O novo password fornecido pelo operador.<p>
- *  IN_OVERWRITE_BOL: Se definido como TRUE o serviÁo n„o ir· autenticar o operador antes da troca. Simplesmente definir· o novo password.<p>
+ *  IN_OVERWRITE_BOL: Se definido como TRUE o servi√ßo n√£o ir√° autenticar o operador antes da troca. Simplesmente definir√° o novo password.<p>
  * <b>Procedimento:</b><br>
- * OpÁ„o IN_OVERWRITE_BOL?
- * <li>TRUE: Pega o operador da lista de provedores de autenticaÁ„o ativa no serviÁo de autenticaÁ„o.
- * <li>FALSE: Pega o operador pela autenticaÁ„o do login no serviÁo de autenticaÁ„o.
+ * Op√ß√£o IN_OVERWRITE_BOL?
+ * <li>TRUE: Pega o operador da lista de provedores de autentica√ß√£o ativa no servi√ßo de autentica√ß√£o.
+ * <li>FALSE: Pega o operador pela autentica√ß√£o do login no servi√ßo de autentica√ß√£o.
  * Atualiza a senha se estiver tudo OK.<br>
- * Ou exibe uma mensagem de erro de validaÁ„o.<br>
- * <b>N„o retorna nada. SÛ a mensagem do resultado na lista de mensagens</b>
+ * Ou exibe uma mensagem de erro de valida√ß√£o.<br>
+ * <b>N√£o retorna nada. S√≥ a mensagem do resultado na lista de mensagens</b>
  *
  * @spring.bean id="ChangePasswordService" init-method="registerService"
  * @spring.property name="serviceManager" ref="ServiceManager"
@@ -44,9 +44,9 @@ public class ChangePasswordService extends ServiceBasic
     
     private AuthenticateService authenticateService;
 	/**
-	 * Permite obter o serviÁo de autenticaÁ„o que possui a lista de Provedores 
-	 * de AutenticaÁ„o registrados para tentar obter o operador sem autentica-lo.
-	 * … feita uma busca em cada provedor pelo login informado.
+	 * Permite obter o servi√ßo de autentica√ß√£o que possui a lista de Provedores 
+	 * de Autentica√ß√£o registrados para tentar obter o operador sem autentica-lo.
+	 * √â feita uma busca em cada provedor pelo login informado.
 	 * @return
 	 */
     public AuthenticateService getAuthenticateService() {return authenticateService;}
@@ -56,9 +56,9 @@ public class ChangePasswordService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo ChangePasswordService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo ChangePasswordService");
             
-            /* Obtem os par‚metros */
+            /* Obtem os par√¢metros */
             String inLogin = (String) serviceData.getArgumentList().getProperty(IN_LOGIN);
             
             String inCurrentPassword = "";
@@ -66,7 +66,7 @@ public class ChangePasswordService extends ServiceBasic
             	inCurrentPassword = (String) serviceData.getArgumentList().getProperty(IN_CURRENT_PASSWORD);
 
             String inNewPassword = (String) serviceData.getArgumentList().getProperty(IN_NEW_PASSWORD);
-			/* Encriptografa o password com MD5 que È o armazenado no banco */
+			/* Encriptografa o password com MD5 que √© o armazenado no banco */
             inNewPassword = DigestUtils.md5Hex(inNewPassword);
             
             boolean overwritePassword = false;
@@ -75,7 +75,7 @@ public class ChangePasswordService extends ServiceBasic
             
             /* Autentica o operador */
             IEntity<?> user = null;
-            /* Verifica se o password atual ser· utilizado ou se È para sobrescrever
+            /* Verifica se o password atual ser√° utilizado ou se √© para sobrescrever
              * o atual password sem tentar autenticar o operador*/
             try{
             	ServiceData auth = new ServiceData(AuthenticateService.SERVICE_NAME, serviceData);
@@ -103,7 +103,7 @@ public class ChangePasswordService extends ServiceBasic
             this.addInfoMessage(serviceData, "CHANGE_OK", inLogin);
         } catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

@@ -47,13 +47,13 @@ public class CompileDocumentProcessTestCase extends ProcessBasicTest
 			IEntity appEntity = UtilsSecurity.retrieveEntity(this.processManager.getServiceManager(), ApplicationUser.class, null);
 			IEntity entity = UtilsCrud.retrieve(this.processManager.getServiceManager(), ApplicationUser.class, 1, null);
 
-        	/* Cria um modelo de etiqueta temporário */
+        	/* Cria um modelo de etiqueta temporÃ¡rio */
 			IEntity documentEntity = UtilsCrud.create(this.processManager.getServiceManager(), ModelDocumentEntity.class, null);
             documentEntity.setPropertyValue(ModelDocumentEntity.NAME, "LabelTest");
             documentEntity.setPropertyValue(ModelDocumentEntity.DESCRIPTION, "Primeiro teste de ModelLabelEntity");
             documentEntity.setPropertyValue(ModelDocumentEntity.APPLICATION_ENTITY, appEntity);
             documentEntity.setPropertyValue(ModelDocumentEntity.APPLICATION_USER, entity);
-            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento básico que exibe o nome do usuário: #{ApplicationUser[?].name}");
+            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento bÃ¡sico que exibe o nome do usuÃ¡rio: #{ApplicationUser[?].name}");
             
             process.setEntity(entity);
             UtilsCrud.update(this.processManager.getServiceManager(), documentEntity, null);
@@ -83,13 +83,13 @@ public class CompileDocumentProcessTestCase extends ProcessBasicTest
 			IEntity appEntity = UtilsSecurity.retrieveEntity(this.processManager.getServiceManager(), ApplicationUser.class, null);
 			IEntity entity = UtilsCrud.retrieve(this.processManager.getServiceManager(), ApplicationUser.class, 1, null);
 
-        	/* Cria um modelo de etiqueta temporário */
+        	/* Cria um modelo de etiqueta temporÃ¡rio */
 			IEntity documentEntity = UtilsCrud.create(this.processManager.getServiceManager(), ModelDocumentEntity.class, null);
             documentEntity.setPropertyValue(ModelDocumentEntity.NAME, "LabelTest");
             documentEntity.setPropertyValue(ModelDocumentEntity.DESCRIPTION, "Primeiro teste de ModelLabelEntity");
             documentEntity.setPropertyValue(ModelDocumentEntity.APPLICATION_ENTITY, appEntity);
             documentEntity.setPropertyValue(ModelDocumentEntity.APPLICATION_USER, entity);
-            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento básico que exibe o nome do usuário: #{ApplicationUser[?].name} e coletar o campo 1 @{Campo 1, Valor padrão}");
+            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento bÃ¡sico que exibe o nome do usuÃ¡rio: #{ApplicationUser[?].name} e coletar o campo 1 @{Campo 1, Valor padrÃ£o}");
             
             process.setEntity(entity);
             UtilsCrud.update(this.processManager.getServiceManager(), documentEntity, null);

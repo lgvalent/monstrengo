@@ -81,7 +81,7 @@ public class CalendarUtilsTest {
             System.out.println("ano string: "+ano);
             System.out.println("ano calendar: "+data3.get(Calendar.YEAR));
             if (ano == data3.get(Calendar.YEAR)){
-                System.out.println("ComparaÁ„o OK");
+                System.out.println("Compara√ß√£o OK");
                 String sequencialString = nossoNumero.substring(2,nossoNumero.length());
                 System.out.println("Nosso Numero posicoes de 2-6: "+sequencialString);
                 int sequencialInt = Integer.parseInt(sequencialString);
@@ -100,8 +100,8 @@ public class CalendarUtilsTest {
             Calendar data5 = CalendarUtils.getCalendar();
             data5.set(2006, Calendar.SEPTEMBER, 8);
             //diffday: 1a data do parametro - 2a data do parametro
-            //caso a 1a data seja anterior, o valor ser· negativo
-            System.out.println("diferenÁa: "+CalendarUtils.diffDay(data4, data5));
+            //caso a 1a data seja anterior, o valor ser√° negativo
+            System.out.println("diferen√ßa: "+CalendarUtils.diffDay(data4, data5));
             
         } catch (Exception e) {}
     }

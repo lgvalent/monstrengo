@@ -20,15 +20,15 @@ import com.sun.org.apache.xpath.internal.operations.String;
 /**
  * Essa classe testa o servico CheckAuditCrudService. 
  * Procedimento:
- *    Cria-se uma inst‚ncia da entidade de ApplicationUser, atribui a ele um valor e 
+ *    Cria-se uma inst√¢ncia da entidade de ApplicationUser, atribui a ele um valor e 
  *    atualiza
  *    Cria-se um userSession
- *    Cria-se um EntityAuditValue da entidade para guardar as informaÁıes antes da operaÁ„o
- *    Audita-se a entidade apos a operaÁ„o
- *    Invoca o serviÁo CheckAuditCrudService.
+ *    Cria-se um EntityAuditValue da entidade para guardar as informa√ß√µes antes da opera√ß√£o
+ *    Audita-se a entidade apos a opera√ß√£o
+ *    Invoca o servi√ßo CheckAuditCrudService.
  *    
- * TODO MODIFICAR essa classe de teste para que seja mais din‚mico e incluir os asserts,
- * alem de incluir documentaÁ„o
+ * TODO MODIFICAR essa classe de teste para que seja mais din√¢mico e incluir os asserts,
+ * alem de incluir documenta√ß√£o
  * @author marcia
  *
  */

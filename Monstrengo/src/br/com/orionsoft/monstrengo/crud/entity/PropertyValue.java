@@ -4,20 +4,12 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
-import br.com.orionsoft.monstrengo.crud.entity.EntityException;
-import br.com.orionsoft.monstrengo.crud.entity.IEntity;
-import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
-import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
-import br.com.orionsoft.monstrengo.crud.entity.IEntitySet;
-import br.com.orionsoft.monstrengo.crud.entity.IProperty;
-import br.com.orionsoft.monstrengo.crud.entity.IPropertyValue;
-import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
-import br.com.orionsoft.monstrengo.crud.entity.PropertyValueFormat;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
@@ -44,7 +36,7 @@ public class PropertyValue implements IPropertyValue
 
 	/**
 	 * @param propertyOwner
-	 *            Indica a propriedade que È manipulada por esta classe.
+	 *            Indica a propriedade que √© manipulada por esta classe.
 	 */
 	public PropertyValue(IProperty propertyOwner)
 	{
@@ -54,8 +46,8 @@ public class PropertyValue implements IPropertyValue
 	}
 
 	/**
-	 * Se a propriedade for uma coleÁ„o, ent„o este mÈtodo analisa se h·
-	 * elementos na coleÁ„o, se n„o houver, ele retornar· que a propriedade È
+	 * Se a propriedade for uma cole√ß√£o, ent√£o este m√©todo analisa se h√°
+	 * elementos na cole√ß√£o, se n√£o houver, ele retornar√° que a propriedade √©
 	 * nula. Mesmo que haja um objeto de Collection.
 	 */
 	public boolean isValueNull()
@@ -86,13 +78,13 @@ public class PropertyValue implements IPropertyValue
 		try
 		{
 			Long result = null;
-			/* Verifica se n„o È nulo para retornar null */
+			/* Verifica se n√£o √© nulo para retornar null */
 			if (obj != null){
-				/* Verificando se a propiedade È do tipo Enum para retornar o ordinal da classe Enum */
+				/* Verificando se a propiedade √© do tipo Enum para retornar o ordinal da classe Enum */
 				if(propertyOwner.getInfo().isEnum()){
 					result = new Long(((Enum) obj).ordinal());
 				}else
-					// Verifica se È uma entidade pra tentar obter o Id dela
+					// Verifica se √© uma entidade pra tentar obter o Id dela
 					if (propertyOwner.getInfo().isEntity())
 					{
 						result =  (Long) PropertyUtils.getProperty(obj, IDAO.PROPERTY_ID_NAME);
@@ -122,9 +114,9 @@ public class PropertyValue implements IPropertyValue
 	}
 
     /**
-     * A cada Id apresentado, o objeto È buscado no DAO respons·vel e armazenado
-     * <b>OBSERVA«√O</b> Quando estiver dentro de um serviÁo e ideal que utilize o mÈtodo setId(Long, ServiceData)
-     * para preservar a sess„o e transaÁ„o do serviÁo.
+     * A cada Id apresentado, o objeto √© buscado no DAO respons√°vel e armazenado
+     * <b>OBSERVA√á√ÉO</b> Quando estiver dentro de um servi√ßo e ideal que utilize o m√©todo setId(Long, ServiceData)
+     * para preservar a sess√£o e transa√ß√£o do servi√ßo.
      *
      * @throws PropertyValueException
      *
@@ -134,13 +126,13 @@ public class PropertyValue implements IPropertyValue
      }
 
      /**
-      * Este mÈtodo È compatÌvel com propriedades que respondam isEntity() ou isEnum().<br>
-      * A cada Id apresentado, o objeto È buscado no DAO respons·vel e armazenado
-      * Este mÈtodo utiliza o encanamento de sess„o e transaÁ„o definidos pelo seviceDataOwner
-      * assim, de dentro de serviÁos, este mÈtodo pode ser utilizado sem que o objeto definido
-      * crie outra sess„o diferente da sess„o na qual o serviÁo est· sendo executado.<br>
-      * Quando a propriedade for do tipo ENUM ent„o o id esperado È o ordinal do tipo.
-      * Uma lista com o ordinal e o to String disponÌvel È gerada pela classe Property.getValuesList();
+      * Este m√©todo √© compat√≠vel com propriedades que respondam isEntity() ou isEnum().<br>
+      * A cada Id apresentado, o objeto √© buscado no DAO respons√°vel e armazenado
+      * Este m√©todo utiliza o encanamento de sess√£o e transa√ß√£o definidos pelo seviceDataOwner
+      * assim, de dentro de servi√ßos, este m√©todo pode ser utilizado sem que o objeto definido
+      * crie outra sess√£o diferente da sess√£o na qual o servi√ßo est√° sendo executado.<br>
+      * Quando a propriedade for do tipo ENUM ent√£o o id esperado √© o ordinal do tipo.
+      * Uma lista com o ordinal e o to String dispon√≠vel √© gerada pela classe Property.getValuesList();
       *
       * @throws PropertyValueException
       *
@@ -148,12 +140,12 @@ public class PropertyValue implements IPropertyValue
      {
     	  try
     	  {
-    		  // Varifica se o id È nullo
+    		  // Varifica se o id √© nullo
     		  if (id==null || id==IDAO.ENTITY_UNSAVED)
     			  setPropertyValue(null);
     		  else
     		  {
-    			  /* Verificando se a propiedade È do tipo Enum para tratar o id recebido como o ordinal da classe Enum e n„o ir buscar no banco */
+    			  /* Verificando se a propiedade √© do tipo Enum para tratar o id recebido como o ordinal da classe Enum e n√£o ir buscar no banco */
     			  if(propertyOwner.getInfo().isEnum()){
     				  setAsObject(propertyOwner.getInfo().getType().getEnumConstants()[new Long(id).intValue()]);
     			  }else
@@ -184,21 +176,21 @@ public class PropertyValue implements IPropertyValue
      }
 
   	/**
-  	 * Obtem a lista de valores dos id's dos objetos que est„o na lista.<br>
-       * Este mÈtodo È ˙til para que a prÛpria interface exiba uma lista
-       * de opÁ„o de entidades e defina na lista atual as entidades que foram
+  	 * Obtem a lista de valores dos id's dos objetos que est√£o na lista.<br>
+       * Este m√©todo √© √∫til para que a pr√≥pria interface exiba uma lista
+       * de op√ß√£o de entidades e defina na lista atual as entidades que foram
        * marcadas. 
   	 */
   	public Long[] getIds() throws BusinessException
   	{
-  		/* Verificando se a propiedade È do tipo Collection para suportar uma lista de Ids */
+  		/* Verificando se a propiedade √© do tipo Collection para suportar uma lista de Ids */
 		if(!propertyOwner.getInfo().isCollection())
 			wrongType(Collection.class);
 
 		Long[] result = null;
 
 		try {
-	  		/* Verificando se a propiedade È do tipo Enum para tratar os ids recebidos como o ordinal da classe Enum e n„o ir buscar no banco */
+	  		/* Verificando se a propiedade √© do tipo Enum para tratar os ids recebidos como o ordinal da classe Enum e n√£o ir buscar no banco */
 			if(propertyOwner.getInfo().isEnum()){
 		  		Collection<Object> primitiveCollection =  this.getAsPrimitiveCollection();
 
@@ -211,7 +203,7 @@ public class PropertyValue implements IPropertyValue
 				}
 			}
 			else
-		  		/* Verificando se a propiedade È do tipo Collection Enum para tratar os ids recebidos como o ordinal da classe Enum e n„o ir buscar no banco */
+		  		/* Verificando se a propiedade √© do tipo Collection Enum para tratar os ids recebidos como o ordinal da classe Enum e n√£o ir buscar no banco */
 				if(propertyOwner.getInfo().isEntity())
 					result = this.getAsEntityCollection().getIds();
 
@@ -223,9 +215,9 @@ public class PropertyValue implements IPropertyValue
   	}
 
   	/**
-  	 * Este mÈtodo permite acrescentar uma lista de ids (de entidade ou enum) de uma sÛ vez na coleÁ„o.<br>
-  	 * <b>OBSERVA«√O</b> Quando estiver dentro de um serviÁo È ideal que utilize o mÈtodo setIds(Long[], ServiceData)
-  	 * para preservar a sess„o e transaÁ„o do serviÁo.
+  	 * Este m√©todo permite acrescentar uma lista de ids (de entidade ou enum) de uma s√≥ vez na cole√ß√£o.<br>
+  	 * <b>OBSERVA√á√ÉO</b> Quando estiver dentro de um servi√ßo √© ideal que utilize o m√©todo setIds(Long[], ServiceData)
+  	 * para preservar a sess√£o e transa√ß√£o do servi√ßo.
   	 *  
   	 * @throws PropertyValueException 
   	 * 
@@ -237,11 +229,11 @@ public class PropertyValue implements IPropertyValue
   	
   	public void setIds(Long[] ids, ServiceData serviceDataOwner) throws BusinessException
   	{
-  		/* Verificando se a propiedade È do tipo Collection para suportar uma lista de Ids */
+  		/* Verificando se a propiedade √© do tipo Collection para suportar uma lista de Ids */
 		if(!propertyOwner.getInfo().isCollection())
 			wrongType(Collection.class);
 			
-  		/* Verificando se a propiedade È do tipo Enum para tratar os ids recebidos como o ordinal da classe Enum e n„o ir buscar no banco */
+  		/* Verificando se a propiedade √© do tipo Enum para tratar os ids recebidos como o ordinal da classe Enum e n√£o ir buscar no banco */
 		if(propertyOwner.getInfo().isEnum()){
 	  		Collection<Object> primitiveCollection =  this.getAsPrimitiveCollection();
 
@@ -251,7 +243,7 @@ public class PropertyValue implements IPropertyValue
 			for(Long id:ids)
 			  primitiveCollection.add(propertyOwner.getInfo().getType().getEnumConstants()[new Long(id).intValue()]);
 		}else
-	  		/* Verificando se a propiedade È do tipo Collection Enum para tratar os ids recebidos como o ordinal da classe Enum e n„o ir buscar no banco */
+	  		/* Verificando se a propiedade √© do tipo Collection Enum para tratar os ids recebidos como o ordinal da classe Enum e n√£o ir buscar no banco */
 			if(propertyOwner.getInfo().isEntity())
 				this.getAsEntityCollection().setIds(ids, serviceDataOwner);
   	}
@@ -416,7 +408,7 @@ public class PropertyValue implements IPropertyValue
 	public String getAsFormated() throws PropertyValueException
 	{
 		Object result = getPropertyValue();
-		// Verifica se o valor È nulo para retornar uma String vazia
+		// Verifica se o valor √© nulo para retornar uma String vazia
 		if (result == null)
 			return "";
 
@@ -465,10 +457,26 @@ public class PropertyValue implements IPropertyValue
 		return (Calendar) getPropertyValue();
 	}
 
+	public void setAsDate(Date value) throws PropertyValueException
+	{
+		if (!propertyOwner.getInfo().isDate())
+			wrongType(Date.class);
+
+		setPropertyValue(value);
+	}
+
+	public Date getAsDate() throws PropertyValueException
+	{
+		if (!propertyOwner.getInfo().isDate())
+			wrongType(Date.class);
+
+		return (Date) getPropertyValue();
+	}
+
 	/**
-	 * Este mÈtodo retorna a propriedade da entidade como um objeto. O tipo do
-	 * objeto retornado È equivalente ao tipo declarado no metadados, porÈm,
-	 * tipos n„o primitivos s„o encapsulados em classes do tipo IEntity<?> e
+	 * Este m√©todo retorna a propriedade da entidade como um objeto. O tipo do
+	 * objeto retornado √© equivalente ao tipo declarado no metadados, por√©m,
+	 * tipos n√£o primitivos s√£o encapsulados em classes do tipo IEntity<?> e
 	 * IEntityList
 	 *
 	 * @throws PropertyValueException
@@ -482,18 +490,18 @@ public class PropertyValue implements IPropertyValue
 		try
 		{
 			T result = null;
-			// 1 - … Primitivo
+			// 1 - √â Primitivo
 			if (propertyOwner.getInfo().isPrimitive())
 				result = getPropertyValue();
 			else
-			// 2 - … ColeÁ„o
+			// 2 - √â Cole√ß√£o
 			if (propertyOwner.getInfo().isCollection())
 			{
 				// 2.1 Lista de subclasse : Cria List<IEntity>
 				result = (T) getAsEntityCollection();
 			} else
 			{
-				// 2.2 - … Subclasse : Encapsula em IEntity
+				// 2.2 - √â Subclasse : Encapsula em IEntity
 				result = (T) getAsEntity();
 			}
 
@@ -516,22 +524,22 @@ public class PropertyValue implements IPropertyValue
     {
         try
         {
-            // 1 - … Primitivo
+            // 1 - √â Primitivo
             if (propertyOwner.getInfo().isPrimitive())
                 setPropertyValue(object);
             else
-                // 2 - … Entidade
+                // 2 - √â Entidade
             	if(object==null){
                     setPropertyValue(null);
             	}
             	else if (propertyOwner.getInfo().isCollection())
                 {
-                	// 2.1 … Subclasse coleÁ„o: Pega Collection<Object> para
+                	// 2.1 √â Subclasse cole√ß√£o: Pega Collection<Object> para
 					// persistir
             		setAsEntityCollection((IEntityCollection)object);
                 }
                 else{
-                    // 2.2 - … Subclasse ˙nica: Desencapsula a IEntity
+                    // 2.2 - √â Subclasse √∫nica: Desencapsula a IEntity
                     setPropertyValue(((IEntity)object).getObject());
                 }
 
@@ -550,10 +558,10 @@ public class PropertyValue implements IPropertyValue
 			wrongType(IEntity.class);
 
 		try{
-			/* Verifica se um getAsEntity j· foi chamada para evitar sucessivas transformaÁıes */
+			/* Verifica se um getAsEntity j√° foi chamada para evitar sucessivas transforma√ß√µes */
 			if(asEntityCache == null){
 
-				// se o valor da propriedade È nullo retorna null e n„o
+				// se o valor da propriedade √© nullo retorna null e n√£o
 				// uma entidade vazia, pois isto seria uma nova entidade
 				Object value = getPropertyValue();
 				if (value == null)
@@ -584,7 +592,7 @@ public class PropertyValue implements IPropertyValue
 		else
 			setPropertyValue(entity.getObject());
 
-		/* Limpa o cache para o prÛximo getAsEntity */
+		/* Limpa o cache para o pr√≥ximo getAsEntity */
 		this.asEntityCache = entity;
 	}
 
@@ -598,7 +606,7 @@ public class PropertyValue implements IPropertyValue
 			wrongType(IEntityList.class);
 
 		try	{
-			/* Prepara a lista caso j· n„o tenha sido preparada */
+			/* Prepara a lista caso j√° n√£o tenha sido preparada */
 			if (asEntityListCache == null)
 				asEntityListCache = this.getPropetyOwner().getEntityOwner()
 						.getEntityManager().<T>getEntityList(
@@ -624,7 +632,7 @@ public class PropertyValue implements IPropertyValue
 				.isList()))
 			wrongType(IEntityList.class);
 
-		// Verifica se a lista È do mesmo tipo da atual propriedade
+		// Verifica se a lista √© do mesmo tipo da atual propriedade
 		if (propertyOwner.getInfo().getType() != entityList.getInfo().getType())
 			wrongType(entityList.getInfo().getType());
 
@@ -649,7 +657,7 @@ public class PropertyValue implements IPropertyValue
 
 		try
 		{
-			/* Prepara a lista caso j· n„o tenha sido preparada */
+			/* Prepara a lista caso j√° n√£o tenha sido preparada */
 			if (asEntitySetCache == null)
 				asEntitySetCache = this.getPropetyOwner().getEntityOwner()
 						.getEntityManager().getEntitySet(
@@ -678,7 +686,7 @@ public class PropertyValue implements IPropertyValue
 				.isSet()))
 			wrongType(IEntitySet.class);
 
-		// Verifica se a lista È do mesmo tipo da atual propriedade
+		// Verifica se a lista √© do mesmo tipo da atual propriedade
 		if (propertyOwner.getInfo().getType() != entitySet.getInfo().getType())
 			wrongType(entitySet.getInfo().getType());
 
@@ -879,8 +887,8 @@ public class PropertyValue implements IPropertyValue
 		{
 			Object old = getPropertyValue();
 			/*
-			 * Uma matriz de incidencia que reprensenta a ·rvore de decis„o para
-			 * definir ou n„o o valor da propriedade.
+			 * Uma matriz de incidencia que reprensenta a √°rvore de decis√£o para
+			 * definir ou n√£o o valor da propriedade.
 			 *
 			 * old old_null obj set set obj_null set !set
 			 *
@@ -892,7 +900,7 @@ public class PropertyValue implements IPropertyValue
 				PropertyUtils.setProperty(propertyOwner.getEntityOwner()
 						.getObject(), propertyName, object);
 
-				// Verifica se È a primeira alteraÁ„o para guardar o Old
+				// Verifica se √© a primeira altera√ß√£o para guardar o Old
 				// que representa o valor persistido.
 				if (!modified)
 				{
@@ -935,7 +943,7 @@ public class PropertyValue implements IPropertyValue
 	}
 
 	/**
-	 * !DescriÁ„o na interface
+	 * !Descri√ß√£o na interface
 	 * @author lucio 20100411
 	 * @throws PropertyValueException 
 	 */

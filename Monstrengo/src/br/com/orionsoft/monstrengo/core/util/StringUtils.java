@@ -9,31 +9,31 @@ import org.apache.commons.lang.WordUtils;
  */
 
 /**
- * Classe utilit·ria para tratamento de Strings, como formataÁ„o por exemplo.
+ * Classe utilit√°ria para tratamento de Strings, como formata√ß√£o por exemplo.
  * @author andre
  * @version 20060811
  */
 public class StringUtils {
 	
-	private static char[] comAcento = {'‡','‚','Í','Ù','˚','„','ı','·','È','Ì','Û','˙','Á','¸','¿','¬',' ','‘','€','√','’','¡','…','Õ','”','⁄','«','‹'};
+	private static char[] comAcento = {'√†','√¢','√™','√¥','√ª','√£','√µ','√°','√©','√≠','√≥','√∫','√ß','√º','√Ä','√Ç','√ä','√î','√õ','√É','√ï','√Å','√â','√ç','√ì','√ö','√á','√ú'};
 	private static char[] semAcento = {'a','a','e','o','u','a','o','a','e','i','o','u','c','u','A','A','E','O','U','A','O','A','E','I','O','U','C','U'};
 	
 	/**
-	 * <p>Formata uma String com o tamanho (size) passado por par‚metro. Caso o tamanho da String
+	 * <p>Formata uma String com o tamanho (size) passado por par√¢metro. Caso o tamanho da String
 	 * seja menor que o tamanho passado em size, completa a String resultante com o valor 
-	 * passado em fillWith. Verifica tambÈm se o tipo do "preenchimento" ou "corte" na String 
-	 * È pela esquerda ou pela direita, atr·ves do par‚metro leftPad. 
-	 * <p>No caso em que a String È maior que a vari·vel size, È verificado se a String "cortada" 
-	 * È formada apenas por valores "0" ou " "; caso seja, o mÈtodo retorna a String "cortada" 
-	 * com o tamanho informado em size, excluindo os valores ‡ esquerda ou direita de acordo com 
-	 * o informado por leftPad (leftPad true excluiria os valores desnecess·rios ‡ esquerda); caso 
-	 * contr·rio, o mÈtodo verifica se checkOverFlow est· ativado e d· uma mensagem de erro, indicando que n„o foi possÌvel formata-la. 
+	 * passado em fillWith. Verifica tamb√©m se o tipo do "preenchimento" ou "corte" na String 
+	 * √© pela esquerda ou pela direita, atr√°ves do par√¢metro leftPad. 
+	 * <p>No caso em que a String √© maior que a vari√°vel size, √© verificado se a String "cortada" 
+	 * √© formada apenas por valores "0" ou " "; caso seja, o m√©todo retorna a String "cortada" 
+	 * com o tamanho informado em size, excluindo os valores √† esquerda ou direita de acordo com 
+	 * o informado por leftPad (leftPad true excluiria os valores desnecess√°rios √† esquerda); caso 
+	 * contr√°rio, o m√©todo verifica se checkOverFlow est√° ativado e d√° uma mensagem de erro, indicando que n√£o foi poss√≠vel formata-la. 
 	 * 
 	 * @param str - A String a ser formatada
 	 * @param size - Tamanho em que a String deve ser formatada
 	 * @param fillWith - String para completar str caso este seja menor que o tamanho informado
-	 * @param leftPad - True: Informa que as operaÁıes devem ser feitas ‡ esquerda da String; False: ‡ direita
-	 * @param checkOverFlow - True: Realiza uma verificaÁ„o se a String È maior que o tamanho dimensionado e se haver· perdas de dados; False: Simplesmente preenche ou corta a string para o tamanho desejado
+	 * @param leftPad - True: Informa que as opera√ß√µes devem ser feitas √† esquerda da String; False: √† direita
+	 * @param checkOverFlow - True: Realiza uma verifica√ß√£o se a String √© maior que o tamanho dimensionado e se haver√° perdas de dados; False: Simplesmente preenche ou corta a string para o tamanho desejado
 	 * @return A String formatada
 	 */
 	public static String format(String str, int size, String fillWith, boolean leftPad, boolean checkOverFlow){
@@ -59,7 +59,7 @@ public class StringUtils {
 					else
 						result =  org.apache.commons.lang.StringUtils.left(str, size);
 				}else
-					throw new RuntimeException("Dados poder„o ser perdidos se a string '" + str + "' for formatada para o tamanho " + size);
+					throw new RuntimeException("Dados poder√£o ser perdidos se a string '" + str + "' for formatada para o tamanho " + size);
 			}else{
 				if (leftPad)
 					result =  org.apache.commons.lang.StringUtils.right(str, size);
@@ -67,7 +67,7 @@ public class StringUtils {
 					result =  org.apache.commons.lang.StringUtils.left(str, size);
 			}
 		}
-		else{ //se o tamanho for igual, retorna a prÛpria string
+		else{ //se o tamanho for igual, retorna a pr√≥pria string
 			result = str;
 		}
 		
@@ -75,13 +75,13 @@ public class StringUtils {
 	}
 
 	/**
-	 * <p>Formata uma String com o tamanho (size) passado por par‚metro. O valor "0" È 
-	 * usado como padr„o para completar a String. As operaÁıes s„o efetuadas ‡ esquerda. 
-	 * Caso n„o seja possÌvel formatar a String, retorna uma mensagem de erro.<br>
+	 * <p>Formata uma String com o tamanho (size) passado por par√¢metro. O valor "0" √© 
+	 * usado como padr√£o para completar a String. As opera√ß√µes s√£o efetuadas √† esquerda. 
+	 * Caso n√£o seja poss√≠vel formatar a String, retorna uma mensagem de erro.<br>
 	 * 
 	 * @param str - A String a ser formatada
 	 * @param size - Tamanho em que a String deve ser formatada
-	 * @param checkOverFlow - True: Realiza uma verificaÁ„o se a String È maior que o tamanho dimensionado e se haver· perdas de dados; False: Simplesmente preenche ou corta a string para o tamanho desejado
+	 * @param checkOverFlow - True: Realiza uma verifica√ß√£o se a String √© maior que o tamanho dimensionado e se haver√° perdas de dados; False: Simplesmente preenche ou corta a string para o tamanho desejado
 	 * @return A String formatada
 	 */
 	public static String formatNumber(String str, int size, boolean checkOverFlow){
@@ -89,13 +89,13 @@ public class StringUtils {
 	}
 	
 	/**
-	 * <p>Formata uma String com o tamanho (size) passado por par‚metro. O valor " " È 
-	 * usado como padr„o para completar a String, e as operaÁıes s„o efetuadas ‡ direita.
-	 * Caso n„o seja possÌvel formatar a String, retorna uma mensagem de erro.<br>
+	 * <p>Formata uma String com o tamanho (size) passado por par√¢metro. O valor " " √© 
+	 * usado como padr√£o para completar a String, e as opera√ß√µes s√£o efetuadas √† direita.
+	 * Caso n√£o seja poss√≠vel formatar a String, retorna uma mensagem de erro.<br>
 	 * 
 	 * @param str - A String a ser formatada
 	 * @param size - Tamanho em que a String deve ser formatada
-	 * @param checkOverFlow - True: Realiza uma verificaÁ„o se a String È maior que o tamanho dimensionado e se haver· perdas de dados; False: Simplesmente preenche ou corta a string para o tamanho desejado
+	 * @param checkOverFlow - True: Realiza uma verifica√ß√£o se a String √© maior que o tamanho dimensionado e se haver√° perdas de dados; False: Simplesmente preenche ou corta a string para o tamanho desejado
 	 * @return A String formatada
 	 */
 	public static String formatAlpha(String str, int size, boolean checkOverFlow){
@@ -103,10 +103,10 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Retorna uma String que contÈm apenas os valores numÈricos
+	 * Retorna uma String que cont√©m apenas os valores num√©ricos
 	 * 
 	 * @param str - String a ser formatada
-	 * @return String formatada sem pontuaÁ„o
+	 * @return String formatada sem pontua√ß√£o
 	 */
 	public static String removeAlpha(String str){
 		String result = "";
@@ -119,9 +119,9 @@ public class StringUtils {
 	}
 	
     /**
-     * Remove os caracteres que n„o sejam letras de
+     * Remove os caracteres que n√£o sejam letras de
      * a..z e A..Z
-     * Este mÈtodo È <i>null safe</i>.
+     * Este m√©todo √© <i>null safe</i>.
      */
 	public static String removeNonAlpha(String str){
 		String result = "";
@@ -136,10 +136,10 @@ public class StringUtils {
 	}
 	
 	/**
-	 * <p>FunÁ„o que troca caracteres acentuados e o cedilha (Á) por caracteres correspondentes sem acento.<br>
-     * Este mÈtodo È <i>null safe</i>.
+	 * <p>Fun√ß√£o que troca caracteres acentuados e o cedilha (√ß) por caracteres correspondentes sem acento.<br>
+     * Este m√©todo √© <i>null safe</i>.
 	 * @param str - String a ser formatada
-	 * @return String formatada sem acentuaÁ„o e cedilha (Á)
+	 * @return String formatada sem acentua√ß√£o e cedilha (√ß)
 
 	 */
 	public static String removeAccent(String str){
@@ -153,13 +153,13 @@ public class StringUtils {
 	
     /**
      * Retorna uma String com todas as palavras com a primeira letra 
-     * mai˙scula, exceto "De", "Do", "Dos", "Da", "Das" que n„o estiverem no inicio.<br>
-     * Este mÈtodo È <i>null safe</i>.
+     * mai√∫scula, exceto "De", "Do", "Dos", "Da", "Das" que n√£o estiverem no inicio.<br>
+     * Este m√©todo √© <i>null safe</i>.
      * @param value - String a ser capitalizada.
      * @return String capitalizada.
      */
     public static String capitalize(String value) {
-        // Verifica se È nulo
+        // Verifica se √© nulo
         if (value==null) return ""; 
         
         char[] delimiters = new char[]{'.', ',', ' '};
@@ -173,10 +173,10 @@ public class StringUtils {
     }
     
     /**
-     * Retira os caracteres n„o numÈricos [0-9,.-].<br>
-     * Este mÈtodo È <i>null safe</i>.
+     * Retira os caracteres n√£o num√©ricos [0-9,.-].<br>
+     * Este m√©todo √© <i>null safe</i>.
      * @param value - String contendo quaisquer caracteres.
-     * @return String contendo somente os caracteres n˙mericos da string passada ou vazia.
+     * @return String contendo somente os caracteres n√∫mericos da string passada ou vazia.
      */
     public static String removeNonNumeric(String value) {
         String str = "";
@@ -190,10 +190,10 @@ public class StringUtils {
     }
     
     /**
-     * Retira os caracteres que n„o s„o dÌgitos numÈricos [0-9].<br>
-     * Este mÈtodo È <i>null safe</i>.
+     * Retira os caracteres que n√£o s√£o d√≠gitos num√©ricos [0-9].<br>
+     * Este m√©todo √© <i>null safe</i>.
      * @param value - String contendo quaisquer caracteres.
-     * @return String contendo somente os caracteres n˙mericos da string passada ou vazia.
+     * @return String contendo somente os caracteres n√∫mericos da string passada ou vazia.
      */
     public static String removeNonDigit(String value) {
         String str = "";
@@ -207,7 +207,7 @@ public class StringUtils {
     }
     
     /**
-     * Capitaliza e remove espaÁos em branco iniciais e finais 
+     * Capitaliza e remove espa√ßos em branco iniciais e finais 
      * @param value
      * @return
      */
@@ -216,7 +216,7 @@ public class StringUtils {
     }
 
     /**
-     * Verifica se a String source possui somente caracteres v·lidos
+     * Verifica se a String source possui somente caracteres v√°lidos
      * @param source
      * @param validChars
      * @return
@@ -240,7 +240,7 @@ public class StringUtils {
 	}
 	
     /**
-     * Verifica se a String source possui somente caracteres v·lidos
+     * Verifica se a String source possui somente caracteres v√°lidos
      * @param source
      * @param validChars
      * @return
@@ -256,8 +256,8 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Converte um vetor de long em uma string separada por vÌrgula.
-	 * ˙til para gerar a lista de Ids a partir de Long[] para usar em HQLs
+	 * Converte um vetor de long em uma string separada por v√≠rgula.
+	 * √∫til para gerar a lista de Ids a partir de Long[] para usar em HQLs
 	 */
 	public static String toString(Long[] values){
 		StringBuffer str = new StringBuffer();
@@ -271,7 +271,7 @@ public class StringUtils {
 		return str.toString();
 	}
 	/**
-	 * Verifica se uma String È null, vazia ou "null".
+	 * Verifica se uma String √© null, vazia ou "null".
 	 * 
 	 * @param str
 	 * @return
@@ -282,7 +282,7 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Verifica se uma String n„o È null, vazia ou "null".
+	 * Verifica se uma String n√£o √© null, vazia ou "null".
 	 * 
 	 * @param str
 	 * @return
@@ -292,8 +292,8 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Verifica se uma String È null, vazia ou "null", retornando 
-	 * a String padr„o definida em defaultStr.
+	 * Verifica se uma String √© null, vazia ou "null", retornando 
+	 * a String padr√£o definida em defaultStr.
 	 * 
 	 * @param str
 	 * @param defaultStr

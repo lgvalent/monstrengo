@@ -27,7 +27,7 @@ public class ServiceBasicTest extends ApplicationBasicTest {
 	}
 
 	public void runManageSecurityStructure() throws ServiceException {
-		// Cria a estrutura b·sica da aplicaÁ„o
+		// Cria a estrutura b√°sica da aplica√ß√£o
 		ServiceData sd = new ServiceData(ManageSecurityStructureService.SERVICE_NAME, null);
 		this.serviceManager.execute(sd);
 	}

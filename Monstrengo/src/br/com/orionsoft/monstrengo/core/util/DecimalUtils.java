@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
  */
 
 /**
- * Classe utilit·ria para criaÁ„o de inst‚ncias de BigDecimal j· padronizadas.
+ * Classe utilit√°ria para cria√ß√£o de inst√¢ncias de BigDecimal j√° padronizadas.
  * @author Antonio Alves
  * @version 20060501
  */
@@ -22,7 +22,7 @@ public class DecimalUtils {
 	public static final BigDecimal TEN = getBigDecimal(10); 
 
     /**
-     * Retorna uma inst‚ncia de BigDecimal a partir de uma String e assume escala 2,
+     * Retorna uma inst√¢ncia de BigDecimal a partir de uma String e assume escala 2,
      * com arredondamento para cima.
      * @param val
      * @return BigDecimal arredondado para cima
@@ -33,7 +33,7 @@ public class DecimalUtils {
     }
     
     /**
-     * Retorna uma inst‚ncia de BigDecimal a partir de uma String e uma escala,
+     * Retorna uma inst√¢ncia de BigDecimal a partir de uma String e uma escala,
      * com arredondamento para cima.
      * @param val
      * @param scale
@@ -51,7 +51,7 @@ public class DecimalUtils {
     }
     
     /**
-     * Retorna uma inst‚ncia de BigDecimal a partir de um double, 
+     * Retorna uma inst√¢ncia de BigDecimal a partir de um double, 
      * com duas casas decimais e arredondamento para cima.
      * @param val
      * @return BigDecimal com 2 casas decimais arredondado para cima
@@ -61,7 +61,7 @@ public class DecimalUtils {
     }
 
     /**
-     * Retorna uma inst‚ncia de BigDecimal a partir de um double e uma escala,
+     * Retorna uma inst√¢ncia de BigDecimal a partir de um double e uma escala,
      * com arredondamento para cima.
      * @param val
      * @param scale
@@ -72,7 +72,7 @@ public class DecimalUtils {
     }
     
     /**
-     * Retorna uma inst‚ncia de BigDecimal a partir de um double, uma escala e um RoundingMode.
+     * Retorna uma inst√¢ncia de BigDecimal a partir de um double, uma escala e um RoundingMode.
      * @param val
      * @param scale
      * @param roundingMode
@@ -83,10 +83,10 @@ public class DecimalUtils {
     }
     
     /**
-     * Formata um Big Decimal verificando antes se ele È nulo.
-     * Se o BigDecimal for igual ‡ zero, a funÁ„o de formataÁ„o
-     * n„o dar· erro, pois È executado o mÈtodo doubleValue(). 
-     * Assim, n„o ocorre erro:'formatException: Digits < 0'
+     * Formata um Big Decimal verificando antes se ele √© nulo.
+     * Se o BigDecimal for igual √† zero, a fun√ß√£o de formata√ß√£o
+     * n√£o dar√° erro, pois √© executado o m√©todo doubleValue(). 
+     * Assim, n√£o ocorre erro:'formatException: Digits < 0'
      *   
      * @param bigDecimal
      * @return

@@ -14,14 +14,14 @@ import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * ServiÁo de registro de auditoria de execuÁ„o de outros serviÁos.
- * Na descriÁ„o s„o armazenados os par‚metros utilizados na execuÁ„o do serviÁo.
+ * Servi√ßo de registro de auditoria de execu√ß√£o de outros servi√ßos.
+ * Na descri√ß√£o s√£o armazenados os par√¢metros utilizados na execu√ß√£o do servi√ßo.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_TERMINAL: (String) IdentificaÁ„o do terminal.
- * <br> IN_APPLICATION_USER_OPT: (IEntity) IdentificaÁ„o de um usu·rio.
- * <br> IN_SERVICE_DATA: (ServiceData) Estrutura com os dados do ServiÁo.
- * <br> IN_DESCRIPTION_STR: DescriÁ„o adicional que ser· registrada na auditoria.
+ * <br> IN_TERMINAL: (String) Identifica√ß√£o do terminal.
+ * <br> IN_APPLICATION_USER_OPT: (IEntity) Identifica√ß√£o de um usu√°rio.
+ * <br> IN_SERVICE_DATA: (ServiceData) Estrutura com os dados do Servi√ßo.
+ * <br> IN_DESCRIPTION_STR: Descri√ß√£o adicional que ser√° registrada na auditoria.
  * 
  * @author Lucio 20120521
  * @version 20120521
@@ -54,10 +54,10 @@ public class AuditorServiceService extends ServiceBasic
             IEntity<AuditServiceRegister> register = UtilsCrud.create(this.getServiceManager(), AuditServiceRegister.class, serviceData);
             AuditServiceRegister oRegister = register.getObject();
             
-            /* Adiciona os par‚metros do serviÁo no FINAL da descriÁ„o da auditoria */
-            inDescription += " Par‚metros: " + serviceData.toString();
+            /* Adiciona os par√¢metros do servi√ßo no FINAL da descri√ß√£o da auditoria */
+            inDescription += " Par√¢metros: " + serviceData.toString();
             
-            /* Limita o tamanho da descriÁ„o para o tamanho do banco, evitando erros do tipo:
+            /* Limita o tamanho da descri√ß√£o para o tamanho do banco, evitando erros do tipo:
              * Data truncation: Data too long for column 'description' at row 1 */
             inDescription = StringUtils.substring(inDescription, 0, register.getProperty(AuditServiceRegister.DESCRIPTION).getInfo().getSize());
 
@@ -77,7 +77,7 @@ public class AuditorServiceService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

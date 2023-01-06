@@ -11,9 +11,9 @@ import br.com.orionsoft.monstrengo.crud.report.entities.UserReport;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 
 /**
- * Classe responsável por obter da página jsp informações sobre 
- * paginação, tais como tamanho e numero da página.
- * A primeira página é a 0 (Zero).
+ * Classe responsÃ¡vel por obter da pÃ¡gina jsp informaÃ§Ãµes sobre 
+ * paginaÃ§Ã£o, tais como tamanho e numero da pÃ¡gina.
+ * A primeira pÃ¡gina Ã© a 0 (Zero).
  * 
  * Created on 08/03/2006
  * @author 
@@ -62,7 +62,7 @@ public class PageParam extends ReportParam
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
-    // Métodos getters e Setters																	//
+    // MÃ©todos getters e Setters																	//
     //////////////////////////////////////////////////////////////////////////////////////////////////
 	public int getItemsCount(){return itemsCount;}
 	public void setItemsCount(int itemsCount){this.itemsCount = itemsCount;}
@@ -82,9 +82,9 @@ public class PageParam extends ReportParam
     {
         if (pageSize > 0)
             this.pageSize = pageSize;
-        /* Verifica se com o novo tamanho da página
-         * Haverá items para ser exibido na atual página exibida.
-         * Se não houve, a página atual será reduzida */
+        /* Verifica se com o novo tamanho da pÃ¡gina
+         * HaverÃ¡ items para ser exibido na atual pÃ¡gina exibida.
+         * Se nÃ£o houve, a pÃ¡gina atual serÃ¡ reduzida */
         if((this.pageSize*this.page) > itemsCount)
         	this.setPage(getPageCount());
     }
@@ -96,20 +96,20 @@ public class PageParam extends ReportParam
         return false;
     }
 
-    /** Direciona para a primeira página e re-enderiza a mesma visão. */
+    /** Direciona para a primeira pÃ¡gina e re-enderiza a mesma visÃ£o. */
     public void goFirst()
     {
     	page=FIRST_PAGE_INDEX;
     }
 
-    /** Direciona para a página anterior e re-enderiza a mesma visão. */
+    /** Direciona para a pÃ¡gina anterior e re-enderiza a mesma visÃ£o. */
     public void goPrior()
     {
     	if(page>FIRST_PAGE_INDEX)
     		page-=1;
     }
 
-    /** Direciona para a próxima página e re-enderiza a mesma visão. */
+    /** Direciona para a prÃ³xima pÃ¡gina e re-enderiza a mesma visÃ£o. */
     public void goNext()
     {
         
@@ -118,7 +118,7 @@ public class PageParam extends ReportParam
     }
 
 
-    /** Direciona para a última página e re-enderiza a mesma visão. */
+    /** Direciona para a Ãºltima pÃ¡gina e re-enderiza a mesma visÃ£o. */
     public void goLast()
     {
     	page=getPageCount();
@@ -130,24 +130,24 @@ public class PageParam extends ReportParam
      */
     public boolean isLast()
     {
-        /* O número de paginas pode ser 0 (nenhuma) ou 1 (uma única pagina para exibição), neste
-         * caso, ambas serão consideradas a última pagina */
+        /* O nÃºmero de paginas pode ser 0 (nenhuma) ou 1 (uma Ãºnica pagina para exibiÃ§Ã£o), neste
+         * caso, ambas serÃ£o consideradas a Ãºltima pagina */
     	if ((this.getPageCount()<2) || (this.page == this.getPageCount()))
             return true;
         return false;
     }
 
     /**
-     * Retorna o índice do primeiro item da página atual.
-     * O índice inicia com 0 (zero) 
+     * Retorna o Ã­ndice do primeiro item da pÃ¡gina atual.
+     * O Ã­ndice inicia com 0 (zero) 
      */
     public int getFirstItemIndexPage(){
     	return (page-1)*pageSize;
     }
 
     /**
-     * Retorna o índice do último item da página atual. 
-     * O índice inicia com 0 (zero) 
+     * Retorna o Ã­ndice do Ãºltimo item da pÃ¡gina atual. 
+     * O Ã­ndice inicia com 0 (zero) 
      */
     public int getLastItemIndexPage(){
     	if(isLast())

@@ -11,13 +11,13 @@ import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 
 /**
- * ServiÁo de exclus„o de entidades.
+ * Servi√ßo de exclus√£o de entidades.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_ENTITY: Entidade que ser· excluÌda.
+ * <br> IN_ENTITY: Entidade que ser√° exclu√≠da.
  *  
  * <p><b>Procedimento:</b>
- * <br>Obtem o Dao respons·vel pelo tipo da entidade.
+ * <br>Obtem o Dao respons√°vel pelo tipo da entidade.
  * <br>Obtem o objeto da entidade.
  * <br>Solicita para o Dao excluir o objeto.
  * 
@@ -33,27 +33,27 @@ public class DeleteService extends ServiceBasic
     
     public void execute(ServiceData serviceData) throws ServiceException
     {
-        log.debug("Iniciando a execuÁ„o do serviÁo DeleteService");
+        log.debug("Iniciando a execu√ß√£o do servi√ßo DeleteService");
 //        IDAO dao;
         IEntity<?> entity=null; 
         try
         {
-            log.debug("Obtendo os par‚metros");
+            log.debug("Obtendo os par√¢metros");
             entity = (IEntity<?>) serviceData.getArgumentList().getProperty(IN_ENTITY);
 
 
 //          Lucio 08/11/2006
-//          Usava os DAOS para obter os dados, porem cada DAO gera uma sess„o particular diferente da sess„o 
-//          j· gerada para o serviÁo. Agora eu pego a atual sess„o do serviÁo e dela solicito o DELETE
+//          Usava os DAOS para obter os dados, porem cada DAO gera uma sess√£o particular diferente da sess√£o 
+//          j√° gerada para o servi√ßo. Agora eu pego a atual sess√£o do servi√ßo e dela solicito o DELETE
             
-//          log.debug("Obtendo o dao correspondente ‡ entidade");
+//          log.debug("Obtendo o dao correspondente √† entidade");
 //          dao = daoManager.getDaoByEntity(entity.getInfo().getType());
 //          
 //          log.debug("Removendo a entidade");
 //          dao.delete(entity.getObject());
             
             /*  Lucio 20100615: Esta validacao foi passada para o processo
-             *  Executa a validaÁ„o apÛs a confirmaÁ„o da exclus„o da entidade.
+             *  Executa a valida√ß√£o ap√≥s a confirma√ß√£o da exclus√£o da entidade.
              
             if(this.getServiceManager().getEntityManager().getDvoManager().contains(entity))
             	   this.getServiceManager().getEntityManager().getDvoManager().getDvoByEntity(entity).afterDelete(entity, serviceData); 
@@ -62,13 +62,13 @@ public class DeleteService extends ServiceBasic
             
         } catch (BusinessException e) {
             log.fatal(e.getErrorList());
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         } catch (HibernateException e) {
             throw new ServiceException(MessageList.createSingleInternalError(e));
         } catch (Exception e) {
         	log.fatal(e.getMessage());
-        	// O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+        	// O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
         	throw new ServiceException(MessageList.create(DeleteService.class, "ERROR_DELETE_FOREING", entity.getObject().toString()));
 		}
     }

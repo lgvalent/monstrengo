@@ -19,8 +19,6 @@ import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
-
 /**
  * @hibernate.class table="security_user"
  */
@@ -29,7 +27,7 @@ import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 public class ApplicationUser 
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no código e evitar erro de digitação. */
+     * serem usadas no cÃ³digo e evitar erro de digitaÃ§Ã£o. */
     public static final String NAME = "name";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";

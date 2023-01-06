@@ -4,11 +4,11 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 /**
- * <p>Esta classe é uma estrutura que armazena as informações sobre um
- * erro ocorrido e que será posteriormente traduzido nas camadas superiores
- * da aplicação para ser exibida para o operador.
- * <p>São usadas duas estruturas básicas:
- * <li>Uma identifica a classe de erro para obtenção do arquivo de mensagens;
+ * <p>Esta classe Ã© uma estrutura que armazena as informaÃ§Ãµes sobre um
+ * erro ocorrido e que serÃ¡ posteriormente traduzido nas camadas superiores
+ * da aplicaÃ§Ã£o para ser exibida para o operador.
+ * <p>SÃ£o usadas duas estruturas bÃ¡sicas:
+ * <li>Uma identifica a classe de erro para obtenÃ§Ã£o do arquivo de mensagens;
  * <li>Outra identifica a chave da mensagem do erro.
  * 
  * @author Lucio
@@ -66,7 +66,7 @@ public class BusinessMessage
     }
     
     /**
-     * Converte o erro de negócio em uma mensagem amigável com informações.
+     * Converte o erro de negÃ³cio em uma mensagem amigÃ¡vel com informaÃ§Ãµes.
      * @link http://java.sun.com/j2se/1.4.2/docs/api/java/text/MessageFormat.html
      * @return
      */
@@ -83,9 +83,9 @@ public class BusinessMessage
     }
     
     /**
-     * Exibe a mensagem básica quando for chamado este método.
-     * Útil para exibição nativa de List de BusinessMessage.
-     * Assim, por exemplo, o resultado será {"msg1", "msg2"} 
+     * Exibe a mensagem bÃ¡sica quando for chamado este mÃ©todo.
+     * Ãštil para exibiÃ§Ã£o nativa de List de BusinessMessage.
+     * Assim, por exemplo, o resultado serÃ¡ {"msg1", "msg2"} 
      * 
      * @since 2006/01/02
      */
@@ -94,8 +94,8 @@ public class BusinessMessage
     }
 
     /**
-     * Permite trocar o tipo de mensagem, pois uma mensagem pode ser um erro em um serviço,
-     * mas ao passar para outro, a mensagem pode ser interpretada como somente uma informação
+     * Permite trocar o tipo de mensagem, pois uma mensagem pode ser um erro em um serviÃ§o,
+     * mas ao passar para outro, a mensagem pode ser interpretada como somente uma informaÃ§Ã£o
      * @version 20110127
      * @since Lucio 20110127
      */
@@ -104,8 +104,8 @@ public class BusinessMessage
     }
     
     /**
-     * Permite trocar o tipo de mensagem, pois uma mensagem pode ser um erro em um serviço,
-     * mas ao passar para outro, a mensagem pode ser interpretada como somente uma informação
+     * Permite trocar o tipo de mensagem, pois uma mensagem pode ser um erro em um serviÃ§o,
+     * mas ao passar para outro, a mensagem pode ser interpretada como somente uma informaÃ§Ã£o
      * @version 20110127
      * @since Lucio 20110127
      */

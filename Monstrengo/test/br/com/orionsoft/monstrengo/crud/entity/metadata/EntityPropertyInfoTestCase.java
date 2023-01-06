@@ -16,7 +16,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 
 /**
- * Esta classe realiza os testes sobre as informações das 
+ * Esta classe realiza os testes sobre as informaÃ§Ãµes das 
  * propriedades de uma entidade
  *
  */
@@ -76,7 +76,7 @@ public class EntityPropertyInfoTestCase extends EntityBasicTest
 			Assert.assertTrue(propertyInfo.isVisible());
 			Assert.assertNotNull(propertyInfo.getColorName());
 			Assert.assertEquals("", propertyInfo.getDisplayFormat());
-			Assert.assertEquals("O login é um nome curto usado para junto com a senha para realizar a autenticação no sistema", propertyInfo.getDescription());
+			Assert.assertEquals("O login Ã© um nome curto usado para junto com a senha para realizar a autenticaÃ§Ã£o no sistema", propertyInfo.getDescription());
 			Assert.assertEquals(0, propertyInfo.getGroup());
 			Assert.assertTrue(this.entity.getInfo().getCanCreate());
 			Assert.assertTrue(this.entity.getInfo().getCanRetrieve());

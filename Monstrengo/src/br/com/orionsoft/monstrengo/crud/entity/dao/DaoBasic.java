@@ -14,9 +14,9 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.util.AnnotationUtils;
 
 /**
- * Classe abstrata que especifica as operaÁıes executadas pelos daos.
- * Todas as subclasses dever„o implementar o mÈtodo getEntityClass() que retornar·
- * o tipo de entidade especÌfico.
+ * Classe abstrata que especifica as opera√ß√µes executadas pelos daos.
+ * Todas as subclasses dever√£o implementar o m√©todo getEntityClass() que retornar√°
+ * o tipo de entidade espec√≠fico.
  * @author Marcia
  * @version 2005/03/10
  */
@@ -75,8 +75,8 @@ public abstract class DaoBasic<T> implements IDAO<T>
     public void update(Object obj) throws DAOException
     {
         if(!isEmbeddable()){
-        	/* O TypeCast È usado aqui para forÁar uma validaÁ„o de tipo e provocar um erro
-        	 * caso seja passado um objeto que n„o seja do tipo especificado */
+        	/* O TypeCast √© usado aqui para for√ßar uma valida√ß√£o de tipo e provocar um erro
+        	 * caso seja passado um objeto que n√£o seja do tipo especificado */
         	Session session = this.getDaoManager().getSessionFactory().openSession();
         	session.saveOrUpdate(this.getEntityClass().cast(obj));
         	session.flush();
@@ -85,9 +85,9 @@ public abstract class DaoBasic<T> implements IDAO<T>
     }       
 
     /**
-     * MÈtodo utilizado para atividades que necessitam de transaÁ„o e consequentemente 
-     * dependem do sucesso de todas operaÁıes envolvidas nessa atividade. Com o fornecimento
-     * da sess„o o metodo executa a operaÁ„o solicitada mas n„o faz a confirmaÁ„o, ou seja, n„o
+     * M√©todo utilizado para atividades que necessitam de transa√ß√£o e consequentemente 
+     * dependem do sucesso de todas opera√ß√µes envolvidas nessa atividade. Com o fornecimento
+     * da sess√£o o metodo executa a opera√ß√£o solicitada mas n√£o faz a confirma√ß√£o, ou seja, n√£o
      * executa commit, podendo ser desfeita depois.
      *  
      * @see IDAO#update(Object)
@@ -107,7 +107,7 @@ public abstract class DaoBasic<T> implements IDAO<T>
     {
         try
         {
-            // Adiciona a cl·usula FROM ‡ HQL
+            // Adiciona a cl√°usula FROM √† HQL
             condicao = "FROM " + getEntityClassName() + " " + IDAO.ENTITY_ALIAS_HQL + " WHERE " + condicao;
         	Session session = this.getDaoManager().getSessionFactory().openSession();
         	List<T> list = session.createQuery(condicao).list();

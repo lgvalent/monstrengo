@@ -15,16 +15,16 @@ import br.com.orionsoft.monstrengo.crud.support.DocumentParserCrudExpression;
 import br.com.orionsoft.monstrengo.crud.support.DocumentParserFields;
 
 /**
- * Este serviÁo recebe um modelo de documento de entidade e, opcionalmente, uma entidade
- * que ser· utilizada na compilaÁ„o das expressıes CRUD presente no documento.
+ * Este servi√ßo recebe um modelo de documento de entidade e, opcionalmente, uma entidade
+ * que ser√° utilizada na compila√ß√£o das express√µes CRUD presente no documento.
  * 
  * <p><b>Argumento:</b>
  * <br> IN_MODEL_DOCUMENT_ENTITY: Modelo de documento de entidade.
- * <br> IN_ENTITY_OPT: Inst‚ncia da entidade que ser· utilizada para a compilaÁ„o do documento.
+ * <br> IN_ENTITY_OPT: Inst√¢ncia da entidade que ser√° utilizada para a compila√ß√£o do documento.
  * 
  * <p><b>Procedimento:</b>
- * <br>Verifica se o modelo È compatÌvel com a entidade especÌfica.
- * <br>Obtem o cÛdigo fonte do documento.
+ * <br>Verifica se o modelo √© compat√≠vel com a entidade espec√≠fica.
+ * <br>Obtem o c√≥digo fonte do documento.
  * <br>Compila o documento.
  * <br><b>1 - Retorna o documento compilado.</b>
  * <br><b>2 - Retorna o mapa de campos encontrados no documento.</b>
@@ -38,22 +38,22 @@ public class CompileCrudDocumentService extends ServiceBasic
     
     public static String SERVICE_NAME = "CompileCrudDocumentService";
     
-    /** Modelo de etiqueta para a entidade, a qual fornecer· o que da entidade vai em cada linha da etiqueta */
+    /** Modelo de etiqueta para a entidade, a qual fornecer√° o que da entidade vai em cada linha da etiqueta */
     public static String IN_MODEL_DOCUMENT_ENTITY = "modelDocumentEntity";
-    /** Inst‚ncia da entidade da qual ser· estraÌda as informaÁıes */
+    /** Inst√¢ncia da entidade da qual ser√° estra√≠da as informa√ß√µes */
     public static String IN_ENTITY_OPT = "entity";
 
-    /** Õndice do resultado do documento compilado na lista de resultados do serviÁo */
+    /** √çndice do resultado do documento compilado na lista de resultados do servi√ßo */
     public static int OUT_COMPILED_DOCUMENT = 0;
-    /** Õndice do resultado do mapa com os campos que foram encontrados no documento. Estes campos 
-     * dever„o ter seus valores preenchidos neste mapa  */
+    /** √çndice do resultado do mapa com os campos que foram encontrados no documento. Estes campos 
+     * dever√£o ter seus valores preenchidos neste mapa  */
     public static int OUT_FIELDS_MAP = 1;
 
     public void execute(ServiceData serviceData) throws ServiceException 
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo CompileCrudDocumentService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo CompileCrudDocumentService");
             // Pega os argumentos
             @SuppressWarnings("unchecked")
 			IEntity<ModelDocumentEntity> inDocumentEntity = (IEntity<ModelDocumentEntity>) serviceData.getArgumentList().getProperty(IN_MODEL_DOCUMENT_ENTITY);
@@ -63,10 +63,10 @@ public class CompileCrudDocumentService extends ServiceBasic
             	inEntity = (IEntity<?>) serviceData.getArgumentList().getProperty(IN_ENTITY_OPT);
             
             // Preenche o novo registro
-            /* Pega a express„o do modelo de etiqueta */
+            /* Pega a express√£o do modelo de etiqueta */
             String source=inDocumentEntity.getProperty(ModelDocumentEntity.SOURCE).getValue().getAsString();
 
-            /* Se tiver uma entidade, verifica se a entidade È compativel com o modelo */
+            /* Se tiver uma entidade, verifica se a entidade √© compativel com o modelo */
             if(inEntity !=null){
             	ModelDocumentEntity oModelDocumentEntity = inDocumentEntity.getObject();
            	
@@ -77,22 +77,22 @@ public class CompileCrudDocumentService extends ServiceBasic
 				} catch (ClassNotFoundException e) {
 					throw new ServiceException(MessageList.createSingleInternalError(e));
 				}
-            	/* O modelo pode ser de uma classe da hierarquia da entidade e n„o diretamente da classe da entidade.
-            	 * Assim, uma express„o {Pessoa[?].nome} pode ser compilada por uma IEntity(Juridica).
-            	 * Para isto, e evitar problema nos compiladores de express„o, vamos substitui a palavra Pessoa para a classe
-            	 * especÌfica da Entidade no modelo.
+            	/* O modelo pode ser de uma classe da hierarquia da entidade e n√£o diretamente da classe da entidade.
+            	 * Assim, uma express√£o {Pessoa[?].nome} pode ser compilada por uma IEntity(Juridica).
+            	 * Para isto, e evitar problema nos compiladores de express√£o, vamos substitui a palavra Pessoa para a classe
+            	 * espec√≠fica da Entidade no modelo.
             	 */
             	source = source.replace(inDocumentEntity.getObject().getApplicationEntity().getName() + "[?]", inEntity.getObject().getClass().getSimpleName() + "[?]");            
             }
             
-            /* 1 PASSO: Compila as expressıes CRUD que est„o no documento para elas terem valores legiveis */
+            /* 1 PASSO: Compila as express√µes CRUD que est√£o no documento para elas terem valores legiveis */
             String outCompiledDocument;
             if(inEntity == null)
             	outCompiledDocument = DocumentParserCrudExpression.parseString(source, this.getServiceManager().getEntityManager());
             else
             	outCompiledDocument = DocumentParserCrudExpression.parseString(source, inEntity, this.getServiceManager().getEntityManager());
             
-            /* 2 PASSO: Analisa no documento a presenÁa de campos dentro de expressıes @{fieldName}
+            /* 2 PASSO: Analisa no documento a presen√ßa de campos dentro de express√µes @{fieldName}
              * e cria um mapa com os campos encontrados para serem, preenchidos */
         	Map<String, String> outDocumentFieds = DocumentParserFields.findFields(outCompiledDocument);
 
@@ -103,7 +103,7 @@ public class CompileCrudDocumentService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

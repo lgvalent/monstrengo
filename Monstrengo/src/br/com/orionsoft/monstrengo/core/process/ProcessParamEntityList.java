@@ -25,7 +25,7 @@ public class ProcessParamEntityList<E> extends ProcessParamBasic<IEntityList<E>>
 
 	@SuppressWarnings("unchecked")
 	public List<IEntity<E>> getList(String filter, int resultLimit) {
-		// A lista é criada depois com o tamanho já otimizado
+		// A lista Ã© criada depois com o tamanho jÃ¡ otimizado
 		try{
 			List<?> result = this.getProcess().getProcessManager().getServiceManager().getEntityManager().queryEntities(this.entityType, filter, staticHqlWhereFilter, resultLimit).getList();
 			
@@ -46,15 +46,15 @@ public class ProcessParamEntityList<E> extends ProcessParamBasic<IEntityList<E>>
 	 * Prepara uma lista de entidade na primeira chamada que ocorrer
 	 * pela busca do valor.
 	 * Esta lista tem que ser terdiamente criada, pois quando
-	 * um parâmetro de um processo é criado em seu construtor,
-	 * o próprio processo ainda não tem referências aos Managers
+	 * um parÃ¢metro de um processo Ã© criado em seu construtor,
+	 * o prÃ³prio processo ainda nÃ£o tem referÃªncias aos Managers
 	 * usados aqui
 	 */
 	@Override
 	public IEntityList<E> getValue() {
 		if(isNull()){
 			try {
-				/* Cria uma lista de entidade preparada para busca e definições */
+				/* Cria uma lista de entidade preparada para busca e definiÃ§Ãµes */
 				setValue(this.getProcess().getProcessManager().getServiceManager().getEntityManager().getEntityList(null, entityType));
 			} catch (EntityException e) {
 				e.printStackTrace();

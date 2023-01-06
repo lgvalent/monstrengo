@@ -23,15 +23,15 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationProcess;
 import br.com.orionsoft.monstrengo.security.services.ManageSecurityStructureService;
 
 /**
- * Esta classe testa os métodos manageEntitiesSecurity() e manageProcessSecurity(), na chamada do 
- * método execute da classe <b>ManageSecurityStructureService</b>.
+ * Esta classe testa os mÃ©todos manageEntitiesSecurity() e manageProcessSecurity(), na chamada do 
+ * mÃ©todo execute da classe <b>ManageSecurityStructureService</b>.
  * <p><b>Procedimento de testRunEntities:</b>
- * <br>Obtém a Lista de Entidades do Sistema através de <code>GetCrudEntitiesService</code>;
- * <br>Obtém a Lista de Entidades do Banco através de <code>ListService</code>;
+ * <br>ObtÃ©m a Lista de Entidades do Sistema atravÃ©s de <code>GetCrudEntitiesService</code>;
+ * <br>ObtÃ©m a Lista de Entidades do Banco atravÃ©s de <code>ListService</code>;
  * <br>Compara as duas listas de Entidades.
  * <p><b>Procedimento de testRunProcess:</b>
- * <br>Obtém a Lista de Processos do Sistema através de <code>GetAllProcessService</code>;
- * <br>Obtém a Lista de Processos do Banco através de <code>ListService</code>;
+ * <br>ObtÃ©m a Lista de Processos do Sistema atravÃ©s de <code>GetAllProcessService</code>;
+ * <br>ObtÃ©m a Lista de Processos do Banco atravÃ©s de <code>ListService</code>;
  * <br>Compara as duas listas de Processos.
  *  
  * @author estagio
@@ -54,7 +54,7 @@ public class ManageSecurityStructureServiceTestCase extends ProcessBasicTest{
 			
 ////////////Teste de Entidades//////////////////////////////////////////////////////////////////////////
 			
-			//realiza comparações com o Banco de Dados 
+			//realiza comparaÃ§Ãµes com o Banco de Dados 
 			ServiceData service = new ServiceData(ManageSecurityStructureService.SERVICE_NAME, null);
             service.getArgumentList().setProperty(ManageSecurityStructureService.IN_RESTORE_DEFAULT_OPT, new Boolean(true));
             this.processManager.getServiceManager().execute(service);
@@ -66,7 +66,7 @@ public class ManageSecurityStructureServiceTestCase extends ProcessBasicTest{
 			List<IEntityMetadata> entityList = (List)serviceData.getOutputData(0);
 			System.out.println("\nEntidades do Sistema - " + entityList.size());
 			
-			//modulesMap armazena os Módulos das Entidades
+			//modulesMap armazena os MÃ³dulos das Entidades
 			Map<String, Object> modulesMap = new HashMap<String, Object>();
 			for (IEntityMetadata entityInfo : entityList){
 				   System.out.println(entityInfo);
@@ -87,20 +87,20 @@ public class ManageSecurityStructureServiceTestCase extends ProcessBasicTest{
             //Verifica se as listas possuem o mesmo tamanho
             Assert.assertTrue(entityList.size() <= bdList.size());
             
-            //UtilsCrud é uma classe criada para facilitar os serviços CRUD (ja faz os services)
+            //UtilsCrud Ã© uma classe criada para facilitar os serviÃ§os CRUD (ja faz os services)
             IEntityCollection enl = UtilsCrud.list(this.processManager.getServiceManager(), ApplicationModule.class, null);
             
         	System.out.println("\nModulo Entidade - Memoria - " + modulesMap.size());
         	System.out.println("Modulo Entidade - Banco - " + enl.size());        	
 
-            //verifica o número de Módulos de Entidades no Sistema com o do Banco
+            //verifica o nÃºmero de MÃ³dulos de Entidades no Sistema com o do Banco
         	Assert.assertTrue(modulesMap.size() <= enl.size());
         	
 	
 ////////////Teste de Processos//////////////////////////////////////////////////////////////////////////
         	
         	
-			//realiza comparações com o Banco de Dados 
+			//realiza comparaÃ§Ãµes com o Banco de Dados 
 			service = new ServiceData(ManageSecurityStructureService.SERVICE_NAME, null);
             service.getArgumentList().setProperty(ManageSecurityStructureService.IN_RESTORE_DEFAULT_OPT, new Boolean(true));
             service.getArgumentList().setProperty(ManageSecurityStructureService.IN_PROCESS_MANAGER, this.processManager);
@@ -110,7 +110,7 @@ public class ManageSecurityStructureServiceTestCase extends ProcessBasicTest{
 			Collection<Class<? extends IProcess>> processList = this.processManager.getAllProcessesClasses();
 			System.out.println("\nProcessos do Sistema - " + processList.size());
 
-			//utiliza o mesmo modulesMap da Entidade para armazenar os Módulos dos Processos
+			//utiliza o mesmo modulesMap da Entidade para armazenar os MÃ³dulos dos Processos
 			for (Class processClass : processList){
 				   System.out.println(processClass);
 				   modulesMap.put(this.processManager.getServiceManager().getApplication().extractModuleName(processClass), null);
@@ -130,13 +130,13 @@ public class ManageSecurityStructureServiceTestCase extends ProcessBasicTest{
             //Verifica se as listas dos Processos possuem o mesmo tamanho
             Assert.assertTrue(processList.size() <= bdList.size());
             
-            //UtilsCrud é uma classe criada para facilitar os serviços CRUD (ja faz os services)
+            //UtilsCrud Ã© uma classe criada para facilitar os serviÃ§os CRUD (ja faz os services)
             IEntityCollection prcl = UtilsCrud.list(this.processManager.getServiceManager(), ApplicationModule.class, null);
             
         	System.out.println("\nModulo Processo - Memoria - " + modulesMap.size());
         	System.out.println("Modulo Processo - Banco - " + prcl.size());        	
 
-            //verifica o número de Módulos de Processos no Sistema com o do Banco
+            //verifica o nÃºmero de MÃ³dulos de Processos no Sistema com o do Banco
         	Assert.assertTrue(modulesMap.size() <= prcl.size());
 			
 		} catch (Exception e) {

@@ -9,10 +9,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Anota um processo que ser· controlado pelo ProcessManager
+ * Anota um processo que ser√° controlado pelo ProcessManager
  * http://java.sun.com/j2se/1.5.0/docs/api/java/lang/annotation/package-summary.html
  * http://java.sun.com/j2se/1.5.0/docs/guide/language/annotations.html
- * Foi lido para ter uma noÁ„o b·sica sobre anotaÁıes.
+ * Foi lido para ter uma no√ß√£o b√°sica sobre anota√ß√µes.
  * 
  * @author yuka
  *

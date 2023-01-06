@@ -48,7 +48,7 @@ public class CompileDocumentProcessTestCase_ extends ProcessBasicTest
 			IEntity documentEntity = UtilsCrud.create(this.processManager.getServiceManager(), ModelDocumentEntity.class, null);
             documentEntity.setPropertyValue(ModelDocumentEntity.NAME, "LabelTest");
             documentEntity.setPropertyValue(ModelDocumentEntity.DESCRIPTION, "Primeiro teste de ModelLabelEntity");
-            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento básico que exibe o nome do usuário: #{ApplicationUser[1].name}");
+            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento bÃ¡sico que exibe o nome do usuÃ¡rio: #{ApplicationUser[1].name}");
             
             process.setModelDocumentEntity(documentEntity);
             process.runCompileCrudExpression();
@@ -77,7 +77,7 @@ public class CompileDocumentProcessTestCase_ extends ProcessBasicTest
 			IEntity<ModelDocumentEntity> documentEntity = UtilsCrud.create(this.processManager.getServiceManager(), ModelDocumentEntity.class, null);
             documentEntity.setPropertyValue(ModelDocumentEntity.NAME, "LabelTest");
             documentEntity.setPropertyValue(ModelDocumentEntity.DESCRIPTION, "Primeiro teste de ModelLabelEntity");
-            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento básico que exibe o nome do usuário: #{ApplicationUser[?].name}");
+            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento bÃ¡sico que exibe o nome do usuÃ¡rio: #{ApplicationUser[?].name}");
             
             process.setModelDocumentEntity(documentEntity);
             process.setEntityType(ApplicationUser.class);
@@ -116,7 +116,7 @@ public class CompileDocumentProcessTestCase_ extends ProcessBasicTest
             documentEntity.setPropertyValue(ModelDocumentEntity.NAME, "LabelTest");
             documentEntity.setPropertyValue(ModelDocumentEntity.DESCRIPTION, "Primeiro teste de ModelLabelEntity");
             documentEntity.setPropertyValue(ModelDocumentEntity.APPLICATION_ENTITY, appEntity);
-            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento básico que exibe o nome do usuário: #{ApplicationUser[?].name}");
+            documentEntity.setPropertyValue(ModelDocumentEntity.SOURCE, "Documento bÃ¡sico que exibe o nome do usuÃ¡rio: #{ApplicationUser[?].name}");
             
             process.setModelDocumentEntity(documentEntity);
             

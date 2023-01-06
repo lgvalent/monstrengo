@@ -12,10 +12,10 @@ import br.com.orionsoft.monstrengo.core.service.ServiceException;
 public interface IService {
     
     /**
-     * Identifica o nome do Serviço para que o localizador de serviços
+     * Identifica o nome do ServiÃ§o para que o localizador de serviÃ§os
      * localize os mesmos pelo nome. 
      * 
-     * @return Retorna o nome do serviço que é definido pelo Tipo da sua Interface 
+     * @return Retorna o nome do serviÃ§o que Ã© definido pelo Tipo da sua Interface 
      * 
      */
     public abstract String getServiceName();
@@ -29,15 +29,15 @@ public interface IService {
     public abstract void execute(ServiceData serviceData) throws ServiceException;
     
     /**
-     * Indica se o serviço precisa iniciar uma transação. Default é false.
+     * Indica se o serviÃ§o precisa iniciar uma transaÃ§Ã£o. Default Ã© false.
      * @return
      */
     public abstract boolean isTransactional();
 
     /**
-     * Este método é útil para inserir mensagens de informações na lista 
-     * de mensagens do serviço. Auxiliando na geração de um Log para ser 
-     * exibido para o operador ao final do serviço.
+     * Este mÃ©todo Ã© Ãºtil para inserir mensagens de informaÃ§Ãµes na lista 
+     * de mensagens do serviÃ§o. Auxiliando na geraÃ§Ã£o de um Log para ser 
+     * exibido para o operador ao final do serviÃ§o.
      * @since 20060501
      */
     public abstract void addInfoMessage(ServiceData serviceData, String messageKey, Object... params);

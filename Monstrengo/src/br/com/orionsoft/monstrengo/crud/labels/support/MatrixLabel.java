@@ -27,22 +27,22 @@ public class MatrixLabel {
 	
 	private static void print(PrinterMatrix printer, int printerIndex){
 		
-		/* Cria o buffer de memÛria que receber· o(s) cheque(s) impressos 1440 = 18Lin X 80Col = 1 cheque */
+		/* Cria o buffer de mem√≥ria que receber√° o(s) cheque(s) impressos 1440 = 18Lin X 80Col = 1 cheque */
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream(1440);
-		/* Prepara a interface que ir· escrever no buffer criado logo acima */
+		/* Prepara a interface que ir√° escrever no buffer criado logo acima */
 		PrintStream ps = new PrintStream(buffer);
 		/* Escreve o(s) cheque(s) no buffer */
 		printer.toPrintStream(ps);
 		
-		/* Cria o documento de impress„o usando o buffer preenchido logo acima */
+		/* Cria o documento de impress√£o usando o buffer preenchido logo acima */
 		SimpleDoc doc = new SimpleDoc(new ByteArrayInputStream(buffer.toByteArray()), DocFlavor.INPUT_STREAM.AUTOSENSE, null);
-		/* Prepara alguns atributos de impress„o do trabalho de impress„o */
+		/* Prepara alguns atributos de impress√£o do trabalho de impress√£o */
 		PrintRequestAttributeSet att = new  HashPrintRequestAttributeSet();
 		att.add(MediaSizeName.PERSONAL_ENVELOPE);
 		
 //		System.out.println(buffer);
 		try {
-			/* Seleciona a impressora de acordo com o Ìndice passado e j· cria um trabalho de impress„o pra ela */
+			/* Seleciona a impressora de acordo com o √≠ndice passado e j√° cria um trabalho de impress√£o pra ela */
 			DocPrintJob job = PrintUtils.createDocPrintJob(printerIndex, "Etiquetas " + CalendarUtils.formatDate(Calendar.getInstance()));
 			
 			job.print(doc, att);
@@ -52,13 +52,13 @@ public class MatrixLabel {
 	}
 	
 	public static void print(List<AddressLabel> etiquetas, ModelLabel modelo, int printerIndex){
-		/* Verifica se a lista de etiqueta n„o est· vazia */
+		/* Verifica se a lista de etiqueta n√£o est√° vazia */
 		if(!etiquetas.isEmpty()){
 
 			/*  Preenche o etiqueta */
 			PrinterMatrix printer = new PrinterMatrix();
 			
-			/* Prepara a dimens„o do buffer da(s) folha(s) do(s) etiqueta(s).
+			/* Prepara a dimens√£o do buffer da(s) folha(s) do(s) etiqueta(s).
 			 * Utiliza a margem esquerda + o numero de colunas * (larguraEtiqueta+distanciaHorizontal) */
 			int larguraFolha = Math.round(modelo.getMarginLeft() + 
 					                     modelo.getColumnsLabel() * 
@@ -67,7 +67,7 @@ public class MatrixLabel {
 					                      )
 					                    );
 			
-			/* Verificando quatas etiquetas est„o selecionadas para criar a p·gina */
+			/* Verificando quatas etiquetas est√£o selecionadas para criar a p√°gina */
 			int selected = 0;
 			for(AddressLabel etiqueta: etiquetas)
 				if(etiqueta.isPrint())
@@ -113,7 +113,7 @@ public class MatrixLabel {
 	
 
 	public static void printRules(int printerIndex){
-		// TODO impress„o da rÈgua na folha de etiquetas
+		// TODO impress√£o da r√©gua na folha de etiquetas
 	}	
 
 	
@@ -151,7 +151,7 @@ public class MatrixLabel {
 		endereco.setLine2("Lucio Geronimo Valentin Pereira");
 		endereco.setLine3("Rua Cezar Lattes, 263");
 		endereco.setLine4("Casa / Jardim Alvorada");
-		endereco.setLine5("CEP: 87.035-070 - Maring·/Pr ");
+		endereco.setLine5("CEP: 87.035-070 - Maring√°/Pr ");
 		
 		List<AddressLabel> etiquetas = new ArrayList<AddressLabel>();
 		

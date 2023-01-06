@@ -36,9 +36,9 @@ public class MessageList extends ArrayList<BusinessMessage>
     }
     
     /**
-     * Este método analisa a lista de erro para verificar se
+     * Este mÃ©todo analisa a lista de erro para verificar se
      * existe algum erro do tipo TYPE_ERRO ou TYPE_CRITICAL
-     * para então indicar que a transação não deve ser finalizada
+     * para entÃ£o indicar que a transaÃ§Ã£o nÃ£o deve ser finalizada
      * com sucesso.
      *  
      * @return
@@ -58,8 +58,8 @@ public class MessageList extends ArrayList<BusinessMessage>
     }
     
     /**
-     * Este método é útil para se criar uma lista de mensagens
-     * baseada em apena uma ÚNICA mensagem.<br>
+     * Este mÃ©todo Ã© Ãºtil para se criar uma lista de mensagens
+     * baseada em apena uma ÃšNICA mensagem.<br>
      * Assim, evita-se de se criar objetos de lista, criar 
      * mensagens e ligar uma coisa com a outra<br>
      * <b>Exemplo:</b><br>
@@ -79,8 +79,8 @@ public class MessageList extends ArrayList<BusinessMessage>
     }
 
     /**
-     * Este método é útil para se criar uma lista de mensagens
-     * baseada em apena uma ÚNICA mensagem.<br>
+     * Este mÃ©todo Ã© Ãºtil para se criar uma lista de mensagens
+     * baseada em apena uma ÃšNICA mensagem.<br>
      * Pode-se especificar o tipo da mensagem.<br>
      * Assim, evita-se de se criar objetos de lista, criar 
      * mensagens e ligar uma coisa com a outra<br>
@@ -101,30 +101,30 @@ public class MessageList extends ArrayList<BusinessMessage>
     }
 
     /**
-     * Este método permite criar uma lista de mensagem de erro
-     * utilizando uma exceção. É útil para converte Exception do java
-     * em exceções de negócio.
+     * Este mÃ©todo permite criar uma lista de mensagem de erro
+     * utilizando uma exceÃ§Ã£o. Ã‰ Ãºtil para converte Exception do java
+     * em exceÃ§Ãµes de negÃ³cio.
      *  
-     * @param e Exceção que foi disparada pelo sistema e que será convertida 
+     * @param e ExceÃ§Ã£o que foi disparada pelo sistema e que serÃ¡ convertida 
      * @return retorna uma lista com uma mensagem de erro
      */
     public static MessageList createSingleInternalError(Exception e)
     {
         MessageList result = new MessageList(1);
         
-        // Prepara a pilha de execeção para ser mostrada
+        // Prepara a pilha de execeÃ§Ã£o para ser mostrada
 //        OutputStream stackStr= new OutputStream();
 //        PrintStream stack=null;
 /*        try
         {
-*/            //Imprime no dispositivo de erro a ocorrência deste erro. 
+*/            //Imprime no dispositivo de erro a ocorrÃªncia deste erro. 
             e.printStackTrace();
 /*            stack = new PrintStream(stackStr);
             e.printStackTrace(stack);
         } catch (FileNotFoundException e1)
         {
-            // Caso ocorra algum erro, este erro será propagado como 
-            // a pilha de execução.
+            // Caso ocorra algum erro, este erro serÃ¡ propagado como 
+            // a pilha de execuÃ§Ã£o.
             stackStr = e1.getMessage();
         }
 */        
@@ -132,7 +132,7 @@ public class MessageList extends ArrayList<BusinessMessage>
         args[0]=e.getClass().getSimpleName();
         args[1]=e.getMessage();
 //      args[2]=stackStr;
-        args[2]="Verifique o log de erro para maiores informações.";
+        args[2]="Verifique o log de erro para maiores informaÃ§Ãµes.";
 
         // 1=Ocorreu um erro interno do tipo {0} com a mensagem {1}. Pilha={2}  
         result.add(new BusinessMessage(GeneralException.class, "GENERAL_ERROR", args));
@@ -142,8 +142,8 @@ public class MessageList extends ArrayList<BusinessMessage>
     
     /**
      * Retorna a mensagem literal da primeira mensagem da lista, ou 
-     * uma String vazia se não tiver mensagem.<br>
-     * Útil quando se espera somente uma mensagem na lista. Ou se deseja
+     * uma String vazia se nÃ£o tiver mensagem.<br>
+     * Ãštil quando se espera somente uma mensagem na lista. Ou se deseja
      * despresar as demais
      * @return
      */

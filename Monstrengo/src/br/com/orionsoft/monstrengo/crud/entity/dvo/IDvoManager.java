@@ -9,9 +9,9 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityManager;
 
 /**
- * Gerenciador que mantÈm o registro de todos os Dvos das entidades existentes e 
- * controla transaÁıes. Existe uma ˙nica inst‚ncia desse gerenciador
- * na aplicaÁ„o e todos os Dvos possuem referÍncia e s„o executados por ele.
+ * Gerenciador que mant√©m o registro de todos os Dvos das entidades existentes e 
+ * controla transa√ß√µes. Existe uma √∫nica inst√¢ncia desse gerenciador
+ * na aplica√ß√£o e todos os Dvos possuem refer√™ncia e s√£o executados por ele.
  *  
  * @author Sergio
  * @version 20070523
@@ -19,19 +19,19 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityManager;
 public interface IDvoManager extends IManager{
 	
 	/**
-	 * Cada IDvo ser· registrado na lista interna de IDvo's disponÌveis.<br>
-	 * Este mÈtodo registra um Objeto do tipo IDvo que È passado como argumento.<br>
-	 * Uma mesma entidade poder· ter mais de um IDvo registrado. Assim, o gerenciador
-	 * ir· utilizar todos os IDvo's de uma entidade. E uma entidade sÛ ser· considerada
+	 * Cada IDvo ser√° registrado na lista interna de IDvo's dispon√≠veis.<br>
+	 * Este m√©todo registra um Objeto do tipo IDvo que √© passado como argumento.<br>
+	 * Uma mesma entidade poder√° ter mais de um IDvo registrado. Assim, o gerenciador
+	 * ir√° utilizar todos os IDvo's de uma entidade. E uma entidade s√≥ ser√° considerada
 	 * validada se todos seus IDvo's validaram a mesma.   
 	 */
 	public <T> void registerDvo(IDvo<T> dvo) throws DvoException;
 	
 	/**
-	 * Cada IDvo ser· registrado na lista interna de IDvo's disponÌveis.<br>
-	 * Este mÈtodo registra um Objeto do tipo IDvo que È passado como argumento.<br>
-	 * Uma mesma entidade poder· ter mais de um IDvo registrado. Assim, o gerenciador
-	 * ir· utilizar todos os IDvo's de uma entidade. E uma entidade sÛ ser· considerada
+	 * Cada IDvo ser√° registrado na lista interna de IDvo's dispon√≠veis.<br>
+	 * Este m√©todo registra um Objeto do tipo IDvo que √© passado como argumento.<br>
+	 * Uma mesma entidade poder√° ter mais de um IDvo registrado. Assim, o gerenciador
+	 * ir√° utilizar todos os IDvo's de uma entidade. E uma entidade s√≥ ser√° considerada
 	 * validada se todos seus IDvo's validaram a mesma.   
 	 */
 	public <T> void unregisterDvo(IDvo<T> dvo) throws DvoException;
@@ -52,15 +52,15 @@ public interface IDvoManager extends IManager{
 	public boolean contains(IEntity<?> entity) throws DvoException;
 
 	/**
-	 * Obtem a coleÁ„o de Dvo's registrados. 
+	 * Obtem a cole√ß√£o de Dvo's registrados. 
 	 * @return
 	 */
 	public Map<String, IDvo<?>> getDvos() throws DvoException;
 
 	/**
-	 * Indica uma referÍncia ao gerenciador de serviÁo que poder·
+	 * Indica uma refer√™ncia ao gerenciador de servi√ßo que poder√°
 	 * ser usado pelos DVOs deste gerenciador
-	 * para realizar suas validaÁıes utilizando a arquitetura de serviÁos.
+	 * para realizar suas valida√ß√µes utilizando a arquitetura de servi√ßos.
 	 */
 	public IEntityManager getEntityManager();
 	

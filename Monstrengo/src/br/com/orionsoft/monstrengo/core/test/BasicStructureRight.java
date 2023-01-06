@@ -24,18 +24,18 @@ import br.com.orionsoft.monstrengo.security.processes.AuthenticateProcess;
 import br.com.orionsoft.monstrengo.security.services.ManageSecurityStructureService;
 
 /**
- * Esta classe prepara a estrutura b·sica para a criaÁ„o de users, groups e rights, definindo 
- * as permissıes sobre os processos e o CRUD.
- * <p>S„o criados 2 usu·rios, 2 grupos e 2 direitos. O primeiro usu·rio (user1) pertence ao grupo1 e 
- * tem todos os direitos <code>true</code> (administrador); o segundo usu·rio (user2) pertence ao
- * grupo2 e n„o possui direito algum <code>(false)</code>.
+ * Esta classe prepara a estrutura b√°sica para a cria√ß√£o de users, groups e rights, definindo 
+ * as permiss√µes sobre os processos e o CRUD.
+ * <p>S√£o criados 2 usu√°rios, 2 grupos e 2 direitos. O primeiro usu√°rio (user1) pertence ao grupo1 e 
+ * tem todos os direitos <code>true</code> (administrador); o segundo usu√°rio (user2) pertence ao
+ * grupo2 e n√£o possui direito algum <code>(false)</code>.
  * 
  * @author estagio
  */
 public class BasicStructureRight {
 	/*
-	 * S„o criadas 3 listas, onde s„o armazenados as entidades do tipo user, group e right criadas,
-	 * para posterior eliminaÁ„o das mesmas no Banco de Dados
+	 * S√£o criadas 3 listas, onde s√£o armazenados as entidades do tipo user, group e right criadas,
+	 * para posterior elimina√ß√£o das mesmas no Banco de Dados
 	 */
 	private static List<IEntity<?>> users = new ArrayList<IEntity<?>>();
     private static List<IEntity<?>> groups = new ArrayList<IEntity<?>>();
@@ -53,21 +53,21 @@ public class BasicStructureRight {
     
     
     /**
-     * Cria 2 usu·rios que fazem parte de 2 grupos e tem 2 direitos diferentes
+     * Cria 2 usu√°rios que fazem parte de 2 grupos e tem 2 direitos diferentes
      * user1 - pertence group1 - tem todos os direitos
-     * user2 - pertence group2 - n„o possui direito algum
+     * user2 - pertence group2 - n√£o possui direito algum
      */
     public static void createRights(IProcessManager processManager){
         try{
         	IServiceManager serviceManager = processManager.getServiceManager();
 
-        	//cadastra entidades e processos no banco caso n„o estejam cadastrados
+        	//cadastra entidades e processos no banco caso n√£o estejam cadastrados
         	ServiceData service = new ServiceData(ManageSecurityStructureService.SERVICE_NAME, null);
         	service.getArgumentList().setProperty(ManageSecurityStructureService.IN_PROCESS_MANAGER, processManager);
         	serviceManager.execute(service);        	
         	
-        	//Criando 2 usu·rios, 2 grupos e 2 direitos
-        	//user1 pertencer· ao grupo1 e ter· todos os direitos (administrador)	
+        	//Criando 2 usu√°rios, 2 grupos e 2 direitos
+        	//user1 pertencer√° ao grupo1 e ter√° todos os direitos (administrador)	
 //        	System.out.println("user1");
         	IEntity<?> user1 = UtilsCrud.create(serviceManager, ApplicationUser.class, null);
         	user1.setPropertyValue(ApplicationUser.LOGIN, USER_1);
@@ -76,7 +76,7 @@ public class BasicStructureRight {
         	users.add(user1);
 //        	System.out.println("ID - user1 - " + user1.getId());
         	
-        	//user2 pertencer· ao grupo2 e n„o ter· direitos de acesso (tudo negado) 
+        	//user2 pertencer√° ao grupo2 e n√£o ter√° direitos de acesso (tudo negado) 
 //        	System.out.println("user2");
         	IEntity<?> user2 = UtilsCrud.create(serviceManager, ApplicationUser.class, null);
         	user2.setPropertyValue(ApplicationUser.LOGIN, USER_2);
@@ -85,7 +85,7 @@ public class BasicStructureRight {
         	users.add(user2);
 //        	System.out.println("ID - user2 - " + user2.getId());
         	
-        	//Criando grupos e associando aos usu·rios
+        	//Criando grupos e associando aos usu√°rios
 //        	System.out.println("group1");
         	IEntity<?> group1 = UtilsCrud.create(serviceManager, SecurityGroup.class, null);
         	group1.setPropertyValue(SecurityGroup.NAME, GROUP_1);
@@ -121,10 +121,10 @@ public class BasicStructureRight {
         	for (IEntity ent : entities){
         		//user1 - group1
         		/*
-        		 * Aqui n„o est· sendo usado DefineRightCrudService porque os direitos de cada 
-        		 * entidade s„o adicionados no vetor rights do tipoIEntity
-        		 * Isso È feito para que depois de construir os usu·rios, grupos e direitos
-        		 * no Banco de Dados, seja possÌvel apag·-los. 
+        		 * Aqui n√£o est√° sendo usado DefineRightCrudService porque os direitos de cada 
+        		 * entidade s√£o adicionados no vetor rights do tipoIEntity
+        		 * Isso √© feito para que depois de construir os usu√°rios, grupos e direitos
+        		 * no Banco de Dados, seja poss√≠vel apag√°-los. 
         		 */
         		IEntity rightCrud1 = UtilsCrud.create(serviceManager, RightCrud.class, null); //direito CRUD
         		rightCrud1.setPropertyValue(RightCrud.SECURITY_GROUP, group1);
@@ -188,7 +188,7 @@ public class BasicStructureRight {
 //        		System.out.println("user2 - EXECUTE - FALSE - " + testRight2.getProperty(RightProcess.EXECUTE_ALLOWED).getValue().getAsBoolean());
         	}
         	
-        	//autenticando usu·rios user1 e user2
+        	//autenticando usu√°rios user1 e user2
         	authenticateUser(processManager);	
 
         }catch (Exception e){
@@ -198,8 +198,8 @@ public class BasicStructureRight {
     
     private static void authenticateUser(IProcessManager processManager){
     	try{
-    		//autenticando usu·rios criados
-//    		System.out.println(":Obtendo um Id v·lido para fornecer ao processo.");
+    		//autenticando usu√°rios criados
+//    		System.out.println(":Obtendo um Id v√°lido para fornecer ao processo.");
     		ServiceData sd = new ServiceData(ListService.SERVICE_NAME, null);
     		sd.getArgumentList().setProperty(ListService.CLASS, ApplicationUser.class);
     		processManager.getServiceManager().execute(sd);
@@ -233,8 +233,8 @@ public class BasicStructureRight {
     
     /**
      * Apaga os elementos inseridos para teste no Banco de Dados.
-     * <br>Deve ser apagado na ordem inversa ao que foi criado devido ‡s dependencias, 
-     * no caso, como foram criados na ordem: user, group, right, s„o apagados na ordem: right, group, user.
+     * <br>Deve ser apagado na ordem inversa ao que foi criado devido √†s dependencias, 
+     * no caso, como foram criados na ordem: user, group, right, s√£o apagados na ordem: right, group, user.
      */
     public static void destroyRigths(IProcessManager processManager){
             try{
@@ -252,7 +252,7 @@ public class BasicStructureRight {
             		UtilsCrud.delete(serviceManager, groups.get(i), null);
             	}
             	
-            	//Deletando os usu·rios
+            	//Deletando os usu√°rios
 //            	System.out.println("Deletando " + users.size() + " Users");
             	for (int i = 0; i < users.size(); i++){
             		UtilsCrud.delete(serviceManager, users.get(i), null);	

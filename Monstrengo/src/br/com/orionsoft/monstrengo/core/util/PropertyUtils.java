@@ -11,20 +11,20 @@ import br.com.orionsoft.monstrengo.crud.labels.entities.ModelLabel;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * Classe que fornece mÈtodos utilit·rios para tratamento de propriedades
+ * Classe que fornece m√©todos utilit√°rios para tratamento de propriedades
  * das entidades.
- * Implementa alguns recursos que n„o s„o encontrados na classe
+ * Implementa alguns recursos que n√£o s√£o encontrados na classe
  * PropertyUtils do projeto jakarta-commons.
- * Aqui È usado a tÈcnica de analisar DIRETAMENTE no mÈtodo get. Isto porque, h· 
- * propriedades Transientes que n„o tem um Field correspondente:)
+ * Aqui √© usado a t√©cnica de analisar DIRETAMENTE no m√©todo get. Isto porque, h√° 
+ * propriedades Transientes que n√£o tem um Field correspondente:)
  * @author Lucio 20060202
  * @version 20110621
  */
 public abstract class PropertyUtils {
 	
 	/**
-	 * Este mÈtodo procura na entidade o mÈtodo de leitura do propriedade solicitada.
-	 * Se n„o achar um get() tenta achar um is(). Sen„o retorna null.
+	 * Este m√©todo procura na entidade o m√©todo de leitura do propriedade solicitada.
+	 * Se n√£o achar um get() tenta achar um is(). Sen√£o retorna null.
 	 * @param entityClass
 	 * @param propName
 	 * @return
@@ -38,7 +38,7 @@ public abstract class PropertyUtils {
 				return null;
 			} catch (NoSuchMethodException e) {
 				try {
-					/* Tenta pegar o mÈtodo de propriedade LÛgica */
+					/* Tenta pegar o m√©todo de propriedade L√≥gica */
 					return entityClass.getMethod("is" + propName.toUpperCase().charAt(0) + propName.substring(1));
 				} catch (Exception e1) {
 					return null;
@@ -49,11 +49,11 @@ public abstract class PropertyUtils {
 	
 
     /**
-     * Este mÈtodo retorna o tipo da propriedade de uma classe baseando-se somente no mÈtodo GET
-     * @param entityClass Classe que ser· analisada
-     * @param propName Nome da propriedade que ser· buscada dentro da 
+     * Este m√©todo retorna o tipo da propriedade de uma classe baseando-se somente no m√©todo GET
+     * @param entityClass Classe que ser√° analisada
+     * @param propName Nome da propriedade que ser√° buscada dentro da 
      * classe para encontrar seu tipo. 
-     * @return Retorna a classe da propriedade se encontrado, ou null se n„o encontrada
+     * @return Retorna a classe da propriedade se encontrado, ou null se n√£o encontrada
      */
 	public static Class<?> getPropertyType(Class<?> entityClass, String propName) {
 		/* Procura em todos os declaredField da hierarquia */
@@ -65,22 +65,22 @@ public abstract class PropertyUtils {
 			return (Class<?>) t;
 		} catch (Exception e) {
 			e.printStackTrace();
-			/* N„o faz nada, deixa percorrer a hierarquia */
+			/* N√£o faz nada, deixa percorrer a hierarquia */
 		}
 		return null;
 	}
     
     /**
-     * Este mÈtodo retorna o ParameterizedType para controlar as definiÁıes de Generics
-     * Com esta classe, È possÌvel acessar os tipos genÈricos definidos na propriedade de uma classe.
+     * Este m√©todo retorna o ParameterizedType para controlar as defini√ß√µes de Generics
+     * Com esta classe, √© poss√≠vel acessar os tipos gen√©ricos definidos na propriedade de uma classe.
      * Fonte: http://joe.truemesh.com/blog//000495.html
-     * ParameterizedType.getRawType(): retorna o tipo Raw que contem a definiÁ„o Generics
+     * ParameterizedType.getRawType(): retorna o tipo Raw que contem a defini√ß√£o Generics
      * ParameterizedType.getActualTypeArguments()[0]: retorna um vetor com os tipos pametrizados.
      * Exemplo: Map<String,Integer> f = null; f possui dois argumentos generics 
-     * @param entityClass Classe que ser· analisada
-     * @param propName Nome da propriedade que ser· buscada dentro da 
+     * @param entityClass Classe que ser√° analisada
+     * @param propName Nome da propriedade que ser√° buscada dentro da 
      * classe para encontrar seu tipo. 
-     * @return Retorna a classe da propriedade se encontrado, ou null se n„o encontrada
+     * @return Retorna a classe da propriedade se encontrado, ou null se n√£o encontrada
      */
     public static ParameterizedType getPropertyGenericsDeclaration(Class<?> entityClass, String propName) {
     	try {
@@ -94,11 +94,11 @@ public abstract class PropertyUtils {
     }   
     
     /**
-     * Este mÈtodo retorna o valor da propriedade 
-     * @param entityClass Classe que ser· analisada
-     * @param propName Nome da propriedade que ser· buscada dentro da 
+     * Este m√©todo retorna o valor da propriedade 
+     * @param entityClass Classe que ser√° analisada
+     * @param propName Nome da propriedade que ser√° buscada dentro da 
      * classe para encontrar seu tipo. 
-     * @return Retorna a classe da propriedade se encontrado, ou null se n„o encontrada
+     * @return Retorna a classe da propriedade se encontrado, ou null se n√£o encontrada
      */
     public static Object getPropertyValue(Object entity, String propName) {
     	try {

@@ -19,8 +19,8 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 
 /**
- * Esta classe È o item da lista de etiquetas de endereÁamento
- * que est„o prontas para serem impressas. 
+ * Esta classe √© o item da lista de etiquetas de endere√ßamento
+ * que est√£o prontas para serem impressas. 
  * 
  * @hibernate.class table="framework_document_model_entity"
  */

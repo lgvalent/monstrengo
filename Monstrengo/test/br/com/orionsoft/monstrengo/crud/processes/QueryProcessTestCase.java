@@ -30,7 +30,7 @@ public class QueryProcessTestCase extends ProcessBasicTest
 	}
 	
 	/**
-	 * Este método testa o caminho normal se todos os dados
+	 * Este mÃ©todo testa o caminho normal se todos os dados
 	 * estiverem corretos.
 	 */
 	@Test
@@ -81,7 +81,7 @@ public class QueryProcessTestCase extends ProcessBasicTest
 	}
 	
 	/**
-	 * Este método testa o caminho normal se todos os dados
+	 * Este mÃ©todo testa o caminho normal se todos os dados
 	 * estiverem corretos.
 	 */
 	@Test
@@ -138,7 +138,7 @@ public class QueryProcessTestCase extends ProcessBasicTest
 	}
 	
 	/**
-	 * Este método testa o caminho normal se todos os dados
+	 * Este mÃ©todo testa o caminho normal se todos os dados
 	 * estiverem corretos.
 	 */
 	public void testRunQuery()
@@ -191,8 +191,8 @@ public class QueryProcessTestCase extends ProcessBasicTest
 	}
 	
 	/**
-	 * Este método testa o a utilização de condições 
-	 * de ordenação.
+	 * Este mÃ©todo testa o a utilizaÃ§Ã£o de condiÃ§Ãµes 
+	 * de ordenaÃ§Ã£o.
 	 */
 	public void testOrderCondictionsBuildResult()
 	{
@@ -266,7 +266,7 @@ public class QueryProcessTestCase extends ProcessBasicTest
 	}
 
 	/**
-	 * Este método testa o caminho normal se todos os dados
+	 * Este mÃ©todo testa o caminho normal se todos os dados
 	 * estiverem corretos.
 	 */
 	public void testSaveRestore()
@@ -327,14 +327,14 @@ public class QueryProcessTestCase extends ProcessBasicTest
 	}
 
 	/**
-	 * Este método testa o caminho normal se todos os dados
+	 * Este mÃ©todo testa o caminho normal se todos os dados
 	 * estiverem corretos.
 	 */
 	public void testListReport()
 	{
 		try
 		{
-			System.out.println("Mostrando a lista de relatórios disponíveis");
+			System.out.println("Mostrando a lista de relatÃ³rios disponÃ­veis");
 			
 			for(IEntity entity: UserReport.listUserReport(this.processManager.getServiceManager()))
 				UtilsTest.showEntityProperties(entity);

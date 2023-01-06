@@ -25,7 +25,7 @@ public class ChangePasswordServiceTestCase extends ServiceBasicTest{
 	@Test
     public void testRun(){
 		try {
-			//realiza comparações com o Banco de Dados 
+			//realiza comparaÃ§Ãµes com o Banco de Dados 
 			ServiceData service = new ServiceData(ChangePasswordService.SERVICE_NAME, null);
 			service.getArgumentList().setProperty(ChangePasswordService.IN_LOGIN, "admin");
 			service.getArgumentList().setProperty(ChangePasswordService.IN_CURRENT_PASSWORD, "admin");
@@ -34,7 +34,7 @@ public class ChangePasswordServiceTestCase extends ServiceBasicTest{
             
             UtilsTest.showMessageList(service.getMessageList());
 			
-			//realiza comparações com o Banco de Dados 
+			//realiza comparaÃ§Ãµes com o Banco de Dados 
 			service = new ServiceData(ChangePasswordService.SERVICE_NAME, null);
 			service.getArgumentList().setProperty(ChangePasswordService.IN_LOGIN, "admin");
 			service.getArgumentList().setProperty(ChangePasswordService.IN_CURRENT_PASSWORD, "nimda");
@@ -54,7 +54,7 @@ public class ChangePasswordServiceTestCase extends ServiceBasicTest{
     @Test
 	public void testOverwrite(){
 		try {
-			//realiza comparações com o Banco de Dados 
+			//realiza comparaÃ§Ãµes com o Banco de Dados 
 			ServiceData service = new ServiceData(ChangePasswordService.SERVICE_NAME, null);
 			service.getArgumentList().setProperty(ChangePasswordService.IN_LOGIN, "admin");
 			service.getArgumentList().setProperty(ChangePasswordService.IN_NEW_PASSWORD, "admin");
@@ -63,7 +63,7 @@ public class ChangePasswordServiceTestCase extends ServiceBasicTest{
 	        
 	        UtilsTest.showMessageList(service.getMessageList());
 			
-			//realiza comparações com o Banco de Dados 
+			//realiza comparaÃ§Ãµes com o Banco de Dados 
 			service = new ServiceData(ChangePasswordService.SERVICE_NAME, null);
 			service.getArgumentList().setProperty(ChangePasswordService.IN_LOGIN, "user");
 			service.getArgumentList().setProperty(ChangePasswordService.IN_NEW_PASSWORD, "user");

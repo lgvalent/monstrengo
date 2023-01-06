@@ -13,7 +13,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 @Table(name="framework_email_account")
 public class EmailAccount {
 
-	//propriedade para conex„o com o servidor de e-mails - os campos 'user' e 'password' podem ser ignorados caso n„o se utilize autenticaÁ„o para envio dos e-mails
+	//propriedade para conex√£o com o servidor de e-mails - os campos 'user' e 'password' podem ser ignorados caso n√£o se utilize autentica√ß√£o para envio dos e-mails
 	public static final String USE_AS_DEFAULT = "useAsDefault";
 	public static final String HOST = "host";
 	public static final String USER = "user";

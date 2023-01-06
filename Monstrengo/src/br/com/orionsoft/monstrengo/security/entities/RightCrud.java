@@ -11,9 +11,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
-import br.com.orionsoft.monstrengo.security.entities.ApplicationEntity;
-import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
-
 /**
  * @hibernate.class table="security_right_crud"
  */
@@ -22,7 +19,7 @@ import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 public class RightCrud
 {
     /* Constantes com o nomes das propriedades da classe para
-     * serem usadas no cÛdigo e evitar erro de digitaÁ„o. */
+     * serem usadas no c√≥digo e evitar erro de digita√ß√£o. */
     public static final String CREATE_ALLOWED = "createAllowed";
     public static final String RETRIEVE_ALLOWED = "retrieveAllowed";
     public static final String UPDATE_ALLOWED = "updateAllowed";
@@ -84,11 +81,11 @@ public class RightCrud
 
     /**
      * Relacionamento UNIDIRECIONAL com a Entidade. 
-     * A Entidade n„o conhece todos os direitos Crud sobre ela.
-     * No entanto, um foreign-key È declarado para evitar que o hibernate crie-o 
-     * por si sÛ. Assim, declarado, o hibernate vai esperar que o outro lado crie.
-     * Como È unidirecional, n„o existe o outro lado. Logo, o Ìndice desnecess·rio
-     * n„o ser· criado.
+     * A Entidade n√£o conhece todos os direitos Crud sobre ela.
+     * No entanto, um foreign-key √© declarado para evitar que o hibernate crie-o 
+     * por si s√≥. Assim, declarado, o hibernate vai esperar que o outro lado crie.
+     * Como √© unidirecional, n√£o existe o outro lado. Logo, o √≠ndice desnecess√°rio
+     * n√£o ser√° criado.
      * @hibernate.many-to-one cascade="save-update" foreign-key="applicationEntity"
      */
     @ManyToOne
@@ -98,9 +95,9 @@ public class RightCrud
     public void setApplicationEntity(ApplicationEntity applicationEntity){this.applicationEntity = applicationEntity;}
     
     /**
-     * Relacionamento BIDIRECIONAL com o Grupo de SeguranÁa. O grupo possui uma coleÁ„o
+     * Relacionamento BIDIRECIONAL com o Grupo de Seguran√ßa. O grupo possui uma cole√ß√£o
      * dos direitos ligados a ele, e cada direito sabe a qual Grupo pertence.
-     * Nesta caso, a definiÁ„o de qual chave estrangeira usar È importante
+     * Nesta caso, a defini√ß√£o de qual chave estrangeira usar √© importante
      * @hibernate.many-to-one foreign-key="securitygroup"
     */
     @ManyToOne

@@ -20,20 +20,20 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 /**
- * Este processo controla a criaÁ„o de uma etiqueta para uma entidade.
+ * Este processo controla a cria√ß√£o de uma etiqueta para uma entidade.
  * Ele utiliza um modelo de etiqueta de entidade e 
- * tambÈm uma entidade de origem, ou um entityType + entityId para obter a entidade
+ * tamb√©m uma entidade de origem, ou um entityType + entityId para obter a entidade
  * de origem
  *
  * <p><b>Procedimentos:</b><br>
  * <li>Definir a entidade: <i>setEntityType(Class)</i> e <i>setEntityId(long)</i> ou <i>setEntity(IEntity)</i>
- * <li>O mÈtodo getModelsDocumentEntity() retorna um lista de modelos que podem ser utilizados pelo atual operdos.
+ * <li>O m√©todo getModelsDocumentEntity() retorna um lista de modelos que podem ser utilizados pelo atual operdos.
  * <li>Definir o modelo de documento da entidade: <i>setModelDocumentoENtityId(long)</i> ou <i>setModelDocumentoENtity(IEntity)</i>
  * <li>Executar runCompile() para compilar o documento.
- * <li>Obter o documento compilado pelo mÈtodo <i>getResultCompiledDocument():String</i>
- * <li>Obter o mapa de campos para preenchimento pelo mÈtodo <i>getResultDocumentFields(): Map<String, String></i>
+ * <li>Obter o documento compilado pelo m√©todo <i>getResultCompiledDocument():String</i>
+ * <li>Obter o mapa de campos para preenchimento pelo m√©todo <i>getResultDocumentFields(): Map<String, String></i>
  * <li>Executar runReplaceFields() para substituir os valores dos campos preenchidos no mapa.
- * <li>Obter o documento compilado e com campos preenchidos pelo mÈtodo <i>getResultCompiledDocumentFields():String</i>
+ * <li>Obter o documento compilado e com campos preenchidos pelo m√©todo <i>getResultCompiledDocumentFields():String</i>
  * 
  * @spring.bean id="CompileDocumentProcess" init-method="start" destroy-method="finish" singleton="false"
  * @spring.property name="processManager" ref="ProcessManager"
@@ -47,13 +47,13 @@ public class CompileDocumentProcess extends ProcessBasic
     private IEntity modelDocumentEntity=null;
     
     /**
-     * Se estes par‚metros forem mudados os objetos entity È invalidado (=null)
+     * Se estes par√¢metros forem mudados os objetos entity √© invalidado (=null)
      */
     private Class entityType=null;
     private long entityId;
 
     /**
-     * Se estes par‚metro for mudado o modelLabelEntity È invalidado (=null)
+     * Se estes par√¢metro for mudado o modelLabelEntity √© invalidado (=null)
      */
     private long modelDocumentEntityId;
     
@@ -71,9 +71,9 @@ public class CompileDocumentProcess extends ProcessBasic
 	}
 	
 	/**
-	 * Utilizando este mÈtodo, automaticamente, os id e type da entidade
-	 * ser„o preenchidos.
-	 * Caso contr·rio, deve ser fornecido o tipo e o id.
+	 * Utilizando este m√©todo, automaticamente, os id e type da entidade
+	 * ser√£o preenchidos.
+	 * Caso contr√°rio, deve ser fornecido o tipo e o id.
 	 * @param entity
 	 * @throws EntityException 
 	 */
@@ -114,14 +114,14 @@ public class CompileDocumentProcess extends ProcessBasic
 
 	public long getModelDocumentEntityId(){return modelDocumentEntityId;}
 	public void setModelDocumentEntityId(long modelDocumentEntityId){
-		/* Lucio - 10/04/07: Agora forÁa a carga do modelo, pois o mesmo pode ter sido
-		 * alterado no banco e o operador est· tentando verificar as alteraÁıes realizadas. */
+		/* Lucio - 10/04/07: Agora for√ßa a carga do modelo, pois o mesmo pode ter sido
+		 * alterado no banco e o operador est√° tentando verificar as altera√ß√µes realizadas. */
 		this.modelDocumentEntityId = modelDocumentEntityId;
 		this.modelDocumentEntity = null;
 	}
  
 	/**
-	 *  O tipo da entidade j· deve estar definido para executar este mÈtodo, para que ele mostra somente os modelos 
+	 *  O tipo da entidade j√° deve estar definido para executar este m√©todo, para que ele mostra somente os modelos 
 	 *  da entidade selecionada
 	 */
 	public List<SelectItem> getModelsDocumentEntity(){
@@ -216,7 +216,7 @@ public class CompileDocumentProcess extends ProcessBasic
 
     /**
      * Controla os campos extraidos do documento durante o runCompileCrudExpression().
-     * … inicializado com um map vazio, para permitir a prÈ visualizaÁ„o do documento
+     * √â inicializado com um map vazio, para permitir a pr√© visualiza√ß√£o do documento
      * sem compilar o CrudEpression.
      */
 	private Map<String, String> documentFieldsMap = new HashMap<String, String>(0);

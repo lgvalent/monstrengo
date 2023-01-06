@@ -18,13 +18,13 @@ import br.com.orionsoft.monstrengo.crud.support.DocumentParserCrudExpression;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * ServiÁo de registro de auditoria de alteraÁıes Crud.
+ * Servi√ßo de registro de auditoria de altera√ß√µes Crud.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_USER_SESSION: Inst‚ncia da atual sess„o do usu·rio.
- * <br> IN_APPLICATION_ENTITY: Entidade de seguranÁa que indica a entidade do sistema que ser· auditada.
- * <br> IN_ENTITY_ID: Identificador da inst‚ncia da entidade que ser· auditada (LONG).
- * <br> IN_DESCRIPTION_STR: DescriÁ„o adicional que ser· registrada na auditoria.
+ * <br> IN_USER_SESSION: Inst√¢ncia da atual sess√£o do usu√°rio.
+ * <br> IN_APPLICATION_ENTITY: Entidade de seguran√ßa que indica a entidade do sistema que ser√° auditada.
+ * <br> IN_ENTITY_ID: Identificador da inst√¢ncia da entidade que ser√° auditada (LONG).
+ * <br> IN_DESCRIPTION_STR: Descri√ß√£o adicional que ser√° registrada na auditoria.
  * 
  * <p><b>Procedimento:</b>
  * <br>Cria um novo registro da auditoria.
@@ -41,13 +41,13 @@ public class CreateLabelFromEntityService extends ServiceBasic
     
     public static String SERVICE_NAME = "CreateLabelFromEntityService";
     
-    /** Inst‚ncia do usu·rio atualmente autenticado no sistema. */
+    /** Inst√¢ncia do usu√°rio atualmente autenticado no sistema. */
     public static String IN_APPLICATION_USER = "applicationUser";
-    /** Modelo de etiqueta para a entidade, a qual fornecer· o que da entidade vai em cada linha da etiqueta */
+    /** Modelo de etiqueta para a entidade, a qual fornecer√° o que da entidade vai em cada linha da etiqueta */
     public static String IN_MODEL_LABEL_ENTITY = "modelLabelEntity";
     /** Grupo de etiqueta  */
     public static String IN_ADDRESS_LABEL_GROUP_OPT = "addressLabelGroup";
-    /** Inst‚ncia da entidade da qual ser· estraÌda as informaÁıes */
+    /** Inst√¢ncia da entidade da qual ser√° estra√≠da as informa√ß√µes */
     public static String IN_ENTITY = "entity";
 
     @SuppressWarnings({ "unchecked" })
@@ -55,7 +55,7 @@ public class CreateLabelFromEntityService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo CreateLabelFromEntityService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo CreateLabelFromEntityService");
             // Pega os argumentos
             IEntity<ApplicationUser> inAppUser = (IEntity<ApplicationUser>) serviceData.getArgumentList().getProperty(IN_APPLICATION_USER);
             IEntity<?> inEntity = (IEntity<?>) serviceData.getArgumentList().getProperty(IN_ENTITY);
@@ -63,7 +63,7 @@ public class CreateLabelFromEntityService extends ServiceBasic
             IEntity<AddressLabelGroup> inAddressLabelGroup = serviceData.getArgumentList().containsProperty(IN_ADDRESS_LABEL_GROUP_OPT)?(IEntity<AddressLabelGroup>) serviceData.getArgumentList().getProperty(IN_ADDRESS_LABEL_GROUP_OPT):null;
 
             try {
-				/* Verifica se a entidade È compativel com o modelo */
+				/* Verifica se a entidade √© compativel com o modelo */
 				if (!ClassUtils.isAssignable(inEntity.getInfo().getType(), Class.forName(inModelLabel.getObject().getApplicationEntity().getClassName()))){
 					throw new ServiceException(MessageList.create(CreateLabelFromEntityService.class, "INCOMPATIBLE_MODEL", inModelLabel, inEntity.getInfo().getType().getSimpleName()));
 				}
@@ -81,10 +81,10 @@ public class CreateLabelFromEntityService extends ServiceBasic
             addressLabel.getProperty(AddressLabel.OCURRENCY_DATE).getValue().setAsCalendar(Calendar.getInstance());
 
             String line;
-            /* Pega a express„o do modelo de etiqueta */
+            /* Pega a express√£o do modelo de etiqueta */
             line=inModelLabel.getProperty(ModelLabelEntity.LINE1).getValue().getAsString();
             line=replaceClassNameHierachiModel(line, inEntity, inModelLabel);
-            /* Compila a express„o para ela virar valor legivel */
+            /* Compila a express√£o para ela virar valor legivel */
             line=DocumentParserCrudExpression.parseString(line,inEntity, this.getServiceManager().getEntityManager());
             /* Armazena o resultado compilado na linha da nova etiqueta */
             addressLabel.getProperty(AddressLabel.LINE1).getValue().setAsString(line);
@@ -118,16 +118,16 @@ public class CreateLabelFromEntityService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }
     
     /**
-     * O modelo pode ser de uma classe da hierarquia da entidade e n„o diretamente da classe da entidade.
-     * Assim, uma express„o {Pessoa[?].nome} pode ser compiladoa por uma IEntity(Juridica).
-     * Para isto, e evitar problema nos compiladores de express„o, vamos substitui a palavra Pessoa para a classe
-     * especÌfica da Entidade.
+     * O modelo pode ser de uma classe da hierarquia da entidade e n√£o diretamente da classe da entidade.
+     * Assim, uma express√£o {Pessoa[?].nome} pode ser compiladoa por uma IEntity(Juridica).
+     * Para isto, e evitar problema nos compiladores de express√£o, vamos substitui a palavra Pessoa para a classe
+     * espec√≠fica da Entidade.
      * @param line
      * @param inEntity
      * @param inModelLabel

@@ -15,13 +15,13 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationProcess;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
 
 /**
- * ServiÁo de registro de auditoria de processos.
- * Na descriÁ„o s„o armazenados os par‚metros utilizados na execuÁ„o do processo.
+ * Servi√ßo de registro de auditoria de processos.
+ * Na descri√ß√£o s√£o armazenados os par√¢metros utilizados na execu√ß√£o do processo.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_USER_SESSION: Inst‚ncia da atual sess„o do usu·rio.
- * <br> IN_APPLICATION_PROCESS: Entidade de seguranÁa que indica o processo que ser· auditado.
- * <br> IN_DESCRIPTION_STR: DescriÁ„o adicional que ser· registrada na auditoria.
+ * <br> IN_USER_SESSION: Inst√¢ncia da atual sess√£o do usu√°rio.
+ * <br> IN_APPLICATION_PROCESS: Entidade de seguran√ßa que indica o processo que ser√° auditado.
+ * <br> IN_DESCRIPTION_STR: Descri√ß√£o adicional que ser√° registrada na auditoria.
  * 
  * <p><b>Procedimento:</b>
  * <br>Cria um novo registro da auditoria.
@@ -62,7 +62,7 @@ public class AuditorProcessService extends ServiceBasic
             // Cria um novo registro
             IEntity<AuditProcessRegister> register = UtilsCrud.create(this.getServiceManager(), AuditProcessRegister.class, serviceData);
 
-            /* Limita o tamanho da descriÁ„o para o tamanho do banco, evitando erros do tipo:
+            /* Limita o tamanho da descri√ß√£o para o tamanho do banco, evitando erros do tipo:
              * Data truncation: Data too long for column 'description' at row 1 */
             description = StringUtils.substring(description, 0, register.getProperty(AuditProcessRegister.DESCRIPTION).getInfo().getSize());
 
@@ -82,7 +82,7 @@ public class AuditorProcessService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

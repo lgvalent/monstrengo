@@ -3,8 +3,8 @@ package br.com.orionsoft.monstrengo.crud.processes;
 import br.com.orionsoft.monstrengo.core.test.ProcessBasicTest;
 
 /**
- * Esta  classe realiza um pequeno teste sobre a criação dos direitos
- * assim como a destruição dos mesmos.
+ * Esta  classe realiza um pequeno teste sobre a criaÃ§Ã£o dos direitos
+ * assim como a destruiÃ§Ã£o dos mesmos.
  * 
  * @author estagio
  *

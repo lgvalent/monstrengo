@@ -21,8 +21,8 @@ import br.com.orionsoft.monstrengo.crud.entity.metadata.IPropertyMetadata;
 import br.com.orionsoft.monstrengo.crud.services.ResultCondiction;
 
 /**
- * Esta classe mantem os par‚metros de criaÁ„o de
- * condiÁıes que ser„o utilizados pelo processo de pesquisa.
+ * Esta classe mantem os par√¢metros de cria√ß√£o de
+ * condi√ß√µes que ser√£o utilizados pelo processo de pesquisa.
  * @author Lucio 20060328
  */
 public class ResultParam extends ReportParam
@@ -34,7 +34,7 @@ public class ResultParam extends ReportParam
     	
     	this.condictions = new ArrayList<ResultCondiction>();
     	
-    	/* Constroi a lista de condiÁıes que poder„o ser marcadas/desmarcadas para serem visualizadas no resultado */
+    	/* Constroi a lista de condi√ß√µes que poder√£o ser marcadas/desmarcadas para serem visualizadas no resultado */
     	buildCondictions();
     }
 	
@@ -84,9 +84,9 @@ public class ResultParam extends ReportParam
     
 	public ResultCondiction[] getSelectedCondictions(){
 		
-		/* Contando quantos items est„o marcados para criar um vetor com 
-		 * o tamanho otimizado e evitar processos de readequaÁ„o do tamanho do vetor
-		 * a cada inserÁ„o */
+		/* Contando quantos items est√£o marcados para criar um vetor com 
+		 * o tamanho otimizado e evitar processos de readequa√ß√£o do tamanho do vetor
+		 * a cada inser√ß√£o */
 		int selectedCount = 0;
 		for(ResultCondiction cond: this.condictions)
 			if(cond.isVisible())
@@ -95,20 +95,20 @@ public class ResultParam extends ReportParam
 		/* Construindo a lista de itens selecionados */
 		ResultCondiction[] result = new ResultCondiction[selectedCount];
 		
-		/* Adicionando o itens selecionados como visÌveis na lista */
+		/* Adicionando o itens selecionados como vis√≠veis na lista */
 		for(ResultCondiction cond: this.condictions)
 			if(cond.isVisible()){
-				/* Verifica se tem um Ìndice v·lido definido */
+				/* Verifica se tem um √≠ndice v√°lido definido */
 				if(cond.getResultIndex() != null){
 					int index=0;
-					/* Verifica se o Ìndice definido È MAIOR ou IGUAL ao tamanho da lita */
+					/* Verifica se o √≠ndice definido √© MAIOR ou IGUAL ao tamanho da lita */
 					if(cond.getResultIndex() >= selectedCount){
 						/* Coloca num lugar vago */
 						index = ArrayUtils.findFirstEmpty(result);
-						/* Atualiza o Ìndice do elemento */
+						/* Atualiza o √≠ndice do elemento */
 						cond.setResultIndex(index);
 					}else
-						/* Verifica se o Ìndice definido j· est· ocupado */
+						/* Verifica se o √≠ndice definido j√° est√° ocupado */
 						if(result[cond.getResultIndex()]!=null){
 							/* Move o elemento entruso para o um lugar vago */
 							index = ArrayUtils.findFirstEmpty(result);
@@ -116,20 +116,20 @@ public class ResultParam extends ReportParam
 							/* Atualiza o indice do elemento entruso */
 							result[index].setResultIndex(index);
 	
-							/* Utiliza o Ìndice definido pelo proprio elemento */
+							/* Utiliza o √≠ndice definido pelo proprio elemento */
 							index = cond.getResultIndex();
 						}else{
-							/* Utiliza o Ìndice definido pelo proprio elemento */
+							/* Utiliza o √≠ndice definido pelo proprio elemento */
 							index = cond.getResultIndex();
 						}
 					
-					/* Define o conteudo da posiÁ„o calculada acima */
+					/* Define o conteudo da posi√ß√£o calculada acima */
 					result[index] = cond;
 				}else{
 					int index=ArrayUtils.findFirstEmpty(result);
-					/* Nenhum Ìndice definido, coloca num lugar vago */
+					/* Nenhum √≠ndice definido, coloca num lugar vago */
 					result[index] = cond;
-					/* Atualiza o Ìndice do elemento */
+					/* Atualiza o √≠ndice do elemento */
 					cond.setResultIndex(index);
 					
 				}
@@ -141,12 +141,12 @@ public class ResultParam extends ReportParam
 	public void setCondictions(List<ResultCondiction> condictions){this.condictions = condictions;}
 	
 	/**
-	 * Este protetor È necess·rio porque uma entidade A pode referenciar uma entidade B, 
+	 * Este protetor √© necess√°rio porque uma entidade A pode referenciar uma entidade B, 
 	 * que por sua vez, possui uma referencia pra A. 
 	 */
 	private Map<String, Integer> deadLockProtect = new HashMap<String, Integer>();
 	private void buildCondictions() throws BusinessException{
-		/* Limpa as atuais condiÁıes de reasultado */
+		/* Limpa as atuais condi√ß√µes de reasultado */
 		this.condictions.clear();
 		
 		/* Adiciona todas as propriedades a atual entidade */
@@ -155,7 +155,7 @@ public class ResultParam extends ReportParam
 				/* Limpa o protetor de over flow*/
 				deadLockProtect.clear();
 					
-				/* Adiciona a entidade atual na lista de proteÁ„o de overflowa */
+				/* Adiciona a entidade atual na lista de prote√ß√£o de overflowa */
 				deadLockProtect.put(this.getUserReport().getEntityType().getSimpleName()+propInfo.getName(), 0);
 					
 				/* Constroi o caminho para a propriedae atual */
@@ -163,7 +163,7 @@ public class ResultParam extends ReportParam
 			}
 		}
 
-			/* Reordena a lista por ordem alfabÈtica */
+			/* Reordena a lista por ordem alfab√©tica */
 			Collections.<ResultCondiction>sort(this.condictions, new Comparator<ResultCondiction>(){
 				public int compare(ResultCondiction o1, ResultCondiction o2) {
 					return o1.getPropertyPathLabel().compareTo(o2.getPropertyPathLabel());
@@ -172,7 +172,7 @@ public class ResultParam extends ReportParam
 	}
 		
 	private void buildPropertyPath(IPropertyMetadata  propInfo, String actualPath, String actualLabel,Integer stackLevelId, boolean visible) throws EntityException{
-		/* Coloca o separador entre as propriedades se n„o for a primeira */
+		/* Coloca o separador entre as propriedades se n√£o for a primeira */
 		if(!actualPath.equals(""))
 			actualPath += IDAO.PROPERTY_SEPARATOR;
 		actualPath += propInfo.getName();
@@ -183,20 +183,20 @@ public class ResultParam extends ReportParam
 		/* Adiciona a atual propriedade na lista de resultados */
 		this.condictions.add(new ResultCondiction(propInfo, actualPath, actualLabel, visible));
 		
-		/* Verifica se atual propriedade È uma subClass para buscar suas subPropriedades */
+		/* Verifica se atual propriedade √© uma subClass para buscar suas subPropriedades */
 		if(propInfo.isEntity() && !propInfo.isCollection()){
 			/* Obtem os metadados da entidade corrente */
 			IEntityMetadata entInfo = this.getUserReport().getEntityManager().getEntityMetadata(propInfo.getType());
 			
 			/* Obtem os metadados da entidade referenciada pela propriedade e
-			 * ConstrÛi o caminho (PropertyPath) de navagaÁ„o entre as propriedades RECURSIVAMENTE */
+			 * Constr√≥i o caminho (PropertyPath) de navaga√ß√£o entre as propriedades RECURSIVAMENTE */
 			for(IPropertyMetadata propInfo_: entInfo.getProperties()){
-				/* Verifica no protetor de workflow se esta entidade j· foi referenciada
-				 * em un nÌvel anterior ao atual. Pois entidades no mesmo nÌvel, ou posterioir, poder·o ser
+				/* Verifica no protetor de workflow se esta entidade j√° foi referenciada
+				 * em un n√≠vel anterior ao atual. Pois entidades no mesmo n√≠vel, ou posterioir, poder√°o ser
 				 * referenciadas */
 				Integer stackItem = deadLockProtect.get(entInfo.getType().getSimpleName()+propInfo_.getName()); 
 				if((stackItem == null) || (stackItem.compareTo(stackLevelId)>-1)){
-					/* Adiciona a entidade atual na lista de proteÁ„o de overflowa */
+					/* Adiciona a entidade atual na lista de prote√ß√£o de overflowa */
 					deadLockProtect.put(entInfo.getType().getSimpleName()+propInfo_.getName(), stackLevelId);
 					
 					if(ResultCondiction.checkVersionSupport(propInfo_))

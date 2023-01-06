@@ -14,9 +14,9 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 
 /**
- * Esta classe fornece diversos mÈtodos ˙teis na execuÁ„o de serviÁos Crud.
- * <br>Seu principal objetivo È facilitar a execuÁ„o destes serviÁos, diminuindo o 
- * cÛdigo digitado. 
+ * Esta classe fornece diversos m√©todos √∫teis na execu√ß√£o de servi√ßos Crud.
+ * <br>Seu principal objetivo √© facilitar a execu√ß√£o destes servi√ßos, diminuindo o 
+ * c√≥digo digitado. 
  * 
  * @author Lucio 2005/10/25
  * @version 2005/10/25
@@ -25,11 +25,11 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 public class UtilsCrud
 {
     /**
-     * Este mÈtodo cria uma nova inst‚ncia de uma entidade (IEntity). 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param klazz Define o tipo da entidade que ser· criada.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna uma nova inst‚ncia de uma entidade.
+     * Este m√©todo cria uma nova inst√¢ncia de uma entidade (IEntity). 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param klazz Define o tipo da entidade que ser√° criada.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna uma nova inst√¢ncia de uma entidade.
      * @throws BusinessException
      */
     public static final <T> IEntity<T> create(IServiceManager svcMgr,Class<T> klazz, ServiceData serviceDataOwner) throws BusinessException
@@ -42,11 +42,11 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo cria uma nova inst‚ncia de um Objeto. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param klazz Define o tipo da entidade que ser· criada.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna uma nova inst‚ncia de uma entidade.
+     * Este m√©todo cria uma nova inst√¢ncia de um Objeto. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param klazz Define o tipo da entidade que ser√° criada.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna uma nova inst√¢ncia de uma entidade.
      * @throws BusinessException
      */
     public static final <T> T objectCreate(IServiceManager svcMgr,Class<T> klazz, ServiceData serviceDataOwner) throws BusinessException
@@ -59,12 +59,12 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo recupera a inst‚ncia de uma entidade com o Id fornecido. 
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param klazz Define o tipo da entidade que ser· recuperada.
-     * @param id Define o Id da entidade que ser· recuperada.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna a inst‚ncia da entidade com o Id fornecido.
+     * Este m√©todo recupera a inst√¢ncia de uma entidade com o Id fornecido. 
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param klazz Define o tipo da entidade que ser√° recuperada.
+     * @param id Define o Id da entidade que ser√° recuperada.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna a inst√¢ncia da entidade com o Id fornecido.
      * @throws BusinessException
      */
     public static final <T> IEntity<T> retrieve(IServiceManager svcMgr,Class<T> klazz, long id, ServiceData serviceDataOwner) throws BusinessException
@@ -78,14 +78,14 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo recupera a inst‚ncia de uma entidade com o Id fornecido.
+     * Este m√©todo recupera a inst√¢ncia de uma entidade com o Id fornecido.
      * Retornando um object
      *  
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param klazz Define o tipo da entidade que ser· recuperada.
-     * @param id Define o Id da entidade que ser· recuperada.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
-     * @return Retorna a inst‚ncia da entidade com o Id fornecido.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param klazz Define o tipo da entidade que ser√° recuperada.
+     * @param id Define o Id da entidade que ser√° recuperada.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
+     * @return Retorna a inst√¢ncia da entidade com o Id fornecido.
      * @throws BusinessException
      */
     public static final <T> T objectRetrieve(IServiceManager svcMgr, Class<T> klazz, long id, ServiceData serviceDataOwner) throws BusinessException
@@ -99,10 +99,10 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo atualiza a inst‚ncia de uma entidade.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param entity Define a entidade que ser· atualizada.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
+     * Este m√©todo atualiza a inst√¢ncia de uma entidade.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param entity Define a entidade que ser√° atualizada.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
      * @throws BusinessException
      */
     public static final void update(IServiceManager svcMgr,IEntity<?> entity, ServiceData serviceDataOwner) throws BusinessException
@@ -113,15 +113,15 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo atualiza a inst‚ncia de um objeto.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param object Define o objeto que ser· atualizado.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
+     * Este m√©todo atualiza a inst√¢ncia de um objeto.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param object Define o objeto que ser√° atualizado.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
      * @throws BusinessException
      */
     public static final void objectUpdate(IServiceManager svcMgr,Object object, ServiceData serviceDataOwner) throws BusinessException
     {
-        /* Converte o objeto em uma entidade para utilizar o mesmo padr„o de persistÍncia */
+        /* Converte o objeto em uma entidade para utilizar o mesmo padr√£o de persist√™ncia */
     	IEntity<?> entity = svcMgr.getEntityManager().getEntity(object);
     	
     	ServiceData sdU = new ServiceData(UpdateService.SERVICE_NAME, serviceDataOwner);
@@ -130,10 +130,10 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo exclui a inst‚ncia de uma entidade.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param entity Define a entidade que ser· excluÌda.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
+     * Este m√©todo exclui a inst√¢ncia de uma entidade.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param entity Define a entidade que ser√° exclu√≠da.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
      * @throws BusinessException
      */
     public static final void delete(IServiceManager svcMgr,IEntity<?> entity, ServiceData serviceDataOwner) throws BusinessException
@@ -144,15 +144,15 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo exclui a inst‚ncia de um objeto.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
-     * @param object Define o objeto que ser· excluÌdo.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
+     * Este m√©todo exclui a inst√¢ncia de um objeto.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
+     * @param object Define o objeto que ser√° exclu√≠do.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
      * @throws BusinessException
      */
     public static final void objectDelete(IServiceManager svcMgr,Object object, ServiceData serviceDataOwner) throws BusinessException
     {
-        /* Converte o objeto em uma entidade para utilizar o mesmo padr„o de persistÍncia */
+        /* Converte o objeto em uma entidade para utilizar o mesmo padr√£o de persist√™ncia */
     	IEntity<?> entity = svcMgr.getEntityManager().getEntity(object);
 
     	ServiceData sdD = new ServiceData(DeleteService.SERVICE_NAME, serviceDataOwner);
@@ -161,10 +161,10 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo obtÈm uma lista de todas as inst‚ncias de uma entidade.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
+     * Este m√©todo obt√©m uma lista de todas as inst√¢ncias de uma entidade.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
      * @param klazz Define o tipo de entidade da lista.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
      * @return Lista de entidades (do tipo IEntityList) da classe fornecida
      * @throws BusinessException
      */
@@ -178,10 +178,10 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo obtÈm uma lista de todas as inst‚ncias de um objeto.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
+     * Este m√©todo obt√©m uma lista de todas as inst√¢ncias de um objeto.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
      * @param klazz Define o tipo de entidade da lista.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
      * @return Lista de objetos da classe fornecida
      * @throws BusinessException
      */
@@ -195,11 +195,11 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo obtÈm uma lista de todas as inst‚ncias de uma entidade.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
+     * Este m√©todo obt√©m uma lista de todas as inst√¢ncias de uma entidade.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
      * @param klazz Define o tipo de entidade da lista.
-     * @param condiction CondiÁ„o de filtragem para ser aplicada na lista.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
+     * @param condiction Condi√ß√£o de filtragem para ser aplicada na lista.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
      * @return Lista de entidades (do tipo IEntityList) da classe fornecida
      * @throws BusinessException
      */
@@ -214,11 +214,11 @@ public class UtilsCrud
     }
     
     /**
-     * Este mÈtodo obtÈm uma lista de todos os objetos.
-     * @param svcMgr Define a inst‚ncia do gerenciador de serviÁos disponÌvel. 
+     * Este m√©todo obt√©m uma lista de todos os objetos.
+     * @param svcMgr Define a inst√¢ncia do gerenciador de servi√ßos dispon√≠vel. 
      * @param klazz Define o tipo de entidade da lista.
-     * @param condiction CondiÁ„o de filtragem para ser aplicada na lista.
-     * @param serviceDataOwner Define os dados do serviÁo pai que solicitou a execuÁ„o deste serviÁo
+     * @param condiction Condi√ß√£o de filtragem para ser aplicada na lista.
+     * @param serviceDataOwner Define os dados do servi√ßo pai que solicitou a execu√ß√£o deste servi√ßo
      * @return Lista de entidades (do tipo IEntityList) da classe fornecida
      * @throws BusinessException
      */

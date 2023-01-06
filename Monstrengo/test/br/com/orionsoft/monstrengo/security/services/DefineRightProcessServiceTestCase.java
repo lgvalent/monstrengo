@@ -17,8 +17,8 @@ import br.com.orionsoft.monstrengo.security.entities.SecurityGroup;
 import br.com.orionsoft.monstrengo.security.services.DefineRightProcessService;
 
 /**
- * Testa as permissıes de Processo a partir de um ServiceData e verifica se as mesmas permissıes 
- * que foram setadas est„o gravadas no banco.
+ * Testa as permiss√µes de Processo a partir de um ServiceData e verifica se as mesmas permiss√µes 
+ * que foram setadas est√£o gravadas no banco.
  */
 public class DefineRightProcessServiceTestCase extends ServiceBasicTest
 {
@@ -49,7 +49,7 @@ public class DefineRightProcessServiceTestCase extends ServiceBasicTest
             sd.getArgumentList().setProperty(DefineRightProcessService.EXECUTE_ALLOWED, true);
             this.serviceManager.execute(sd);
             
-            // Verifica se est· gravado PERMITIDO
+            // Verifica se est√° gravado PERMITIDO
             ServiceData sl = new ServiceData(ListService.SERVICE_NAME, null);
             sl.getArgumentList().setProperty(ListService.CLASS, RightProcess.class);
             sl.getArgumentList().setProperty(ListService.CONDITION_OPT_STR,  IDAO.ENTITY_ALIAS_HQL + "." + RightProcess.SECURITY_GROUP + ".id=" + group.getId() + " and " + IDAO.ENTITY_ALIAS_HQL + "." + RightProcess.APPLICATION_PROCESS + ".id=" + process.getId());
@@ -65,7 +65,7 @@ public class DefineRightProcessServiceTestCase extends ServiceBasicTest
             sd.getArgumentList().setProperty(DefineRightProcessService.EXECUTE_ALLOWED, false);
             this.serviceManager.execute(sd);
             
-            // Verifica se est· gravado NAO PERMITIDO
+            // Verifica se est√° gravado NAO PERMITIDO
             sl = new ServiceData(ListService.SERVICE_NAME, null);
             sl.getArgumentList().setProperty(ListService.CLASS, RightProcess.class);
             sl.getArgumentList().setProperty(ListService.CONDITION_OPT_STR,  IDAO.ENTITY_ALIAS_HQL + "." + RightProcess.SECURITY_GROUP + ".id=" + group.getId() + " and " + IDAO.ENTITY_ALIAS_HQL + "." + RightProcess.APPLICATION_PROCESS + ".id=" + process.getId());
@@ -81,7 +81,7 @@ public class DefineRightProcessServiceTestCase extends ServiceBasicTest
 
             Assert.assertTrue(false);
         }
-        //n„o È usado o UtilsCrud.delete() pois ocorrem erros devido ‡ dependÍncia
+        //n√£o √© usado o UtilsCrud.delete() pois ocorrem erros devido √† depend√™ncia
 //        finally
 //        {
 //            try

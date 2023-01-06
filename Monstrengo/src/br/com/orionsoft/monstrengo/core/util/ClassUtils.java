@@ -10,16 +10,16 @@ import br.com.orionsoft.monstrengo.auditorship.entities.AuditCrudRegister;
 import br.com.orionsoft.monstrengo.auditorship.entities.AuditRegister;
 
 /**
- * Classe com mÈtodos est·ticos para facilitar a manipulaÁ„o de classes.
+ * Classe com m√©todos est√°ticos para facilitar a manipula√ß√£o de classes.
  * @author Marcia
  */
 public class ClassUtils {
 
     
 	/**
-	 * Este mÈtodo obtÈm uma lista com o nome de todas as classes
+	 * Este m√©todo obt√©m uma lista com o nome de todas as classes
 	 * que fazem parte da hierarquia de uma determinada classe.
-	 * Incluindo a prÛpria classe
+	 * Incluindo a pr√≥pria classe
 	 * @param entityClass
 	 * @return
 	 */
@@ -34,7 +34,7 @@ public class ClassUtils {
 	}
 	
 	/**
-	 * Este mÈtodo verifica se uma classe se encontra na hierarquia de outra 
+	 * Este m√©todo verifica se uma classe se encontra na hierarquia de outra 
 	 */
 	public static boolean isAssignable(Class<?> entityClass, Class<?> toEntityClass) {
 		return org.apache.commons.lang.ClassUtils.isAssignable(entityClass, toEntityClass);

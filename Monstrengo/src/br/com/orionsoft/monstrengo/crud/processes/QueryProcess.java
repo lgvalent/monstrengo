@@ -9,8 +9,8 @@ import br.com.orionsoft.monstrengo.crud.report.entities.UserReport;
 import br.com.orionsoft.monstrengo.security.services.UtilsSecurity;
 
 /**
- * Este processo controla a visualizaÁ„o de uma entidade do sistema.
- * Controlando tambÈm as permissıes.
+ * Este processo controla a visualiza√ß√£o de uma entidade do sistema.
+ * Controlando tamb√©m as permiss√µes.
  * 
  * <p><b>Procedimentos:</b>
  * <br>Definir o tipo da entidade: <i>setEntityType(Class)</i>
@@ -49,7 +49,7 @@ public class QueryProcess extends ProcessBasic
 				if(this.mayQuery()){
 					userReport = new UserReport(this.getProcessManager().getServiceManager().getEntityManager(), this.entityType, this.getUserSession().getUser());
 				}else{
-			        // N„o possui direitos de QUERY para este de entidade
+			        // N√£o possui direitos de QUERY para este de entidade
 			        throw new ProcessException(MessageList.create(QueryProcess.class, "QUERY_DENIED", getUserSession().getUserLogin(), this.getProcessManager().getServiceManager().getEntityManager().getEntityMetadata(this.entityType).getLabel()));
 
 				}
@@ -63,12 +63,12 @@ public class QueryProcess extends ProcessBasic
 	public Class<?> getEntityType(){return entityType;}
 	public void setEntityType(Class<?> entityType) throws ProcessException{
 		this.entityType = entityType;
-		/* Se trocar a entidade, o relatÛrio anterior ser· descartado */
+		/* Se trocar a entidade, o relat√≥rio anterior ser√° descartado */
 		this.userReport = null;
 	}
 	
 	
-    /** Verifica se o user tem permiss„o de visualizaÁ„o */
+    /** Verifica se o user tem permiss√£o de visualiza√ß√£o */
     public boolean mayQuery() throws BusinessException
     {
         return UtilsSecurity.checkRightQuery(this.getProcessManager().getServiceManager(), this.entityType, this.getUserSession(), null);

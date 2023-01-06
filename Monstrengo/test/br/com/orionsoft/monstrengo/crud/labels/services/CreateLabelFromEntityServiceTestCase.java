@@ -37,7 +37,7 @@ public class CreateLabelFromEntityServiceTestCase extends ServiceBasicTest
             labelEntity.setPropertyValue(ModelLabelEntity.NAME, "LabelTest");
             labelEntity.setPropertyValue(ModelLabelEntity.DESCRIPTION, "Primeiro teste de ModelLabelEntity");
             labelEntity.setPropertyValue(ModelLabelEntity.APPLICATION_ENTITY, appEntity);
-            labelEntity.setPropertyValue(ModelLabelEntity.LINE1, "Nome do usu·rio: #{ApplicationUser[?].name}");
+            labelEntity.setPropertyValue(ModelLabelEntity.LINE1, "Nome do usu√°rio: #{ApplicationUser[?].name}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE2, "Login: #{ApplicationUser[?].login}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE3, "Senha: #{ApplicationUser[?].password}");
             labelEntity.setPropertyValue(ModelLabelEntity.LINE4, "Grupo: #{ApplicationUser[?].securityGroups}");

@@ -1,10 +1,10 @@
 package br.com.orionsoft.monstrengo.core.service;
 
 /**
- * Esta classe implementa algumas funcionalidades comuns para beans que s„o
- * resultados personalizados de alguns serviÁos.<br>
- * Em sua maioria, s„o serviÁos que realizam consulta no banco e obtem uma lista
- * de entidades, porÈm, somente algumas propriedades das entidades s„o selecionadas 
+ * Esta classe implementa algumas funcionalidades comuns para beans que s√£o
+ * resultados personalizados de alguns servi√ßos.<br>
+ * Em sua maioria, s√£o servi√ßos que realizam consulta no banco e obtem uma lista
+ * de entidades, por√©m, somente algumas propriedades das entidades s√£o selecionadas 
  * e estas propriedades precisam ser armazenadas em um bean.
  * 
  * @author lucio
@@ -14,9 +14,9 @@ package br.com.orionsoft.monstrengo.core.service;
 public abstract class ServiceResultBean {
 
 	/** Permite que um elemento seja marcado ou desmarcado, assim,
-	 * ao fazer parte de uma lista, esta lista poder· ter alguns itens 
-	 * desmarcados e estes itens n„o ser„o processados por outro determinado 
-	 * serviÁo que receber· esta lista. 
+	 * ao fazer parte de uma lista, esta lista poder√° ter alguns itens 
+	 * desmarcados e estes itens n√£o ser√£o processados por outro determinado 
+	 * servi√ßo que receber√° esta lista. 
 	 */
 	private boolean checked = true;
 	public boolean isChecked() {return checked;}

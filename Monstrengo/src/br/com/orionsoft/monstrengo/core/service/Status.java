@@ -5,10 +5,10 @@ import java.util.Observable;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 
 /**
- * Esta classe implementa o padrão <b>Observer</b>.
- * Ela recebe mensagens e os objetos registrados nela são notificados
+ * Esta classe implementa o padrÃ£o <b>Observer</b>.
+ * Ela recebe mensagens e os objetos registrados nela sÃ£o notificados
  * a cada mensagem recebida.
- * <p>Ela é útil para enviar mensagem de dentro de um serviço para a interface.
+ * <p>Ela Ã© Ãºtil para enviar mensagem de dentro de um serviÃ§o para a interface.
  * @author Lucio
  *
  */

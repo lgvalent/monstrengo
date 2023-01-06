@@ -4,15 +4,15 @@
 package br.com.orionsoft.monstrengo.core.util;
 
 /**
- * Classe com métodos estáticos para facilitar a manipulação de arrays.
+ * Classe com mÃ©todos estÃ¡ticos para facilitar a manipulaÃ§Ã£o de arrays.
  * @author Marcia
  */
 public class ArrayUtils {
 
     /**
-     * Esse método procura no array fornecido o indice da primeira posição vazia disponível.
+     * Esse mÃ©todo procura no array fornecido o indice da primeira posiÃ§Ã£o vazia disponÃ­vel.
      * @param objectArray array a ser explorado
-     * @return indice da posição vazia
+     * @return indice da posiÃ§Ã£o vazia
      */
     public static int findFirstEmpty(Object[] objectArray)
     {
@@ -25,9 +25,9 @@ public class ArrayUtils {
     }
 
     /**
-     * Esse método procura no array fornecido o indice da última posição vazia disponível.
+     * Esse mÃ©todo procura no array fornecido o indice da Ãºltima posiÃ§Ã£o vazia disponÃ­vel.
      * @param objectArray array a ser explorado
-     * @return indice da posição vazia
+     * @return indice da posiÃ§Ã£o vazia
      */
     public static int findLastEmpty(Object[] objectArray)
     {

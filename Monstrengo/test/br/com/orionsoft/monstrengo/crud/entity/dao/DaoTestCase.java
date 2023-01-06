@@ -14,20 +14,20 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 /**
  * Esta classe realiza testes em todos os Daos registrados.
  * <p>
- * Utilizando o <b>Dao Manager</b>, a lista de Daos È obtida.
+ * Utilizando o <b>Dao Manager</b>, a lista de Daos √© obtida.
  * <p>
- * Para cada Dao, os mÈtodos <b>Create</b>, <b>Update</b>, <b>Retrieve</b> e
- * <b>Delete</b> s„o executados.
+ * Para cada Dao, os m√©todos <b>Create</b>, <b>Update</b>, <b>Retrieve</b> e
+ * <b>Delete</b> s√£o executados.
  * <p>
- * Para preencher um objeto de forma genÈrica s„o obtidas suas propriedades do
- * tipo String e È atribuÌdo um valor padr„o.
+ * Para preencher um objeto de forma gen√©rica s√£o obtidas suas propriedades do
+ * tipo String e √© atribu√≠do um valor padr√£o.
  * 
  * @author estagio
  * 
  */
 public class DaoTestCase extends DaoBasicTest {
 
-	// Para alterar o n˙mero de Objetos a serem testados, mudar esta constante
+	// Para alterar o n√∫mero de Objetos a serem testados, mudar esta constante
 	private final int NUMERO_TESTES = 2;
 
 	// public static void main(String[] args) {
@@ -53,7 +53,7 @@ public class DaoTestCase extends DaoBasicTest {
 			user.setLogin("CREATE");
 			user.setPassword("CREATE");
 			dao.update(user);
-			org.junit.Assert.assertTrue("Um ID deve ser gerado pela persistÍncia!",	user.getId() != IDAO.ENTITY_UNSAVED);
+			org.junit.Assert.assertTrue("Um ID deve ser gerado pela persist√™ncia!",	user.getId() != IDAO.ENTITY_UNSAVED);
 			
 			user.setName("UPDATE");
 			dao.update(user);
@@ -64,7 +64,7 @@ public class DaoTestCase extends DaoBasicTest {
 			List<ApplicationUser> users = dao.getList();
 			for(ApplicationUser u: users){
 				System.out.println("Analisando " + u.getId() + " - " + u.getLogin());
-				org.junit.Assert.assertTrue("O usu·rio deveria ter sido removido do banco!", u.getId() != user.getId());
+				org.junit.Assert.assertTrue("O usu√°rio deveria ter sido removido do banco!", u.getId() != user.getId());
 			}
 			
 		} catch (DAOException e) {

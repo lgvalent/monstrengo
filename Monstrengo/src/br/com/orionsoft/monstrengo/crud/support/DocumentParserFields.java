@@ -20,18 +20,18 @@ public class DocumentParserFields {
 	public static final char FIELD_EXPRESSION_PARAM_SEPARATOR = ',';
 	public static final char FIELD_EXPRESSION_END = '}';
 	
-	/* Esta constante È utilizada para tratar expressıes encadeadas que est„o
-	 * dentro das expressıes @{} e que tambÈm podem utilizar o sÌmbolo '}'
-	 * para encerrar a express„o */
+	/* Esta constante √© utilizada para tratar express√µes encadeadas que est√£o
+	 * dentro das express√µes @{} e que tamb√©m podem utilizar o s√≠mbolo '}'
+	 * para encerrar a express√£o */
 	public static final char FIELD_EXPRESSION_BALANCE_END = '{';
 	
 	/**
-	 * Este mÈtodo analisa o documento em busca de campos que s„o 
-	 * identificados pela express„o:
+	 * Este m√©todo analisa o documento em busca de campos que s√£o 
+	 * identificados pela express√£o:
 	 * @{fieldName1, defaultValue}
 	 * @param documentSource
 	 * @return Retorna um mapa com os nomes dos campos encontrados. 
-	 * Se o mapa estiver vazio È porque nenhum campo foi encontrado
+	 * Se o mapa estiver vazio √© porque nenhum campo foi encontrado
 	 * @throws BusinessException
 	 */
 	public static Map<String, String> findFields(final String documentSource) throws BusinessException{
@@ -50,7 +50,7 @@ public class DocumentParserFields {
 					i++;
 				}
 
-				/* Verifica se o while anterior parou porque achou o inicio da express„o */
+				/* Verifica se o while anterior parou porque achou o inicio da express√£o */
 				if(StringUtils.substring(documentSource, i, i+expBeginLength).equals(FIELD_EXPRESSION_BEGIN)){
 					
 					String fieldName = "";
@@ -63,21 +63,21 @@ public class DocumentParserFields {
 						i++;
 					}
 
-					/* Verifica se o while anterior parou porque achou o separador de par‚metros */
+					/* Verifica se o while anterior parou porque achou o separador de par√¢metros */
 					if (documentSource.charAt(i) == FIELD_EXPRESSION_PARAM_SEPARATOR){
 						/* Pula o separador */
 						i++; 
 						
-						/* ComeÁa a pegar o valor padr„o */
-						/* Usada para fazer o balanceamento de {} em expressıes encadeada @{fieldName, #{Entity[?].property}}*/
+						/* Come√ßa a pegar o valor padr√£o */
+						/* Usada para fazer o balanceamento de {} em express√µes encadeada @{fieldName, #{Entity[?].property}}*/
 						int balanceEnd = 0; 
 
-						/* Pega o valor padr„o controlando a presenÁa de subExpressıes que podem estar no valor padr„o e que usem os mesmos
-						 * sÌmbolos de { e } */
+						/* Pega o valor padr√£o controlando a presen√ßa de subExpress√µes que podem estar no valor padr√£o e que usem os mesmos
+						 * s√≠mbolos de { e } */
 						while (i<documentSource.length() && (documentSource.charAt(i) != FIELD_EXPRESSION_END || balanceEnd != 0)){ 
 							
-							/* Verifica se o caractere corrente È um { para evitar que ao encontrar o outro }
-							 * este parser pare de percorrer e n„o encontre o verdadeiro { da express„o */
+							/* Verifica se o caractere corrente √© um { para evitar que ao encontrar o outro }
+							 * este parser pare de percorrer e n√£o encontre o verdadeiro { da express√£o */
 							if(documentSource.charAt(i) == FIELD_EXPRESSION_BALANCE_END) 
 								balanceEnd++;
 							else
@@ -94,27 +94,27 @@ public class DocumentParserFields {
 
 					}else
 						if (documentSource.charAt(i) == FIELD_EXPRESSION_END){
-							/* N„o faz nada, tudo terminou normal*/
+							/* N√£o faz nada, tudo terminou normal*/
 							/* Pula o end */
 							i++; 
 						}else					
-							/* Verifica se o while anterior parou porque achou o final da express„o */
+							/* Verifica se o while anterior parou porque achou o final da express√£o */
 							if (i==documentSource.length()){
 								throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_END_EXPRESSION", fieldName));
 							}
 					
-					/* Trata os espaÁos em branco nas laterais */
+					/* Trata os espa√ßos em branco nas laterais */
 					fieldName = StringUtils.strip(fieldName);
 					fieldDefaultValue = StringUtils.strip(fieldDefaultValue);
 
-					/* Verifica se o campo j· est· no mapa, para n„o substitui o primeiro
-					 * valor padr„o encontrado */
+					/* Verifica se o campo j√° est√° no mapa, para n√£o substitui o primeiro
+					 * valor padr√£o encontrado */
 					if(!mapFields.containsKey(fieldName))
 						/* Adiciono no mapa o campo que foi encontrado */
 						mapFields.put(fieldName, fieldDefaultValue);
 				}
 				else
-				/* Verifica se o while anterior parou porque n„o seria possivel iniciar uma expressao com o restante de caractere da string */
+				/* Verifica se o while anterior parou porque n√£o seria possivel iniciar uma expressao com o restante de caractere da string */
 				if ((i+expBeginLength)>=documentSource.length()){ 
 //					result.append(documentSource.charAt(i));
 					i++;
@@ -125,7 +125,7 @@ public class DocumentParserFields {
 			
 		}catch(BusinessException e)
 		{
-			// "N„o foi possÌvel executar o parsing da string <b>{0}</b>." 
+			// "N√£o foi poss√≠vel executar o parsing da string <b>{0}</b>." 
 			e.getErrorList().add(new BusinessMessage(DocumentParserFields.class, "ERROR_PARSING_STRING", documentSource));
 			throw e;
 		}
@@ -139,7 +139,7 @@ public class DocumentParserFields {
 	 * 
 	 * @param documentSource
 	 * @param fieldsValues
-	 * @return Retorna o documento com os campos j· substituidos pelos seus respectivos valores
+	 * @return Retorna o documento com os campos j√° substituidos pelos seus respectivos valores
 	 * @throws BusinessException
 	 */
 	public static String replaceFields(final String documentSource, final Map<String,String> fieldsValues) throws BusinessException{
@@ -158,7 +158,7 @@ public class DocumentParserFields {
 					i++;
 				}
 
-				/* Verifica se o while anterior parou porque achou o inicio da express„o */
+				/* Verifica se o while anterior parou porque achou o inicio da express√£o */
 				if(StringUtils.substring(documentSource, i, i+expBeginLength).equals(FIELD_EXPRESSION_BEGIN)){
 					
 					String fieldName = "";
@@ -171,21 +171,21 @@ public class DocumentParserFields {
 						i++;
 					}
 
-					/* Verifica se o while anterior parou porque achou o separador de par‚metros */
+					/* Verifica se o while anterior parou porque achou o separador de par√¢metros */
 					if (documentSource.charAt(i) == FIELD_EXPRESSION_PARAM_SEPARATOR){
 						/* Pula o separador */
 						i++; 
 						
-						/* ComeÁa a pegar o valor padr„o */
-						/* Usada para fazer o balanceamento de {} em expressıes encadeada @{fieldName, #{Entity[?].property}}*/
+						/* Come√ßa a pegar o valor padr√£o */
+						/* Usada para fazer o balanceamento de {} em express√µes encadeada @{fieldName, #{Entity[?].property}}*/
 						int balanceEnd = 0; 
 
-						/* Pega o valor padr„o controlando a presenÁa de subExpressıes que podem estar no valor padr„o e que usem os mesmos
-						 * sÌmbolos de { e } */
+						/* Pega o valor padr√£o controlando a presen√ßa de subExpress√µes que podem estar no valor padr√£o e que usem os mesmos
+						 * s√≠mbolos de { e } */
 						while (i<documentSource.length() && (documentSource.charAt(i) != FIELD_EXPRESSION_END || balanceEnd != 0)){ 
 							
-							/* Verifica se o caractere corrente È um { para evitar que ao encontrar o outro }
-							 * este parser pare de percorrer e n„o encontre o verdadeiro { da express„o */
+							/* Verifica se o caractere corrente √© um { para evitar que ao encontrar o outro }
+							 * este parser pare de percorrer e n√£o encontre o verdadeiro { da express√£o */
 							if(documentSource.charAt(i) == FIELD_EXPRESSION_BALANCE_END) 
 								balanceEnd++;
 							else
@@ -201,16 +201,16 @@ public class DocumentParserFields {
 
 					}else
 						if (documentSource.charAt(i) == FIELD_EXPRESSION_END){
-							/* N„o faz nada, tudo terminou normal*/
+							/* N√£o faz nada, tudo terminou normal*/
 							/* Pula o end */
 							i++; 
 						}else					
-							/* Verifica se o while anterior parou porque achou o final da express„o */
+							/* Verifica se o while anterior parou porque achou o final da express√£o */
 							if (i==documentSource.length()){
 								throw new BusinessException(MessageList.create(CrudExpression.class, "ERROR_END_EXPRESSION", fieldName));
 							}
 
-					/* Trata os espaÁos em branco nas laterais */
+					/* Trata os espa√ßos em branco nas laterais */
 					fieldName = StringUtils.strip(fieldName);
 					
 					/* Adiciono no mapa o campo que foi encontrado */
@@ -218,7 +218,7 @@ public class DocumentParserFields {
 
 				}
 				else
-				/* Verifica se o while anterior parou porque n„o seria possivel iniciar uma expressao com o restante de caractere da string */
+				/* Verifica se o while anterior parou porque n√£o seria possivel iniciar uma expressao com o restante de caractere da string */
 				if ((i+expBeginLength)>=documentSource.length()){ 
 					result.append(documentSource.charAt(i));
 					i++;
@@ -229,7 +229,7 @@ public class DocumentParserFields {
 			
 		}catch(BusinessException e)
 		{
-			// "N„o foi possÌvel executar o parsing da string <b>{0}</b>." 
+			// "N√£o foi poss√≠vel executar o parsing da string <b>{0}</b>." 
 			e.getErrorList().add(new BusinessMessage(DocumentParserFields.class, "ERROR_PARSING_STRING", documentSource));
 			throw e;
 		}
@@ -265,7 +265,7 @@ public class DocumentParserFields {
 //		
 //		
 //		Map<String, String> map2 = new HashMap();
-//		map2.put("oi", "Ol·");
+//		map2.put("oi", "Ol√°");
 //		map2.put("ei", "Mundo");
 //
 //	    List<Entry> entry = new ArrayList<Entry>();
@@ -282,7 +282,7 @@ public class DocumentParserFields {
 //			String documentSource = "@{oi,value} oi @{ei,#{oi}}";
 //			Map<String, String> map = DocumentParserFields.findFields(documentSource);
 //			
-//			map.put("oi", "Ol·");
+//			map.put("oi", "Ol√°");
 ////			map.put("ei", "Mundo");
 //			
 //			System.out.println(DocumentParserFields.replaceFields(documentSource, map)); 

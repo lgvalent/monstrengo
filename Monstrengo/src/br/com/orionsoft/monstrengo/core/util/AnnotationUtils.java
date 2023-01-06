@@ -25,20 +25,20 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import br.com.orionsoft.monstrengo.core.process.IProcess;
 
 /**
- * Classe com mÈtodos est·ticos para facilitar a manipulaÁ„o de annotations.
+ * Classe com m√©todos est√°ticos para facilitar a manipula√ß√£o de annotations.
  * 
  * @author Lucio 20110620
  */
 public abstract class AnnotationUtils {
 
 	/**
-	 * Este mÈtodo procura a anotaÁ„o no mÈtodo get, se n„o encontra, procura
-	 * ent„o no mÈtodo set, se n„o encontra, ent„o procura no field. Pois este
-	 * ˙ltimo, geralmente È privado e toda a hierarquia precisa ser percorrido
+	 * Este m√©todo procura a anota√ß√£o no m√©todo get, se n√£o encontra, procura
+	 * ent√£o no m√©todo set, se n√£o encontra, ent√£o procura no field. Pois este
+	 * √∫ltimo, geralmente √© privado e toda a hierarquia precisa ser percorrido
 	 * 
 	 * @param annotationClass
 	 * @param propertyName
-	 * @return A classe de anotaÁ„o encontrada, ou null se n„o encontrou
+	 * @return A classe de anota√ß√£o encontrada, ou null se n√£o encontrou
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Annotation> T findAnnotation(
@@ -81,11 +81,11 @@ public abstract class AnnotationUtils {
 	}
 
 	/**
-	 * Este mÈtodo procura a anotaÁ„o na classe e superclasses
+	 * Este m√©todo procura a anota√ß√£o na classe e superclasses
 	 * 
 	 * @param annotationClass
 	 * @param entityClasss
-	 * @return A classe de anotaÁ„o encontrada, ou null se n„o encontrou
+	 * @return A classe de anota√ß√£o encontrada, ou null se n√£o encontrou
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Annotation> T findAnnotation(
@@ -101,8 +101,8 @@ public abstract class AnnotationUtils {
 	}
 
 	/**
-	 * Obtem uma lista com o nome de todas as classes anotadas com a anotaÁ„o solicitada.
-	 * @param annotationClass Classe de anotaÁ„o (@interface) que se deseja procurar
+	 * Obtem uma lista com o nome de todas as classes anotadas com a anota√ß√£o solicitada.
+	 * @param annotationClass Classe de anota√ß√£o (@interface) que se deseja procurar
 	 * @param packageFilter nome inicial do pacote base para a procura. Por exemplo: br.com
 	 * @return
 	 */
@@ -111,8 +111,8 @@ public abstract class AnnotationUtils {
 		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false){
 			@Override
 			protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
-				/* Lucio 20120320: Por padr„o, esta classe sÛ retorna candidatos CONCRETOS e INDEPENDENTES.
-				 * Assim, Pessoa e outras classes abstratas n„o estavam sendo retornadas */
+				/* Lucio 20120320: Por padr√£o, esta classe s√≥ retorna candidatos CONCRETOS e INDEPENDENTES.
+				 * Assim, Pessoa e outras classes abstratas n√£o estavam sendo retornadas */
 				return beanDefinition.getMetadata().isIndependent();
 			}
 		};
@@ -126,8 +126,8 @@ public abstract class AnnotationUtils {
 	}
 
 	/**
-	 * Obtem uma lista com o nome de todas as classes que s„o descententes de uma determinada interface
-	 * @param annotationClass Classe de anotaÁ„o (@interface) que se deseja procurar
+	 * Obtem uma lista com o nome de todas as classes que s√£o descententes de uma determinada interface
+	 * @param annotationClass Classe de anota√ß√£o (@interface) que se deseja procurar
 	 * @param packageFilter nome inicial do pacote base para a procura. Por exemplo: br.com
 	 * @return
 	 */

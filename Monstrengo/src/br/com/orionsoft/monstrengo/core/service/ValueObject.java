@@ -9,8 +9,8 @@ import br.com.orionsoft.monstrengo.core.service.ValueObject;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 
 /**
- * Esta classe È usada para manter uma lista de propriedades com seus valores.
- * MÈtodos <code>setProperty()</code> e <code>getProperty()</code> s„o usados para acessar as propriedades.  
+ * Esta classe √© usada para manter uma lista de propriedades com seus valores.
+ * M√©todos <code>setProperty()</code> e <code>getProperty()</code> s√£o usados para acessar as propriedades.  
  * @author Lucio
  *
  */public class ValueObject
@@ -42,12 +42,12 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
     }
 
     /**
-     * Permite reutilizar os argumentos de um serviÁo para outro,
+     * Permite reutilizar os argumentos de um servi√ßo para outro,
      * sem ter que ficar passando argumento por argumento.
      * 
      * @author antonio
      * @since 20060911
-     * @param valueObject Lista de argumentos origem que ser„o copiados
+     * @param valueObject Lista de argumentos origem que ser√£o copiados
      */
     public void addAll(ValueObject valueObject) {
         for (Entry<String, Object> entry: valueObject.getProperties().entrySet()){

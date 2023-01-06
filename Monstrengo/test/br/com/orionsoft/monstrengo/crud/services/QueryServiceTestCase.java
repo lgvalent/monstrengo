@@ -34,12 +34,12 @@ public class QueryServiceTestCase extends ServiceBasicTest
 
     /**
      * Este teste verifica se a pesquisa retorna nenhum elemento se um filtro
-     * String for passado e a entidade tiver somente propriedades numéricas. Ou seja, 
-     * o filtro não será aplicado a nenhuma entidade e o pesquisa incluirá uma 
-     * condição OR FALSE=TRUE para indicar que o filtro passado nao 
+     * String for passado e a entidade tiver somente propriedades numÃ©ricas. Ou seja, 
+     * o filtro nÃ£o serÃ¡ aplicado a nenhuma entidade e o pesquisa incluirÃ¡ uma 
+     * condiÃ§Ã£o OR FALSE=TRUE para indicar que o filtro passado nao 
      * foi aproveitado
      * 
-     *  A pesquisa não pode resultar nenhuma entidade.
+     *  A pesquisa nÃ£o pode resultar nenhuma entidade.
      *
      */
     public void testFiltroString()
@@ -152,7 +152,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
             	UtilsTest.showEntityProperties(ent);
             }
             System.out.println("Total de items da lista:" + sd.getOutputData(QueryService.OUT_LIST_SIZE));
-            System.out.println("Duração da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
+            System.out.println("DuraÃ§Ã£o da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
             Assert.assertTrue(sd.getMessageList().size()==0);
             Assert.assertTrue(collection.size()>0);
         }catch (BusinessException e)
@@ -210,11 +210,11 @@ public class QueryServiceTestCase extends ServiceBasicTest
             	UtilsTest.showEntityProperties(ent);
             }
             System.out.println("Total de items da lista:" + sd.getOutputData(QueryService.OUT_LIST_SIZE));
-            System.out.println("Duração da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
+            System.out.println("DuraÃ§Ã£o da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
             Assert.assertTrue(sd.getMessageList().size()==0);
             Assert.assertTrue(collection.size()>0);
             
-            System.out.println("Condições:=============================================");
+            System.out.println("CondiÃ§Ãµes:=============================================");
             for(QueryCondiction cond_: conds)
             	System.out.println(cond_.toString());
 
@@ -244,7 +244,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
             	UtilsTest.showEntityProperties(ent);
             }
             System.out.println("Total de items da lista:" + sd.getOutputData(QueryService.OUT_LIST_SIZE));
-            System.out.println("Duração da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
+            System.out.println("DuraÃ§Ã£o da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
             Assert.assertTrue(sd.getMessageList().size()==0);
             Assert.assertTrue(collection.size()>0);
         }catch (BusinessException e)
@@ -297,11 +297,11 @@ public class QueryServiceTestCase extends ServiceBasicTest
             	UtilsTest.showEntityProperties(ent);
             }
             System.out.println("Total de items da lista:" + sd.getOutputData(QueryService.OUT_LIST_SIZE));
-            System.out.println("Duração da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
+            System.out.println("DuraÃ§Ã£o da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
             Assert.assertTrue(sd.getMessageList().size()==0);
             Assert.assertTrue(collection.size()>0);
             
-            System.out.println("Condições:=============================================");
+            System.out.println("CondiÃ§Ãµes:=============================================");
             for(QueryCondiction cond_: conds)
             	System.out.println(cond_.toString());
 
@@ -337,11 +337,11 @@ public class QueryServiceTestCase extends ServiceBasicTest
 	            	UtilsTest.showEntityProperties(ent);
 	            }
 	            System.out.println("Total de items da lista:" + sd.getOutputData(QueryService.OUT_LIST_SIZE));
-	            System.out.println("Duração da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
+	            System.out.println("DuraÃ§Ã£o da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
 	            Assert.assertTrue(sd.getMessageList().size()==0);
 	            Assert.assertTrue(collection.size()>0);
 	            
-	            System.out.println("Condições:=============================================");
+	            System.out.println("CondiÃ§Ãµes:=============================================");
 	            for(OrderCondiction cond_: conds)
 	            	System.out.println(cond_.toString());
 	
@@ -373,7 +373,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
 	        }
 
 	        System.out.println("Total de items da lista:" + sd.getOutputData(QueryService.OUT_LIST_SIZE));
-	        System.out.println("Duração da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
+	        System.out.println("DuraÃ§Ã£o da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
 	        Assert.assertTrue(sd.getMessageList().size()==0);
 	        Assert.assertTrue(collection.size()>0);
 	    }catch (BusinessException e)
@@ -415,7 +415,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
             }
 
             System.out.println("Total de items da lista:" + sd.getOutputData(QueryService.OUT_LIST_SIZE));
-            System.out.println("Duração da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
+            System.out.println("DuraÃ§Ã£o da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
             Assert.assertTrue(sd.getMessageList().size()==0);
             Assert.assertTrue(list.size()>0);
         }catch (BusinessException e)
@@ -428,7 +428,7 @@ public class QueryServiceTestCase extends ServiceBasicTest
     }
 
     /**
-     * TEste a pesquisa em um item da propriedade do tipo coleção. Ex.:  Pessoa.enderecos 
+     * TEste a pesquisa em um item da propriedade do tipo coleÃ§Ã£o. Ex.:  Pessoa.enderecos 
      *
      */
     public void testQueryCondictions2()
@@ -453,11 +453,11 @@ public class QueryServiceTestCase extends ServiceBasicTest
             	UtilsTest.showEntityProperties(ent);
             }
             System.out.println("Total de items da lista:" + sd.getOutputData(QueryService.OUT_LIST_SIZE));
-            System.out.println("Duração da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
+            System.out.println("DuraÃ§Ã£o da consulta (ms):" + sd.getOutputData(QueryService.OUT_QUERY_TIME));
             Assert.assertTrue(sd.getMessageList().size()==0);
             Assert.assertTrue(collection.size()>0);
             
-            System.out.println("Condições:=============================================");
+            System.out.println("CondiÃ§Ãµes:=============================================");
             for(QueryCondiction cond_: conds)
             	System.out.println(cond_.toString());
 

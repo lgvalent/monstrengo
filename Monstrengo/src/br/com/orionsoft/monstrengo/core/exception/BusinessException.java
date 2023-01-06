@@ -8,8 +8,8 @@ import br.com.orionsoft.monstrengo.core.exception.MessageList;
 
 
 /**
- * <p>Esta classe é a base para as demais exceções. 
- * Ela mantem uma lista de erros que podem ter ocorridos e que são armazenados
+ * <p>Esta classe Ã© a base para as demais exceÃ§Ãµes. 
+ * Ela mantem uma lista de erros que podem ter ocorridos e que sÃ£o armazenados
  * na estrutura BusinessMessage. <p>
  * 
  * @see BusinessMessage 

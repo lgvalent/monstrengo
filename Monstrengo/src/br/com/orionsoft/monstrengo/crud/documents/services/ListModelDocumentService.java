@@ -14,16 +14,16 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * Este serviÁo retorna a lista de modelos de documentos
- * que n„o utilizam entidades dinamicamente. Isto significa que a
- * propriedade ApplicationEntity do modelo È nula.
+ * Este servi√ßo retorna a lista de modelos de documentos
+ * que n√£o utilizam entidades dinamicamente. Isto significa que a
+ * propriedade ApplicationEntity do modelo √© nula.
  * 
  * <p><b>Argumento:</b>
- * <br> IN_APPLICATION_USER_OPT: Usu·rio que ser· usada para filtrar a pesquisa de modelos de documentos disponÌveis.
+ * <br> IN_APPLICATION_USER_OPT: Usu√°rio que ser√° usada para filtrar a pesquisa de modelos de documentos dispon√≠veis.
  * 
  * <p><b>Procedimento:</b>
- * <br>Pesquisa no banco todos os modelos de documento cuja entidade vinculada È nula.
- * <br><b>Retorna uma lista de itens de seleÁ„o com o id e nome dos modelos.</b>
+ * <br>Pesquisa no banco todos os modelos de documento cuja entidade vinculada √© nula.
+ * <br><b>Retorna uma lista de itens de sele√ß√£o com o id e nome dos modelos.</b>
  * 
  * 
  * @spring.bean id="ListModelDocumentService" init-method="registerService"
@@ -42,7 +42,7 @@ public class ListModelDocumentService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo ListModelDocumentService");
+            log.debug("Iniciando a execu√ß√£o do servi√ßo ListModelDocumentService");
             // Pega os argumentos
             IEntity<ApplicationUser> inApplicationUser = null;
             if(serviceData.getArgumentList().containsProperty(IN_APPLICATION_USER_OPT))
@@ -63,7 +63,7 @@ public class ListModelDocumentService extends ServiceBasic
         } 
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         }
     }

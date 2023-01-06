@@ -34,7 +34,7 @@ public class StringUtilsTestCase extends TestCase {
         assertEquals(strFormat, correta);
         
         System.out.println();
-        String str2 = "P√O - caÁada - seq¸Íncia - avi√o - teste - n„o - tÍm - N√O T M";
+        String str2 = "P√ÉO - ca√ßada - seq√º√™ncia - avi√Éo - teste - n√£o - t√™m - N√ÉO T√äM";
         System.out.println(str2);
         System.out.println("Testando removeAccent()");
         System.out.println(br.com.orionsoft.monstrengo.core.util.StringUtils.removeAccent(str2));
@@ -46,7 +46,7 @@ public class StringUtilsTestCase extends TestCase {
         String str3 = null;
         System.out.println();
         System.out.println("Testando removeAccent() juntamente com UpperCase()");
-        str3 = org.apache.commons.lang.StringUtils.isEmpty(str3)?"":str3; //garantir que n„o È nulo
+        str3 = org.apache.commons.lang.StringUtils.isEmpty(str3)?"":str3; //garantir que n√£o √© nulo
         System.out.println(br.com.orionsoft.monstrengo.core.util.StringUtils.removeAccent(str3).toUpperCase());
         
         System.out.println();
@@ -55,9 +55,9 @@ public class StringUtilsTestCase extends TestCase {
         BigDecimal num1 = new BigDecimal("999999.45");
         System.out.println("BigDecimal: " + num1);
         System.out.println();
-        System.out.println("BigDecimal formatado sem pontos e vÌrgulas: " + StringUtils.removeAlpha(num1.toString()));
+        System.out.println("BigDecimal formatado sem pontos e v√≠rgulas: " + StringUtils.removeAlpha(num1.toString()));
         System.out.println();
-        System.out.println("BigDecimal formatado sem pontos e vÌrgulas, formatado para 13 caracteres: ");
+        System.out.println("BigDecimal formatado sem pontos e v√≠rgulas, formatado para 13 caracteres: ");
         System.out.println(StringUtils.formatNumber(StringUtils.removeAlpha(num1.toString()), 13, true));
         
         

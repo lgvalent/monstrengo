@@ -18,9 +18,9 @@ import br.com.orionsoft.monstrengo.crud.labels.services.ListModelLabelEntityServ
 import br.com.orionsoft.monstrengo.crud.services.UtilsCrud;
 
 /**
- * Este processo controla a criaÁ„o de uma etiqueta para uma entidade.
+ * Este processo controla a cria√ß√£o de uma etiqueta para uma entidade.
  * Ele utiliza um modelo de etiqueta de entidade e 
- * tambÈm uma entidade de origem, ou um entityType + entityId para obter a entidade
+ * tamb√©m uma entidade de origem, ou um entityType + entityId para obter a entidade
  * de origem
  *
  * @spring.bean id="CreateLabelFromEntityProcess" init-method="start" destroy-method="finish" singleton="false"
@@ -36,13 +36,13 @@ public class CreateLabelFromEntityProcess extends ProcessBasic
     private IEntity addressLabelGroup=null;
     
     /**
-     * Se estes par‚metros forem mudados os objetos entity È invalidado (=null)
+     * Se estes par√¢metros forem mudados os objetos entity √© invalidado (=null)
      */
     private Class entityType=null;
     private long entityId;
 
     /**
-     * Se estes par‚metro for mudado o modelLabelEntity È invalidado (=null)
+     * Se estes par√¢metro for mudado o modelLabelEntity √© invalidado (=null)
      */
     private long modelLabelEntityId;
     private long addressLabelGroupId;
@@ -75,9 +75,9 @@ public class CreateLabelFromEntityProcess extends ProcessBasic
 	}
 
 	/**
-	 * Utilizando este mÈtodo, automaticamente, os id e type da entidade
-	 * ser„o preenchidos.
-	 * Caso contr·rio, deve ser fornecido o tipo e o id.
+	 * Utilizando este m√©todo, automaticamente, os id e type da entidade
+	 * ser√£o preenchidos.
+	 * Caso contr√°rio, deve ser fornecido o tipo e o id.
 	 * @param entity
 	 * @throws EntityException 
 	 */
@@ -136,7 +136,7 @@ public class CreateLabelFromEntityProcess extends ProcessBasic
 		
 	}
 	/**
-	 *  O tipo da entidade j· deve estar definido para executar este mÈtodo, para que ele mostra somente os modelos 
+	 *  O tipo da entidade j√° deve estar definido para executar este m√©todo, para que ele mostra somente os modelos 
 	 *  da entidade selecionada
 	 */
 	public List<SelectItem> getModelsLabelEntity(){

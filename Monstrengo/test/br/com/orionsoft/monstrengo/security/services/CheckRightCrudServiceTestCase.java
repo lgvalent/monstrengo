@@ -21,9 +21,9 @@ import br.com.orionsoft.monstrengo.security.services.CheckRightCrudService;
 * Classe para testar o servico CheckRightCrudService
 * 
 * <p><b>Procedimento:</b>
-* <br>Criar usu·rios, grupos e definir os direitos de acesso ‡ eles.
-* <br>Invocar o servico para direitos permitidos, n„o permitidos e inexistentes.
-* <br>Apagar os usu·rios, grupos e direitos criados no banco na ordem inversa em que s„o criados.
+* <br>Criar usu√°rios, grupos e definir os direitos de acesso √† eles.
+* <br>Invocar o servico para direitos permitidos, n√£o permitidos e inexistentes.
+* <br>Apagar os usu√°rios, grupos e direitos criados no banco na ordem inversa em que s√£o criados.
 */
 public class CheckRightCrudServiceTestCase extends ServiceBasicTest
 {
@@ -40,9 +40,9 @@ public class CheckRightCrudServiceTestCase extends ServiceBasicTest
         List<IEntity> rights = new ArrayList<IEntity>();
         
         try{
-        //Criando usu·rios
+        //Criando usu√°rios
         System.out.println("user1");
-        //Esse usu·rio pertencer· ao grupo1 e ao grupo 2
+        //Esse usu√°rio pertencer√° ao grupo1 e ao grupo 2
         IEntity user1 = UtilsCrud.create(this.serviceManager, ApplicationUser.class, null);
         user1.setPropertyValue(ApplicationUser.LOGIN, "marcia");
         user1.setPropertyValue(ApplicationUser.PASSWORD, "marcia");
@@ -50,7 +50,7 @@ public class CheckRightCrudServiceTestCase extends ServiceBasicTest
         users.add(0, user1);
         
         System.out.println("user2");
-        //Esse usu·rio pertencer· ao grupo1
+        //Esse usu√°rio pertencer√° ao grupo1
         IEntity user2 = UtilsCrud.create(this.serviceManager, ApplicationUser.class, null);
         user2.setPropertyValue(ApplicationUser.LOGIN, "teste");
         user2.setPropertyValue(ApplicationUser.PASSWORD, "teste");
@@ -58,14 +58,14 @@ public class CheckRightCrudServiceTestCase extends ServiceBasicTest
         users.add(1, user2);
         
         System.out.println("user3");
-        //Esse usu·rio pertencer· ao grupo 2
+        //Esse usu√°rio pertencer√° ao grupo 2
         IEntity user3 = UtilsCrud.create(this.serviceManager, ApplicationUser.class, null);
         user3.setPropertyValue(ApplicationUser.LOGIN, "stringteste");
         user3.setPropertyValue(ApplicationUser.PASSWORD, "stringteste");
         UtilsCrud.update(this.serviceManager, user3, null);
         users.add(2, user3);
         
-        //Criando grupos e associando aos usu·rios
+        //Criando grupos e associando aos usu√°rios
         System.out.println("group1");
         IEntity group1 = UtilsCrud.create(this.serviceManager, SecurityGroup.class, null);
         group1.setPropertyValue(SecurityGroup.NAME, "group1");
@@ -143,7 +143,7 @@ public class CheckRightCrudServiceTestCase extends ServiceBasicTest
         Assert.assertTrue((Boolean)svd.getOutputData(CheckRightCrudService.OUT_RETRIEVE)); //retrieve
         Assert.assertTrue((Boolean)svd.getOutputData(CheckRightCrudService.OUT_UPDATE)); //update
 
-        //Avaliando o servico para um Entity que n„o foi setado ou seja Index = 10 
+        //Avaliando o servico para um Entity que n√£o foi setado ou seja Index = 10 
         svd = new ServiceData(CheckRightCrudService.SERVICE_NAME, null);
         svd.getArgumentList().setProperty(CheckRightCrudService.IN_ENTITY_ID, entities.get(10).getId());
         svd.getArgumentList().setProperty(CheckRightCrudService.IN_USER_ID_OPT, user1.getId());
@@ -173,7 +173,7 @@ public class CheckRightCrudServiceTestCase extends ServiceBasicTest
             UtilsCrud.delete(this.serviceManager, groups.get(0), null);
             UtilsCrud.delete(this.serviceManager, groups.get(1), null);
           
-            //Deletando os usu·rios
+            //Deletando os usu√°rios
             System.out.println("Deletando " + users.size() + " Users");
             UtilsCrud.delete(this.serviceManager, users.get(0), null);
             UtilsCrud.delete(this.serviceManager, users.get(1), null);

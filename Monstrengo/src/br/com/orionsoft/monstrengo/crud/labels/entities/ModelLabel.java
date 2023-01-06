@@ -8,12 +8,12 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 /**
  * Esta classe permite que o operador crie diversos modelos de
  * etiquetas com diferentes medidas. 
- * As propriedades s„o interpretadas de acordo com o tipo de 
+ * As propriedades s√£o interpretadas de acordo com o tipo de 
  * etiqueta. 
- * Se for do TYPE_MATRIX, as propriedades ser„o interpretadas 
+ * Se for do TYPE_MATRIX, as propriedades ser√£o interpretadas 
  * na unidade de caracteres. 
- * Se for do TYPE_LASER, as propriedades ser„o interpretadas 
- * na unidade de milÌmetros.
+ * Se for do TYPE_LASER, as propriedades ser√£o interpretadas 
+ * na unidade de mil√≠metros.
  * 
  * @hibernate.class table="framework_label_model"
  */

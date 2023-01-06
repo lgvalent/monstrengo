@@ -10,7 +10,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 
 /**
  * Esta classe gera o banco de acordo com as classes anotadas no applicationContext.xml.
- * Nos projetos filhos, esta classe poderá ser extendida e os atributos poderão ser sobrescritos os valores.
+ * Nos projetos filhos, esta classe poderÃ¡ ser extendida e os atributos poderÃ£o ser sobrescritos os valores.
  * @author lucio 
  */
 public class GerarTabelas extends DaoBasicTest{
@@ -31,7 +31,7 @@ public class GerarTabelas extends DaoBasicTest{
 	}
 
 	/**
-	 * Este método é utilizado pelas classes filhas para executar uma geração personalizada.
+	 * Este mÃ©todo Ã© utilizado pelas classes filhas para executar uma geraÃ§Ã£o personalizada.
 	 */
 	public void createSchema(boolean generateScript,
 							  boolean export,
@@ -45,7 +45,7 @@ public class GerarTabelas extends DaoBasicTest{
 		}
 		
 		SchemaExport schExport = new SchemaExport(cfg);
-		/* É necessário que o arquivo esteja com edição liberada. 
+		/* Ã‰ necessÃ¡rio que o arquivo esteja com ediÃ§Ã£o liberada. 
 		 * Para isto, acesse o popup menu>Team>Edit */
 		schExport.setOutputFile("./schema-export.sql");
 		schExport.execute(generateScript, export, justDrop, true);

@@ -64,7 +64,7 @@ public class EntityCollectionTestCase extends EntityBasicTest
                     it.remove();
             }
 
-            // A coleÁ„o dever· ter um elemento a menos
+            // A cole√ß√£o dever√° ter um elemento a menos
             Assert.assertTrue(collection.size()==(size0-1));
             
         
@@ -110,7 +110,7 @@ public class EntityCollectionTestCase extends EntityBasicTest
 
 
     /**
-     * Testa se o mÈtodo de remoÁ„o por iterator est· funcioando 
+     * Testa se o m√©todo de remo√ß√£o por iterator est√° funcioando 
      */
     @Test
     public void testIteratorRemove()
@@ -138,7 +138,7 @@ public class EntityCollectionTestCase extends EntityBasicTest
                 }
             }
 
-            // A coleÁ„o dever· ter um elemento a menos
+            // A cole√ß√£o dever√° ter um elemento a menos
             Assert.assertTrue(collection.size()==(size0-1));
             System.out.println("collection.size()="+collection.size());
             System.out.println("collection.size()="+((IEntityList)collection).getObjectList().size());

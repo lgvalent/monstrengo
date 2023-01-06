@@ -13,8 +13,8 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 import br.com.orionsoft.monstrengo.security.services.CheckAllRightProcessService;
 
 /**
- * Teste do servico CheckAllRightProcessService, que, dado um id de usu·rio, 
- * localiza o usu·rio, percorre todos os seus grupos e todos os direitos de processos .
+ * Teste do servico CheckAllRightProcessService, que, dado um id de usu√°rio, 
+ * localiza o usu√°rio, percorre todos os seus grupos e todos os direitos de processos .
  */
 public class CheckRightAllProcessServiceTestCase extends ServiceBasicTest
 {

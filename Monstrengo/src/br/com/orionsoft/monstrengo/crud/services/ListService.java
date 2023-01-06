@@ -13,17 +13,17 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntityList;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 
 /**
- * ServiÁo de listagem de entidades.
+ * Servi√ßo de listagem de entidades.
  * 
  * <p><b>Argumentos:</b>
- * <br> IN_CLASS: A classe das entidades que ser„o listadas.
- * <br> CONDITION_OPT_STR: Uma string com uma condiÁ„o HQL. (Opcional) 
+ * <br> IN_CLASS: A classe das entidades que ser√£o listadas.
+ * <br> CONDITION_OPT_STR: Uma string com uma condi√ß√£o HQL. (Opcional) 
  *  
  * <p><b>Procedimento:</b>
- * <br>Obtem o Dao respons·vel pela classe solicitada.
+ * <br>Obtem o Dao respons√°vel pela classe solicitada.
  * <br>Obtem a lista de objetos armazenados pelo Dao.
- * <br>  Se h· alguma condiÁ„o definida obtem a lista filtrada.
- * <br>  Sen„o obtem a lista completa de todos objetos armazenados.
+ * <br>  Se h√° alguma condi√ß√£o definida obtem a lista filtrada.
+ * <br>  Sen√£o obtem a lista completa de todos objetos armazenados.
  * <br>Converte a lista de objetos em uma lista de entidades.
  * <br><b>Retorna a lista de entidades (IEntityList).</b>
  * 
@@ -44,20 +44,20 @@ public class ListService extends ServiceBasic
     {
         try
         {
-            log.debug("Iniciando a execuÁ„o do serviÁo ListService");
-            // ObtÈm os par‚metros
+            log.debug("Iniciando a execu√ß√£o do servi√ßo ListService");
+            // Obt√©m os par√¢metros
             Class<?> classObj = (Class<?>) serviceData.getArgumentList().getProperty(CLASS);
             String condiction="";
             if (serviceData.getArgumentList().containsProperty(CONDITION_OPT_STR)) 
                 condiction = (String) serviceData.getArgumentList().getProperty(CONDITION_OPT_STR);
             
             if (log.isDebugEnabled())
-                log.debug("Obtendo o dao correspondente ‡ entidade" + classObj);
+                log.debug("Obtendo o dao correspondente √† entidade" + classObj);
             
 //            TODO: CORRIGIR Os daos implementam um objeto de acesso a Daos o Spring
-//            Este objeto cria sua prÛpria sess„o, desta forma, as operaÁoes feitas pelos
+//            Este objeto cria sua pr√≥pria sess√£o, desta forma, as opera√ßoes feitas pelos
 //            DAOS nao usam a sessao corrente criada pelo ServiceManager. Assim, objetos
-//            s„o criados em sessoes diferentese comeÁa a dar erros. Lucio 20060430
+//            s√£o criados em sessoes diferentese come√ßa a dar erros. Lucio 20060430
             
 //            // Obtem a lista de objetos persistidos 
 //            IDAO dao = daoManager.getDaoByEntity(classObj);
@@ -69,7 +69,7 @@ public class ListService extends ServiceBasic
 //
             if (log.isDebugEnabled())
                 log.debug("Executando a consulta no banco...");
-            // Obtem a lista de objetos persistidos diretamente da sess„o atual sem consultar DAO 
+            // Obtem a lista de objetos persistidos diretamente da sess√£o atual sem consultar DAO 
             List list = null;
             if (condiction.equals(""))
                 list = serviceData.getCurrentSession().createQuery("FROM " + classObj.getName() + " " + IDAO.ENTITY_ALIAS_HQL).list();
@@ -87,7 +87,7 @@ public class ListService extends ServiceBasic
         }
         catch (BusinessException e)
         {
-            // O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+            // O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
             throw new ServiceException(e.getErrorList());
         } catch (HibernateException e) {
 			throw new ServiceException(MessageList.createSingleInternalError(e));

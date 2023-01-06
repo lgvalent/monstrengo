@@ -30,11 +30,11 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
  * Esta classe realiza testes para as Entidades gerenciadas pelo <b>EntityManager</b>.
- * <p>Obtem-se as entidades atravÈs da classe <b>Utils</b>, com o mÈtodo <b>Utils.getAllBusinessEntity()</b>.
- * <p>AtravÈs do <b>metadataHandle</b>, seta-se as classes para que ele  possa buscar as informaÁıes referentes ‡
+ * <p>Obtem-se as entidades atrav√©s da classe <b>Utils</b>, com o m√©todo <b>Utils.getAllBusinessEntity()</b>.
+ * <p>Atrav√©s do <b>metadataHandle</b>, seta-se as classes para que ele  possa buscar as informa√ß√µes referentes √†
  * determinada classe no arquivo de propriedades.
- * <p>Testa-se todas as entidades atravÈs de um laÁo, percorrendo o vetor que contÈm todas as entidades.
- * <p>Testa-se tambÈm, as propriedades do atributo (propriedades das propriedades) para cada entidade, comparando-se 
+ * <p>Testa-se todas as entidades atrav√©s de um la√ßo, percorrendo o vetor que cont√©m todas as entidades.
+ * <p>Testa-se tamb√©m, as propriedades do atributo (propriedades das propriedades) para cada entidade, comparando-se 
  * os resultados obtidos pelo EntityManager com os resultados dados pelo MetadataHandle.
  * 
  * @author estagio
@@ -80,15 +80,15 @@ public class EntityManagerTestCase extends EntityBasicTest {
 				System.out.println("Elem Lista - " + entity);
 				System.out.println();
 				
-				//N„o instancia objetos de classe abstrata
+				//N√£o instancia objetos de classe abstrata
 				if (!Modifier.isAbstract(entity.getModifiers())){
 
 				
-					//informaÁıes da entidade
-					//pegar inst‚ncia da classe
+					//informa√ß√µes da entidade
+					//pegar inst√¢ncia da classe
 					IEntity entityAux = entityManager.getEntity(entity.newInstance());
 				
-					/* seta a classe para o metadataHandle buscar as informaÁıes desta classe 
+					/* seta a classe para o metadataHandle buscar as informa√ß√µes desta classe 
 					 * no arquivo de propriedades. Isto tem que ser depois de entityManager.getEntity(),
 					 * pois este gera os metadados de todos
 					 */
@@ -100,10 +100,10 @@ public class EntityManagerTestCase extends EntityBasicTest {
 					 * Testa as Propriedades da Entidade
 					 */
 					//testa getDescription
-					//cada elemento tem a informaÁ„o das propriedades
+					//cada elemento tem a informa√ß√£o das propriedades
 					String stringEntity = entityAux.getInfo().getDescription();
 
-					//esta informaÁ„o vem direto do arquivo
+					//esta informa√ß√£o vem direto do arquivo
 					String stringMetadata = entityManager.getMetadataHandle().getEntityDescription();
 					System.out.println("entityDescription - " + stringEntity);
 					System.out.println("metadataDescription - " + stringMetadata);
@@ -124,20 +124,20 @@ public class EntityManagerTestCase extends EntityBasicTest {
 					Assert.assertEquals(stringEntity, stringMetadata);
 					
 					/*
-					 * ObtÈm os campos da classe
+					 * Obt√©m os campos da classe
 					 */
-					//getAllFields È usado para concatenar os vetores com os campos da SuperClasse e da SubClasse
+					//getAllFields √© usado para concatenar os vetores com os campos da SuperClasse e da SubClasse
 //					List allFields = getAllFields(entity);
 
 					/*
-					 * obtÈm as propriedades indexadas no metadado da classe
+					 * obt√©m as propriedades indexadas no metadado da classe
 					 * array vai ter monte de objetos do tipo property; cada objeto tem as informacoes (getInfo),
 					 * essas infos retornam as propriedades do atributo (propriedades das propriedades)
 					 * getInfo devolve um conjunto de metadados
 					 */ 
 					IProperty[] propertyVector = entityAux.getProperties();
 					
-					//testa se os campos obtidos pelo entity s„o iguais aos obtidos diretamente da classe
+					//testa se os campos obtidos pelo entity s√£o iguais aos obtidos diretamente da classe
 					//Assert.assertEquals(allFields.size(), propertyVector.length);
 					
 					//Teste das propriedades do metadado (propriedades das propriedades)
@@ -162,7 +162,7 @@ public class EntityManagerTestCase extends EntityBasicTest {
 						stringEntity = property.getInfo().getEditMask();
 						stringMetadata = entityManager.getMetadataHandle().getPropertyEditMask(property.getInfo().getName());
 						System.out.println("EditMask="+stringMetadata);
-                        /* Vai dar ERRO aqui pois .editMask est· sendo pego por default, e È diferente de  " " (vazio) */
+                        /* Vai dar ERRO aqui pois .editMask est√° sendo pego por default, e √© diferente de  " " (vazio) */
                         Assert.assertEquals(stringEntity, stringMetadata);
 					
 						//testa getHint
@@ -181,7 +181,7 @@ public class EntityManagerTestCase extends EntityBasicTest {
 						Assert.assertEquals(stringEntity, stringMetadata);
 
 						/*
-						 * testa getType - classMetadata ser· diferente de null se a entidade for propriedade
+						 * testa getType - classMetadata ser√° diferente de null se a entidade for propriedade
 						 * de uma outra entidade
 						 */
 						Class classProperty = property.getInfo().getType();
@@ -258,9 +258,9 @@ public class EntityManagerTestCase extends EntityBasicTest {
 	}	
 	
 	/**
-	 * MÈtodo que obtÈm os campos (fields) de determinada entidade, inclusive os herdados da SuperClasse.
-	 * <p>O mÈtodo verifica se existe uma superclasse associada ‡ classe, e armazena os campos em uma lista
-	 * (<b>List</b>); logo em seguida, concatena os campos da prÛpria classe nesta lista.
+	 * M√©todo que obt√©m os campos (fields) de determinada entidade, inclusive os herdados da SuperClasse.
+	 * <p>O m√©todo verifica se existe uma superclasse associada √† classe, e armazena os campos em uma lista
+	 * (<b>List</b>); logo em seguida, concatena os campos da pr√≥pria classe nesta lista.
 	 * 
 	 * @param entityClass
 	 * @return uma Lista com os campos (fields)
@@ -308,12 +308,12 @@ public class EntityManagerTestCase extends EntityBasicTest {
             
             if (coll.size() != list2.size())
             {
-                System.out.println(":ERRO: Est· registrada e n„o arquivada em .properties.");
+                System.out.println(":ERRO: Est√° registrada e n√£o arquivada em .properties.");
                 for(IEntityMetadata metadata: coll)
                     if (!list2.contains(metadata.getType()))
                         System.out.println(metadata);
                 
-                System.out.println(":ERRO: Est· arquivada e n„o registrada pelos Daos.");
+                System.out.println(":ERRO: Est√° arquivada e n√£o registrada pelos Daos.");
                 for(Class klazz: list2){
                 	boolean achou = false;
                     for(IEntityMetadata metadata: coll){
@@ -324,7 +324,7 @@ public class EntityManagerTestCase extends EntityBasicTest {
                     	System.out.println(klazz);
                 }
                 
-                throw new Exception("ERRO: O n˙mero de entidades registradas difere das indicadas em arquivo.Registradas:" + coll.size() + " Arquivadas:" + list2.size());
+                throw new Exception("ERRO: O n√∫mero de entidades registradas difere das indicadas em arquivo.Registradas:" + coll.size() + " Arquivadas:" + list2.size());
             }
 
             Assert.assertTrue(true);
@@ -353,7 +353,7 @@ public class EntityManagerTestCase extends EntityBasicTest {
             Collection<IEntityMetadata> colls = this.entityManager.getEntitiesMetadata().values();
             List<IEntityMetadata> list = new ArrayList<IEntityMetadata>(colls);
 
-            /* Ordena a lista por ordem alfabÈtica */
+            /* Ordena a lista por ordem alfab√©tica */
 			Collections.<IEntityMetadata>sort(list, new Comparator<IEntityMetadata>(){public int compare(IEntityMetadata c1, IEntityMetadata c2){return c1.getLabel().compareTo(c2.getLabel());}});
 
 			/* Busca e adiciona os metadados de cada entidade */
@@ -381,7 +381,7 @@ public class EntityManagerTestCase extends EntityBasicTest {
         try
         {
             System.out.println("Testando:" +this.getClass().getName());
-            System.out.println(":Obtem os metadados padrıes da classe.");
+            System.out.println(":Obtem os metadados padr√µes da classe.");
             IEntityMetadata entityMetadata = this.entityManager.getEntityMetadataDefaults(ApplicationEntity.class);
             
             System.out.println(":Mostrando as propriedades");

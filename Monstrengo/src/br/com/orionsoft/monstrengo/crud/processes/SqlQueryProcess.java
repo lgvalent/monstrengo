@@ -31,7 +31,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationProcess;
  * @author Lucio 20121021
  * @version 
  */
-@ProcessMetadata(label="Pesquisa SQL nativa", hint="Permite e a execução de instruções SQL nativas diretamente no banco de dados da aplicação" , description="Escreva a instrução SQL, tanto de pesquisa quando de manipulação de dados.")
+@ProcessMetadata(label="Pesquisa SQL nativa", hint="Permite e a execuÃ§Ã£o de instruÃ§Ãµes SQL nativas diretamente no banco de dados da aplicaÃ§Ã£o" , description="Escreva a instruÃ§Ã£o SQL, tanto de pesquisa quando de manipulaÃ§Ã£o de dados.")
 public class SqlQueryProcess extends ProcessBasic implements IRunnableEntityProcess
 {
     public static final String PROCESS_NAME = "SqlQueryProcess";
@@ -81,7 +81,7 @@ public class SqlQueryProcess extends ProcessBasic implements IRunnableEntityProc
 
 			Statement statement = session.connection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			
-			/* Verifica se a SQL é de Query ou Update*/
+			/* Verifica se a SQL Ã© de Query ou Update*/
 			if(Pattern.compile("(?i)(?s)(?m)update |alter |create |delete |insert ").matcher(this.sql).find()){
 				this.rowsFetched = statement.executeUpdate(this.sql);
 			}else{
@@ -109,7 +109,7 @@ public class SqlQueryProcess extends ProcessBasic implements IRunnableEntityProc
 				this.columnsCount = labels.length;
 			}
 			
-			/* Registra a auditoria da instrução e já insere ela no histórico atual do operador */
+			/* Registra a auditoria da instruÃ§Ã£o e jÃ¡ insere ela no histÃ³rico atual do operador */
 			historyList.add(0, UtilsAuditorship.auditProcess(this, "rowsFetched=" + this.rowsFetched + ";sql=" + this.sql, null));
 			
 			return true;

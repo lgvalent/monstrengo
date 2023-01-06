@@ -51,15 +51,15 @@ public class Property implements IProperty
       try
       {
 
-        // A lista È criada depois com o tamanho j· otimizado
+        // A lista √© criada depois com o tamanho j√° otimizado
         List<SelectItem> result;
 
-        // Verifica se a propriedade È primitiva para pegar dos metadados
+        // Verifica se a propriedade √© primitiva para pegar dos metadados
         if(info.isPrimitive())
         {
             /* Ao pegar os metadados */
         	if(info.isEnum()){
-                // TODO IMPLEMENTACAO criar uma condicao que pega a lista de valuesList dos metadados e permite seletionar somente entre os nomes dos enumeradores que l· estiverem
+                // TODO IMPLEMENTACAO criar uma condicao que pega a lista de valuesList dos metadados e permite seletionar somente entre os nomes dos enumeradores que l√° estiverem
         		result = new ArrayList<SelectItem>(info.getType().getEnumConstants().length);
         		for(Object enumValue: info.getType().getEnumConstants())
         			result.add(new SelectItem(new Long(((Enum) enumValue).ordinal()), enumValue.toString()));
@@ -75,21 +75,21 @@ public class Property implements IProperty
         		}
         	}
 
-            // Verifica se n„o for requirido insere um elemento em branco para escolha
-            // Verifica se a atual propriedade È unit·ria (one-to-one ou many-to-one), ou seja, n„o È uma Collection
+            // Verifica se n√£o for requirido insere um elemento em branco para escolha
+            // Verifica se a atual propriedade √© unit√°ria (one-to-one ou many-to-one), ou seja, n√£o √© uma Collection
             if (!info.isRequired() && !info.isCollection())
                 result.add(0, new SelectItem("", ""));
 
         }
-        // Se n„o for primitiva, cria uma lista com as atuais entidades
+        // Se n√£o for primitiva, cria uma lista com as atuais entidades
         // cadastradas no tipo referido
         else
         {
             // TODO IMPLEMENTACAO criar uma condicao HQL que pega uma lista de ids dos metadados e permite seletionar somente entre a lista de entidades identificadas
         	result = entityOwner.getEntityManager().getEntitySelectItems(info.getType(), "");
 
-            // Verifica se n„o for requidiro insere um elemento em branco para escolha
-            // Verifica se a atual propriedade È unit·ria (one-to-one ou many-to-one), ou seja, n„o È uma Collection
+            // Verifica se n√£o for requidiro insere um elemento em branco para escolha
+            // Verifica se a atual propriedade √© unit√°ria (one-to-one ou many-to-one), ou seja, n√£o √© uma Collection
             if (!info.isRequired() && !info.isCollection())
                 result.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, ""));
         }
@@ -112,15 +112,15 @@ public class Property implements IProperty
       try
       {
 
-        // A lista È criada depois com o tamanho j· otimizado
+        // A lista √© criada depois com o tamanho j√° otimizado
         List<SelectItem> result;
 
-        // Verifica se a propriedade È primitiva para pegar dos metadados
+        // Verifica se a propriedade √© primitiva para pegar dos metadados
         if(info.isPrimitive())
         {
             /* Ao pegar os metadados */
         	if(info.isEnum()){
-                // TODO IMPLEMENTACAO criar uma condicao que pega a lista de valuesList dos metadados e permite seletionar somente entre os nomes dos enumeradores que l· estiverem
+                // TODO IMPLEMENTACAO criar uma condicao que pega a lista de valuesList dos metadados e permite seletionar somente entre os nomes dos enumeradores que l√° estiverem
         		result = new ArrayList<SelectItem>(info.getType().getEnumConstants().length);
         		for(Object enumValue: info.getType().getEnumConstants())
         			result.add(new SelectItem(new Long(((Enum) enumValue).ordinal()), enumValue.toString()));
@@ -136,13 +136,13 @@ public class Property implements IProperty
         		}
         	}
 
-            // Verifica se n„o for requirido insere um elemento em branco para escolha
-            // Verifica se a atual propriedade È unit·ria (one-to-one ou many-to-one), ou seja, n„o È uma Collection
+            // Verifica se n√£o for requirido insere um elemento em branco para escolha
+            // Verifica se a atual propriedade √© unit√°ria (one-to-one ou many-to-one), ou seja, n√£o √© uma Collection
             if (!info.isRequired() && !info.isCollection())
                 result.add(0, new SelectItem("", ""));
 
         }
-        // Se n„o for primitiva, cria uma lista com as atuais entidades
+        // Se n√£o for primitiva, cria uma lista com as atuais entidades
         // cadastradas no tipo referido
         else
         {
@@ -153,8 +153,8 @@ public class Property implements IProperty
         		result = entityOwner.getEntityManager().getEntitySelectItems(info.getType(), "");
         	}
         	
-            // Verifica se n„o for requidiro insere um elemento em branco para escolha
-            // Verifica se a atual propriedade È unit·ria (one-to-one ou many-to-one), ou seja, n„o È uma Collection
+            // Verifica se n√£o for requidiro insere um elemento em branco para escolha
+            // Verifica se a atual propriedade √© unit√°ria (one-to-one ou many-to-one), ou seja, n√£o √© uma Collection
             if (!info.isRequired() && !info.isCollection())
                 result.add(0, new SelectItem(IDAO.ENTITY_UNSAVED, ""));
         }
@@ -179,12 +179,12 @@ public class Property implements IProperty
     	IEntityList result;
     	try
     	{
-    		// Verifica se a propriedade È primitiva para pegar dos metadados
+    		// Verifica se a propriedade √© primitiva para pegar dos metadados
     		if(info.isPrimitive())
     		{
-    			throw new RuntimeException("N„o È possÌvel obter valores de um propriedade primitiva!");
+    			throw new RuntimeException("N√£o √© poss√≠vel obter valores de um propriedade primitiva!");
     		}
-    		// Se n„o for primitiva, cria uma lista com as atuais entidades
+    		// Se n√£o for primitiva, cria uma lista com as atuais entidades
     		// cadastradas no tipo referido
     		else
     		{

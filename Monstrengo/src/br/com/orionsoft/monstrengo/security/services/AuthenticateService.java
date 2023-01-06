@@ -14,15 +14,15 @@ import br.com.orionsoft.monstrengo.crud.services.ListService;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * ServiÁo de autenticaÁ„o de um usu·rio.
+ * Servi√ßo de autentica√ß√£o de um usu√°rio.
  * <p><b>Argumentos:</b>
- * <br> _1_LOGIN_STR: O login do usu·rio que ser· autenticado.
- * <br>_2_PASSWORD_STR: O password fornecido pelo usu·rio.
- * <br>CHECK_PASSWORD_BOOL_OPT: Permite definir se deve ocorrer uma autenticaÁ„o sem SENHA ou com SENHA
+ * <br> _1_LOGIN_STR: O login do usu√°rio que ser√° autenticado.
+ * <br>_2_PASSWORD_STR: O password fornecido pelo usu√°rio.
+ * <br>CHECK_PASSWORD_BOOL_OPT: Permite definir se deve ocorrer uma autentica√ß√£o sem SENHA ou com SENHA
  * <p><b>Procedimento:</b>
  * <br>Utiliza a lista de provedores registrados.
  * <br>Para cada provedor tentar validar o login e password.
- * <br>O primeiro provedor que valida È utilizado.
+ * <br>O primeiro provedor que valida √© utilizado.
  * <br><b>Retorna uma entidade do tipo ApplicationUser;</b>
  *
  * @spring.bean id="AuthenticateService" init-method="registerService"
@@ -41,22 +41,22 @@ public class AuthenticateService extends ServiceBasic
 	/**
 	 * 
 	 * <p>Este service recebe um login e senha e tenta validar
-	 * estes dados nos provedores que est„o atualmente registrados. 
+	 * estes dados nos provedores que est√£o atualmente registrados. 
 	 */
     public void execute(ServiceData serviceData) throws ServiceException
     {
     	try
     	{
-    		log.debug("Iniciando a execuÁ„o do serviÁo AuthenticateService");
+    		log.debug("Iniciando a execu√ß√£o do servi√ßo AuthenticateService");
 
     		String inLogin = (String) serviceData.getArgumentList().getProperty(_1_LOGIN_STR);
     		String inPassword = (String) serviceData.getArgumentList().getProperty(_2_PASSWORD_STR);
     		Boolean inCheckPassword = serviceData.getArgumentList().containsProperty(CHECK_PASSWORD_BOOL_OPT)?(Boolean) serviceData.getArgumentList().getProperty(CHECK_PASSWORD_BOOL_OPT):true;
 
-    		/* Encriptografa o password com MD5 que È o armazenado no banco */
+    		/* Encriptografa o password com MD5 que √© o armazenado no banco */
     		inPassword = DigestUtils.md5Hex(inPassword);
 
-    		// Cria o resultado que conter· todos os grupos.
+    		// Cria o resultado que conter√° todos os grupos.
     		IEntity<?> result = null;
 
     		IEntity<?> user = loadUserByLogin(inLogin);
@@ -71,14 +71,14 @@ public class AuthenticateService extends ServiceBasic
     				result = user;
     			}
 
-    			// Verifica se o operador est· ativo
+    			// Verifica se o operador est√° ativo
     			if (user.getProperty(ApplicationUser.INACTIVE).getValue().getAsBoolean())
     			{
     				throw new AuthenticationException(MessageList.create(AuthenticationException.class, "USER_INACTIVE", inLogin));
     			}
     		}
 
-    		// Verifica se n„o conseguiu autenticaÁ„o em nenhum provedor
+    		// Verifica se n√£o conseguiu autentica√ß√£o em nenhum provedor
     		if (result == null)
     			throw new AuthenticationException(MessageList.create(AuthenticationException.class, "USER_NOT_AUTHENTICATED", inLogin));
 
@@ -86,7 +86,7 @@ public class AuthenticateService extends ServiceBasic
     		serviceData.getOutputData().add(result);
     	} catch (BusinessException e)
     	{
-    		// O ServiÁo n„o precisa adicionar mensagem local. O Manager j· indica qual srv falhou e os par‚metros.
+    		// O Servi√ßo n√£o precisa adicionar mensagem local. O Manager j√° indica qual srv falhou e os par√¢metros.
     		throw new ServiceException(e.getErrorList());
     	}
     }
@@ -96,17 +96,17 @@ public class AuthenticateService extends ServiceBasic
         try
         {
 
-            // Executa o serviÁo para obter dados da camada de persistÍncia
+            // Executa o servi√ßo para obter dados da camada de persist√™ncia
             ServiceData serviceData = new ServiceData(ListService.SERVICE_NAME, null);
             serviceData.getArgumentList().setProperty(ListService.CLASS, ApplicationUser.class);
             serviceData.getArgumentList().setProperty(ListService.CONDITION_OPT_STR, ApplicationUser.LOGIN + "='" + login + "'");
             this.getServiceManager().execute(serviceData);
             
-            // Obtem o usu·rio com o login passado
+            // Obtem o usu√°rio com o login passado
             IEntityList<?> users = (IEntityList<?>) serviceData.getOutputData(0);
             IEntity<?> user=null;
 
-            // Verifica se somente um usu·rio foi encontrado
+            // Verifica se somente um usu√°rio foi encontrado
             if (users.size()==1)
             {
                 user = users.get(0);
@@ -115,7 +115,7 @@ public class AuthenticateService extends ServiceBasic
             if (users.size()>1)
                 throw new AuthenticationException(MessageList.create(AuthenticationException.class, "MORE_THAN_ONE_LOGIN", login, this.getClass().getName()));
 //          else
-//          N„o È necess·rio dar exceÁ„o em caso de n„o encontrar o login                  
+//          N√£o √© necess√°rio dar exce√ß√£o em caso de n√£o encontrar o login                  
 //          if (users.size()==0)
 //              throw new AuthenticationException(MessageList.createSingleErrorList(AuthenticationException.class, "LOGIN_NOT_FOUND", login));
             

@@ -30,23 +30,23 @@ public class OrderCondiction
 	private int orderDirection = ORDER_ASC;
 
 	/** Contador manual de ids do objeto.
-	 * Utilizado enquanto esta classe não for
-	 * mantida pelo mecanismo de persitência e for 
-	 * necessária a identificação das instãncias de condições */
+	 * Utilizado enquanto esta classe nÃ£o for
+	 * mantida pelo mecanismo de persitÃªncia e for 
+	 * necessÃ¡ria a identificaÃ§Ã£o das instÃ£ncias de condiÃ§Ãµes */
 	private static long idCounter = 0;
 	private long retrieveNextId(){return idCounter++;}
 	
 	public OrderCondiction(IEntityManager entityManager, Class entityType) throws BusinessException{
-		/* Armazena o gerenciador de entidades para usá-lo mais tarde */
+		/* Armazena o gerenciador de entidades para usÃ¡-lo mais tarde */
 		this.entityMgr = entityManager;
 
 		/* Define a entidade atualmente pesquisada */
 		this.entityType = entityType;
 		
-		/* Define a propriedade padrão inicial de pesquisa */
+		/* Define a propriedade padrÃ£o inicial de pesquisa */
 		this.propertyInfo = entityManager.getEntityMetadata(entityType).getPropertyMetadata(IDAO.PROPERTY_ID_NAME);
 		
-		/* Define um UID Sequencial que identifique esta condição */
+		/* Define um UID Sequencial que identifique esta condiÃ§Ã£o */
 		this.id = retrieveNextId();
 	}
 	
@@ -74,11 +74,11 @@ public class OrderCondiction
 	public void setActive(boolean active) {this.active = active;}
 
 	/**
-	 * Permite definir a propriedade da condição utilizando 
+	 * Permite definir a propriedade da condiÃ§Ã£o utilizando 
 	 * o nome da propriedade.
-	 * A entidade atualmente definida será consultada para
+	 * A entidade atualmente definida serÃ¡ consultada para
 	 * obter a propriedade pelo nome.
-	 * Este método aceita caminhos do tipo:
+	 * Este mÃ©todo aceita caminhos do tipo:
 	 * prop1.prop2.prop3.prop4
 	 * @return
 	 */
@@ -88,15 +88,15 @@ public class OrderCondiction
 		if(StringUtils.isEmpty(propertyPath))
 			this.propertyInfo = null;
 		else{
-			/* Define o propertyPath. O propertyPathLabel é construído durante o parser */
+			/* Define o propertyPath. O propertyPathLabel Ã© construÃ­do durante o parser */
 			this.propertyPath = propertyPath;
 			this.propertyPathLabel = "";
 			
-			/* Inicia a busca das propriedades pela atual entidade da condição */
+			/* Inicia a busca das propriedades pela atual entidade da condiÃ§Ã£o */
 			Class entity = this.entityType;
 
 			/* Inicia o parser para identificar qual entidade
-			 * é a última do caminho e pegar seu tipo */
+			 * Ã© a Ãºltima do caminho e pegar seu tipo */
 			String[] props = StringUtils.split(propertyPath,IDAO.PROPERTY_SEPARATOR);
 	        for (String prop: props)
 	        {
@@ -104,11 +104,11 @@ public class OrderCondiction
 				this.propertyInfo = entityMgr.getEntityMetadata(entity).getPropertyMetadata(prop);
 
 				/* Verifica se a propriedade pode ser manipulada 
-				 * pela condição de ordenação. Propriedades calculadas 
-				 * não podem ser usadas em ordem
+				 * pela condiÃ§Ã£o de ordenaÃ§Ã£o. Propriedades calculadas 
+				 * nÃ£o podem ser usadas em ordem
 				 */
 				if(this.propertyInfo.isCalculated())
-					throw new EntityException(MessageList.createSingleInternalError(new Exception("Propriedade calculada não pode ser usada em expressão Hql de ordenação")));
+					throw new EntityException(MessageList.createSingleInternalError(new Exception("Propriedade calculada nÃ£o pode ser usada em expressÃ£o Hql de ordenaÃ§Ã£o")));
 
 					/* Define o Path label a ser exibido na interface */
 				if(this.propertyPathLabel.equals(""))
@@ -116,21 +116,21 @@ public class OrderCondiction
 				else
 					this.propertyPathLabel += ReportParam.PROPERTY_PATH_LABEL_SEPARATOR + this.propertyInfo.getLabel();
 				
-				/* Verifica se não for primitivo obtem o tipo da entidade 
-				 * para que na proxima iteração os dados desta entidade seja
+				/* Verifica se nÃ£o for primitivo obtem o tipo da entidade 
+				 * para que na proxima iteraÃ§Ã£o os dados desta entidade seja
 				 * buscado e o caminho das propriedades continue sendo percorrido
 				 * hierarquicamente */
 				if(this.propertyInfo.isEntity()){
 					entity = this.propertyInfo.getType();
 					
 				}else{
-					/* Se for primitivo, significa que é a última propriedade do caminho
-					 * e já poderá receber um valor assim força um BREAK no for */
+					/* Se for primitivo, significa que Ã© a Ãºltima propriedade do caminho
+					 * e jÃ¡ poderÃ¡ receber um valor assim forÃ§a um BREAK no for */
 					break;
 				}
 				
-				/* Ao terminar este laço o this.propertyInfo apontará para a última propriedade
-				 * primitiva do caminho, o this.propertyPath estará definido para ser usado na HQL.
+				/* Ao terminar este laÃ§o o this.propertyInfo apontarÃ¡ para a Ãºltima propriedade
+				 * primitiva do caminho, o this.propertyPath estarÃ¡ definido para ser usado na HQL.
 				 */
 	        }
 		}
@@ -144,9 +144,9 @@ public class OrderCondiction
 		result += active?"":"(Desativada)";
 		
 		if(this.orderDirection == ORDER_ASC)
-			result += "« ";
+			result += "Â« ";
 		else
-			result += "» ";
+			result += "Â» ";
 		
 		result += this.propertyPathLabel;
 		
@@ -158,28 +158,28 @@ public class OrderCondiction
 	}
 
 	/**
-	 * Verifica se a atual propriedade já é suportada pela implementação
+	 * Verifica se a atual propriedade jÃ¡ Ã© suportada pela implementaÃ§Ã£o
 	 * desta classe. Assim, outras classe podem verifica primeiro se
-	 * a propriedade poderá ou não ser suportada 
+	 * a propriedade poderÃ¡ ou nÃ£o ser suportada 
 	 * @param prop Metadados da propriedades
 	 */
 	public static boolean checkVersionSupport(IPropertyMetadata prop) {
-		/* Não permite indexar por coleções */
+		/* NÃ£o permite indexar por coleÃ§Ãµes */
 		if(prop.isCollection())
 			return false;
 		else
-		/* Não exibe propriedades definidas como invisíveis para pesquisa */
+		/* NÃ£o exibe propriedades definidas como invisÃ­veis para pesquisa */
 		if(!prop.isVisible())
 			return false;
 		else
-		/* Não exibe propriedades calculadas */
+		/* NÃ£o exibe propriedades calculadas */
 		if(prop.isCalculated())
 			return false;
 		
 		return true;
 	}
 
-	/** Métodos para facilitar a definição da ordem */
+	/** MÃ©todos para facilitar a definiÃ§Ã£o da ordem */
 	public boolean isOrderAsc() {return orderDirection==ORDER_ASC;}
 	public void setOrderAsc(boolean orderAsc){orderDirection= orderAsc?ORDER_ASC:ORDER_DESC;}
 

@@ -11,8 +11,8 @@ import br.com.orionsoft.monstrengo.crud.entity.IEntity;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * Este controlador define as entidades que s„o compatÌveis com o processo 
- * de alteraÁ„o de senha de um operador.
+ * Este controlador define as entidades que s√£o compat√≠veis com o processo 
+ * de altera√ß√£o de senha de um operador.
  * 
  * @author Lucio 
  * @version 20070917
@@ -22,7 +22,7 @@ import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
  */
 public class OverwritePasswordProcessController extends RunnableProcessControllerBasic implements IRunnableEntityProcessController
 {
-    /** Informa para o gerenciador quais as entidades que s„o compatÌveis com este controlador */
+    /** Informa para o gerenciador quais as entidades que s√£o compat√≠veis com este controlador */
 	public static final Class<?>[] RUNNABLE_ENTITIES = {ApplicationUser.class};
 	public Class<?>[] getRunnableEntities() {return RUNNABLE_ENTITIES;}
 
@@ -37,9 +37,9 @@ public class OverwritePasswordProcessController extends RunnableProcessControlle
 		this.setMessage(null);
 
 		try{
-			/* Verifica se a entidade È compatÌvel */
+			/* Verifica se a entidade √© compat√≠vel */
 			if(entity.getInfo().getType() == ApplicationUser.class){
-				/* Verifica se o operador est· ATIVO */
+				/* Verifica se o operador est√° ATIVO */
 				if(entity.getProperty(ApplicationUser.INACTIVE).getValue().getAsBoolean()){
 					
 					this.setMessage(new BusinessMessage(OverwritePasswordProcessController.class, "INACTIVE_USER"));

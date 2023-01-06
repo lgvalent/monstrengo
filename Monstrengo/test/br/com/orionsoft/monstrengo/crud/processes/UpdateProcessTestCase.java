@@ -10,7 +10,7 @@ import br.com.orionsoft.monstrengo.crud.processes.UpdateProcess;
 import br.com.orionsoft.monstrengo.security.entities.ApplicationUser;
 
 /**
- * Esta classe testa se o usu·rio tem direito de editar tal propriedade.  
+ * Esta classe testa se o usu√°rio tem direito de editar tal propriedade.  
  * 
  * @author estagio
  */
@@ -23,7 +23,7 @@ public class UpdateProcessTestCase extends ProcessBasicTest
     }
 
     /**
-     * Este mÈtodo testa o caminho normal se todos os dados
+     * Este m√©todo testa o caminho normal se todos os dados
      * estiverem corretos.
      */
     public void testRunEdit()
@@ -51,7 +51,7 @@ public class UpdateProcessTestCase extends ProcessBasicTest
             
             IEntity entity = editUsr1.retrieveEntity();
             
-            System.out.println(":Mostra antes da ediÁ„o");
+            System.out.println(":Mostra antes da edi√ß√£o");
             UtilsTest.showEntityProperties(entity);
 
             System.out.println(":Alterando alguma coisa com user1");
@@ -66,14 +66,14 @@ public class UpdateProcessTestCase extends ProcessBasicTest
             editUsr2.setEntityType(this.getUserSession().getUser().getInfo().getType());
             editUsr2.setEntityId(this.getUserSession().getUser().getId());
 
-            //testa mayEdit() para user2, que deve ser false, pois n„o possui permiss„o alguma
+            //testa mayEdit() para user2, que deve ser false, pois n√£o possui permiss√£o alguma
             System.out.println("Assert.assertFalse user2 - deve dar false (mayEdit) - " + editUsr2.mayEdit());
             Assert.assertFalse(editUsr2.mayEdit());
             
             System.out.println("OK para user2");
 
             if (editUsr1.runUpdate()){
-            	// Pega os valores anteriores ‡ ediÁ„o e grava-os novamente
+            	// Pega os valores anteriores √† edi√ß√£o e grava-os novamente
                 System.out.println(entity.getProperty(ApplicationUser.LOGIN).getValue().getOldValue());
             	entity.setPropertyValue(ApplicationUser.LOGIN, (entity.getProperty(ApplicationUser.LOGIN).getValue().getOldValue()));
             	editUsr1.runUpdate();
@@ -89,7 +89,7 @@ public class UpdateProcessTestCase extends ProcessBasicTest
 
             Assert.assertTrue(false);
         }
-//      n„o È possÌvel deletar usu·rio, pois est· vinculado ao registro (deletar direto do banco) 
+//      n√£o √© poss√≠vel deletar usu√°rio, pois est√° vinculado ao registro (deletar direto do banco) 
 //      finally{
 //      BasicStructureRigth.destroyRigths();
 //      }

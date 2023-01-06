@@ -36,7 +36,7 @@ public class CrudServiceTestCase extends ServiceBasicTest
     {
         try
         {	
-        	System.out.println(":Testando instanciação de uma entidade com seus metadados");
+        	System.out.println(":Testando instanciaÃ§Ã£o de uma entidade com seus metadados");
             ServiceData svdc = new ServiceData(CreateService.SERVICE_NAME, null);
             svdc.getArgumentList().setProperty(CreateService.IN_ENTITY_TYPE, ApplicationEntityProperty.class);
             serviceManager.execute(svdc);
@@ -53,7 +53,7 @@ public class CrudServiceTestCase extends ServiceBasicTest
     {
         try
         {	
-        	System.out.println(":Testando instanciação de classe abstrata");
+        	System.out.println(":Testando instanciaÃ§Ã£o de classe abstrata");
         	abstract class MyClass{ }
             ServiceData svdc = new ServiceData(CreateService.SERVICE_NAME, null);
             svdc.getArgumentList().setProperty(CreateService.IN_ENTITY_TYPE, MyClass.class);
@@ -74,7 +74,7 @@ public class CrudServiceTestCase extends ServiceBasicTest
             IEntity user = UtilsCrud.retrieve(this.serviceManager, ApplicationUser.class, 1, null);
             UtilsTest.showEntityProperties(user);
 
-            System.out.println(":Testando instanciação de classe copiando os valores de outra");
+            System.out.println(":Testando instanciaÃ§Ã£o de classe copiando os valores de outra");
             ServiceData svdc = new ServiceData(CreateService.SERVICE_NAME, null);
             svdc.getArgumentList().setProperty(CreateService.IN_ENTITY_TYPE, ApplicationUser.class);
             svdc.getArgumentList().setProperty(CreateService.IN_ENTITY_COPY_ID_OPT, user.getId());
@@ -84,7 +84,7 @@ public class CrudServiceTestCase extends ServiceBasicTest
 
             UtilsTest.showEntityProperties(newUser);
 
-            /* A cópia tem que ter o mesmo login */
+            /* A cÃ³pia tem que ter o mesmo login */
             Assert.assertEquals(user.getProperty(ApplicationUser.NAME), newUser.getProperty(ApplicationUser.NAME));
         } catch (BusinessException e)
         {
@@ -103,7 +103,7 @@ public class CrudServiceTestCase extends ServiceBasicTest
         	try{
         		propM.setDefaultValue("0");
         		
-        		System.out.println(":Testando instanciação de classe com valores padroes");
+        		System.out.println(":Testando instanciaÃ§Ã£o de classe com valores padroes");
         		ServiceData svdc = new ServiceData(CreateService.SERVICE_NAME, null);
         		svdc.getArgumentList().setProperty(CreateService.IN_ENTITY_TYPE, RightCrud.class);
         		serviceManager.execute(svdc);
@@ -118,7 +118,7 @@ public class CrudServiceTestCase extends ServiceBasicTest
             /* Testa o CERTO  */
         	propM.setDefaultValue("1");
         	
-        	System.out.println(":Testando instanciação de classe com valores padroes");
+        	System.out.println(":Testando instanciaÃ§Ã£o de classe com valores padroes");
             ServiceData svdc = new ServiceData(CreateService.SERVICE_NAME, null);
             svdc.getArgumentList().setProperty(CreateService.IN_ENTITY_TYPE, RightCrud.class);
             serviceManager.execute(svdc);
@@ -220,19 +220,19 @@ public class CrudServiceTestCase extends ServiceBasicTest
     }
 
 	/**
-	 * Testa se o serviço Create cria as entidades de relacionamentos OneToOne da entidade principal.
+	 * Testa se o serviÃ§o Create cria as entidades de relacionamentos OneToOne da entidade principal.
 	 *
 	 */
     public void testCreateOneToOne()
 	{
 	    try
 	    {	
-	        /* Altera o metadados da classe para OneToOne só pra testar o CreateService */
+	        /* Altera o metadados da classe para OneToOne sÃ³ pra testar o CreateService */
 	    	IEntityMetadata entityMetadata = this.serviceManager.getEntityManager().getEntityMetadata(RightCrud.class);
 	        IPropertyMetadata propMetadata = entityMetadata.getPropertyMetadata(RightCrud.SECURITY_GROUP);
 	        ((PropertyMetadata)propMetadata).setEditShowEmbedded(true);
 	        
-	    	System.out.println(":Testando a criação de um objeto com relacionamento OneToOne");
+	    	System.out.println(":Testando a criaÃ§Ã£o de um objeto com relacionamento OneToOne");
 	        ServiceData svdc = new ServiceData(CreateService.SERVICE_NAME, null);
 	        svdc.getArgumentList().setProperty(CreateService.IN_ENTITY_TYPE, RightCrud.class);
 	        serviceManager.execute(svdc);
