@@ -172,7 +172,7 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 			if(inDocumentosBean!=null){
 				if(inEnviarEMail){
 					log.debug("Clonando a imagem para ser usada em cada e-mail...");
-					byte[] imagemBytes = IOUtils.toByteArray(inInputStreamImagem);
+					byte[] imagemBytes = inInputStreamImagem != null?IOUtils.toByteArray(inInputStreamImagem):null;
 					for(DocumentoCobrancaBean bean: inDocumentosBean){
 						if(bean.isChecked()) {
 							List<DocumentoCobrancaBean> docUnitarioBean = new ArrayList<DocumentoCobrancaBean>(1);
@@ -180,7 +180,7 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 							
 							
 							ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-							gerenciador.imprimirDocumentos(docUnitarioBean, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, new ByteArrayInputStream(imagemBytes), serviceData);
+							gerenciador.imprimirDocumentos(docUnitarioBean, outputStream, PrintUtils.PRINTER_INDEX_NO_PRINT, imagemBytes!=null?new ByteArrayInputStream(imagemBytes):null, serviceData);
 							
 							try {
 								enviarEMail(outputStream, bean.getDocumentoOriginal(), serviceData);								
@@ -192,6 +192,8 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 					}
 				}else if(inDownloadPdfZip){
 					ZipOutputStream zos = new ZipOutputStream(inOutputStream);
+					log.debug("Clonando a imagem para ser usada em cada PDF...");
+					byte[] imagemBytes = inInputStreamImagem != null?IOUtils.toByteArray(inInputStreamImagem):null;
 					for(DocumentoCobrancaBean bean: inDocumentosBean){
 						if(bean.isChecked()) {
 							List<DocumentoCobrancaBean> docUnitarioBean = new ArrayList<DocumentoCobrancaBean>(1);
@@ -199,7 +201,7 @@ public class ImprimirDocumentosCobrancaService extends DocumentoCobrancaServiceB
 							String fileName = bean.getPessoa() + "(" + bean.getDocumento() + ") - " + bean.getId() + ".pdf";
 							ZipEntry zipEntry = new ZipEntry(fileName);
 							zos.putNextEntry(zipEntry);
-							gerenciador.imprimirDocumentos(docUnitarioBean, zos, PrintUtils.PRINTER_INDEX_NO_PRINT, inInputStreamImagem, serviceData);
+							gerenciador.imprimirDocumentos(docUnitarioBean, zos, PrintUtils.PRINTER_INDEX_NO_PRINT, imagemBytes!=null?new ByteArrayInputStream(imagemBytes):null, serviceData);
 							zos.closeEntry();
 						}
 					}
