@@ -63,7 +63,8 @@ import br.com.orionsoft.monstrengo.mail.services.SendMailService;
 public class ImprimirCartaCobrancaService extends ServiceBasic {
 	public enum CartaCobrancaModelo {
 		PADRAO("Padrão", "CartaCobranca.jrxml", ".pdf"),
-		REVERSAO("Reversão", "CartaCobrancaReversao.jrxml", ".pdf"),
+		PADRAO_SEM_VALOR("Padrão sem valor", "CartaCobrancaSemValor.jrxml", ".pdf"),
+		REVERSAO("Reversão", "CartaCobrancaReversao.jrxml", ".pdf"), 
 		PARCELAS("Parcelas", "CartaCobrancaParcelas.jrxml", ".pdf"),
 		EMAIL("E-Mail", "CartaCobrancaEMail.jrxml", ".pdf"),
 		CSV_1("Mala direta por item", "", ".csv");
