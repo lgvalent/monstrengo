@@ -15,6 +15,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import br.com.orionsoft.basic.entities.commons.Frequencia;
+import br.com.orionsoft.basic.entities.endereco.TipoLogradouro;
 import br.com.orionsoft.basic.entities.pessoa.Juridica;
 import br.com.orionsoft.financeiro.utils.UtilsJuros;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
@@ -484,7 +485,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 				}
 				StringBuilder endereco = new StringBuilder();
 				if (rs.getString("enderecoNomeLogradouro") != null)
-					endereco.append(rs.getString("enderecoTipoLogradouro")).append(" ")
+					endereco.append(TipoLogradouro.valueOf(rs.getString("enderecoTipoLogradouro")).toString()).append(" ")
 						.append(rs.getString("enderecoNomeLogradouro")).append(", ")
 						.append(rs.getString("enderecoNumero")).append(" | ")
 						.append(rs.getString("enderecoMunicipio")).append(" - ")

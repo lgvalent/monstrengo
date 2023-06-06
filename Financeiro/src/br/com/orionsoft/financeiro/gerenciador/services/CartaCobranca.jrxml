@@ -219,12 +219,12 @@
 			</band>
 			</groupHeader>
 			<groupFooter>
-			<band height="190"  isSplitAllowed="true" >
+			<band height="220"  isSplitAllowed="true" >
 				<image  scaleImage="RetainShape" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Transparent"
 						x="210"
-						y="120"
+						y="155"
 						width="77"
 						height="65"
 						key="image-2"/>
@@ -237,23 +237,24 @@
 						x="0"
 						y="0"
 						width="483"
-						height="84"
+						height="130"
 						key="staticText-10"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Justified">
 						<font/>
 					</textElement>
 				<text><![CDATA[
-     Por essa razão solicitamos a V.Sa. que compareça ao nosso escritório, no Departamento de Cobrança, situado à Rua Dep. Néo Alves Martins, 2789 - Térreo do Edifício Palácio do Comércio.
+        Pedimos a gentileza de entrar em contato conosco para juntos resolvemos está questão ou caso já tenha efetuado o pagamento, poderia nos enviar o comprovante para verificarmos o que pode ter ocorrido.
 
-     Obs.: Caso já tenham sido quitados anteriormente, que nos sejam remetidos os respectivos comprovantes.
+        Se estiver com alguma outra dificuldade para efetuar o pagamento, sugerimos entrar em contato por e-mail: cobranca@sivamar.com.br ou através do nosso telefone (44-3026-4444). Temos certeza que encontraremos uma solução para resolvermos esta questão.
 
-     Sem outro particular para a oportunidade, firmamos.]]></text>
+        Estaremos sempre disponíveis para lutar pelos interesses da categoria, fique à vontade para entrar em contato conosco e lembrem-se “juntos somos mais fortes”.]]>
+				</text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="0"
-						y="84"
+						y="130"
 						width="483"
 						height="85"
 						key="staticText-11"/>
@@ -266,8 +267,8 @@ Atenciosamente
 
 
 
-___________________________
-   Suely Moreira Degam
+________________________________
+   Oséias Teófilo dos Santos
 Departamento de Cobrança]]></text>
 				</staticText>
 			</band>

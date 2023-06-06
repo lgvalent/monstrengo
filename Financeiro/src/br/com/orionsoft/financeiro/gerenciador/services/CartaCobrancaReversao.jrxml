@@ -203,7 +203,7 @@
 					<reportElement
 						mode="Transparent"
 						x="406"
-						y="175"
+						y="165"
 						width="77"
 						height="65"
 						key="image-2"/>
@@ -231,8 +231,9 @@ Atenciosamente
 
 
 
-
-Suely Moreira Degam]]></text>
+________________________________
+   Oséias Teófilo dos Santos
+Departamento de Cobrança]]></text>
 				</staticText>
 				<staticText>
 					<reportElement

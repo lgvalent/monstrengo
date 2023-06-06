@@ -69,6 +69,7 @@ public class ImprimirRelatorioCobrancaService extends ServiceBasic {
 			Map<String, String> parametros = new HashMap<String, String>();
 			parametros.put("Memo1", "Impresso em " + CalendarUtils.formatDateTime(Calendar.getInstance()));
 			parametros.put("Memo2", "Valores calculados para pagamento até " + CalendarUtils.formatDate(inDataPagamento));
+			parametros.put("Memo3", "");
 
 			JasperReport relatorio = null;
 			if(inRelatorioCobrancaModelo == RelatorioCobrancaModelo.RETRATO)
