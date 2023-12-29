@@ -33,7 +33,7 @@
 				</ui:include>
 	   			</h:panelGroup>
 
-	   			<h:outputText value="EscritÛrios cont·beis"/>
+	   			<h:outputText value="Escrit√≥rios cont√°beis"/>
 	   			<h:panelGroup>
 				<ui:include src="/public/basic/tiles/processParamEntityListSuggest.xhtml">
    	    		   <ui:param name="paramEntityList" value="#{relatorioCobrancaBean.process.paramEscritorioContabil}"/>
@@ -47,19 +47,19 @@
 				</ui:include>
 	   			</h:panelGroup>
 
-				<h:outputLabel value="CNAE descriÁıes"/>
+				<h:outputLabel value="CNAE descri√ß√µes"/>
 				<h:inputText id="cnaeDescricao"
 						value="#{relatorioCobrancaBean.process.cnaeDescricao}"
 						size="25" rendered="true"
 						styleClass="queryInputSelectOne"
-						title="Entre com mais de uma descriÁ„o separada por vÌrgula. Exemplo: ComÈrcio,Varejo,Ferramentas"/>
+						title="Entre com mais de uma descri√ß√£o separada por v√≠rgula. Exemplo: Com√©rcio,Varejo,Ferramentas"/>
 
 	   			<h:outputText value="Categoria contrato"/>
 				<h:selectOneMenu id="categoriaContrato" value="#{relatorioCobrancaBean.process.categoriaContratoId}" >
 					<f:selectItems value="#{relatorioCobrancaBean.process.listCategoriaContrato}"/>
 				</h:selectOneMenu>
 
-	   			<h:outputText value="MunicÌpio"/>
+	   			<h:outputText value="Munic√≠pio"/>
 	   			<h:panelGroup>
 				<ui:include src="/public/basic/tiles/processParamEntitySuggest.xhtml">
    	    		   <ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramMunicipio}"/>
@@ -76,7 +76,7 @@
 					<f:selectItems value="#{relatorioCobrancaBean.process.listTipoContrato}"/>
 				</h:selectOneRadio>
 
-				<h:outputLabel value="Data de lanÁamento:"/>
+				<h:outputLabel value="Data de lan√ßamento:"/>
 				<h:panelGroup>
 					<ui:include src="/public/basic/tiles/calendars.xhtml">
 			           <ui:param name="timeFieldFrom" value="#{relatorioCobrancaBean.process.dataLancamentoInicial.time}"/>
@@ -92,52 +92,52 @@
 					</ui:include>
 				</h:panelGroup>
 
-				<h:outputLabel value="Calcular multa e juros atÈ:"/>
+				<h:outputLabel value="Quantidade de itens pendentes:"/>
+				<h:panelGroup>
+			 		<h:inputText id="quantidadeItensInicial" value="#{relatorioCobrancaBean.process.quantidadeItensInicial}" size="4" maxlength="5" onkeypress="return keyPressInt(this, event)"/>
+					<h:outputLabel value=" at√© "/>
+		 			<h:inputText id="quantidadeItensFinal" value="#{relatorioCobrancaBean.process.quantidadeItensFinal}" size="4" maxlength="5" onkeypress="return keyPressInt(this, event)"/>
+				</h:panelGroup>
+
+				<h:outputLabel value="Calcular multa e juros at√©:"/>
 				<h:panelGroup>
 					<ui:include src="/public/basic/tiles/calendar.xhtml">
 			           <ui:param name="timeField" value="#{relatorioCobrancaBean.process.dataPagamento.time}"/>
 					</ui:include>
 				</h:panelGroup>
 
-				<h:outputLabel value="Quantidade de itens pendentes:"/>
-				<h:panelGroup>
-			 		<h:inputText id="quantidadeItensInicial" value="#{relatorioCobrancaBean.process.quantidadeItensInicial}" size="4" maxlength="5" onkeypress="return keyPressInt(this, event)"/>
-					<h:outputLabel value=" atÈ "/>
-		 			<h:inputText id="quantidadeItensFinal" value="#{relatorioCobrancaBean.process.quantidadeItensFinal}" size="4" maxlength="5" onkeypress="return keyPressInt(this, event)"/>
-				</h:panelGroup>
-
-				<h:outputLabel value="Somente empresas que tiveram alguma quitaÁ„o no perÌodo:"/>
+				<h:outputLabel value="Somente empresas que tiveram alguma quita√ß√£o no per√≠odo:"/>
 				<h:selectBooleanCheckbox id="possuiItensPagos" value="#{relatorioCobrancaBean.process.possuiItensPagos}" />
 
-				<h:outputLabel value="N„o mostrar valores:"/>
+				<h:outputLabel value="N√£o mostrar valores:"/>
 				<h:selectBooleanCheckbox id="omitirValores" value="#{relatorioCobrancaBean.process.omitirValores}" />
 			</h:panelGrid>
 		</ui:define>
 
 		<ui:define name="actions">
 		
-			<p:commandButton id="gerarRelatorio" value="Gerar relatÛrio de cobranÁa" />
+			<p:commandButton id="gerarRelatorio" value="Gerar relat√≥rio de cobran√ßa" />
 		    <p:overlayPanel for="gerarRelatorio" hideEffect="fade">  
-				<h:outputLabel value="Modelo do relatÛrio:"/>
+				<h:outputLabel value="Modelo do relat√≥rio:"/>
 		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.relatorioCobrancaModelo}" id="relatorioCobrancaModelo">
 		   			<f:selectItems value="#{relatorioCobrancaBean.process.listRelatorioCobrancaModelo}"/>
 		   		</h:selectOneMenu>
 				<p:commandButton ajax="false" value="Download PDF" action="#{relatorioCobrancaBean.doPdf}"  onclick="this.value='Aguarde...'" title="Gera um PDF com os documentos selecionados"/>
 			</p:overlayPanel>  		
 
-			<p:commandButton id="gerarCarta" value="Gerar cartas de cobranÁa" />
+			<p:commandButton id="gerarCarta" value="Gerar cartas de cobran√ßa" />
 		    <p:overlayPanel for="gerarCarta" hideEffect="fade">  
-				<h:outputLabel value="Modelo da carta de cobranÁa:"/>
+				<h:outputLabel value="Modelo da carta de cobran√ßa:"/>
 		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.cartaCobrancaModelo}" id="cartaCobrancaModelo" onchange="document.getElementById('form:cartaCobrancaModelo2').value = this.value">
 		   			<f:selectItems value="#{relatorioCobrancaBean.process.listCartaCobrancaModelo}"/>
 		   		</h:selectOneMenu>
 				<p:commandButton ajax="false" value="Download PDF" action="#{relatorioCobrancaBean.doImprimirCartaCobranca}"/>
 		    </p:overlayPanel>  
-			<p:commandButton ajax="false" value="Gerar etiquetas" action="#{relatorioCobrancaBean.doGerarEtiqueta}" title="Gera as etiquetas para as empresas que aparecem no relatÛrio de cobranÁa"/>
-			<p:commandButton ajax="false" value="Visualizar listagem" action="#{relatorioCobrancaBean.doListar}" title="Visualiza a listagem dos contratos que atendem aos critÈrios"/>
+			<p:commandButton ajax="false" value="Gerar etiquetas" action="#{relatorioCobrancaBean.doGerarEtiqueta}" title="Gera as etiquetas para as empresas que aparecem no relat√≥rio de cobran√ßa"/>
+			<p:commandButton ajax="false" value="Visualizar listagem" action="#{relatorioCobrancaBean.doListar}" title="Visualiza a listagem dos contratos que atendem aos crit√©rios"/>
 			<p:commandButton id="enviarEMailCarta" value="Enviar cartas por E-Mail..." />
 		    <p:overlayPanel for="enviarEMailCarta" hideEffect="fade">  
-				<h:outputLabel value="Modelo da carta de cobranÁa:"/>
+				<h:outputLabel value="Modelo da carta de cobran√ßa:"/>
 		   		<h:selectOneMenu value="#{relatorioCobrancaBean.process.cartaCobrancaModelo}" id="cartaCobrancaModelo2" onchange="document.getElementById('form:cartaCobrancaModelo').value = this.value">
 		   			<f:selectItems value="#{relatorioCobrancaBean.process.listCartaCobrancaModelo}"/>
 		   		</h:selectOneMenu>
@@ -147,7 +147,7 @@
            			<ui:param name="paramEntity" value="#{relatorioCobrancaBean.process.paramContaEMail}"/>
 				</ui:include>
 				<br/>
-				<pe:ckEditor id="editor" label="Mensagem do E-Mail com as cartas de cobranÁa"
+				<pe:ckEditor id="editor" label="Mensagem do E-Mail com as cartas de cobran√ßa"
 					value="#{relatorioCobrancaBean.process.mensagemEMail}"
 					skin="v2" widgetVar="editor"
 					toolbar=" [['Undo','Redo','-','Bold','Italic','Underline','StrikeThrough','-','TextColor','BGColor','-','Format','Font','FontSize','-','Cut', 'Copy','Paste','PasteText','PasteFromWord','Find','Replace','-', 'Outdent','Indent','NumberedList','BulletedList'],    ['-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],    ['Image','Table','-','Link','Flash'],  ['Source'], ]" />
@@ -156,7 +156,7 @@
 			
 			<hr/>
 			
-			<h:outputLabel value="Foram selecionados #{relatorioCobrancaBean.process.lista.size()} lanÁamentos que atendem aos critÈrios de busca."/><br/>
+			<h:outputLabel value="Foram selecionados #{relatorioCobrancaBean.process.lista.size()} lan√ßamentos que atendem aos crit√©rios de busca."/><br/>
 			<h:panelGroup styleClass="noprint"/>
 			<h:dataTable value="#{relatorioCobrancaBean.process.lista.toArray()}" 
 				             var='item'
@@ -169,17 +169,17 @@
 
 						<f:facet name="header">
 							<h:panelGroup styleClass="noprint">
-		    	       	    	<h:outputText value="SeleÁ„o: "/>
+		    	       	    	<h:outputText value="Sele√ß√£o: "/>
 								<h:commandButton value="Marcar" title="Marca todos os contratos da lista atual" onclick="return checkAll(this.form, 'myCheck')"/>
 								<h:commandButton value="Intervalo" title="Marca todas as propriedades entre um intervalo definido" onclick="return checkRange(this.form, 'myCheck')"/>
 								<h:commandButton value="Desmarcar" title="Desmarca todos os contratos da lista atual" onclick="return clearAll(this.form, 'myCheck')"/>
-								<h:commandButton value="Inverter" title="Inverte a seleÁ„o dos os contratos da lista atual" onclick="return inverseAll(this.form, 'myCheck')"/>
-								<h:commandButton value="Desfazer" title="Volta a seleÁ„o anterior ‡s alteraÁıes recentemente efetuadas" type="reset"/>
+								<h:commandButton value="Inverter" title="Inverte a sele√ß√£o dos os contratos da lista atual" onclick="return inverseAll(this.form, 'myCheck')"/>
+								<h:commandButton value="Desfazer" title="Volta a sele√ß√£o anterior √†s altera√ß√µes recentemente efetuadas" type="reset"/>
 								<br/>
-		    	       	    	<h:outputText value="AÁıes com a seleÁ„o: "/>
-								<h:commandButton id="inativarContratos" value="Inativar contratos" title="Inativa os contratos dos lanÁamentos listados" onclick="return  false;"/>
+		    	       	    	<h:outputText value="A√ß√µes com a sele√ß√£o: "/>
+								<h:commandButton id="inativarContratos" value="Inativar contratos" title="Inativa os contratos dos lan√ßamentos listados" onclick="return  false;"/>
 		    					<p:overlayPanel for="inativarContratos" hideEffect="fade">  
-							    	Os contratos selecionados ser„o inativados<br/> na data atual e com a observaÁ„o a seguir:<br/>
+							    	Os contratos selecionados ser√£o inativados<br/> na data atual e com a observa√ß√£o a seguir:<br/>
 									<h:inputTextarea value="#{relatorioCobrancaBean.process.observacao}"/>
 									<p:commandButton ajax="false" value="Confirmar" action="#{relatorioCobrancaBean.doInativarContratos}"/>
 							    </p:overlayPanel>  
@@ -198,7 +198,7 @@
 							<h:outputLink value="javascript:linkRetrieve('#{menuBean.infoMap.Contrato.type.name}', '#{item.contratoId}')"  rendered="#{menuBean.crudMap.Contrato.canRetrieve}" styleClass="noprint">
 								<h:graphicImage value="../../public/basic/img/retrieve.png" title="Visualiza os detalhes do registro" style="border:0"/>
 							</h:outputLink>
-							<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="VocÍ n„o possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.Contrato.canRetrieve}" styleClass="noprint"/>
+							<h:graphicImage value="../../public/basic/img/retrieve_d.png" title="Voc√™ n√£o possui direitos para visualizar os dados do registro" style="border:0" rendered="#{!menuBean.crudMap.Contrato.canRetrieve}" styleClass="noprint"/>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
