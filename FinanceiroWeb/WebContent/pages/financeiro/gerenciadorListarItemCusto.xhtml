@@ -76,6 +76,22 @@
 								<f:convertDateTime locale="pt_BR"/>
 							</h:outputLabel>
 					</h:column>
+					<h:column rendered="#{listarItemCustoBean.colunaAno}" >
+						<f:facet name="header">
+							<h:outputText value="Ano"/>
+						</f:facet>
+							<h:outputLabel value="#{item.ano}">
+								<f:convertDateTime locale="pt_BR"/>
+							</h:outputLabel>
+					</h:column>
+					<h:column rendered="#{listarItemCustoBean.colunaMes}" >
+						<f:facet name="header">
+							<h:outputText value="Mês"/>
+						</f:facet>
+							<h:outputLabel value="#{item.mes}">
+								<f:convertDateTime locale="pt_BR"/>
+							</h:outputLabel>
+					</h:column>
 					<h:column rendered="#{listarItemCustoBean.colunaConta}">
 						<f:facet name="header">
 							<h:outputText value="Conta"/>
