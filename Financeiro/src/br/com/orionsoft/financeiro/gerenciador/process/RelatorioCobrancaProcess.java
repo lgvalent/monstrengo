@@ -4,6 +4,8 @@
 package br.com.orionsoft.financeiro.gerenciador.process;
 
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -16,13 +18,18 @@ import org.apache.commons.lang.ClassUtils;
 
 import br.com.orionsoft.basic.entities.Contrato;
 import br.com.orionsoft.basic.entities.ContratoCategoria;
+import br.com.orionsoft.basic.entities.commons.Frequencia;
 import br.com.orionsoft.basic.entities.endereco.Municipio;
+import br.com.orionsoft.basic.entities.endereco.TipoLogradouro;
 import br.com.orionsoft.basic.entities.pessoa.CNAE;
 import br.com.orionsoft.basic.entities.pessoa.EscritorioContabil;
 import br.com.orionsoft.basic.entities.pessoa.Pessoa;
 import br.com.orionsoft.basic.entities.pessoa.Representante;
 import br.com.orionsoft.basic.etiquetas.InserirEtiquetaEnderecoService;
+import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobranca;
+import br.com.orionsoft.financeiro.documento.cobranca.DocumentoCobrancaBean;
 import br.com.orionsoft.financeiro.gerenciador.entities.ItemCusto;
+import br.com.orionsoft.financeiro.gerenciador.entities.Lancamento;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirCartaCobrancaService;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirCartaCobrancaService.CartaCobrancaModelo;
 import br.com.orionsoft.financeiro.gerenciador.services.ImprimirRelatorioCobrancaService;
@@ -30,10 +37,12 @@ import br.com.orionsoft.financeiro.gerenciador.services.InativarContratosService
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService.QueryRelatorioCobranca;
 import br.com.orionsoft.financeiro.gerenciador.services.RelatorioCobrancaService.RelatorioCobrancaModelo;
+import br.com.orionsoft.financeiro.utils.UtilsJuros;
 import br.com.orionsoft.monstrengo.core.annotations.ProcessMetadata;
 import br.com.orionsoft.monstrengo.core.exception.BusinessException;
 import br.com.orionsoft.monstrengo.core.exception.BusinessMessage;
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
+import br.com.orionsoft.monstrengo.core.process.IRunnableEntityCollectionProcess;
 import br.com.orionsoft.monstrengo.core.process.IRunnableEntityProcess;
 import br.com.orionsoft.monstrengo.core.process.ProcessBasic;
 import br.com.orionsoft.monstrengo.core.process.ProcessException;
@@ -42,9 +51,12 @@ import br.com.orionsoft.monstrengo.core.process.ProcessParamEntityList;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
+import br.com.orionsoft.monstrengo.core.util.DecimalUtils;
 import br.com.orionsoft.monstrengo.core.util.PrintUtils;
 import br.com.orionsoft.monstrengo.crud.entity.EntityException;
 import br.com.orionsoft.monstrengo.crud.entity.IEntity;
+import br.com.orionsoft.monstrengo.crud.entity.IEntityCollection;
+import br.com.orionsoft.monstrengo.crud.entity.PropertyValueException;
 import br.com.orionsoft.monstrengo.crud.entity.dao.IDAO;
 import br.com.orionsoft.monstrengo.mail.entities.EmailAccount;
 
@@ -61,7 +73,7 @@ import br.com.orionsoft.monstrengo.mail.entities.EmailAccount;
  *
  */
 @ProcessMetadata(label="Relatório de cobrança", hint="Gera um relatório com os lançamentos ainda não quitados, seu vencimento e seu valor", description="Gera um relatório com os lançamentos ainda não quitados, seu vencimento e seu valor.")
-public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableEntityProcess{
+public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableEntityProcess, IRunnableEntityCollectionProcess{
     public static final String PROCESS_NAME = "RelatorioCobrancaProcess";
 
 	private ProcessParamEntity<Pessoa> paramPessoa = new ProcessParamEntity<Pessoa>(Pessoa.class, false, this);
@@ -646,9 +658,81 @@ public class RelatorioCobrancaProcess extends ProcessBasic implements IRunnableE
 	public List<QueryRelatorioCobranca> getLista() {
 		return lista;
 	}
-	
-	
 
+	public boolean runWithEntities(IEntityCollection<?> entities) {
+		super.beforeRun();
+		boolean result = false;
+		this.lista = new ArrayList<QueryRelatorioCobranca>(entities.size());
+		/* Verifica se a entidade é compatível */
+		/* Verifica se a entidade passada eh um DocumentoCobranca ou eh descendente */
+		try {
+		if (ClassUtils.isAssignable(entities.getInfo().getType(), DocumentoCobranca.class)) {
+			for(IEntity<DocumentoCobranca> entity: (IEntityCollection<DocumentoCobranca>) entities){
+				this.lista.add(createQueryRelatorioCobrancaFromDocumentoCobranca(entity));
+			}
+			
+			result = true;
+		}else
+			if (ClassUtils.isAssignable(entities.getInfo().getType(), Lancamento.class)) {
+				for(IEntity<Lancamento> entity: (IEntityCollection<Lancamento>) entities){
+						this.lista.add(createQueryRelatorioCobrancaFromLancamento(entity));
+				}				
+				result = true;
+			} else {
+				this.getMessageList().add(new BusinessMessage(IRunnableEntityProcess.class, "ENTITY_NOT_COMPATIBLE", PROCESS_NAME, entities.getInfo().getType().getName()));
+		}
+		} catch (BusinessException e) {
+			this.getMessageList().add(MessageList.createSingleInternalError(e));
+
+			result = false;
+		}
+
+		return result;
+	
+	}
+	
+	private QueryRelatorioCobranca createQueryRelatorioCobrancaFromDocumentoCobranca(IEntity<DocumentoCobranca> documentoCobranca) throws BusinessException {
+		DocumentoCobranca oDocumentoCobranca = documentoCobranca.getObject();
+		BigDecimal multaAdicional = DecimalUtils.ZERO;
+		/* TODO Multa adicional de 2% para GRCSU */
+		if (oDocumentoCobranca.getDocumentoCobrancaCategoria() != null &&
+			oDocumentoCobranca.getDocumentoCobrancaCategoria().getNome().equals("GRCSU")) {
+			multaAdicional = DecimalUtils.getBigDecimal(2.0);
+		}
+		Calendar dataVencimento = oDocumentoCobranca.getDataVencimento();
+		Calendar dataPagamento = CalendarUtils.getCalendar();
+		BigDecimal valorOriginal = oDocumentoCobranca.getValor();
+		BigDecimal valorMulta = UtilsJuros.calcularMulta(valorOriginal, oDocumentoCobranca.getDocumentoCobrancaCategoria().getMultaAtraso(), multaAdicional, Frequencia.MENSAL, dataVencimento, dataPagamento, oDocumentoCobranca.getDocumentoCobrancaCategoria().getDiasToleranciaMultaAtraso());				
+		BigDecimal valorJuros = UtilsJuros.calcularJuros(valorOriginal, oDocumentoCobranca.getDocumentoCobrancaCategoria().getJurosMora(), dataVencimento, dataPagamento, oDocumentoCobranca.getDocumentoCobrancaCategoria().getDiasToleranciaMultaAtraso());
+		BigDecimal valorCorrigido = valorOriginal.add(valorMulta).add(valorJuros);				
+		String telefone = "";
+		if (!oDocumentoCobranca.getContrato().getPessoa().getTelefones().isEmpty()){
+			telefone = oDocumentoCobranca.getContrato().getPessoa().getTelefones().iterator().next().toString();
+		}
+		String endereco = oDocumentoCobranca.getContrato().getPessoa().getEnderecoCorrespondencia().toString();
+				
+		return new QueryRelatorioCobranca(
+				oDocumentoCobranca.getContrato().getId(),
+				oDocumentoCobranca.getContrato().getPessoa().getId(),
+				oDocumentoCobranca.getContrato().getPessoa().getNome(),
+				documentoCobranca.getProperty(DocumentoCobranca.CONTRATO).getValue().getAsEntity().getProperty(Contrato.PESSOA).getValue().getAsEntity().getProperty(Pessoa.DOCUMENTO).getValue().getAsString(),
+				telefone,
+				endereco,
+				oDocumentoCobranca.getContrato().getPessoa().getEmail(),
+				oDocumentoCobranca.getInstrucoes3(),
+				oDocumentoCobranca.getData().getTime(),
+				oDocumentoCobranca.getDataVencimento().getTime(),
+				valorOriginal,
+				oDocumentoCobranca.getLancamentos().iterator().next().getLancamentoItens().iterator().next().getItemCusto().getId(),
+				valorMulta,
+				valorJuros,
+				valorCorrigido);
+	}
+
+	private QueryRelatorioCobranca createQueryRelatorioCobrancaFromLancamento(IEntity<Lancamento> lancamento) throws BusinessException {
+		IEntity<DocumentoCobranca> documentoCobranca = lancamento.getProperty(Lancamento.DOCUMENTO_COBRANCA).getValue().getAsEntity();
+		return createQueryRelatorioCobrancaFromDocumentoCobranca(documentoCobranca);
+	}
 }
 /*
 select 
