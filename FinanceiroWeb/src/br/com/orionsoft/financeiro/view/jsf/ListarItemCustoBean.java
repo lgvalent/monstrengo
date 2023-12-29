@@ -40,6 +40,8 @@ public class ListarItemCustoBean extends BeanSessionBasic implements IRunnablePr
     
     private boolean colunaConta = true;
     private boolean colunaData = true;
+    private boolean colunaAno = true;
+    private boolean colunaMes = true;
     private boolean colunaCentroCusto = true;
     private List<QueryItemCusto> beanListQuitado = null;
 //    private String creditoQuitado;
@@ -58,11 +60,15 @@ public class ListarItemCustoBean extends BeanSessionBasic implements IRunnablePr
     public void doVisualizar() throws ParseException {
         log.debug("ListarMovimentoBean.doVisualizar");
         
-        this.colunaConta = this.colunaData = this.colunaCentroCusto = false;
+        this.colunaData = this.colunaAno = this.colunaMes = this.colunaConta = this.colunaCentroCusto = false;
         int[] colunas = process.getColunaList();
         for (int i = 0; i < colunas.length; i++) {
             if (colunas[i] == Coluna.DATA.ordinal())
                 this.colunaData = true;
+            if (colunas[i] == Coluna.ANO.ordinal())
+                this.colunaAno = true;
+            if (colunas[i] == Coluna.MES.ordinal())
+                this.colunaMes = true;
             if (colunas[i] == Coluna.CONTA.ordinal())
                 this.colunaConta = true;
             if (colunas[i] == Coluna.CENTRO_CUSTO.ordinal())
@@ -123,6 +129,14 @@ public class ListarItemCustoBean extends BeanSessionBasic implements IRunnablePr
 
     public boolean isColunaData() {
         return colunaData;
+    }
+
+    public boolean isColunaAno() {
+        return colunaAno;
+    }
+
+    public boolean isColunaMes() {
+        return colunaMes;
     }
 
     public void setColunaData(boolean colunaData) {
