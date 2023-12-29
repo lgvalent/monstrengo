@@ -61,7 +61,7 @@ public class RelatorioCobrancaService extends ServiceBasic {
 		}
 	}
 
-	public class QueryRelatorioCobranca extends ServiceResultBean{
+	public static class QueryRelatorioCobranca extends ServiceResultBean{
 		public static final String SELECT_MASTER = "" +
 		"select " +
 		"  contrato.id contratoId, " +
