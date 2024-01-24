@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Cadastrando as operadoras dos telefones, fica fácil de identificar as linhas dos clientes e o meio mais barato para contacta-lo" hint="Permite cadastrar e definir as operadores de telefonias dos números." label="Operadora de telefonia" name="TelefoneOperadora" propertiesInQueryGrid="id nome" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.basic.entities.endereco.TelefoneOperadora" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Geral" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Nome" name="nome"/>
+    </group>
+</entity>

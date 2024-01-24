@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity xmlns="http://orionsoft.net.br/entityMetadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" hint="" label="Endereço" name="Endereco" propertiesInQueryGrid="id enderecoCategoria logradouro numero complemento bairro municipio cep" crudOperations="CREATE RETRIEVE UPDATE DELETE QUERY" className="br.com.orionsoft.basic.entities.endereco.Endereco" xsi:schemaLocation="http://orionsoft.net.br/entityMetadata http://orionsoft.net.br/entityMetadata.xsd">
+    <group description="" hint="" label="Dados gerais" name="Geral">
+        <property xsi:type="PropertyNumericType" description="" hint="" label="Id" name="id" readOnly="true"/>
+        <property xsi:type="PropertyEntityType" description="Esta categoria é útil para os processos que permitem a escolha de uma categoria de endereço a ser utilizada durante a emissão de documentos ou relatórios." hint="Define a categoria deste endereço da pessoa." label="Categoria" name="enderecoCategoria" required="true" editShowList="true"/>
+        <property xsi:type="PropertyStringType" description="&lt;a target='_blank' href='http://www.correios.com.br/servicos/cep/cep_default.cfm'>Clique aqui para consultar CEP&lt;/a>" hint="Número do CEP mantido pelos Correios" label="Cep" name="cep" required="true" editMask="#####-###" defaultValue="87100-000"/>
+        <property xsi:type="PropertyNumericType" description="Informe somente dígitos numéricos para esta propriedade. Complementos como A, B, Casa, Sobre Loja, etc, devem ser inseridos no campo Complemento." hint="" label="Número" name="numero" required="true" defaultValue="0"/>
+        <property xsi:type="PropertyStringType" description="Complemento do endereço, como casa A, casa B, apto 101, casa, fundos, esquina, etc" hint="" label="Complemento" name="complemento"/>
+        <property xsi:type="PropertyStringType" description="" hint="" label="Caixa Postal" name="caixaPostal"/>
+        <property xsi:type="PropertyEntityType" description="" hint="Rua, avenida, praça, etc" label="Logradouro" name="logradouro" allowSubQuery="true" defaultValue="1413"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Bairro" name="bairro" defaultValue="2"/>
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Município" name="municipio" defaultValue="1"/>
+    </group>
+    <group description="" hint="" label="Pessoa e formatação" name="Outros">
+        <property xsi:type="PropertyEntityType" description="" hint="" label="Pessoa" name="pessoa" readOnly="true"/>
+        <property xsi:type="PropertyStringType" description="" hint="xibe o atual endereço no formato adequado para inserção do mesmo em documentos" label="Endereço formatado" name="enderecoParaDocumento" calculated="true" readOnly="true"/>
+    </group>
+</entity>
