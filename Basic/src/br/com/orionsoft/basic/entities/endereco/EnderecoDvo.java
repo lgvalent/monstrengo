@@ -2,11 +2,6 @@ package br.com.orionsoft.basic.entities.endereco;
 
 
 
-import javax.json.Json;
-import javax.json.JsonObject;
-
-import org.apache.tools.ant.filters.StringInputStream;
-
 import br.com.orionsoft.basic.Manter;
 import br.com.orionsoft.basic.services.ConsultarCEPService;
 import br.com.orionsoft.basic.services.ConsultarCEPService.ConsultarCepBean;

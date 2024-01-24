@@ -1,6 +1,7 @@
 package br.com.orionsoft.basic.services;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -13,17 +14,15 @@ import java.util.List;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonReader;
 
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.tools.ant.filters.StringInputStream;
 
 import br.com.orionsoft.monstrengo.core.exception.MessageList;
 import br.com.orionsoft.monstrengo.core.service.ServiceBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
 import br.com.orionsoft.monstrengo.core.service.ServiceException;
 import br.com.orionsoft.monstrengo.core.util.StringUtils;
-import br.com.orionsoft.util.CalendarUtils;
+import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 
 /**
  * Serviço que busca os dados da empresa pelo CNPJ
@@ -103,7 +102,7 @@ public class ConsultarCNPJService extends ServiceBasic {
 		private List<QuadroSocietario> quandroSocietario;
 
 		public ConsultarCNPJBean(String json) {
-			JsonObject jsonObj = Json.createReader(new StringInputStream(json, "ISO-8859-1")).readObject();
+			JsonObject jsonObj = Json.createReader(new ByteArrayInputStream(json.getBytes())).readObject();
 
 			if (jsonObj.getString("status").equals("OK")) {
 				nome = StringUtils.capitalize(jsonObj.getString("nome"));

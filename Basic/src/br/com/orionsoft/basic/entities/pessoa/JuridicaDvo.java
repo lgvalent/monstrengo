@@ -22,7 +22,7 @@ import br.com.orionsoft.monstrengo.crud.entity.dvo.DvoException;
 import br.com.orionsoft.monstrengo.crud.services.ListService;
 import br.com.orionsoft.monstrengo.mail.services.SendMailService;
 import br.com.orionsoft.monstrengo.security.entities.UserSession;
-import br.com.orionsoft.util.CalendarUtils;
+import br.com.orionsoft.monstrengo.core.util.CalendarUtils;
 /**
  * Classe que valida entidades do tipo Juridica. <br>
  * 

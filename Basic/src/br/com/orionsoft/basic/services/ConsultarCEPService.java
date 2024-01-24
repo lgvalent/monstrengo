@@ -1,16 +1,14 @@
 package br.com.orionsoft.basic.services;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-
-import org.apache.tools.ant.filters.StringInputStream;
 
 import br.com.orionsoft.monstrengo.core.service.ServiceBasic;
 import br.com.orionsoft.monstrengo.core.service.ServiceData;
@@ -74,7 +72,7 @@ public class ConsultarCEPService extends ServiceBasic {
 		private String gia;
 		
 		public ConsultarCepBean(String json) {
-				JsonObject endereco = Json.createReader(new StringInputStream(json, "ISO-8859-1")).readObject();
+				JsonObject endereco = Json.createReader(new ByteArrayInputStream(json.getBytes())).readObject();
 				logradouro = endereco.getString("logradouro");
 				complemento = endereco.getString("complemento");
 				bairro = endereco.getString("bairro");
