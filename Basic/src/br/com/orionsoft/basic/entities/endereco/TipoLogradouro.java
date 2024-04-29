@@ -2,23 +2,24 @@ package br.com.orionsoft.basic.entities.endereco;
 
 
 /**
- * RelaÁ„o de tipo de logradouros
+ * Rela√ß√£o de tipo de logradouros
  * 
  * @author Lucio 20070906
  * 
  * @version Lucio 20101109: Adptado segundo documento do Correios: http://www.correios.com.br/servicos%5Carquivos%5CGuiaPadrao.pdf
- * Obs: ROD foi acrescentado por j· existirem registros com esta denominaÁ„o
+ * Obs: ROD foi acrescentado por j√° existirem registros com esta denomina√ß√£o
  */
 public enum TipoLogradouro
 {
 	ALAMEDA("AL","Alameda"),
 	AVENIDA("AV","Avenida"),
-	BALNEARIO("BAL","Balne·rio"),
+	BALNEARIO("BAL","Balne√°rio"),
 	BLOCO("BL","Bloco"),
-	CHACARA("CH","Ch·cara"),
-	CONDOMINIO("COND","CondomÌnio"),
+	CHACARA("CH","Ch√°cara"),
+	CONDOMINIO("COND","Condom√≠nio"),
 	CONJUNTO("CJ","Conjunto"),
 	ESTRADA("EST","Estrada"),
+	ESPLANADA("ESP","Esplanada"),
 	FAZENDA("FAZ","Fazenda"),
 	GALERIA("GAL","Galeria"),
 	GRANJA("GJA","Granja"),
@@ -26,7 +27,7 @@ public enum TipoLogradouro
 	LARGO("LG","Largo"),
 	LOTEAMENTO("LOT","Loteamento"),
 	PARQUE("PRQ","Parque"),
-	PRACA("P«","PraÁa"),
+	PRACA("P√á","Pra√ßa"),
 	PRAIA("PR","Praia"),
 	QUADRA("Q","Quadra"),
 	RODOVIA("ROD","Rodovia"),
